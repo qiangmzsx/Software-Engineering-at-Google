@@ -12,7 +12,9 @@ We see three critical differences between programming and software engineering: 
 Within Google, we sometimes say, “Software engineering is programming integrated over time.” Programming is certainly a significant part of software engineering: after all, programming is how you generate new software in the first place. If you accept this distinction, it also becomes clear that we might need to delineate between programming tasks (development) and software engineering tasks (development, modification, maintenance). The addition of time adds an important new dimension to programming. Cubes aren’t squares, distance isn’t velocity. Software engineering isn’t programming.
 
 在谷歌内部，我们有时会说，"软件工程是随着时间推移的编程。"编程当然是软件工程的一个重要部分：毕竟，编程首先是生成新软件的方式。如果您接受这一区别，那么很明显，我们可能需要在编程任务（开发）和软件工程任务（开发、修改、维护）之间进行划分。时间的增加为编程增加了一个重要的新维度。这是一个立方体三维模型不是正方形的二维模型，距离不是速度。软件工程不是编程。
+
 One way to see the impact of time on a program is to think about the question, “What is the expected life span1 of your code?” Reasonable answers to this question vary by roughly a factor of 100,000. It is just as reasonable to think of code that needs to last for a few minutes as it is to imagine code that will live for decades. Generally, code on the short end of that spectrum is unaffected by time. It is unlikely that you need to adapt to a new version of your underlying libraries, operating system (OS), hardware, or language version for a program whose utility spans only an hour. These short-lived systems are effectively “just” a programming problem, in the same way that a cube compressed far enough in one dimension is a square. As we expand that time to allow for longer life spans, change becomes more important. Over a span of a decade or more, most program dependencies, whether implicit or explicit, will likely change. This recognition is at the root of our distinction between software engineering and programming.
+
 了解时间对程序的影响的一种方法是思考“代码的预期寿命是多少？”这个问题的合理答案大约相差100000倍。想到生命周期几分钟的代码和想象将持续执行几十年的代码是一样合理。通常，周期短的代码不受时间的影响。对于一个只需要存活一个小时的程序，你不太可能考虑其适应基础库、操作系统（OS）、硬件或语言版本的新版本。这些短期系统实际上“只是”一个编程问题，就像在一个维度中压缩得足够扁的立方体是正方形一样。随着我们扩大时间纬度，允许更长的生命周期，改变显得更加重要。在十年或更长的时间里，大多数程序依赖关系，无论是隐式的还是显式的，都可能发生变化。这一认识是我们区分软件工程和编程的根本原因。
 
 ```
@@ -39,16 +41,18 @@ Team organization, project composition, and the policies and practices of a soft
 团队组织、项目组成以及软件项目的策略和实践都支配着软件工程复杂性。这些问题是规模所固有的：随着组织的发展和项目的扩展，它在生产软件方面是否变得更加高效？我们的开发工作流程随着我们的发展，效率会提高，还是版本控制策略和测试策略的成本会相应增加？从软件工程的早期开始，人们就一直在讨论沟通和人员的规模问题，一直追溯到《人月神话》。这种规模问题通常是政策的问题，也是软件可持续性问题的基础：重复做我们需要做的事情要花多少钱？
 
 We can also say that software engineering is different from programming in terms of the complexity of decisions that need to be made and their stakes. In software engineering, we are regularly forced to evaluate the trade-offs between several paths forward, sometimes with high stakes and often with imperfect value metrics. The job of a software engineer, or a software engineering leader, is to aim for sustainability and management of the scaling costs for the organization, the product, and the development workflow . With those inputs in mind, evaluate your trade-offs and make rational decisions. We might sometimes defer maintenance changes, or even embrace policies that don’t scale well, with the knowledge that we’ll need to revisit those decisions. Those choices should be explicit and clear about the deferred costs.
+
 我们还可以说，软件工程与编程的不同之处在于需要做出的决策的复杂性及其风险。在软件工程中，我们经常被迫在几个路径之间做评估和权衡，有时风险很高，而且价值指标不完善。软件工程师或软件工程负责人的工作目标是实现组织、产品和开发工作流程的可持续性和管理扩展成本为目标。考虑到这些投入，评估你的权衡并做出理性的决定。有时，我们可能会推迟维护更改，甚至接受扩展性不好的策略，因为我们知道需要重新审视这些决策。这些决策应该是明确和明确的递延成本。
+
 Rarely is there a one-size-fits-all solution in software engineering, and the same applies to this book. Given a factor of 100,000 for reasonable answers on “How long will this software live,” a range of perhaps a factor of 10,000 for “How many engineers are in your organization,” and who-knows-how-much for “How many compute resources are available for your project,” Google’s experience will probably not match yours. In this book, we aim to present what we’ve found that works for us in the construction and maintenance of software that we expect to last for decades, with tens of thousands of engineers, and world-spanning compute resources. Most of the practices that we find are necessary at that scale will also work well for smaller endeavors: consider this a report on one engineering ecosystem that we think could be good as you scale up. In a few places, super-large scale comes with its own costs, and we’d be happier to not be paying extra overhead. We call those out as a warning. Hopefully if your organization grows large enough to be worried about those costs, you can find a better answer.
 
 在软件工程中很少有一刀切的解决方案，这本书也是如此。考虑到“这个软件能使用多久”的合理答案是100000倍，而“你的组织中有多少工程师”的范围可能是10000，谁知道“你的项目有多少计算资源可用”的范围是多少，谷歌的经验可能与你的经验不一致。在本书中，我们的目标是介绍我们在构建和维护软件方面的发现，这些软件预计将持续数十年，拥有数万计的工程师和遍布世界的计算资源。我们发现在这种规模下所需要的大多数做法也能很好地适用于较小的工作：考虑一下这是一个我们认为在你们扩大的时候可以做的很好的工程生态系统的报告。在一些地方，超大规模有其自身的成本，我们更倾向于不付出额外的管理成本。我们发出警告。希望如果您的组织发展到足以担心这些成本，您可以找到更好的答案。
 
 Before we get to specifics about teamwork, culture, policies, and tools, let’s first elaborate on these primary themes of time, scale, and trade-offs.
+
 在我们讨论团队合作、文化、政策和工具的细节之前，让我们首先对时间、规模和权衡等主要主题进行评价。
 
 ## Time and Change 时间与变化
-
 When a novice is learning to program, the life span of the resulting code is usually measured in hours or days. Programming assignments and exercises tend to be write- once, with little to no refactoring and certainly no long-term maintenance. These programs are often not rebuilt or executed ever again after their initial production. This isn’t surprising in a pedagogical setting. Perhaps in secondary or post-secondary education, we may find a team project course or hands-on thesis. If so, such projects are likely the only time student code will live longer than a month or so. Those developers might need to refactor some code, perhaps as a response to changing requirements, but it is unlikely they are being asked to deal with broader changes to their environment.
 
 当新手学习编程时，编码的生命周期通常以小时或天为单位。编程作业和练习往往是一次编写的，几乎没有重构，当然也没有长期维护。这些程序通常在初始生产后不再重建或再次执行。这在教学环境中并不奇怪。也许在中学或中学后教育，我们可以找到团队项目课程或实践论文。如果是这样的，项目很可能是学生们的代码生命周期超过一个月左右的时间。这些开发人员可能需要重构一些代码，也许是为了应对不断变化的需求，但他们不太可能被要求处理环境的更大变化。
@@ -80,7 +84,7 @@ The low and high points on the expected life span spectrum suggest that there’
 
 预期生命周期范围的低点和高点表明某处有一个过渡。介于一次性计划和持续十年的项目，发生了转变：一个项目必须开始对不断变化的外部因素做出反应。对于任何一个从一开始就没有升级计划的项目，这种转变可能会非常痛苦，原因有三个，每一个都会使其他原因变得复杂：
 
--   •您正在执行本项目尚未完成的任务；更多隐藏的假设已经成立。
+-   您正在执行本项目尚未完成的任务；更多隐藏的假设已经成立。
 -   尝试进行升级的工程师不太可能具有此类任务的经验。
 -   升级的规模通常比平时大，一次完成几年的升级，而不是增量升级。
 
@@ -94,9 +98,11 @@ And thus, after actually going through such an upgrade once (or giving up part w
 ```
 
 Getting through not only that first big upgrade, but getting to the point at which you can reliably stay current going forward, is the essence of long-term sustainability for your project. Sustainability requires planning and managing the impact of required change. For many projects at Google, we believe we have achieved this sort of sustainability, largely through trial and error.
+
 不仅完成了第一次大升级，而且达到可靠地保持当前状态的程度，这是项目长期可持续性的本质。可持续性要求规划和管理所需变化的影响。对于谷歌的许多项目，我们相信我们已经实现了这种持续能力，主要是通过试验和错误。
 
 So, concretely, how does short-term programming differ from producing code with a much longer expected life span? Over time, we need to be much more aware of the difference between “happens to work” and “is maintainable.” There is no perfect solution for identifying these issues. That is unfortunate, because keeping software maintainable for the long-term is a constant battle.
+
 那么，具体来说，短期编程与生成预期生命周期更长的代码有何不同？随着时间的推移，我们需要更多地意识到“正常工作”和“可维护”之间的区别。识别这些问题没有完美的解决方案。这是不幸的，因为保持软件的长期可维护性是一场持久战。
 
 ## Hyrum’s  Law 海勒姆法则
@@ -108,9 +114,13 @@ If you are maintaining a project that is used by other engineers, the most impor
 ​	*当一个 API 有足够的用户的时候，在约定中你承诺的什么都无所谓，所有在你系统里面被观察到的行为都会被一些用户直接依赖。*
 
 In our experience, this axiom is a dominant factor in any discussion of changing software over time. It is conceptually akin to entropy: discussions of change and maintenance over time must be aware of Hyrum’s Law8 just as discussions of efficiency or thermodynamics must be mindful of entropy. Just because entropy never decreases doesn’t mean we shouldn’t try to be efficient. Just because Hyrum’s Law will apply when maintaining software doesn’t mean we can’t plan for it or try to better understand it. We can mitigate it, but we know that it can never be eradicated.
+
 根据我们的经验，这个法则在任何关于软件随时间变化的讨论中都是一个主导因素。它在概念上类似于熵：对随时间变化和维护的讨论必须了解Hyrum法则，正如对效率或热力学的讨论必须注意熵一样。仅仅因为熵从不减少并不意味着我们不应该努力提高效率。在维护软件时，"海勒姆法则 "会适用，但这并不意味着我们不能对它进行规划或试图更好地了解它。我们可以减轻它，但我们知道，它永远不可能被根除。
+
 Hyrum’s Law represents the practical knowledge that—even with the best of intentions, the best engineers, and solid practices for code review—. As an API owner, you will gain some flexibility and freedom by being clear about interface promises, but in practice, the complexity and difficulty of a given change also depends on how useful a user finds some observable behavior of your API. If users cannot depend on such things, your API will be easy to change. Given enough time and enough users, even the most innocuous change will break something;9 your analysis of the value of that change must incorporate the difficulty in investigating, identifying, and resolving those breakages.
+
 Hyrum法则代表了一种实践知识，即即使有最好的规划、最好的工程师和可靠的代码评审实践，我们也不能假设完全遵守已发布的契约或最佳实践。作为API所有者，通过明确地接口约定，您将获得一定的灵活性和自由度，但在实践中，给定更改的复杂性和难度还取决于用户对你的API的一些可观察行为的有用程度。如果用户不能依赖这些东西，那么您的API将很容易更改。如果有足够的时间和足够的用户，即使是最无害的变更也会破坏某些东西；你对变更价值的分析必须包含调查、识别和解决这些缺陷的难度。
+
 
 ```
 8	To his credit, Hyrum tried really hard to humbly call this “The Law of Implicit Dependencies,” but “Hyrum’s Law” is the shorthand that most people at Google have settled on.
@@ -119,6 +129,7 @@ Hyrum法则代表了一种实践知识，即即使有最好的规划、最好的
 
 ## Example: Hash Ordering 哈希排序
 Consider the example of hash iteration ordering. If we insert five elements into a hash-based set, in what order do we get them out?
+
 ```python
 >>> for i in {"apple", "banana", "carrot", "durian", "eggplant"}: print(i)
 ...
@@ -130,6 +141,7 @@ banana
 ```
 
 考虑哈希迭代排序的例子。如果我们在一个基于散列的集合中插入五个元素，我们将以什么顺序将它们取出？
+
 ```python
 >>> for i in {"apple", "banana", "carrot", "durian", "eggplant"}: print(i)
 ...
@@ -139,7 +151,8 @@ apple
 eggplant 
 banana
 ```
-Most programmers know that hash tables are non-obviously ordered. Few know the specifics of whether the particular hash table they are using is intending to provide that particular ordering forever. This might seem unremarkable, but over the past decade or two, the computing industry’s experience using such types has evolved:
+
+Most programmers know that hash tables are non-obviously ordered. Few know the specifics of whether the particular hash table they are using is intending to provide that particular ordering forever. This might seem unremarkable, but over the past decade or two, the computing industry’s experience using such types has evolved:  
 - Hash flooding10 attacks provide an increased incentive for nondeterministic hash iteration.
 - Potential efficiency gains from research into improved hash algorithms or hash containers require changes to hash iteration order.
 - Per Hyrum’s Law, programmers will write programs that depend on the order in which a hash table is traversed, if they have the ability to do so.
@@ -150,16 +163,21 @@ Most programmers know that hash tables are non-obviously ordered. Few know the s
 - 根据海鲁姆法则，如有能力程序员可根据哈希表的遍历顺序编写程序。
 
 As a result, if you ask any expert “Can I assume a particular output sequence for my hash container?” that expert will presumably say “No.” By and large that is correct, but perhaps simplistic. A more nuanced answer is, “If your code is short-lived, with no changes to your hardware, language runtime, or choice of data structure, such an assumption is fine. If you don’t know how long your code will live, or you cannot promise that nothing you depend upon will ever change, such an assumption is incorrect.” Moreover, even if your own implementation does not depend on hash container order, it might be used by other code that implicitly creates such a dependency. For example, if your library serializes values into a Remote Procedure Call (RPC) response, the RPC caller might wind up depending on the order of those values.
+
 因此，如果你问任何一位专家“我能为我的散列容器设定一个的输出序列吗？”这位专家大概会说“不”。总的来说，这是正确的，但过于简单。一个更微妙的回答是，“如果您的代码是短期的，没有对硬件、语言运行时或数据结构的选择进行任何更改，那么这样的假设是正确的。如果您不知道代码的生命周期，或者您不能保证您所依赖的任何东西都不会改变，那么这样的假设是不正确的。”，即使您自己的实现不依赖于散列容器顺序，也可能被隐式创建这种依赖关系的其他代码使用。例如，如果库将值序列化为远程过程调用（RPC）响应，则RPC调用程序可能会根据这些值的顺序结束。
 
 This is a very basic example of the difference between “it works” and “it is correct.” For a short-lived program, depending on the iteration order of your containers will not cause any technical problems. For a software engineering project, on the other hand, such reliance on a defined order is a risk—given enough time, something will make it valuable to change that iteration order. That value can manifest in a number of ways, be it efficiency, security, or merely future-proofing the data structure to allow for future changes. When that value becomes clear, you will need to weigh the trade- offs between that value and the pain of breaking your developers or customers.
+
 这是“有效”和“正确”之间区别的一个非常基本的例子。对于一个短期的程序，取决于容器的迭代顺序不会导致任何技术问题。另一方面，对于一个软件工程项目来说，如果有足够的时间，这种对已定义顺序的依赖是一种风险使更改迭代顺序变得有价值。这种价值可以通过多种方式体现出来，无论是效率、安全性，还是仅仅是数据结构的未来验证，以允许将来的更改。当这一价值变得清晰时，您需要权衡这一价值与破坏开发人员或客户的痛苦之间的平衡。
+
 
 ```
 10：A type of Denial-of-Service (DoS) attack in which an untrusted user knows the structure of a hash table and the hash function and provides data in such a way as to degrade the algorithmic performance of operations on the table.
  一种拒绝服务（DoS）攻击，其中不受信任的用户知道哈希表和哈希函数的结构，并以降低表上操作的算法性能的方式提供数据。
 ```
+
 Some languages specifically randomize hash ordering between library versions or even between execution of the same program in an attempt to prevent dependencies. But even this still allows for some Hyrum’s Law surprises: there is code that uses hash iteration ordering as an inefficient random-number generator. Removing such randomness now would break those users. Just as entropy increases in every thermodynamic system, Hyrum’s Law applies to every observable behavior.  
+
 一些语言专门在库版本之间，甚至在执行相同程序的随机散列排序，以防止依赖关系。但即使这样，也会出现一些令人惊讶的海鲁姆法则：有些代码使用散列迭代排序作为一个低效的随机数生成器。现在消除这种随机性将破坏这些用户原使用方式。正如熵在每个热力学系统中增加一样，海鲁姆法则适用于所有可观察到的行为。
 
 Thinking over the differences between code written with a “works now” and a “works indefinitely” mentality, we can extract some clear relationships. Looking at code as an artifact with a (highly) variable lifetime requirement, we can begin to categorize programming styles: code that depends on brittle and unpublished features of its dependencies is likely to be described as “hacky” or “clever,” whereas code that follows best practices and has planned for the future is more likely to be described as “clean” and “maintainable.” Both have their purposes, but which one you select depends crucially on the expected life span of the code in question. We’ve taken to saying, “It’s programming if ‘clever’ is a compliment, but it’s software engineering if ‘clever’ is an accusation.” 
@@ -172,13 +190,16 @@ Implicit in all of this discussion of time and the need to react to change is th
 在所有关于时间和对变化作出反应的讨论中，隐含着一个假设，即变化可能是必要的？
 
 As with effectively everything else in this book, it depends. We’ll readily commit to “For most projects, over a long enough time period, everything underneath them might need to be changed.” If you have a project written in pure C with no external dependencies (or only external dependencies that promise great long-term stability, like POSIX), you might well be able to avoid any form of refactoring or difficult upgrade. C does a great job of providing stability—in many respects, that is its primary purpose.
+
 与本书中的其他内容一样，这取决于实际情况。我们很乐意承诺“对于大多数项目，在足够长的时间内，它们下面的一切都可能需要更改。”如果您有一个用纯C编写的项目，没有外部依赖项（或者只有保证长期稳定性的外部依赖项，如POSIX），您完全可以避免任何形式的重构或困难的升级。C在提供多方面稳定性方面做了大量工作，这是其首要任务。
 
 Most projects have far more exposure to shifting underlying technology. Most programming languages and runtimes change much more than C does. Even libraries implemented in pure C might change to support new features, which can affect downstream users. Security problems are disclosed in all manner of technology, from processors to networking libraries to application code. Every piece of technology upon which your project depends has some (hopefully small) risk of containing critical bugs and security vulnerabilities that might come to light only after you’ve started relying on it. If you are incapable of deploying a patch for Heartbleed or mitigating speculative execution problems like Meltdown and Spectre because you’ve assumed (or promised) that nothing will ever change, that is a significant gamble.
+
 大多数项目更多地接触到不断变化的基础技术。大多数编程语言和运行时的变化要比C大得多。甚至用纯C实现的库也可能改变以支持新特性，这可能会影响下游用户。从处理器到网络库，再到应用程序代码，各种技术都会暴露安全问题。您的项目所依赖的每一项技术都有一些（希望很小）包含关键bug和安全漏洞的风险，这些漏洞只有在您开始依赖它之后才会暴露出来。如果您无法部署心脏出血或缓解症状的修补程序投机的执行问题，如熔毁和幽灵，因为你假设（或保证）什么都不会改变，这是一场巨大的赌博。
 
 
 Efficiency improvements further complicate the picture. We want to outfit our datacenters with cost-effective computing equipment, especially enhancing CPU efficiency. However, algorithms and data structures from early-day Google are simply less efficient on modern equipment: a linked-list or a binary search tree will still work fine, but the ever-widening gap between CPU cycles versus memory latency impacts what “efficient” code looks like. Over time, the value in upgrading to newer hardware can be diminished without accompanying design changes to the software. Backward compatibility ensures that older systems still function, but that is no guarantee that old optimizations are still helpful. Being unwilling or unable to take advantage of such opportunities risks incurring large costs. Efficiency concerns like this are particularly subtle: the original design might have been perfectly logical and following reasonable best practices. It’s only after an evolution of backward-compatible changes that a new, more efficient option becomes important. No mistakes were made, but the passage of time still made change valuable.
+
 效率的提高使情况更加复杂。我们希望为数据中心配备经济高效的计算设备，特别是提高CPU效率。然而，早期谷歌的算法和数据结构在现代设备上效率较低：链表或二叉搜索树仍能正常工作，但CPU周期与内存延迟之间的差距不断扩大，影响了看起来还像“高效”代码。随着时间的推移，升级到较新硬件的价值会降低，而无需对软件进行相应的设计更改。向后兼容性确保了旧系统仍能正常工作，但这并不能保证旧的优化仍然有用。不愿意或无法利用这些机会可能会带来巨大的成本。像这样的效率问题尤其微妙：最初的设计可能完全符合逻辑，并遵循合理的最佳实践。只有在向后兼容的变化演变之后，新的、更有效的选择才变得重要。虽然没有犯错误，但随着时间的推移，变化仍然是有价值的。
 
 
@@ -188,13 +209,30 @@ Concerns like those just mentioned are why there are large risks for long-term p
 
 ## Scale and Efficiency
 As noted in the Site Reliability Engineering (SRE) book,11 Google’s production system as a whole is among the most complex machines created by humankind. The complexity involved in building such a machine and keeping it running smoothly has required countless hours of thought, discussion, and redesign from experts across our organization and around the globe. So, we have already written a book about the complexity of keeping that machine running at that scale.
+
+正如（SRE）这本书所指出的，11谷歌的生产系统作为一个整体是人类创造的最复杂的系统之一。构建这样复杂系统并保持其平稳运行所涉及的复杂性需要我们组织和全球各地的专家进行无数小时的思考、讨论和重构。因此，我们已经写了一本书，讲述了保持机器以这种规模运行的复杂性。
+
 Much of this book focuses on the complexity of scale of the organization that produces such a machine, and the processes that we use to keep that machine running over time. Consider again the concept of codebase sustainability: “Your organization’s codebase is sustainable when you are able to change all of the things that you ought to change, safely, and can do so for the life of your codebase.” Hidden in the discussion of capability is also one of costs: if changing something comes at inordinate cost, it will likely be deferred. If costs grow superlinearly over time, the operation clearly is not scalable.12 Eventually, time will take hold and something unexpected will arise that you absolutely must change. When your project doubles in scope and you need to perform that task again, will it be twice as labor intensive? Will you even have the human resources required to address the issue next time?
+
+本书的大部分内容都集中在产生这种系统的组织规模的复杂性，以及我们用来保持系统长期运行的过程。再考虑代码库可持续性的概念：“当你能够安全地改变你应该改变的所有事情，你的组织的代码库是可持续的，并且可以为你的代码库的生命做这样的事情。”隐藏在能力的讨论中也是成本的一个方面：如果改变某事的代价太大，它可能会被推迟。如果成本随着时间的推移呈超线性增长，运营显然是不可伸缩的。12最终，时间会占据主导地位，出现一些意想不到的情况，你必须改变。当您的项目范围扩大了一倍，并且您需要再次执行该任务时，它会是劳动密集型的两倍吗？下次你是否有足够的人力资源来解决这个问题？
+
 Human costs are not the only finite resource that needs to scale. Just as software itself needs to scale well with traditional resources such as compute, memory, storage, and bandwidth, the development of that software also needs to scale, both in terms of human time involvement and the compute resources that power your development workflow. If the compute cost for your test cluster grows superlinearly, consuming more compute resources per person each quarter, you’re on an unsustainable path and need to make changes soon.
+
+人力成本不是唯一需要扩大规模的有限资源。就像软件本身需要与传统资源（如计算、内存、存储和带宽）进行良好的可扩展一样，软件的开发也需要进行扩展，包括人力时间的参与和支持开发工作流程的计算资源。如果测试集群的计算成本呈超线性增长，每个季度人均消耗更多的计算资源，那么你的项目就走上了一条不可持续的道路，需要尽快做出改变。
+
 Finally, the most precious asset of a software organization—the codebase itself—also needs to scale. If your build system or version control system scales superlinearly over time, perhaps as a result of growth and increasing changelog history, a point might come at which you simply cannot proceed. Many questions, such as “How long does it take to do a full build?”, “How long does it take to pull a fresh copy of the repository?”, or “How much will it cost to upgrade to a new language version?” aren’t actively monitored and change at a slow pace. They can easily become like the metaphorical boiled frog; it is far too easy for problems to worsen slowly and never manifest as a singular moment of crisis. Only with an organization-wide awareness and commitment to scaling are you likely to keep on top of these issues.
+
+最后，软件系统最宝贵的资产*代码库*本身也需要扩展。如果您的构建系统或版本控制系统随着时间的推移呈超线性扩展，也许是由于内容增长和不断增加的变更日志历史，那么可能会出现无法持续的情况。许多问题，如“完成完整构建需要多长时间？”、“拉一个新的版本库需要多长时间？”或“升级到新语言版本需要多少成本？”都没有受到有效的监管，并且效率变得缓慢。这些问题很容易地变得像温水煮青蛙；问题很容易慢慢恶化，而不会表现为单一的危机时刻。只有在整个组织范围内提高意识并致力于扩大规模，才可能保持对这些问题的关注。
+
 Everything your organization relies upon to produce and maintain code should be scalable in terms of overall cost and resource consumption. In particular, everything your organization must do repeatedly should be scalable in terms of human effort. Many common policies don’t seem to be scalable in this sense.
+
+你的组织生产和维护代码所依赖的一切都应该在总体成本和资源消耗方面具有可伸缩性。特别是，你的组织必须重复做的每件事都应该在人力方面具有可伸缩性。从这个意义上讲，许多通用策略似乎不具有可伸缩性。
+
 ```
 12	Whenever we use “scalable” in an informal context in this chapter, we mean “sublinear scaling with regard to human interactions.”
+在本章中，当我们在非正式语境中使用“可伸缩性”时，我们的意思是“在人类交互的次线性伸缩性”
 ```
+
 ## Policies That Don’t Scale
 With a little practice, it becomes easier to spot policies with bad scaling properties. Most commonly, these can be identified by considering the work imposed on a single engineer and imagining the organization scaling up by 10 or 100 times. When we are 10 times larger, will we add 10 times more work with which our sample engineer needs to keep up? Does the amount of work our engineer must perform grow as a function of the size of the organization? Does the work scale up with the size of the codebase? If either of these are true, do we have any mechanisms in place to automate or optimize that work? If not, we have scaling problems.
 Consider a traditional approach to deprecation. We discuss deprecation much more in Chapter 15, but the common approach to deprecation serves as a great example of scaling problems. A new Widget has been developed. The decision is made that everyone should use the new one and stop using the old one. To motivate this, project leads say “We’ll delete the old Widget on August 15th; make sure you’ve converted to the new Widget.”
