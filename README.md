@@ -16,7 +16,7 @@
 |                   | 部分          | 章节                                              | 名称                                                         | 状态   | 翻译人员   | 计划完成时间 | 备注 |
 | ----------------- | ------------- | ------------------------------------------------- | ------------------------------------------------------------ | ------ | ---------- | ------------ | ---- |
 | PART 1 Thesis     | 第一部分 理论 | chapter 1 :What Is Software Engineering?          | [第一章：软件工程是什么？](./docs/CHAPTER-1\ What\ Is\ Software\ Engineering/CHAPTER\ 1\ What\ Is\ Software\ Engineering.MD) | 进行   | @qiangmzsx | 2021-12-10   |      |
-| PART 2 Culture    | 第二部分 文化 | chapter 2 :How to Work Well on Teams              | 第二章：如何在团队中有良好的表现                             | 待分配 |            |              |      |
+| PART 2 Culture    | 第二部分 文化 | chapter 2 :How to Work Well on Teams              | 第二章：团队协作                                             | 待分配 |            |              |      |
 |                   |               | chapter 3 :Knowledge Sharing                      | 第三章：知识共享                                             | 待分配 |            |              |      |
 |                   |               | chapter 4 :Engineering for Equity                 | 第四章：公平工程                                             | 待分配 |            |              |      |
 |                   |               | chapter 5 :How to Lead a Team                     | 第五章：如何领导团队                                         | 待分配 |            |              |      |
