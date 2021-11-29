@@ -260,10 +260,18 @@ The traditional use of development branches is another example of policy that ha
 
 ## Policies That Scale Well
 What sorts of policies result in better costs as the organization grows? Or, better still, what sorts of policies can we put in place that provide superlinear value as the organization grows?
+
+随着公司的发展，什么样的政策会带来更低的成本？或者，最好是，随着组织化的发展，我们可以制定什么样的政策来提供超高的价值？
+
 One of our favorite internal policies is a great enabler of infrastructure teams, protecting their ability to make infrastructure changes safely. “If a product experiences outages or other problems as a result of infrastructure changes, but the issue wasn’t surfaced by tests in our Continuous Integration (CI) system, it is not the fault of the infrastructure change.” More colloquially, this is phrased as “If you liked it, you should have put a CI test on it,” which we call “The Beyoncé Rule.”13 From a scaling perspective, the Beyoncé Rule implies that complicated, one-off bespoke tests that aren’t triggered by our common CI system do not count. Without this, an engineer on an infrastructure team could conceivably need to track down every team with any affected code and ask them how to run their tests. We could do that when there were a hundred engineers. We definitely cannot afford to do that anymore.
+
+我们最喜欢的内部策略之一是为基础架构团队提供强大的支持，维护他们安全地进行基础措施更改的能力。“如果一个产品由于基础架构更改而出现停机或其他问题，但我们的持续集成（CI）系统中的测试没有发现问题，这不是基础架构变更的错。”更通俗地说，这是“如果您喜欢它，您应该对它进行CI测试”，我们称之为“碧昂斯法则。”13从可伸缩性的角度来看，碧昂斯规则意味着复杂的、一次性的定制测试（不是由我们的通用CI系统触发的）不算数。如果没有这一点，基础架构团队的工程师需要跟踪每个有任何受影响代码的团队，问他们如何进行测试。当有一百个工程师的时候，我们可以这样做。我们绝对不能这样做。
+
 We’ve found that expertise and shared communication forums offer great value as an organization scales. As engineers discuss and answer questions in shared forums, knowledge tends to spread. New experts grow. If you have a hundred engineers writing Java, a single friendly and helpful Java expert willing to answer questions will soon produce a hundred engineers writing better Java code. Knowledge is viral, experts are carriers, and there’s a lot to be said for the value of clearing away the common stumbling blocks for your engineers. We cover this in greater detail in Chapter 3.
+
 ```
 13	This is a reference to the popular song “Single Ladies,” which includes the refrain “If you liked it then you shoulda put a ring on it.”
+这是指流行歌曲《单身女士》，其中包括 "如果你喜欢它，你就应该给它戴上戒指。
 ```
 
 
