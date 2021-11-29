@@ -105,7 +105,7 @@ So, concretely, how does short-term programming differ from producing code with 
 
 那么，具体来说，短期编程与生成预期生命周期更长的代码有何不同？随着时间的推移，我们需要更多地意识到“正常工作”和“可维护”之间的区别。识别这些问题没有完美的解决方案。这是不幸的，因为保持软件的长期可维护性是一场持久战。
 
-## Hyrum’s  Law 海勒姆法则
+ ###  Hyrum’s  Law 海勒姆法则
 
 If you are maintaining a project that is used by other engineers, the most important lesson about “it works” versus “it is maintainable” is what we’ve come to call *Hyrum’s* *Law*:
 	*With a sufficient number of users of an API, it does not matter what you promise in the contract: all observable behaviors of your system will be depended on by somebody.*
@@ -127,7 +127,8 @@ Hyrum法则代表了一种实践知识，即即使有最好的规划、最好的
 9	See “Workflow,” an xkcd comic.
 ```
 
-## Example: Hash Ordering 哈希排序
+### Example: Hash Ordering 哈希排序
+
 Consider the example of hash iteration ordering. If we insert five elements into a hash-based set, in what order do we get them out?
 
 ```python
@@ -184,7 +185,7 @@ Thinking over the differences between code written with a “works now” and a 
 
 思考一下用“现在工作”和“无限期工作”心态编写的代码之间的差异，我们可以提取出一些明确的关系。将代码视为具有（高度）可变生命周期需求的工件，我们可以开始对编程风格进行分类：依赖其依赖性的脆弱和未发布特性的代码可能被描述为“黑客”或“聪明”而遵循最佳实践并为未来规划的代码更可能被描述为“干净”和“可维护”。两者都有其目的，但您选择哪一个关键取决于所讨论代码的预期寿命。我们常说，“如果‘聪明’是一种恭维，那就是程序，如果‘聪明’是一种指责，那就是软件工程。”  
 
-## Why Not Just Aim for “Nothing Changes”? 为什么不以“无变化”为目标？
+### Why Not Just Aim for “Nothing Changes”? 为什么不以“无变化”为目标？
 Implicit in all of this discussion of time and the need to react to change is the assumption that change might be necessary. Is it?
 
 在所有关于时间和对变化作出反应的讨论中，隐含着一个假设，即变化可能是必要的？
@@ -233,7 +234,7 @@ Everything your organization relies upon to produce and maintain code should be 
 在本章中，当我们在非正式语境中使用“可伸缩性”时，我们的意思是“在人类交互的次线性伸缩性”
 ```
 
-## Policies That Don’t Scale
+### Policies That Don’t Scale 不可扩展的策略
 With a little practice, it becomes easier to spot policies with bad scaling properties. Most commonly, these can be identified by considering the work imposed on a single engineer and imagining the organization scaling up by 10 or 100 times. When we are 10 times larger, will we add 10 times more work with which our sample engineer needs to keep up? Does the amount of work our engineer must perform grow as a function of the size of the organization? Does the work scale up with the size of the codebase? If either of these are true, do we have any mechanisms in place to automate or optimize that work? If not, we have scaling problems.
 
 只要稍加练习，就可以更容易地发现具有不可伸缩性的策略。最常见的情况是，可以通过考虑施加在单个设计并想象组织规模扩大10倍或100倍。当我们的规模增大10倍时，我们会增加10倍的工作量，而我们的工程师能跟得上吗？我们的工程师的工作量是否随着组织的规模而增长？工作是否随着代码库的大小而变多？如果这两种情况都是真实的，我们是否有机制来自动化或优化这项工作？如果没有，我们就有扩展问题。
@@ -258,7 +259,7 @@ The traditional use of development branches is another example of policy that ha
 
 
 
-## Policies That Scale Well
+### Policies That Scale Well 规模化政策
 What sorts of policies result in better costs as the organization grows? Or, better still, what sorts of policies can we put in place that provide superlinear value as the organization grows?
 
 随着公司的发展，什么样的政策会带来更低的成本？或者，最好是，随着组织化的发展，我们可以制定什么样的政策来提供超高的价值？
@@ -269,6 +270,8 @@ One of our favorite internal policies is a great enabler of infrastructure teams
 
 We’ve found that expertise and shared communication forums offer great value as an organization scales. As engineers discuss and answer questions in shared forums, knowledge tends to spread. New experts grow. If you have a hundred engineers writing Java, a single friendly and helpful Java expert willing to answer questions will soon produce a hundred engineers writing better Java code. Knowledge is viral, experts are carriers, and there’s a lot to be said for the value of clearing away the common stumbling blocks for your engineers. We cover this in greater detail in Chapter 3.
 
+我们发现，随着组织规模的扩大，专业知识和共享交流论坛提供了巨大的价值。随着工程师在共享论坛中讨论和回答问题，知识往往会传播。新的专家人数不断增加。如果你有100名工程师编写Java，那么一位愿意回答问题的友好且乐于助人的Java专家很快就会产生一个数百名工程师编写更好的Java代码。知识是病毒，专家是载体，扫除工程师常见的绊脚石是非常有价值的。我们将在第3章更详细地介绍这一点。
+
 ```
 13	This is a reference to the popular song “Single Ladies,” which includes the refrain “If you liked it then you shoulda put a ring on it.”
 这是指流行歌曲《单身女士》，其中包括 "如果你喜欢它，你就应该给它戴上戒指。
@@ -276,15 +279,32 @@ We’ve found that expertise and shared communication forums offer great value a
 
 
 
-## Example: Compiler Upgrade
+### Example: Compiler Upgrade 示例：编译器升级
 Consider the daunting task of upgrading your compiler. Theoretically, a compiler upgrade should be cheap given how much effort languages take to be backward compatible, but how cheap of an operation is it in practice? If you’ve never done such an upgrade before, how would you evaluate whether your codebase is compatible with that change?
+
+考虑升级编译器的艰巨任务。从理论上讲，编译器的升级应该是简单的，因为语言需要多少工作才能向后兼容，但是在实际操作中又有多简单呢？如果你以前从未做过这样的升级，你将如何评价你的代码库是否与兼容升级？
+
 In our experience, language and compiler upgrades are subtle and difficult tasks even when they are broadly expected to be backward compatible. A compiler upgrade will almost always result in minor changes to behavior: fixing miscompilations, tweaking optimizations, or potentially changing the results of anything that was previously undefined. How would you evaluate the correctness of your entire codebase against all of these potential outcomes?
+
+根据我们的经验，语言和编译器升级是微妙而困难的任务，即使人们普遍认为它们是向后兼容的。编译器升级几乎总是会导致编译的微小变化：修复错误编译、调整优化，或者潜在地改变任何以前未定义的结果。你将如何针对所有这些潜在的结果来评估你整个代码库的正确性？
+
 The most storied compiler upgrade in Google’s history took place all the way back in 2006. At that point, we had been operating for a few years and had several thousand engineers on staff. We hadn’t updated compilers in about five years. Most of our engineers had no experience with a compiler change. Most of our code had been exposed to only a single compiler version. It was a difficult and painful task for a team of (mostly) volunteers, which eventually became a matter of finding shortcuts and simplifications in order to work around upstream compiler and language changes that we didn’t know how to adopt.14 In the end, the 2006 compiler upgrade was extremely painful. Many Hyrum’s Law problems, big and small, had crept into the codebase and served to deepen our dependency on a particular compiler version. Breaking those implicit dependencies was painful. The engineers in question were taking a risk: we didn’t have the Beyoncé Rule yet, nor did we have a pervasive CI system, so it was difficult to know the impact of the change ahead of time or be sure they wouldn’t be blamed for regressions.
+
+谷歌历史上最具传奇色彩的编译器升级发生在2006年。当时，我们已经运行了几年，拥有数千名工程师。我们大约有五年没有升级过编译器。我们的大多数工程师都没有升级编译器的经验。我们的大部分代码只针对在单一编译器版本。对于一个由（大部分）志愿者组成的团队来说，这是一项艰难而痛苦的任务，最终变成了寻找捷径和简化的问题，以便绕过我们不知道如何采用的上游编译器和语言变化。14最后，2006年的编译器升级过程非常痛苦。许多海鲁姆定律问题，无论大小，都潜入了代码库，加深了我们对特定编译器版本的依赖。打破这些隐式依赖性是痛苦的。相关工程师正在冒风险：我们还没有碧昂斯规则，也没有通用的CI系统，因此很难提前知道更改的影响，或者确保他们不会因回退而受到指责。
+
 This story isn’t at all unusual. Engineers at many companies can tell a similar story about a painful upgrade. What is unusual is that we recognized after the fact that the task had been painful and began focusing on technology and organizational changes to overcome the scaling problems and turn scale to our advantage: automation (so that a single human can do more), consolidation/consistency (so that low-level changes have a limited problem scope), and expertise (so that a few humans can do more).
+
+这个故事一点也不稀奇。许多公司的工程师都可以讲述一个关于痛苦升级的故事。不同的是，我们在经历了痛苦的任务之后认识到了这一点，并开始关注技术和组织变革，以克服规模问题，并将规模转变为我们的优势：自动化（这样一个人就可以做到更多）、整合/一致性（这样低级别的更改影响有限的问题范围）和专业知识（以便少数人就可以做得更多）。
+
 The more frequently you change your infrastructure, the easier it becomes to do so. We have found that most of the time, when code is updated as part of something like a compiler upgrade, it becomes less brittle and easier to upgrade in the future. In an ecosystem in which most code has gone through several upgrades, it stops depending on the nuances of the underlying implementation; instead, it depends on the actual abstraction guaranteed by the language or OS. Regardless of what exactly you are upgrading, expect the first upgrade for a codebase to be significantly more expensive than later upgrades, even controlling for other factors.
+
+你更改基础设施的频率越高，更改就越容易。我们发现，在大多数情况下，当代码作为编译器升级的一部分进行更新时，它会变得没那么脆弱，将来更容易升级。大多数代码都经历了几次升级的一个系统中，它的停止取决于底层实现的细微差别。相反，它取决于语言或操作系统所保证的抽象。无论您升级的是什么，代码库的第一次升级都比以后的升级要复杂得多，甚至可以控制其他因素。
+
+
 
 ```
 14	Specifically, interfaces from the C++ standard library needed to be referred to in namespace std, and an optimization change for std::string turned out to be a significant pessimization for our usage, thus requiring some additional workarounds.
+具体来说，来自C++标准库的接口需要在命名空间std中被引用，而针对std::string的优化改变对我们的使用来说是一个重大的减值，因此需要一些额外的解决方法。
 ```
 Through this and other experiences, we’ve discovered many factors that affect the flexibility of a codebase:
 *Expertise*
@@ -298,19 +318,59 @@ Through this and other experiences, we’ve discovered many factors that affect 
 *Policy*
 	We have processes and policies like the Beyoncé Rule. The net effect of these processes is that upgrades remain feasible because infrastructure teams do not need to worry about every unknown usage, only the ones that are visible in our CI systems.
 
+通过这些和其他经验，我们发现了许多影响代码库灵活性的因素：
+
+*专业知识*
+
+​	我们知道如何做到这一点；对于某些语言，我们现在已经在许多平台上进行了数百次编译器升级。
+
+*稳定性*
+
+​	版本之间的更改更少，因为我们更有规律的采用版本；对于某些语言，我们现在每一到两周进行一次编译器升级部署。
+
+*一致性*
+
+​	没有经过升级的代码更少了，这也是因为我们正在定期升级。
+
+*熟悉*
+
+​	因为我们经常这样做，所以我们可以在执行升级的过程中发现冗余并尝试自动化。这是与SRE观点一致的地方。15
+
+*政策*
+
+​	我们有类似碧昂斯规则的流程和政策。这些程序的净效果是，升级仍然是可行的，因为基础设施团队不需要担心每一个未知的使用，只需要担心我们的CI系统中常规的使用。
+
 The underlying lesson is not about the frequency or difficulty of compiler upgrades, but that as soon as we became aware that compiler upgrade tasks were necessary, we found ways to make sure to perform those tasks with a constant number of engineers, even as the codebase grew.16 If we had instead decided that the task was too expensive and should be avoided in the future, we might still be using a decade-old compiler version. We would be paying perhaps 25% extra for computational resources as a result of missed optimization opportunities. Our central infrastructure could be vulnerable to significant security risks given that a 2006-era compiler is certainly not helping to mitigate speculative execution vulnerabilities. Stagnation is an option, but often not a wise one.
+
+潜在的教训不是关于编译器升级的频率或难度，而是一旦我们意识到编译器升级任务是必要的，我们就找到了方法，确保在代码库增长的情况下，由固定数量的工程师执行这些任务。16如果我们认为任务成本太高，应该学会避免，我们可以仍然使用十年前的编译器版本。由于错过了优化机会，我们需要额外支付25%的计算资源。考虑到2006年的编译器对缓解推测性执行漏洞没有效果，我们的中央基础设施可能会面临重大的安全风险风险，这不是一个明智的选择。
+
+
 
 ```
 15	Beyer et al. Site Reliability Engineering: How Google Runs Production Systems, Chapter 5, “Eliminating Toil.”
 16	In our experience, an average software engineer (SWE) produces a pretty constant number of lines of code per unit time. For a fixed SWE population, a codebase grows linearly—proportional to the count of SWE- months over time. If your tasks require effort that scales with lines of code, that’s concerning.
+ 根据我们的经验，平均软件工程师（SWE）每单位时间产生相当恒定的代码行数。对于固定的SWE总体，随着时间的推移，代码库的增长与SWE月数成线性比例。如果您的任务需要与代码行数成比例的工作，这是值得关注的。
 ```
-## Shifting Left
+### Shifting Left  左移
 One of the broad truths we’ve seen to be true is the idea that finding problems earlier in the developer workflow usually reduces costs. Consider a timeline of the developer workflow for a feature that progresses from left to right, starting from conception and design, progressing through implementation, review, testing, commit, canary, and eventual production deployment. Shifting problem detection to the “left” earlier on this timeline makes it cheaper to fix than waiting longer, as shown in Figure 1-2.
 
+我们看到的一个普遍真理是，在开发人员的工作流程中发现的问题，通常可以降低成本。考虑开发人员工作流程的时间表，从左到右，从概念和设计开始，通过实施、评审、测试、提交、金丝雀和最终的生产部署来进行。在此时间线之前，将问题发现转移到“左侧”会使修问题解决成本更低，如图1-2所示。
+
+
+
 This term seems to have originated from arguments that security mustn’t be deferred until the end of the development process, with requisite calls to “shift left on security.” The argument in this case is relatively simple: if a security problem is discovered only after your product has gone to production, you have a very expensive problem. If it is caught before deploying to production, it may still take a lot of work to identify and remedy the problem, but it’s cheaper. If you can catch it before the original developer commits the flaw to version control, it’s even cheaper: they already have an understanding of the feature; revising according to new security constraints is cheaper than committing and forcing someone else to triage it and fix it.
+
+这个术语似乎源一种观点，即安全问题不能推迟到开发过程的最后阶段，必须要求“在安全上向左转移”。这种情况下的论点相对简单：如果安全问题是在产品投入生产后才发现的，修复的成本就非常高。如果在部署到生产之前就发现了安全问题，那也需要花费大量的工作来检测和修复问题，但成本更低些。如果您能够在最初的开发之前发现安全问题，将缺陷提交到版本控制就被发现，修复的成本更低：他们已经了解该功能；根据新的安全约束规范进行开发，要比提交代码后再让其他人分类标识并修复它更简单。
+
+
+
+
+
 ![*Figure 1-2. Timeline of* *the developer* *workflow*](..\..\images\chapter-1\figure 1-2.png)
 
 The same basic pattern emerges many times in this book. Bugs that are caught by static analysis and code review before they are committed are much cheaper than bugs that make it to production. Providing tools and practices that highlight quality, reliability, and security early in the development process is a common goal for many of our infrastructure teams. No single process or tool needs to be perfect, so we can assume a defense-in-depth approach, hopefully catching as many defects on the left side of the graph as possible.
+
+同样的基本模式在本书中多次出现。在提交之前通过静态分析和代码审查发现的bug要比投入生产的bug成本更低。在开发过程的早期提供高质量、可靠性和安全性的工具和实践是我们许多基础架构团队的共同目标。没有一个过程或工具是完美的，所以我们可以采取纵深防御的方法，希望尽早抓住图表左侧的缺陷。
 
 
 ## Trade-offs and Costs
