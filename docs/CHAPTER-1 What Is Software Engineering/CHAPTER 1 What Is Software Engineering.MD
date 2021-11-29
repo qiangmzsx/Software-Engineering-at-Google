@@ -241,7 +241,7 @@ With a little practice, it becomes easier to spot policies with bad scaling prop
 
 Consider a traditional approach to deprecation. We discuss deprecation much more in Chapter 15, but the common approach to deprecation serves as a great example of scaling problems. A new Widget has been developed. The decision is made that everyone should use the new one and stop using the old one. To motivate this, project leads say “We’ll delete the old Widget on August 15th; make sure you’ve converted to the new Widget.”
 
-考虑传统的弃用方式。我们在第15章中详细讨论了弃用，但常用的弃用方法是扩展问题的一个很好的例子。开发了一个新的小部件。决定是每个人都应该使用新的，停止使用旧的。为了激发这一点，项目负责人说：“我们将在8月15日删除旧的小部件；确保您已转换为新的小部件。”
+考虑传统的弃用方式。我们在第15章中详细讨论了弃用，但常用的弃用方法是扩展问题的一个很好的例子。开发了一个新的小组件。决定是每个人都应该使用新的，停止使用旧的。为了激发这一点，项目负责人说：“我们将在8月15日删除旧的小组件；确保您已转换为新的小组件。”
 
 This type of approach might work in a small software setting but quickly fails as both the depth and breadth of the dependency graph increases. Teams depend on an ever- increasing number of Widgets, and a single build break can affect a growing percentage of the company. Solving these problems in a scalable way means changing the way we do deprecation: instead of pushing migration work to customers, teams can internalize it themselves, with all the economies of scale that provides.
 
