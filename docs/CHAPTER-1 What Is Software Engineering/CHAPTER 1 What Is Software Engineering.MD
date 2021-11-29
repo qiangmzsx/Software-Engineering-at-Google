@@ -373,33 +373,76 @@ The same basic pattern emerges many times in this book. Bugs that are caught by 
 同样的基本模式在本书中多次出现。在提交之前通过静态分析和代码审查发现的bug要比投入生产的bug成本更低。在开发过程的早期提供高质量、可靠性和安全性的工具和实践是我们许多基础架构团队的共同目标。没有一个过程或工具是完美的，所以我们可以采取纵深防御的方法，希望尽早抓住图表左侧的缺陷。
 
 
-## Trade-offs and Costs
+## Trade-offs and Costs 权衡和成本
 If we understand how to program, understand the lifetime of the software we’re maintaining, and understand how to maintain it as we scale up with more engineers producing and maintaining new features, all that is left is to make good decisions. This seems obvious: in software engineering, as in life, good choices lead to good outcomes. However, the ramifications of this observation are easily overlooked. Within Google, there is a strong distaste for “because I said so.” It is important for there to be a decider for any topic and clear escalation paths when decisions seem to be wrong, but the goal is consensus, not unanimity. It’s fine and expected to see some instances of “I don’t agree with your metrics/valuation, but I see how you can come to that conclusion.” Inherent in all of this is the idea that there needs to be a reason for everything; “just because,” “because I said so,” or “because everyone else does it this way” are places where bad decisions lurk. Whenever it is efficient to do so, we should be able to explain our work when deciding between the general costs for two engineering options.
 
+如果我们了解如何编程，了解我们所维护的软件的生命周期，并且随着在我们随着更多的工程师一起开发和维护新功能，了解扩大规模时如何运维它，那么剩下的就是做出正确的决策。这是显而易见的：在软件工程中，如同生活一样，好的选择会带来好的结果。然而，这一观点很容易被忽视。在谷歌内部，人们对“因为我这么说了”有反对的意见。重要的是，任何议题都要有一个决策者，当决策是错误的时候，要有明确的改进路径，但目标是共识，而不是一致。看到一些 "我不同意你的衡量标准/评价，但我知道你是如何得出这个结论的 "的情况是没有问题的，也是可以预期的。所有这一切的内在想法是，每件事都需要一个理由；“仅仅因为”、“因为我这么说”或“因为其他人都这样做”是潜在错误的决策。 只要这样做是有效的，在决定两个工程方案的一般成本时，我们应该能够解释清楚。
+
+
+
 What do we mean by cost? We are not only talking about dollars here. “Cost” roughly translates to effort and can involve any or all of these factors:
-    - Financial costs (e.g., money)
-        •- Resource costs (e.g., CPU time)
-        •- Personnel costs (e.g., engineering effort)
-        •- Transaction costs (e.g., what does it cost to take action?)
-        •- Opportunity costs (e.g., what does it cost to not take action?)
-        •- Societal costs (e.g., what impact will this choice have on society at large?)
+   - Financial costs (e.g., money)
+   - Resource costs (e.g., CPU time)
+   - Personnel costs (e.g., engineering effort)
+   - Transaction costs (e.g., what does it cost to take action?)
+   - Opportunity costs (e.g., what does it cost to not take action?)
+   - Societal costs (e.g., what impact will this choice have on society at large?)
+
+我们所说的成本是什么呢？我们这里不仅仅是指金钱。“成本”大致可以转化为努力的方向，可以包括以下任何或所有因素：
+
+- 财务成本（如金钱）
+- 资源成本（如CPU时间）
+- 人员成本（例如，工作量）
+- 交易成本（例如，采取行动的成本是多少？）
+- 机会成本（例如，不采取行动的成本是多少？）
+- 社会成本（例如，这个选择将对整个社会产生什么影响？）
+
+
 
 Historically, it’s been particularly easy to ignore the question of societal costs. However, Google and other large tech companies can now credibly deploy products with billions of users. In many cases, these products are a clear net benefit, but when we’re operating at such a scale, even small discrepancies in usability, accessibility, fairness, or potential for abuse are magnified, often to the detriment of groups that are already marginalized. Software pervades so many aspects of society and culture; therefore, it is wise for us to be aware of both the good and the bad that we enable when making product and technical decisions. We discuss this much more in Chapter 4.
+
+从历史上看，忽视社会成本的问题尤其容易出现。然而，谷歌和其他大型科技公司现在可以可靠地部署拥有数十亿用户的产品。在许多情况下，这些产品是高净效益的，但当我们以这样的规模运营时，即使在可用性、可访问性和公平性方面或潜在的滥用方面的微小差异也会被放大，往往对边缘化的群体产生不利影响。软件渗透到社会和文化的各个方面；因此，明智的做法是，在做出产品和技术决策时，我们要意识到我们所能带来的好处和坏处。我们将在第4章对此进行更多讨论。
+
 In addition to the aforementioned costs (or our estimate of them), there are biases: status quo bias, loss aversion, and others. When we evaluate cost, we need to keep all of the previously listed costs in mind: the health of an organization isn’t just whether there is money in the bank, it’s also whether its members are feeling valued and productive. In highly creative and lucrative fields like software engineering, financial cost is usually not the limiting factor—personnel cost usually is. Efficiency gains from keeping engineers happy, focused, and engaged can easily dominate other factors, simply because focus and productivity are so variable, and a 10-to-20% difference is easy to imagine.
 
-## Example: Markers
+除了上述的成本（或我们对其的估计），还有一些偏差：维持现状偏差（个体在决策时，倾向于不作为、维持当前的或者以前的决策的一种现象。这一定义揭示个体在决策时偏好事件当前的状态，而且不愿意采取行动来改变这一状态，当面对一系列决策选项时，倾向于选择现状选项），损失厌恶偏差（人们面对同样的损失和收益时感到损失对情绪影响更大）等。当我们评估成本时，我们需要牢记之前列出的所有成本：一个组织的健康不仅仅是银行里是否有钱，还包括其成员是否感到有价值和有成就感。在软件等高度创新和利润丰厚的领域在工程设计中，财务成本通常不是限制因素，而人力资源是。保持工程师的快乐、专注和参与所带来的效率提升会成为主导因素，仅仅是因为专注力和生产力变化大，会有10-20%的差异很容易想象。
+
+
+
+### Example: Markers 示例：标记
 
 In many organizations, whiteboard markers are treated as precious goods. They are tightly controlled and always in short supply. Invariably, half of the markers at any given whiteboard are dry and unusable. How often have you been in a meeting that was disrupted by lack of a working marker? How often have you had your train of thought derailed by a marker running out? How often have all the markers just gone missing, presumably because some other team ran out of markers and had to abscond with yours? All for a product that costs less than a dollar.
 
+在许多组织中，白板标记被视为贵重物品。它们受到严格的控制，而且总是供不应求。在任何的白板上，都有一半的标记是干的，无法使用。您参加会议的频次有多少，因为缺少工作标记而中断？您的思路因一个记号笔用完了？有多少次所有的记号笔都不见了，大概是因为其他团队的记号笔用完了，不得不拿走你的标记笔？所有这些都是为了一个价格不到一美元的产品。
+
+
+
 Google tends to have unlocked closets full of office supplies, including whiteboard markers, in most work areas. With a moment’s notice it is easy to grab dozens of markers in a variety of colors. Somewhere along the line we made an explicit trade- off: it is far more important to optimize for obstacle-free brainstorming than to protect against someone wandering off with a bunch of markers.
 
+谷歌往往在大多数工作区域都有未上锁的柜子，里面装满了办公用品，包括记号笔。只要稍加注意，就可以很容易地拿到各种颜色的几十支记号笔。在某种程度上，我们做了一个明确的权衡：优化无障碍的头脑风暴远比防止有人拿着一堆记号笔乱跑要重要得多。
+
 We aim to have the same level of eyes-open and explicit weighing of the cost/benefit trade-offs involved for everything we do, from office supplies and employee perks through day-to-day experience for developers to how to provision and run global- scale services. We often say, “Google is a data-driven culture.” In fact, that’s a simplification: even when there isn’t *data*, there might still be *evidence*, *precedent*, and *argument*. Making good engineering decisions is all about weighing all of the available inputs and making informed decisions about the trade-offs. Sometimes, those decisions are based on instinct or accepted best practice, but only after we have exhausted approaches that try to measure or estimate the true underlying costs.
+
+我们的目标是对我们所做的每件事都有同样程度的关注和明确的成本/收益权衡，从办公用品和员工津贴到开发者的日常体验，再到如何提供和运行全球规模的服务。我们经常说，“谷歌是一家数据驱动的公司。”事实上，这很简单：即使没有数据，也会有证据、先例和论据。做出好的工程决策就是权衡所有可用的输入，并就权衡做出明智的决策。有时，这些决策是基于本能或公认的最佳实践，但仅是一种假设之后，我们用尽了各种方法来衡量或估计真正的潜在成本。
+
 In the end, decisions in an engineering group should come down to very few things:
 - We are doing this because we must (legal requirements, customer requirements).
-•- We are doing this because it is the best option (as determined by some appropriate decider) we can see at the time, based on current evidence.
+- We are doing this because it is the best option (as determined by some appropriate decider) we can see at the time, based on current evidence.
+
 Decisions should not be “We are doing this because I said so.”17
+
+最后，工程团队的决策应该归结为几件事：
+
+- 我们这样做是因为我们必须这么做（法律要求、客户要求）。
+- 我们之所以这样做，是因为根据当前证据，这是我们当时能看到的最佳选择（由一些适当的决策者决策）。
+
+决策不应该是“我们这样做是因为我这么说。”17
+
+
+
 ```
 17	This is not to say that decisions need to be made unanimously, or even with broad consensus; in the end, someone must be the decider. This is primarily a statement of how the decision-making process should flow for whoever is actually responsible for the decision.
+这并不是说决策需要一致做出，甚至需要有广泛的共识；最终，必须有人成为决策者。这主要是说明决策过程应该如何为实际负责决策的人进行。
 ```
 ## Inputs to Decision Making
 When we are weighing data, we find two common scenarios:
