@@ -444,17 +444,32 @@ Decisions should not be “We are doing this because I said so.”17
 17	This is not to say that decisions need to be made unanimously, or even with broad consensus; in the end, someone must be the decider. This is primarily a statement of how the decision-making process should flow for whoever is actually responsible for the decision.
 这并不是说决策需要一致做出，甚至需要有广泛的共识；最终，必须有人成为决策者。这主要是说明决策过程应该如何为实际负责决策的人进行。
 ```
-## Inputs to Decision Making
+### Inputs to Decision Making 对决策的投入
 When we are weighing data, we find two common scenarios:
 - All of the quantities involved are measurable or can at least be estimated. This usually means that we’re evaluating trade-offs between CPU and network, or dollars and RAM, or considering whether to spend two weeks of engineer-time in order to save N CPUs across our datacenters.
 - Some of the quantities are subtle, or we don’t know how to measure them. Sometimes this manifests as “We don’t know how much engineer-time this will take.” Sometimes it is even more nebulous: how do you measure the engineering cost of a poorly designed API? Or the societal impact of a product choice?
 
+当我们权衡数据时，我们发现两种常见情况：
+
+- 所有涉及的数量都是可测量的或至少可以预估的。这通常意味着我们正在评估CPU和网络、或dol-LAR和RAM之间的权衡，或者考虑是否花费两周的工作量，以便在我们的数据中心节省N个CPU。
+- 有些数量是微妙的，或者我们不知道如何衡量。有时这表现为“我们不知道这需要多少工作量”。有时甚至更模糊：如何衡量设计拙劣的API的工程成本？或产品导致的社会影响？
+
+
+
 There is little reason to be deficient on the first type of decision. Any software engineering organization can and should track the current cost for compute resources, engineer-hours, and other quantities you interact with regularly. Even if you don’t want to publicize to your organization the exact dollar amounts, you can still produce a conversion table: this many CPUs cost the same as this much RAM or this much network bandwidth.
+
+在第一类决策上没有什么理由存在缺陷。任何软件工程的组织都可以并且应该跟进当前的计算资源成本、工程师工作量以及你经常接触的其他成本。即使你不想向你的组织公布确切的金额，你仍然可以制定一份版本表：这么多CPU的成本与这么多RAM或这么多网络带宽。
+
 With an agreed-upon conversion table in hand, every engineer can do their own analysis. “If I spend two weeks changing this linked-list into a higher-performance structure, I’m going to use five gibibytes more production RAM but save two thousand CPUs. Should I do it?” Not only does this question depend upon the relative cost of RAM and CPUs, but also on personnel costs (two weeks of support for a software engineer) and opportunity costs (what else could that engineer produce in two weeks?).
+
+有了一个协定的转换表，每个工程师都可以自己进行分析。“如果我花两周的时间将这个链表转换成一个更高性能的数据结构，我将多使用5Gb的RAM，但节省两千个CPU。我应该这样做吗？”这个问题不仅取决于RAM和CPU的相对成本，还取决于人员成本（对软件工程师的两周支持）和机会成本（该工程师在两周内还能生产什么？）。
+
 For the second type of decision, there is no easy answer. We rely on experience, leadership, and precedent to negotiate these issues. We’re investing in research to help us quantify the hard-to-quantify (see Chapter 7). However, the best broad suggestion that we have is to be aware that not everything is measurable or predictable and to attempt to treat such decisions with the same priority and greater care. They are often just as important, but more difficult to manage.
 
+对于第二类决策，没有简单的答案。我们依靠经验、领导和先例来协商这些问题。我们正在投入研究，以帮助我们量化难以量化的问题（见第7章）然而，我们所拥有的最好的广泛建议是，意识到并非所有的事情都是可衡量或可预测的，并尝试以同样的优先权和更大的谨慎对待此类决策。它们往往同样重要，但更难管理。
 
-### Example: Distributed Builds
+
+### Example: Distributed Builds 示例：分布式构建
 Consider your build. According to completely unscientific Twitter polling, something like 60 to 70% of developers build locally, even with today’s large, complicated builds. This leads directly to nonjokes as illustrated by this “Compiling” comic—how much productive time in your organization is lost waiting for a build? Compare that to the cost to run something like distcc for a small group. Or, how much does it cost to run a small build farm for a large group? How many weeks/months does it take for those costs to be a net win?
 
 Back in the mid-2000s, Google relied purely on a local build system: you checked out code and you compiled it locally. We had massive local machines in some cases (you could build Maps on your desktop!), but compilation times became longer and longer as the codebase grew. Unsurprisingly, we incurred increasing overhead in personnel costs due to lost time, as well as increased resource costs for larger and more powerful local machines, and so on. These resource costs were particularly troublesome: of course we want people to have as fast a build as possible, but most of the time, a high- performance desktop development machine will sit idle. This doesn’t feel like the proper way to invest those resources.
