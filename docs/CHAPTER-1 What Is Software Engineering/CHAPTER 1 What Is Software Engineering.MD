@@ -181,7 +181,7 @@ Some languages specifically randomize hash ordering between library versions or 
 一些语言专门在库版本之间，甚至在执行相同程序的随机散列排序，以防止依赖关系。但即使这样，也会出现一些令人惊讶的海鲁姆法则：有些代码使用散列迭代排序作为一个低效的随机数生成器。现在消除这种随机性将破坏这些用户原使用方式。正如熵在每个热力学系统中增加一样，海鲁姆法则适用于所有可观察到的行为。
 
 Thinking over the differences between code written with a “works now” and a “works indefinitely” mentality, we can extract some clear relationships. Looking at code as an artifact with a (highly) variable lifetime requirement, we can begin to categorize programming styles: code that depends on brittle and unpublished features of its dependencies is likely to be described as “hacky” or “clever,” whereas code that follows best practices and has planned for the future is more likely to be described as “clean” and “maintainable.” Both have their purposes, but which one you select depends crucially on the expected life span of the code in question. We’ve taken to saying, “It’s programming if ‘clever’ is a compliment, but it’s software engineering if ‘clever’ is an accusation.” 
- 
+
 思考一下用“现在工作”和“无限期工作”心态编写的代码之间的差异，我们可以提取出一些明确的关系。将代码视为具有（高度）可变生命周期需求的工件，我们可以开始对编程风格进行分类：依赖其依赖性的脆弱和未发布特性的代码可能被描述为“黑客”或“聪明”而遵循最佳实践并为未来规划的代码更可能被描述为“干净”和“可维护”。两者都有其目的，但您选择哪一个关键取决于所讨论代码的预期寿命。我们常说，“如果‘聪明’是一种恭维，那就是程序，如果‘聪明’是一种指责，那就是软件工程。”  
 
 ## Why Not Just Aim for “Nothing Changes”? 为什么不以“无变化”为目标？
@@ -235,8 +235,21 @@ Everything your organization relies upon to produce and maintain code should be 
 
 ## Policies That Don’t Scale
 With a little practice, it becomes easier to spot policies with bad scaling properties. Most commonly, these can be identified by considering the work imposed on a single engineer and imagining the organization scaling up by 10 or 100 times. When we are 10 times larger, will we add 10 times more work with which our sample engineer needs to keep up? Does the amount of work our engineer must perform grow as a function of the size of the organization? Does the work scale up with the size of the codebase? If either of these are true, do we have any mechanisms in place to automate or optimize that work? If not, we have scaling problems.
+
+只要稍加练习，就可以更容易地发现具有不可伸缩性的策略。最常见的情况是，可以通过考虑施加在单个设计并想象组织规模扩大10倍或100倍。当我们的规模增大10倍时，我们会增加10倍的工作量，而我们的工程师能跟得上吗？我们的工程师的工作量是否随着组织的规模而增长？工作是否随着代码库的大小而变多？如果这两种情况都是真实的，我们是否有机制来自动化或优化这项工作？如果没有，我们就有扩展问题。
+
 Consider a traditional approach to deprecation. We discuss deprecation much more in Chapter 15, but the common approach to deprecation serves as a great example of scaling problems. A new Widget has been developed. The decision is made that everyone should use the new one and stop using the old one. To motivate this, project leads say “We’ll delete the old Widget on August 15th; make sure you’ve converted to the new Widget.”
+
+考虑传统的弃用方式。我们在第15章中详细讨论了弃用，但常用的弃用方法是扩展问题的一个很好的例子。开发了一个新的小部件。决定是每个人都应该使用新的，停止使用旧的。为了激发这一点，项目负责人说：“我们将在8月15日删除旧的小部件；确保您已转换为新的小部件。”
+
 This type of approach might work in a small software setting but quickly fails as both the depth and breadth of the dependency graph increases. Teams depend on an ever- increasing number of Widgets, and a single build break can affect a growing percentage of the company. Solving these problems in a scalable way means changing the way we do deprecation: instead of pushing migration work to customers, teams can internalize it themselves, with all the economies of scale that provides.
+
+
+
+这种方法可能适用于小型软件项目，但随着依赖关系图的深度和广度的增加，很快就会失败。团队依赖越来越多的小部件，单个构建中断可能会影响公司不断增长的百分比。以一种可扩展的方式解决这些问题意味着改变我们进行弃用的方式：团队不必将迁移工作推给客户，而是可以利用提供的所有规模经济来实现它的内部化。
+
+
+
 In 2012, we tried to put a stop to this with rules mitigating churn: infrastructure teams must do the work to move their internal users to new versions themselves or do the update in place, in backward-compatible fashion. This policy, which we’ve called the “Churn Rule,” scales better: dependent projects are no longer spending progressively greater effort just to keep up. We’ve also learned that having a dedicated group of experts execute the change scales better than asking for more maintenance effort from every user: experts spend some time learning the whole problem in depth and then apply that expertise to every subproblem. Forcing users to respond to churn means that every affected team does a worse job ramping up, solves their immediate problem, and then throws away that now-useless knowledge. Expertise scales better.
 The traditional use of development branches is another example of policy that has built-in scaling problems. An organization might identify that merging large features into trunk has destabilized the product and conclude, “We need tighter controls on when things merge. We should merge less frequently.” This leads quickly to every team or every feature having separate dev branches. Whenever any branch is decided to be “complete,” it is tested and merged into trunk, triggering some potentially expensive work for other engineers still working on their dev branch, in the form of resyncing and testing. Such branch management can be made to work for a small organization juggling 5 to 10 such branches. As the size of an organization (and the number of branches) increases, it quickly becomes apparent that we’re paying an ever-increasing amount of overhead to do the same task. We’ll need a different approach as we scale up, and we discuss that in Chapter 16.
 
