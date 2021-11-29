@@ -244,14 +244,19 @@ Consider a traditional approach to deprecation. We discuss deprecation much more
 
 This type of approach might work in a small software setting but quickly fails as both the depth and breadth of the dependency graph increases. Teams depend on an ever- increasing number of Widgets, and a single build break can affect a growing percentage of the company. Solving these problems in a scalable way means changing the way we do deprecation: instead of pushing migration work to customers, teams can internalize it themselves, with all the economies of scale that provides.
 
-
-
-这种方法可能适用于小型软件项目，但随着依赖关系图的深度和广度的增加，很快就会失败。团队依赖越来越多的小部件，单个构建中断可能会影响公司不断增长的百分比。以一种可扩展的方式解决这些问题意味着改变我们进行弃用的方式：团队不必将迁移工作推给客户，而是可以利用提供的所有规模经济来实现它的内部化。
+这种方法可能适用于小型软件项目，但随着依赖关系图的深度和广度的增加，很快就会失败。团队依赖越来越多的小部件，单个构建中断可能会影响公司不断增长的百分比。以一种可扩展的方式解决这些问题，意味着需要改变我们废弃的方式： 不是将迁移工作推给客户，团队可以将其内部消化，并提供所需资源投入。
 
 
 
-In 2012, we tried to put a stop to this with rules mitigating churn: infrastructure teams must do the work to move their internal users to new versions themselves or do the update in place, in backward-compatible fashion. This policy, which we’ve called the “Churn Rule,” scales better: dependent projects are no longer spending progressively greater effort just to keep up. We’ve also learned that having a dedicated group of experts execute the change scales better than asking for more maintenance effort from every user: experts spend some time learning the whole problem in depth and then apply that expertise to every subproblem. Forcing users to respond to churn means that every affected team does a worse job ramping up, solves their immediate problem, and then throws away that now-useless knowledge. Expertise scales better.
+In 2012, we tried to put a stop to this with rules mitigating churn: infrastructure teams must do the work to move their internal users to new versions themselves or do the update in place, in backward-compatible fashion. This policy, which we’ve called the “Churn Rule,” scales better: dependent projects are no longer spending progressively greater effort just to keep up. We’ve also learned that having a dedicated group of experts execute the change scales better than asking for more maintenance effort from every user: experts spend some time learning the whole problem in depth and then apply that expertise to every subproblem. Forcing users to respond to churn means that every affected team does a worse job ramping up, solves their immediate problem, and then throws away that now-useless knowledge. Expertise scales better.   
+
+2012年，我们试图通过降低流失规则来阻止这种情况：**基础架构团队必须将内部用户迁移到新版本，或者以向后兼容的方式进行更新**。我们称之为“流失规则”的这一政策具有更好的扩展性：依赖项目不再为了跟上进度而花费更多的精力。我们还了解到，有一个专门的专家组来执行变更规模比要求每个用户付出更多的维护工作要好：专家们花一些时间深入学习整个问题，然后将专业知识应用到每个子问题上。迫使用户对流失作出反应意味着每个受影响的团队做了更糟糕的工作，解决了他们眼前的问题，然后扔掉了那些对现在无效的知识。专业知识的扩展性更好。  
+
 The traditional use of development branches is another example of policy that has built-in scaling problems. An organization might identify that merging large features into trunk has destabilized the product and conclude, “We need tighter controls on when things merge. We should merge less frequently.” This leads quickly to every team or every feature having separate dev branches. Whenever any branch is decided to be “complete,” it is tested and merged into trunk, triggering some potentially expensive work for other engineers still working on their dev branch, in the form of resyncing and testing. Such branch management can be made to work for a small organization juggling 5 to 10 such branches. As the size of an organization (and the number of branches) increases, it quickly becomes apparent that we’re paying an ever-increasing amount of overhead to do the same task. We’ll need a different approach as we scale up, and we discuss that in Chapter 16.
+
+传统的开发分支的使用是另一个有内在扩展问题的例子。一个组织可能会发现，将大的功能分支合并到主干中会破坏产品的稳定性，并得出结论：“我们需要对分支的合并时间进行控制，还要降低合并的频率”。这很快会导致每个团队或每个功能都有单独的开发分支。每当任何分支被确定为“完整”时，都会对其进行测试并合并到主干中，从而引发其他仍在开发分支上工作的工程师以重新同步和测试，造成巨大的工作量。这样的分支机构管理模式可以应用在小型组织里，管理5到10个这样的分支机构。随着一个组织的规模（以及分支机构的数量）的增加，我们很快就会发现，为了完成同样的任务，我们付出越来越多的管理成本。随着规模的扩大，我们需要一种不同的方法，我们将在第16章中对此进行讨论。
+
+
 
 ## Policies That Scale Well
 What sorts of policies result in better costs as the organization grows? Or, better still, what sorts of policies can we put in place that provide superlinear value as the organization grows?
