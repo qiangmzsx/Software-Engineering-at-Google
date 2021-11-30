@@ -160,37 +160,70 @@ Early sharing isn’t just about preventing personal missteps and getting your i
 
 ### The Bus Factor 巴士因子
 Bus factor (noun): the number of people that need to get hit by a bus before your project is completely doomed.
+
+巴士因子：团队里因巴士撞到的多少人，会导致项目失败。
+
 How dispersed is the knowledge and know-how in your project? If you’re the only person who understands how the prototype code works, you might enjoy good job security—but if you get hit by a bus, the project is toast. If you’re working with a colleague, however, you’ve doubled the bus factor. And if you have a small team designing and prototyping together, things are even better—the project won’t be marooned when a team member disappears. Remember: team members might not literally be hit by buses, but other unpredictable life events still happen. Someone might get married, move away, leave the company, or take leave to care for a sick relative. Ensuring that there is at least good documentation in addition to a primary and a secondary owner for each area of responsibility helps future-proof your project’s success and increases your project’s bus factor. Hopefully most engineers recognize that it is better to be one part of a successful project than the critical part of a failed project.
-Beyond the bus factor, there’s the issue of overall pace of progress. It’s easy to forget that working alone is often a tough slog, much slower than people want to admit. How much do you learn when working alone? How fast do you move? Google and Stack Overflow are great sources of opinions and information, but they’re no substitute for actual human experience. Working with other people directly increases the collective wisdom behind the effort. When you become stuck on something absurd, how much time do you waste pulling yourself out of the hole? Think about how
+
+你的项目中的知识和技能分散程度如何？如果您是唯一了解原型代码工作原理的人，你需要会受到良好的工作保障，但如果您被公交车撞到，项目就完蛋了。但是，如果你与同事合作，你的巴士因子就翻了一番。如果你有一个小团队一起进行设计和制作原型，情况会更好——当团队某个成员消失时，项目不会被孤立。记住：团队成员可能不会被公交车撞到，但其他不可预知的事件仍然会发生。有人可能会结婚、搬走、离开公司或请假照顾生病的亲属。确保每个责任领域除了一个主要和一个次要所有者之外，至少还有可用的文档，这有助于确保项目的成功，提高项目的成功率。希望大多数工程师认识到，成为成功项目的一部分比成为失败项目的关键部分要好。
+
+Beyond the bus factor, there’s the issue of overall pace of progress. It’s easy to forget that working alone is often a tough slog, much slower than people want to admit. How much do you learn when working alone? How fast do you move? Google and Stack Overflow are great sources of opinions and information, but they’re no substitute for actual human experience. Working with other people directly increases the collective wisdom behind the effort. When you become stuck on something absurd, how much time do you waste pulling yourself out of the hole? Think about how different the experience would be if you had a couple of peers to look over your shoulder and tell you—instantly—how you goofed and how to get past the problem. This is exactly why teams sit together (or do pair programming) in software engineering companies. Programming is hard. Software engineering is even harder. You need that second pair of eyes.
+
+除了巴士因子，还有整体进度的问题。人们很容易忘记，独自工作往往是一项艰苦的工作，比人们自认为的慢得多。你独自工作能学到多少？你推进地有多快？Google和Stack Overflow是观点和信息的重要来源，但它们不能替代人的真实体验。与他人一起工作会直接增加工作背后的集体智慧。当你陷入误区时，你需要浪费多少时间才能从困境中解脱？想想如果你有几个同龄人看着你并立即告知你是如何犯错以及如何解决问题，体验会有多么不同。这正是软件工程公司中团队坐在一起（或进行配对编程）的原因。编程很难。软件工程更难。你需要另一双眼睛。
 
 ```
 2	Literally, if you are, in fact, a bike designer.
+实际上，如果你是一个自行车设计师。
 3	I should note that sometimes it’s dangerous to get too much feedback too early in the process if you’re still unsure of your general direction or goal.
+我应该注意到，如果你仍然不确定自己的总体方向或目标，那么在过程中过早地获得太多反馈是很危险的。
 ```
 
-different the experience would be if you had a couple of peers to look over your shoulder and tell you—instantly—how you goofed and how to get past the problem. This is exactly why teams sit together (or do pair programming) in software engineering companies. Programming is hard. Software engineering is even harder. You need that second pair of eyes.
-### Pace of Progress
+
+### Pace of Progress 进展速度
 Here’s another analogy. Think about how you work with your compiler. When you sit down to write a large piece of software, do you spend days writing 10,000 lines of code, and then, after writing that final, perfect line, press the “compile” button for the very first time? Of course you don’t. Can you imagine what sort of disaster would result? Programmers work best in tight feedback loops: write a new function, compile. Add a test, compile. Refactor some code, compile. This way, we discover and fix typos and bugs as soon as possible after generating code. We want the compiler at our side for every little step; some environments can even compile our code as we type. This is how we keep code quality high and make sure our software is evolving correctly, bit by bit. The current DevOps philosophy toward tech productivity is explicit about these sorts of goals: get feedback as early as possible, test as early as possible, and think about security and production environments as early as possible. This is all bundled into the idea of “shifting left” in the developer workflow; the earlier we find a problem, the cheaper it is to fix it.
+
+这是另一个类比。考虑一下如何使用编译器。当你坐下来编写一个大型软件时，你是否会花上几天的时间编写10000行代码，然后在编写完最后一行完美的代码后，第一次按下“编译”按钮？你当然不知道。你能想象会发生什么样的灾难吗？程序员在密集的循环反馈中工作做得最好：编写一个新函数compile，添加一个测试，编译。重构一些代码，编译。这样，我们可以在生成代码后尽快发现并修复拼写错误和bug。我们希望完成每一小步都要使用编译器；有些环境甚至可以在我们写入代码时自动编译。这就是我们如何保持代码高质量并确保我们的软件一点一点地正确迭代的方法。当前DevOps对技术生产力的理念明确了这些目标：尽早获得反馈，尽早进行测试，尽早考虑安全和生产环境。这一切都与开发人员工作流程中的“左移”思想捆绑在一起；我们越早发现问题，修复它的成本就越低。
+
 The same sort of rapid feedback loop is needed not just at the code level, but at the whole-project level, too. Ambitious projects evolve quickly and must adapt to changing environments as they go. Projects run into unpredictable design obstacles or political hazards, or we simply discover that things aren’t working as planned. Requirements morph unexpectedly. How do you get that feedback loop so that you know the instant your plans or designs need to change? Answer: by working in a team. Most engineers know the quote, “Many eyes make all bugs shallow,” but a better version might be, “Many eyes make sure your project stays relevant and on track.” People working in caves awaken to discover that while their original vision might be complete, the world has changed and their project has become irrelevant.
+
+同样的快速反馈循环不仅在代码级别需要，在整个项目级别也需要。雄心勃勃的项目快速发展，必须适应不断变化的环境。项目遇到不可预测的设计障碍或政治风险，或者我们只是发现事情没有按计划进行。需求又发生变化了。你如何获得反馈循环，以便你知道你的计划或设计需要更改的时候？答：通过团队合作。大多数工程师都知道这样一句话：“人多走得更快”，但更好的说法可能是，“人多走得更远。”在洞穴中工作的人们醒来后发现，虽然他们最初的愿景可能已经实现，但世界已经改变，他们的项目变得无关紧要。
 
 ------
 
 **Case Study: Engineers and Offices**
-Twenty-five years ago, conventional wisdom stated that for an engineer to be produc‐
-tive, they needed to have their own office with a door that closed. This was suppos‐
-edly the only way they could have big, uninterrupted slabs of time to deeply
-concentrate on writing reams of code.
+Twenty-five years ago, conventional wisdom stated that for an engineer to be productive, they needed to have their own office with a door that closed. This was supposedly the only way they could have big, uninterrupted slabs of time to deeply concentrate on writing reams of code.
+
+25年前，传统观念认为，工程师要想提高工作效率，就需要有一间自己的办公室，还要有一扇关着的门。据说，只有这样，他们才能有充足的时间、不受干扰的编写代码。
+
 I think that it’s not only unnecessary for most engineers4 to be in a private office, it’s downright dangerous. Software today is written by teams, not individuals, and a high- bandwidth, readily available connection to the rest of your team is even more valuable than your internet connection. You can have all the uninterrupted time in the world, but if you’re using it to work on the wrong thing, you’re wasting your time.
+
+我认为，对大多数工程师来说，在私人办公室里不仅没有必要，而且是完全错误的。今天的软件是由团队而不是个人编写的，与团队其他成员的高带宽、随时可用的连接甚至比你使用互联网更有价值。你可以拥有不受打扰的时间，但如果你用它来做错误的事情，你这是在浪费时间。
+
 Unfortunately, it seems that modern-day tech companies (including Google, in some cases) have swung the pendulum to the exact opposite extreme. Walk into their offices and you’ll often find engineers clustered together in massive rooms—a hundred or more people together—with no walls whatsoever. This “open floor plan” is now a topic of huge debate and, as a result, hostility toward open offices is on the rise. The tiniest conversation becomes public, and people end up not talking for risk of annoying dozens of neighbors. This is just as bad as private offices!
+
+不幸的是，现代科技公司（在某些情况下包括谷歌）似乎已经走向了另一个极端。走进他们的办公室，你经常会发现工程师们聚集在一个巨大的房间里——一百多人聚集在一起，没有任何墙壁。这中“开放式平面图”现在是一个大辩论的话题，因此，对开放式办公室的敌意正在上升。最小范围谈话都会公开，工程师们不再说话，以免惹恼周围几十个邻居。这和私人办公室一样糟糕！
+
 We think the middle ground is really the best solution. Group teams of four to eight people together in small rooms (or large offices) to make it easy (and non- embarrassing) for spontaneous conversation to happen.
+
+我们觉得折中的方案是最好的解决方法。在小房间（或大办公室）将四至八人组成小组，方便大家轻松（且不令人尴尬）地自由对话。
+
 Of course, in any situation, individual engineers still need a way to filter out noise and interruptions, which is why most teams I’ve seen have developed a way to communicate that they’re currently busy and that you should limit interruptions. Some of us used to work on a team with a vocal interrupt protocol: if you wanted to talk, you would say “Breakpoint Mary,” where Mary was the name of the person you wanted to talk to. If Mary was at a point where she could stop, she would swing her chair around and listen. If Mary was too busy, she’d just say “ack,” and you’d go on with other things until she finished with her current head state.
+
+当然，在很多情况下，个别工程师还会需要一种方法来过滤噪音和干扰，这就是为什么我所见过的大多数团队都开发了一种方法来表示他们目前很忙，你不应该来打扰。 我们中的一些人曾经在一个团队中工作，有一个发声中断协议：如果你想说话，你会说“Breakpoint Mary”，其中Mary是你想对话人的名字。如果Mary能停下来，她会把椅子转过来听。如果Mary太忙，她只会说“确认”，你会继续做其他事情，直到她完成她当前的工作。
+
 Other teams have tokens or stuffed animals that team members put on their monitor to signify that they should be interrupted only in case of emergency. Still other teams give out noise-canceling headphones to engineers to make it easier to deal with background noise—in fact, in many companies, the very act of wearing headphones is a common signal that means “don’t disturb me unless it’s really important.” Many engineers tend to go into headphones-only mode when coding, which may be useful for short spurts but, if used all the time, can be just as bad for collaboration as walling yourself off in an office.
+
+其他团队有代币或布娃娃，团队成员将它们放在显示器上，以表示只有在紧急情况下才应打扰。还有一些团队向工程师分发降噪耳机，以便于处理背景噪音。事实上，在许多公司，佩戴耳机的行为是一种常见的信号，表示“除非非常重要，否则不要打扰我。”许多工程师在编码时倾向于只使用耳机模式，这可能对短时间的使用是有效，但如果一直使用，对协作的影响和把自己独自关在办公室里一样糟糕。
+
 Don’t misunderstand us—we still think engineers need uninterrupted time to focus on writing code, but we think they need a high-bandwidth, low-friction connection to their team just as much. If less-knowledgeable people on your team feel that there’s a barrier to asking you a question, it’s a problem: finding the right balance is an art.
+
+不要误解我们，我们仍然认为工程师需要不受打扰的时间来专注于编写代码，但我们认为他们同样需要一个高带宽、低冲突的团队连接。如果你的团队中新人觉得向你提问存在障碍，那就是一个问题：找到正确的平衡是一门艺术。
 
 ------
 
 ```
 4	I do, however, acknowledge that serious introverts likely need more peace, quiet, and alone time than most people and might benefit from a quieter environment, if not their own office.
+然而，我承认，严肃内向的人可能比大多数人需要更多的平静、安静和独处的时间，如果不是他们自己的办公室，他们可能会从一个更安静的环境中受益。
 ```
 
 ### In Short, Don’t Hide
