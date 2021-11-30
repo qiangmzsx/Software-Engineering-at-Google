@@ -1,9 +1,11 @@
 **CHAPTER** **1**
 
-# What Is Software Engineering?
+# What Is Software Engineering? 
+
+# 第一章 软件工程是什么？
 
 *Nothing is built on stone; all is built on sand, but we must build as if the sand were stone.*
-—																--Jorge Luis Borges
+																																		*--Jorge Luis Borges*
 
 We see three critical differences between programming and software engineering: time, scale, and the trade-offs at play. On a software engineering project, engineers need to be more concerned with the passage of time and the eventual need for change. In a software engineering organization, we need to be more concerned about scale and efficiency, both for the software we produce as well as for the organization that is producing it. Finally, as software engineers, we are asked to make more complex decisions with higher-stakes outcomes, often based on imprecise estimates of time and growth.
 
@@ -490,27 +492,69 @@ Overall, the saved costs associated with adding a distributed build system far, 
 
 总的来说，与添加分布式构建系统相关的节省成本远远超过了与其构建和维护相关的负成本。但是，正如我们看到的消耗增加，我们并没有以前预见到这些成本。勇往直前之后，我们发现自己处于这样一种境地：我们需要重新认识系统的目标和约束以及我们的使用方式，确定最佳实践（小型依赖项、依赖项的机器管理），并为新生态系统的工具和维护提供资金。即使是相对简单的 "我们花美元购买计算资源以收回工程师时间 "的权衡，也会产生不可预见的下游影响。
 
-
-
-### Example: Deciding Between Time and Scale
+### Example: Deciding Between Time and Scale 示例：在时间和规模之间做决定
 Much of the time, our major themes of time and scale overlap and work in conjunction. A policy like the Beyoncé Rule scales well and helps us maintain things over time. A change to an OS interface might require many small refactorings to adapt to, but most of those changes will scale well because they are of a similar form: the OS change doesn’t manifest differently for every caller and every project.
+很多时候，我们关于时间和规模的主题相互重合，相互影响。符合碧昂斯规则策略具备可扩展性，并帮助我们长期维护事物。对操作系统接口的更改需要许多小的重构来适应，但这些更改中的大多数都可以很好地扩展，因为它们具有相似的形式： 操作系统的变化对每个调用者和每个项目都没有不同的表现。
+
 Occasionally time and scale come into conflict, and nowhere so clearly as in the basic question: should we add a dependency or fork/reimplement it to better suit our local needs?
+
+有时时间和规模会发生冲突，最明显的是基本问：我们应该添加一个依赖性，还是分支/重新实现它，来更好地满足我们的需求？
+
 This question can arise at many levels of the software stack because it is regularly the case that a bespoke solution customized for your narrow problem space may outperform the general utility solution that needs to handle all possibilities. By forking or reimplementing utility code and customizing it for your narrow domain, you can add new features with greater ease, or optimize with greater certainty, regardless of whether we are talking about a microservice, an in-memory cache, a compression routine, or anything else in our software ecosystem. Perhaps more important, the control you gain from such a fork isolates you from changes in your underlying dependencies: those changes aren’t dictated by another team or third-party provider. You are in control of how and when to react to the passage of time and necessity to change.
+
+这个问题可能出现在软件栈（解决方案栈）各个层面，通常情况下，为特定问题定制解决方案优于需要处理所有问题的通用解决方案。通过分支或重新实现程序代码，并为特定问题定制它，你可以更便捷地添加新功能，或更确定地进行优化，无论我们谈论的是微服务、内存缓存、压缩程序还是软件生态系统中的其他内容。更重要的是，你从这样一个分支中获得的控制将您与基础依赖项中的变更隔离开：这些变化并不是由另一个团队或第三方供应商所决定的。你随时决定如何对时间的推移和变化的作出必要地反应。
+
+```
+[一条微博引发的思考——再谈“Software Stack”之“软件栈”译法！](https://www.ituring.com.cn/article/1144)
+软件栈（Software Stack），是指为了实现某种完整功能解决方案（例如某款产品或服务）所需的一套软件子系统或组件。
+```
+
 On the other hand, if every developer forks everything used in their software project instead of reusing what exists, scalability suffers alongside sustainability. Reacting to a security issue in an underlying library is no longer a matter of updating a single dependency and its users: it is now a matter of identifying every vulnerable fork of that dependency and the users of those forks.
+
+另一方面，如果每个开发人员都将他们的软件项目中使用的组件是多样化，而不是复用现有的组件，那么可伸缩性和可持续性都会受到影响。对底层库中的安全问题作出反应不再是更新单个依赖项及其用户的问题：现在要做的是识别该依赖关系的每一个易受攻击的分支以及使用这个分支的用户。
+
 As with most software engineering decisions, there isn’t a one-size-fits-all answer to this situation. If your project life span is short, forks are less risky. If the fork in question is provably limited in scope, that helps, as well—avoid forks for interfaces that could operate across time or project-time boundaries (data structures, serialization formats, networking protocols). Consistency has great value, but generality comes with its own costs, and you can often win by doing your own thing—if you do it carefully.
 
-## Revisiting Decisions, Making Mistakes
+与大多数软件工程决策一样，对于这种情况并没有一个一刀切的答案。如果您的项目生命周期很短，那么fork的风险较小。 如果有问题的分支被证明是范围有限的，那是有帮助的，同时也要避免分支那些可能跨越时间段或项目时间界限的接口（数据结构、序列化格式、网络协议）。一致性有很大的价值，但通用性也有其自身的成本，你往往可以通过做自己的事情来赢得胜利——如果你仔细做的话。
+
+
+
+## Revisiting Decisions, Making Mistakes 重温决策，犯错误
 One of the unsung benefits of committing to a data-driven culture is the combined ability and necessity of admitting to mistakes. A decision will be made at some point, based on the available data—hopefully based on good data and only a few assumptions, but implicitly based on currently available data. As new data comes in, contexts change, or assumptions are dispelled, it might become clear that a decision was in error or that it made sense at the time but no longer does. This is particularly critical for a long-lived organization: time doesn’t only trigger changes in technical dependencies and software systems, but in data used to drive decisions.
+
+致力于数据驱动文化的一个不明显的好处是承认错误的能力和必要性相结合。在某个时候，将根据现有的数据做出决定——希望是基于准确的数据和仅有的几个假设，但隐含的是基于目前可用的数据。随着新数据的出现，环境的变化，或假设的不成了，可能会发现某个决策是错误的，或在当时是有意义的，但现在已经没有意义了。这对于一个长期存在的组织来说尤其重要：时间不仅会触发技术依赖和软件系统的变化，还会触发用于驱动决策的数据的变化。
+
 We believe strongly in data informing decisions, but we recognize that the data will change over time, and new data may present itself. This means, inherently, that decisions will need to be revisited from time to time over the life span of the system in question. For long-lived projects, it’s often critical to have the ability to change directions after an initial decision is made. And, importantly, it means that the deciders need to have the right to admit mistakes. Contrary to some people’s instincts, leaders who admit mistakes are more respected, not less.
+
+我们坚信数据能为决策提供信息，但我们也认识到数据会随着时间的推移而变化，新数据可能会出现。这意味着，本质上，在相关系统的生命周期内，需要不时地重新审视决策。对于长期项目而言，在做出初始决策后，有能力改变方向通常是至关重要的。更重要的是，这意味着决策者需要勇气承认错误。与人的本能相反，勇于承认错误的领导人受更多的尊重。
+
 Be evidence driven, but also realize that things that can’t be measured may still have value. If you’re a leader, that’s what you’ve been asked to do: exercise judgement, assert that things are important. We’ll speak more on leadership in Chapters 5 and 6.
+
+以证据为导向，但也要意识到无法衡量的东西可能仍然有价值。如果你是一个领导者，那就是你被要求做的：审时度势，主张事在人为。我们将在第5章和第6章中详细介绍领导力
+
+
 
 ## Software Engineering Versus Programming
 When presented with our distinction between software engineering and programming, you might ask whether there is an inherent value judgement in play. Is programming somehow worse than software engineering? Is a project that is expected to last a decade with a team of hundreds inherently more valuable than one that is useful for only a month and built by two people?
+
+在介绍软件工程和编程之间的区别时，您可能会问，是否存在内在的价值判断。编程是否比软件工程更糟糕？一个由数百人组成的团队预计将持续十年的项目是否比一个只有一个月的项目和两个人构建的项目更有价值？
+
 Of course not. Our point is not that software engineering is superior, merely that these represent two different problem domains with distinct constraints, values, and best practices. Rather, the value in pointing out this difference comes from recognizing that some tools are great in one domain but not in the other. You probably don’t need to rely on integration tests (see Chapter 14) and Continuous Deployment (CD) practices (see Chapter 24) for a project that will last only a few days. Similarly, all of our long-term concerns about semantic versioning (SemVer) and dependency management in software engineering projects (see Chapter 21) don’t really apply for short-term programming projects: use whatever is available to solve the task at hand.
+
+当然不是。我们的观点并不是说软件工程是优越的，只是它们代表了两个不同的问题领域，具有不同的约束、价值和最佳实践。相反，指出这种差异的价值来自于认识到一些工具在一个领域是伟大的，但在另一个领域不是。对于只持续几天的项目，你不需要依赖集成测试（参见第14章）和持续部署（CD）实践（参见第24章）。同样地，我们对软件工程项目中的版本控制（SemVer）和依赖性管理（参见第21章）的所有长期关注，并不适用于短期编程项目：利用一切可以利用的手段来解决手头的任务。
+
 We believe it is important to differentiate between the related-but-distinct terms “programming” and “software engineering.” Much of that difference stems from the management of code over time, the impact of time on scale, and decision making in the face of those ideas. Programming is the immediate act of producing code. Software engineering is the set of policies, practices, and tools that are necessary to make that code useful for as long as it needs to be used and allowing collaboration across a team.
 
-## Conclusion
+我们认为，区分相关但不同的术语“编程”和“软件工程”是很重要的。这种差异很大程度上源于随着时间的推移对代码的管理、时间对规模的影响以及面对这些想法的决策。编程是产生代码的直接行为。软件工程是一组策略、实践和工具，这些策略、实践和工具是使代码在需要使用的时间内发挥作用，并允许整个团队的协作。
+
+
+
+## Conclusion 总结
 This book discusses all of these topics: policies for an organization and for a single programmer, how to evaluate and refine your best practices, and the tools and technologies that go into maintainable software. Google has worked hard to have a sustainable codebase and culture. We don’t necessarily think that our approach is the one true way to do things, but it does provide proof by example that it can be done. We hope it will provide a useful framework for thinking about the general problem: how do you maintain your code for as long as it needs to keep working?
+
+本书讨论了所有这些主题：一个组织和一个程序员的策略，如何评估和改进你的最佳实践，以及用于可维护软件的工具和技术。谷歌一直在努力打造可持续的代码库和文化。我们不认为我们的方法是做事情的唯一正确方法，但它确实通过例子证明了它是可以做到的。我们希望它将提供一个有用的框架来思考一般问题：你如何维护你的代码，让它正常运行。
+
+
 
 ## TL;DRs
 - Software engineering” differs from “programming” in dimensionality: programming is about producing code. Software engineering extends that to include the maintenance of that code for its useful life span.
@@ -525,6 +569,17 @@ This book discusses all of these topics: policies for an organization and for a 
 - Being data driven over time implies the need to change directions when the data changes (or when assumptions are dispelled). Mistakes or revised plans are inevitable.
 
 
+
+- “软件工程”与“编程”在维度上不同：编程是关于编写代码的。软件工程扩展了这一点，包括在代码的使用寿命内对其进行维护。
+- 短期代码和长期代码的生命周期之间至少有100000倍的系数。假设相同的最佳实践普遍适用于这一范围的两端是愚蠢的。
+- 在预期的代码生命周期内，当我们能够响应依赖关系、技术或产品需求的变化时，软件是可持续的。我们可能选择不改变事情，但我们需要有能力。
+- 海勒姆定律：当一个 API 有足够的用户的时候，在约定中你承诺的什么都无所谓，所有在你系统里面被观察到的行为都会被一些用户直接依赖。
+- 你的组织重复执行的每项任务都应在人力投入方面具有可扩展性（线性或更好）。策略是使流程可伸缩的好工具。
+- 流程效率低下和其他软件开发任务的扩展速度缓慢。小心煮青蛙的问题。
+- 当专业知识与规模经济相结合时，回报尤其丰厚。
+- “因为我说过”是做事的可怕理由。
+- 数据驱动是一个良好的开端，但实际上，大多数决策都是基于数据、假设、先例和论据的混合。最好是客观数据占这些输入的大部分，但很少可能是全部。
+- 随着时间的推移，数据驱动意味着当数据发生变化时（或假设消除时），需要改变方向。错误或修订的计划不在表中。
 
 
 
