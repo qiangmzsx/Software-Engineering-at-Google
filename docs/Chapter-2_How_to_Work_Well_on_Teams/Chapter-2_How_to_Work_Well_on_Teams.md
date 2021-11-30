@@ -2,7 +2,7 @@
 
 # How to Work Well on Teams 
 
-# 第二章 如何进行团队协作
+# 第二章 如何融入团队
 
 ​																											**Written by Brian Fitzpatrick Edited by Riona MacNamara**
 
@@ -226,23 +226,52 @@ Don’t misunderstand us—we still think engineers need uninterrupted time to f
 然而，我承认，严肃内向的人可能比大多数人需要更多的平静、安静和独处的时间，如果不是他们自己的办公室，他们可能会从一个更安静的环境中受益。
 ```
 
-### In Short, Don’t Hide
+### In Short, Don’t Hide 总之，不要隐藏
 
 So, what “hiding” boils down to is this: working alone is inherently riskier than working with others. Even though you might be afraid of someone stealing your idea or thinking you’re not intelligent, you should be much more concerned about wasting huge swaths of your time toiling away on the wrong thing.
 
 Don’t become another statistic.
 
-## It’s All About the Team
+因此，“隐藏”归结起来就是：独自工作比与他人一起工作具有更高的内在风险。即使你可能害怕有人窃取你的想法或认为你不聪明，你更应该担心浪费大量时间在错误的事情上。
+
+不要成为另一个统计数字。
+
+## It’s All About the Team 一切都是为了团队
 So, let’s back up now and put all of these ideas together.
+
+那么，让我们现在回顾一下，把所有这些想法放在一起。
+
 The point we’ve been hammering away at is that, in the realm of programming, lone craftspeople are extremely rare—and even when they do exist, they don’t perform superhuman achievements in a vacuum; their world-changing accomplishment is almost always the result of a spark of inspiration followed by a heroic team effort.
+
+我们反复强调的一点是，在编程领域，孤独的工匠极其罕见，即使他们确实存在，他们也不会在真空中完成超人的成就；他们改变世界的成就几乎总是灵感迸发、团队英勇努力的结果。
+
 A great team makes brilliant use of its superstars, but the whole is always greater than the sum of its parts. But creating a superstar team is fiendishly difficult.
+
+一个伟大的团队能够出色地利用它的超级明星，但整体总是大于各部分的总和。但打造一支集合多个超级明星球队是极其困难的。
+
 Let’s put this idea into simpler words: software engineering is a team endeavor.
+
+让我们把这个想法用更简单的话来说：软件工程是一个团队的努力。
+
 This concept directly contradicts the inner Genius Programmer fantasy so many of us hold, but it’s not enough to be brilliant when you’re alone in your hacker’s lair. You’re not going to change the world or delight millions of computer users by hiding and preparing your secret invention. You need to work with other people. Share your vision. Divide the labor. Learn from others. Create a brilliant team.
+
+这个概念直接与我们许多人幻想的天才程序员幻想相矛盾，但当你独自一人在黑客的巢穴中时，这也是不够聪明。你不能通过隐藏和准备你的秘密发明来改变世界或取悦数百万计的用户。你需要和其他人一起工作。分享你的愿景，分工，向别人学习，创建一个出色的团队。
+
 Consider this: how many pieces of widely used, successful software can you name that were truly written by a single person? (Some people might say “LaTeX,” but it’s hardly “widely used,” unless you consider the number of people writing scientific papers to be a statistically significant portion of all computer users!)
+
+想一想：有多少种被广泛使用并成功的软件，你能说出真正由一个人写的吗？（有些人可能会说“LaTeX”，但它几乎不被广泛使用，除非你认为撰写科学论文的人数在所有计算机用户中占一大部分！）
+
 High-functioning teams are gold and the true key to success. You should be aiming for this experience however you can.
 
-### The Three Pillars of Social Interaction
+高效的团队是黄金，是成功的真正关键。你应该尽可能地追求这种体验。
+
+
+
+### The Three Pillars of Social Interaction社会互动的三大支柱
 So, if teamwork is the best route to producing great software, how does one build (or find) a great team?
+
+那么，如果团队合作是生产优秀软件的最佳路径，那么如何建立（或找到）一个优秀的团队呢？
+
 To reach collaborative nirvana, you first need to learn and embrace what I call the “three pillars” of social skills. These three principles aren’t just about greasing the wheels of relationships; they’re the foundation on which all healthy interaction and collaboration are based:
 *Pillar 1: Humility*
 	You are not the center of the universe (nor is your code!). You’re neither omniscient nor infallible. You’re open to self-improvement.
@@ -251,34 +280,86 @@ To reach collaborative nirvana, you first need to learn and embrace what I call 
 *Pillar 3: Trust*
 	You believe others are competent and will do the right thing, and you’re OK with letting them drive when appropriate.5
 
+要达到协作的最佳效果，你首先需要学习并接受我所说的社交的“三大支柱”。这三个原则不仅仅是人际关系的润滑剂，更是一切健康互动和协作的基础：
+
+*支柱1：谦逊*
+	你不是宇宙的中心（你的代码也不是！）。你既不是全方位的，也不是绝对正确的。你愿意不断提升自我。
+*支柱2：尊重*
+	你真诚地关心与你一起工作的人。你善待他们，欣赏他们的能力和成就。
+*支柱3：信任*
+	你相信其他人有能力并且会做正确的事情，你可以让他们在适当的时候牵头。
+
+
+
 If you perform a root-cause analysis on almost any social conflict, you can ultimately trace it back to a lack of humility, respect, and/or trust. That might sound implausible at first, but give it a try. Think about some nasty or uncomfortable social situation currently in your life. At the basest level, is everyone being appropriately humble? Are people really respecting one another? Is there mutual trust?
-### Why Do These Pillars Matter?
+
+如果你对所有社会冲突进行根本原因分析，你最终可以追溯到缺乏谦逊、尊重和信任。一开始听起来似乎不太可信，但不妨试一试。想想你生活中的一些令人尴尬或不舒服的社交场合。在最基本的层面上，每个人都适当地谦虚吗？人们真的互相尊重吗？有相互信任吗？
+
+
+
+### Why Do These Pillars Matter?为什么这些支柱很重要？
 When you began this chapter, you probably weren’t planning to sign up for some sort of weekly support group. We empathize. Dealing with social problems can be difficult: people are messy, unpredictable, and often annoying to interface with. Rather than putting energy into analyzing social situations and making strategic moves, it’s tempting to write off the whole effort. It’s much easier to hang out with a predictable compiler, isn’t it? Why bother with the social stuff at all?
+
+当你开始这一章时，你可能没有计划参加某种每周支持小组。我们有同情心。处理社会问题可能很困难：人们杂乱无章，不可预测，而且常常令人讨厌。与其把精力放在分析社会状况和采取战略行动上，不如把所有的努力都一笔勾销。使用可预测的编译器要容易得多，不是吗？为什么还要为社交活动操心呢？
+
 Here’s a quote from a famous lecture by Richard Hamming:
 	By taking the trouble to tell jokes to the secretaries and being a little friendly, I got superb secretarial help. For instance, one time for some idiot reason all the reproducing services at Murray Hill were tied up. Don’t ask me how, but they were. I wanted something done. My secretary called up somebody at Holmdel, hopped [into] the company car, made the hour-long trip down and got it reproduced, and then came back. It was a payoff for the times I had made an effort to cheer her up, tell her jokes and be friendly; it was that little extra work that later paid off for me. By realizing you have to use the system and studying how to get the system to do your work, you learn how to adapt the system to your desires.
 
+以下是理查德·哈明（Richard Hamming）著名演讲中的一段话：
+
+​	*通过不厌其烦地给秘书们讲笑话，并表现出一点友好，我得到了秘书的出色协作。例如，有一次由于某些愚蠢的原因，Murray Hill的所有复制服务都被占用了。别问我为什么，但他们是。但事实就是如此。我的秘书给Holmdel的某个人打了电话，跳上他们公司的车，花了一个小时把它复制下来，然后回来了。我努力让她高兴起来、给她讲笑话并保持友好，作为一种回报；正是这一点额外的工作后来给了我回报。通过认识到你必须使用这个系统并研究如何让这个系统来完成你的工作，你就学会了如何使这个系统实现你的需求。*
+
 The moral is this: do not underestimate the power of playing the social game. It’s not about tricking or manipulating people; it’s about creating relationships to get things done. Relationships always outlast projects. When you’ve got richer relationships with your coworkers, they’ll be more willing to go the extra mile when you need them.
+
+寓意是：不要低估社交游戏的力量。这不是欺骗或操纵人们；这是关于建立关系来完成事情。关系总是比项目更长久。当你和你的同事关系更融洽时，他们会更愿意在你需要他们的时候帮助你。
 
 ```
 5	This is incredibly difficult if you’ve been burned in the past by delegating to incompetent people.
+如果你过去曾被委派给不称职的人，这将是非常困难的。
 ```
 
-### Humility, Respect, and Trust in Practice
+### Humility, Respect, and Trust in Practice 谦逊、尊重和信任的实践
 All of this preaching about humility, respect, and trust sounds like a sermon. Let’s come out of the clouds and think about how to apply these ideas in real-life situations. We’re going to examine a list of specific behaviors and examples that you can start with. Many of them might sound obvious at first, but after you begin thinking about them, you’ll notice how often you (and your peers) are guilty of not following them—we’ve certainly noticed this about ourselves!
 
-#### Lose the ego
+所有这些关于谦逊、尊重和信任的说教听起来像是布道。让我们从云端走出来，思考如何在现实生活中应用这些想法。我们将研究一系列具体的行为和例子，你可以从这些行为和例子入手。其中许多一开始听起来很明显，但在你开始思考它们之后，你会注意到你（和你的同龄人）经常因为没有遵循它们而感到内疚——我们当然注意到了这一点！
+
+#### Lose the ego丧失自我
 OK, this is sort of a simpler way of telling someone without enough humility to lose their ’tude. Nobody wants to work with someone who consistently behaves like they’re the most important person in the room. Even if you know you’re the wisest person in the discussion, don’t wave it in people’s faces. For example, do you always feel like you need to have the first or last word on every subject? Do you feel the need to comment on every detail in a proposal or discussion? Or do you know somebody who does these things?
+
+好吧，这是一种更简单的方式，告诉那些没有足够谦卑的人失去他们的理智。没有人愿意和一个总是表现得像房间里最重要的人一样的人一起工作。即使你知道自己是讨论中最聪明的人，也不要当众挥舞。例如，你是否总是觉得你需要对每一个主题都说第一句话或最后一句话？您是否觉得有必要对提案或讨论中的每一个细节进行评论？或者你认识做的人吗？
+
 Although it’s important to be humble, that doesn’t mean you need to be a doormat; there’s nothing wrong with self-confidence. Just don’t come off like a know-it-all. Even better, think about going for a “collective” ego, instead; rather than worrying about whether you’re personally awesome, try to build a sense of team accomplishment and group pride. For example, the Apache Software Foundation has a long history of creating communities around software projects. These communities have incredibly strong identities and reject people who are more concerned with self- promotion.
+
+尽管谦虚很重要，但这并不意味着你需要做一个受气包；自信没有错。不要表现得像无所不知。最好的是，考虑以 "集体 "的自我为目标；与其担心你个人是否了不起，不如尝试建立一种团队成就感和团体自豪感。例如，Apache软件基金会一直致力于围绕软件项目创建社区。这些社区有着令人难以置信的强烈认同感，拒绝那些更关心自我宣传的人。
+
 Ego manifests itself in many ways, and a lot of the time, it can get in the way of your productivity and slow you down. Here’s another great story from Hamming’s lecture that illustrates this point perfectly (emphasis ours):
 	John Tukey almost always dressed very casually. He would go into an important office and it would take a long time before the other fellow realized that this is a first-class man and he had better listen. For a long time, John has had to overcome this kind of hostility. It’s wasted effort! I didn’t say you should conform; I said, “The appearance of conforming gets you a long way.” If you chose to assert your ego in any number of ways, “I am going to do it my way,” you pay a small steady price throughout the whole of your professional career. And this, over a whole lifetime, adds up to an enormous amount of needless trouble. […] By realizing you have to use the system and studying how to get the system to do your work, you learn how to adapt the system to your desires. Or you can fight it steadily, as a small, undeclared war, for the whole of your life.
 
+自我表现在很多方面，很多时候，它会妨碍你的生产力，拖累你。下面是Hamming演讲中的另一个精彩故事，完美地说明了这一点（重点是我们的）：
 
-#### Learn to give and take criticism
+​	*John Tukey 几乎总是穿得很随便。他会走进一个重要会议，过了很长一段时间，另一个人才意识到这是一个牛逼的人，他最好听从。长期以来，约翰不得不克服这种敌意。这是白费力气！我没说你应该服从；我说，“顺从的外表让你走得更远。”如果你选择以任何一种方式来主张你的自我，"我要用我的方式来做"，你就会在整个职业生涯中付出确定的小代价。而这，在整个一生中，加起来就是一个大量的不必要的麻烦。[…]通过意识到你必须使用这个系统并研究如何让这个系统完成你的工作，你学会了如何让这个系统适应你的愿望。或者你可以在你的一生中，作为一场小型的、不宣而战的战争，稳扎稳打。*
+
+
+#### Learn to give and take criticism 学会给出和接受批评
 A few years ago, Joe started a new job as a programmer. After his first week, he really began digging into the codebase. Because he cared about what was going on, he started gently questioning other teammates about their contributions. He sent simple code reviews by email, politely asking about design assumptions or pointing out places where logic could be improved. After a couple of weeks, he was summoned to his director’s office. “What’s the problem?” Joe asked. “Did I do something wrong?” The director looked concerned: “We’ve had a lot of complaints about your behavior, Joe. Apparently, you’ve been really harsh toward your teammates, criticizing them left and right. They’re upset. You need to tone it down.” Joe was utterly baffled. Surely, he thought, his code reviews should have been welcomed and appreciated by his peers. In this case, however, Joe should have been more sensitive to the team’s widespread insecurity and should have used a subtler means to introduce code reviews into the culture—perhaps even something as simple as discussing the idea with the team in advance and asking team members to try it out for a few weeks.
+
+几年前，乔开始了一份新工作，成为一个程序员。在第一周后，他真的开始钻研代码库。因为他关心正在发生的事情，他开始温和地询问其他队友的提交。他通过电子邮件发送简单的代码评审，礼貌地询问设计假设或指出可以改进逻辑的地方。几周后，他被传唤到主管办公室。“怎么了？”乔问。“我做错什么了吗？”主管看起来很担心：“乔，我们对你的行为有很多抱怨。显然，你对你的队友非常苛刻，到处批评他们。他们很不高兴。你需要淡化它。”乔完全不知所措。当然，他认为，他的代码审查应该受到同行的欢迎和赞赏。然而，在这种情况下，乔应该对团队普遍存在的不安全感更加敏感，并且应该使用更巧妙的方法将代码审查引入到文化中——甚至可能是一些简单的事情，比如事先与团队讨论这个想法，并请团队成员尝试几周。
+
 In a professional software engineering environment, criticism is almost never personal—it’s usually just part of the process of making a better project. The trick is to make sure you (and those around you) understand the difference between a constructive criticism of someone’s creative output and a flat-out assault against someone’s character. The latter is useless—it’s petty and nearly impossible to act on. The former can (and should!) be helpful and give guidance on how to improve. And, most important, it’s imbued with respect: the person giving the constructive criticism genuinely cares about the other person and wants them to improve themselves or their work. Learn to respect your peers and give constructive criticism politely. If you truly respect someone, you’ll be motivated to choose tactful, helpful phrasing—a skill acquired with much practice. We cover this much more in Chapter 9.
+
+在专业的软件工程环境中，批评几乎从来不是针对个人的，它通常只是构建更好项目过程的一部分。诀窍是确保你（和你周围的人）理解对某人的创造性产出进行建设性批评和对某人的人身攻击之间的区别。后者是无用的——它是琐碎，几乎不可能采取行动。前者可以（也应该！）提供帮助并指导如何改进。而且，最重要的是，它充满了尊重：给予建设性批评的人真正关心对方，希望他们提升自己或工作。学会尊重同龄人，礼貌地提出建设性的批评。如果你真的尊重别人——这是一种通过大量实践获得的技能。我们在第9章中对此有更多的介绍。
+
 On the other side of the conversation, you need to learn to accept criticism as well. This means not just being humble about your skills, but trusting that the other person has your best interests (and those of your project!) at heart and doesn’t actually think you’re an idiot. Programming is a skill like anything else: it improves with practice. If a peer pointed out ways in which you could improve your juggling, would you take it as an attack on your character and value as a human being? We hope not. In the same way, your self-worth shouldn’t be connected to the code you write—or any creative project you build. To repeat ourselves: you are not your code. Say that over and over. You are not what you make. You need to not only believe it yourself, but get your coworkers to believe it, too.
+
+另一方面，你也需要学会接受批评。这意味着不仅要对你的技能保持谦虚，还要相信对方心里有你的最佳利益（以及你项目的利益！），而不是真的认为你是个白痴。编程是一项与其他技能一样的技能：它随着实践而提高。如果一个同伴指出了你可以提升编程的方法，你会认为这是对你作为一个人的性格和价值观的攻击吗？我们希望不会。同样，你的自我价值不应该与你写的代码——或你建立的任何创造性项目相联系。反复说这句话。你不是你做的东西。你不仅要自己相信这一点，还要让你的同事也相信这一点。
+
 For example, if you have an insecure collaborator, here’s what not to say: “Man, you totally got the control flow wrong on that method there. You should be using the standard xyzzy code pattern like everyone else.” This feedback is full of antipatterns: you’re telling someone they’re “wrong” (as if the world were black and white), demanding they change something, and accusing them of creating something that goes against what everyone else is doing (making them feel stupid). Your coworker will immediately be put on the offense, and their response is bound to be overly emotional.
+
+例如，如果你有一个不安全的合作者，下面是不应该说的话：“伙计，你在那个方法上完全把控制流搞错了。你应该像其他人一样使用标准的XYZY代码模式。”这个反馈充满了反模式：你告诉某人他们“错了”（好像世界是黑白的），要求他们改变一些东西，并指责他们创造了与其他人的做法背道而驰（让他们觉得自己很愚蠢）。你的同事会立即受到冒犯，他们的反应必然是过于情绪化的。
+
 A better way to say the same thing might be, “Hey, I’m confused by the control flow in this section here. I wonder if the xyzzy code pattern might make this clearer and easier to maintain?” Notice how you’re using humility to make the question about you, not them. They’re not wrong; you’re just having trouble understanding the code. The suggestion is merely offered up as a way to clarify things for poor little you while possibly helping the project’s long-term sustainability goals. You’re also not demanding anything—you’re giving your collaborator the ability to peacefully reject the suggestion. The discussion stays focused on the code itself, not on anyone’s value or coding skills.
+
+更好的说法可能是，“嘿，我对这部分的控制流感到困惑。我想知道XYZY代码模式是否能让这更清晰、更容易维护？”注意你是如何用谦逊来回答关于你的问题，而不是他们。他们没有错；你只是理解代码有点困难。这个建议只是作为一种方式，为你澄清事情，同时可能有助于项目的长期可持续性目标。你也没有要求什么——你给了你的合作者和平拒绝建议的权力。讨论的重点是代码本身，而不是任何人的价值或编码技能。
 
 #### Fail fast and iterate
 There’s a well-known urban legend in the business world about a manager who makes a mistake and loses an impressive $10 million. He dejectedly goes into the office the next day and starts packing up his desk, and when he gets the inevitable “the CEO wants to see you in his office” call, he trudges into the CEO’s office and quietly slides a piece of paper across the desk.
