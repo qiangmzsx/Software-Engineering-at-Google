@@ -4,6 +4,8 @@
 
 # 第一章 软件工程是什么？
 
+​																											** Written by Titus Winters Edited by Tom Manshreck**
+
 *Nothing is built on stone; all is built on sand, but we must build as if the sand were stone.*
 																																		*--Jorge Luis Borges*
 
