@@ -361,21 +361,43 @@ A better way to say the same thing might be, “Hey, I’m confused by the contr
 
 更好的说法可能是，“嘿，我对这部分的控制流感到困惑。我想知道XYZY代码模式是否能让这更清晰、更容易维护？”注意你是如何用谦逊来回答关于你的问题，而不是他们。他们没有错；你只是理解代码有点困难。这个建议只是作为一种方式，为你澄清事情，同时可能有助于项目的长期可持续性目标。你也没有要求什么——你给了你的合作者和平拒绝建议的权力。讨论的重点是代码本身，而不是任何人的价值或编码技能。
 
-#### Fail fast and iterate
+#### Fail fast and iterate 快速失败并迭代
 There’s a well-known urban legend in the business world about a manager who makes a mistake and loses an impressive $10 million. He dejectedly goes into the office the next day and starts packing up his desk, and when he gets the inevitable “the CEO wants to see you in his office” call, he trudges into the CEO’s office and quietly slides a piece of paper across the desk.
 “What’s this?” asks the CEO.
+
 “My resignation,” says the executive. “I assume you called me in here to fire me.”
 “Fire you?” responds the CEO, incredulously. “Why would I fire you? I just spent $10 million training you!”6
+
+商界有一个著名的城市传奇，说的是一位经理犯了一个错误，损失了令人印象深刻的1000万美元。第二天，他沮丧地走进办公室，开始收拾桌子。当他接到不可抗拒的“CEO想见你在办公室”电话时，他蹒跚地走进CEO办公室，悄悄地把一张纸递上桌子。
+
+"这是什么？"CEO问道。
+
+"我的辞呈，"这位经理说。"我想你叫我来是要解雇我。"
+"解雇你？"首席执行官难以置信地回答道。"我为什么要解雇你？我刚刚花了1000万美元培训你！"
+
 It’s an extreme story, to be sure, but the CEO in this story understands that firing the executive wouldn’t undo the $10 million loss, and it would compound it by losing a valuable executive who he can be very sure won’t make that kind of mistake again.
+
+的确，这是一个极端的故事，但在这个故事中，首席执行官明白解雇这名高管并不能挽回这1000万美元的损失，而且会因为失去一位有价值的高管，让事情变得更糟糕，他非常确定，这位高管不会再犯类似错误。
+
 At Google, one of our favorite mottos is that “Failure is an option.” It’s widely recognized that if you’re not failing now and then, you’re not being innovative enough or taking enough risks. Failure is viewed as a golden opportunity to learn and improve for the next go-around.7 In fact, Thomas Edison is often quoted as saying, “If I find 10,000 ways something won’t work, I haven’t failed. I am not discouraged, because every wrong attempt discarded is another step forward.”
+
+在谷歌，我们最喜欢的格言之一是“失败也是一种选择”。我们普遍认为，如果你没有遭遇过失败，你就没有足够的创新或承担足够的风险的能力。失败被视为一个黄金机会，可以在下一次尝试中学习和改进。7事实上，人们经常引用托马斯·爱迪生的话说：“如果我发现有一万种方法不能成功，我就没有失败。我并不气馁，因为每一个被抛弃的错误尝试都是向前迈出的另一步”
+
 Over in Google X—the division that works on “moonshots” like self-driving cars and internet access delivered by balloons—failure is deliberately built into its incentive system. People come up with outlandish ideas and coworkers are actively encouraged to shoot them down as fast as possible. Individuals are rewarded (and even compete) to see how many ideas they can disprove or invalidate in a fixed period of time. Only when a concept truly cannot be debunked at a whiteboard by all peers does it proceed to early prototype.
+
+在谷歌X部门——该部门负责研究自动驾驶汽车和通过热气球提供互联网接入等 "登月计划"——故意将失败次数纳入其激励系统。人们会想出一些稀奇古怪的想法，同事们也会受到积极的鼓励尽快实现它们。每个人都会得到奖励（甚至是竞争），看看他们能在一段固定的时间内反驳或否定多少观点。只有当一个概念真的不能在白板上被所有同行揭穿时，它才能进入早期原型。
 
 ```
 6	You can find a dozen variants of this legend on the web, attributed to different famous managers.
+你可以在网上找到这一传说的十几种变体，它们都是由不同的著名经理人创造的。
 7	By the same token, if you do the same thing over and over and keep failing, it’s not failure, it’s incompetence.
+同样的道理，如果你一次又一次地做同样的事情，却不断失败，那不是失败，而是无能。
 ```
-### Blameless Post-Mortem Culture
+### Blameless Post-Mortem Culture 无责的事后文化
 The key to learning from your mistakes is to document your failures by performing a root-cause analysis and writing up a “postmortem,” as it’s called at Google (and many other companies). Take extra care to make sure the postmortem document isn’t just a useless list of apologies or excuses or finger-pointing—that’s not its purpose. A proper postmortem should always contain an explanation of what was learned and what is going to change as a result of the learning experience. Then, make sure that the postmortem is readily accessible and that the team really follows through on the proposed changes. Properly documenting failures also makes it easier for other people (present and future) to know what happened and avoid repeating history. Don’t erase your tracks—light them up like a runway for those who follow you!
+
+从错误中学习的关键是通过进行根因分析和撰写“事后总结”来记录你的失败，在谷歌（和许多其他公司）成为事后总结（国内成为复盘）。要格外小心，确保 "事后总结 "文件不只是一份无用的道歉、借口或指责的清单，这不是它的目的。正确事后总结应该总是包含对所学到的内容的解释，以及作为学习经验作为后续的改进落地。然后，确保事后总结可以随时查阅，并确保团队真正贯彻执行所建议的改变。好的故障复盘要让其他人（现在和将来）知道发生了什么，避免重蹈覆辙。不要抹去你的足迹——让它们在道路上照亮给那些追随你的人!
+
 A good postmortem should include the following:
 •	A brief summary of the event
 •	A timeline of the event, from discovery through investigation to resolution
@@ -385,22 +407,61 @@ A good postmortem should include the following:
 •	A set of action items to prevent the event from happening again
 •	Lessons learned
 
-#### Learn patience
+一个好的事后总结应该包括以下内容。
+- 事件的简要概述
+- 事件的时间线，从发现、调查到解决的过程
+- 事件的主要原因
+- 影响和损害评估
+- 一套立即解决该问题的行动项目（包括执行人）。
+- 一套防止事件再次发生的行动项目
+- 经验教训
+
+
+
+#### Learn patience 学会耐心
 Years ago, I was writing a tool to convert CVS repositories to Subversion (and later, Git). Due to the vagaries of CVS, I kept unearthing bizarre bugs. Because my longtime friend and coworker Karl knew CVS quite intimately, we decided we should work together to fix these bugs.
+
+几年前，我正在编写一个将CVS存储库转换为Subversion（后来是Git）的工具。由于CVS的变化无常，我不断发现各种奇怪的bug。因为我的老朋友兼同事Karl非常熟悉CVS，我们决定一起修复这些bug。
+
 A problem arose when we began pair programming: I’m a bottom-up engineer who is content to dive into the muck and dig my way out by trying a lot of things quickly and skimming over the details. Karl, however, is a top-down engineer who wants to get the full lay of the land and dive into the implementation of almost every method on the call stack before proceeding to tackle the bug. This resulted in some epic interpersonal conflicts, disagreements, and the occasional heated argument. It got to the point at which the two of us simply couldn’t pair-program together: it was too frustrating for us both.
+
+当我们开始结对编程时，一个问题出现了：我是一个自下而上的工程师，通过快速尝试许多事情和浏览细节，我满足于潜入泥潭并挖掘出路。然而，Karl是一名自上而下的工程师，他希望在着手解决bug之前，全面了解调用堆栈上所有方法的实现。这导致了一些史诗般的人际冲突、分歧和偶尔的激烈争论。到了这个地步，我们两个人根本无法一起配对编程：这对我们俩来说都太令人沮丧了。
+
 That said, we had a longstanding history of trust and respect for each other. Combined with patience, this helped us work out a new method of collaborating. We would sit together at the computer, identify the bug, and then split up and attack the problem from two directions at once (top-down and bottom-up) before coming back together with our findings. Our patience and willingness to improvise new working styles not only saved the project, but also our friendship.
-#### Be open to influence
+
+尽管如此，我们对彼此的信任和尊重由来已久。再加上耐心，这帮助我们制定了一个新的合作方法。我们会一起坐在电脑前，找出bug，然后从两个方向（自上而下和自下而上）拆分并同时解决问题，然后再返回继续查找bug。我们的耐心和即兴创作新工作方式的意愿不仅挽救了这个项目，而且也挽救了我们的友谊。
+
+#### Be open to influence 受影响
 The more open you are to influence, the more you are able to influence; the more vulnerable you are, the stronger you appear. These statements sound like bizarre contradictions. But everyone can think of someone they’ve worked with who is just maddeningly stubborn—no matter how much people try to persuade them, they dig their heels in even more. What eventually happens to such team members? In our experience, people stop listening to their opinions or objections; instead, they end up “routing around” them like an obstacle everyone takes for granted. You certainly don’t want to be that person, so keep this idea in your head: it’s OK for someone else to change your mind. In the opening chapter of this book, we said that engineering is inherently about trade-offs. It’s impossible for you to be right about everything all the time unless you have an unchanging environment and perfect knowledge, so of course you should change your mind when presented with new evidence. Choose your battles carefully: to be heard properly, you first need to listen to others. It’s better to do this listening before putting a stake in the ground or firmly announcing a decision—if you’re constantly changing your mind, people will think you’re wishy-washy.
+
+你对影响的态度越开放，你就越能影响。越是脆弱，越是强势。这些说法听起来相互矛盾。但每个人都能想到他们曾经共事过的人，他们的固执让人抓狂--无论人们如何劝说他们，他们都会更加钻牛角尖。这样的团队成员最终会发生什么？根据我们的经验，人们不再听取他们的任何意见，不论是赞同还是反对的意见；如果，这些固执的人解决了自己固执的问题，那么他们解决了大家都认为是障碍问题。你当然不希望成为这样的人，所以要把这个想法记在脑子里： 别人可以改变你的想法。在本书的开始，我们说过，工程本质上是关于权衡的。 除非你有一个不变的环境和完美的知识，否则你不可能一直对所有事情都是正确的，所以当有新的证据时，你当然应该改变你的最初想法。谨慎选择你的战斗：要想让别人正确地听取你的意见，你首先需要倾听别人的意见。最好在下定决心或坚定地宣布决定之前进行倾听——如果你不断地改变主意，人们会认为你不坚定。
+
 The idea of vulnerability can seem strange, too. If someone admits ignorance of the topic at hand or the solution to a problem, what sort of credibility will they have in a group? Vulnerability is a show of weakness, and that destroys trust, right?
 Not true. Admitting that you’ve made a mistake or you’re simply out of your league can increase your status over the long run. In fact, the willingness to express vulnerability is an outward show of humility, it demonstrates accountability and the willingness to take responsibility, and it’s a signal that you trust others’ opinions. In return, people end up respecting your honesty and strength. Sometimes, the best thing you can do is just say, “I don’t know.”
+
+脆弱性的想法似乎也很奇怪。如果有人承认不知道手头的话题或问题的解决方案，那么他们在团队中会有什么样的可信度？脆弱是软弱的表现，这会破坏信任，对吗？
+
+并非如此。从长远来看，承认自己犯了错误，或者根本不属于你的行列，都会提高你的地位。事实上，表达脆弱性的意愿是一种谦逊的外在表现，它表明了责任感和承担责任的意愿，也是你信任他人意见的信号。作为回报，人们最终会尊重你的诚实和力量。有时，你能做的最好的事情就是说，"我不知道"。
+
 Professional politicians, for example, are notorious for never admitting error or ignorance, even when it’s patently obvious that they’re wrong or unknowledgeable about a subject. This behavior exists primarily because politicians are constantly under attack by their opponents, and it’s why most people don’t believe a word that politicians say. When you’re writing software, however, you don’t need to be continually on the defensive—your teammates are collaborators, not competitors. You all have the same goal.
+
+例如，职业政客因从不承认错误或无知而臭名昭著，即使他们在某个问题上显然是错的或不知的。存在这种行为主要是因为政客们经常受到对手的攻击，这就是为什么大多数人不相信政客们说的一个字。然而，当你在编写软件时，你不需要不断地进行防守--你的团队成员是合作者，而不是竞争对手。你们都有相同的目标。
 
 
 ### Being Googley
 At Google, we have our own internal version of the principles of “humility, respect, and trust” when it comes to behavior and human interactions.
+
+在谷歌，当涉及到行为和人际交往时，我们有自己的内部版本的“谦逊、尊重和信任”原则。
+
 From the earliest days of our culture, we often referred to actions as being “Googley” or “not Googley.” The word was never explicitly defined; rather, everyone just sort of took it to mean “don’t be evil” or “do the right thing” or “be good to each other.” Over time, people also started using the term “Googley” as an informal test for culture-fit whenever we would interview a candidate for an engineering job, or when writing internal performance reviews of one another. People would often express opinions about others using the term; for example, “the person coded well, but didn’t seem to have a very Googley attitude.”
+
+从我们早期文化开始，我们经常将行为称为“谷歌的”或“不是谷歌的”；相反，每个人都把它理解为“不作恶”、“做正确的事”或“善待彼此”。随着时间的推移，人们也开始使用“Googley”一词作为一种非正式的文化契合度测试，无论是在我们面试一名工程师岗位的应聘者时，还是在撰写彼此的内部绩效评估时。人们经常会用这个词表达对他人的看法；例如，“这个人编码很好，但似乎没有很好的Googley态度。”
+
 Of course, we eventually realized that the term “Googley” was being overloaded with meaning; worse yet, it could become a source of unconscious bias in hiring or evaluations. If “Googley” means something different to every employee, we run the risk of the term starting to mean “is just like me.” Obviously, that’s not a good test for hiring
 —we don’t want to hire people “just like me,” but people from a diverse set of backgrounds and with different opinions and experiences. An interviewer’s personal desire to have a beer with a candidate (or coworker) should never be considered a valid signal about somebody else’s performance or ability to thrive at Google.
+
+当然，我们最终意识到“Googley”这个词的含义太多了；更糟糕的是，它可能成为招聘或评估中无意识偏见的来源。如果“Googley”对每个员工都有不同的含义，那么我们就有可能把“Googley”这个词的意思改成“和我一样”。显然，这不是一个好的招聘模式——我们不希望招聘 "和我一样 "的人，而是来自不同背景、有不同意见和经验的人。面试官想和候选人（或同事）一起喝啤酒的愿望，绝不应该被认为是关于其他人的表现或在谷歌发展的能力的有效信号。
+
 Google eventually fixed the problem by explicitly defining a rubric for what we mean by “Googleyness”—a set of attributes and behaviors that we look for that represent strong leadership and exemplify “humility, respect, and trust”:
 *Thrives in ambiguity*
 	Can deal with conflicting messages or directions, build consensus, and make progress against a problem, even when the environment is constantly shifting.
@@ -415,18 +476,51 @@ Google eventually fixed the problem by explicitly defining a rubric for what we 
 *Does the right thing*
 	Has a strong sense of ethics about everything they do; willing to make difficult or inconvenient decisions to protect the integrity of the team and product.
 
+谷歌最终解决了这个问题，明确定义了我们所说的“谷歌特质”（Googleynes）——我们所寻找的一套属性和行为，代表了强大的领导力，体现了 "谦逊、尊重和信任"：
+
+*在模棱两可中茁壮成长*
+
+​	即使在环境不断变化的情况下，也能处理相互冲突的信息或方向，建立共识，并对问题做出改进。
+
+*重视反馈*
+
+​	谦虚优雅地接受和给出反馈，理解反馈对个人（和团队）发展的价值。
+
+*走出舒适区*
+
+​	能够设定宏伟的目标并去追求，即使有来自他人的抵制或惰性。
+
+*客户第一*
+
+​	对谷歌产品的用户抱有同情和尊重，并追求符合其最佳利益的行动。
+
+*关心团队*
+
+​	对同事抱有同情心和尊重，并积极主动地帮助他们，提高团队凝聚力。
+
+*做正确的事*
+
+​	对自己所做的一切有强烈的主人感；愿意做出困难或不易的决定以保护团队和产品的完整。
 
 Now that we have these best-practice behaviors better defined, we’ve begun to shy away from using the term “Googley.” It’s always better to be specific about expectations!
 
-## Conclusion
+现在我们有了这些最佳实践行为的更好定义，我们已经开始避免使用 "Googley "这个词了。更好的是对期望值有一个具体的说明。
+
+
+
+## Conclusion 结论
 The foundation for almost any software endeavor—of almost any size—is a well- functioning team. Although the Genius Myth of the solo software developer still persists, the truth is that no one really goes it alone. For a software organization to stand the test of time, it must have a healthy culture, rooted in humility, trust, and respect that revolves around the team, rather than the individual. Further, the creative nature of software development requires that people take risks and occasionally fail; for people to accept that failure, a healthy team environment must exist.
+
+几乎任何规模的软件工作的基础都是一个运作良好的团队。尽管软件开发者单打独斗的 "天才神话 "仍然存在，但事实是，没有人能够真正地单干。一个软件组织要想经受住时间的考验，就必须有一种健康的文化，植根于谦逊、信任和尊重，围绕着团队而不是个人。此外，软件开发的创造性要求人们承担风险并偶尔失败；为了让人们接受这种失败，必须有一个健康的团队环境。
 
 ## TL;DRs
 •	Be aware of the trade-offs of working in isolation.
 •	Acknowledge the amount of time that you and your team spend communicating and in interpersonal conflict. A small investment in understanding personalities and working styles of yourself and others can go a long way toward improving productivity.
 •	If you want to work effectively with a team or a large organization, be aware of your preferred working style and that of others.
 
-
+- 意识到孤立工作的得失。
+- 认识到你和你的团队花在沟通和人际冲突上的时间。在了解自己和他人的个性和工作风格方面进行少量投入，对提高生产力有很大帮助。
+- 如果你想在一个团队或一个大型组织中有效地工作，要意识到你和其他人喜欢的工作风格。
 
 
 
