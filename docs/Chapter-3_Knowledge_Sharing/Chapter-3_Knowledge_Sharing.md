@@ -9,12 +9,16 @@
 
 Your organization understands your problem domain better than some random person on the internet; your organization should be able to answer most of its own questions. To achieve that, you need both experts who know the answers to those questions and mechanisms to distribute their knowledge, which is what we’ll explore in this chapter. These mechanisms range from the utterly simple (Ask questions; Write down what you know) to the much more structured, such as tutorials and classes. Most importantly, however, your organization needs a culture of learning, and that requires creating the psychological safety that permits people to admit to a lack of knowledge.
 
-## Challenges to Learning
+你的组织对你的问题领域的理解比互联网上的一些随机的人要好；你的组织应该能解答你的大部分问题。要做到这一点，您需要知道解决问题答案的专家在哪里和传播知识的机制，这就是我们将在本章中探讨的。这些机制的范围很广，从完全简单的（提问；写下你所知道的）到系统化，如教程和课程。然而，最重要的是，你的组织需要一种学习文化，这需要创造一种心理上的安全感，允许人们承认自己缺乏知识。
+
+
+
+## Challenges to Learning 学习的挑战
 Sharing expertise across an organization is not an easy task. Without a strong culture of learning, challenges can emerge. Google has experienced a number of these challenges, especially as the company has scaled:
-Lack of psychological safety
-An environment in which people are afraid to take risks or make mistakes in front of others because they fear being punished for it. This often manifests as a culture of fear or a tendency to avoid transparency.
+*Lack of psychological safety*
+	An environment in which people are afraid to take risks or make mistakes in front of others because they fear being punished for it. This often manifests as a culture of fear or a tendency to avoid transparency.
 *Information islands*
-Knowledge fragmentation that occurs in different parts of an organization that don’t communicate with one another or use shared resources. In such anenvironment, each group develops its own way of doing things.1 This often leads to the following:
+	Knowledge fragmentation that occurs in different parts of an organization that don’t communicate with one another or use shared resources. In such anenvironment, each group develops its own way of doing things.1 This often leads to the following:
   **Information fragmentation**
   Each island has an incomplete picture of the bigger whole.
   **Information duplication**
@@ -22,16 +26,53 @@ Knowledge fragmentation that occurs in different parts of an organization that d
   **Information skew**
   Each island has its own ways of doing the same thing, and these might or might not conflict.
 *Single point of failure (SPOF)*
-A bottleneck that occurs when critical information is available from only a single person. This is related to bus factor, which is discussed in more detail in Chapter 2.
-SPOFs can arise out of good intentions: it can be easy to fall into a habit of “Let me take care of that for you.” But this approach optimizes for short-term efficiency (“It’s faster for me to do it”) at the cost of poor long-term scalability (the team never learns how to do whatever it is that needs to be done). This mindset also tends to lead to all-or-nothing expertise.
+	A bottleneck that occurs when critical information is available from only a single person. This is related to bus factor, which is discussed in more detail in Chapter 2.
+	SPOFs can arise out of good intentions: it can be easy to fall into a habit of “Let me take care of that for you.” But this approach optimizes for short-term efficiency (“It’s faster for me to do it”) at the cost of poor long-term scalability (the team never learns how to do whatever it is that needs to be done). This mindset also tends to lead to all-or-nothing expertise.
 *All-or-nothing expertise*
-A group of people that is split between people who know “everything” and novices, with little middle ground. This problem often reinforces itself if experts always do everything themselves and don’t take the time to develop new experts through mentoring or documentation. In this scenario, knowledge and responsibilities continue to accumulate on those who already have expertise, and new team members or novices are left to fend for themselves and ramp up more slowly.
+	A group of people that is split between people who know “everything” and novices, with little middle ground. This problem often reinforces itself if experts always do everything themselves and don’t take the time to develop new experts through mentoring or documentation. In this scenario, knowledge and responsibilities continue to accumulate on those who already have expertise, and new team members or novices are left to fend for themselves and ramp up more slowly.
 *Parroting*
-Mimicry without understanding. This is typically characterized by mindlessly copying patterns or code without understanding their purpose, often under the assumption that said code is needed for unknown reasons.
+	Mimicry without understanding. This is typically characterized by mindlessly copying patterns or code without understanding their purpose, often under the assumption that said code is needed for unknown reasons.
 *Haunted graveyards*
-Places, often in code, that people avoid touching or changing because they are afraid that something might go wrong. Unlike the aforementioned parroting, haunted graveyards are characterized by people avoiding action because of fear and superstition.
+	Places, often in code, that people avoid touching or changing because they are afraid that something might go wrong. Unlike the aforementioned parroting, haunted graveyards are characterized by people avoiding action because of fear and superstition.
+
+在一个组织内共享专业知识并非易事。没有强大的学习文化，挑战随时出现。谷歌经历了许多这样的挑战，尤其是随着公司规模的扩大：
+
+*缺乏安全感*。
+	一个环境中，人们不敢在别人面前冒险或犯错，因为他们害怕因此受到惩罚。这通常表现为一种恐惧文化或避免透明的倾向。
+*信息孤岛*
+	在一个组织的不同部分发生的知识碎片，这些部分没有相互沟通或使用共享资源。在这样的环境中，每个小组都形成了自己的做事方式。这往往导致以下情况：
+
+​	**信息碎片化**
+
+​	每个孤岛对整体都有一个不完整的描述。
+
+​	**信息重复**
+
+​	每个孤岛都重新发明了自己的做事方式。
+
+​	**信息偏移**
+
+​	每个孤岛都有自己做同一件事的方法，这些方法在一起协作可能会或可能不会发生冲突。
+
+*单点故障（SPOF）*。
+	当关键信息只能从一个人那里获得时，就会出现瓶颈。这与巴士因子有关，在第二章有详细讨论。
+
+​	SPOF可能是出于良好的意图：我们很容易陷入 "让我来帮你解决 "的习惯。但这种方法提高了短期效率（"我做起来更快"），但代价是长期可扩展性差（团队从未学会如何做需要做的事）。这种心态也往往导致失败，组员要么全会或要么都不会某方面的知识。
+
+*要么全会要么都不会*
+
+​	一群人被分成了 "什么都懂 "的老人和什么都不会的新手，几乎没有中间地带。如果专家总是自己做所有的事情，而不花时间通过指导或编写文档来培养新的专家，这个问题往往会加剧。在这种情况下，知识和责任继续在那些已经拥有专业知识的人身上积累，而新的团队成员或新手则只能自生自灭，提升速度更慢。
+
+*鹦鹉学舌*
+	模仿而不理解。这典型的特征是在不了解其目的的情况下无意识地复制模式或代码，通常是在假设上述代码是出于未知原因而需要的情况下。
+
+*闹鬼坟场*
+	人们避免接触或改变的地方，通常在代码中，因为他们担心会出问题。与前面提到的鹦鹉学舌不同，闹鬼坟地的特点是人们因为恐惧和迷信而避免行动。
 
 In the rest of this chapter, we dive into strategies that Google’s engineering organizations have found to be successful in addressing these challenges.
+
+在本章的其余部分，我们将深入探讨谷歌的工程组织在应对这些挑战方面成功的策略。
+
 ## Philosophy
 Software engineering can be defined as the multiperson development of multiversion programs.2 People are at the core of software engineering: code is an important output but only a small part of building a product. Crucially, code does not emerge spontaneously out of nothing, and neither does expertise. Every expert was once a novice: an organization’s success depends on growing and investing in its people.
 Personalized, one-to-one advice from an expert is always invaluable. Different team members have different areas of expertise, and so the best teammate to ask for any given question will vary. But if the expert goes on vacation or switches teams, the team can be left in the lurch. And although one person might be able to provide personalized help for one-to-many, this doesn’t scale and is limited to small numbers of “many.”
@@ -311,7 +352,6 @@ Knowledge is in some ways the most important (though intangible) capital of a so
 - Make it easy for people to get the help they need from both human experts and documented references.
 - At a systemic level, encourage and reward those who take time to teach and broaden their expertise beyond just themselves, their team, or their organization.
 - There is no silver bullet: empowering a knowledge-sharing culture requires a combination of multiple strategies, and the exact mix that works best for your organization will likely change over time.
-
 
 
 
