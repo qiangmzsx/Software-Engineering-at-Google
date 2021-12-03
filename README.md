@@ -19,7 +19,7 @@
 | PART 2 Culture    | 第二部分 文化 | chapter 2 :How to Work Well on Teams              | [第二章：如何融入团队](./docs/Chapter-2_How_to_Work_Well_on_Teams/Chapter-2_How_to_Work_Well_on_Teams.md) | 完成待校验  | @qiangmzsx | 2021-12-20   | 2021-12-02 完成 |
 |                   |               | chapter 3 :Knowledge Sharing                      | 第三章：知识共享                                             | 进行中      | @qiangmzsx | 2021-12-20   |                 |
 |                   |               | chapter 4 :Engineering for Equity                 | 第四章：公平工程                                             | 待分配      |            |              |                 |
-|                   |               | chapter 5 :How to Lead a Team                     | 第五章：如何领导团队                                         | 待分配      |            |              |                 |
+|                   |               | chapter 5 :How to Lead a Team                     | 第五章：如何领导团队                                         | @luchenlong |            |              |                 |
 |                   |               | chapter 6 :Leading at Scale                       | 第六章：规模优先                                             | 待分配      |            |              |                 |
 |                   |               | chapter 7 :Measuring Engineering Productivity     | 第七章：度量工程产出                                         | 待分配      |            |              |                 |
 | PART 3 Processes  | 第三部分 流程 | chapter 8 :Style Guides and Rules                 | 第八章：风格指导和规则                                       | @lili       |            |              |                 |
