@@ -21,7 +21,7 @@
 |                   |               | chapter 4 :Engineering for Equity                 | 第四章：公平工程                                             | 待分配      |            |              |                 |
 |                   |               | chapter 5 :How to Lead a Team                     | 第五章：如何领导团队                                         | 待分配      |            |              |                 |
 |                   |               | chapter 6 :Leading at Scale                       | 第六章：规模领先                                             | 待分配      |            |              |                 |
-|                   |               | chapter 7 :Measuring Engineering Productivity     | 第七章：测量工程产出                                         | 待分配      |            |              |                 |
+|                   |               | chapter 7 :Measuring Engineering Productivity     | 第七章：度量工程产出                                         | 待分配      |            |              |                 |
 | PART 3 Processes  | 第三部分 流程 | chapter 8 :Style Guides and Rules                 | 第八章：风格指导和规则                                       | 待分配      |            |              |                 |
 |                   |               | chapter 9 :Code Review                            | 第九章：代码审查                                             | @luchenlong |            |              |                 |
 |                   |               | chapter 10 :Documentation                         | 第十章：文档                                                 | 待分配      |            |              |                 |
