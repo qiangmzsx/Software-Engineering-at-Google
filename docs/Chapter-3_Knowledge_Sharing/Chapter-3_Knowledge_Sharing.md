@@ -11,29 +11,27 @@ Your organization understands your problem domain better than some random person
 
 你的组织对你的问题领域的理解比互联网上的一些随机的人要好；你的组织应该能解答你的大部分问题。要做到这一点，您需要知道解决问题答案的专家在哪里和传播知识的机制，这就是我们将在本章中探讨的。这些机制的范围很广，从完全简单的（提问；写下你所知道的）到系统化，如教程和课程。然而，最重要的是，你的组织需要一种学习文化，这需要创造一种心理上的安全感，允许人们承认自己缺乏知识。
 
-
-
 ## Challenges to Learning 学习的挑战
-Sharing expertise across an organization is not an easy task. Without a strong culture of learning, challenges can emerge. Google has experienced a number of these challenges, especially as the company has scaled:
-*Lack of psychological safety*
-	An environment in which people are afraid to take risks or make mistakes in front of others because they fear being punished for it. This often manifests as a culture of fear or a tendency to avoid transparency.
-*Information islands*
-	Knowledge fragmentation that occurs in different parts of an organization that don’t communicate with one another or use shared resources. In such anenvironment, each group develops its own way of doing things.1 This often leads to the following:
-  **Information fragmentation**
-  Each island has an incomplete picture of the bigger whole.
-  **Information duplication**
-  Each island has reinvented its own way of doing something.
-  **Information skew**
-  Each island has its own ways of doing the same thing, and these might or might not conflict.
-*Single point of failure (SPOF)*
-	A bottleneck that occurs when critical information is available from only a single person. This is related to bus factor, which is discussed in more detail in Chapter 2.
-	SPOFs can arise out of good intentions: it can be easy to fall into a habit of “Let me take care of that for you.” But this approach optimizes for short-term efficiency (“It’s faster for me to do it”) at the cost of poor long-term scalability (the team never learns how to do whatever it is that needs to be done). This mindset also tends to lead to all-or-nothing expertise.
-*All-or-nothing expertise*
-	A group of people that is split between people who know “everything” and novices, with little middle ground. This problem often reinforces itself if experts always do everything themselves and don’t take the time to develop new experts through mentoring or documentation. In this scenario, knowledge and responsibilities continue to accumulate on those who already have expertise, and new team members or novices are left to fend for themselves and ramp up more slowly.
-*Parroting*
+Sharing expertise across an organization is not an easy task. Without a strong culture of learning, challenges can emerge. Google has experienced a number of these challenges, especially as the company has scaled:  
+*Lack of psychological safety*  
+	An environment in which people are afraid to take risks or make mistakes in front of others because they fear being punished for it. This often manifests as a culture of fear or a tendency to avoid transparency.  
+*Information islands*  
+	Knowledge fragmentation that occurs in different parts of an organization that don’t communicate with one another or use shared resources. In such anenvironment, each group develops its own way of doing things.1 This often leads to the following:  
+  **Information fragmentation**  
+  Each island has an incomplete picture of the bigger whole.  
+  **Information duplication**  
+  Each island has reinvented its own way of doing something.  
+  **Information skew**  
+  Each island has its own ways of doing the same thing, and these might or might not conflict.  
+*Single point of failure (SPOF)*  
+	A bottleneck that occurs when critical information is available from only a single person. This is related to bus factor, which is discussed in more detail in Chapter 2.  
+	SPOFs can arise out of good intentions: it can be easy to fall into a habit of “Let me take care of that for you.” But this approach optimizes for short-term efficiency (“It’s faster for me to do it”) at the cost of poor long-term scalability (the team never learns how to do whatever it is that needs to be done). This mindset also tends to lead to all-or-nothing expertise.  
+*All-or-nothing expertise*  
+	A group of people that is split between people who know “everything” and novices, with little middle ground. This problem often reinforces itself if experts always do everything themselves and don’t take the time to develop new experts through mentoring or documentation. In this scenario, knowledge and responsibilities continue to accumulate on those who already have expertise, and new team members or novices are left to fend for themselves and ramp up more slowly.  
+*Parroting*  
 	Mimicry without understanding. This is typically characterized by mindlessly copying patterns or code without understanding their purpose, often under the assumption that said code is needed for unknown reasons.
-*Haunted graveyards*
-	Places, often in code, that people avoid touching or changing because they are afraid that something might go wrong. Unlike the aforementioned parroting, haunted graveyards are characterized by people avoiding action because of fear and superstition.
+*Haunted graveyards*  
+	Places, often in code, that people avoid touching or changing because they are afraid that something might go wrong. Unlike the aforementioned parroting, haunted graveyards are characterized by people avoiding action because of fear and superstition.  
 
 在一个组织内共享专业知识并非易事。没有强大的学习文化，挑战随时出现。谷歌经历了许多这样的挑战，尤其是随着公司规模的扩大：
 
