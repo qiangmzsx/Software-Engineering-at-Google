@@ -17,7 +17,7 @@
 | ----------------- | ------------- | ------------------------------------------------- | ------------------------------------------------------------ | ----------- | ---------- | ------------ | --------------- |
 | PART 1 Thesis     | 第一部分 理论 | chapter 1 :What Is Software Engineering?          | [第一章：软件工程是什么？](./docs/Chapter-1_What_Is_Software_Engineering/Chapter-1_What_Is_Software_Engineering.md) | 完成待校验  | @qiangmzsx | 2021-12-02   | 2021-11-30 完成 |
 | PART 2 Culture    | 第二部分 文化 | chapter 2 :How to Work Well on Teams              | [第二章：如何融入团队](./docs/Chapter-2_How_to_Work_Well_on_Teams/Chapter-2_How_to_Work_Well_on_Teams.md) | 完成待校验  | @qiangmzsx | 2021-12-20   | 2021-12-02 完成 |
-|                   |               | chapter 3 :Knowledge Sharing                      | 第三章：知识共享                                             | 进行中      | @qiangmzsx | 2021-12-20   |                 |
+|                   |               | chapter 3 :Knowledge Sharing                      | [第三章：知识共享](./docs/Chapter-3_Knowledge_Sharing/Chapter-3_Knowledge_Sharing.md)             | 进行中      | @qiangmzsx | 2021-12-20   |                 |
 |                   |               | chapter 4 :Engineering for Equity                 | 第四章：公平工程                                             | 待分配      |            |              |                 |
 |                   |               | chapter 5 :How to Lead a Team                     | 第五章：如何领导团队                                         | @luchenlong |            |              |                 |
 |                   |               | chapter 6 :Leading at Scale                       | 第六章：规模优先                                             | 待分配      |            |              |                 |
