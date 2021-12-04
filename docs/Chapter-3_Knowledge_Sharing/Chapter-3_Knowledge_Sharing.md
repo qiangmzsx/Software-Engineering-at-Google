@@ -66,8 +66,8 @@ Sharing expertise across an organization is not an easy task. Without a strong c
 *鹦鹉学舌*
 	模仿而不理解。这典型的特征是在不了解其目的的情况下无意识地复制模式或代码，通常是在假设上述代码是出于未知原因而需要的情况下。
 
-*闹鬼坟场*
-	人们避免接触或改变的地方，通常在代码中，因为他们担心会出问题。与前面提到的鹦鹉学舌不同，闹鬼坟地的特点是人们因为恐惧和迷信而避免行动。
+*闹鬼墓地*
+	人们避免接触或改变的地方，通常在代码中，因为他们担心会出问题。与前面提到的鹦鹉学舌不同，闹鬼墓地的特点是人们因为恐惧和迷信而避免行动。
 
 In the rest of this chapter, we dive into strategies that Google’s engineering organizations have found to be successful in addressing these challenges.
 
@@ -75,29 +75,74 @@ In the rest of this chapter, we dive into strategies that Google’s engineering
 
 ## Philosophy
 Software engineering can be defined as the multiperson development of multiversion programs.2 People are at the core of software engineering: code is an important output but only a small part of building a product. Crucially, code does not emerge spontaneously out of nothing, and neither does expertise. Every expert was once a novice: an organization’s success depends on growing and investing in its people.
+
+软件工程可以定义为多人协作开发多版本程序。2人是软件工程的核心：代码是重要的产出，但只是构建产品的一小部分。至关重要的是，代码不是凭空出现的，专业知识也不会凭空出现。每个专家都曾经是菜鸟：一个组织的成功取决于其员工的成长和投资。
+
 Personalized, one-to-one advice from an expert is always invaluable. Different team members have different areas of expertise, and so the best teammate to ask for any given question will vary. But if the expert goes on vacation or switches teams, the team can be left in the lurch. And although one person might be able to provide personalized help for one-to-many, this doesn’t scale and is limited to small numbers of “many.”
+
+来自专家的个性化、一对一的建议总是宝贵的。不同的团队的成员有不同的专业领域，因此对于任何给定的问题，最佳的队友都会有所不同解法。但如果专家休假或调换团队，原团队可能会陷入困境。尽管一个人可以为一对多人提供个性化的帮助，但这并不具有规模，只限于少量的 "多"。
+
 Documented knowledge, on the other hand, can better scale not just to the team but to the entire organization. Mechanisms such as a team wiki enable many authors to share their expertise with a larger group. But even though written documentation is more scalable than one-to-one conversations, that scalability comes with some trade- offs: it might be more generalized and less applicable to individual learners’ situations, and it comes with the added maintenance cost required to keep information relevant and up to date over time.
+
+另一方面，文档化的知识不仅可以更好地扩展到团队，还可以扩展到整个组织。团队wiki等机制使许多作者能够与更大的团队分享他们的专业知识。但是，尽管书面文档比一对一的对话更具可扩展性，但这种可扩展性也带来了一些代价：它可能更具普遍性，不太适用于个别学习者的情况，而且随着时间的推移，还需要额外的维护成本来，保持信息的相关性和实时性。
+
 Tribal knowledge exists in the gap between what individual team members know and what is documented. Human experts know these things that aren’t written down. If we document that knowledge and maintain it, it is now available not only to somebody with direct one-to-one access to the expert today, but to anybody who can find and view the documentation.
+
+内部知识存在于单个团队成员所知道的和被记录下来的东西之间的差距。人类专家知道这些没有写下来的东西。如果我们把这些知识记录下来并加以维护，那么现在不仅可以让今天的专家一对一地直接接触到这些知识，而且可以让任何能够找到并查看这些文件的人获得这些知识。
+
+·····
+
+```
+tribal knowledge：内部知识；是指一种仅存在于某个部落中的信息或知识， 这些知识不为外界所知，没有正式记 录， 只能口口相传。
+```
+
 So in a magical world in which everything is always perfectly and immediately documented, we wouldn’t need to consult a person any more, right? Not quite. Written knowledge has scaling advantages, but so does targeted human help. A human expert can synthesize their expanse of knowledge. They can assess what information is applicable to the individual’s use case, determine whether the documentation is still relevant, and know where to find it. Or, if they don’t know where to find the answers, they might know who does.
+
+因此，在一个神奇的世界里，如果所有的事情总是完美地、立即地被记录下来，我们就不需要再咨询一个人了，对吗？并非如此。书面知识具有扩展优势，但有针对性的人力投入也具有扩展优势。人类专家可以利用他们广博的知识。他们可以评估哪些信息适用于个人的使用案例，确定文件是否仍然相关，并知道在哪里可以找到它。或者，如果他们不知道在哪里可以找到解答，他们知道谁可以。
 
 ```
 2	David Lorge Parnas, Software Engineering: Multi-person Development of Multi-version Programs (Heidelberg: Springer-Verlag Berlin, 2011).
+
 ```
 
 Tribal and written knowledge complement each other. Even a perfectly expert team with perfect documentation needs to communicate with one another, coordinate with other teams, and adapt their strategies over time. No single knowledge-sharing approach is the correct solution for all types of learning, and the particulars of a good mix will likely vary based on your organization. Institutional knowledge evolves over time, and the knowledge-sharing methods that work best for your organization will likely change as it grows. Train, focus on learning and growth, and build your own stable of experts: there is no such thing as too much engineering expertise.
-## Setting the Stage: Psychological Safety
+
+内部知识和书面知识相互补充。即使是一个拥有完美文档的专家团队也需要相互沟通，与其他团队协调，并随着时间的推移不断调整他们的策略。没有任何一种知识共享方法是所有类型学习的正确解决方案，最佳组合的具体内容会根据你的组织而有所不同。团队知识随着时间的推移而演变，对你的组织最有效的知识共享方法可能会随着组织的发展而改变。培训，专注于学习和成长，并建立自己稳定的专家队伍：没有太多的工程专业知识。
+
+## Setting the Stage: Psychological Safety 搭建舞台：心理安全
 Psychological safety is critical to promoting a learning environment.
+
+心理安全是促进学习环境的关键。
+
 To learn, you must first acknowledge that there are things you don’t understand. We should welcome such honesty rather than punish it. (Google does this pretty well, but sometimes engineers are reluctant to admit they don’t understand something.)
+
+要学习，你必须首先承认有些事情你不明白。我们应该欢迎这种诚实，而不是惩罚它。（谷歌在这方面做得很好，但有时工程师不愿意承认他们不懂一些东西。）
+
 An enormous part of learning is being able to try things and feeling safe to fail. In a healthy environment, people feel comfortable asking questions, being wrong, and learning new things. This is a baseline expectation for all Google teams; indeed, our research has shown that psychological safety is the most important part of an effective team.
 
-### Mentorship
+学习的一个重要部分是能够尝试事情，并感觉到失败的无责。在一个健康的环境中，人们对提出问题、犯错和学习新事物感到自在。这是所有谷歌团队的基本期望；事实上，我们的研究表明，心理安全是有效团队最重要的组成部分。
+
+### Mentorship 导师制
 At Google, we try to set the tone as soon as a “Noogler” (new Googler) engineer joins the company. One important way of building psychological safety is to assign Nooglers a mentor—someone who is not their team member, manager, or tech lead— whose responsibilities explicitly include answering questions and helping the Noogler ramp up. Having an officially assigned mentor to ask for help makes it easier for the newcomer and means that they don’t need to worry about taking up too much of their coworkers’ time.
+
+在谷歌，我们尝试在 "Noogler"（新的Googler）工程师加入公司时就确定基调。建立心理安全的一个重要方法是为Noogler分配一个导师——一个不是他们的团队成员、经理或技术负责人的人——其职责明确包括回答问题和帮助Noogler成长。有一个官方指定的导师可以寻求帮助，这对新人来说更容易，也意味着他们不需要担心会占用同事太多的时间。
+
 A mentor is a volunteer who has been at Google for more than a year and who is available to advise on anything from using Google infrastructure to navigating Google culture. Crucially, the mentor is there to be a safety net to talk to if the mentee doesn’t know whom else to ask for advice. This mentor is not on the same team as the mentee, which can make the mentee feel more comfortable about asking for help in tricky situations.
+
+导师是在谷歌工作了一年以上的志愿者，他可以就使用谷歌基础设施和了解谷歌文化等方面提供建议。最重要的是，如果被指导者不知道该向谁寻求建议，指导者就会成为一个安全网。这位导师与被指导者不在同一个团队，这可以使被指导者在棘手的情况下更放心地寻求帮助。
+
 Mentorship formalizes and facilitates learning, but learning itself is an ongoing process. There will always be opportunities for coworkers to learn from one another, whether it’s a new employee joining the organization or an experienced engineer learning a new technology. With a healthy team, teammates will be open not just to answering but also to asking questions: showing that they don’t know something and learning from one another.
 
-### Psychological Safety in Large Groups
+导师制使学习正规化并促进学习，但学习本身是一个持续的过程。无论是加入组织的新员工还是学习新技术的有经验的工程师，同事之间总是有机会互相学习。在一个健康的团队中，队友们不仅愿意回答问题，也愿意提出问题：表明他们不知道的东西，并相互学习。
+
+### Psychological Safety in Large Groups 大团体的心理安全
 Asking a nearby teammate for help is easier than approaching a large group of mostly strangers. But as we’ve seen, one-to-one solutions don’t scale well. Group solutions are more scalable, but they are also scarier. It can be intimidating for novices to form a question and ask it of a large group, knowing that their question might be archived for many years. The need for psychological safety is amplified in large groups. Every member of the group has a role to play in creating and maintaining a safe environment that ensures that newcomers are confident asking questions and up-and- coming experts feel empowered to help those newcomers without the fear of having their answers attacked by established experts.
+
+向附近的队友寻求帮助比接近一大群大多是陌生人的人容易得多。但正如我们所看到的，一对一的解决方案并不能很好地扩展。对于新手来说，出现一个问题并向一大团队人提问是一种威胁，因为他们知道自己的问题可能会存在多年。对心理安全的需求在大团队中被放大了。小组的每个成员都应在创造和维持一个安全的环境中发挥作用，以确保新人自信提出问题，而新晋专家则感到有能力帮助这些新人，而不必担心他们的答案会受到老专家的攻击。
+
 The most important way to achieve this safe and welcoming environment is for group interactions to be cooperative, not adversarial. Table 3-1 lists some examples of recommended patterns (and their corresponding antipatterns) of group interactions.
+
+实现这种安全和受欢迎的环境的最重要的方法是团体互动是合作性的，而不是对抗性的。表3-1列出了一些推荐的团体互动模式（以及相应的反模式）的例子。
 
 Table 3-1. Group interaction patterns
 
@@ -107,6 +152,15 @@ Table 3-1. Group interaction patterns
 | Explanations are given with the intent of helping the person asking the question learn | Explanations are given with the intent of showing off one’s own knowledge |
 | Responses are kind, patient, and helpful                     | Responses are condescending, snarky, and unconstructive      |
 | Interactions are shared discussions for finding solutions    | Interactions are arguments with “winners” and “losers”       |
+
+Table 3-1. 团队互动模式
+
+| 推荐的模式（合作型）                         | 反模式(对抗型)                                     |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
+| 基本的问题或错误被引导到正确的方向 | 基本的问题或错误被挑剔，提出问题的人被责备 |
+| 解释的目的是为了帮助提问的人学习 | 解释的目的是为了炫耀自己的知识 |
+| 回应亲切、耐心、乐于助人         | 回应是居高临下、尖酸刻薄、毫无建设性的 |
+| 互动是为寻找解决方案而进行的共同讨论 | ”互动是有 "赢家 "和 "输家 "的争论 |
 
 These antipatterns can emerge unintentionally: someone might be trying to be helpful but is accidentally condescending and unwelcoming. We find the [Recurse Center’s](https://oreil.ly/zGvAN) [social rules ](https://oreil.ly/zGvAN)to be helpful here:
 
@@ -126,6 +180,15 @@ These antipatterns can emerge unintentionally: someone might be trying to be hel
 
 ​	Small expressions of bias (racism, ageism, homophobia) that can make individuals feel unwelcome, disrespected, or unsafe.
 
+这些反模式可能是无意中出现的：有人可能是想帮忙，但却意外地居高临下，不受欢迎。我们发现Recurse中心的社会规则在这里很有帮助。
+*不要假装惊讶（"什么？ 我不相信你不知道堆栈是什么！"）*
+	假装惊讶是心理安全的障碍，使团体成员害怕承认自己缺乏知识。
+*不根据事实*
+	迂腐的纠正，往往是为了哗众取宠而非纠正。
+*不开小会*
+	打断现有的讨论，提供意见，而不投入到对话中。
+*不说微妙的谎言（"这太容易了，我奶奶都能做！"）*
+	小小的偏见表达（种族主义、年龄歧视、恐同症），会使个人感到不受欢迎、不被尊重或不安全。
 
 
 ## Growing Your Knowledge
