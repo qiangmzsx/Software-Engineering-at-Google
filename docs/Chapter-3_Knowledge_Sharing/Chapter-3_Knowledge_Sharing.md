@@ -247,18 +247,44 @@ Many Google style guides explicitly include context to help readers understand t
 
 许多谷歌风格指南明确地包括背景，以帮助读者理解风格指南背后的理由，而不是仅仅记住一串武断的规则。更微妙的是，理解某条准则背后的理由，可以让作者做出明智的决定，知道该准则何时不适用，或者该准则是否需要更新。见第8章。
 
-## Scaling Your Questions: Ask the Community
+## Scaling Your Questions: Ask the Community 扩展你的问题：向社区提问
 Getting one-to-one help is high bandwidth but necessarily limited in scale. And as a learner, it can be difficult to remember every detail. Do your future self a favor: when you learn something from a one-to-one discussion, write it down.
+
+获得一对一的帮助是高带宽的，但规模必然有限。而作为一个学习者，要记住每一个细节很困难。帮你未来的自己一个忙：当你从一对一的讨论中学到一些东西时，把它写下来。
+
 Chances are that future newcomers will have the same questions you had. Do them a favor, too, and share what you write down.
+
+未来的新来者可能会有和你一样的问题。也帮他们一个忙，分享你写下的东西。
+
 Although sharing the answers you receive can be useful, it’s also beneficial to seek help not from individuals but from the greater community. In this section, we examine different forms of community-based learning. Each of these approaches—group chats, mailing lists, and question-and-answer systems—have different trade-offs and complement one another. But each of them enables the knowledge seeker to get help from a broader community of peers and experts and also ensures that answers are broadly available to current and future members of that community.
-### Group Chats
+
+尽管分享你得到的答案可能是有用的，但寻求更多社区而非个人的帮助也是有益的。在本节中，我们将研究不同形式的社区学习。这些方法中的每一种——群聊、邮件列表和问答系统——都有不同的权衡，并相互补充。但它们中的每一种都能使知识寻求者从更广泛的同行和专家社区获得帮助，同时也能确保该社区的当前和未来成员都能广泛获得答案。
+
+### Group Chats 群聊
 When you have a question, it can sometimes be difficult to get help from the right person. Maybe you’re not sure who knows the answer, or the person you want to ask is busy. In these situations, group chats are great, because you can ask your question to many people at once and have a quick back-and-forth conversation with whoever is available. As a bonus, other members of the group chat can learn from the question and answer, and many forms of group chat can be automatically archived and searched later.
+
+当你有一个问题时，有时很难从适合的人那里得到帮助。也许你不确定谁知道答案，或者你想问的人很忙。在这种情况下，群聊是很好的方式，因为你可以同时向许多人提出你的问题，并与任何有空的人进行快速的对话。另外，群聊中的其他成员可以从问题和答案中学习，而且许多形式的群聊可以自动存档并在以后进行搜索。
+
 Group chats tend to be devoted either to topics or to teams. Topic-driven group chats are typically open so that anyone can drop in to ask a question. They tend to attract experts and can grow quite large, so questions are usually answered quickly. Team- oriented chats, on the other hand, tend to be smaller and restrict membership. As a result, they might not have the same reach as a topic-driven chat, but their smaller size can feel safer to a newcomer.
+
+群聊往往是专门针对主题或团队。以主题为导向的群聊通常是开放的，因此任何人都可以进来问问题。他们倾向于吸引专家，并且可以发展得相当大，所以问题通常会很快得到回答。另一方面，以团队为导向的聊天，往往规模较小，并限制成员。因此，他们可能没有话题驱动型聊天的影响力，但其较小的规模会让新人感到更安心。
+
 Although group chats are great for quick questions, they don’t provide much structure, which can make it difficult to extract meaningful information from a conversation in which you’re not actively involved. As soon as you need to share information outside of the group, or make it available to refer back to later, you should write a document or email a mailing list.
-### Mailing Lists
+
+虽然小组聊天对快速提问很有帮助，但它们没有提供太多的结构化，这会使你很难从一个你没有积极参与的对话中提取有意义的信息。一旦你需要在群组之外分享信息，或使其可在以后参考，你应该写一份文档或给邮件列表发邮件。
+
+### Mailing Lists 邮件列表
 Most topics at Google have a topic-users@ or topic-discuss@ Google Groups mailing list that anyone at the company can join or email. Asking a question on a public mailing list is a lot like asking a group chat: the question reaches a lot of people who could potentially answer it and anyone following the list can learn from the answer. Unlike group chats, though, public mailing lists are easy to share with a wider audience: they are packaged into searchable archives, and email threads provide more structure than group chats. At Google, mailing lists are also indexed and can be discovered by Moma, Google’s intranet search engine.
+
+谷歌的大多数主题都有一个topic-users@或topic-discuss@的谷歌群组邮件列表，公司的任何人都可以加入或发送电子邮件。在公共邮件列表上提出问题，很像在群组聊天中提出问题：这个问题可以传到很多有可能回答它的人那儿，而且任何关注这个列表的人都可以从答案中学习。但与群聊不同的是，公共邮件列表很容易与更多人分享：它们被打包成可搜索的档案，而且电子邮件比群聊提供更多的结构化。在谷歌，邮件列表也被编入索引，可以被谷歌的内部网搜索引擎Moma发现。
+
 When you find an answer to a question you asked on a mailing list, it can be tempting to get on with your work. Don’t do it! You never know when someone will need the same information in the future, so it’s a best practice to post the answer back to the list.
+
+当你找到了你在邮件列表中提出的问题的答案时，你可能会很想继续你的工作。请不要这样做! 你永远不知道将来什么时候会有人需要同样的信息，所以最好将答案发回邮件列表。
+
 Mailing lists are not without their trade-offs. They’re well suited for complicated questions that require a lot of context, but they’re clumsy for the quick back-and- forth exchanges at which group chats excel. A thread about a particular problem is generally most useful while it is active. Email archives are immutable, and it can be hard to determine whether an answer discovered in an old discussion thread is still relevant to a present-day situation. Additionally, the signal-to-noise ratio can be lower than other mediums like formal documentation because the problem that someone is having with their specific workflow might not be applicable to you.
+
+邮件列表也有其不足之处。它们很适合处理需要大量背景资料的复杂问题，但对于小组聊天所擅长的快速来回交流来说，它们就显得很笨拙。一个关于特定问题的线索通常在它活跃的时候是最有用的。电子邮件档案是不可改变的，而且很难确定在一个旧的讨论主题中发现的答案是否仍然对今天的情况有效。此外，信噪比可能比其他媒介（如正式文件）低，因为某人在其特定工作流程中遇到的问题可能并不适用于你。
 
 ------
 
@@ -270,59 +296,117 @@ Google tends toward email-based workflows by default. This isn’t necessarily b
 
 ------
 
-### YAQS: Question-and-Answer Platform
+谷歌的电子邮件
 
-YAQS (“Yet Another Question System”) is a Google-internal version of a [Stack Over‐](https://oreil.ly/iTtbm) [flow](https://oreil.ly/iTtbm)–like website, making it easy for Googlers to link to existing or work-in-progress code as well as discuss confidential information.
+谷歌的文化是臭名昭著的以电子邮件为中心和电子邮件主。谷歌的工程师们每天都会收到数以百计的电子邮件（如果不是更多的话），其中有不同程度的可操作性。新手们需要花好几天时间来设置电子邮件过滤器，以处理来自他们自动订阅的群组的大量通知；有些人干脆放弃了，不尝试跟上邮件数。一些群组将大型邮件列表默认为每一个讨论，而不试图将信息定向给那些可能对其特别感兴趣的人；结果，信噪比成为了一个真正的问题。
 
-Like Stack Overflow, YAQS shares many of the same advantages of mailing lists and adds refinements: answers marked as helpful are promoted in the user interface, and users can edit questions and answers so that they remain accurate and useful as code and facts change. As a result, some mailing lists have been superseded by YAQS, whereas others have evolved into more general discussion lists that are less focused on problem solving.
+谷歌默认倾向于基于电子邮件的工作流程。这并不一定是因为电子邮件是一个比其他通信选项更好的媒介——它往往不是——而是因为这是我们的文化所习惯的。当你的组织考虑要鼓励或投资什么形式的沟通时，请记住这一点。
 
-## Scaling Your Knowledge:You Always Have Something to Teach
+### YAQS: Question-and-Answer Platform YAQS：问答平台
+
+YAQS (“Yet Another Question System”) is a Google-internal version of a [Stack Overflow](https://oreil.ly/iTtbm)–like website, making it easy for Googlers to link to existing or work-in-progress code as well as discuss confidential information.
+
+YAQS（"另一个问题系统"）是谷歌内部版本的[Stack Overflow](https://oreil.ly/iTtbm)——类似网站，使Googlers能够轻松地链接到现有或正在进行的代码，以及讨论机密信息。
+
+像Stack Overflow一样，YAQS分享了邮件列表的许多相同的优点，并增加了完善的功能：标记为有用的答案在用户界面上被推广，用户可以编辑问题和答案，以便随着代码和事实的变化保持准确和有用。因此，一些邮件列表已经被YAQS所取代，而其他的邮件列表已经演变成更一般的讨论列表，不再专注于解决问题。
+
+## Scaling Your Knowledge:You Always Have Something to Teach 扩展你的知识：你总是有东西可教的
 Teaching is not limited to experts, nor is expertise a binary state in which you are either a novice or an expert. Expertise is a multidimensional vector of what you know: everyone has varying levels of expertise across different areas. This is one of the reasons why diversity is critical to organizational success: different people bring different perspectives and expertise to the table (see Chapter 4). Google engineers teach others in a variety of ways, such as office hours, giving tech talks, teaching classes, writing documentation, and reviewing code.
-### Office Hours
+
+教学不局限专家，专业知识也不是一种二元状态，你要么是新手，要么是专家。专业知识是你所知道的一个多维向量：每个人在不同领域都有不同水平的专业知识。这就是为什么多样性对组织的成功至关重要的原因之一：不同的人带来不同的观点和专业知识（见第四章）。谷歌工程师以各种方式教授他人，如办公时间、举办技术讲座、教授课程、编写文档和审查代码。
+
+### Office Hours 固定时间
 Sometimes it’s really important to have a human to talk to, and in those instances, office hours can be a good solution. Office hours are a regularly scheduled (typically weekly) event during which one or more people make themselves available to answer questions about a particular topic. Office hours are almost never the first choice for knowledge sharing: if you have an urgent question, it can be painful to wait for the next session for an answer; and if you’re hosting office hours, they take up time and need to be regularly promoted. That said, they do provide a way for people to talk to an expert in person. This is particularly useful if the problem is still ambiguous enough that the engineer doesn’t yet know what questions to ask (such as when they’re just starting to design a new service) or whether the problem is about something so specialized that there just isn’t documentation on it.
-### Tech Talks and Classes
+
+有时与人交谈非常重要，在这些情况下，固定时间是一个很好的解决方案。固定时间是一个定期安排的活动（通常是每周一次），在此期间，一个或多个人可以回答关于某个特定主题的问题。固定时间几乎从来不是知识共享的首选：如果你有一个紧急的问题，等待下一次会议的答案可能会很痛苦；如果你主持固定时间，它们会占用时间，需要定期宣传。也就是说，它们确实为人们提供了一种与专家当面交谈的方式。如果问题还很模糊，工程师还不知道该问什么问题（比如他们刚开始设计一个新的服务），或者问题是关于一个非常专业的东西，以至于没有相关的文档，那么这就特别有用。
+
+### Tech Talks and Classes 技术讲座和课程
 Google has a robust culture of both internal and external5 tech talks and classes. Our engEDU (Engineering Education) team focuses on providing Computer Science education to many audiences, ranging from Google engineers to students around the world. At a more grassroots level, our g2g (Googler2Googler) program lets Googlers sign up to give or attend talks and classes from fellow Googlers.6 The program is wildly successful, with thousands of participating Googlers teaching topics from the technical (e.g., “Understanding Vectorization in Modern CPUs”) to the just-for-fun (e.g., “Beginner Swing Dance”).
+
+谷歌拥有强大的内部和外部5技术讲座和课程的文化。我们的engEDU（工程教育）团队专注于为许多受众提供计算机科学教育，包括谷歌工程师和世界各地的学生。在更基层的层面上，我们的g2g（Googler2Googler）计划让Googlers报名参加，以举办或参加Googlers同伴的讲座和课程。6 该计划非常成功，有数千名Googlers参与，教授的主题从技术（如 "了解现代CPU的矢量化"）到只是为了好玩（如 "初级摇摆舞"）。
+
 Tech talks typically consist of a speaker presenting directly to an audience. Classes, on the other hand, can have a lecture component but often center on in-class exercises and therefore require more active participation from attendees. As a result, instructor-led classes are typically more demanding and expensive to create and maintain than tech talks and are reserved for the most important or difficult topics. That said, after a class has been created, it can be scaled relatively easily because many instructors can teach a class from the same course materials. We’ve found that classes tend to work best when the following circumstances exist:
 •	The topic is complicated enough that it’s a frequent source of misunderstanding. Classes take a lot of work to create, so they should be developed only when they’re addressing specific needs.
 •	The topic is relatively stable. Updating class materials is a lot of work, so if the subject is rapidly evolving, other forms of sharing knowledge will have a better bang for the buck.
 •	The topic benefits from having teachers available to answer questions and provide personalized help. If students can easily learn without directed help, self- serve mediums like documentation or recordings are more efficient. A number of introductory classes at Google also have self-study versions.
 •	There is enough demand to offer the class regularly. Otherwise, potential learners will get the information they need in other ways rather than waiting for the class. At Google, this is particularly a problem for small, geographically remote offices.
 
+技术讲座通常由演讲者直接向听众介绍。另一方面，课堂可以有讲座的部分，但往往以课堂练习为中心，因此需要与会者更积极地参与。因此，与技术讲座相比，教师授课的课程在创建和维护方面通常要求更高、成本也更高，而且只保留给最重要或最难的主题。也就是说，在一个课程创建之后，它的规模可以相对容易地扩大，因为许多教员可以用同样的课程材料来教课。我们发现，当存在以下情况时，课程往往效果最好。
+- 主题足够复杂，以至于经常出现误解。课程的创建需要大量的工作，因此只有在满足特定需求时才能开发。
+- 该主题相对稳定。更新课堂材料是一项大量的工作，所以如果该主题快速发展，其他形式的知识共享将有更好的回报。
+- 该主题得益于有教师回答问题和提供个性化的帮助。如果学生可以在没有指导帮助的情况下轻松学习，那么像文档或录音这样的自我服务媒介就会更有效率。谷歌的一些介绍性课程也有自学版本。
+- 有足够的需求定期提供课程。否则，潜在的学习者会通过其他方式获得他们需要的信息，而不是等待课程。在谷歌，这对于地理位置偏远的小型办公室来说尤其是一个问题。
+
 
 ```
 5	https://talksat.withgoogle.com and https://www.youtube.com/GoogleTechTalks, to name a few.
 6	The g2g program is detailed in: Laszlo Bock, Work Rules!: Insights from Inside Google That Will Transform How You Live and Lead (New York: Twelve Books, 2015). It includes descriptions of different aspects of the program as well as how to evaluate impact and recommendations for what to focus on when setting up similar programs.
+g2g程序详见。Laszlo Bock, Work Rules! 来自谷歌内部的洞察力，将改变你的生活和领导方式（纽约：十二书局，2015年）。该书包括对该计划不同方面的描述，以及如何评估影响，并就设立类似计划时应关注的内容提出建议。
 ```
 
-### Documentation
+### Documentation 文档
 Documentation is written knowledge whose primary goal is to help its readers learn something. Not all written knowledge is necessarily documentation, although it can be useful as a paper trail. For example, it’s possible to find an answer to a problem in a mailing list thread, but the primary goal of the original question on the thread was to seek answers, and only secondarily to document the discussion for others.
+
+文档是书面知识，其主要目的是帮助读者学习一些东西。并非所有的书面知识都一定是文档，尽管它可以用作书面记录。例如，有可能在一个邮件列表线索中找到一个问题的答案，但线索上的原始问题的主要目标是寻求答案，其次才是为其他人记录讨论情况。
 
 In this section, we focus on spotting opportunities for contributing to and creating formal documentation, from small things like fixing a typo to larger efforts such as documenting tribal knowledge.
 
-#### Updating documentation
+在这一节中，我们着重于发现为正式文件做出贡献的机会，小到修正一个错别字，大到记录内部知识等。
+
+#### Updating documentation 更新文档
 The first time you learn something is the best time to see ways that the existing documentation and training materials can be improved. By the time you’ve absorbed and understood a new process or system, you might have forgotten what was difficult or what simple steps were missing from the “Getting Started” documentation. At this stage, if you find a mistake or omission in the documentation, fix it! Leave the campground cleaner than you found it,7 and try to update the documents yourself, even when that documentation is owned by a different part of the organization.
+
+你第一次学习某样东西的时候，最好是看看如何改进现有的文档和培训材料。当你吸收并理解了一个新的流程或系统时，你可能已经忘记了 "入门 "文档中的难点或缺少哪些简单的步骤文档。在这个阶段，如果你发现文件中的错误或遗漏，就把它改正过来! 让营地比你发现的时候更干净，7并尝试自己更新文件，即使文档属于组织的其他部门。
+
 At Google, engineers feel empowered to update documentation regardless of who owns it—and we often do—even if the fix is as small as correcting a typo. This level of community upkeep increased notably with the introduction of g3doc,8 which made it much easier for Googlers to find a documentation owner to review their suggestion. It also leaves an auditable trail of change history no different than that for code.
-#### Creating documentation
+
+在谷歌，工程师们觉得无论文档的所有者是谁，都有权更新文档——我们经常这样做——即使修复的范围很小，比如纠正一个拼写错误。这种社区维护的水平随着g3doc的引入而明显提高，这使得Googlers更容易找到一个文档的所有者来审查他们的建议。这也让可审核的变更历史记录与代码的变更历史记录相同。
+
+#### Creating documentation 创建文档
 As your proficiency grows, write your own documentation and update existing docs. For example, if you set up a new development flow, document the steps. You can then make it easier for others to follow in your path by pointing them to your document. Even better, make it easier for people to find the document themselves. Any sufficiently undiscoverable or unsearchable documentation might as well not exist. This is another area in which g3doc shines because the documentation is predictably located right next to the source code, as opposed to off in an (unfindable) document or webpage somewhere.
+
+随着你的熟练程度的提高，编写你自己的文档并更新现有的文档。例如，如果你建立了一个新的开发流程，就把这些步骤记录下来。然后，你可以让别人更容易沿着你的道路走下去，把他们引导到你的文档。甚至更好的是，让人们自己更容易找到这个文件。任何足以让人无法发现或无法搜索的文件都可能不存在。这是g3doc大放异彩的另一个领域，因为文档可预测地位于源代码旁边，而不是在某个（无法找到的）文档或网页上。
+
 Finally, make sure there’s a mechanism for feedback. If there’s no easy and direct way for readers to indicate that documentation is outdated or inaccurate, they are likely not to bother telling anyone, and the next newcomer will come across the same problem. People are more willing to contribute changes if they feel that someone will actually notice and consider their suggestions. At Google, you can file a documentation bug directly from the document itself.
+
+最后，确保有一个反馈的机制。如果没有简单直接的方法让读者指出文档过时或不准确，他们很可能懒得告诉别人，而下一个新来的人也会遇到同样的问题。如果人们觉得有人会真正注意到并考虑他们的建议，他们就会更愿意做出改变。在谷歌，你可以直接从文档本身提交一个文档错误。
+
 In addition, Googlers can easily leave comments on g3doc pages. Other Googlers can see and respond to these comments and, because leaving a comment automatically files a bug for the documentation owner, the reader doesn’t need to figure out who to contact.
-Promoting documentation
+
+此外，Googlers可以轻松地在g3doc页面上留下评论。其他Googlers可以看到并回复这些评论，而且，由于留下评论会自动为文档拥有者归档一个错误，读者不需要弄清楚该与谁联系。
+
+####  Promoting documentation  推广文档
 Traditionally, encouraging engineers to document their work can be difficult. Writing documentation takes time and effort that could be spent on coding, and the benefits that result from that work are not immediate and are mostly reaped by others. Asymmetrical trade-offs like these are good for the organization as a whole given that many people can benefit from the time investment of a few, but without good incentives, it can be challenging to encourage such behavior. We discuss some of these structural incentives in the section “Incentives and recognition” on page 57.
+
+传统上，鼓励工程师记录他们的工作可能是困难的。编写文档需要消耗编码的时间和精力，而且这些工作所带来的好处并不直接，大部分是由其他人获益的。鉴于许多人可以从少数人的时间中获益，像这样的不对称权衡对整个组织来说是好的，但如果没有好的激励措施，鼓励这样的行为是很有挑战性的。我们在第57页的 "激励和认可 "一节中讨论了其中的一些结构性激励。
+
 However, a document author can often directly benefit from writing documentation. Suppose that team members always ask you for help debugging certain kinds of production failures. Documenting your procedures requires an upfront investment of time, but after that work is done, you can save time in the future by pointing team members to the documentation and providing hands-on help only when needed.
+
+然而，文档作者往往可以直接从编写文档中受益。假设团队成员总是向你寻求帮助，以调试某些种类的生产故障。记录你的程序需要前期的时间投入，但在这项工作完成后，你可以在未来节省时间，指点团队成员去看文档，只在需要时提供动手帮助。
+
 Writing documentation also helps your team and organization scale. First, the information in the documentation becomes canonicalized as a reference: team members can refer to the shared document and even update it themselves. Second, the canonicalization may spread outside the team. Perhaps some parts of the documentation are not unique to the team’s configuration and become useful for other teams looking to resolve similar problems.
 
-
+编写文档也有助于你的团队和组织的扩展。首先，文档中的信息成为规范化的参考：团队成员可以参考共享的文档，甚至自己更新它。其次，规范化可能扩散到团队之外。也许文档中的某些部分对团队的配置来说并不独特，对其他想要解决类似问题的团队来说变得有用。
 
 ```
 7	See “The Boy Scout Rule” and Kevlin Henney, 97 Things Every Programmer Should Know (Boston: O’Reilly, 2010).
 8	g3doc stands for “google3 documentation.” google3 is the name of the current incarnation of Google’s monolithic source repository.
+g3doc是 "google3文档 "的缩写。google3是谷歌单仓库源码库的当前化身的名称。
 ```
 
-### Code
+### Code 代码
 At a meta level, code is knowledge, so the very act of writing code can be considered a form of knowledge transcription. Although knowledge sharing might not be a direct intent of production code, it is often an emergent side effect, which can be facilitated by code readability and clarity.
+在元层面上，代码就是知识，所以写代码的行为本身可以被认为是一种知识的转录。虽然知识共享可能不是生产代码的直接目的，但它往往是一个副产品，它可以通过代码的可读性和清晰性来促进。
+
 Code documentation is one way to share knowledge; clear documentation not only benefits consumers of the library, but also future maintainers. Similarly, implementation comments transmit knowledge across time: you’re writing these comments expressly for the sake of future readers (including Future You!). In terms of trade- offs, code comments are subject to the same downsides as general documentation: they need to be actively maintained or they can quickly become out of date, as anyone who has ever read a comment that directly contradicts the code can attest.
+
+代码文档是分享知识的一种方式；清晰的文档不仅有利于库的使用者，而且也有利于后继的维护者。同样地，实现注释也能跨时空传播知识：你写这些注释是为了未来的读者（包括未来的你！）。就权衡利弊而言，代码注释和一般的文档一样有缺点：它们需要积极维护，否则很快就会过时，任何读过与代码直接矛盾的注释的人都可以证明这一点。
+
 Code reviews (see Chapter 9) are often a learning opportunity for both author(s) and reviewer(s). For example, a reviewer’s suggestion might introduce the author to a new testing pattern, or a reviewer might learn of a new library by seeing the author use it in their code. Google standardizes mentoring through code review with the readability process, as detailed in the case study at the end of this chapter.
-## Scaling Your Organization’s Knowledge
+
+代码审查（见第9章）对作者和审查者来说都是一个学习机会。例如，审查者的建议可能会给作者带来新的测试模式，或者审查者可能通过看到作者在他们的代码中使用一个新的库来了解它。谷歌通过代码审查的可读性过程来规范指导，在本章末尾的案例研究中详细介绍了这一点。
+
+## Scaling Your Organization’s Knowledge 扩展组织的知识
 Ensuring that expertise is appropriately shared across the organization becomes more difficult as the organization grows. Some things, like culture, are important at every stage of growth, whereas others, like establishing canonical sources of information, might be more beneficial for more mature organizations.
 ### Cultivating a Knowledge-Sharing Culture
 Organizational culture is the squishy human thing that many companies treat as an afterthought. But at Google, we believe that focusing on the culture and environment first9 results in better outcomes than focusing on only the output—such as the code— of that environment.
