@@ -191,35 +191,61 @@ These antipatterns can emerge unintentionally: someone might be trying to be hel
 	小小的偏见表达（种族主义、年龄歧视、恐同症），会使个人感到不受欢迎、不被尊重或不安全。
 
 
-## Growing Your Knowledge
+## Growing Your Knowledge 增长你的知识
 
 Knowledge sharing starts with yourself. It is important to recognize that you always have something to learn. The following guidelines allow you to augment your own personal knowledge.
 
-### Ask Questions
+知识共享从自己开始。重要的是要认识到，你总是有东西要学。下面的准则可以让你增加自己的个人知识。
+
+### Ask Questions 提问
 
 If you take away only a single thing from this chapter, it is this: always be learning; always be asking questions.
+如果你从这一章中只带走一件事，那就是：永远学习；保持好奇。
 
 We tell Nooglers that ramping up can take around six months. This extended period is necessary to ramp up on Google’s large, complex infrastructure, but it also reinforces the idea that learning is an ongoing, iterative process. One of the biggest mistakes that beginners make is not to ask for help when they’re stuck. You might be tempted to struggle through it alone or feel fearful that your questions are “too simple.” “I just need to try harder before I ask anyone for help,” you think. Don’t fall into this trap! Your coworkers are often the best source of information: leverage this valuable resource.
 
+我们告诉Nooglers，升级可能需要6个月左右。这个时间的延长对于在谷歌庞大而复杂的基础设施上的提升是必要的，但它也强化了学习是一个持续、迭代的过程的理念。初学者犯的最大错误之一是在遇到困难时不寻求帮助。你可能会想独自挣扎一下，或者感到害怕你的问题 "太简单了"。"你想："我只是需要在向别人寻求帮助之前更努力地一下。不要落入这个陷阱! 你的同事往往是最好的信息来源：利用这一宝贵资源。
+
 There is no magical day when you suddenly always know exactly what to do in every situation—there’s always more to learn. Engineers who have been at Google for years still have areas in which they don’t feel like they know what they are doing, and that’s OK! Don’t be afraid to say “I don’t know what that is; could you explain it?” Embrace not knowing things as an area of opportunity rather than one to fear.[3](#_bookmark216)
+
+不会有神奇的一天，你突然总是确切地知道在任何情况下该怎么做——总是有更多的东西需要学。在谷歌工作多年的工程师们仍然有一些领域他们觉得自己不知道自己该怎么做，这没关系！不要害怕说 "我不知道那是什么，你能解释一下吗？"。不要害怕说 "我不知道那是什么，你能解释一下吗？" 把不知道事情当作了解新领域的机会，而不是一个恐惧这个未知领域。
 
 It doesn’t matter whether you’re new to a team or a senior leader: you should always be in an environment in which there’s something to learn. If not, you stagnate (and should find a new environment).
 
+不管你是新加入的团队还是高级领导人：你应该始终处在一个有东西可学的环境中。如果不是这样，你就会停滞不前（应该找一个新的环境）。
+
 It’s especially critical for those in leadership roles to model this behavior: it’s important not to mistakenly equate “seniority” with “knowing everything.” In fact, the more you know, [the more you know you don’t know](https://oreil.ly/VWusg). Openly asking questions[4](#_bookmark217) or expressing gaps in knowledge reinforces that it’s OK for others to do the same.
+
+对于那些担任领导角色的人来说，塑造这种行为尤为重要：重要的是不要错误地将 "资历 "等同于 "无所不知"。事实上，你知道的越多，[你知道你不知道的就越多](https://oreil.ly/VWusg)。公开提问或表达知识差距，强化了其他人也可以这样做。
 
 On the receiving end, patience and kindness when answering questions fosters an environment in which people feel safe looking for help. Making it easier to overcome the initial hesitation to ask a question sets the tone early: reach out to solicit questions, and make it easy for even “trivial” questions to get an answer. Although engineers could probably figure out tribal knowledge on their own, they’re not here to work in a vacuum. Targeted help allows engineers to be productive faster, which in turn makes their entire team more productive.
 
+在接受端，在回答问题时的耐心和善意培养了一种环境，使人们感到安全地寻求帮助。让人们更容易克服最初对提问的犹豫不决，尽早定下基调：主动征求问题，让即使是“琐碎”的问题也能轻松得到答案。虽然工程师们可能会自己摸索出内部知识，但他们不是在真空中工作的。有针对性的帮助可以让工程师更快地提高工作效率，从而使整个团队的工作效率更高。
+
 ```
 3	Impostor syndrome is not uncommon among high achievers, and Googlers are no exception—in fact, a majority of this book’s authors have impostor syndrome. We acknowledge that fear of failure can be difficult for those with impostor syndrome and can reinforce an inclination to avoid branching out.
+3    冒名顶替综合症在成功人士中并不少见，谷歌也不例外。事实上，本书的大多数作者都患有冒名顶替综合症。我们承认，对于冒名顶替综合征患者来说，对失败的恐惧可能很难，并且会强化他们避免分道扬镳的倾向。
 4	See “How to ask good questions.”
 ```
 
-### Understand Context
+### Understand Context 理解背景
 Learning is not just about understanding new things; it also includes developing an understanding of the decisions behind the design and implementation of existing things. Suppose that your team inherits a legacy codebase for a critical piece of infrastructure that has existed for many years. The original authors are long gone, and the code is difficult to understand. It can be tempting to rewrite from scratch rather than spend time learning the existing code. But instead of thinking “I don’t get it” and ending your thoughts there, dive deeper: what questions should you be asking?
+
+学习不仅仅是了解新事物；它还包括对现有事物的设计和实施背后的决策的理解。假设你的团队继承了一个已经存在多年的关键基础设施的遗留代码库。原作者早就不在了，代码也很难理解。与其花时间学习现有的代码，不如从头开始重写，这很有诱惑力。但是，不要想着“我不明白”并在那里结束你的想法，而是深入思考：你应该问什么问题？
+
 Consider the principle of “Chesterson’s fence”: before removing or changing something, first understand why it’s there.
-In the matter of reforming things, as distinct from deforming them, there is one plain and simple principle; a principle which will probably be called a paradox. There exists in such a case a certain institution or law; let us say, for the sake of simplicity, a fence or gate erected across a road. The more modern type of reformer goes gaily up to it and says, “I don’t see the use of this; let us clear it away.” To which the more intelligent type of reformer will do well to answer: “If you don’t see the use of it, I certainly won’t let you clear it away. Go away and think. Then, when you can come back and tell me that you do see the use of it, I may allow you to destroy it.”
+	In the matter of reforming things, as distinct from deforming them, there is one plain and simple principle; a principle which will probably be called a paradox. There exists in such a case a certain institution or law; let us say, for the sake of simplicity, a fence or gate erected across a road. The more modern type of reformer goes gaily up to it and says, “I don’t see the use of this; let us clear it away.” To which the more intelligent type of reformer will do well to answer: “If you don’t see the use of it, I certainly won’t let you clear it away. Go away and think. Then, when you can come back and tell me that you do see the use of it, I may allow you to destroy it.”
+
+考虑一下 "Chesterson's fence "的原则：在移除或改变某些东西之前，首先要了解它为什么存在。
+	在改造事物的问题上，不同于使事物变形，有一个简单明了的原则；这个原则可能会被称为悖论。在这种情况下，存在着某种制度或法律；为了简单起见，让我们说，在一条道路上竖起了栅栏或大门。更现代的改革者兴高采烈地走到它面前，说："我看不出来这有什么用；让我们把它清除掉吧。" 对此，更聪明的改革者会很好地回答。"如果你看不到它的用途，我当然不会让你清除它。走吧，好好想想。然后，当你能回来告诉我你确实看到了它的用途时，我才会允许你销毁它。"
+
 This doesn’t mean that code can’t lack clarity or that existing design patterns can’t be wrong, but engineers have a tendency to reach for “this is bad!” far more quickly than is often warranted, especially for unfamiliar code, languages, or paradigms. Google is not immune to this. Seek out and understand context, especially for decisions that seem unusual. After you’ve understood the context and purpose of the code, consider whether your change still makes sense. If it does, go ahead and make it; if it doesn’t, document your reasoning for future readers.
+
+这并不意味着代码不可能缺乏清晰度，也不意味着现有的设计模式不可能是错误的，但工程师们有一种倾向，即 "这很糟糕！"通常的代码要快得多，特别是对于不熟悉的代码、语言或范例。谷歌也不能幸免。寻找和理解背景，特别是对于那些看起来不寻常的决定。在你理解了代码的背景和目的之后，考虑你的改变是否仍然有意义。如果有意义，就继续做；如果没有意义，就为未来的继任者记录下你的理由。
+
 Many Google style guides explicitly include context to help readers understand the rationale behind the style guidelines instead of just memorizing a list of arbitrary rules. More subtly, understanding the rationale behind a given guideline allows authors to make informed decisions about when the guideline shouldn’t apply or whether the guideline needs updating. See Chapter 8.
+
+许多谷歌风格指南明确地包括背景，以帮助读者理解风格指南背后的理由，而不是仅仅记住一串武断的规则。更微妙的是，理解某条准则背后的理由，可以让作者做出明智的决定，知道该准则何时不适用，或者该准则是否需要更新。见第8章。
 
 ## Scaling Your Questions: Ask the Community
 Getting one-to-one help is high bandwidth but necessarily limited in scale. And as a learner, it can be difficult to remember every detail. Do your future self a favor: when you learn something from a one-to-one discussion, write it down.
