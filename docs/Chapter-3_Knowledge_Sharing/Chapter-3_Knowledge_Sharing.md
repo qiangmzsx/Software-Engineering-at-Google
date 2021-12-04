@@ -326,10 +326,12 @@ Google has a robust culture of both internal and external5 tech talks and classe
 谷歌拥有强大的内部和外部5技术讲座和课程的文化。我们的engEDU（工程教育）团队专注于为许多受众提供计算机科学教育，包括谷歌工程师和世界各地的学生。在更基层的层面上，我们的g2g（Googler2Googler）计划让Googlers报名参加，以举办或参加Googlers同伴的讲座和课程。6 该计划非常成功，有数千名Googlers参与，教授的主题从技术（如 "了解现代CPU的矢量化"）到只是为了好玩（如 "初级摇摆舞"）。
 
 Tech talks typically consist of a speaker presenting directly to an audience. Classes, on the other hand, can have a lecture component but often center on in-class exercises and therefore require more active participation from attendees. As a result, instructor-led classes are typically more demanding and expensive to create and maintain than tech talks and are reserved for the most important or difficult topics. That said, after a class has been created, it can be scaled relatively easily because many instructors can teach a class from the same course materials. We’ve found that classes tend to work best when the following circumstances exist:
-•	The topic is complicated enough that it’s a frequent source of misunderstanding. Classes take a lot of work to create, so they should be developed only when they’re addressing specific needs.
-•	The topic is relatively stable. Updating class materials is a lot of work, so if the subject is rapidly evolving, other forms of sharing knowledge will have a better bang for the buck.
-•	The topic benefits from having teachers available to answer questions and provide personalized help. If students can easily learn without directed help, self- serve mediums like documentation or recordings are more efficient. A number of introductory classes at Google also have self-study versions.
-•	There is enough demand to offer the class regularly. Otherwise, potential learners will get the information they need in other ways rather than waiting for the class. At Google, this is particularly a problem for small, geographically remote offices.
+
+-   The topic is complicated enough that it’s a frequent source of misunderstanding. Classes take a lot of work to create, so they should be developed only when they’re addressing specific needs.
+
+-   The topic is relatively stable. Updating class materials is a lot of work, so if the subject is rapidly evolving, other forms of sharing knowledge will have a better bang for the buck.
+-   The topic benefits from having teachers available to answer questions and provide personalized help. If students can easily learn without directed help, self- serve mediums like documentation or recordings are more efficient. A number of introductory classes at Google also have self-study versions.
+-   There is enough demand to offer the class regularly. Otherwise, potential learners will get the information they need in other ways rather than waiting for the class. At Google, this is particularly a problem for small, geographically remote offices.
 
 技术讲座通常由演讲者直接向听众介绍。另一方面，课堂可以有讲座的部分，但往往以课堂练习为中心，因此需要与会者更积极地参与。因此，与技术讲座相比，教师授课的课程在创建和维护方面通常要求更高、成本也更高，而且只保留给最重要或最难的主题。也就是说，在一个课程创建之后，它的规模可以相对容易地扩大，因为许多教员可以用同样的课程材料来教课。我们发现，当存在以下情况时，课程往往效果最好。
 - 主题足够复杂，以至于经常出现误解。课程的创建需要大量的工作，因此只有在满足特定需求时才能开发。
