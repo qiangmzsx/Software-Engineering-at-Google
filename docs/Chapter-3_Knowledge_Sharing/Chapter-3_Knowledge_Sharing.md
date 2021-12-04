@@ -178,16 +178,16 @@ These antipatterns can emerge unintentionally: someone might be trying to be hel
 ​	Small expressions of bias (racism, ageism, homophobia) that can make individuals feel unwelcome, disrespected, or unsafe.
 
 这些反模式可能是无意中出现的：有人可能是想帮忙，但却意外地居高临下，不受欢迎。我们发现Recurse中心的社会规则在这里很有帮助：  
-*不要假装惊讶（"什么？ 我不相信你不知道堆栈是什么！"）*  
+-  *不要假装惊讶（"什么？ 我不相信你不知道堆栈是什么！"）*  
 	假装惊讶是心理安全的障碍，使团体成员害怕承认自己缺乏知识。  
 
-*不根据事实*
+- *不根据事实*
 	迂腐的纠正，往往是为了哗众取宠而非纠正。
 
-*不开小会*
+- *不开小会*
 	打断现有的讨论，提供意见，而不投入到对话中。
 
-*不说微妙的谎言（"这太容易了，我奶奶都能做！"）*
+- *不说微妙的谎言（"这太容易了，我奶奶都能做！"）*
 	小小的偏见表达（种族主义、年龄歧视、恐同症），会使个人感到不受欢迎、不被尊重或不安全。
 
 
