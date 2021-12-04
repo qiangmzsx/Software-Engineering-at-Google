@@ -88,8 +88,7 @@ Tribal knowledge exists in the gap between what individual team members know and
 
 内部知识存在于单个团队成员所知道的和被记录下来的东西之间的差距。人类专家知道这些没有写下来的东西。如果我们把这些知识记录下来并加以维护，那么现在不仅可以让今天的专家一对一地直接接触到这些知识，而且可以让任何能够找到并查看这些文件的人获得这些知识。
 
-·····
-
+···
 ```
 tribal knowledge：内部知识；是指一种仅存在于某个部落中的信息或知识， 这些知识不为外界所知，没有正式记 录， 只能口口相传。
 ```
@@ -178,13 +177,16 @@ These antipatterns can emerge unintentionally: someone might be trying to be hel
 
 ​	Small expressions of bias (racism, ageism, homophobia) that can make individuals feel unwelcome, disrespected, or unsafe.
 
-这些反模式可能是无意中出现的：有人可能是想帮忙，但却意外地居高临下，不受欢迎。我们发现Recurse中心的社会规则在这里很有帮助。
-*不要假装惊讶（"什么？ 我不相信你不知道堆栈是什么！"）*
-	假装惊讶是心理安全的障碍，使团体成员害怕承认自己缺乏知识。
+这些反模式可能是无意中出现的：有人可能是想帮忙，但却意外地居高临下，不受欢迎。我们发现Recurse中心的社会规则在这里很有帮助：  
+*不要假装惊讶（"什么？ 我不相信你不知道堆栈是什么！"）*  
+	假装惊讶是心理安全的障碍，使团体成员害怕承认自己缺乏知识。  
+
 *不根据事实*
 	迂腐的纠正，往往是为了哗众取宠而非纠正。
+
 *不开小会*
 	打断现有的讨论，提供意见，而不投入到对话中。
+
 *不说微妙的谎言（"这太容易了，我奶奶都能做！"）*
 	小小的偏见表达（种族主义、年龄歧视、恐同症），会使个人感到不受欢迎、不被尊重或不安全。
 
