@@ -182,12 +182,15 @@ These antipatterns can emerge unintentionally: someone might be trying to be hel
 	假装惊讶是心理安全的障碍，使团体成员害怕承认自己缺乏知识。  
 
 - *不根据事实*
+
 	迂腐的纠正，往往是为了哗众取宠而非纠正。
 
 - *不开小会*
+
 	打断现有的讨论，提供意见，而不投入到对话中。
 
 - *不说微妙的谎言（"这太容易了，我奶奶都能做！"）*
+
 	小小的偏见表达（种族主义、年龄歧视、恐同症），会使个人感到不受欢迎、不被尊重或不安全。
 
 
@@ -410,40 +413,102 @@ Code reviews (see Chapter 9) are often a learning opportunity for both author(s)
 
 ## Scaling Your Organization’s Knowledge 扩展组织的知识
 Ensuring that expertise is appropriately shared across the organization becomes more difficult as the organization grows. Some things, like culture, are important at every stage of growth, whereas others, like establishing canonical sources of information, might be more beneficial for more mature organizations.
-### Cultivating a Knowledge-Sharing Culture
-Organizational culture is the squishy human thing that many companies treat as an afterthought. But at Google, we believe that focusing on the culture and environment first9 results in better outcomes than focusing on only the output—such as the code— of that environment.
-Making major organizational shifts is difficult, and countless books have been written on the topic. We don’t pretend to have all the answers, but we can share specific steps Google has taken to create a culture that promotes learning.
-See the book Work Rules!10 for a more in-depth examination of Google’s culture.
 
-### Respect
+随着组织的发展，确保专业知识在整个组织内得到适当的分享变得更加困难。有些事情，比如文化，在每一个成长阶段都很重要，而其他事情，比如建立规范的信息源，可能对更成熟的组织更有利。
+
+### Cultivating a Knowledge-Sharing Culture 培养知识共享文化
+Organizational culture is the squishy human thing that many companies treat as an afterthought. But at Google, we believe that focusing on the culture and environment first9 results in better outcomes than focusing on only the output—such as the code— of that environment.
+
+组织文化是许多公司视为事后诸葛亮的东西。但在谷歌，我们相信首先关注文化和环境会比只关注该环境的产出（如代码）带来更好的结果。
+
+Making major organizational shifts is difficult, and countless books have been written on the topic. We don’t pretend to have all the answers, but we can share specific steps Google has taken to create a culture that promotes learning.
+See the book Work Rules 10 for a more in-depth examination of Google’s culture.
+
+进行重大的组织转变是很难的，关于这个主题的书已经不计其数。我们并不假设拥有所有的答案，但我们可以分享谷歌为创造一种促进学习的文化而采取的具体步骤。
+
+请参阅《工作规则》（Work Rules!: Insights From Inside *Google* That Will TransformLaszlo BockGrand Central Publis）一书，对谷歌的文化进行更深入的研究。
+
+### Respect 尊重
 The bad behavior of just a few individuals can make an entire team or community unwelcoming. In such an environment, novices learn to take their questions elsewhere, and potential new experts stop trying and don’t have room to grow. In the worst cases, the group reduces to its most toxic members. It can be difficult to recover from this state.
+
+仅仅几个人的不良行为就可以使整个团队或社区不受欢迎。在这样的环境中，新手将会把问题转移到其他地方，而潜在的新专家则停止尝试，没有成长的空间。在最糟糕的情况下，这个群体会只剩下有危害的成员。要从这种状态中恢复过来很困难。
+
 Knowledge sharing can and should be done with kindness and respect. In tech, tolerance—or worse, reverence—of the “brilliant jerk” is both pervasive and harmful, but being an expert and being kind are not mutually exclusive. The Leadership section of Google’s software engineering job ladder outlines this clearly:
-Although a measure of technical leadership is expected at higher levels, not all leadership is directed at technical problems. Leaders improve the quality of the people around them, improve the team’s psychological safety, create a culture of teamwork and collaboration, defuse tensions within the team, set an example of Google’s culture and values, and make Google a more vibrant and exciting place to work. Jerks are not good leaders.
+	Although a measure of technical leadership is expected at higher levels, not all leadership is directed at technical problems. Leaders improve the quality of the people around them, improve the team’s psychological safety, create a culture of teamwork and collaboration, defuse tensions within the team, set an example of Google’s culture and values, and make Google a more vibrant and exciting place to work. Jerks are not good leaders.
+
+知识分享可以而且应该以善意和尊重的方式进行。在科技界，对 "聪明的混蛋 "的容忍——还有更糟糕的是，崇尚 "聪明的混蛋"，即是普遍又是危害的，但作为一个专家和善良并不互斥。谷歌软件工程职位阶梯的领导力部分清楚地概述了这一点：
+
+​	虽然在更高的层次上需要衡量技术领导力，但并非所有的领导力都针对技术问题。领导者可以提高周围人的素质，改善团队的心理安全，创造团队合作文化，化解团队内部的紧张情绪，树立谷歌文化和价值观的榜样，让谷歌成为一个更具活力和激情的工作场所。混蛋不是好领导。
+
 This expectation is modeled by senior leadership: Urs Hölzle (Senior Vice President of Technical Infrastructure) and Ben Treynor Sloss (Vice President, Founder of Google SRE) wrote a regularly cited internal document (“No Jerks”) about why Googlers should care about respectful behavior at work and what to do about it.
-### ntives and recognition
+
+这种期望是由高级领导层示范的:Urs Hölzle（技术基础设施高级副总裁）和Ben Treynor Sloss（副总裁，谷歌SRE的创始人）写了一份经常被引用的内部文件（"No Jerks"），说明为什么谷歌人应该关心工作中的尊重行为以及如何做。
+
+### ntives and recognition  奖励和认可
 Good culture must be actively nurtured, and encouraging a culture of knowledge sharing requires a commitment to recognizing and rewarding it at a systemic level. It’s a common mistake for organizations to pay lip service to a set of values while actively rewarding behavior that does not enforce those values. People react to incentives over platitudes, and so it’s important to put your money where your mouth is by putting in place a system of compensation and awards.
+
+良好的文化必须积极培育，而鼓励知识共享的文化需要获得在系统层面上认可和奖励。一个常见的错误是，组织在口头上支持一套价值观的同时，积极奖励那些不执行这些价值观的行为。人们对语言的表扬很难有感觉，因此，通过建立薪酬和奖励制度，把钱放在嘴边就很重要的。
+
 Google uses a variety of recognition mechanisms, from company-wide standards such as performance review and promotion criteria to peer-to-peer awards between Googlers.
+
+谷歌使用了各种认可机制，从全公司的标准，如绩效审查和晋升标准到谷歌员工同行奖励。
+
 Our software engineering ladder, which we use to calibrate rewards like compensation and promotion across the company, encourages engineers to share knowledge by noting these expectations explicitly. At more senior levels, the ladder explicitly calls out the importance of wider influence, and this expectation increases as seniority increases. At the highest levels, examples of leadership include the following:
+
 - Growing future leaders by serving as mentors to junior staff, helping them develop both technically and in their Google role
 - Sustaining and developing the software community at Google via code and design reviews, engineering education and development, and expert guidance to others in the field
 
+我们的软件工程师级别用于校准整个公司的薪酬和晋升等奖励，通过明确记录这些期望，鼓励工程师分享知识。在更高的层次上，级别明确指出了更广泛影响力的重要性，这种期望随着资历的增加而增加。在最高级别，领导力的例子包括以下内容：
+
+-   通过担任初级员工的导师，帮助他们在技术和谷歌角色上发展，培养未来的领导者。
+-   通过代码和设计审查、工程教育和开发以及对该领域其他人的专家指导，维持和发展谷歌的软件社区。
+
 Job ladder expectations are a top-down way to direct a culture, but culture is also formed from the bottom up. At Google, the peer bonus program is one way we embrace the bottom-up culture. Peer bonuses are a monetary award and formal recognition that any Googler can bestow on any other Googler for above-and-beyond work.11 For example, when Ravi sends a peer bonus to Julia for being a top contributor to a mailing list—regularly answering questions that benefit many readers—he is publicly recognizing her knowledge-sharing work and its impact beyond her team. Because peer bonuses are employee driven, not management driven, they can have an important and powerful grassroots effect.
+
+工作阶梯的期望是一种自上而下引导文化的方式，但文化也是自下而上形成的。在谷歌，同行奖金计划是我们拥抱自下而上文化的一种方式。同行奖金是一种货币奖励和正式认可，任何谷歌员工都可以将其授予任何其他谷歌员工，以表彰他们的超越性工作。11 例如，当Ravi将同行奖金发给Julia，因为她是一个邮件列表的顶级贡献者——定期回答问题，使许多读者受益，他公开承认她的知识共享工作及其对团队以外的影响。由于同行奖金是由员工驱动的，而不是由管理层驱动的，因此它们可以产生重要而强大的基层效应。
+
 Similar to peer bonuses are kudos: public acknowledgement of contributions (typically smaller in impact or effort than those meriting a peer bonus) that boost the visibility of peer-to-peer contributions.
+
+与同行奖金相似的是嘉奖：对贡献的公开承认（通常比那些值得同行奖金的影响或努力要小），提高同行贡献的知名度。
+
 When a Googler gives another Googler a peer bonus or kudos, they can choose to copy additional groups or individuals on the award email, boosting recognition of the peer’s work. It’s also common for the recipient’s manager to forward the award email to the team to celebrate one another’s achievements.
+
+当一个Googler给另一个Googler颁发同行奖金或嘉奖时，他们可以选择在奖励邮件上抄送其他组或个人，提高对同行工作的认可。收件人的经理将奖励邮件转发给团队以庆祝彼此的成就也很常见。
+
 A system in which people can formally and easily recognize their peers is a powerful tool for encouraging peers to keep doing the awesome things they do. It’s not the bonus that matters: it’s the peer acknowledgement.
+
+一个人们可以正式和容易地认可他们的同行的系统是一个强大的工具，可以鼓励同行继续做他们所做的了不起的事情。重要的不是奖金：而是同行的认可。
 
 ```
 11 Peer bonuses include a cash award and a certificate as well as being a permanent part of a Googler’s award record in an internal tool called gThanks.
+11  同行奖金包括现金奖励和证书，以及在一个名为gThanks的内部工具中成为Googler奖励记录的永久组成部分。
 ```
 
-### Establishing Canonical Sources of Information
+### Establishing Canonical Sources of Information 建立规范的信息源
 Canonical sources of information are centralized, company-wide corpuses of information that provide a way to standardize and propagate expert knowledge. They work best for information that is relevant to all engineers within the organization, which is otherwise prone to information islands. For example, a guide to setting up a basic developer workflow should be made canonical, whereas a guide for running a local Frobber instance is more relevant just to the engineers working on Frobber.
+
+规范的信息源是集中的、公司范围的信息库，提供了一种标准化和传播专家知识的方法。它们最适用于与组织内所有工程师相关的信息，否则容易出现信息孤岛。例如，建立一个基本的开发者工作流程的指南应该成为规范，而运行一个本地Frobber实例的指南则只与从事Frobber的工程师有关。
+
 Establishing canonical sources of information requires higher investment than maintaining more localized information such as team documentation, but it also has broader benefits. Providing centralized references for the entire organization makes broadly required information easier and more predictable to find and counters problems with information fragmentation that can arise when multiple teams grappling with similar problems produce their own—often conflicting—guides.
+
+建立规范的信息源需要比主要获取更本地化的信息（如团队文档）更高的投资，但也有更多的好处。为整个组织提供集中的参考资料，使广泛需要的信息更容易找到，也更可预测，并解决了信息碎片化的问题，因为这些问题可能会在多个处理类似问题的团队制定自己的指南时出现，这些指南往往相互冲突。
+
 Because canonical information is highly visible and intended to provide a shared understanding at the organizational level, it’s important that the content is actively maintained and vetted by subject matter experts. The more complex a topic, the more critical it is that canonical content has explicit owners. Well-meaning readers might see that something is out of date but lack the expertise to make the significant structural changes needed to fix it, even if tooling makes it easy to suggest updates.
+
+因为规范信息是高度可见的，并且旨在提供组织层面的共同理解，所以内容由主题专家积极维护和审核是很重要的。主题越复杂，规范内容的所有者就越明确。善意的读者可能会看到某些东西已经过时，但缺乏进行修复所需的重大结构更改的专业知识，即使工具可以很容易地提出更新建议。
+
 Creating and maintaining centralized, canonical sources of information is expensive and time consuming, and not all content needs to be shared at an organizational level. When considering how much effort to invest in this resource, consider your audience. Who benefits from this information? You? Your team? Your product area? All engineers?
-#### Developer guides
+
+创建和维护集中的、规范的信息来源是昂贵和耗时的，而且不是所有的内容都需要在组织层面上共享。当考虑在这个资源上投入多少精力时，要考虑你的受众。谁会从这些信息中受益？你吗？你的团队？你的产品领域？所有的工程师？
+
+#### Developer guides  开发者指南 
 Google has a broad and deep set of official guidance for engineers, including style guides, official software engineering best practices,12 guides for code review13 and testing,14 and Tips of the Week (TotW).15
+
+谷歌为工程师提供了一套广泛而深入的官方指导，包括风格指南、官方软件工程最佳实践、代码审查和测试指南以及每周提示（TotW）。
+
 The corpus of information is so large that it’s impractical to expect engineers to read it all end to end, much less be able to absorb so much information at once. Instead, a human expert already familiar with a guideline can send a link to a fellow engineer, who then can read the reference and learn more. The expert saves time by not needing to personally explain a company-wide practice, and the learner now knows that there is a canonical source of trustworthy information that they can access whenever necessary. Such a process scales knowledge because it enables human experts to recognize and solve a specific information need by leveraging common, scalable resources.
+
+信息库是如此之大，以至于期望工程师从头到尾读完它是不切实际的，更不用说能够一次吸收这么多信息了。相反，已经熟悉某项准则的专家可以将链接发送给工程师同事，他们可以阅读参考资料并了解更多信息。专家不需要亲自解释公司范围内的做法，从而节省了时间，而学习者现在知道有一个值得信赖的信息的典型来源，他们可以在需要时访问。这样过程可以扩展知识，因为它使专家能够通过利用共同的、可扩展的资源来重新认识和解决特定的信息需求。
 
 ```
 12	Such as books about software engineering at Google.
@@ -452,38 +517,73 @@ The corpus of information is so large that it’s impractical to expect engineer
 15	Available for multiple languages. Externally available for C++ at https://abseil.io/tips.
 ```
 
-#### go/ links
-go/ links (sometimes referred to as goto/ links) are Google’s internal URL shortener.16 Most Google-internal references have at least one internal go/ link. For example, “go/ spanner” provides information about Spanner, “go/python” is Google’s Python developer guide. The content can live in any repository (g3doc, Google Drive, Google Sites, etc.), but having a go/ link that points to it provides a predictable, memorable way to access it. This yields some nice benefits:
-•	go/ links are so short that it’s easy to share them in conversation (“You should check out go/frobber!”). This is much easier than having to go find a link and then send a message to all interested parties. Having a low-friction way to share references makes it more likely that that knowledge will be shared in the first place.
-•	go/ links provide a permalink to the content, even if the underlying URL changes. When an owner moves content to a different repository (for example, moving content from a Google doc to g3doc), they can simply update the go/ link’s target URL. The go/ link itself remains unchanged.
-go/ links are so ingrained into Google culture that a virtuous cycle has emerged: a Googler looking for information about Frobber will likely first check go/frobber. If the go/ link doesn’t point to the Frobber Developer Guide (as expected), the Googler will generally configure the link themselves. As a result, Googlers can usually guess the correct go/ link on the first try.
-#### Codelabs
+#### go/links
+go/links (sometimes referred to as goto/ links) are Google’s internal URL shortener.16 Most Google-internal references have at least one internal go/ link. For example, “go/ spanner” provides information about Spanner, “go/python” is Google’s Python developer guide. The content can live in any repository (g3doc, Google Drive, Google Sites, etc.), but having a go/ link that points to it provides a predictable, memorable way to access it. This yields some nice benefits:
+•	- go/links are so short that it’s easy to share them in conversation (“You should check out go/frobber!”). This is much easier than having to go find a link and then send a message to all interested parties. Having a low-friction way to share references makes it more likely that that knowledge will be shared in the first place.
+•	- go/links provide a permalink to the content, even if the underlying URL changes. When an owner moves content to a different repository (for example, moving content from a Google doc to g3doc), they can simply update the go/link’s target URL. The go/link itself remains unchanged.
+
+go/links（有时被称为goto/链接）是谷歌的内部URL缩短器。大多数谷歌内部的参考资料至少有一个内部go/links。例如，"go/ spanner "提供关于Spanner的信息，"go/python "是谷歌的Python开发者指南。这些内容可以存在于任何资源库中（g3doc、Google Drive、Google Sites等），但有一个指向它的go/links提供了一种可预测的、可记忆的访问方式。这产生了一些很好的好处：
+
+	- go/links非常短，很容易在谈话中分享它们（"你应该看看go/frobber！"）。这比去找一个链接，然后给所有感兴趣的人发一个消息要容易得多。有一个低成本的方式来分享参考资料，使得这些知识更有可能在第一时间被分享。
+	- go/links提供内容的固定链接，即使底层的URL发生变化。当所有者将内容移到一个不同的资源库时（例如，将内容从Google doc移到g3doc），他们可以简单地更新go/link的目标URL。go/link本身保持不变。
+
+go/links are so ingrained into Google culture that a virtuous cycle has emerged: a Googler looking for information about Frobber will likely first check go/frobber. If the go/ link doesn’t point to the Frobber Developer Guide (as expected), the Googler will generally configure the link themselves. As a result, Googlers can usually guess the correct go/link on the first try.
+
+go/links在谷歌文化中根深蒂固，以至于出现了一个良性循环：一个寻找Frobber信息的Googler可能会首先查看go/frobber。如果go/links没有指向Frobber开发者指南（如预期），Googler一般会自己配置链接。因此，Googler通常可以在第一次尝试时猜出正确的go/links。
+
+#### Codelabs 代码实验室
 Google codelabs are guided, hands-on tutorials that teach engineers new concepts or processes by combining explanations, working best-practice example code, and code exercises.17 A canonical collection of codelabs for technologies broadly used across Google is available at go/codelab. These codelabs go through several rounds of formal review and testing before publication. Codelabs are an interesting halfway point between static documentation and instructor-led classes, and they share the best and worst features of each. Their hands-on nature makes them more engaging than traditional documentation, but engineers can still access them on demand and complete them on their own; but they are expensive to maintain and are not tailored to the learner’s specific needs.
+
+Google codelabs是有指导的实践教程，通过结合解释、工作中的最佳实践示例代码和代码练习，向工程师传授新概念或流程。go/codelab上提供了一个规范的codelabs集合，用于Google广泛使用的技术。这些代码集在发布前经过了几轮正式的审查和测试。Codelabs是介于静态文档和讲师指导课程之间的一个有趣的中间点，它们分享了两者的最佳和最差的特点。它们的实践性使它们比传统的文档更有吸引力，但工程师仍然可以按需访问它们，并自行完成；但它们的维护成本很高，而且不适合学习者的特定需求。
 
 ```
 16	go/ links are unrelated to the Go language.
+go/link与go语言无关。
 17	External codelabs are available at https://codelabs.developers.google.com.
 ```
 
-#### Static analysis
+#### Static analysis 静态分析
 Static analysis tools are a powerful way to share best practices that can be checked programmatically. Every programming language has its own particular static analysis tools, but they have the same general purpose: to alert code authors and reviewers to ways in which code can be improved to follow style and best practices. Some tools go one step further and offer to automatically apply those improvements to the code.
+
+静态分析工具是分享可以通过编程检查最佳实践的强大方式。每种编程语言都有其特定的静态分析工具，它们有相同的共同目的：提醒代码作者和审查者注意可以改进代码的方式，以遵循规范和最佳实践。有些工具更进一步，提供自动将这些改进应用到代码中。
+
 Setting up static analysis tools requires an upfront investment, but as soon as they are in place, they scale efficiently. When a check for a best practice is added to a tool, every engineer using that tool becomes aware of that best practice. This also frees up engineers to teach other things: the time and effort that would have gone into manually teaching the (now automated) best practice can instead be used to teach something else. Static analysis tools augment engineers’ knowledge. They enable an organization to apply more best practices and apply them more consistently than would otherwise be possible.
 
-### Staying in the Loop
+设置静态分析工具需要前期投入，但一旦这些工具到位，它们就会有效地扩展。当最佳实践的检查被添加到一个工具中时，每个使用该工具的工程师都会意识到这是最佳实践。这也使工程师们可以腾出时间来教其他东西：原本用于手动教授（现在是自动的）最佳实践的时间和精力，可以用来教授其他东西。静态分析工具增强了工程师的知识。它们使一个组织能够应用更多的最佳实践，并比其他方式更一致地应用它们。
+
+### Staying in the Loop 保持互动
 Some information is critical to do one’s job, such as knowing how to do a typical development workflow. Other information, such as updates on popular productivity tools, is less critical but still useful. For this type of knowledge, the formality of the information sharing medium depends on the importance of the information being delivered. For example, users expect official documentation to be kept up to date, but typically have no such expectation for newsletter content, which therefore requires less maintenance and upkeep from the owner.
-#### Newsletters
+
+有些信息对于完成工作至关重要，例如知道如何执行典型的开发工作流。其他的信息，比如流行的生产力工具的更新，虽然不那么关键，但仍然有用。对于这种类型的知识，信息共享媒介的正式性取决于所传递信息的重要性。例如，用户希望官方文档保持最新，但通常不希望新闻稿内容保持最新，因此需要所有者进行较少的维护和维护。
+
+#### Newsletters 时事通讯
 Google has a number of company-wide newsletters that are sent to all engineers, including EngNews (engineering news), Ownd (Privacy/Security news), and Google’s Greatest Hits (report of the most interesting outages of the quarter). These are a good way to communicate information that is of interest to engineers but isn’t mission critical. For this type of update, we’ve found that newsletters get better engagement when they are sent less frequently and contain more useful, interesting content. Otherwise, newsletters can be perceived as spam.
+
+谷歌有一些发给所有工程师的公司范围内的新闻简报，包括EngNews（工程新闻），Ownd（隐私/安全新闻），以及谷歌的Greatest Hits（本季度最有趣的故障报告）。这些都是传达工程师感兴趣但并非关键任务的信息的好方法。对于这种类型的更新，我们发现，如果通讯发送的频率较低，并且包含更多有用的、有趣的内容，就会得到更好的参与度。否则，通讯会被认为是垃圾邮件。
+
 Even though most Google newsletters are sent via email, some are more creative in their distribution. Testing on the Toilet (testing tips) and Learning on the Loo (productivity tips) are single-page newsletters posted inside toilet stalls. This unique delivery medium helps the Testing on the Toilet and Learning on the Loo stand out from other newsletters, and all issues are archived online.
 
-#### Communities
+尽管大多数谷歌新闻通讯都是通过电子邮件发送的，但有些新闻通讯的发送方式更有创意。厕所测试（测试提示）和厕所学习（产品活动提示）是张贴在厕所里的单页新闻通讯。这种独特的发送媒介帮助厕所测试和厕所学习从其他新闻通讯中脱颖而出，而且所有期刊都在在线存档。
+
+#### Communities 社区
 Googlers like to form cross-organizational communities around various topics to share knowledge. These open channels make it easier to learn from others outside your immediate circle and avoid information islands and duplication. Google Groups are especially popular: Google has thousands of internal groups with varying levels of formality. Some are dedicated to troubleshooting; others, like the Code Health group, are more for discussion and guidance. Internal Google+ is also popular among Googlers as a source of informal information because people will post interesting technical breakdowns or details about projects they are working on.
 
-## Readability: Standardized Mentorship Through Code Review
+谷歌人喜欢围绕各种主题建立跨组织的社区和分享知识。这些开放的渠道可以让你更容易地向周围的人学习，避免信息孤岛和重复。谷歌群组尤其受欢迎：谷歌有数千个内部团体，形式各异。有些专门用于故障排除；其他人，如代码健康小组，更多的是讨论和指导。内部Google+作为非正式信息来源在谷歌用户中也很受欢迎，因为人们会发布有趣的技术分类或他们正在从事的项目的详细信息。
+
+## Readability: Standardized Mentorship Through Code Review 可读性：通过代码审查实现标准化指导
 At Google, “readability” refers to more than just code readability; it is a standardized, Google-wide mentorship process for disseminating programming language best practices. Readability covers a wide breadth of expertise, including but not limited to language idioms, code structure, API design, appropriate use of common libraries, documentation, and test coverage.
+
+在谷歌，"可读性 "指的不仅仅是代码的可读性；这是一个标准化的、谷歌范围内的指导过程，用于传播编程语言最佳实践。可读性涵盖了广泛的专业知识，包括但不限于语言成语、代码结构、API设计、通用库的正确使用、文档和测试覆盖率。
+
 Readability started as a one-person effort. In Google’s early days, Craig Silverstein (employee ID #3) would sit down in person with every new hire and do a line-by-line “readability review” of their first major code commit. It was a nitpicky review that covered everything from ways the code could be improved to whitespace conventions. This gave Google’s codebase a uniform appearance but, more important, it taught best practices, highlighted what shared infrastructure was available, and showed new hires what it’s like to write code at Google.
+
+可读性最初是一个人的努力。在谷歌早期，Craig Silverstein（员工ID#3）会亲自与每一位新员工坐下来，逐行对他们的第一个主要代码提交进行“可读性审查”。这是一次挑剔的审查，涵盖了从代码改进到空白约定的所有方面。这让谷歌的代码库有了统一的模式，但更重要的是，它教授了最佳实践，强调了什么是可用的共享基础设施，并向新员工展示了在谷歌编写代码的感觉。
+
 Inevitably, Google’s hiring rate grew beyond what one person could keep up with. So many engineers found the process valuable that they volunteered their own time to scale the program. Today, around 20% of Google engineers are participating in the readability process at any given time, as either reviewers or code authors.
 
-### What Is the Readability Process?
+不可避免地，谷歌的招聘速度越来越快，超出了一个人的能力范围。如此多的工程师发现这个过程很有价值，于是他们自愿拿出自己的时间来扩展这个项目。今天，大约有20%的谷歌工程师在任何时候都在参与可读性进程，他们要么是审查员，要么是代码作者。
+
+### What Is the Readability Process?  什么是可读性过程？
 Code review is mandatory at Google. Every changelist (CL)18 requires readability approval, which indicates that someone who has readability certification for that language has approved the CL. Certified authors implicitly provide readability approval of their own CLs; otherwise, one or more qualified reviewers must explicitly give readability approval for the CL. This requirement was added after Google grew to a point where it was no longer possible to enforce that every engineer received code reviews that taught best practices to the desired rigor.
 
 Within Google, having readability certification is commonly referred to as “having readability” for a language. Engineers with readability have demonstrated that they consistently write clear, idiomatic, and maintainable code that exemplifies Google’s best practices and coding style for a given language. They do this by submitting CLs through the readability process, during which a centralized group of readability reviewers review the CLs and give feedback on how much it demonstrates the various areas of mastery. As authors internalize the readability guidelines, they receive fewer and fewer comments on their CLs until they eventually graduate from the process and formally receive readability. Readability brings increased responsibility: engineers with readability are trusted to continue to apply their knowledge to their own code and to act as reviewers for other engineers’ code.
