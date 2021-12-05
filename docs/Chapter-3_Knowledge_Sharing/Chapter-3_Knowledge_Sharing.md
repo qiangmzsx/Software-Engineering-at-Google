@@ -586,39 +586,86 @@ Inevitably, Google’s hiring rate grew beyond what one person could keep up wit
 ### What Is the Readability Process?  什么是可读性过程？
 Code review is mandatory at Google. Every changelist (CL)18 requires readability approval, which indicates that someone who has readability certification for that language has approved the CL. Certified authors implicitly provide readability approval of their own CLs; otherwise, one or more qualified reviewers must explicitly give readability approval for the CL. This requirement was added after Google grew to a point where it was no longer possible to enforce that every engineer received code reviews that taught best practices to the desired rigor.
 
+在谷歌，代码审查是强制性的。每个变更列表（CL）都需要可读性批准，这表明拥有该语言的可读性认证的人已经批准了该CL。经过认证的作者隐含地对他们自己的CL提供可读性批准；否则，一个或多个合格的审查员必须明确地对CL提供可读性批准。这项要求是在谷歌发展到无法强制要求每个工程师接受代码审查，从而将最佳实践传授到所需的严格程度之后添加的。
+
 Within Google, having readability certification is commonly referred to as “having readability” for a language. Engineers with readability have demonstrated that they consistently write clear, idiomatic, and maintainable code that exemplifies Google’s best practices and coding style for a given language. They do this by submitting CLs through the readability process, during which a centralized group of readability reviewers review the CLs and give feedback on how much it demonstrates the various areas of mastery. As authors internalize the readability guidelines, they receive fewer and fewer comments on their CLs until they eventually graduate from the process and formally receive readability. Readability brings increased responsibility: engineers with readability are trusted to continue to apply their knowledge to their own code and to act as reviewers for other engineers’ code.
+
+在谷歌内部，拥有可读性认证通常被称为一门语言的 "可读性"。拥有可读性认证的工程师已经证明，他们始终如一地写出清晰、习惯和可维护的代码，体现了谷歌对特定语言的最佳实践和编码风格。他们通过可读性程序提交CL，在此过程中，一个集中的可读性审查员小组审查CL，并就它在多大程度上展示了各个领域的掌握程度给出反馈。随着作者对可读性准则的内化，他们收到的关于他们的CL的评论越来越少，直到他们最终从这个过程中毕业并正式获得可读性。可读性带来了更多的责任：拥有可读性的工程师被信任，可以继续将他们的知识应用于他们自己的代码，并作为其他工程师的代码的审查者。
+
 Around 1 to 2% of Google engineers are readability reviewers. All reviewers are volunteers, and anyone with readability is welcome to self-nominate to become a readability reviewer. Readability reviewers are held to the highest standards because they are expected not just to have deep language expertise, but also an aptitude for teaching through code review. They are expected to treat readability as first and foremost a mentoring and cooperative process, not a gatekeeping or adversarial one. Readability reviewers and CL authors alike are encouraged to have discussions during the review process. Reviewers provide relevant citations for their comments so that authors can learn about the rationales that went into the style guidelines (“Chesterson’s fence”). If the rationale for any given guideline is unclear, authors should ask for clarification (“ask questions”).
+
+大约有1%到2%的谷歌工程师是可读性审查员。所有的审查员都是志愿者，任何有可读性的人都欢迎自我提名成为可读性审查员。可读性审查员被要求达到最高标准，因为他们不仅要有深厚的语言专业知识，还要有通过代码审查进行教学的能力。他们被期望把可读性首先作为一个指导和合作的过程，而不是一个把关或对抗的过程。我们鼓励可读性审查员和CL作者在审查过程中进行讨论。审查人为他们的评论提供相关的引文，这样作者就可以了解制定文体指南的理由（"切斯特森的篱笆"）。如果任何特定准则的理由不清楚，作者应该要求澄清（"提问"）。
+
 ```
-A changelist is a list of files that make up a change in a version control system. A changelist is synonymous with a changeset.
+18  A changelist is a list of files that make up a change in a version control system. A changelist is synonymous with a changeset.
+18   变更列表是构成版本控制系统中的一个变更的文件列表。变更列表与变更集是同义的。
 ```
 Readability is deliberately a human-driven process that aims to scale knowledge in a standardized yet personalized way. As a complementary blend of written and tribal knowledge, readability combines the advantages of written documentation, which can be accessed with citable references, with the advantages of expert human reviewers, who know which guidelines to cite. Canonical guidelines and language recommendations are comprehensively documented—which is good!—but the corpus of information is so large19 that it can be overwhelming, especially to newcomers.
-### Why Have This Process?
-Code is read far more than it is written, and this effect is magnified at Google’s scale and in our (very large) monorepo.20 Any engineer can look at and learn from the wealth of knowledge that is the code of other teams, and powerful tools like Kythe make it easy to find references throughout the entire codebase (see Chapter 17). An important feature of documented best practices (see Chapter 8) is that they provide consistent standards for all Google code to follow. Readability is both an enforcement and propagation mechanism for these standards.
-One of the primary advantages of the readability program is that it exposes engineers to more than just their own team’s tribal knowledge. To earn readability in a given language, engineers must send CLs through a centralized set of readability reviewers who review code across the entire company. Centralizing the process makes a significant trade-off: the program is limited to scaling linearly rather than sublinearly with organization growth, but it makes it easier to enforce consistency, avoid islands, and avoid (often unintentional) drifting from established norms.
-The value of codebase-wide consistency cannot be overstated: even with tens of thousands of engineers writing code over decades, it ensures that code in a given language will look similar across the corpus. This enables readers to focus on what the code does rather than being distracted by why it looks different than code that they’re used to. Large-scale change authors (see Chapter 22) can more easily make changes across the entire monorepo, crossing the boundaries of thousands of teams. People can change teams and be confident that the way that the new team uses a given language is not drastically different than their previous team.
-```
-As of 2019, just the Google C++ style guide is 40 pages long. The secondary material making up the complete corpus of best practices is many times longer.
-For why Google uses a monorepo, see https://cacm.acm.org/magazines/2016/7/204032-why-google-stores- billions-of-lines-of-code-in-a-single-repository/fulltext. Note also that not all of Google’s code lives within the monorepo; readability as described here applies only to the monorepo because it is a notion of within- repository consistency.
 
+可读性是一个人为驱动的过程，旨在以标准化但个性化的方式扩展知识。作为书面知识和内部知识的互补混合体，可读性结合了书面文件的优势，可以通过可引用的参考文献来获取，也结合了专家审查员的优势，他们知道应该引用哪些指南。典范指南和语言建议被全面地记录下来——这很好！——但信息的语料库非常大，可能会让人不知所措，特别是对新人来说。
+
+### Why Have This Process? 为什么有这个过程？
+Code is read far more than it is written, and this effect is magnified at Google’s scale and in our (very large) monorepo.20 Any engineer can look at and learn from the wealth of knowledge that is the code of other teams, and powerful tools like Kythe make it easy to find references throughout the entire codebase (see Chapter 17). An important feature of documented best practices (see Chapter 8) is that they provide consistent standards for all Google code to follow. Readability is both an enforcement and propagation mechanism for these standards.
+
+代码的阅读量远远大于编写量，这种影响在谷歌的规模和我们（非常大的）monorepo中被放大。任何工程师都可以查看并学习其他团队的代码的丰富知识，而像Kythe这样强大的工具使得在整个代码库中寻找参考资料变得很容易（见第17章）。文档化最佳实践的一个重要特征（见第8章）是，它们为所有谷歌代码提供了一致的标准。可读性是这些标准的可强制执行和传播的基础。
+
+One of the primary advantages of the readability program is that it exposes engineers to more than just their own team’s tribal knowledge. To earn readability in a given language, engineers must send CLs through a centralized set of readability reviewers who review code across the entire company. Centralizing the process makes a significant trade-off: the program is limited to scaling linearly rather than sublinearly with organization growth, but it makes it easier to enforce consistency, avoid islands, and avoid (often unintentional) drifting from established norms.
+
+可读性项目的主要优势之一是，它让工程师接触到的不仅仅是他们自己团队的内部知识。为了获得特定语言的可读性，工程师们必须将 CLs 发送给一组集中的可读性审查员，他们审查整个公司的代码。将流程集中化会带来显著的折衷：该计划仅限于随着组织的发展而线性扩展，而不是次线性扩展，但它更容易实现一致性，避免孤岛，并避免（通常是无意的）偏离既定规范。
+
+The value of codebase-wide consistency cannot be overstated: even with tens of thousands of engineers writing code over decades, it ensures that code in a given language will look similar across the corpus. This enables readers to focus on what the code does rather than being distracted by why it looks different than code that they’re used to. Large-scale change authors (see Chapter 22) can more easily make changes across the entire monorepo, crossing the boundaries of thousands of teams. People can change teams and be confident that the way that the new team uses a given language is not drastically different than their previous team.
+
+整个代码库的一致性的价值怎么强调都不为过：即使数十年来有数万名工程师编写代码，它也确保了一门语言中的代码在整个语法库中看起来都是相似的。这使读者能够专注于代码的作用，而不是被为什么它看起来与他们习惯的代码不同而分散注意力。大规模的变更作者（见第22章）可以更容易地在整个语法库中进行变更，跨越成千上万个团队的界限。人们可以更换团队，并确信新的团队使用特定语言的方式不会与他们以前的团队有很大的不同。
+
+```
+19  As of 2019, just the Google C++ style guide is 40 pages long. The secondary material making up the complete corpus of best practices is many times longer.
+19  截至2019，谷歌C++风格指南只有40页长。构成完整的最佳实践语法库的次要材料要长很多倍。
+20  For why Google uses a monorepo, see https://cacm.acm.org/magazines/2016/7/204032-why-google-stores- billions-of-lines-of-code-in-a-single-repository/fulltext. Note also that not all of Google’s code lives within the monorepo; readability as described here applies only to the monorepo because it is a notion of within- repository consistency.
+20  有关谷歌使用monorepo的原因，请参阅https://cacm.acm.org/magazines/2016/7/204032-why-google-stores-billions-of-lines-of-code-in-a-single-repository/fulltext. 还要注意的是，并非谷歌的所有代码都存在于monorepo中；此处描述的可读性仅适用于monorepo，因为它是存储库内一致性的概念。
 ```
 These benefits come with some costs: readability is a heavyweight process compared to other mediums like documentation and classes because it is mandatory and enforced by Google tooling (see Chapter 19). These costs are nontrivial and include the following:
 	- Increased friction for teams that do not have any team members with readability, because they need to find reviewers from outside their team to give readability approval on CLs.
 	- Potential for additional rounds of code review for authors who need readability review.
 	- Scaling disadvantages of being a human-driven process. Limited to scaling linearly to organization growth because it depends on human reviewers doing specialized code reviews.
+
+这些好处伴随着一些成本：与文档和类等其他媒介相比，可读性是一个重量级的过程，因为它是强制性的，并由谷歌工具化强制执行（见第19章）。这些成本是不小的，包括以下几点。
+	- 对于那些没有任何团队成员具备可读性的团队来说，增加了冲突，因为他们需要从团队之外寻找审查员来对CL进行可读性审批。
+	- 对于需要可读性审查的作者来说，有可能需要额外的几轮代码审查。
+	- 作为一个由人驱动的过程，其扩展性成为瓶颈。由于它依赖于人类审查员进行专门的代码审查，所以对组织的增长具有线性扩展的限制。
+
 The question, then, is whether the benefits outweigh the costs. There’s also the factor of time: the full effect of the benefits versus the costs are not on the same timescale. The program makes a deliberate trade-off of increased short-term code-review latency and upfront costs for the long-term payoffs of higher-quality code, repository-wide code consistency, and increased engineer expertise. The longer timescale of the benefits comes with the expectation that code is written with a potential lifetime of years, if not decades.21
+
+那么，问题是收益是否大于成本。还有一个时间因素：收益与成本的全部效果并不在同一时间维度上。该计划对增加的短期代码审查延迟和前期成本进行了慎重的权衡，以获得更高质量代码、存储库范围内的代码一致性和增加的工程师专业知识的长期回报。效益的时间尺度较长，期望编写的代码有几年甚至几十年的潜在寿命。
+
 As with most—or perhaps all—engineering processes, there’s always room for improvement. Some of the costs can be mitigated with tooling. A number of readability comments address issues that could be detected statically and commented on automatically by static analysis tooling. As we continue to invest in static analysis, readability reviewers can increasingly focus on higher-order areas, like whether a particular block of code is understandable by outside readers who are not intimately familiar with the codebase instead of automatable detections like whether a line has trailing whitespace.
+
+
+与大多数——或许是所有的工程过程一样，总是有改进的余地。一些成本可以通过工具来降低。许多可读性注释解决了静态检测和静态分析工具自动注释的问题。随着我们对静态分析的不断投资，可读性审查员可以越来越多地关注更高层次的领域，比如某个特定的代码块是否可以被不熟悉代码库的外部读者所理解，而外部读者不熟悉代码库，而不是自动检测，例如行是否有尾随空白。
+
 But aspirations aren’t enough. Readability is a controversial program: some engineers complain that it’s an unnecessary bureaucratic hurdle and a poor use of engineer time. Are readability’s trade-offs worthwhile? For the answer, we turned to our trusty Engineering Productivity Research (EPR) team.
+
+但光有愿望是不够的。可读性是一个有争议的项目：一些工程师抱怨说这是一个不必要的官僚主义，是对工程师时间的浪费。可读性的权衡是值得的吗？为了找到答案，我们求助于我们可信赖的工程生产力研究（EPR）团队。
 
 ```
 21  For this reason, code that is known to have a short time span is exempt from readability requirements. Examples include the experimental/ directory (explicitly designated for experimental code and cannot push to production) and the Area 120 program, a workshop for Google’s experimental products.
+21  因此，已知时间跨度较短的代码不受可读性要求的约束。考试示例包括实验/目录（明确指定为实验代码，不能推动生产）和Area 120计划，这是谷歌实验产品的研讨会。
 ```
 The EPR team performed in-depth studies of readability, including but not limited to whether people were hindered by the process, learned anything, or changed their behavior after graduating. These studies showed that readability has a net positive impact on engineering velocity. CLs by authors with readability take statistically significantly less time to review and submit than CLs by authors who do not have readability.22 Self-reported engineer satisfaction with their code quality—lacking more objective measures for code quality—is higher among engineers who have readability versus those who do not. A significant majority of engineers who complete the program report satisfaction with the process and find it worthwhile. They report learning from reviewers and changing their own behavior to avoid readability issues when writing and reviewing code.
+
+EPR团队对可读性进行了深入的研究，包括但不限于人们是否受到这个过程的阻碍，是否学到了什么，或者毕业后是否改变了他们的行为。这些研究表明，可读性对工程速度有正向的积极影响。具有可读性的作者的CL比不具有可读性的作者的CL在统计上要少花时间。具有可读性的工程师与不具有可读性的工程师相比，自我报告的对其代码质量的满意度——缺乏对代码质量更客观的衡量标准——更高。绝大多数完成该计划的工程师对这一过程表示满意，并认为这是值得的。他们报告说从审查员那里学到了东西，并改变了自己的行为，以避免在编写和评审代码时出现可读性问题。
+
 Google has a very strong culture of code review, and readability is a natural extension of that culture. Readability grew from the passion of a single engineer to a formal program of human experts mentoring all Google engineers. It evolved and changed with Google’s growth, and it will continue to evolve as Google’s needs change.
-Conclusion
+
+谷歌有着非常浓厚的代码审查文化，可读性是这种文化的延伸。可读性从一个工程师的热情发展到一个由专家组指导所有谷歌工程师的正式项目。它随着谷歌的成长而不断发展变化，并将随着谷歌需求的变化而继续发展
+
+## Conclusion 结论
 Knowledge is in some ways the most important (though intangible) capital of a software engineering organization, and sharing of that knowledge is crucial for making an organization resilient and redundant in the face of change. A culture that promotes open and honest knowledge sharing distributes that knowledge efficiently across the organization and allows that organization to scale over time. In most cases, investments into easier knowledge sharing reap manyfold dividends over the life of a company.
+
+在某些方面，知识是软件工程组织最重要的（尽管是无形的）资产，而知识的共享对于使组织在面对变化时具有弹性和冗余至关重要。一种促进开放和诚实的知识共享的文化可以在整个组织内有效地分配这些知识，并使该组织能够随着时间的推移而扩展。在大多数情况下，对更容易的知识共享的投入会在一个公司的生命周期中获得许多倍的回报。
 
 ```
 22  This includes controlling for a variety of factors, including tenure at Google and the fact that CLs for authors who do not have readability typically need additional rounds of review compared to authors who already have readability.
+22  这包括控制各种因素，包括在谷歌的任职期限，以及与已经具备可读性的作者相比，没有可读性的作者的CLs通常需要额外的审查。
 ```
 
 ## TL;DRs
@@ -628,7 +675,11 @@ Knowledge is in some ways the most important (though intangible) capital of a so
 - At a systemic level, encourage and reward those who take time to teach and broaden their expertise beyond just themselves, their team, or their organization.
 - There is no silver bullet: empowering a knowledge-sharing culture requires a combination of multiple strategies, and the exact mix that works best for your organization will likely change over time.
 
-
+- 心理安全是培养知识共享环境的基础。
+- 从小事做起：问问题，把事情写下来。
+- 让人们可以很容易地从专家和有记录的参考资料中获得他们需要的帮助。
+- 在系统的层面上，鼓励和奖励那些花时间去教授和扩大他们的专业知识，而不仅仅是他们自己、他们的团队或他们的组织。
+- 没有什么灵丹妙药：增强知识共享文化需要多种策略的结合，而最适合你的组织的确切组合可能会随着时间的推移而改变。
 
 
 
