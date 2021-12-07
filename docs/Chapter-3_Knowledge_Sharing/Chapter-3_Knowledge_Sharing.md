@@ -624,14 +624,15 @@ The value of codebase-wide consistency cannot be overstated: even with tens of t
 20  有关谷歌使用monorepo的原因，请参阅https://cacm.acm.org/magazines/2016/7/204032-why-google-stores-billions-of-lines-of-code-in-a-single-repository/fulltext. 还要注意的是，并非谷歌的所有代码都存在于monorepo中；此处描述的可读性仅适用于monorepo，因为它是存储库内一致性的概念。
 ```
 These benefits come with some costs: readability is a heavyweight process compared to other mediums like documentation and classes because it is mandatory and enforced by Google tooling (see Chapter 19). These costs are nontrivial and include the following:
-	- Increased friction for teams that do not have any team members with readability, because they need to find reviewers from outside their team to give readability approval on CLs.
-	- Potential for additional rounds of code review for authors who need readability review.
-	- Scaling disadvantages of being a human-driven process. Limited to scaling linearly to organization growth because it depends on human reviewers doing specialized code reviews.
+- Increased friction for teams that do not have any team members with readability, because they need to find reviewers from outside their team to give readability approval on CLs.
+- Potential for additional rounds of code review for authors who need readability review.
+- Scaling disadvantages of being a human-driven process. Limited to scaling linearly to organization growth because it depends on human reviewers doing specialized code reviews.
 
 这些好处伴随着一些成本：与文档和类等其他媒介相比，可读性是一个重量级的过程，因为它是强制性的，并由谷歌工具化强制执行（见第19章）。这些成本是不小的，包括以下几点。
-	- 对于那些没有任何团队成员具备可读性的团队来说，增加了冲突，因为他们需要从团队之外寻找审查员来对CL进行可读性审批。
-	- 对于需要可读性审查的作者来说，有可能需要额外的几轮代码审查。
-	- 作为一个由人驱动的过程，其扩展性成为瓶颈。由于它依赖于人类审查员进行专门的代码审查，所以对组织的增长具有线性扩展的限制。
+
+- 对于那些没有任何团队成员具备可读性的团队来说，增加了冲突，因为他们需要从团队之外寻找审查员来对CL进行可读性审批。
+- 对于需要可读性审查的作者来说，有可能需要额外的几轮代码审查。
+- 作为一个由人驱动的过程，其扩展性成为瓶颈。由于它依赖于人类审查员进行专门的代码审查，所以对组织的增长具有线性扩展的限制。
 
 The question, then, is whether the benefits outweigh the costs. There’s also the factor of time: the full effect of the benefits versus the costs are not on the same timescale. The program makes a deliberate trade-off of increased short-term code-review latency and upfront costs for the long-term payoffs of higher-quality code, repository-wide code consistency, and increased engineer expertise. The longer timescale of the benefits comes with the expectation that code is written with a potential lifetime of years, if not decades.21
 
@@ -656,7 +657,7 @@ EPR团队对可读性进行了深入的研究，包括但不限于人们是否�
 
 Google has a very strong culture of code review, and readability is a natural extension of that culture. Readability grew from the passion of a single engineer to a formal program of human experts mentoring all Google engineers. It evolved and changed with Google’s growth, and it will continue to evolve as Google’s needs change.
 
-谷歌有着非常浓厚的代码审查文化，可读性是这种文化的延伸。可读性从一个工程师的热情发展到一个由专家组指导所有谷歌工程师的正式项目。它随着谷歌的成长而不断发展变化，并将随着谷歌需求的变化而继续发展
+谷歌有着非常浓厚的代码审查文化，可读性是这种文化的延伸。可读性从一个工程师的热情发展到一个由专家组指导所有谷歌工程师的正式项目。它随着谷歌的成长而不断发展变化，并将随着谷歌需求的变化而继续发展。
 
 ## Conclusion 结论
 Knowledge is in some ways the most important (though intangible) capital of a software engineering organization, and sharing of that knowledge is crucial for making an organization resilient and redundant in the face of change. A culture that promotes open and honest knowledge sharing distributes that knowledge efficiently across the organization and allows that organization to scale over time. In most cases, investments into easier knowledge sharing reap manyfold dividends over the life of a company.
