@@ -6,13 +6,29 @@
 			Written by Demma Rodriguez Edited by Riona MacNamara
 
 In earlier chapters, we’ve explored the contrast between programming as the production of code that addresses the problem of the moment, and software engineering as the broader application of code, tools, policies, and processes to a dynamic and ambiguous problem that can span decades or even lifetimes. In this chapter, we’ll discuss the unique responsibilities of an engineer when designing products for a broad base of users. Further, we evaluate how an organization, by embracing diversity, can design systems that work for everyone, and avoid perpetuating harm against our users.
+
+在前几章中，我们已经探讨了编程与软件工程之间的对比，前者是解决当下问题的代码生产，后者则是对代码、工具、政策和流程的更广泛的应用，以解决可能跨越几十年甚至一生的动态和模糊的问题。在本章中，我们将讨论工程师在为众多用户设计产品时的独特责任。此外，我们还将评估一个组织如何通过拥抱多样性来设计适合每个人的系统，并避免对我们的用户造成永久性的伤害。
+
 As new as the field of software engineering is, we’re newer still at understanding the impact it has on underrepresented people and diverse societies. We did not write this chapter because we know all the answers. We do not. In fact, understanding how to engineer products that empower and respect all our users is still something Google is learning to do. We have had many public failures in protecting our most vulnerable users, and so we are writing this chapter because the path forward to more equitable products begins with evaluating our own failures and encouraging growth.
+
+尽管软件工程领域是个全新领域，但我们在了解它对代表性不足的群体和多元化社会的影响方面还比较浅。我们写这一章并不是因为我们知道所有的答案。我们不知道。事实上，了解如何设计出能够赋予所有用户权力并尊重所有用户的产品仍然是谷歌正在学习做的事情。在保护我们最弱势的用户方面，我们有很多公开的失败产品，所以我们写这一章是因为，通往更公平的产品的道路始于评估我们自己的失败和鼓励成长。
+
 We are also writing this chapter because of the increasing imbalance of power between those who make development decisions that impact the world and those who simply must accept and live with those decisions that sometimes disadvantage already marginalized communities globally. It is important to share and reflect on what we’ve learned so far with the next generation of software engineers. It is even more important that we help influence the next generation of engineers to be better than we are today.
 
+我们之所以要写这一章，也是因为在那些做出影响世界的发展的人和那些只能选择接受并忍受这些决定的人之间，力量越来越不平衡，这些决定有时使全球已经处于边缘地位的社会处于不利地位。与下一代软件工程师分享和反思我们迄今所学到的知识是很重要的。更重要的是，我们帮助影响下一代工程师，使他们比我们今天做得更好。
+
 Just picking up this book means that you likely aspire to be an exceptional engineer. You want to solve problems. You aspire to build products that drive positive outcomes for the broadest base of people, including people who are the most difficult to reach. To do this, you will need to consider how the tools you build will be leveraged to change the trajectory of humanity, hopefully for the better.
-## Bias Is the Default
+
+只要拿起这本书，就意味着你可能立志成为一名出色的工程师。你想解决问题。你渴望建造产品，为最广泛的人群，包括最难接触的人，打造一个能带来积极成果的产品。要做到这一点，你需要考虑如何利用你建造的工具来改变人类的轨迹，希望是为了获得更好的发展。
+
+## Bias Is the Default 偏见是默认的
 When engineers do not focus on users of different nationalities, ethnicities, races, genders, ages, socioeconomic statuses, abilities, and belief systems, even the most talented staff will inadvertently fail their users. Such failures are often unintentional; all people have certain biases, and social scientists have recognized over the past several decades that most people exhibit unconscious bias, enforcing and promulgating existing stereotypes. Unconscious bias is insidious and often more difficult to mitigate than intentional acts of exclusion. Even when we want to do the right thing, we might not recognize our own biases. By the same token, our organizations must also recognize that such bias exists and work to address it in their workforces, product development, and user outreach.
+
+当工程师不关注不同国籍、民族、种族、性别、年龄、社会经济地位、能力和信仰体系的用户时，即使是最优秀的工程师也会在不经意间让用户失望。这种失败往往是无意的；所有的人都存在一定的偏见，社会科学家在过去几十年中已经认识到，大多数人都表现出无意识的偏见，强迫和传播存在的刻板印象。无意识的偏见是隐藏的，往往比有意的排斥行为更难改正。即使我们想做正确的事，我们也可能意识不到自己的偏见。同样，我们的组织也必须认识到这种偏见的存在，并努力在员工队伍、产品开发和用户推广中解决这一问题。
+
 Because of bias, Google has at times failed to represent users equitably within their products, with launches over the past several years that did not focus enough on underrepresented groups. Many users attribute our lack of awareness in these cases to the fact that our engineering population is mostly male, mostly White or Asian, and certainly not representative of all the communities that use our products. The lack of representation of such users in our workforce1 means that we often do not have the requisite diversity to understand how the use of our products can affect underrepresented or vulnerable users.
+
+由于偏见，谷歌有时未能在其产品中公平地代表用户，在过去几年中推出的产品没有足够关注代表性不足的群体。许多用户将我们在这些情况下缺乏意识归咎于这样一个事实，即我们的工程人员大多数是男性，大多数是白人或亚洲人，当然不能代表所有使用我们产品的人群。这类用户在我们的员工队伍中缺乏代表性，这意味着我们往往不具备必要的多样性，无法理解使用我们的产品会如何影响代表性不足或弱势的用户。
 
 ------
 
@@ -32,11 +48,36 @@ As late as 2018, Google still had not adequately addressed the underlying proble
 
 ------
 
+------
+
+**案例研究：谷歌在种族包容方面不足**。
+
+
+2015年，软件工程师Jacky Alciné指出，谷歌照片中的图像识别算法将他的黑人朋友归为 "大猩猩"。谷歌对这些错误的反应很慢，解决起来也不彻底。
+
+是什么导致了这样一个巨大的失败？有几件事。
+
+- 图像识别算法取决于是否提供了一个 "适当的"（通常意味着 "完整的"）数据集。送入谷歌图像识别算法的照片数据显然是不完整的。简而言之，这些数据并不代表所有人口。
+
+- 谷歌本身（以及整个科技行业）没有（也没有）很多黑人代表，这影响了设计这种算法和收集这种数据集的主观决定。组织本身无意识的偏见很可能导致更具代表性的产品被搁置。
+
+- 谷歌的图像识别目标市场并没有充分包括这种代表性不足的群体。谷歌的测试没有发现这些错误；结果是我们的用户发现了，这既让谷歌感到尴尬，也伤害了我们的用户。
+
+直到2018年，谷歌仍然没有充分解决这些潜在的问题。
+
+------
+
 In this example, our product was inadequately designed and executed, failing to properly consider all racial groups, and as a result, failed our users and caused Google bad press. Other technology suffers from similar failures: autocomplete can return offensive or racist results. Google’s Ad system could be manipulated to show racist or offensive ads. YouTube might not catch hate speech, though it is technically outlawed on that platform.
+
+在这个例子中，我们的产品设计和执行不当，未能适当考虑到所有的种族群体，结果是辜负了我们的用户，给谷歌带来了恶劣的影响。其他技术也有类似的失误：自动补全完成可以返回攻击性或种族主义的结果。谷歌的广告系统可以被操纵来显示种族主义或攻击性广告。YouTube可能捕获仇恨言论，尽管从技术上讲，它在该平台上是非法的。
 
 In all of these cases, the technology itself is not really to blame. Autocomplete, for example, was not designed to target users or to discriminate. But it was also not resilient enough in its design to exclude discriminatory language that is considered hate speech. As a result, the algorithm returned results that caused harm to our users. The harm to Google itself should also be obvious: reduced user trust and engagement with the company. For example, Black, Latinx, and Jewish applicants could lose faith in Google as a platform or even as an inclusive environment itself, therefore undermining Google’s goal of improving representation in hiring.
 
+在所有这些情况下，技术本身并不是真正的罪魁祸首。例如，自动完成补全的设计目的不是为了针对用户或进行歧视。但它的设计也没有足够的灵活来排除被认为是仇恨言论的歧视性语言。结果，该算法返回的结果对我们的用户造成了伤害。对谷歌本身的伤害也应该是显而易见的：用户对该公司的信任和参与度降低。例如，黑人、拉美人和犹太人的申请者可能会对谷歌这个平台甚至其本身的包容性环境失去信心，因此破坏了谷歌改善招聘中的人群目标。
+
 How could this happen? After all, Google hires technologists with impeccable education and/or professional experience—exceptional programmers who write the best code and test their work. “Build for everyone” is a Google brand statement, but the truth is that we still have a long way to go before we can claim that we do. One way to address these problems is to help the software engineering organization itself look like the populations for whom we build products.
+
+这怎么会发生呢？毕竟，谷歌雇用的技术专家拥有无可挑剔的教育和/或专业经验——卓越的程序员，他们编写最好的代码并测试他们的功能。"为每个人而建 "是谷歌的品牌宣言，但事实是，在宣称我们做到这一点之前，我们仍有很长的路要走。解决这些问题的方法之一是帮助软件工程组织本身变得像我们为其建造产品的人群。
 
 ```
 1	Google’s 2019 Diversity Report.
@@ -44,6 +85,7 @@ How could this happen? After all, Google hires technologists with impeccable edu
 https://twitter.com/jackyalcine/status/615329515909156865.
 
 3	Many reports in 2018–2019 pointed to a lack of diversity across tech. Some notables include the National Center for Women & Information Technology, and Diversity in Tech.
+3  2018-2019年的许多报告指出，整个科技界缺乏多样性。一些著名的报告包括国家妇女和信息技术中心，以及科技领域的多样性。
 4	Tom Simonite, “When It Comes to Gorillas, Google Photos Remains Blind,” Wired, January 11, 2018.
 ```
 
@@ -115,7 +157,6 @@ Developing software, and developing a software organization, is a team effort. A
 -   Diversity is necessary to design properly for a comprehensive user base.
 -   Inclusivity is critical not just to improving the hiring pipeline for underrepresented groups, but to providing a truly supportive work environment for all people.
 -   Product velocity must be evaluated against providing a product that is truly useful to all users. It’s better to slow down than to release a product that might cause harm to some users.
-
 
 
 
