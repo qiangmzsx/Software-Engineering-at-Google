@@ -78,7 +78,7 @@ Consider [Figure 1-1](#_bookmark20), which demonstrates two software projects on
 除了死亡、税收和短暂的移动应用生命，没有什么是确定的
 ```
 
-![Figure 1-1. Life span and the importance of upgrades](../../images/chapter-1/figure 1-1.png)
+![Figure 1-1. Life span and the importance of upgrades](./images/figure1-1.png)
 
 The low and high points on the expected life span spectrum suggest that there’s a transition somewhere. Somewhere along the line between a one-off program and a project that lasts for decades, a transition happens: a project must begin to react to changing externalities.[7](#_bookmark21) For any project that didn’t plan for upgrades from the start, that transition is likely very painful for three reasons, each of which compounds the others:
 
@@ -370,7 +370,7 @@ This term seems to have originated from arguments that security mustn’t be def
 
 
 
-![*Figure 1-2. Timeline of* *the developer* *workflow*](..\..\images\chapter-1\figure 1-2.png)
+![*Figure 1-2. Timeline of* *the developer* *workflow*](./images/figure1-2.png)
 
 The same basic pattern emerges many times in this book. Bugs that are caught by static analysis and code review before they are committed are much cheaper than bugs that make it to production. Providing tools and practices that highlight quality, reliability, and security early in the development process is a common goal for many of our infrastructure teams. No single process or tool needs to be perfect, so we can assume a defense-in-depth approach, hopefully catching as many defects on the left side of the graph as possible.
 
