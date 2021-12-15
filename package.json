@@ -1,0 +1,16 @@
+{
+  "name": "Software-Engineering-at-Google",
+  "version": "0.0.1",
+  "description": "Software Engineering at Google",
+  "main": "index.js",
+  "repository": "git@github.com:suixinio/Software-Engineering-at-Google.git",
+  "author": "Mofan <suixinio@163.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "vuepress": "^2.0.0-beta.27"
+  },
+  "scripts": {
+    "docs:dev": "vuepress dev docs",
+    "docs:build": "vuepress build docs"
+  }
+}
