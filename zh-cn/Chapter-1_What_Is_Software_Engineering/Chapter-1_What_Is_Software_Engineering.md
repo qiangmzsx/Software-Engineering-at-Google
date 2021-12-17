@@ -78,7 +78,7 @@ Consider [Figure 1-1](#_bookmark20), which demonstrates two software projects on
 除了死亡、税收和短暂的移动应用生命，没有什么是确定的
 ```
 
-![Figure 1-1. Life span and the importance of upgrades](../../images/chapter-1/figure 1-1.png)
+![Figure 1-1. Life span and the importance of upgrades](../../../images/chapter-1/figure%201-1.png)
 
 The low and high points on the expected life span spectrum suggest that there’s a transition somewhere. Somewhere along the line between a one-off program and a project that lasts for decades, a transition happens: a project must begin to react to changing externalities.[7](#_bookmark21) For any project that didn’t plan for upgrades from the start, that transition is likely very painful for three reasons, each of which compounds the others:
 
