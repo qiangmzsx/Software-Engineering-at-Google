@@ -114,7 +114,7 @@
         repo: 'SwEAtGoogleTalk',
         owner: 'suixinio',
         admin: ['suixinio'],
-        id: location.pathname,
+        id: location.hash.indexOf("?id=") === -1 ? location.hash : location.hash.substring(0, location.hash.indexOf("?id=")),
         distractionFreeMode: false
     })
 </script>
