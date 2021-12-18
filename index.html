@@ -21,7 +21,7 @@
 <script>
     window.$docsify = {
         name: 'Software Engineering at Google',
-        // repo: 'qiangmzsx/Software-Engineering-at-Google',
+        repo: 'qiangmzsx/Software-Engineering-at-Google',
 
         auto2top: true,
 
@@ -89,6 +89,26 @@
                     );
                 })
             },
+            function (i) {
+                // 加载 Gitalk 元素
+                var e = Docsify.dom;
+                i.mounted(function (i) {
+                    var n = e.create("div");
+                    n.id = "gitalk-container";
+                    var t = e.getNode("#main");
+                    n.style = "width: " + t.clientWidth + "px; margin: 0 auto 20px;", e.appendTo(e.find(".content"), n)
+                }), i.doneEach(function (i) {
+                    for (var n = document.getElementById("gitalk-container"); n.hasChildNodes();) n.removeChild(n.firstChild);
+                })
+            },
+            function (hook, vm) {
+                hook.doneEach(function () {
+                    // remove gitalk-container
+                    document.getElementById('gitalk-container').innerHTML = "";
+                    // 渲染
+                    NewGitalk().render('gitalk-container');
+                })
+            }
         ],
     }
 </script>
@@ -100,23 +120,33 @@
 <script src="//cdn.jsdelivr.net/npm/docsify-pagination/dist/docsify-pagination.min.js"></script>
 
 <!-- gitalk -->
-<script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/gitalk.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/gitalk/dist/gitalk.min.js"></script>
 
 <!-- Medium's 风格的图片缩放插件 -->
 <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/zoom-image.min.js"></script>
 
+<script src="https://cdn.jsdelivr.net/npm/crypto-js@4.1.1/crypto-js.js"></script>
 
 <script>
-    const gitalk = new Gitalk({
-        clientID: '92436d65d807aaf80fcd',
-        clientSecret: '8df80f61b0d3e4389747e74616c3fd7ad7d359d5',
-        repo: 'SwEAtGoogleTalk',
-        owner: 'suixinio',
-        admin: ['suixinio'],
-        id: location.hash.indexOf("?id=") === -1 ? location.hash : location.hash.substring(0, location.hash.indexOf("?id=")),
-        distractionFreeMode: false
-    })
+
+    function NewGitalk() {
+        // 除去param
+        const hashPath = location.hash.indexOf("?id=") === -1 ? location.hash : location.hash.substring(0, location.hash.indexOf("?id="));
+        const hrefPath = location.hash.indexOf("?id=") === -1 ? location.href : location.href.substring(0, location.href.indexOf("?id="));
+        // id 50字符限制
+        const md5Id = CryptoJS.MD5(hashPath).toString();
+
+        return new Gitalk({
+            clientID: '92436d65d807aaf80fcd',
+            clientSecret: '8df80f61b0d3e4389747e74616c3fd7ad7d359d5',
+            repo: 'SwEAtGoogleTalk',
+            owner: 'suixinio',
+            admin: ['suixinio'],
+            id: md5Id,
+            body: hrefPath,
+            distractionFreeMode: false
+        });
+    }
 </script>
 
 </body>
