@@ -2,7 +2,7 @@
 
 # Engineering for Equity
 
-# 第四章 公平工程
+# 第四章 平等工程
 
             Written by Demma Rodriguez Edited by Riona MacNamara
 
@@ -70,8 +70,6 @@ As late as 2018, Google still had not adequately addressed the underlying proble
 
 In this example, our product was inadequately designed and executed, failing to properly consider all racial groups, and as a result, failed our users and caused Google bad press. Other technology suffers from similar failures: autocomplete can return offensive or racist results. Google’s Ad system could be manipulated to show racist or offensive ads. YouTube might not catch hate speech, though it is technically outlawed on that platform.
 
-
-
 在这个例子中，我们的产品设计和执行不当，未能适当考虑到所有的种族群体，结果是辜负了我们的用户，给谷歌带来了恶劣的影响。其他技术也有类似的失误：自动补全完成可以返回攻击性或种族主义的结果。谷歌的广告系统可以被操纵来显示种族主义或攻击性广告。YouTube可能捕获仇恨言论，尽管从技术上讲，它在该平台上是非法的。
 
 In all of these cases, the technology itself is not really to blame. Autocomplete, for example, was not designed to target users or to discriminate. But it was also not resilient enough in its design to exclude discriminatory language that is considered hate speech. As a result, the algorithm returned results that caused harm to our users. The harm to Google itself should also be obvious: reduced user trust and engagement with the company. For example, Black, Latinx, and Jewish applicants could lose faith in Google as a platform or even as an inclusive environment itself, therefore undermining Google’s goal of improving representation in hiring.
@@ -92,17 +90,27 @@ https://twitter.com/jackyalcine/status/615329515909156865.
 4    Tom Simonite, “When It Comes to Gorillas, Google Photos Remains Blind,” Wired, January 11, 2018.
 ```
 
-## Understanding the Need for Diversity
+## Understanding the Need for Diversity 了解多样性的必要性
 
 At Google, we believe that being an exceptional engineer requires that you also focus on bringing diverse perspectives into product design and implementation. It also means that Googlers responsible for hiring or interviewing other engineers must contribute to building a more representative workforce. For example, if you interview other engineers for positions at your company, it is important to learn how biased outcomes happen in hiring. There are significant prerequisites for understanding how to anticipate harm and prevent it. To get to the point where we can build for everyone, we first must understand our representative populations. We need to encourage engineers to have a wider scope of educational training.
 
+在谷歌，我们相信，作为一名出色的工程师，你还需要专注于将不同的视角引入打牌产品设计和实施中。这也意味着，负责招聘或面试其他工程师的谷歌人必须致力于打造更具代表性的团队。例如，如果你为公司的职位面试其他工程师，了解招聘过程中的偏差结果是如何发生，这是很重要的。了解如何预测和预防伤害有重要的先决条件。为了达到我们能够为每个人创建的目的，我们首先必须了解我们的代表人群。了解招聘过程中的偏差结果是如何发生的是很重要的。
+
 The first order of business is to disrupt the notion that as a person with a computer science degree and/or work experience, you have all the skills you need to become an exceptional engineer. A computer science degree is often a necessary foundation. However, the degree alone (even when coupled with work experience) will not make you an engineer. It is also important to disrupt the idea that only people with computer science degrees can design and build products. Today, [most programmers do](https://oreil.ly/2Bu0H) [have a computer science degree](https://oreil.ly/2Bu0H); they are successful at building code, establishing theories of change, and applying methodologies for problem solving. However, as the aforementioned examples demonstrate, *this approach is insufficient for inclusive and* *equitable engineering*.
+
+首要的任务是打破这样的观念：作为一个拥有计算机科学学位或且工作经验的人，你拥有成为一名出色工程师所需的所有技能。计算机科学学位通常是一个必要的基础。然而，单凭学位（即使再加上工作经验）并不能使你成为一名工程师。打破只有拥有计算机科学学位的人才能设计和建造产品的想法也很重要。今天，[大多数程序员确实](https://oreil.ly/2Bu0H)[拥有计算机科学学位](https://oreil.ly/2Bu0H)；他们在构建代码、建立变化理论和应用解决问题的方法方面都很成功。然而，正如上述例子所表明的，*这种方法不足以实现包容性和平等工程*。
 
 Engineers should begin by focusing all work within the framing of the complete ecosystem they seek to influence. At minimum, they need to understand the population demographics of their users. Engineers should focus on people who are different than themselves, especially people who might attempt to use their products to cause harm. The most difficult users to consider are those who are disenfranchised by the processes and the environment in which they access technology. To address this challenge, engineering teams need to be representative of their existing and future users. In the absence of diverse representation on engineering teams, individual engineers need to learn how to build for all users.
 
-## Building Multicultural Capacity
+工程师应首先关注他们试图影响的完整生态系统框架内的所有工作。至少，他们需要了解用户的人群统计数据。工程师应该关注与自己不同的人，特别是那些试图使用他们的产品造成伤害的人。最难考虑的用户是那些被他们获取技术的过程和环境所剥夺了权利的人。为了应对这一挑战，工程团队需要代表其现有和未来的用户。在工程团队缺乏多元化代表的情况下，每个工程师需要学习如何为所有用户构建。
+
+## Building Multicultural Capacity 构建多元化能力
 
 One mark of an exceptional engineer is the ability to understand how products can advantage and disadvantage different groups of human beings. Engineers are expected to have technical aptitude, but they should also have the *discernment* to know when to build something and when not to. Discernment includes building the capacity to identify and reject features or products that drive adverse outcomes. This is a lofty and difficult goal, because there is an enormous amount of individualism that goes into being a high-performing engineer. Yet to succeed, we must extend our focus beyond our own communities to the next billion users or to current users who might be disenfranchised or left behind by our products.
+
+
+卓越的工程师的一个标志是能够理解产品如何对不同的人群益处和害处。工程师应该有技术能力，但他们也应该有*敏锐的判断力*，知道什么时候该造什么，什么时候不该造。判断力包括建立识别和拒绝那些导致不良结果的功能或产品的能力。这是一个崇高而艰难的目标，因为要成为一名出色的工程师，需要有大量的个人主义。然而，想要成功，我们必须扩大我们的关注范围，关注我们当前用户之外的未来十亿的用户，哪怕是可能被我们的产品剥夺权利或遗弃的现有用户。
+
 Over time, you might build tools that billions of people use daily—tools that influence how people think about the value of human lives, tools that monitor human activity, and tools that capture and persist sensitive data, such as images of their children and loved ones, as well as other types of sensitive data. As an engineer, you might wield more power than you realize: the power to literally change society. It’s critical that on your journey to becoming an exceptional engineer, you understand the innate responsibility needed to exercise power without causing harm. The first step is to recognize the default state of your bias caused by many societal and educational factors. After you recognize this, you’ll be able to consider the often-forgotten use cases or users who can benefit or be harmed by the products you build.
 The industry continues to move forward, building new use cases for artificial intelligence (AI) and machine learning at an ever-increasing speed. To stay competitive, we drive toward scale and efficacy in building a high-talent engineering and technology workforce. Yet we need to pause and consider the fact that today, some people have the ability to design the future of technology and others do not. We need to understand whether the software systems we build will eliminate the potential for entire populations to experience shared prosperity and provide equal access to technology.
 Historically, companies faced with a decision between completing a strategic objective that drives market dominance and revenue and one that potentially slows momentum toward that goal have opted for speed and shareholder value. This tendency is exacerbated by the fact that many companies value individual performance and excellence, yet often fail to effectively drive accountability on product equity across all areas. Focusing on underrepresented users is a clear opportunity to promote equity. To continue to be competitive in the technology sector, we need to learn to engineer for global equity.
