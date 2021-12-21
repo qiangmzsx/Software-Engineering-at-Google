@@ -1,10 +1,10 @@
 **CHAPTER** **2**
 
-# How to Work Well on Teams 
+# How to Work Well on Teams
 
 # 第二章 如何融入团队
 
-​																											**Written by Brian Fitzpatrick Edited by Riona MacNamara**
+​                                                                                                            **Written by Brian Fitzpatrick Edited by Riona MacNamara**
 
 Because this chapter is about the cultural and social aspects of software engineering at Google, it makes sense to begin by focusing on the one variable over which you definitely have control: you.
 
@@ -23,19 +23,20 @@ Before we get ahead of ourselves, let’s begin by observing how software engine
 在我们超越自己之前，让我们首先观察软件工程师的一般行为。
 
 ## Help Me Hide My Code
+
 For the past 20 years, my colleague Ben1 and I have spoken at many programming conferences. In 2006, we launched Google’s (now deprecated) open source Project Hosting service, and at first, we used to get lots of questions and requests about the product. But around mid-2008, we began to notice a trend in the sort of requests we were getting:
-	“Can you please give Subversion on Google Code the ability to hide specific branches?”
-	“Can you make it possible to create open source projects that start out hidden to the world and then are revealed when they’re ready?”
-	“Hi, I want to rewrite all my code from scratch, can you please wipe all the history?”
+    “Can you please give Subversion on Google Code the ability to hide specific branches?”
+    “Can you make it possible to create open source projects that start out hidden to the world and then are revealed when they’re ready?”
+    “Hi, I want to rewrite all my code from scratch, can you please wipe all the history?”
 Can you spot a common theme to these requests?
 
 在过去的20年里，我和我的同事Ben在很多编程会议上演讲。 在2006年，我们推出了 Google的开源项目托管服务（现已弃用），在开始时，我们收到很多关于该产品的问题和请求。但到了2008年年中左右，我们发现，我们收到的请求中很多是这样的：
 
-​	“你能否让Google Code上的 Subversion能够隐藏指定分支？” 
+​    “你能否让Google Code上的 Subversion能够隐藏指定分支？” 
 
-​	“你能否让创建的开源项目开始时对外隐藏，在它们准备好后再公开？” 
+​    “你能否让创建的开源项目开始时对外隐藏，在它们准备好后再公开？” 
 
-​	“嗨，我想从头开始重构我所有的代码，你能把所有的历史记录都删除吗？”
+​    “嗨，我想从头开始重构我所有的代码，你能把所有的历史记录都删除吗？”
 
 你能找出这些要求的共同点吗？
 
@@ -43,9 +44,8 @@ The answer is insecurity. People are afraid of others seeing and judging their w
 
 答案是缺乏安全感。人们害怕别人看到和评价他们正在进行的工作。从某种意义上说，缺乏安全感是人性的一部分——没有人喜欢被批评，尤其是那些没有完成的事情。认识到这个主题让我们看到了软件开发中一个更普遍的趋势：缺乏安全实际上是一个更大问题的征兆。
 
-
-
 ## The Genius Myth天才的神话
+
 Many humans have the instinct to find and worship idols. For software engineers, those might be Linus Torvalds, Guido Van Rossum, Bill Gates—all heroes who changed the world with heroic feats. Linus wrote Linux by himself, right?
 
 许多人有寻找和崇拜偶像的本能。对于软件工程师来说，他们可能是Linus Torvalds, Guido Van Rossum, Bill Gates——他们都是改变世界的英雄。是Linus自己写的Linux？
@@ -78,12 +78,12 @@ Celebrity is a big part of it. Humans have a natural instinct to find leaders an
 名人效应是一个重要原因。人类有寻找领导者和榜样的本能，崇拜他们，并试图模仿他们。我们都需要英雄来激发灵感，编程世界也有自己的英雄。“科技名人”已经几乎被神化，我们都想写一些改变世界的东西，比如Linux或者设计下一种优秀的编程语言。
 
 Deep down, many engineers secretly wish to be seen as geniuses. This fantasy goes something like this:
-•	You are struck by an awesome new concept.
-•	You vanish into your cave for weeks or months, slaving away at a perfect implementation of your idea.
-•	You then “unleash” your software on the world, shocking everyone with your genius.
-•	Your peers are astonished by your cleverness.
-•	People line up to use your software.
-•	Fame and fortune follow naturally.
+•    You are struck by an awesome new concept.
+•    You vanish into your cave for weeks or months, slaving away at a perfect implementation of your idea.
+•    You then “unleash” your software on the world, shocking everyone with your genius.
+•    Your peers are astonished by your cleverness.
+•    People line up to use your software.
+•    Fame and fortune follow naturally.
 
 在内心深处，许多工程师暗中希望被视为天才。这种幻想是这样的：
 
@@ -107,11 +107,11 @@ It turns out that this Genius Myth is just another manifestation of our insecuri
 事实证明，这种天才神话只是我们缺乏安全感的另一种表现。许多程序员害怕分享他们刚刚开始的工作，因为这意味着同行会看到他们的错误，知道代码的作者不是天才。
 
 To quote a friend:
-	*I know I get SERIOUSLY insecure about people looking before something is done. Like they are going to seriously judge me and think I’m an idiot.*
+    *I know I get SERIOUSLY insecure about people looking before something is done. Like they are going to seriously judge me and think I’m an idiot.*
 
 引用一位朋友的话：
 
-​	*我知道，别人在我完成某事之前就来看，会让我感到非常不安全。好像他们会认真地评判我，认为我是个白痴。*
+​    *我知道，别人在我完成某事之前就来看，会让我感到非常不安全。好像他们会认真地评判我，认为我是个白痴。*
 
 This is an extremely common feeling among programmers, and the natural reaction is to hide in a cave, work, work, work, and then polish, polish, polish, sure that no one will see your goof-ups and that you’ll still have a chance to unveil your masterpiece when you’re done. Hide away until your code is perfect.
 
@@ -128,9 +128,8 @@ Actually, no. In this case, we assert that you’re doing it wrong, and it is a 
 
 事实上，不应该。在这种情况下，我们断定你错了，很是一个大错误。原因如下。
 
-
-
 ## Hiding Considered Harmful 隐藏不利
+
 If you spend all of your time working alone, you’re increasing the risk of unnecessary failure and cheating your potential for growth. Even though software development is deeply intellectual work that can require deep concentration and alone time, you must play that off against the value (and need!) for collaboration and review.
 
 如果你把所有的时间都花在独自工作上，增加了不必要失败的风险，耽误了你的成长潜力。尽管软件开发是一项需要高度集中精力和独处时间的深度智力工作，但你必须权衡协作和审查的价值（以及需求！）。
@@ -148,6 +147,7 @@ Then, one day your neighbor pulls his bike out of his garage with a radical new 
 然后，有一天，你的邻居将他的自行车从车库中拉出，这辆自行车使用一种全新的换档机构。事实表明，他也在制造一些与你的发明非常相似的东西，但是他得到了自行车店的一些朋友的帮助。这时候，你很生气。你给他看你的原型。他指出，你的设计有一些简单的缺陷，如果你给他看的话，这些缺陷可能在第一周就被修复了。这里有许多教训要学习。
 
 ### Early Detection 提早发现
+
 If you keep your great idea hidden from the world and refuse to show anyone anything until the implementation is polished, you’re taking a huge gamble. It’s easy to make fundamental design mistakes early on. You risk reinventing wheels.2 And you forfeit the benefits of collaboration, too: notice how much faster your neighbor moved by working with others? This is why people dip their toes in the water before jumping in the deep end: you need to make sure that you’re working on the right thing, you’re doing it correctly, and it hasn’t been done before. The chances of an early misstep are high. The more feedback you solicit early on, the more you lower this risk.3 Remember the tried-and-true mantra of “Fail early, fail fast, fail often.”
 
 如果你对世界隐瞒你的牛逼想法，并在未完美之前拒绝向任何人展示，那么你就是在进行一场下注巨大的赌博。早期很容易犯基本的设计错误。你冒着重新发明轮子的风险。2而且你也失去了协作的好处：注意到你的邻居通过与他人合作而效率有多高？这就是人们在跳入深水区之前将脚趾浸入水中的原因：你需要确保你在做正确的事情，你在做正确的事情，而且以前从未做过。早期失误的可能性很高。你越早征求反馈，这种风险就越低。3记住“早失败、快失败、经常失败”这句经得起考验的至理名言。
@@ -156,9 +156,8 @@ Early sharing isn’t just about preventing personal missteps and getting your i
 
 早期分享不仅仅是为了防止个人失误和检验你的想法。加强我们称之为项目的巴士因子。
 
-
-
 ### The Bus Factor 巴士因子
+
 Bus factor (noun): the number of people that need to get hit by a bus before your project is completely doomed.
 
 巴士因子：团队里因巴士撞到的多少人，会导致项目失败。
@@ -172,14 +171,14 @@ Beyond the bus factor, there’s the issue of overall pace of progress. It’s e
 除了巴士因子，还有整体进度的问题。人们很容易忘记，独自工作往往是一项艰苦的工作，比人们自认为的慢得多。你独自工作能学到多少？你推进地有多快？Google和Stack Overflow是观点和信息的重要来源，但它们不能替代人的真实体验。与他人一起工作会直接增加工作背后的集体智慧。当你陷入误区时，你需要浪费多少时间才能从困境中解脱？想想如果你有几个同龄人看着你并立即告知你是如何犯错以及如何解决问题，体验会有多么不同。这正是软件工程公司中团队坐在一起（或进行配对编程）的原因。编程很难。软件工程更难。你需要另一双眼睛。
 
 ```
-2	Literally, if you are, in fact, a bike designer.
+2    Literally, if you are, in fact, a bike designer.
 实际上，如果你是一个自行车设计师。
-3	I should note that sometimes it’s dangerous to get too much feedback too early in the process if you’re still unsure of your general direction or goal.
+3    I should note that sometimes it’s dangerous to get too much feedback too early in the process if you’re still unsure of your general direction or goal.
 我应该注意到，如果你仍然不确定自己的总体方向或目标，那么在过程中过早地获得太多反馈是很危险的。
 ```
 
-
 ### Pace of Progress 进展速度
+
 Here’s another analogy. Think about how you work with your compiler. When you sit down to write a large piece of software, do you spend days writing 10,000 lines of code, and then, after writing that final, perfect line, press the “compile” button for the very first time? Of course you don’t. Can you imagine what sort of disaster would result? Programmers work best in tight feedback loops: write a new function, compile. Add a test, compile. Refactor some code, compile. This way, we discover and fix typos and bugs as soon as possible after generating code. We want the compiler at our side for every little step; some environments can even compile our code as we type. This is how we keep code quality high and make sure our software is evolving correctly, bit by bit. The current DevOps philosophy toward tech productivity is explicit about these sorts of goals: get feedback as early as possible, test as early as possible, and think about security and production environments as early as possible. This is all bundled into the idea of “shifting left” in the developer workflow; the earlier we find a problem, the cheaper it is to fix it.
 
 这是另一个类比。考虑一下如何使用编译器。当你坐下来编写一个大型软件时，你是否会花上几天的时间编写10000行代码，然后在编写完最后一行完美的代码后，第一次按下“编译”按钮？你当然不知道。你能想象会发生什么样的灾难吗？程序员在密集的循环反馈中工作做得最好：编写一个新函数compile，添加一个测试，编译。重构一些代码，编译。这样，我们可以在生成代码后尽快发现并修复拼写错误和bug。我们希望完成每一小步都要使用编译器；有些环境甚至可以在我们写入代码时自动编译。这就是我们如何保持代码高质量并确保我们的软件一点一点地正确迭代的方法。当前DevOps对技术生产力的理念明确了这些目标：尽早获得反馈，尽早进行测试，尽早考虑安全和生产环境。这一切都与开发人员工作流程中的“左移”思想捆绑在一起；我们越早发现问题，修复它的成本就越低。
@@ -222,7 +221,7 @@ Don’t misunderstand us—we still think engineers need uninterrupted time to f
 ------
 
 ```
-4	I do, however, acknowledge that serious introverts likely need more peace, quiet, and alone time than most people and might benefit from a quieter environment, if not their own office.
+4    I do, however, acknowledge that serious introverts likely need more peace, quiet, and alone time than most people and might benefit from a quieter environment, if not their own office.
 然而，我承认，严肃内向的人可能比大多数人需要更多的平静、安静和独处的时间，如果不是他们自己的办公室，他们可能会从一个更安静的环境中受益。
 ```
 
@@ -237,6 +236,7 @@ Don’t become another statistic.
 不要成为另一个统计数字。
 
 ## It’s All About the Team 一切都是为了团队
+
 So, let’s back up now and put all of these ideas together.
 
 那么，让我们现在回顾一下，把所有这些想法放在一起。
@@ -265,65 +265,63 @@ High-functioning teams are gold and the true key to success. You should be aimin
 
 高效的团队是黄金，是成功的真正关键。你应该尽可能地追求这种体验。
 
-
-
 ### The Three Pillars of Social Interaction社会互动的三大支柱
+
 So, if teamwork is the best route to producing great software, how does one build (or find) a great team?
 
 那么，如果团队合作是生产优秀软件的最佳路径，那么如何建立（或找到）一个优秀的团队呢？
 
 To reach collaborative nirvana, you first need to learn and embrace what I call the “three pillars” of social skills. These three principles aren’t just about greasing the wheels of relationships; they’re the foundation on which all healthy interaction and collaboration are based:
 *Pillar 1: Humility*
-	You are not the center of the universe (nor is your code!). You’re neither omniscient nor infallible. You’re open to self-improvement.
+    You are not the center of the universe (nor is your code!). You’re neither omniscient nor infallible. You’re open to self-improvement.
 *Pillar 2: Respect*
-	You genuinely care about others you work with. You treat them kindly and appreciate their abilities and accomplishments.
+    You genuinely care about others you work with. You treat them kindly and appreciate their abilities and accomplishments.
 *Pillar 3: Trust*
-	You believe others are competent and will do the right thing, and you’re OK with letting them drive when appropriate.5
+    You believe others are competent and will do the right thing, and you’re OK with letting them drive when appropriate.5
 
 要达到协作的最佳效果，你首先需要学习并接受我所说的社交的“三大支柱”。这三个原则不仅仅是人际关系的润滑剂，更是一切健康互动和协作的基础：
 
 *支柱1：谦逊*
-	你不是宇宙的中心（你的代码也不是！）。你既不是全方位的，也不是绝对正确的。你愿意不断提升自我。
+    你不是宇宙的中心（你的代码也不是！）。你既不是全方位的，也不是绝对正确的。你愿意不断提升自我。
 *支柱2：尊重*
-	你真诚地关心与你一起工作的人。你善待他们，欣赏他们的能力和成就。
+    你真诚地关心与你一起工作的人。你善待他们，欣赏他们的能力和成就。
 *支柱3：信任*
-	你相信其他人有能力并且会做正确的事情，你可以让他们在适当的时候牵头。
-
-
+    你相信其他人有能力并且会做正确的事情，你可以让他们在适当的时候牵头。
 
 If you perform a root-cause analysis on almost any social conflict, you can ultimately trace it back to a lack of humility, respect, and/or trust. That might sound implausible at first, but give it a try. Think about some nasty or uncomfortable social situation currently in your life. At the basest level, is everyone being appropriately humble? Are people really respecting one another? Is there mutual trust?
 
 如果你对所有社会冲突进行根本原因分析，你最终可以追溯到缺乏谦逊、尊重和信任。一开始听起来似乎不太可信，但不妨试一试。想想你生活中的一些令人尴尬或不舒服的社交场合。在最基本的层面上，每个人都适当地谦虚吗？人们真的互相尊重吗？有相互信任吗？
 
-
-
 ### Why Do These Pillars Matter?为什么这些支柱很重要？
+
 When you began this chapter, you probably weren’t planning to sign up for some sort of weekly support group. We empathize. Dealing with social problems can be difficult: people are messy, unpredictable, and often annoying to interface with. Rather than putting energy into analyzing social situations and making strategic moves, it’s tempting to write off the whole effort. It’s much easier to hang out with a predictable compiler, isn’t it? Why bother with the social stuff at all?
 
 当你开始这一章时，你可能没有计划参加某种每周支持小组。我们有同情心。处理社会问题可能很困难：人们杂乱无章，不可预测，而且常常令人讨厌。与其把精力放在分析社会状况和采取战略行动上，不如把所有的努力都一笔勾销。使用可预测的编译器要容易得多，不是吗？为什么还要为社交活动操心呢？
 
 Here’s a quote from a famous lecture by Richard Hamming:
-	By taking the trouble to tell jokes to the secretaries and being a little friendly, I got superb secretarial help. For instance, one time for some idiot reason all the reproducing services at Murray Hill were tied up. Don’t ask me how, but they were. I wanted something done. My secretary called up somebody at Holmdel, hopped [into] the company car, made the hour-long trip down and got it reproduced, and then came back. It was a payoff for the times I had made an effort to cheer her up, tell her jokes and be friendly; it was that little extra work that later paid off for me. By realizing you have to use the system and studying how to get the system to do your work, you learn how to adapt the system to your desires.
+    By taking the trouble to tell jokes to the secretaries and being a little friendly, I got superb secretarial help. For instance, one time for some idiot reason all the reproducing services at Murray Hill were tied up. Don’t ask me how, but they were. I wanted something done. My secretary called up somebody at Holmdel, hopped [into] the company car, made the hour-long trip down and got it reproduced, and then came back. It was a payoff for the times I had made an effort to cheer her up, tell her jokes and be friendly; it was that little extra work that later paid off for me. By realizing you have to use the system and studying how to get the system to do your work, you learn how to adapt the system to your desires.
 
 以下是理查德·哈明（Richard Hamming）著名演讲中的一段话：
 
-​	*通过不厌其烦地给秘书们讲笑话，并表现出一点友好，我得到了秘书的出色协作。例如，有一次由于某些愚蠢的原因，Murray Hill的所有复制服务都被占用了。别问我为什么，但他们是。但事实就是如此。我的秘书给Holmdel的某个人打了电话，跳上他们公司的车，花了一个小时把它复制下来，然后回来了。我努力让她高兴起来、给她讲笑话并保持友好，作为一种回报；正是这一点额外的工作后来给了我回报。通过认识到你必须使用这个系统并研究如何让这个系统来完成你的工作，你就学会了如何使这个系统实现你的需求。*
+​    *通过不厌其烦地给秘书们讲笑话，并表现出一点友好，我得到了秘书的出色协作。例如，有一次由于某些愚蠢的原因，Murray Hill的所有复制服务都被占用了。别问我为什么，但他们是。但事实就是如此。我的秘书给Holmdel的某个人打了电话，跳上他们公司的车，花了一个小时把它复制下来，然后回来了。我努力让她高兴起来、给她讲笑话并保持友好，作为一种回报；正是这一点额外的工作后来给了我回报。通过认识到你必须使用这个系统并研究如何让这个系统来完成你的工作，你就学会了如何使这个系统实现你的需求。*
 
 The moral is this: do not underestimate the power of playing the social game. It’s not about tricking or manipulating people; it’s about creating relationships to get things done. Relationships always outlast projects. When you’ve got richer relationships with your coworkers, they’ll be more willing to go the extra mile when you need them.
 
 寓意是：不要低估社交游戏的力量。这不是欺骗或操纵人们；这是关于建立关系来完成事情。关系总是比项目更长久。当你和你的同事关系更融洽时，他们会更愿意在你需要他们的时候帮助你。
 
 ```
-5	This is incredibly difficult if you’ve been burned in the past by delegating to incompetent people.
+5    This is incredibly difficult if you’ve been burned in the past by delegating to incompetent people.
 如果你过去曾被委派给不称职的人，这将是非常困难的。
 ```
 
 ### Humility, Respect, and Trust in Practice 谦逊、尊重和信任的实践
+
 All of this preaching about humility, respect, and trust sounds like a sermon. Let’s come out of the clouds and think about how to apply these ideas in real-life situations. We’re going to examine a list of specific behaviors and examples that you can start with. Many of them might sound obvious at first, but after you begin thinking about them, you’ll notice how often you (and your peers) are guilty of not following them—we’ve certainly noticed this about ourselves!
 
 所有这些关于谦逊、尊重和信任的说教听起来像是布道。让我们从云端走出来，思考如何在现实生活中应用这些想法。我们将研究一系列具体的行为和例子，你可以从这些行为和例子入手。其中许多一开始听起来很明显，但在你开始思考它们之后，你会注意到你（和你的同龄人）经常因为没有遵循它们而感到内疚——我们当然注意到了这一点！
 
 #### Lose the ego丧失自我
+
 OK, this is sort of a simpler way of telling someone without enough humility to lose their ’tude. Nobody wants to work with someone who consistently behaves like they’re the most important person in the room. Even if you know you’re the wisest person in the discussion, don’t wave it in people’s faces. For example, do you always feel like you need to have the first or last word on every subject? Do you feel the need to comment on every detail in a proposal or discussion? Or do you know somebody who does these things?
 
 好吧，这是一种更简单的方式，告诉那些没有足够谦卑的人失去他们的理智。没有人愿意和一个总是表现得像房间里最重要的人一样的人一起工作。即使你知道自己是讨论中最聪明的人，也不要当众挥舞。例如，你是否总是觉得你需要对每一个主题都说第一句话或最后一句话？您是否觉得有必要对提案或讨论中的每一个细节进行评论？或者你认识做的人吗？
@@ -333,14 +331,14 @@ Although it’s important to be humble, that doesn’t mean you need to be a doo
 尽管谦虚很重要，但这并不意味着你需要做一个受气包；自信没有错。不要表现得像无所不知。最好的是，考虑以 "集体 "的自我为目标；与其担心你个人是否了不起，不如尝试建立一种团队成就感和团体自豪感。例如，Apache软件基金会一直致力于围绕软件项目创建社区。这些社区有着令人难以置信的强烈认同感，拒绝那些更关心自我宣传的人。
 
 Ego manifests itself in many ways, and a lot of the time, it can get in the way of your productivity and slow you down. Here’s another great story from Hamming’s lecture that illustrates this point perfectly (emphasis ours):
-	John Tukey almost always dressed very casually. He would go into an important office and it would take a long time before the other fellow realized that this is a first-class man and he had better listen. For a long time, John has had to overcome this kind of hostility. It’s wasted effort! I didn’t say you should conform; I said, “The appearance of conforming gets you a long way.” If you chose to assert your ego in any number of ways, “I am going to do it my way,” you pay a small steady price throughout the whole of your professional career. And this, over a whole lifetime, adds up to an enormous amount of needless trouble. […] By realizing you have to use the system and studying how to get the system to do your work, you learn how to adapt the system to your desires. Or you can fight it steadily, as a small, undeclared war, for the whole of your life.
+    John Tukey almost always dressed very casually. He would go into an important office and it would take a long time before the other fellow realized that this is a first-class man and he had better listen. For a long time, John has had to overcome this kind of hostility. It’s wasted effort! I didn’t say you should conform; I said, “The appearance of conforming gets you a long way.” If you chose to assert your ego in any number of ways, “I am going to do it my way,” you pay a small steady price throughout the whole of your professional career. And this, over a whole lifetime, adds up to an enormous amount of needless trouble. […] By realizing you have to use the system and studying how to get the system to do your work, you learn how to adapt the system to your desires. Or you can fight it steadily, as a small, undeclared war, for the whole of your life.
 
 自我表现在很多方面，很多时候，它会妨碍你的生产力，拖累你。下面是Hamming演讲中的另一个精彩故事，完美地说明了这一点（重点是我们的）：
 
-​	*John Tukey 几乎总是穿得很随便。他会走进一个重要会议，过了很长一段时间，另一个人才意识到这是一个牛逼的人，他最好听从。长期以来，约翰不得不克服这种敌意。这是白费力气！我没说你应该服从；我说，“顺从的外表让你走得更远。”如果你选择以任何一种方式来主张你的自我，"我要用我的方式来做"，你就会在整个职业生涯中付出确定的小代价。而这，在整个一生中，加起来就是一个大量的不必要的麻烦。[…]通过意识到你必须使用这个系统并研究如何让这个系统完成你的工作，你学会了如何让这个系统适应你的愿望。或者你可以在你的一生中，作为一场小型的、不宣而战的战争，稳扎稳打。*
-
+​    *John Tukey 几乎总是穿得很随便。他会走进一个重要会议，过了很长一段时间，另一个人才意识到这是一个牛逼的人，他最好听从。长期以来，约翰不得不克服这种敌意。这是白费力气！我没说你应该服从；我说，“顺从的外表让你走得更远。”如果你选择以任何一种方式来主张你的自我，"我要用我的方式来做"，你就会在整个职业生涯中付出确定的小代价。而这，在整个一生中，加起来就是一个大量的不必要的麻烦。[…]通过意识到你必须使用这个系统并研究如何让这个系统完成你的工作，你学会了如何让这个系统适应你的愿望。或者你可以在你的一生中，作为一场小型的、不宣而战的战争，稳扎稳打。*
 
 #### Learn to give and take criticism 学会给出和接受批评
+
 A few years ago, Joe started a new job as a programmer. After his first week, he really began digging into the codebase. Because he cared about what was going on, he started gently questioning other teammates about their contributions. He sent simple code reviews by email, politely asking about design assumptions or pointing out places where logic could be improved. After a couple of weeks, he was summoned to his director’s office. “What’s the problem?” Joe asked. “Did I do something wrong?” The director looked concerned: “We’ve had a lot of complaints about your behavior, Joe. Apparently, you’ve been really harsh toward your teammates, criticizing them left and right. They’re upset. You need to tone it down.” Joe was utterly baffled. Surely, he thought, his code reviews should have been welcomed and appreciated by his peers. In this case, however, Joe should have been more sensitive to the team’s widespread insecurity and should have used a subtler means to introduce code reviews into the culture—perhaps even something as simple as discussing the idea with the team in advance and asking team members to try it out for a few weeks.
 
 几年前，乔开始了一份新工作，成为一个程序员。在第一周后，他真的开始钻研代码库。因为他关心正在发生的事情，他开始温和地询问其他队友的提交。他通过电子邮件发送简单的代码评审，礼貌地询问设计假设或指出可以改进逻辑的地方。几周后，他被传唤到主管办公室。“怎么了？”乔问。“我做错什么了吗？”主管看起来很担心：“乔，我们对你的行为有很多抱怨。显然，你对你的队友非常苛刻，到处批评他们。他们很不高兴。你需要淡化它。”乔完全不知所措。当然，他认为，他的代码审查应该受到同行的欢迎和赞赏。然而，在这种情况下，乔应该对团队普遍存在的不安全感更加敏感，并且应该使用更巧妙的方法将代码审查引入到文化中——甚至可能是一些简单的事情，比如事先与团队讨论这个想法，并请团队成员尝试几周。
@@ -362,6 +360,7 @@ A better way to say the same thing might be, “Hey, I’m confused by the contr
 更好的说法可能是，“嘿，我对这部分的控制流感到困惑。我想知道XYZY代码模式是否能让这更清晰、更容易维护？”注意你是如何用谦逊来回答关于你的问题，而不是他们。他们没有错；你只是理解代码有点困难。这个建议只是作为一种方式，为你澄清事情，同时可能有助于项目的长期可持续性目标。你也没有要求什么——你给了你的合作者和平拒绝建议的权力。讨论的重点是代码本身，而不是任何人的价值或编码技能。
 
 #### Fail fast and iterate 快速失败并迭代
+
 There’s a well-known urban legend in the business world about a manager who makes a mistake and loses an impressive $10 million. He dejectedly goes into the office the next day and starts packing up his desk, and when he gets the inevitable “the CEO wants to see you in his office” call, he trudges into the CEO’s office and quietly slides a piece of paper across the desk.
 “What’s this?” asks the CEO.
 
@@ -388,26 +387,29 @@ Over in Google X—the division that works on “moonshots” like self-driving 
 在谷歌X部门——该部门负责研究自动驾驶汽车和通过热气球提供互联网接入等 "登月计划"——故意将失败次数纳入其激励系统。人们会想出一些稀奇古怪的想法，同事们也会受到积极的鼓励尽快实现它们。每个人都会得到奖励（甚至是竞争），看看他们能在一段固定的时间内反驳或否定多少观点。只有当一个概念真的不能在白板上被所有同行揭穿时，它才能进入早期原型。
 
 ```
-6	You can find a dozen variants of this legend on the web, attributed to different famous managers.
+6    You can find a dozen variants of this legend on the web, attributed to different famous managers.
 你可以在网上找到这一传说的十几种变体，它们都是由不同的著名经理人创造的。
-7	By the same token, if you do the same thing over and over and keep failing, it’s not failure, it’s incompetence.
+7    By the same token, if you do the same thing over and over and keep failing, it’s not failure, it’s incompetence.
 同样的道理，如果你一次又一次地做同样的事情，却不断失败，那不是失败，而是无能。
 ```
+
 ### Blameless Post-Mortem Culture 无责的事后文化
+
 The key to learning from your mistakes is to document your failures by performing a root-cause analysis and writing up a “postmortem,” as it’s called at Google (and many other companies). Take extra care to make sure the postmortem document isn’t just a useless list of apologies or excuses or finger-pointing—that’s not its purpose. A proper postmortem should always contain an explanation of what was learned and what is going to change as a result of the learning experience. Then, make sure that the postmortem is readily accessible and that the team really follows through on the proposed changes. Properly documenting failures also makes it easier for other people (present and future) to know what happened and avoid repeating history. Don’t erase your tracks—light them up like a runway for those who follow you!
 
 从错误中学习的关键是通过进行根因分析和撰写“事后总结”来记录你的失败，在谷歌（和许多其他公司）成为事后总结（国内成为复盘）。要格外小心，确保 "事后总结 "文件不只是一份无用的道歉、借口或指责的清单，这不是它的目的。正确事后总结应该总是包含对所学到的内容的解释，以及作为学习经验作为后续的改进落地。然后，确保事后总结可以随时查阅，并确保团队真正贯彻执行所建议的改变。好的故障复盘要让其他人（现在和将来）知道发生了什么，避免重蹈覆辙。不要抹去你的足迹——让它们在道路上照亮给那些追随你的人!
 
 A good postmortem should include the following:
-•	A brief summary of the event
-•	A timeline of the event, from discovery through investigation to resolution
-•	The primary cause of the event
-•	Impact and damage assessment
-•	A set of action items (with owners) to fix the problem immediately
-•	A set of action items to prevent the event from happening again
-•	Lessons learned
+•    A brief summary of the event
+•    A timeline of the event, from discovery through investigation to resolution
+•    The primary cause of the event
+•    Impact and damage assessment
+•    A set of action items (with owners) to fix the problem immediately
+•    A set of action items to prevent the event from happening again
+•    Lessons learned
 
 一个好的事后总结应该包括以下内容。
+
 - 事件的简要概述
 - 事件的时间线，从发现、调查到解决的过程
 - 事件的主要原因
@@ -416,9 +418,8 @@ A good postmortem should include the following:
 - 一套防止事件再次发生的行动项目
 - 经验教训
 
-
-
 #### Learn patience 学会耐心
+
 Years ago, I was writing a tool to convert CVS repositories to Subversion (and later, Git). Due to the vagaries of CVS, I kept unearthing bizarre bugs. Because my longtime friend and coworker Karl knew CVS quite intimately, we decided we should work together to fix these bugs.
 
 几年前，我正在编写一个将CVS存储库转换为Subversion（后来是Git）的工具。由于CVS的变化无常，我不断发现各种奇怪的bug。因为我的老朋友兼同事Karl非常熟悉CVS，我们决定一起修复这些bug。
@@ -432,6 +433,7 @@ That said, we had a longstanding history of trust and respect for each other. Co
 尽管如此，我们对彼此的信任和尊重由来已久。再加上耐心，这帮助我们制定了一个新的合作方法。我们会一起坐在电脑前，找出bug，然后从两个方向（自上而下和自下而上）拆分并同时解决问题，然后再返回继续查找bug。我们的耐心和即兴创作新工作方式的意愿不仅挽救了这个项目，而且也挽救了我们的友谊。
 
 #### Be open to influence 受影响
+
 The more open you are to influence, the more you are able to influence; the more vulnerable you are, the stronger you appear. These statements sound like bizarre contradictions. But everyone can think of someone they’ve worked with who is just maddeningly stubborn—no matter how much people try to persuade them, they dig their heels in even more. What eventually happens to such team members? In our experience, people stop listening to their opinions or objections; instead, they end up “routing around” them like an obstacle everyone takes for granted. You certainly don’t want to be that person, so keep this idea in your head: it’s OK for someone else to change your mind. In the opening chapter of this book, we said that engineering is inherently about trade-offs. It’s impossible for you to be right about everything all the time unless you have an unchanging environment and perfect knowledge, so of course you should change your mind when presented with new evidence. Choose your battles carefully: to be heard properly, you first need to listen to others. It’s better to do this listening before putting a stake in the ground or firmly announcing a decision—if you’re constantly changing your mind, people will think you’re wishy-washy.
 
 你对影响的态度越开放，你就越能影响。越是脆弱，越是强势。这些说法听起来相互矛盾。但每个人都能想到他们曾经共事过的人，他们的固执让人抓狂--无论人们如何劝说他们，他们都会更加钻牛角尖。这样的团队成员最终会发生什么？根据我们的经验，人们不再听取他们的任何意见，不论是赞同还是反对的意见；如果，这些固执的人解决了自己固执的问题，那么他们解决了大家都认为是障碍问题。你当然不希望成为这样的人，所以要把这个想法记在脑子里： 别人可以改变你的想法。在本书的开始，我们说过，工程本质上是关于权衡的。 除非你有一个不变的环境和完美的知识，否则你不可能一直对所有事情都是正确的，所以当有新的证据时，你当然应该改变你的最初想法。谨慎选择你的战斗：要想让别人正确地听取你的意见，你首先需要倾听别人的意见。最好在下定决心或坚定地宣布决定之前进行倾听——如果你不断地改变主意，人们会认为你不坚定。
@@ -447,8 +449,8 @@ Professional politicians, for example, are notorious for never admitting error o
 
 例如，职业政客因从不承认错误或无知而臭名昭著，即使他们在某个问题上显然是错的或不知的。存在这种行为主要是因为政客们经常受到对手的攻击，这就是为什么大多数人不相信政客们说的一个字。然而，当你在编写软件时，你不需要不断地进行防守--你的团队成员是合作者，而不是竞争对手。你们都有相同的目标。
 
-
 ### Being Googley
+
 At Google, we have our own internal version of the principles of “humility, respect, and trust” when it comes to behavior and human interactions.
 
 在谷歌，当涉及到行为和人际交往时，我们有自己的内部版本的“谦逊、尊重和信任”原则。
@@ -464,69 +466,60 @@ Of course, we eventually realized that the term “Googley” was being overload
 
 Google eventually fixed the problem by explicitly defining a rubric for what we mean by “Googleyness”—a set of attributes and behaviors that we look for that represent strong leadership and exemplify “humility, respect, and trust”:
 *Thrives in ambiguity*
-	Can deal with conflicting messages or directions, build consensus, and make progress against a problem, even when the environment is constantly shifting.
+    Can deal with conflicting messages or directions, build consensus, and make progress against a problem, even when the environment is constantly shifting.
 *Values feedback*
-	Has humility to both receive and give feedback gracefully and understands how valuable feedback is for personal (and team) development.
+    Has humility to both receive and give feedback gracefully and understands how valuable feedback is for personal (and team) development.
 *Challenges status quo*
-	Is able to set ambitious goals and pursue them even when there might be resistance or inertia from others.
+    Is able to set ambitious goals and pursue them even when there might be resistance or inertia from others.
 *Puts the user first*
-	Has empathy and respect for users of Google’s products and pursues actions that are in their best interests.
+    Has empathy and respect for users of Google’s products and pursues actions that are in their best interests.
 *Cares about the team*
-	Has empathy and respect for coworkers and actively works to help them without being asked, improving team cohesion.
+    Has empathy and respect for coworkers and actively works to help them without being asked, improving team cohesion.
 *Does the right thing*
-	Has a strong sense of ethics about everything they do; willing to make difficult or inconvenient decisions to protect the integrity of the team and product.
+    Has a strong sense of ethics about everything they do; willing to make difficult or inconvenient decisions to protect the integrity of the team and product.
 
 谷歌最终解决了这个问题，明确定义了我们所说的“谷歌特质”（Googleynes）——我们所寻找的一套属性和行为，代表了强大的领导力，体现了 "谦逊、尊重和信任"：
 
 *在模棱两可中茁壮成长*
 
-​	即使在环境不断变化的情况下，也能处理相互冲突的信息或方向，建立共识，并对问题做出改进。
+​    即使在环境不断变化的情况下，也能处理相互冲突的信息或方向，建立共识，并对问题做出改进。
 
 *重视反馈*
 
-​	谦虚优雅地接受和给出反馈，理解反馈对个人（和团队）发展的价值。
+​    谦虚优雅地接受和给出反馈，理解反馈对个人（和团队）发展的价值。
 
 *走出舒适区*
 
-​	能够设定宏伟的目标并去追求，即使有来自他人的抵制或惰性。
+​    能够设定宏伟的目标并去追求，即使有来自他人的抵制或惰性。
 
 *客户第一*
 
-​	对谷歌产品的用户抱有同情和尊重，并追求符合其最佳利益的行动。
+​    对谷歌产品的用户抱有同情和尊重，并追求符合其最佳利益的行动。
 
 *关心团队*
 
-​	对同事抱有同情心和尊重，并积极主动地帮助他们，提高团队凝聚力。
+​    对同事抱有同情心和尊重，并积极主动地帮助他们，提高团队凝聚力。
 
 *做正确的事*
 
-​	对自己所做的一切有强烈的主人感；愿意做出困难或不易的决定以保护团队和产品的完整。
+​    对自己所做的一切有强烈的主人感；愿意做出困难或不易的决定以保护团队和产品的完整。
 
 Now that we have these best-practice behaviors better defined, we’ve begun to shy away from using the term “Googley.” It’s always better to be specific about expectations!
 
 现在我们有了这些最佳实践行为的更好定义，我们已经开始避免使用 "Googley "这个词了。更好的是对期望值有一个具体的说明。
 
-
-
 ## Conclusion 结论
+
 The foundation for almost any software endeavor—of almost any size—is a well- functioning team. Although the Genius Myth of the solo software developer still persists, the truth is that no one really goes it alone. For a software organization to stand the test of time, it must have a healthy culture, rooted in humility, trust, and respect that revolves around the team, rather than the individual. Further, the creative nature of software development requires that people take risks and occasionally fail; for people to accept that failure, a healthy team environment must exist.
 
 几乎任何规模的软件工作的基础都是一个运作良好的团队。尽管软件开发者单打独斗的 "天才神话 "仍然存在，但事实是，没有人能够真正地单干。一个软件组织要想经受住时间的考验，就必须有一种健康的文化，植根于谦逊、信任和尊重，围绕着团队而不是个人。此外，软件开发的创造性要求人们承担风险并偶尔失败；为了让人们接受这种失败，必须有一个健康的团队环境。
 
 ## TL;DRs
-•	Be aware of the trade-offs of working in isolation.
-•	Acknowledge the amount of time that you and your team spend communicating and in interpersonal conflict. A small investment in understanding personalities and working styles of yourself and others can go a long way toward improving productivity.
-•	If you want to work effectively with a team or a large organization, be aware of your preferred working style and that of others.
+
+•    Be aware of the trade-offs of working in isolation.
+•    Acknowledge the amount of time that you and your team spend communicating and in interpersonal conflict. A small investment in understanding personalities and working styles of yourself and others can go a long way toward improving productivity.
+•    If you want to work effectively with a team or a large organization, be aware of your preferred working style and that of others.
 
 - 意识到孤立工作的得失。
 - 认识到你和你的团队花在沟通和人际冲突上的时间。在了解自己和他人的个性和工作风格方面进行少量投入，对提高生产力有很大帮助。
 - 如果你想在一个团队或一个大型组织中有效地工作，要意识到你和其他人喜欢的工作风格。
-
-
-
-
-
-
-
-
-
