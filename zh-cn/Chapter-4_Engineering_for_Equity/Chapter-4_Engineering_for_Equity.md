@@ -205,7 +205,6 @@ If the answer to any of these questions is “no,” presenting performance rati
 
 When an exceptional engineer questioned whether past performance was in fact predictive of future performance, the reviewing team decided to conduct a thorough review. In the end, it was determined that candidates who had received a poor performance rating were likely to overcome the poor rating if they found a new team. In fact, they were just as likely to receive a satisfactory or exemplary performance rating as candidates who had never received a poor rating. In short, performance ratings are indicative only of how a person is performing in their given role at the time they are being evaluated. Ratings, although an important way to measure performance during a specific period, are not predictive of future performance and should not be used to gauge readiness for a future role or qualify an internal candidate for a different team. (They can, however, be used to evaluate whether an employee is properly or improperly slotted on their current team; therefore, they can provide an opportunity to evaluate how to better support an internal candidate moving forward.)
 
-
 当一位杰出的工程师质疑过去的业绩是否真的能预测未来的业绩时，审查小组决定进行一次彻底的审查。最后确定，曾经获得不良业绩评级的候选人如果找到一个新的团队，就有可能克服较差的评级。事实上，他们获得满意或堪称楷模绩效评级的可能性与从未获得过差评的候选人一样。简而言之，绩效评级仅表示一个人在担任指定角色时的表现。评级虽然是衡量特定时期绩效的一种重要方式，但不能预测未来绩效，不应用于衡量未来角色的准备情况或确定不同团队的内部候选人。(然而，它们可以被用来评估一个员工在其当前团队中的位置是否合适；因此，它们可以提供一个机会来评估如何更好地支持内部候选人发展。）
 
 This analysis definitely took up significant project time, but the positive trade-off was a more equitable internal mobility process.
@@ -216,11 +215,9 @@ This analysis definitely took up significant project time, but the positive trad
 
 Google has a strong track record of investing in hiring. As the previous example illustrates, we also continually evaluate our processes in order to improve equity and inclusion. More broadly, our core values are based on respect and an unwavering commitment to a diverse and inclusive workforce. Yet, year after year, we have also missed our mark on hiring a representative workforce that reflects our users around the globe. The struggle to improve our equitable outcomes persists despite the policies and programs in place to help support inclusion initiatives and promote excellence in hiring and progression. The failure point is not in the values, intentions, or investments of the company, but rather in the application of those policies at the implementation level.
 
-
 谷歌在招聘方面有着良好的投入记录。正如前面的例子所示，我们也在不断评估我们的流程，以提高公平和包容性。更广泛地说，我们的核心价值观是基于尊重和对多元化和包容性劳动力的坚定承诺。然而，一年又一年，我们在雇用一支反映我们全球用户的代表性员工队伍方面却没有达到目标。尽管制定了政策和计划，以帮助支持包容倡议并促进招聘和晋升的卓越性，但改善公平结果的斗争依然存在。失败点不在于公司的价值观、意图或投入，而在于这些政策在执行层面的应用。
 
 Old habits are hard to break. The users you might be used to designing for today— the ones you are used to getting feedback from—might not be representative of all the users you need to reach. We see this play out frequently across all kinds of products, from wearables that do not work for women’s bodies to video-conferencing software that does not work well for people with darker skin tones.
-
 
 旧习惯很难改掉。你今天可能习惯于为之设计的用户--你习惯于从他们那里获得反馈--可能并不代表你需要接触的所有用户。我们看到这种情况经常发生在各种产品上，从不适合女性身体的可穿戴设备到不适合深肤色人的视频会议软件。
 
@@ -244,12 +241,9 @@ So, what’s the way out?
 
 The path to equity is long and complex. However, we can and should transition from simply building tools and services to growing our understanding of how the products we engineer impact humanity. Challenging our education, influencing our teams and managers, and doing more comprehensive user research are all ways to make progress. Although change is uncomfortable and the path to high performance can be painful, it is possible through collaboration and creativity.
 
-
 通往公平的道路是『道阻且长』。然而，我们可以也应该从简单地构建工具和服务过渡到加深我们对我们设计的产品如何影响人类的理解。挑战我们的教育，影响我们的团队和管理者，以及做更全面的用户研究，都是取得进展的方法。虽然改变是痛苦的，而且通向高绩效的道路可能是痛苦的，但通过协作和创新，变革是可能的。
 
 Lastly, as future exceptional engineers, we should focus first on the users most impacted by bias and discrimination. Together, we can work to accelerate progress by focusing on Continuous Improvement and owning our failures. Becoming an engineer is an involved and continual process. The goal is to make changes that push humanity forward without further disenfranchising the disadvantaged. As future exceptional engineers, we have faith that we can prevent future failures in the system.
-
-
 
 最后，作为未来的杰出工程师，我们应该首先关注受偏见和歧视影响最大的用户。通过共同努力，我们可以通过专注于持续改进和承认失败来加速进步。成为一名工程师是一个复杂而持续的过程。目标是在不进一步剥夺弱势群体权利的情况下，做出推动人类前进的变革。作为未来杰出的工程师，我们有信心能够防止未来系统的失败。
 
@@ -262,11 +256,17 @@ Developing software, and developing a software organization, is a team effort. A
 ## TL;DRs
 
 - Bias is the default.
+
 - Diversity is necessary to design properly for a comprehensive user base.
+
 - Inclusivity is critical not just to improving the hiring pipeline for underrepresented groups, but to providing a truly supportive work environment for all people.
+
 - Product velocity must be evaluated against providing a product that is truly useful to all users. It’s better to slow down than to release a product that might cause harm to some users.
 
 - 偏见是默认的。
+
 - 多样性是正确设计综合用户群所必需的。
+
 - 包容性不仅对于改善代表不足的群体的招聘渠道至关重要，而且对于为所有人提供一个真正支持性的工作环境也至关重要。
+
 - 产品速度必须根据提供对所有用户真正有用的产品来评估。与其发布一个可能对某些用户造成伤害的产品，还不如放慢速度。
