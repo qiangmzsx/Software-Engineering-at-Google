@@ -4,3 +4,5 @@
 - [第二章 如何融入团队](zh-cn/Chapter-2_How_to_Work_Well_on_Teams/Chapter-2_How_to_Work_Well_on_Teams.md)
 - [第三章 知识共享](zh-cn/Chapter-3_Knowledge_Sharing/Chapter-3_Knowledge_Sharing.md)
 - [第四章 公平工程](zh-cn/Chapter-4_Engineering_for_Equity/Chapter-4_Engineering_for_Equity.md)
+- [第十章 文档](zh-cn/Chapter-10_Documentation/Chapter-10_Documentatio.md)
+- [第十八章 构建系统，构建理念](zh-cn/Chapter-18_Build_Systems_and_Build_Philosophy/Chapter-18_Build_Systems_and_Build_Philosophy.md)
