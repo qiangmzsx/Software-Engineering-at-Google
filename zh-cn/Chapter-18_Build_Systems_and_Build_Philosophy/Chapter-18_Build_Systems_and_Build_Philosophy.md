@@ -61,16 +61,34 @@ Build systems allow your development to scale. As we’ll illustrate in the next
 
 构建系统使你的开发可扩展。正如我们将在下一节说明的那样，我们在没有适当的构建环境的情况下会遇到扩展问题。
 
-## But All I Need Is a Compiler!
+## But All I Need Is a Compiler! 但我所需要的只是一个编译器!
 The need for a build system might not be immediately obvious. After all, most of us probably didn’t use a build system when we were first learning to code—we probably started by invoking tools like gcc or javac directly from the command line, or the equivalent in an integrated development environment (IDE). As long as all of our source code is in the same directory, a command like this works fine:
 ```
 javac *.java
 ```
+对构建系统的需求可能不是很明显。毕竟，我们中的大多数人在最初学习编码时可能并没有使用构建系统--我们可能一开始就直接从命令行中调用gcc或javac等工具，或者在集成开发环境（IDE）中调用相应的工具。只要我们所有的源代码都在同一个目录下，这样的命令就能正常工作：
+
+```
+javac *.java
+```
+
 This instructs the Java compiler to take every Java source file in the current directory and turn it into a binary class file. In the simplest case, this is all that we need.
+
+这指示Java编译器把当前目录下的每一个Java源文件都变成一个二进制类文件。在最简单的情况下，这就是我们所需要的。
+
 However, things become more complicated quickly as soon as our code expands. javac is smart enough to look in subdirectories of our current directory to find code that we import. But it has no way of finding code stored in other parts of the filesystem (perhaps a library shared by several of our projects). It also obviously only knows how to build Java code. Large systems often involve different pieces written in a variety of programming languages with webs of dependencies among those pieces, meaning no compiler for a single language can possibly build the entire system.
+
+然而，随着代码的扩展，事情很快就会变得更加复杂。javac非常聪明，可以在我们当前目录的子目录中寻找我们导入的代码。但它没有办法找到存储在文件系统其他地方的代码（也许是我们几个项目共享的库）。显然，它只知道如何构建Java代码。大型系统通常涉及到用各种编程语言编写的不同部分，这些部分之间存在着依赖关系，这意味着没有一个单一语言的编译器可以构建整个系统。
+
 As soon as we end up having to deal with code from multiple languages or multiple compilation units, building code is no longer a one-step process. We now need to think about what our code depends on and build those pieces in the proper order, possibly using a different set of tools for each piece. If we change any of the dependencies, we need to repeat this process to avoid depending on stale binaries. For a codebase of even moderate size, this process quickly becomes tedious and error-prone.
+
+一旦我们不得不处理来自多种语言或多个编译单元的代码，构建代码就不再是一步到位的过程。我们现在需要考虑我们的代码依赖于什么，并以适当的顺序构建这些部分，可能为每个部分使用一套不同的工具。如果我们改变了任何依赖关系，我们需要重复这个过程，以避免依赖过时的二进制文件。对于一个中等规模的代码库来说，这个过程很快就会变得乏味，并且容易出错。
+
 The compiler also doesn’t know anything about how to handle external dependencies, such as third-party JAR files in Java. Often the best we can do without a build system is to download the dependency from the internet, stick it in a lib folder on the hard drive, and configure the compiler to read libraries from that directory. Over time, it’s easy to forget what libraries we put in there, where they came from, and whether they’re still in use. And good luck keeping them up to date as the library maintainers release new versions.
-## Shell Scripts to the Rescue?
+
+编译器也不知道如何处理外部依赖关系，比如Java中的第三方JAR文件。通常，在没有构建系统的情况下，我们能做的最好的事情就是从网上下载依赖关系，把它放在硬盘上的lib文件夹里，并配置编译器从该目录中读取库。随着时间的推移，我们很容易忘记我们把哪些库放在那里，它们来自哪里，以及它们是否仍在使用。而且，当库的维护者发布新的版本时，要想让它们保持最新的状态，那就得靠运气了。
+
+## Shell Scripts to the Rescue? 来自shell脚本的拯救？
 Suppose that your hobby project starts out simple enough that you can build it using just a compiler, but you begin running into some of the problems described previously. Maybe you still don’t think you need a real build system and can automate away the tedious parts using some simple shell scripts that take care of building things in the correct order. This helps out for a while, but pretty soon you start running into even more problems:
 •	It becomes tedious. As your system grows more complex, you begin spending almost as much time working on your build scripts as on real code. Debugging shell scripts is painful, with more and more hacks being layered on top of one another.
 •	It’s slow. To make sure you weren’t accidentally relying on stale libraries, you have your build script build every dependency in order every time you run it. You think about adding some logic to detect which parts need to be rebuilt, but that sounds awfully complex and error prone for a script. Or you think about specifying which parts need to be rebuilt each time, but then you’re back to square one.
@@ -78,22 +96,42 @@ Suppose that your hobby project starts out simple enough that you can build it u
 •	Disaster! Your hard drive crashes, and now you need to recreate your entire system. You were smart enough to keep all of your source files in version control, but what about those libraries you downloaded? Can you find them all again and make sure they were the same version as when you first downloaded them? Your scripts probably depended on particular tools being installed in particular places — can you restore that same environment so that the scripts work again? What about all those environment variables you set a long time ago to get the compiler working just right and then forgot about?
 •	Despite the problems, your project is successful enough that you’re able to begin hiring more engineers. Now you realize that it doesn’t take a disaster for the previous problems to arise—you need to go through the same painful bootstrapping process every time a new developer joins your team. And despite your best efforts, there are still small differences in each person’s system. Frequently, what works on one person’s machine doesn’t work on another’s, and each time it takes a few hours of debugging tool paths or library versions to figure out where the difference is.
 •	You decide that you need to automate your build system. In theory, this is as simple as getting a new computer and setting it up to run your build script every night using cron. You still need to go through the painful setup process, but now you don’t have the benefit of a human brain being able to detect and resolve minor problems. Now, every morning when you get in, you see that last night’s build failed because yesterday a developer made a change that worked on their system but didn’t work on the automated build system. Each time it’s a simple fix, but it happens so often that you end up spending a lot of time each day discovering and applying these simple fixes.
-
 •   Builds become slower and slower as the project grows. One day, while waiting for a build to complete, you gaze mournfully at the idle desktop of your coworker, who is on vacation, and wish there were a way to take advantage of all that wasted computational power.
+
+假设你的业余项目开始时非常简单，你可以只用一个编译器来构建它，但你开始遇到前面描述的一些问题。也许你仍然认为你不需要一个真正的构建系统，可以使用一些简单的shell脚本来自动处理那些繁琐的部分，这些脚本负责按照正确的顺序构建东西。这会有一段时间的帮助，但很快你就会遇到更多的问题：
+- 它变得乏味了。随着你的系统越来越复杂，你开始花在构建脚本上的时间几乎和真正的代码一样多。调试shell脚本是很痛苦的，越来越多的"黑"操作操作被叠加在一起。
+- 速度很慢。为了确保你没有意外地依赖过时的库，你让你的构建脚本在每次运行时按顺序构建每个依赖。你可以考虑添加一些逻辑来检测哪些部分需要重建，但这对于一个脚本来说听起来非常复杂而且容易出错。或者你可以考虑每次指定哪些部分需要重建，但是你又回到了原点。
+- 好消息是：现在是发布的时候了! 最好弄清楚所有需要传递给jar命令以进行最终构建的参数。并记住如何上传并推送到中央仓库。构建并推送文档更新，并向用户发送通知。嗯，也许这需要另一个脚本......
+- 灾难! 硬盘崩溃了，现在需要重新创建整个系统。你很聪明，把所有的源文件都保存在版本控制中，但是你下载的那些库呢？你能重新找到它们，并确保它们和你第一次下载它们时的版本相同吗？你的脚本可能依赖于特定的工具被安装在特定的地方--你能恢复同样的环境，使脚本再次工作吗？那些你很久以前为了让编译器工作得恰到好处而设置的环境变量，后来又忘记了，怎么办？
+- 尽管有这些问题，你的项目还是足于成功，以至于你能够开始雇用更多的工程师。现在你意识到，不需要一场灾难就会出现以前的问题--每次有新的开发人员加入你的团队，你都需要经历同样痛苦的启动过程。而且，尽管你做了最大的努力，每个人的系统还是有小的差异。通常，在一个人的机器上起作用的东西在另一个人的机器上不起作用，每次调试工具路径或库版本都需要几个小时才能找出差异所在。
+- 你决定需要自动化构建系统。从理论上讲，这就像买一台新的电脑并设置它每天晚上使用cron运行你的构建脚本一样简单。你仍然需要经历痛苦的设置过程，但现在你没有了需要调式检测和解决小问题的好处。现在，每天早上当你进去的时候，你会看到昨晚的构建失败了，因为昨天一个开发者做了一个改变，这个改变在他们的系统上有效，但在自动构建系统上却不起作用。每次都是一个简单的修复，但它经常发生，以至于你每天都要花费大量时间来发现和应用这些简单的修复。
+- 随着项目的发展，构建的速度越来越慢。有一天，在等待构建完成时，你哀怨地注视着正在度假的同事的闲置桌面，希望有一种方法可以充分利用以前的计算能力。
 
 You’ve run into a classic problem of scale. For a single developer working on at most a couple hundred lines of code for at most a week or two (which might have been the entire experience thus far of a junior developer who just graduated university), a compiler is all you need. Scripts can maybe take you a little bit farther. But as soon as you need to coordinate across multiple developers and their machines, even a perfect build script isn’t enough because it becomes very difficult to account for the minor differences in those machines. At this point, this simple approach breaks down and it’s time to invest in a real build system.
 
-# Modern Build Systems
+你遇到了一个典型的规模问题。对于一个开发人员来说，一个编译器就是你所需要的一切，他最多工作几百行代码，最多工作一两周（这可能是一个刚从大学毕业的初级开发人员迄今为止的全部经验）。脚本可能会让您走得更远一些。但是一旦你需要在多个开发人员和他们的机器之间进行协作，即使是一个完美的构建脚本也是不够的，因为很难解释这些机器中的细微差异。在这一点上，这个简单的方法崩溃了，是时候开发一个真正的构建系统了。
+
+# Modern Build Systems 现代化的构建系统
 
 Fortunately, all of the problems we started running into have already been solved many times over by existing general-purpose build systems. Fundamentally, they aren’t that different from the aforementioned script-based DIY approach we were working on: they run the same compilers under the hood, and you need to understand those underlying tools to be able to know what the build system is really doing. But these existing systems have gone through many years of development, making them far more robust and flexible than the scripts you might try hacking together yourself.
 
-## It’s All About Dependencies
+幸运的是，我们开始遇到的所有问题已经被现有的通用构建系统多次解决。从根本上说，它们与前面提到的基于脚本的DIY方法没有什么不同：它们在后台运行相同的编译器，您需要了解这些底层工具，才能了解构建系统真正在做什么。但是这些现有的系统已经经历了多年的开发，使得它们比您自己尝试破解的脚本更加健壮和灵活。
+
+## It’s All About Dependencies 一切都是关于依赖关系
 
 In looking through the previously described problems, one theme repeats over and over: managing your own code is fairly straightforward, but managing its dependencies is much more difficult (and [Chapter 21 ](#_bookmark1845)is devoted to covering this problem in detail). There are all sorts of dependencies: sometimes there’s a dependency on a task (e.g., “push the documentation before I mark a release as complete”), and sometimes there’s a dependency on an artifact (e.g., “I need to have the latest version of the computer vision library to build my code”). Sometimes, you have internal dependencies on another part of your codebase, and sometimes you have external dependencies on code or data owned by another team (either in your organization or a third party). But in any case, the idea of “I need that before I can have this” is something that recurs repeatedly in the design of build systems, and managing dependencies is perhaps the most fundamental job of a build system.
 
-## Task-Based Build Systems
+在回顾之前描述的问题时，有一个主题反复出现：管理你自己的代码是相当简单的，但管理它的依赖关系要困难得多（[第21章](#_bookmark1845)专门详细介绍了这个问题）。有各种各样的依赖关系：有时依赖于任务（例如，“在我将发布标记为完成之前推送文档”），有时依赖于工件（例如，“我需要最新版本的计算机视觉库来构建代码”）。有时，你对你的代码库的另一部分有内部依赖性，有时你对另一个团队（在你的组织中或第三方）拥有的代码或数据有外部依赖性。但无论如何，"在我拥有这个之前，我需要那个 "的想法在构建系统的设计中反复出现，而管理依赖性也许是构建系统最基本的工作。
+
+## Task-Based Build Systems 基于任务的构建系统
 The shell scripts we started developing in the previous section were an example of a primitive task-based build system. In a task-based build system, the fundamental unit of work is the task. Each task is a script of some sort that can execute any sort of logic, and tasks specify other tasks as dependencies that must run before them. Most major build systems in use today, such as Ant, Maven, Gradle, Grunt, and Rake, are task based.
+
+我们在上一节开始开发的shell脚本是一个原始的基于任务的构建系统的示例。在基于任务的构建系统中，工作的基本单位是任务。每个任务都是某种类型的脚本，可以执行任何类型的逻辑，任务将其他任务指定为必须在它们之前运行的依赖项。目前使用的大多数主要构建系统，如Ant、Maven、Gradle、Grunt和Rake，都是基于任务的。
+
 Instead of shell scripts, most modern build systems require engineers to create buildfiles that describe how to perform the build. Take this example from the Ant manual:
+
+大多数现代构建系统要求工程师创建描述如何执行构建的构建文件，而不是shell脚本。以Ant手册中的这个例子为例：
+
 ``` XML
 <project name="MyProject" default="dist" basedir=".">
 <description>
@@ -132,6 +170,9 @@ simple example build file
 </project>
 ```
 The buildfile is written in XML and defines some simple metadata about the build along with a list of tasks (the <target> tags in the XML3). Each task executes a list of possible commands defined by Ant, which here include creating and deleting directories, running javac, and creating a JAR file. This set of commands can be extended by user-provided plug-ins to cover any sort of logic. Each task can also define the tasks it depends on via the depends attribute. These dependencies form an acyclic graph (see Figure 18-1).
+
+
+
 Figure 18-1. An acyclic graph showing dependencies
 
 ![Figure 18-1](/Users/ouerqiang/project/git/Software-Engineering-at-Google/zh-cn/Chapter-18_Build_Systems_and_Build_Philosophy/images/Figure 18-1.jpg)
