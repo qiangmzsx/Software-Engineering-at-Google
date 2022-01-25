@@ -171,9 +171,9 @@ simple example build file
 ```
 The buildfile is written in XML and defines some simple metadata about the build along with a list of tasks (the <target> tags in the XML3). Each task executes a list of possible commands defined by Ant, which here include creating and deleting directories, running javac, and creating a JAR file. This set of commands can be extended by user-provided plug-ins to cover any sort of logic. Each task can also define the tasks it depends on via the depends attribute. These dependencies form an acyclic graph (see Figure 18-1).
 
+构建文件是用XML编写的，定义了一些关于构建的简单元数据以及任务列表（XML中的<target>标签）。每个任务都执行Ant定义的一系列可能的命令，其中包括创建和删除目录、运行javac和创建JAR文件。这组命令可以由用户提供的插件扩展，以涵盖任何类型的逻辑。每个任务还可以通过依赖属性定义它所依赖的任务。这些依赖关系形成一个无环图（见图18-1）。
 
-
-Figure 18-1. An acyclic graph showing dependencies
+Figure 18-1. An acyclic graph showing dependencies 显示依赖关系的无环图
 
 ![Figure 18-1](/Users/ouerqiang/project/git/Software-Engineering-at-Google/zh-cn/Chapter-18_Build_Systems_and_Build_Philosophy/images/Figure 18-1.jpg)
 
@@ -193,7 +193,25 @@ Users perform builds by providing tasks to Ant’s command-line tool. For exampl
 
 7. Executes the commands defined in the dist task given that all of that task’s dependencies have been run.
 
+用户通过向Ant的命令行工具提供任务来执行构建。例如，当用户输入ant dist时，Ant会采取以下步骤。
+
+1. 在当前目录下加载一个名为*build.xml*的文件，并对其进行解析以创建图18-1所示的图结构。
+
+2. 寻找命令行上提供的名为dist的任务，并发现它与名为compile的任务有依赖关系。
+
+3. 寻找名为compile的任务，发现它与名为init的任务有依赖关系。
+
+4. 查找名为init的任务并确认它没有依赖项。
+
+5. 执行init任务中定义的命令。
+
+6. 执行编译任务中定义的命令，前提是该任务的所有依赖项都已运行。
+
+7. 执行dist任务中定义的命令，前提是该任务的所有依赖项都已运行。
+
 In the end, the code executed by Ant when running the dist task is equivalent to the following shell script:
+
+最后，Ant在运行dist任务时执行的代码相当于以下shell脚本：
 
 ```shell
 ./createTimestamp.sh 
@@ -205,20 +223,35 @@ jar cf dist/lib/MyProject-$(date --iso-8601).jar build/*
 
 ```
 3	Ant uses the word “target” to represent what we call a “task” in this chapter, and it uses the word “task” to refer to what we call “commands.”
+3   Ant使用“target”一词来表示我们在本章中所称的“task”，并使用“task”一词来表示我们所称的“commands”
 ```
 
 When the syntax is stripped away, the buildfile and the build script actually aren’t too different. But we’ve already gained a lot by doing this. We can create new buildfiles in other directories and link them together. We can easily add new tasks that depend on existing tasks in arbitrary and complex ways. We need only pass the name of a single task to the ant command-line tool, and it will take care of determining everything that needs to be run.
 
+去掉语法后，构建文件和构建脚本实际上没有太大区别。但我们这样做已经有了很大的收获。我们可以在其他目录中创建新的构建文件并将它们链接在一起。我们可以以任意和复杂的方式轻松添加依赖于现有任务的新任务。我们只需要将单个任务的名称传递给ant命令行工具，它将负责确定需要运行的所有内容。
+
 Ant is a very old piece of software, originally released in 2000—not what many people would consider a “modern” build system today! Other tools like Maven and Gradle have improved on Ant in the intervening years and essentially replaced it by adding features like automatic management of external dependencies and a cleaner syntax without any XML. But the nature of these newer systems remains the same: they allow engineers to write build scripts in a principled and modular way as tasks and provide tools for executing those tasks and managing dependencies among them.
 
-### The dark side of task-based build systems
+Ant是一个非常古老的软件，最初发布于2000年--而不是很多人今天会考虑的“现代”构建系统！其他工具，如Maven和Gradle，在这几年中对Ant进行了改进，基本上取代了它，添加诸如自动管理外部依赖项和不使用任何XML的更干净语法等功能。但这些新系统的本质仍然是一样的：它们允许工程师以有原则的模块化方式编写构建脚本作为任务，并提供工具来执行这些任务和管理它们之间的依赖关系。
+
+### The dark side of task-based build systems 基于任务的构建系统的缺陷
 
 Because these tools essentially let engineers define any script as a task, they are extremely powerful, allowing you to do pretty much anything you can imagine with them. But that power comes with drawbacks, and task-based build systems can become difficult to work with as their build scripts grow more complex. The problem with such systems is that they actually end up giving *too much power to engineers and not enough power to the system*. Because the system has no idea what the scripts are doing, performance suffers, as it must be very conservative in how it schedules and executes build steps. And there’s no way for the system to confirm that each script is doing what it should, so scripts tend to grow in complexity and end up being another thing that needs debugging.
 
+因为这些工具本质上允许工程师将任何脚本定义为一项任务，所以它们非常强大，允许你用它们做几乎任何你能想象到的事情。但是，这种能力也有缺点，基于任务的构建系统会随着构建脚本的日益复杂而变得难以使用。这类系统的问题是，它们实际上最终给了*过多的权力给工程师，而没有足够的权力给系统*。因为系统不知道脚本在做什么，性能受到影响，因为它在调度和执行构建步骤时必须非常保守。而且，系统无法确认每个脚本都在做它应该做的事情，因此脚本往往会变得越来越复杂，最终成为另一件需要调试的事情。
+
 **Difficulty of parallelizing build steps.** Modern development workstations are typically quite powerful, with multiple cores that should theoretically be capable of executing several build steps in parallel. But task-based systems are often unable to parallelize task execution even when it seems like they should be able to. Suppose that task A depends on tasks B and C. Because tasks B and C have no dependency on each other, is it safe to run them at the same time so that the system can more quickly get to task A? Maybe, if they don’t touch any of the same resources. But maybe not—perhaps both use the same file to track their statuses and running them at the same time will cause a conflict. There’s no way in general for the system to know, so either it has to risk these conflicts (leading to rare but very difficult-to-debug build problems), or it has to restrict the entire build to running on a single thread in a single process. This can be a huge waste of a powerful developer machine, and it completely rules out the possibility of distributing the build across multiple machines.
 
+**并行化构建步骤的难点。**现代开发工作站通常非常强大，有多个CPU内核，理论上应该能够并行执行几个构建步骤。但是，基于任务的系统往往无法将任务执行并行化，即使是在看起来应该能够做到的时候。假设任务A依赖于任务B和C。因为任务B和C彼此不依赖，所以同时运行它们是否安全，以便系统可以更快地到达任务A？也许吧，如果它们不接触任何相同的资源。但也许不是--也许它们都使用同一个文件来跟踪它们的状态，同时运行它们会导致冲突。一般来说，系统无法知道，所以要么它不得不冒着这些冲突的风险（导致罕见但非常难以调试的构建问题），要么它必须限制整个构建在单个进程的单个线程上运行。这可能是对强大的开发者机器的巨大浪费，而且它完全排除了在多台机器上分布构建的可能性。
+
 **Difficulty performing incremental builds**. A good build system will allow engineers to perform reliable incremental builds such that a small change doesn’t require the entire codebase to be rebuilt from scratch. This is especially important if the build system is slow and unable to parallelize build steps for the aforementioned reasons. But unfortunately, task-based build systems struggle here, too. Because tasks can do anything, there’s no way in general to check whether they’ve already been done. Many tasks simply take a set of source files and run a compiler to create a set of binaries; thus, they don’t need to be rerun if the underlying source files haven’t changed. But without additional information, the system can’t say this for sure—maybe the task downloads a file that could have changed, or maybe it writes a timestamp that could be different on each run. To guarantee correctness, the system typically must rerun every task during each build.
+
+**难以执行增量构建**。一个好的构建系统将允许工程师执行可靠的增量构建，这样，一个小的变更就不需要从头开始重建整个代码库了。如果构建系统由于上述原因，速度很慢，无法并行化构建步骤，那么这一点就尤为重要。但不幸的是，基于任务的构建系统在这里也很困难。因为任务可以做任何事情，一般来说，没有办法检查它们是否已经完成。许多任务只是接收一组源文件并运行一个编译器来创建一组二进制文件；因此，如果底层源文件没有更改，则不需要重新运行。但是，如果没有额外的信息，系统就不能确定这一点--可能是任务下载了一个可能已更改的文件，或者它在每次运行时写入了一个可能不同的时间戳。为了保证正确性，系统通常必须在每次构建期间重新运行每个任务。
+
 Some build systems try to enable incremental builds by letting engineers specify the conditions under which a task needs to be rerun. Sometimes this is feasible, but often it’s a much trickier problem than it appears. For example, in languages like C++ that allow files to be included directly by other files, it’s impossible to determine the entire set of files that must be watched for changes without parsing the input sources. Engineers will often end up taking shortcuts, and these shortcuts can lead to rare and frustrating problems where a task result is reused even when it shouldn’t be. When this happens frequently, engineers get into the habit of running clean before every build to get a fresh state, completely defeating the purpose of having an incremental build in the first place. Figuring out when a task needs to be rerun is surprisingly subtle, and is a job better handled by machines than humans.
+
+一些构建系统试图通过让工程师指定需要重新运行任务的条件来启用增量构建。有时这是可行的，但通常这是一个比看起来更棘手的问题。例如，在像C++这样允许文件直接被其他文件包含的语言中，如果不解析输入源，就不可能确定必须关注的整个文件集的变化。工程师们最终往往会走捷径，而这些捷径会导致罕见的、令人沮丧的问题，即一个任务结果被重复使用，即使它不应该被使用。当这种情况经常发生时，工程师们就会养成习惯，在每次构建前运行clean，以获得一个全新的状态，这就完全违背了一开始就有增量构建的目的。弄清楚什么时候需要重新运行一个任务是非常微妙的，而且是一个最好由机器而不是人处理的工作。
+
 **Difficulty maintaining and debugging scripts**. Finally, the build scripts imposed by task- based build systems are often just difficult to work with. Though they often receive less scrutiny, build scripts are code just like the system being built, and are easy places for bugs to hide. Here are some examples of bugs that are very common when working with a task-based build system:
 •	Task A depends on task B to produce a particular file as output. The owner of task B doesn’t realize that other tasks rely on it, so they change it to produce output in a different location. This can’t be detected until someone tries to run task A and finds that it fails.
 •	Task A depends on task B, which depends on task C, which is producing a particular file as output that’s needed by task A. The owner of task B decides that it doesn’t need to depend on task C any more, which causes task A to fail even though task B doesn’t care about task C at all!
@@ -226,11 +259,24 @@ Some build systems try to enable incremental builds by letting engineers specify
 •	A task contains a nondeterministic component, such as downloading a file from the internet or adding a timestamp to a build. Now, people will get potentially different results each time they run the build, meaning that engineers won’t always be able to reproduce and fix one another’s failures or failures that occur on an automated build system.
 •	Tasks with multiple dependencies can create race conditions. If task A depends on both task B and task C, and task B and C both modify the same file, task A will get a different result depending on which one of tasks B and C finishes first.
 
+**难以维护和调试脚本**。最后，基于任务的构建系统所强加的构建脚本往往就是难以使用。尽管构建脚本通常很少受到审查，但它们与正在构建的系统一样，都是代码，很容易隐藏bug。以下是使用基于任务的构建系统时常见的一些错误示例：
+- 任务A依赖于任务B来产生一个特定的文件作为输出。任务B的所有者没有意识到其他任务依赖于它，所以他们改变了它，在不同的位置产生输出。直到有人试图运行任务A，发现它失败了，这才被发现。
+- 任务A依赖于任务B，而任务B依赖于任务C，而任务C正在产生一个任务A需要的特定文件作为输出。任务B的所有者决定它不需要再依赖于任务C，这导致任务A失败，尽管任务B根本不关心任务C!
+- 一个新任务的开发者不小心对运行该任务的机器做了一个设置，比如一个工具的位置或特定环境变量的值。该任务在他们的机器上可以运行，但只要其他开发者尝试，就会失败。
+- 任务包含不确定组件，例如从internet下载文件或向生成添加时间戳。现在，人们每次运行构建时都会得到可能不同的结果，这意味着工程师不可能总是能够重现和修复彼此的故障或自动构建系统上发生的故障。
+- 有多个依赖关系的任务会产生竞赛条件。如果任务A同时依赖于任务B和任务C，而任务B和任务C同时修改同一个文件，那么任务A会得到不同的结果，这取决于任务B和任务C中哪一个先完成。
+
 There’s no general-purpose way to solve these performance, correctness, or maintainability problems within the task-based framework laid out here. So long as engineers can write arbitrary code that runs during the build, the system can’t have enough information to always be able to run builds quickly and correctly. To solve the problem, we need to take some power out of the hands of engineers and put it back in the hands of the system and reconceptualize the role of the system not as running tasks, but as producing artifacts. This is the approach that Google takes with Blaze and Bazel, and it will be described in the next section.
 
-## Artifact-Based Build Systems
+在这里列出的基于任务的框架中，没有通用的方法来解决这些性能、正确性或可维护性问题。只要工程师能够编写在构建过程中运行的任意代码，系统就不可能拥有足够的信息来始终能够快速、正确地运行构建。我们需要从工程师手中夺走一些权力，把它放回系统的手中，并重新认识到系统的作用不是作为运行任务，而是作为生产组件。这就是谷歌对Blaze和Bazel采取的方法，将在下一节进行描述。
+
+## Artifact-Based Build Systems 基于组件的构建系统
 To design a better build system, we need to take a step back. The problem with the earlier systems is that they gave too much power to individual engineers by letting them define their own tasks. Maybe instead of letting engineers define tasks, we can have a small number of tasks defined by the system that engineers can configure in a limited way. We could probably deduce the name of the most important task from the name of this chapter: a build system’s primary task should be to build code. Engineers would still need to tell the system what to build, but the how of doing the build would be left to the system.
+
+
+
 This is exactly the approach taken by Blaze and the other artifact-based build systems descended from it (which include Bazel, Pants, and Buck). Like with task-based build systems, we still have buildfiles, but the contents of those buildfiles are very different. Rather than being an imperative set of commands in a Turing-complete scripting language describing how to produce an output, buildfiles in Blaze are a declarative manifest describing a set of artifacts to build, their dependencies, and a limited set of options that affect how they’re built. When engineers run blaze on the command line, they specify a set of targets to build (the “what”), and Blaze is responsible for configuring, running, and scheduling the compilation steps (the “how”). Because the build system now has full control over what tools are being run when, it can make much stronger guarantees that allow it to be far more efficient while still guaranteeing correctness.
+
 ### A functional perspective
 It’s easy to make an analogy between artifact-based build systems and functional programming. Traditional imperative programming languages (e.g., Java, C, and Python) specify lists of statements to be executed one after another, in the same way that task- based build systems let programmers define a series of steps to execute. Functional programming languages (e.g., Haskell and ML), in contrast, are structured more like a series of mathematical equations. In functional languages, the programmer describes a computation to perform, but leaves the details of when and exactly how that computation is executed to the compiler. This maps to the idea of declaring a manifest in an artifact-based build system and letting the system figure out how to execute the build.
 Many problems cannot be easily expressed using functional programming, but the ones that do benefit greatly from it: the language is often able to trivially parallelize such programs and make strong guarantees about their correctness that would be impossible in an imperative language. The easiest problems to express using functional programming are the ones that simply involve transforming one piece of data into another using a series of rules or functions. And that’s exactly what a build system is: the whole system is effectively a mathematical function that takes source files (and tools like the compiler) as inputs and produces binaries as outputs. So, it’s not surprising that it works well to base a build system around the tenets of functional programming.
