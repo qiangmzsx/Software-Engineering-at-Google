@@ -321,7 +321,7 @@ Like with Ant, users perform builds using Bazel’s command-line tool. To build 
 3. Build (or download for external dependencies) each of those dependencies, in order. Bazel starts by building each target that has no other dependencies and keeps track of which dependencies still need to be built for each target. As soon as all of a target’s dependencies are built, Bazel starts building that target. This process continues until every one of MyBinary’s transitive dependencies have been built.
 
 4. Build MyBinary to produce a final executable binary that links in all of the dependencies that were built in step 3.
-  Fundamentally, it might not seem like what’s happening here is that much different than what happened when using a task-based build system. Indeed, the end result is the same binary, and the process for producing it involved analyzing a bunch of steps to find dependencies among them, and then running those steps in order. But there are critical differences. The first one appears in step 3: because Bazel knows that each target will only produce a Java library, it knows that all it has to do is run the Java compiler rather than an arbitrary user-defined script, so it knows that it’s safe to run these steps in parallel. This can produce an order of magnitude performance improvement over building targets one at a time on a multicore machine, and is only possible because the artifact-based approach leaves the build system in charge of its own execution strategy so that it can make stronger guarantees about parallelism.
+    Fundamentally, it might not seem like what’s happening here is that much different than what happened when using a task-based build system. Indeed, the end result is the same binary, and the process for producing it involved analyzing a bunch of steps to find dependencies among them, and then running those steps in order. But there are critical differences. The first one appears in step 3: because Bazel knows that each target will only produce a Java library, it knows that all it has to do is run the Java compiler rather than an arbitrary user-defined script, so it knows that it’s safe to run these steps in parallel. This can produce an order of magnitude performance improvement over building targets one at a time on a multicore machine, and is only possible because the artifact-based approach leaves the build system in charge of its own execution strategy so that it can make stronger guarantees about parallelism.
 
   
 
@@ -339,31 +339,82 @@ Like with Ant, users perform builds using Bazel’s command-line tool. To build 
   Reframing the build process in terms of artifacts rather than tasks is subtle but powerful. By reducing the flexibility exposed to the programmer, the build system can know more about what is being done at every step of the build. It can use this knowledge to make the build far more efficient by parallelizing build processes and reusing their outputs. But this is really just the first step, and these building blocks of parallelism and reuse will form the basis for a distributed and highly scalable build system that will be discussed later.
 
   从构件而不是任务的角度来重构构建过程是微妙而强大的。通过减少暴露在程序员面前的灵活性，构建系统可以知道更多关于在构建的每一步正在做什么。它可以利用这些知识，通过并行化构建过程和重用其输出，使构建的效率大大提升。但这实际上只是第一步，这些并行和重用的构件将构成分布式和高度可扩展的构建系统的基础，这将在后面讨论。
-### Other nifty Bazel tricks
+### Other nifty Bazel tricks 其他有趣的Bazel技巧
 Artifact-based build systems fundamentally solve the problems with parallelism and reuse that are inherent in task-based build systems. But there are still a few problems that came up earlier that we haven’t addressed. Bazel has clever ways of solving each of these, and we should discuss them before moving on.
+
+基于构件的构建系统从根本上解决了基于任务的构建系统所固有的并行性和重用问题。但仍有一些问题在前面出现过，我们还没有解决。Bazel有解决这些问题的聪明方法，我们应该在继续之前讨论它们。
+
 **Tools as dependencies**. One problem we ran into earlier was that builds depended on the tools installed on our machine, and reproducing builds across systems could be difficult due to different tool versions or locations. The problem becomes even more difficult when your project uses languages that require different tools based on which platform they’re being built on or compiled for (e.g., Windows versus Linux), and each of those platforms requires a slightly different set of tools to do the same job.
+
+**工具作为依赖项**。我们之前遇到的一个问题是，构建取决于我们机器上安装的工具，由于工具版本或位置不同，跨系统复制构建可能会很困难。当你的项目使用的语言需要根据它们在哪个平台上构建或编译的不同工具时（例如，Windows与Linux），这个问题就变得更加困难，而每个平台都需要一套稍微不同的工具来完成同样的工作。
+
 Bazel solves the first part of this problem by treating tools as dependencies to each target. Every java_library in the workspace implicitly depends on a Java compiler, which defaults to a well-known compiler but can be configured globally at the workspace level. Whenever Blaze builds a java_library, it checks to make sure that the specified compiler is available at a known location and downloads it if not. Just like any other dependency, if the Java compiler changes, every artifact that was dependent upon it will need to be rebuilt. Every type of target defined in Bazel uses this same strategy of declaring the tools it needs to run, ensuring that Bazel is able to bootstrap them no matter what exists on the system where it runs.
+
+Bazel解决了这个问题的第一部分，把工具当作对每个目标的依赖。工作区中的每一个java_library都隐含地依赖于一个Java编译器，它默认为一个知名的编译器，但可以在工作区层面进行全局配置。每当Blaze构建一个java_library时，它都会检查以确保指定的编译器在已知的位置上是可用的，如果不可用，就下载它。就像其他依赖关系一样，如果Java编译器改变了，每个依赖它的工件都需要重建。在Bazel中定义的每一种类型的目标都使用这种相同的策略来声明它需要运行的工具，确保Bazel能够启动它们，无论它运行的系统上存在什么。
+
 Bazel solves the second part of the problem, platform independence, by using toolchains. Rather than having targets depend directly on their tools, they actually depend on types of toolchains. A toolchain contains a set of tools and other properties defining how a type of target is built on a particular platform. The workspace can define the particular toolchain to use for a toolchain type based on the host and target platform. For more details, see the Bazel manual.
 
+Bazel通过使用工具链解决了问题的第二部分，即平台独立性。与其让目标直接依赖于它们的工具，不如说它们实际上依赖于工具链的类型。工具链包含一组工具和其他属性，定义了如何在特定平台上构建目标类型。工作区可以定义基于主机和目标平台，为工具链类型使用特定的工具链。有关更多详细信息，请参阅Bazel手册。
+
 **Extending the build system**. Bazel comes with targets for several popular programming languages out of the box, but engineers will always want to do more—part of the benefit of task-based systems is their flexibility in supporting any kind of build process, and it would be better not to give that up in an artifact-based build system. Fortunately, Bazel allows its supported target types to be extended by adding custom rules.
+
+**扩展构建系统**。Bazel为几种流行的编程语言提供了开箱即用的能力，但工程师们总是想做得更多--基于任务的系统的部分好处是它们在支持任何类型的构建过程中的灵活性，在基于构件的构建系统中最好也可以支持这一点。幸运的是，Bazel允许其支持通过添加自定义规则扩展的目标类型。
+
 To define a rule in Bazel, the rule author declares the inputs that the rule requires (in the form of attributes passed in the BUILD file) and the fixed set of outputs that the rule produces. The author also defines the actions that will be generated by that rule. Each action declares its inputs and outputs, runs a particular executable or writes a particular string to a file, and can be connected to other actions via its inputs and outputs. This means that actions are the lowest-level composable unit in the build system —an action can do whatever it wants so long as it uses only its declared inputs and outputs, and Bazel will take care of scheduling actions and caching their results as appropriate.
+
+要在Bazel中定义规则，规则作者要声明该规则需要的输入（以BUILD文件中传递的属性形式）和该规则产生的固定输出集。作者还定义了将由该规则生成的操作。每个操作都声明其输入和输出，运行特定的可执行文件或将特定字符串写入文件，并可以通过其输入和输出连接到其他操作。这意味着操作是构建系统中最底层的可组合单元--一个操作可以做任何它想做的事情，只要它只使用它所声明的输入和输出，Bazel将负责调度动作并适当地缓存其结果。
+
 The system isn’t foolproof given that there’s no way to stop an action developer from doing something like introducing a nondeterministic process as part of their action. But this doesn’t happen very often in practice, and pushing the possibilities for abuse all the way down to the action level greatly decreases opportunities for errors. Rules supporting many common languages and tools are widely available online, and most projects will never need to define their own rules. Even for those that do, rule definitions only need to be defined in one central place in the repository, meaning most engineers will be able to use those rules without ever having to worry about their implementation.
 
+这个系统并不是万无一失的，因为没有办法阻止操作开发者做一些事情，比如在他们的操作中引入一个不确定的过程。但这种情况在实践中并不经常发生，而且将滥用的可能性一直推到操作层面，大大减少了错误的机会。支持许多常用语言和工具的规则在网上广泛提供，大多数项目都不需要定义自己的规则。即使是那些需要定义规则的项目，规则定义也只需要在存储库中的一个中心位置定义，这意味着大多数工程师将能够使用这些规则，而不必担心它们的实现。
+
 **Isolating the environment**. Actions sound like they might run into the same problems as tasks in other systems—isn’t it still possible to write actions that both write to the same file and end up conflicting with one another? Actually, Bazel makes these conflicts impossible by using sandboxing. On supported systems, every action is isolated from every other action via a filesystem sandbox. Effectively, each action can see only a restricted view of the filesystem that includes the inputs it has declared and any outputs it has produced. This is enforced by systems such as LXC on Linux, the same technology behind Docker. This means that it’s impossible for actions to conflict with one another because they are unable to read any files they don’t declare, and any files that they write but don’t declare will be thrown away when the action finishes. Bazel also uses sandboxes to restrict actions from communicating via the network.
+
+**隔离环境**。行动听起来可能会遇到与其他系统中的任务相同的问题--难道没有可能写入同时写入同一文件并最终相互冲突的操作吗？实际上，Bazel通过使用沙箱使这些冲突变得不可能。在支持的系统上，每个操作都通过文件系统沙盒与其他动作隔离开来。实际上，每个操作只能看到文件系统的一个有限视图，包括它所声明的输入和它生成的任何输出。这是由Linux上的LXC等系统强制执行的，Docker背后的技术也是如此。这意味着操作之间不可能发生冲突，因为它们无法读取它们没有声明的任何文件，并且他们编写但未声明的文件将在操作完成时被丢弃。Bazel还使用沙盒来限制行动通过网络进行通信。
+
 **Making external dependencies deterministic**. There’s still one problem remaining: build systems often need to download dependencies (whether tools or libraries) from external sources rather than directly building them. This can be seen in the example via the @com_google_common_guava_guava//jar dependency, which downloads a JAR file from Maven.
+
+**使外部依赖性具有确定性**。还有一个问题：构建系统经常需要从外部下载依赖项（无论是工具还是库），而不是直接构建它们。这可以通过@com_google_common_guava_guava//jar依赖项在示例中看到，该依赖项从Maven下载jar文件。
+
 Depending on files outside of the current workspace is risky. Those files could change at any time, potentially requiring the build system to constantly check whether they’re fresh. If a remote file changes without a corresponding change in the workspace source code, it can also lead to unreproducible builds—a build might work one day and fail the next for no obvious reason due to an unnoticed dependency change. Finally, an external dependency can introduce a huge security risk when it is owned by a third party:4 if an attacker is able to infiltrate that third-party server, they can replace the dependency file with something of their own design, potentially giving them full control over your build environment and its output.
+
+依靠当前工作区以外的文件是有风险的。这些文件可能随时更改，这可能需要生成系统不断检查它们是否是最新的。如果一个远程文件发生了变化，而工作区的源代码却没有相应的变化，这也会导致构建的不可重复性--由于一个未被注意到的依赖性变化，构建可能在某一天成功，而在第二天却没有明显的原因而失败。最后，当外部依赖项属于第三方时，可能会带来巨大的安全风险：如果攻击者能够渗透到第三方服务器，他们可以用自己设计的内容替换依赖项文件，从而有可能让他们完全控制服务器构建环境及其输出。
+
 The fundamental problem is that we want the build system to be aware of these files without having to check them into source control. Updating a dependency should be a conscious choice, but that choice should be made once in a central place rather than managed by individual engineers or automatically by the system. This is because even with a “Live at Head” model, we still want builds to be deterministic, which implies that if you check out a commit from last week, you should see your dependencies as they were then rather than as they are now.
+
+根本的问题是，我们希望构建系统知道这些文件，而不必将它们放入源代码管理。更新一个依赖关系应该是一个有意识的选择，但这个选择应该在一个中心位置做出，而不是由个别工程师管理或由系统自动管理。这是因为即使是 "Live at Head "模式，我们仍然希望构建是确定性的，这意味着如果你检查出上周的提交，你应该看到你的依赖关系是当时的，而不是现在的。
+
 Bazel and some other build systems address this problem by requiring a workspace- wide manifest file that lists a cryptographic hash for every external dependency in the workspace.5 The hash is a concise way to uniquely represent the file without checking the entire file into source control. Whenever a new external dependency is referenced from a workspace, that dependency’s hash is added to the manifest, either manually or automatically. When Bazel runs a build, it checks the actual hash of its cached dependency against the expected hash defined in the manifest and redownloads the file only if the hash differs.
+
+Bazel和其他一些构建系统通过要求一个工作区范围的清单文件来解决这个问题，该文件列出了工作区中每个外部依赖项的加密哈希。每当从工作区引用一个新的外部依赖关系时，该依赖关系的哈希值就会被手动或自动添加到清单中。Bazel 运行构建时，会将其缓存的依赖关系的实际哈希值与清单中定义的预期哈希值进行对比，只有在哈希值不同时才会重新下载文件。
+
 ```
 4	Such "software supply chain" attacks are becoming more common.
 5	Go recently added preliminary support for modules using the exact same system.
+4   这种“软件供应链”攻击越来越普遍。
+5   Go最近增加了对使用完全相同系统的模块的初步支持。
 ```
 If the artifact we download has a different hash than the one declared in the manifest, the build will fail unless the hash in the manifest is updated. This can be done automatically, but that change must be approved and checked into source control before the build will accept the new dependency. This means that there’s always a record of when a dependency was updated, and an external dependency can’t change without a corresponding change in the workspace source. It also means that, when checking out an older version of the source code, the build is guaranteed to use the same dependencies that it was using at the point when that version was checked in (or else it will fail if those dependencies are no longer available).
+
+如果我们下载的构件与清单中声明的哈希值不同，除非更新清单中的哈希值，否则构建将失败。这可以自动完成，但在构建接受新的依赖关系之前，这一变化必须得到批准并检查到源代码控制中。这意味着总是有依赖关系更新的记录，如果工作区源代码没有相应的变化，外部依赖关系就不会改变。这也意味着，当签出一个旧版本的源代码时，构建保证使用与签入该版本时相同的依赖关系（否则，如果这些依赖关系不再可用，它将失败）。
+
 Of course, it can still be a problem if a remote server becomes unavailable or starts serving corrupt data—this can cause all of your builds to begin failing if you don’t have another copy of that dependency available. To avoid this problem, we recommend that, for any nontrivial project, you mirror all of its dependencies onto servers or services that you trust and control. Otherwise you will always be at the mercy of a third party for your build system’s availability, even if the checked-in hashes guarantee its security.
-## Distributed Builds
-Google’s codebase is enormous—with more than two billion lines of code, chains of dependencies can become very deep. Even simple binaries at Google often depend on tens of thousands of build targets. At this scale, it’s simply impossible to complete a build in a reasonable amount of time on a single machine: no build system can get around the fundamental laws of physics imposed on a machine’s hardware. The only way to make this work is with a build system that supports distributed builds wherein the units of work being done by the system are spread across an arbitrary and scalable number of machines. Assuming we’ve broken the system’s work into small enough units (more on this later), this would allow us to complete any build of any size as quickly as we’re willing to pay for. This scalability is the holy grail we’ve been working toward by defining an artifact-based build system.
+
+当然，如果一个远程服务器变得不可用或开始提供损坏的数据，这仍然是一个问题--如果没有该依赖项的另一个副本可用，这可能会导致所有构建开始失败。为了避免这个问题，我们建议，对于任何不重要的项目，你应该把所有的依赖关系镜像到你信任和控制的服务器或服务上。否否则，构建系统的可用性将始终取决于第三方，即使签入哈希保证了其安全性。
+
+## Distributed Builds 分布式构建
+Google’s codebase is enormous—with more than two billion lines of code, chains of dependencies can become very deep. Even simple binaries at Google often depend on tens of thousands of build targets. At this scale, it’s simply impossible to complete a build in a reasonable amount of time on a single machine: no build system can get around the fundamental laws of physics imposed on a machine’s hardware. The only way to make this work is with a build system that supports distributed builds wherein the units of work being done by the system are spread across an arbitrary and scalable number of machines. Assuming we’ve broken the system’s work into small enough units (more on this later), this would allow us to complete any build of any size as quickly as we’re willing to pay for. 
+
+谷歌的代码库非常庞大--有超过20亿行的代码，依赖关系链可以变得非常深。在谷歌，即使是简单的二进制文件也常常依赖于成千上万个构建目标。在这种规模下，要在一台机器上以合理的时间完成构建是根本不可能的：任何构建系统都无法绕过强加给机器硬件的基本物理定律。唯一的办法是使用支持分布式构建的构建系统，其中系统所完成的工作单元分布在任意数量且可扩展的机器上。假设我们把系统的工作分解成足够小的单位（后面会有更多介绍），这将使我们能够以我们可以根据支付的费用来获得想要的速度完成任何规模的构建。
+
+This scalability is the holy grail we’ve been working toward by defining an artifact-based build system.
+
+通过定义基于构件的构建系统，这种可伸缩性是我们一直致力于实现的法宝。
+
 ## Remote caching
 The simplest type of distributed build is one that only leverages remote caching, which is shown in Figure 18-2.
+
+最简单的分布式构建类型是只利用远程缓存的构建，如图18-2所示。
 
 ![Figure 18-2](/Users/ouerqiang/project/git/Software-Engineering-at-Google/zh-cn/Chapter-18_Build_Systems_and_Build_Philosophy/images/Figure 18-2.jpg)
 
@@ -371,11 +422,17 @@ Figure 18-2. A distributed build showing remote caching
 
 Every system that performs builds, including both developer workstations and continuous integration systems, shares a reference to a common remote cache service. This service might be a fast and local short-term storage system like Redis or a cloud service like Google Cloud Storage. Whenever a user needs to build an artifact, whether directly or as a dependency, the system first checks with the remote cache to see if that artifact already exists there. If so, it can download the artifact instead of building it. If not, the system builds the artifact itself and uploads the result back to the cache. This means that low-level dependencies that don’t change very often can be built once and shared across users rather than having to be rebuilt by each user. At Google, many artifacts are served from a cache rather than built from scratch, vastly reducing the cost of running our build system.
 
+每个执行构建的系统，包括开发人员工作站和连续集成系统，都共享对公共远程缓存服务的引用。这个服务可能是一个高速的本地短期存储系统，如Redis，或一个云服务，如谷歌云存储。每当用户需要构建一个构件时，无论是直接构建还是作为一个依赖，系统首先检查远程缓存，看该构件是否已经存在。如果存在，它可以下载该构件而不是构建它。如果没有，系统会自己构建构件，并将结果上传到缓存中。这意味着不经常更改的低级依赖项可以构建一次并在用户之间共享，而不必由每个用户重新构建。在谷歌，许多构件是从缓存中提供的，而不是从头开始构建的，这大大降低了我们运行构建系统的成本。
+
 For a remote caching system to work, the build system must guarantee that builds are completely reproducible. That is, for any build target, it must be possible to determine the set of inputs to that target such that the same set of inputs will produce exactly the same output on any machine. This is the only way to ensure that the results of downloading an artifact are the same as the results of building it oneself. Fortunately, Bazel provides this guarantee and so supports [remote caching](https://oreil.ly/D9doX). Note that this requires that each artifact in the cache be keyed on both its target and a hash of its inputs—that way, different engineers could make different modifications to the same target at the same time, and the remote cache would store all of the resulting artifacts and serve them appropriately without conflict.
+
+为了使远程缓存系统发挥作用，构建系统必须保证构建是完全可重复的。也就是说，对于任何构建目标，必须能够确定该目标的输入集，以便相同的输入集在任何机器上产生完全相同的输出。这是确保下载工件的结果与自己构建工件的结果相同的唯一方法。幸运的是，Bazel提供了这种保证，因此支持[远程缓存]（https://oreil.ly/D9doX）。请注意，这要求缓存中的每个构件都以其目标和输入的哈希值为关键--这样，不同的工程师可以在同一时间对同一目标进行不同的修改，而远程缓存将存储所有结果的构件，并适当地为它们提供服务，而不会产生冲突。
 
 Of course, for there to be any benefit from a remote cache, downloading an artifact needs to be faster than building it. This is not always the case, especially if the cache server is far from the machine doing the build. Google’s network and build system is carefully tuned to be able to quickly share build results. When configuring remote caching in your organization, take care to consider network latencies and perform experiments to ensure that the cache is actually improving performance.
 
-### Remote execution
+当然，要想从远程缓存中获得任何好处，下载构件的速度必须比构建它的速度快。但情况并非总是如此，尤其是当缓存服务器远离进行构建的机器时。谷歌的网络和构建系统是经过精心调整的，能够快速分享构建结果。在组织中配置远程缓存时，请注意考虑网络延迟，并进行实验以确保缓存实际上正在提高性能
+
+## Remote execution
 
 Remote caching isn’t a true distributed build. If the cache is lost or if you make a low- level change that requires everything to be rebuilt, you still need to perform the entire build locally on your machine. The true goal is to support *remote execution*, in which the actual work of doing the build can be spread across any number of workers. [Figure 18-3 ](#_bookmark1676)depicts a remote execution system.
 
