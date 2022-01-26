@@ -432,9 +432,11 @@ Of course, for there to be any benefit from a remote cache, downloading an artif
 
 当然，要想从远程缓存中获得任何好处，下载构件的速度必须比构建它的速度快。但情况并非总是如此，尤其是当缓存服务器远离进行构建的机器时。谷歌的网络和构建系统是经过精心调整的，能够快速分享构建结果。在组织中配置远程缓存时，请注意考虑网络延迟，并进行实验以确保缓存实际上正在提高性能
 
-## Remote execution
+## Remote execution 远程构建
 
 Remote caching isn’t a true distributed build. If the cache is lost or if you make a low- level change that requires everything to be rebuilt, you still need to perform the entire build locally on your machine. The true goal is to support *remote execution*, in which the actual work of doing the build can be spread across any number of workers. [Figure 18-3 ](#_bookmark1676)depicts a remote execution system.
+
+远程缓存不是真正的分布式构建。如果缓存丢失或者进行了需要重建所有内容的低级更改，那么仍然需要在计算机上本地执行整个构建。远程缓存并不是一个真正的分布式构建。如果缓存丢失了，或者如果你做了一个低级别的改变，需要重建所有的东西，你仍然需要在你的机器上执行整个构建。真正的目标是支持*远程执行*，在这种情况下，进行构建的实际工作可以分散到任何数量的机器上。[图18-3]（#_bookmark1676）描述了一个远程执行系统。
 
 ![Figure 18-3](/Users/ouerqiang/project/git/Software-Engineering-at-Google/zh-cn/Chapter-18_Build_Systems_and_Build_Philosophy/images/Figure 18-3.png)
 
@@ -442,11 +444,19 @@ Figure 18-3. A remote execution system
 
 The build tool running on each user’s machine (where users are either human engineers or automated build systems) sends requests to a central build master. The build master breaks the requests into their component actions and schedules the execution of those actions over a scalable pool of workers. Each worker performs the actions asked of it with the inputs specified by the user and writes out the resulting artifacts. These artifacts are shared across the other machines executing actions that require them until the final output can be produced and sent to the user.
 
+在每个用户的机器上运行的构建工具（用户可以是工程师，也可以是自动构建系统）向中央构建主控器发送请求。构建主机将请求分解为组件操作，并在可扩展的机器资源池上安排这些操作的执行。每个机器根据用户指定的输入执行所要求的操作，并写出结果的构件。这些构件在执行需要它们的操作的其他机器之间共享，直到可以生成最终输出并发送给用户。
+
 The trickiest part of implementing such a system is managing the communication between the workers, the master, and the user’s local machine. Workers might depend on intermediate artifacts produced by other workers, and the final output needs to be sent back to the user’s local machine. To do this, we can build on top of the distributed cache described previously by having each worker write its results to and read its dependencies from the cache. The master blocks workers from proceeding until everything they depend on has finished, in which case they’ll be able to read their inputs from the cache. The final product is also cached, allowing the local machine to download it. Note that we also need a separate means of exporting the local changes in the user’s source tree so that workers can apply those changes before building.
+
+实现这样一个系统最棘手的部分是管理员、主站和用户的本地机器之间的通信。某台构建机器可能依赖于其他机器产生的中间构件，而最终输出需要发送回用户的本地机器。要做到这一点，我们可以建立在前面描述的分布式缓存之上，让每个构建机器将其结果写入缓存并从缓存中读取其依赖项。主模块阻止构建程序继续工作，直到它所依赖的一切完成，在这种情况下，它将能够从缓存中读取它的输入。最终的产品也被缓存起来，允许本地机器下载它。请注意，我们还需要一种单独的方法来导出用户源树中的本地更改，以便构建机器可以在构建之前应用这些更改。
 
 For this to work, all of the parts of the artifact-based build systems described earlier need to come together. Build environments must be completely self-describing so that we can spin up workers without human intervention. Build processes themselves must be completely self-contained because each step might be executed on a different machine. Outputs must be completely deterministic so that each worker can trust the results it receives from other workers. Such guarantees are extremely difficult for a task-based system to provide, which makes it nigh-impossible to build a reliable remote execution system on top of one.
 
+要做到这一点，前面描述的基于构件的构建系统的所有部分都需要结合起来。构建环境必须是完全自描述的，这样我们就可以在没有人为干预的情况下提高构建的速度。构建过程本身必须是完全自包含的，因为每个步骤可能在不同的机器上执行。输出必须是完全确定的，这样每个构建机器就可以相信它从其他构建机器那里得到的结果。样的保证对于基于任务的系统来说是非常困难的，这使得在一个系统之上构建一个可靠的远程执行系统几乎是不可能的。
+
 **Distributed builds at Google.** Since 2008, Google has been using a distributed build system that employs both remote caching and remote execution, which is illustrated in [Figure 18-4](#_bookmark1678).
+
+**谷歌的分布式构建。**自2008年以来，谷歌一直在使用分布式构建系统，该系统同时采用了远程缓存和远程执行，如[图18-4]（#_bookmark1678）所示。
 
 ![Figure 18-4](/Users/ouerqiang/project/git/Software-Engineering-at-Google/zh-cn/Chapter-18_Build_Systems_and_Build_Philosophy/images/Figure 18-4.png)
 
@@ -454,19 +464,33 @@ For this to work, all of the parts of the artifact-based build systems described
 
 Google’s remote cache is called ObjFS. It consists of a backend that stores build outputs in [Bigtables](https://oreil.ly/S_N-D) distributed throughout our fleet of production machines and a frontend FUSE daemon named objfsd that runs on each developer’s machine. The FUSE daemon allows engineers to browse build outputs as if they were normal files stored on the workstation, but with the file content downloaded on-demand only for the few files that are directly requested by the user. Serving file contents on-demand greatly reduces both network and disk usage, and the system is able to [build twice as](https://oreil.ly/NZxSp) [fast ](https://oreil.ly/NZxSp)compared to when we stored all build output on the developer’s local disk.
 
+谷歌的远程缓存被称为ObjFS。它包括一个将构建输出存储在[Bigtables](https://oreil.ly/S_N-D)的后端，分布在我们的生产机群中，以及一个运行在每个开发人员机器上的名为objfsd的前端FUSE守护程序。FUSE守护进程允许工程师浏览构建输出，就像它们是存储在工作站上的普通文件一样，但文件内容仅针对用户直接请求的少数文件按需下载。按需提供文件内容大大减少了网络和磁盘的使用，系统的构建速度是将所有构建输出存储在开发人员的本地磁盘上时的两倍。
+
 Google’s remote execution system is called Forge. A Forge client in Blaze called the Distributor sends requests for each action to a job running in our datacenters called the Scheduler. The Scheduler maintains a cache of action results, allowing it to return a response immediately if the action has already been created by any other user of the system. If not, it places the action into a queue. A large pool of Executor jobs continually read actions from this queue, execute them, and store the results directly in the ObjFS Bigtables. These results are available to the executors for future actions, or to be downloaded by the end user via objfsd.
+
+谷歌的远程执行系统被称为Forge。在Blaze中，一个名为 "Distributor "的Forge客户端将每个操作的请求发送到数据中心中名为Scheduler调度器。调度器维护操作结果的缓存，允许它在操作已经由系统的任何其他用户创建时立即返回响应。如果没有，它就把操作放到一个队列中。大量执行器作业从该队列中连续读取操作，执行它们，并将结果直接存储在ObjFS Bigtables中。这些结果可供执行者用于将来的操作，或由最终用户通过objfsd下载。
 
 The end result is a system that scales to efficiently support all builds performed at Google. And the scale of Google’s builds is truly massive: Google runs millions of builds executing millions of test cases and producing petabytes of build outputs from billions of lines of source code every *day*. Not only does such a system let our engineers build complex codebases quickly, it also allows us to implement a huge number of automated tools and systems that rely on our build. We put many years of effort into developing this system, but nowadays open source tools are readily available such that any organization can implement a similar system. Though it can take time and energy to deploy such a build system, the end result can be truly magical for engineers and is often well worth the effort.
 
-## Time, Scale, Trade-Offs
+最终的结果是一个可扩展的系统，能够有效地支持在谷歌执行的所有构建。谷歌构建的规模确实是巨大的：谷歌每天运行数以百万计的构建，执行数以百万计的测试用例，并从数十亿行源代码中产生数PB的构建输出。这样一个系统不仅让我们的工程师快速构建复杂的代码库，还让我们能够实现大量依赖我们构建的自动化工具和系统。我们为开发这个系统付出了多年的努力，但现在开源工具已经很容易获得，这样任何组织都可以实现类似的系统。虽然部署这样一个构建系统可能需要时间和精力，但最终的结果对工程师来说确实是神奇的，而且通常是值得付出努力的。
+
+## Time, Scale, Trade-Offs 时间、规模、权衡
 
 Build systems are all about making code easier to work with at scale and over time. And like everything in software engineering, there are trade-offs in choosing which sort of build system to use. The DIY approach using shell scripts or direct invocations of tools works only for the smallest projects that don’t need to deal with code changing over a long period of time, or for languages like Go that have a built-in build system.
 
+构建系统都是为了使代码更易于大规模和长期使用。就像软件工程一样，在选择使用哪种构建系统时也存在权衡。使用shell脚本或直接调用工具的DIY方法只适用于不需要长时间处理代码更改的最小项目，或者适用于具有内置构建系统的Go等语言。
+
 Choosing a task-based build system instead of relying on DIY scripts greatly improves your project’s ability to scale, allowing you to automate complex builds and more easily reproduce those builds across machines. The trade-off is that you need to actually start putting some thought into how your build is structured and deal with the overhead of writing build files (though automated tools can often help with this). This trade-off tends to be worth it for most projects, but for particularly trivial projects (e.g., those contained in a single source file), the overhead might not buy you much.
+
+选择基于任务的构建系统而不是依赖DIY脚本可以极大地提高项目的可扩展性，允许你自动完成复杂的构建，并更容易在不同的机器上复制这些构建。权衡之下，你需要真正开始考虑构建是如何构造的，并处理编写构建文件的开销（尽管自动化工具通常可以帮助解决这个问题）。对于大多数项目来说，这种权衡是值得的，但对于特别琐碎的项目（例如，那些包含在单一源文件中的项目），开销可能不会给你带来太多好处。
 
 Task-based build systems begin to run into some fundamental problems as the project scales further, and these issues can be remedied by using an artifact-based build system instead. Such build systems unlock a whole new level of scale because huge builds can now be distributed across many machines, and thousands of engineers can be more certain that their builds are consistent and reproducible. As with so many other topics in this book, the trade-off here is a lack of flexibility: artifact- based systems don’t let you write generic tasks in a real programming language, but require you to work within the constraints of the system. This is usually not a problem for projects that are designed to work with artifact-based systems from the start, but migration from an existing task-based system can be difficult and is not always worth it if the build isn’t already showing problems in terms of speed or correctness.
 
+随着项目规模的进一步扩大，基于任务的构建系统开始遇到一些基本问题，而这些问题可以通过使用基于构件的构建系统来弥补。这样的构建系统开启了一个全新的规模，因为巨大的构建现在可以分布在许多机器上，成千上万的工程师可以更确定他们的构建是一致的和可重复的。就像本书中的许多其他主题一样，这里的权衡是缺乏灵活性：基于构件的系统不允许你用真正的编程语言编写通用任务，而要求你在系统的约束范围内工作。对于那些从一开始就被设计为与基于工件的系统一起工作的项目来说，这通常不是一个问题，但是从现有的基于任务的系统迁移可能是困难的，而且如果构建在速度或正确性方面还没有出现问题的话，这并不总是值得的。
+
 Changes to a project’s build system can be expensive, and that cost increases as the project becomes larger. This is why Google believes that almost every new project benefits from incorporating an artifact-based build system like Bazel right from the start. Within Google, essentially all code from tiny experimental projects up to Google Search is built using Blaze.
+
+对一个项目的构建系统进行修改代价耿是昂贵的，而且随着项目的扩大，成本也会增加。这就是为什么谷歌认为，几乎每一个新项目从一开始就可以从Bazel这样的基于工件的构建系统中获益。在谷歌内部，从微小的实验性项目到谷歌搜索，基本上所有的代码都是用Blaze构建的。
 
 # Dealing with Modules and Dependencies
 Projects that use artifact-based build systems like Bazel are broken into a set of modules, with modules expressing dependencies on one another via BUILD files. Proper organization of these modules and dependencies can have a huge effect on both the performance of the build system and how much work it takes to maintain.
