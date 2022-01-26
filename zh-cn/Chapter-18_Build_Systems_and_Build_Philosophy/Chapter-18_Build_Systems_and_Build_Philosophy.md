@@ -270,17 +270,28 @@ There’s no general-purpose way to solve these performance, correctness, or mai
 
 在这里列出的基于任务的框架中，没有通用的方法来解决这些性能、正确性或可维护性问题。只要工程师能够编写在构建过程中运行的任意代码，系统就不可能拥有足够的信息来始终能够快速、正确地运行构建。我们需要从工程师手中夺走一些权力，把它放回系统的手中，并重新认识到系统的作用不是作为运行任务，而是作为生产组件。这就是谷歌对Blaze和Bazel采取的方法，将在下一节进行描述。
 
-## Artifact-Based Build Systems 基于组件的构建系统
+## Artifact-Based Build Systems 基于构件的构建系统
 To design a better build system, we need to take a step back. The problem with the earlier systems is that they gave too much power to individual engineers by letting them define their own tasks. Maybe instead of letting engineers define tasks, we can have a small number of tasks defined by the system that engineers can configure in a limited way. We could probably deduce the name of the most important task from the name of this chapter: a build system’s primary task should be to build code. Engineers would still need to tell the system what to build, but the how of doing the build would be left to the system.
 
-
+为了设计一个更好的构建系统，我们需要后退一步。早期系统的问题在于，它们让工程师定义自己的任务，从而给了他们太多的权力。也许，我们可以不让工程师定义任务，而是由系统定义少量的任务，让工程师以有限的方式进行配置。我们也许可以从本章的名称中推断出最重要的任务的名称：构建系统的主要任务应该是构建代码。工程师们仍然需要告诉系统要构建什么，但如何构建的问题将留给系统。
 
 This is exactly the approach taken by Blaze and the other artifact-based build systems descended from it (which include Bazel, Pants, and Buck). Like with task-based build systems, we still have buildfiles, but the contents of those buildfiles are very different. Rather than being an imperative set of commands in a Turing-complete scripting language describing how to produce an output, buildfiles in Blaze are a declarative manifest describing a set of artifacts to build, their dependencies, and a limited set of options that affect how they’re built. When engineers run blaze on the command line, they specify a set of targets to build (the “what”), and Blaze is responsible for configuring, running, and scheduling the compilation steps (the “how”). Because the build system now has full control over what tools are being run when, it can make much stronger guarantees that allow it to be far more efficient while still guaranteeing correctness.
 
-### A functional perspective
+这正是Blaze和它衍生的其他基于构件的构建系统（包括Bazel、Pants和Buck）所采用的方法。与基于任务的构建系统一样，我们仍然有构建文件，但这些构建文件的内容却非常不同。在Blaze中，构建文件不是图灵完备的脚本语言中描述如何产生输出的命令集，而是声明性的清单，描述一组要构建的构件、它们的依赖关系，以及影响它们如何构建的有限选项集。当工程师在命令行上运行blaze时，他们指定一组要构建的目标（"what"），而Blaze负责配置、运行和调度编译步骤（"how"）。由于构建系统现在可以完全控制什么工具在什么时候运行，它可以做出更有力的保证，使其在保证正确性的同时，效率也大大提高。
+
+### A functional perspective 功能视角
 It’s easy to make an analogy between artifact-based build systems and functional programming. Traditional imperative programming languages (e.g., Java, C, and Python) specify lists of statements to be executed one after another, in the same way that task- based build systems let programmers define a series of steps to execute. Functional programming languages (e.g., Haskell and ML), in contrast, are structured more like a series of mathematical equations. In functional languages, the programmer describes a computation to perform, but leaves the details of when and exactly how that computation is executed to the compiler. This maps to the idea of declaring a manifest in an artifact-based build system and letting the system figure out how to execute the build.
+
+在基于构件的构建系统和函数式编程之间做个类比是很容易的。传统的命令式编程语言（如Java、C和Python）指定了一个又一个要执行的语句列表，就像基于任务的构建系统让程序员定义一系列的执行步骤一样。相比之下，函数式编程语言（如Haskell和ML）的结构更像是一系列的数学方程。在函数式语言中，程序员描述了一个要执行的计算，但把何时以及如何执行该计算的细节留给了编译器。这就相当于在基于构件的构建系统中声明一个清单，并让系统找出如何执行构建的思路。
+
 Many problems cannot be easily expressed using functional programming, but the ones that do benefit greatly from it: the language is often able to trivially parallelize such programs and make strong guarantees about their correctness that would be impossible in an imperative language. The easiest problems to express using functional programming are the ones that simply involve transforming one piece of data into another using a series of rules or functions. And that’s exactly what a build system is: the whole system is effectively a mathematical function that takes source files (and tools like the compiler) as inputs and produces binaries as outputs. So, it’s not surprising that it works well to base a build system around the tenets of functional programming.
+
+许多问题无法用函数式编程便捷表达，但那些确实从中受益匪浅的问题：函数式语言通常能够简单地并行这些程序，并对它们的正确性做出强有力的保证，而这在命令式语言中是不可能的。使用函数编程最容易表达的问题是使用一系列规则或函数将一段数据转换为另一段数据的问题。而这正是构建系统的特点：整个系统实际上是一个数学函数，它将源文件（和编译器等工具）作为输入，并产生二进制文件作为输出。因此，围绕函数式编程的原则建立一个构建系统并不令人惊讶。
+
 Getting concrete with Bazel. Bazel is the open source version of Google’s internal build tool, Blaze, and is a good example of an artifact-based build system. Here’s what a buildfile (normally named BUILD) looks like in Bazel:
+
+用Bazel来实现具体化。Bazel是谷歌内部构建工具Blaze的开源版本，是基于构件的构建系统的一个好例子。下面是Bazel中构建文件（通常名为BUILD）的内容：
+
 ```
 java_binary(
 name = "MyBinary",
@@ -298,14 +309,36 @@ visibility = ["//java/com/example/myproduct: subpackages "], deps = [
 )
 ```
 In Bazel, BUILD files define targets—the two types of targets here are java_binary and java_library. Every target corresponds to an artifact that can be created by the system: binary targets produce binaries that can be executed directly, and library targets produce libraries that can be used by binaries or other libraries. Every target has a name (which defines how it is referenced on the command line and by other targets, srcs (which define the source files that must be compiled to create the artifact for the target), and deps (which define other targets that must be built before this target and linked into it). Dependencies can either be within the same package (e.g., MyBinary’s dependency on ":mylib"), on a different package in the same source hierarchy (e.g., mylib’s dependency on "//java/com/example/common"), or on a third- party artifact outside of the source hierarchy (e.g., mylib’s dependency on "@com_google_common_guava_guava//jar"). Each source hierarchy is called a workspace and is identified by the presence of a special WORKSPACE file at the root.
+
+在Bazel中，BUILD文件定义了目标--这里的两类目标是java_binary和java_library。每个目标都对应于系统可以创建的构件：二进制目标产生可以直接执行的二进制文件，而库目标产生可以被二进制文件或其他库使用的库。每个目标都有一个名字（它定义了它在命令行和其他目标中的引用方式）、srcs（它定义了必须被编译以创建目标的组件的源文件）和deps（它定义了必须在这个目标之前构建并链接到它的其他目标）。依赖关系可以是在同一个包内（例如，MyBinary对":mylib "的依赖），也可以是在同一个源层次结构中的不同包上（例如，mylib对"//java/com/example/common "的依赖），或者是在源层次结构之外的第三方工件上（例如，mylib对"@com_google_common_guava_guava//jar "的依赖）。每个源层次结构被称为工作区，并通过在根部存在一个特殊的WORKSPACE文件来识别。
+
 Like with Ant, users perform builds using Bazel’s command-line tool. To build the MyBinary target, a user would run bazel build :MyBinary. Upon entering that command for the first time in a clean repository, Bazel would do the following:
+
 1. Parse every BUILD file in the workspace to create a graph of dependencies among artifacts.
+
 2. Use the graph to determine the transitive dependencies of MyBinary; that is, every target that MyBinary depends on and every target that those targets depend on, recursively.
+
 3. Build (or download for external dependencies) each of those dependencies, in order. Bazel starts by building each target that has no other dependencies and keeps track of which dependencies still need to be built for each target. As soon as all of a target’s dependencies are built, Bazel starts building that target. This process continues until every one of MyBinary’s transitive dependencies have been built.
+
 4. Build MyBinary to produce a final executable binary that links in all of the dependencies that were built in step 3.
-Fundamentally, it might not seem like what’s happening here is that much different than what happened when using a task-based build system. Indeed, the end result is the same binary, and the process for producing it involved analyzing a bunch of steps to find dependencies among them, and then running those steps in order. But there are critical differences. The first one appears in step 3: because Bazel knows that each target will only produce a Java library, it knows that all it has to do is run the Java compiler rather than an arbitrary user-defined script, so it knows that it’s safe to run these steps in parallel. This can produce an order of magnitude performance improvement over building targets one at a time on a multicore machine, and is only possible because the artifact-based approach leaves the build system in charge of its own execution strategy so that it can make stronger guarantees about parallelism.
-The benefits extend beyond parallelism, though. The next thing that this approach gives us becomes apparent when the developer types bazel build :MyBinary a second time without making any changes: Bazel will exit in less than a second with a message saying that the target is up to date. This is possible due to the functional programming paradigm we talked about earlier—Bazel knows that each target is the result only of running a Java compiler, and it knows that the output from the Java compiler depends only on its inputs, so as long as the inputs haven’t changed, the output can be reused. And this analysis works at every level; if MyBinary.java changes, Bazel knows to rebuild MyBinary but reuse mylib. If a source file for //java/com/ example/common changes, Bazel knows to rebuild that library, mylib, and MyBinary, but reuse //java/com/example/myproduct/otherlib. Because Bazel knows about the properties of the tools it runs at every step, it’s able to rebuild only the minimum set of artifacts each time while guaranteeing that it won’t produce stale builds.
-Reframing the build process in terms of artifacts rather than tasks is subtle but powerful. By reducing the flexibility exposed to the programmer, the build system can know more about what is being done at every step of the build. It can use this knowledge to make the build far more efficient by parallelizing build processes and reusing their outputs. But this is really just the first step, and these building blocks of parallelism and reuse will form the basis for a distributed and highly scalable build system that will be discussed later.
+  Fundamentally, it might not seem like what’s happening here is that much different than what happened when using a task-based build system. Indeed, the end result is the same binary, and the process for producing it involved analyzing a bunch of steps to find dependencies among them, and then running those steps in order. But there are critical differences. The first one appears in step 3: because Bazel knows that each target will only produce a Java library, it knows that all it has to do is run the Java compiler rather than an arbitrary user-defined script, so it knows that it’s safe to run these steps in parallel. This can produce an order of magnitude performance improvement over building targets one at a time on a multicore machine, and is only possible because the artifact-based approach leaves the build system in charge of its own execution strategy so that it can make stronger guarantees about parallelism.
+
+  
+
+  和Ant一样，用户使用Bazel的命令行工具进行构建。为了构建MyBinary目标，用户可以运行 bazel build :MyBinary。在一个干净的版本库中第一次输入该命令时，Bazel会做以下工作。
+
+  1. 解析工作区中的每个BUILD文件，以创建工件之间的依赖关系图。
+  2. 使用该图来确定MyBinary的横向依赖关系；也就是说，MyBinary所依赖的每个目标以及这些目标所依赖的每个目标都是递归的。
+  3. 生成（或下载外部依赖项）每个依赖项按顺序排列。Bazel首先构建没有其他依赖项的每个目标，并跟踪每个目标仍需要构建哪些依赖项。一旦构建了目标的所有依赖项，Bazel就会开始构建该目标。此过程一直持续到MyBinary的每个可传递依赖项已经建成。
+  4. 构建MyBinary，产生一个最终的可执行二进制文件，该文件链接了在步骤3中构建的所有依赖项。
+
+  The benefits extend beyond parallelism, though. The next thing that this approach gives us becomes apparent when the developer types bazel build :MyBinary a second time without making any changes: Bazel will exit in less than a second with a message saying that the target is up to date. This is possible due to the functional programming paradigm we talked about earlier—Bazel knows that each target is the result only of running a Java compiler, and it knows that the output from the Java compiler depends only on its inputs, so as long as the inputs haven’t changed, the output can be reused. And this analysis works at every level; if MyBinary.java changes, Bazel knows to rebuild MyBinary but reuse mylib. If a source file for //java/com/ example/common changes, Bazel knows to rebuild that library, mylib, and MyBinary, but reuse //java/com/example/myproduct/otherlib. Because Bazel knows about the properties of the tools it runs at every step, it’s able to rebuild only the minimum set of artifacts each time while guaranteeing that it won’t produce stale builds.
+
+  从根本上说，这里发生的事情似乎与使用基于任务的构建系统时发生的事情没有太大的不同。事实上，最终结果是相同的二进制文件，生成它的过程包括分析一系列步骤以找到它们之间的依赖关系，然后按顺序运行这些步骤。但是有一些关键的区别。第一个出现在第3步：因为Bazel知道每个目标只会生成一个Java库，所以它知道它所要做的就是运行Java编译器，而不是任意的用户定义脚本，所以它知道运行它是安全的。这些步骤是并行的。与在多核机器上一次构建一个目标相比，这可以产生一个数量级的性能改进，并且这是唯一可能的，因为基于工件的方法让构建系统负责自己的执行策略，以便它能够对并行性做出更有力的保证。
+
+  Reframing the build process in terms of artifacts rather than tasks is subtle but powerful. By reducing the flexibility exposed to the programmer, the build system can know more about what is being done at every step of the build. It can use this knowledge to make the build far more efficient by parallelizing build processes and reusing their outputs. But this is really just the first step, and these building blocks of parallelism and reuse will form the basis for a distributed and highly scalable build system that will be discussed later.
+
+  从构件而不是任务的角度来重构构建过程是微妙而强大的。通过减少暴露在程序员面前的灵活性，构建系统可以知道更多关于在构建的每一步正在做什么。它可以利用这些知识，通过并行化构建过程和重用其输出，使构建的效率大大提升。但这实际上只是第一步，这些并行和重用的构件将构成分布式和高度可扩展的构建系统的基础，这将在后面讨论。
 ### Other nifty Bazel tricks
 Artifact-based build systems fundamentally solve the problems with parallelism and reuse that are inherent in task-based build systems. But there are still a few problems that came up earlier that we haven’t addressed. Bazel has clever ways of solving each of these, and we should discuss them before moving on.
 **Tools as dependencies**. One problem we ran into earlier was that builds depended on the tools installed on our machine, and reproducing builds across systems could be difficult due to different tool versions or locations. The problem becomes even more difficult when your project uses languages that require different tools based on which platform they’re being built on or compiled for (e.g., Windows versus Linux), and each of those platforms requires a slightly different set of tools to do the same job.
