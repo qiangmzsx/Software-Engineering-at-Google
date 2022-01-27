@@ -41,7 +41,7 @@
 |                   |               | chapter 23 :Continuous Integration                | 第二十三章：持续集成                                         | @shenzhen   |                                        |              |                                                              |
 |                   |               | chapter 24 :Continuous Delivery                   | 第二十四章：持续交付                                         | @shenzhen   |                                        |              |                                                              |
 |                   |               | chapter 25 :Compute as a Service                  | 第二十五章：计算即服务                                       | @shenzhen   |                                        |              |                                                              |
-| PART 5 Conclusion | 第五部分 总结 | Afterword                                         | 后记                                                         | 待分配      |                                        |              |                                                              |
+| PART 5 Conclusion | 第五部分 总结 | Afterword                                         | [后记](./zh-cn/Afterword.md)                                 | 完成待校验  | @qiangmzsx                             |              |                                                              |
 
 ## 授权许可
 
