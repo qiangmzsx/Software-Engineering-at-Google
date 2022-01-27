@@ -6,3 +6,4 @@
 - [第四章 公平工程](zh-cn/Chapter-4_Engineering_for_Equity/Chapter-4_Engineering_for_Equity.md)
 - [第十章 文档](zh-cn/Chapter-10_Documentation/Chapter-10_Documentatio.md)
 - [第十八章 构建系统，构建理念](zh-cn/Chapter-18_Build_Systems_and_Build_Philosophy/Chapter-18_Build_Systems_and_Build_Philosophy.md)
+- [第十九章：体验：谷歌的代码审查工具](zh-cn/Chapter-19_Critique_Googles_Code_Review_Tool/Chapter-19_Critique_Googles_Code_Review_Tool.md)
