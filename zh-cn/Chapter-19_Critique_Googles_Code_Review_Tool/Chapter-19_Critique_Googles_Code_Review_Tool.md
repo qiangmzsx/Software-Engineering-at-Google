@@ -49,7 +49,7 @@ Code reviews can be executed at many stages of software development, as illustra
 
 代码审查可以在软件开发的许多阶段进行，如图19-1所示。评论评审通常在变更提交到代码库之前进行，也称为预提交评审。尽管第9章包含了对代码评审流程的简要描述，但在这里我们将其扩展，以描述Critique在每个阶段的关键作用。我们将在下面的章节中更详细地讨论每个阶段。
 
-![Figure 19-1](./images/Figure 19-1.png)
+![Figure 19-1](./images/Figure%2019-1.png)
 
 *Figure 19-1. The code review flow*
 
@@ -121,7 +121,7 @@ In Critique, this principle translates onto multiple layers (see Figure 19-2). T
 - 在不同程度上忽略空白差异的选项。
 - 移动检测，在这种检测中，从一个地方移动到另一个地方的代码块被标记为正在移动（而不是像朴素的diff算法那样，在这里被标记为删除，在那里被添加）。
 
-![Figure 19-2](./images/Figure 19-2.png)
+![Figure 19-2](./images/Figure%2019-2.png)
 
 *Figure 19-2. Intraline diffing showing character-level differences*
 
@@ -151,11 +151,11 @@ Analyzers can mark specific findings to highlight in red for increased visibilit
 
 分析器可以标记特定的结果，以红色突出显示，以提高可视性。仍在进行中的分析器由黄色卡片表示，否则显示灰色卡片。为了简单起见，Critique没有提供其他选项来标记或突出研究结果--可操作性是一个二元选项。如果一个分析器产生了一些结果（"研究结果"），点击卡片就可以打开研究结果。像评论一样，研究结果可以显示在diff里面，但风格不同，使它们容易区分。有时，研究结果也包括修正建议，作者可以预先查看这些建议，并从评论中选择应用。
 
-![Figure 19-3](./images/Figure 19-3.png)
+![Figure 19-3](./images/Figure%2019-3.png)
 
 *Figure* *19-3.* *Change* *summary* *and* *diff*  view
 
-![Figure 19-4](./images/Figure 19-4.png)
+![Figure 19-4](./images/Figure%2019-4.png)
 
 *Figure* *19-4.* *Analysis* *results*
 
@@ -195,7 +195,7 @@ After the author is happy with the state of the change, they can send it for rev
 在作者对更改的状态感到满意后，他们可以把它送去审查，如图19-5中所描述的。这需要作者挑选审查者。在一个小团队内，寻找审查者可能看起来很简单，但是即使在团队成员之间均匀地分配评论，也需要考虑像是谁休假的情况。为了解决这个问题，团队可以为收到的代码审查提供一个电子邮件别名。这个别名被一个叫做*GwsQ*的工具所使用（以最初使用这种技术的团队命名：
 （谷歌网络服务器），它根据链接到别名的配置分配特定的审阅者。例如，变更作者可以将评审分配给某个团队列表别名，GwsQ将选择某个团队列表别名的特定成员来执行评审。
 
-![Figure 19-5](./images/Figure 19-5.png)
+![Figure 19-5](./images/Figure%2019-5.png)
 
 Figure 19-5. Requesting reviewers
 
@@ -233,7 +233,7 @@ After the review process starts, the author and the reviewers work in tandem to 
 
 ### Commenting 评论
 
-Making comments is the second most common action that users make in Critique after viewing changes ([Figure 19-6](#_bookmark1757)). Commenting in Critique is free for all. Anyone—not only the change author and the assigned reviewers—can comment on a change.
+Making comments is the second most common action that users make in Critique after viewing changes (Figure 19-6). Commenting in Critique is free for all. Anyone—not only the change author and the assigned reviewers—can comment on a change.
 
 发表评论是用户在Critique查看修改后的第二常见的行为（图19-6）。评论中的评论对所有人都是公开的。任何人--不仅仅是修改作者和指定的评审者--都可以对修改进行评论。
 
@@ -241,7 +241,7 @@ Critique also offers the ability to track review progress via per-person state. 
 
 评论还提供了通过个人状态跟踪审查进度的能力。审阅者有复选框将最新快照中的单个文件标记为已审阅，以帮助审阅者跟踪他们已查看的内容。当作者修改文件时，所有审阅者都会清除该文件的“审阅”复选框，因为最新快照已更新。
 
-![Figure 19-6](./images/Figure 19-6.png)
+![Figure 19-6](./images/Figure%2019-6.png)
 
 *Figure 19-6. Commenting on the diff view*
 
@@ -257,7 +257,7 @@ As mentioned earlier, comments are drafted as-you-go, but then “published” a
 
 如前所述，评论是随心所欲地起草的，但随后以原子方式 "发表"，如图19-7所示。这允许作者和审查者在发送评论之前确保他们对自己的评论感到满意。
 
-![Figure 19-7](./images/Figure 19-7.png)
+![Figure 19-7](./images/Figure%2019-7.png)
 
 *Figure 19-7. Preparing comments to the author*
 
@@ -287,7 +287,7 @@ Critique’s landing page is the user’s dashboard page, as depicted in [Figure
 
 Critique的登陆页面是用户的仪表盘页面，如图19-8所示。仪表盘页面被分为用户可定制的部分，每个部分都包含一个变更摘要列表。
 
-![Figure 19-8](./images/Figure 19-8.png)
+![Figure 19-8](./images/Figure%2019-8.png)
 
 *Figure* *19-8. Dashboard view*
 
@@ -424,18 +424,4 @@ Trust and communication are core to the code review process. A tool can enhance 
 - 信任和沟通是代码审查过程的核心。工具可以增强体验，但不能替代它们。
 - 与其他工具的紧密集成是获得优秀代码审查体验的关键。
 - 小的工作流程优化，如增加一个明确的 "关注集"，可以提高清晰度并大大减少摩擦。
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

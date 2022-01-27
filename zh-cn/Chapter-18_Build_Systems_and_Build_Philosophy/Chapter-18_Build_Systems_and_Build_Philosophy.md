@@ -175,7 +175,7 @@ The buildfile is written in XML and defines some simple metadata about the build
 
 Figure 18-1. An acyclic graph showing dependencies 显示依赖关系的无环图
 
-![Figure 18-1](/Users/ouerqiang/project/git/Software-Engineering-at-Google/zh-cn/Chapter-18_Build_Systems_and_Build_Philosophy/images/Figure 18-1.jpg)
+![Figure 18-1](./images/Figure%2018-1.jpg)
 
 Users perform builds by providing tasks to Ant’s command-line tool. For example, when a user types ant dist, Ant takes the following steps:
 
@@ -416,7 +416,7 @@ The simplest type of distributed build is one that only leverages remote caching
 
 最简单的分布式构建类型是只利用远程缓存的构建，如图18-2所示。
 
-![Figure 18-2](/Users/ouerqiang/project/git/Software-Engineering-at-Google/zh-cn/Chapter-18_Build_Systems_and_Build_Philosophy/images/Figure 18-2.jpg)
+![Figure 18-2](./images/Figure%2018-2.jpg)
 
 Figure 18-2. A distributed build showing remote caching
 
@@ -438,7 +438,7 @@ Remote caching isn’t a true distributed build. If the cache is lost or if you 
 
 远程缓存不是真正的分布式构建。如果缓存丢失或者进行了需要重建所有内容的低级更改，那么仍然需要在计算机上本地执行整个构建。远程缓存并不是一个真正的分布式构建。如果缓存丢失了，或者如果你做了一个低级别的改变，需要重建所有的东西，你仍然需要在你的机器上执行整个构建。真正的目标是支持*远程执行*，在这种情况下，进行构建的实际工作可以分散到任何数量的机器上。[图18-3]（#_bookmark1676）描述了一个远程执行系统。
 
-![Figure 18-3](/Users/ouerqiang/project/git/Software-Engineering-at-Google/zh-cn/Chapter-18_Build_Systems_and_Build_Philosophy/images/Figure 18-3.png)
+![Figure 18-3](./images/Figure%2018-3.png)
 
 Figure 18-3. A remote execution system
 
@@ -458,7 +458,7 @@ For this to work, all of the parts of the artifact-based build systems described
 
 **谷歌的分布式构建。**自2008年以来，谷歌一直在使用分布式构建系统，该系统同时采用了远程缓存和远程执行，如[图18-4]（#_bookmark1678）所示。
 
-![Figure 18-4](/Users/ouerqiang/project/git/Software-Engineering-at-Google/zh-cn/Chapter-18_Build_Systems_and_Build_Philosophy/images/Figure 18-4.png)
+![Figure 18-4](./images/Figure%2018-4.png)
 
 *Figure* *18-4. Google’s distributed build system*
 
@@ -537,7 +537,7 @@ One issue that should be handled carefully with regard to internal dependencies 
 
 关于内部依赖关系，应该小心处理的一个问题是如何处理可传递依赖关系（图 18-5）。假设目标A依赖于目标B，而目标B依赖于一个共同的库目标C，那么目标A是否应该使用目标C中定义的类？
 
-![Figure 18-5](/Users/ouerqiang/project/git/Software-Engineering-at-Google/zh-cn/Chapter-18_Build_Systems_and_Build_Philosophy/images/Figure 18-5.png)
+![Figure 18-5](./images/Figure%2018-5.png)
 
 *Figure* *18-5.* *Transitive* *dependencies*
 
