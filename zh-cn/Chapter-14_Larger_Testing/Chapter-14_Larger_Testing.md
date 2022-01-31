@@ -101,21 +101,29 @@ At Google, configuration changes are the number one reason for our major outages
 1   有关更多信息，请参见第483页和第25章的“连续交付”。
 ```
 
-#### Issues that arise under load
+#### Issues that arise under load 高负载导致的问题
 
 At Google, unit tests are intended to be small and fast because they need to fit into our standard test execution infrastructure and also be run many times as part of a frictionless developer workflow. But performance, load, and stress testing often require sending large volumes of traffic to a given binary. These volumes become difficult to test in the model of a typical unit test. And our large volumes are big, often thousands or millions of queries per second (in the case of ads, [real-time bidding](https://oreil.ly/brV5-))!
 
-#### Unanticipated behaviors, inputs, and side effects
+在谷歌，单元测试的目的是小而快，因为它们需要适配标准测试执行基础设施，也可以作为顺畅的开发人员工作流程的一部分多次运行。但性能、负载和压力测试往往需要向一个特定的二进制文件发送大量的流量。这些流量在典型的单元测试模型中变得难以制造。而我们的大流量是很大的，往往是每秒数千或数百万次的查询（在广告的情况下，实时竞价）!
+
+#### Unanticipated behaviors, inputs, and side effects 非预期的行为、投入和副作用
 
 Unit tests are limited by the imagination of the engineer writing them. That is, they can only test for anticipated behaviors and inputs. However, issues that users find with a product are mostly unanticipated (otherwise it would be unlikely that they would make it to end users as issues). This fact suggests that different test techniques are needed to test for unanticipated behaviors.
 
+单元测试受到编写它们的工程师想象力的限制。也就是说，他们只能测试预期的行为和输入。然而，用户在产品中发现的问题大多是未预料到的（否则，他们不太可能将其作为问题提交给最终用户）。这一事实表明，需要不同的测试技术来测试非预期的行为。
+
 [Hyrum’s Law ](http://hyrumslaw.com/)is an important consideration here: even if we could test 100% for conformance to a strict, specified contract, the effective user contract applies to all visible behaviors, not just a stated contract. It is unlikely that unit tests alone test for all visible behaviors that are not specified in the public API.
 
-#### Emergent behaviors and the “vacuum effect”
+海勒姆定律在这里是一个重要的考虑因素：即使我们可以100%测试是否符合严格的规定合同，有效的用户合同也适用于所有可见的行为，而不仅仅是规定的合同。单元测试不太可能单独测试公共API中未指定的所有可视行为。
+
+#### Emergent behaviors and the “vacuum effect” 突发行为和 "真空效应"
 
 Unit tests are limited to the scope that they cover (especially with the widespread use of test doubles), so if behavior changes in areas outside of this scope, it cannot be detected. And because unit tests are designed to be fast and reliable, they deliberately eliminate the chaos of real dependencies, network, and data. A unit test is like a problem in theoretical physics: ensconced in a vacuum, neatly hidden from the mess of the real world, which is great for speed and reliability but misses certain defect categories.
 
-### Why Not Have Larger Tests?
+单元测试仅限于它们所覆盖的范围（特别是随着测试替代的广泛使用），因此如果在此范围之外的区域发生行为变化，则无法检测到。由于单元测试被设计为快速可靠，它们故意去除了真实依赖、网络和数据的混乱。单元测试就像理论物理中的一个问题：运行在真空中，巧妙地隐藏在现实世界的混乱中，这有助于提高速度和可靠性，但忽略了某些缺陷类别。
+
+### Why Not Have Larger Tests? 为什么不进行大型测试？
 
 In earlier chapters, we discussed many of the properties of a developer-friendly test. In particular, it needs to be as follows:
 *Reliable*
@@ -125,29 +133,61 @@ In earlier chapters, we discussed many of the properties of a developer-friendly
 *Scalable*
 	Google needs to be able to run all such useful affected tests efficiently for presubmits and for post-submits.
 
+在前面的章节中，我们讨论了对开发者友好的测试的许多特性。特别是，它需要做到以下几点：
+*可靠的*
+	它不能是不确定的，它必须提供一个有用的通过/失败信号。
+*快速*
+	它需要足够快，以避免中断开发人员的工作流程。
+*可扩展性*
+	谷歌需要能够有效地运行所有这些有用的受影响的测试，用于预提交和后提交。
+
 Good unit tests exhibit all of these properties. Larger tests often violate all of these constraints. For example, larger tests are often flakier because they use more infrastructure than does a small unit test. They are also often much slower, both to set up as well as to run. And they have trouble scaling because of the resource and time requirements, but often also because they are not isolated—these tests can collide with one another.
+
+好的单元测试展现出这些特性。大型测试经常违反这些限制。例如，大型测试往往是脆弱的，因为它们比小单元测试使用更多的基础设施。它们的设置和运行速度也往往慢得多。而且，由于资源和时间的要求，它们在扩展上有困难，但往往也因为它们不是孤立的--这些测试可能会相互冲突。
 
 Additionally, larger tests present two other challenges. First, there is a challenge of ownership. A unit test is clearly owned by the engineer (and team) who owns the unit. A larger test spans multiple units and thus can span multiple owners. This presents a long-term ownership challenge: who is responsible for maintaining the test and who is responsible for diagnosing issues when the test breaks? Without clear ownership, a test rots.
 
+此外，大型测试还带来了另外两个挑战。首先，所有权是一个挑战。单元测试显然由拥有单元的工程师（和团队）拥有。较大的测试跨越多个单元，因此可以跨越多个所有者。这带来了一个长期的所有权挑战：谁负责维护测试，谁负责在测试中断时诊断问题？没有明确的所有权，测试就会腐化。
+
 The second challenge for larger tests is one of standardization (or the lack thereof). Unlike unit tests, larger tests suffer a lack of standardization in terms of the infrastructure and process by which they are written, run, and debugged. The approach to larger tests is a product of a system’s architectural decisions, thus introducing variance in the type of tests required. For example, the way we build and run A-B diff regression tests in Google Ads is completely different from the way such tests are built and run in Search backends, which is different again from Drive. They use different platforms, different languages, different infrastructures, different libraries, and competing testing frameworks.
+
+大型测试的第二个挑战是标准化问题（或缺乏标准化）。与单元测试不同，大型测试在编写、运行和调试的基础设施和流程方面缺乏标准化。大型测试的方法是系统架构决策的产物，因此在所需的测试类型中引入了差异性。例如，我们在谷歌广告中建立和运行A-B差异回归测试的方式与在搜索后端建立和运行此类测试的方式完全不同，而搜索后端又与驱动不同。他们使用不同的平台，不同的语言，不同的基础设施，不同的库，以及相互竞争的测试框架。
 
 This lack of standardization has a significant impact. Because larger tests have so many ways of being run, they often are skipped during large-scale changes. (See [Chapter 22](#_bookmark1935).) The infrastructure does not have a standard way to run those tests, and asking the people executing LSCs to know the local particulars for testing on every team doesn’t scale. Because larger tests differ in implementation from team to team, tests that actually test the integration between those teams require unifying incompatible infrastructures. And because of this lack of standardization, we cannot teach a single approach to Nooglers (new Googlers) or even more experienced engineers, which both perpetuates the situation and also leads to a lack of understanding about the motivations of such tests.
 
-## Larger Tests at Google
+这种缺乏标准化的情况有很大的影响。因为大型测试有许多运行方式，在大规模的变更中，它们经常被忽略。(见第22章) 基础设施没有一个标准的方式来运行这些测试，要求执行LSC的人员了解每个团队测试的本地细节是不可行的。因为更大的测试在各个团队的实施中是不同的，因此实际测试这些团队之间集成的测试需要统一不兼容的基础架构。而且由于缺乏标准化，我们无法向Nooglers（新的Googlers）甚至更有经验的工程师传授单一的方法，这既使情况长期存在，也导致人们对这种测试的动机缺乏了解。
+
+## Larger Tests at Google 谷歌的大型测试
 
 When we discussed the history of testing at Google earlier (see Chapter 11), we mentioned how Google Web Server (GWS) mandated automated tests in 2003 and how this was a watershed moment. However, we actually had automated tests in use before this point, but a common practice was using automated large and enormous tests. For example, AdWords created an end-to-end test back in 2001 to validate product scenarios. Similarly, in 2002, Search wrote a similar “regression test” for its indexing code, and AdSense (which had not even publicly launched yet) created its variation on the AdWords test.
+
+当我们在前面讨论Google的测试历史时（见第11章），我们讨论了Google Web Server（GWS）如何在2003年强制执行自动化测试，以及这是一个分水岭时刻。然而，在这之前，我们实际上已经有了自动化测试的使用，但一个普遍的做法是使用自动化的大型测试。例如，AdWords早在2001年就创建了一个端到端的测试来验证产品方案。同样，在2002年，搜索公司为其索引代码写了一个类似的 "回归测试"，而AdSense（当时甚至还没有公开推出）在AdWords的测试上创造了它的变种。
+
 Other “larger” testing patterns also existed circa 2002. The Google search frontend relied heavily on manual QA—manual versions of end-to-end test scenarios. And Gmail got its version of a “local demo” environment—a script to bring up an end-to- end Gmail environment locally with some generated test users and mail data for local manual testing.
+
+其他 "较大 "的测试模式也开始于2002年左右。谷歌搜索前端在很大程度上依赖于手动QA--端到端的测试场景的手动版本。Gmail得到了它的 "本地演示 "环境的版本--一个脚本，在本地建立一个端到端的Gmail环境，其中有一些生成的测试用户和邮件数据，用于本地手动测试。
+
 When C/J Build (our first continuous build framework) launched, it did not distinguish between unit tests and other tests, but there were two critical developments that led to a split. First, Google focused on unit tests because we wanted to encourage the testing pyramid and to ensure the vast majority of written tests were unit tests. Second, when TAP replaced C/J Build as our formal continuous build system, it was only able to do so for tests that met TAP’s eligibility requirements: hermetic tests buildable at a single change that could run on our build/test cluster within a maximum time limit. Although most unit tests satisfied this requirement, larger tests mostly did not. However, this did not stop the need for other kinds of tests, and they have continued to fill the coverage gaps. C/J Build even stuck around for years specifically to handle these kinds of tests until newer systems replaced it.
 
-### Larger Tests and Time
+当C/J Build（我们的第一个持续构建框架）推出时，它并没有区分单元测试和其他测试，但有两个关键的发展导致了分裂。首先，Google专注于单元测试，因为我们想鼓励测试金字塔，并确保绝大部分的测试是单元测试。第二，当TAP取代C/J Build成为我们正式的持续构建系统时，它只能为符合TAP资格要求的测试服务：可在一次修改中构建的密封测试，可在最大时间限制内运行在我们的构建/测试集群上。尽管大多数单元测试满足了这一要求，但大型测试大多不满足。然而，这并没有阻止对其他类型的测试的需求，而且它们一直在填补覆盖率的空白。C/J Build甚至坚持了多年，专门处理这些类型的测试，直到更新的系统取代它。
+
+### Larger Tests and Time 大型测试与时间
 
 Throughout this book, we have looked at the influence of time on software engineering, because Google has built software running for more than 20 years. How are larger tests influenced by the time dimension? We know that certain activities make more sense the longer the expected lifespan of code, and testing of various forms is an activity that makes sense at all levels, but the test types that are appropriate change over the expected lifetime of code.
 
+在本书中，我们一直在关注时间对软件工程的影响，因为谷歌已经开发了运行20多年的软件。大型测试是如何受到时间维度的影响的？我们知道，代码的生命周期越长，某些活行为就越有意义，各种形式的测试是一种在各个层面都有意义的活动，但适合的测试类型会随着代码的生命周期而改变。
+
 As we pointed out before, unit tests begin to make sense for software with an expected lifespan from hours on up. At the minutes level (for small scripts), manual testing is most common, and the SUT usually runs locally, but the local demo likely *is* production, especially for one-off scripts, demos, or experiments. At longer lifespans, manual testing continues to exist, but the SUTs usually diverge because the production instance is often cloud hosted instead of locally hosted.
+
+正如我们之前所指出的，单元测试对于预生命周期在几小时以上的软件开始有意义。在分钟级别（小型脚本），手动测试是最常见的，SUT通常在本地运行，但本地demo很可能就是*产品*，特别是对于一次性的脚本、演示或实验。在更长的生命期，手动测试继续存在，但SUT通常是分歧的，因为生产实例通常是云托管而不是本地托管。
 
 The remaining larger tests all provide value for longer-lived software, but the main concern becomes the maintainability of such tests as time increases.
 
+其余大型测试都为生命周期较长的软件提供了价值，但随着时间的增加，主要的问题变成了这种测试的可维护性。
+
 Incidentally, this time impact might be one reason for the development of the “ice cream cone” testing antipattern, as mentioned in the [Chapter 11 ](#_bookmark838)and shown again in [Figure 14-2](#_bookmark1221).
+
+顺便说一句，这一时间冲击可能是开发“冰淇淋筒”测试反模式的原因之一，如第11章所述，图14-2再次显示
 
 ![Figure 14-2](./images/Figure 14-2.png)
 
@@ -155,17 +195,29 @@ Incidentally, this time impact might be one reason for the development of the �
 
 When development starts with manual testing (when engineers think that code is meant to last only for minutes), those manual tests accumulate and dominate the initial overall testing portfolio. For example, it’s pretty typical to hack on a script or an app and test it out by running it, and then to continue to add features to it but continue to test it out by running it manually. This prototype eventually becomes functional and is shared with others, but no automated tests actually exist for it.
 
+当开发从手动测试开始时（当工程师认为代码只能持续几分钟时），那些手动测试就会积累起来并主导最初的整体测试组合。例如，入侵脚本或应用程序并通过运行它来测试它，然后继续向其添加功能，但继续通过手动运行来测试它，这是非常典型的。该原型最终会变得功能化，并与其他人共享，但实际上不存在针对它的自动测试。
+
 Even worse, if the code is difficult to unit test (because of the way it was implemented in the first place), the only automated tests that can be written are end-to-end ones, and we have inadvertently created “legacy code” within days.
+
+更糟糕的是，如果代码很难进行单元测试（因为它最初的实现方式），那么唯一可以编写的自动化测试就是端到端的测试，并且我们在几天内无意中创建了“遗留代码”。
 
 It is *critical* for longer-term health to move toward the test pyramid within the first few days of development by building out unit tests, and then to top it off after that point by introducing automated integration tests and moving away from manual end- to-end tests. We succeeded by making unit tests a requirement for submission, but covering the gap between unit tests and manual tests is necessary for long-term health.
 
-#### Larger Tests at Google Scale
+在开发的头几天，通过建立单元测试，向测试金字塔迈进，然后在这之后通过引入自动化集成测试，摆脱手动端到端的测试，这对长期的稳定是*稳健*。我们成功地使单元测试成为提交的要求，但弥补单元测试和手工测试之间的差距对长期稳健是必要的。
+
+#### Larger Tests at Google Scale 谷歌的大型测试
 
 It would seem that larger tests should be more necessary and more appropriate at larger scales of software, but even though this is so, the complexity of authoring, running, maintaining, and debugging these tests increases with the growth in scale, even more so than with unit tests.
 
+在软件规模较大的情况下，大型测试似乎更有必要，也更合适，但即使如此，编写、运行、维护和调试这些测试的复杂性也会随着规模的增长而增加，甚至比单元测试更复杂。
+
 In a system composed of microservices or separate servers, the pattern of interconnections looks like a graph: let the number of nodes in that graph be our *N*. Every time a new node is added to this graph, there is a multiplicative effect on the number of distinct execution paths through it.
 
+在由微服务或独立服务器组成的系统中，互连模式看起来像一个图：让该图中的节点数为我们的N。每次向该图添加新节点时，都会对通过该图的不同执行路径的数量产生乘法效应。
+
 [Figure 14-3 ](#_bookmark1226)depicts an imagined SUT: this system consists of a social network with users, a social graph, a stream of posts, and some ads mixed in. The ads are created by advertisers and served in the context of the social stream. This SUT alone consists of two groups of users, two UIs, three databases, an indexing pipeline, and six servers. There are 14 edges enumerated in the graph. Testing all of the end-to-end possibilities is already difficult. Imagine if we add more services, pipelines, and databases to this mix: photos and images, machine learning photo analysis, and so on?
+
+图14-3描绘了一个想象中的SUT：这个系统由一个有用户的社交网络、一个社交图、一个feed流和一些混合广告组成。广告由广告商创建，并在社会流的背景下提供服务。这个SUT单独由两组用户、两个UI、三个数据库、一个索引管道和六个服务器组成。图中列举了14条边。测试所有端到端的可能性已经很困难了。想象一下，如果我们在这个组合中添加更多的服务、管道和数据库：照片和图像、机器学习照片分析等等？
 
 ![Figure 14-3](./images/Figure 14-3.png)
 
@@ -173,16 +225,26 @@ In a system composed of microservices or separate servers, the pattern of interc
 
 The rate of distinct scenarios to test in an end-to-end way can grow exponentially or combinatorially depending on the structure of the system under test, and that growth does not scale. Therefore, as the system grows, we must find alternative larger testing strategies to keep things manageable.
 
+以端到端的方式测试的不同场景的速率可以指数增长或组合增长，这取决于被测系统的结构，并且这种增长不会扩展。因此，随着系统的发展，我们必须找到其他更大的测试策略，以保持事情的可管理性。
+
 However, the value of such tests also increases because of the decisions that were necessary to achieve this scale. This is an impact of fidelity: as we move toward larger-*N* layers of software, if the service doubles are lower fidelity (1-epsilon), the chance of bugs when putting it all together is exponential in *N*. Looking at this example SUT again, if we replace the user server and ad server with doubles and those doubles are low fidelity (e.g., 10% accurate), the likelihood of a bug is 99% (1 – (0.1 ∗ 0.1)). And that’s just with two low-fidelity doubles.
+
+然而，由于实现这一规模所需的决策，此类测试的价值也增加了。这是仿真度的一个影响：随着我们向更大的N层软件发展，如果服务的仿真度加倍（1ε），那么当把所有的服务放在一起时，出现错误的几率是N的指数。再看看这个例子SUT，如果我们用双倍替代用户服务器和广告服务器，并且这些加倍的仿真度较低（例如，10%的准确度），出现错误的可能性为99%（1–（0.1∗ 0.1)). 这只是两个低仿真度的替代。
 
 Therefore, it becomes critical to implement larger tests in ways that work well at this scale but maintain reasonably high fidelity.
 
+因此，以在这种规模下工作良好但保持合理高仿真度的方式实现更大的测试变得至关重要。
+
 ------
 
-Tip:"The Smallest Possible Test"
+Tip:"The Smallest Possible Test" 提示："尽可能小的测试"
 Even for integration tests,smaller is better-a handful of large tests is preferable to anenormous one.And,because the scope of a test is often coupled to the scope of theSUT,finding ways to make the SUT smaller help make the test smaller.
 
+即便是集成测试，也是越小越好--少数大型测试比一个超大测试要好。而且，因为测试的范围经常与SUT的范围相联系，找到使SUT变小的方法有助于使测试变小。
+
 One way to achieve this test ratio when presented with a user journey that can requirecontributions from many internal systems is to "chain"tests,as illustrated inFigure 14-4,not specifically in their execution,but to create multiple smaller pairwiseintegration tests that represent the overall scenario.This is done by ensuring that theoutput of one test is used as the input to another test by persisting this output to adata repository.
+
+当出现一个需要许多内部系统服务的用户请求时，实现这种测试比率的一种方法是 "连锁 "测试，如图14-4所示，不是具体执行，而是创建多个较小的成对集成测试，代表整个场景。
 
 ![Figure 14-4](./images/Figure 14-4.png)
 
