@@ -252,7 +252,7 @@ Figure 14-4. Chained tests
 
 
 
-## Structure of a Large Test
+## Structure of a Large Test 大型测试组成
 
 Although large tests are not bound by small test constraints and could conceivably consist of anything, most large tests exhibit common patterns. Large tests usually consist of a workflow with the following phases:
 •   Obtain a system under test
@@ -260,9 +260,17 @@ Although large tests are not bound by small test constraints and could conceivab
 •   Perform actions using the system under test
 •   Verify behaviors
 
-### The System Under Test
+尽管大型测试不受小型测试约束的约束，并且可以由任何内容组成，但大多数大型测试都显示出共同的模式。大型测试通常由具有以下阶段的流程组成：
+• 获得正在测试的系统 
+• 必要的测试数据
+• 使用被测系统执行操作
+• 验证行为
+
+### The System Under Test 正在测试的系统
 
 One key component of large tests is the aforementioned SUT (see [Figure 14-5](#_bookmark1234)). A typical unit test focuses its attention on one class or module. Moreover, the test code runs in the same process (or Java Virtual Machine [JVM], in the Java case) as the code being tested. For larger tests, the SUT is often very different; one or more separate processes with test code often (but not always) in its own process.
+
+大型测试的一个关键组成部分是前述的SUT（见[图14-5](#_bookmark1234)）。一个典型的单元测试将关注点集中在一个类或模块上。此外，测试代码运行在与被测试代码相同的进程（或Java虚拟机[JVM]，在Java的情况下）。对于大型测试，SUT通常是非常不同的；一个或多个独立的进程，测试代码通常（但不总是）在自己的进程中。
 
 ![Figure 14-5](./images/Figure 14-5.png)
 
@@ -273,6 +281,12 @@ At Google, we use many different forms of SUTs, and the scope of the SUT is one 
 	This is the SUT’s isolation from usages and interactions from other components than the test in question. An SUT with high hermeticity will have the least exposure to sources of concurrency and infrastructure flakiness.
 *Fidelity*
 	The SUT’s accuracy in reflecting the production system being tested. An SUT with high fidelity will consist of binaries that resemble the production versions (rely on similar configurations, use similar infrastructures, and have a similar overall topology).
+
+在谷歌，我们使用许多不同形式的SUT，而SUT的范围是大型测试本身范围的主要驱动因素之一（SUT越大，测试越大）。每种SUT形式都可以根据两个主要因素来判断。
+*封闭性性*
+	这是SUT与相关测试之外的其他组件的使用和交互的隔离。具有高隔离性的SUT将具有最少的并发性和基础架构脆弱性来源。
+*仿真度*
+	SUT反映被测生产系统的准确性。具有高保真度的SUT将由与生产版本相似的二进制文件组成（依赖于类似的配置，使用类似的基础设施，并且具有类似的总体拓扑）。
 
 Often these two factors are in direct conflict. Following are some examples of SUTs:
 *Single-process* *SUT*
@@ -286,34 +300,66 @@ Often these two factors are in direct conflict. Following are some examples of S
 *Hybrids*
 	Some SUTs represent a mix: it might be possible to run some of the SUT but have it interact with a shared environment. Usually the thing being tested is explicitly run but its backends are shared. For a company as expansive as Google, it is practically impossible to run multiple copies of all of Google’s interconnected services, so some hybridization is required.
 
-#### The benefits of hermetic SUTs
+通常有这两个因素是直接冲突的。以下是一些SUT的例子。
+*单一进程SUT*
+	整个被测系统被打包成一个二进制文件（即使在生产中这些是多个独立的二进制文件）。此外，测试代码可以被打包成与SUT相同的二进制文件。如果所有测试都是单线程的，那么这种测试SUT组合可能是一个“小”测试，但它对生产拓扑和配置仿真度最低。
+*单机SUT*
+	被测系统由一个或多个独立的二进制文件组成（与生产相同），测试是自身的二进制文件。但一切都在一台机器上运行。这用于 "中等 "测试。理想情况下，在本地运行这些二进制文件时，我们使用每个二进制文件的生产启动配置，以提高仿真度。
+*多机SUT*
+	被测系统分布在多台机器上（很像生产云部署）。这比单机SUT的仿真度还要高，但它的使用使得测试的规模 "很大"，而且这种组合很容易受到网络和机器脆弱程度的影响。
+*共享环境（临时和生产）*。
+	测试只使用共享环境，而不是运行独立的SUT。这具有最低的成本，因为这些共享环境通常已经存在，但是测试可能会与其他同时使用冲突，并且必须等待代码被推送到这些环境中。生产也增加了最终用户受到影响的风险。
+*混合模式*
+	一些SUT代表了一种混合：可以运行一些SUT，但可以让它与共享环境交互。通常被测试的东西是显式运行的，但是它的后端是共享的。对于像谷歌这样扩张的公司来说，实际上不可能运行所有谷歌互联服务的多个副本，因此需要一些混合。
+
+#### The benefits of hermetic SUTs 封闭式SUT的好处
 
 The SUT in a large test can be a major source of both unreliability and long turnaround time. For example, an in-production test uses the actual production system deployment. As mentioned earlier, this is popular because there is no extra overhead cost for the environment, but production tests cannot be run until the code reaches that environment, which means those tests cannot themselves block the release of the code to that environment—the SUT is too late, essentially.
 
+大型测试中的SUT可能是不可靠性和长周转时间的主要原因。例如，生产中的测试使用实际的生产系统部署。如前所述，这很受流行，因为没有额外的环境开销成本，但在代码到达生产环境之前，生产测试无法运行，这意味着这些测试本身无法阻止将代码发布到生产环境--SUT本质上太晚了。
+
 The most common first alternative is to create a giant shared staging environment and to run tests there. This is usually done as part of some release promotion process, but it again limits test execution to only when the code is available. As an alternative, some teams will allow engineers to “reserve” time in the staging environment and to use that time window to deploy pending code and to run tests, but this does not scale with a growing number of engineers or a growing number of services, because the environment, its number of users, and the likelihood of user conflicts all quickly grow.
+
+最常见的第一种选择是创建一个巨大的共享临时环境并在那里运行测试。这通常是作为某些发布升级过程的一部分来完成的，但它再次将测试执行限制为仅当代码可用时。作为一个替代方案，一些团队允许工程师在临时环境中 "保留 "时间，并使用该时间窗口来部署待定的代码和运行测试，但这并不能随着工程师数量的增加或服务数量的增加而扩展，因为环境、用户数量和用户冲突的可能性都会迅速增加。
 
 The next step is to support cloud-isolated or machine-hermetic SUTs. Such an environment improves the situation by avoiding the conflicts and reservation requirements for code release.
 
+下一步是支持云隔离的或机器密闭的SUT。这样的环境通过避免代码发布的冲突和保留要求来改善情况。
+
 ------
 
-*Case Study:Risks of testing in production and Webdriver Torso*
+*Case Study:Risks of testing in production and Webdriver Torso*  *案例研究：生产中的测试风险和Webdriver Torso*。
 We mentioned that testing in production can be risky.One humorous episode resulting from testing in production was known as the Webdriver Torso incident.Weneeded a way to verify that video rendering in You Tube production was workingproperly and so created automated scripts to generate test videos,upload them,andverify the quality of the upload.This was done in a Google-owned YouTube channelcalled Webdriver Torso.But this channel was public,as were most of the videos.
+
+我们提到，在生产中进行测试是有风险的。我们需要一种方法来验证YouTube生产中的视频渲染是否正常，因此创建了自动脚本来生成测试视频，上传它们，并验证上传质量，这是在谷歌拥有的名为Webdriver Torso的YouTube中进行的。
 
 Subsequently,this channel was publicized in an article at Wired,which led to itsspread throughout the media and subsequent efforts to solve the mystery.Finally,ablogger tied everything back to Google.Eventually,we came clean by having a bit offun with it,including a Rickroll and an Easter Egg,so everything worked out well.Butwe do need to think about the possibility of end-user discovery of any test data weinclude in production and be prepared for it.
 
+后来，这个渠道在《连线》杂志的一篇文章中被公布，这导致它在媒体上传播，随后人们努力解开这个谜团。最后，我们通过与它进行一些互动，包括一个Rickroll和一个复活节彩蛋，所以一切都很顺利。但我们确实需要考虑最终用户发现我们在生产中包含的任何测试数据的可能性并做好准备。
+
 ----------
 
-#### Reducing the size of your SUT at problem boundaries
+#### Reducing the size of your SUT at problem boundaries 减少问题边界处SUT的范围
 
 There are particularly painful testing boundaries that might be worth avoiding. Tests that involve both frontends and backends become painful because user interface (UI) tests are notoriously unreliable and costly:
 •   UIs often change in look-and-feel ways that make UI tests brittle but do not actually impact the underlying behavior.
 •   UIs often have asynchronous behaviors that are difficult to test.
 
+有一些特别痛苦的测试界限，值得避免。同时涉及前台和后台的测试变得很痛苦，因为用户界面（UI）测试是出了名的不可靠和高成本：
+- UI的外观和感觉方式经常发生变化，使UI测试变得脆弱，但实际上不会影响底层行为。
+- UI通常具有难以测试的异步行为。
+
 Although it is useful to have end-to-end tests of a UI of a service all the way to its backend, these tests have a multiplicative maintenance cost for both the UI and the backends. Instead, if the backend provides a public API, it is often easier to split the tests into connected tests at the UI/API boundary and to use the public API to drive the end-to-end tests. This is true whether the UI is a browser, command-line interface (CLI), desktop app, or mobile app.
+
+尽管对服务的UI进行端到端测试非常有用，但这些测试会增加UI和后端的维护成本。相反，如果后端提供公共API，则通常更容易在UI/API边界将测试拆分为连接的测试，并使用公共API驱动端到端测试。无论UI是浏览器、命令行界面（CLI）、桌面应用程序还是移动应用程序，都是如此。
 
 Another special boundary is for third-party dependencies. Third-party systems might not have a public shared environment for testing, and in some cases, there is a cost with sending traffic to a third party. Therefore, it is not recommended to have automated tests use a real third-party API, and that dependency is an important seam at which to split tests.
 
+另一个特殊的边界是第三方依赖关系。第三方系统可能没有用于测试的公共共享环境，在某些情况下，向第三方发送流量会产生成本。因此，不建议让自动匹配的测试使用真正的第三方API，并且依赖性是分割测试的一个重要接点。
+
 To address this issue of size, we have made this SUT smaller by replacing its databases with in-memory databases and removing one of the servers outside the scope of the SUT that we actually care about, as shown in [Figure 14-6](#_bookmark1248). This SUT is more likely to fit on a single machine.
+
+为了解决规模问题，我们通过用内存数据库替换它的数据库，并移除SUT范围之外的一个我们真正关心的服务器，使这个SUT变得更小，如图14-6所示。这个SUT更可能适合在一台机器上使用。
 
 ![Figure 14-6](/Users/ouerqiang/project/git/Software-Engineering-at-Google/zh-cn/Chapter-14_Larger_Testing/images/Figure 14-6.png)
 
@@ -321,32 +367,59 @@ To address this issue of size, we have made this SUT smaller by replacing its da
 
 The key is to identify trade-offs between fidelity and cost/reliability, and to identify reasonable boundaries. If we can run a handful of binaries and a test and pack it all into the same machines that do our regular compiles, links, and unit test executions, we have the easiest and most stable “integration” tests for our engineers.
 
-#### Record/replay proxies
+关键是要确定仿真度和成本/可靠性之间的权衡，并确定合理的边界。如果我们能够运行少量的二进制文件和一个测试，并将其全部打包到进行常规编译、链接和单元测试执行的同一台机器上，我们就能为我们的工程师提供最简单、最稳定的 "集成 "测试。
+
+#### Record/replay proxies 记录/重放代理
 
 In the previous chapter, we discussed test doubles and approaches that can be used to decouple the class under test from its difficult-to-test dependencies. We can also double entire servers and processes by using a mock, stub, or fake server or process with the equivalent API. However, there is no guarantee that the test double used actually conforms to the contract of the real thing that it is replacing.
 
+在前一章中，我们讨论了测试加倍和可用于将被测类与其难以测试的依赖项解耦的方法。我们还可以通过使用具有等效API的模拟、存根或伪服务器或进程来复制整个服务器和进程。然而，无法保证所使用的双重测试实际上符合其所替换的真实对象的契约。
+
 One way of dealing with an SUT’s dependent but subsidiary services is to use a test double, but how does one know that the double reflects the dependency’s actual behavior? A growing approach outside of Google is to use a framework for [consumer-driven contract ](https://oreil.ly/RADVJ)tests. These are tests that define a contract for both the client and the provider of the service, and this contract can drive automated tests. That is, a client defines a mock of the service saying that, for these input arguments, I get a particular output. Then, the real service uses this input/output pair in a real test to ensure that it produces that output given those inputs. Two public tools for consumer-driven contract testing are [Pact Contract Testing ](https://docs.pact.io/)and [Spring Cloud Con‐](https://oreil.ly/szQ4j) [tracts](https://oreil.ly/szQ4j). Google’s heavy dependency on protocol buffers means that we don’t use these internally.
+
+处理SUT的依赖关系和附属服务的一种方法是使用测试替代，但如何知道替代反映了依赖的实际行为？在谷歌之外，一种正在发展的方法是使用一个框架进行消费者驱动的合同测试。这些测试为客户和服务的提供者定义了一个合同，这个合同可以驱动自动测试。也就是说，一个客户定义了一个服务的模拟，说对于这些输入参数，我得到一个特定的输出。然后，真正的服务在真正的测试中使用这个输入/输出对，以确保它在这些输入的情况下产生那个输出。消费者驱动的合同测试的两个公共工具是[Pact Contract Testing](https://docs.pact.io/)和[Spring Cloud Con-](https://oreil.ly/szQ4j) [tracts](https://oreil.ly/szQ4j)。谷歌对协议缓冲区的严重依赖意味着我们内部不使用这些工具。
 
 At Google, we do something a little bit different. [Our most popular approach ](https://oreil.ly/-wvYi)(for which there is a public API) is to use a larger test to generate a smaller one by recording the traffic to those external services when running the larger test and replaying it when running smaller tests. The larger, or “Record Mode” test runs continuously on post-submit, but its primary purpose is to generate these traffic logs (it must pass, however, for the logs to be generated). The smaller, or “Replay Mode” test is used during development and presubmit testing.
 
+在谷歌，我们做的有些不同。我们最流行的方法（有公共API）是使用较大的测试生成较小的测试，方法是在运行较大的测试时记录到这些外部服务的流量，并在运行较小的测试时重播流量。大型或“记录模式”测试在提交后持续运行，但其主要目的是生成这些流量日志（但必须通过才能生成日志）。在开发和提交前测试过程中，使用较小的或“重播模式”测试。
+
 One of the interesting aspects of how record/replay works is that, because of nondeterminism, requests must be matched via a matcher to determine which response to replay. This makes them very similar to stubs and mocks in that argument matching is used to determine the resulting behavior.
+
+记录/重放工作原理的一个有趣方面是，由于非终结性，必须通过匹配器匹配请求，以确定重放的响应。这使得它们与存根和模拟非常相似，因为参数匹配用于确定结果行为。
 
 What happens for new tests or tests where the client behavior changes significantly? In these cases, a request might no longer match what is in the recorded traffic file, so the test cannot pass in Replay mode. In that circumstance, the engineer must run the test in Record mode to generate new traffic, so it is important to make running Record tests easy, fast, and stable.
 
-### Test Data
+新测试或客户端行为发生显著变化的测试会发生什么情况？在这些情况下，请求可能不再与记录的流量文件中的内容匹配，因此测试无法在重放模式下通过。在这种情况下，工程师必须以记录模式运行测试以生成新的通信量，因此使运行记录测试变得简单、快速和稳定非常重要。
+
+### Test Data 测试数据
 
 A test needs data, and a large test needs two different kinds of data:
 *Seeded* *data*
 	Data preinitialized into the system under test reflecting the state of the SUT at the inception of the test
 *Test* *traffic*
 	Data sent to the system under test by the test itself during its execution
-	Because of the notion of the separate and larger SUT, the work to seed the SUT state is often orders of magnitude more complex than the setup work done in a unit test. For example:
+
+测试需要数据，大型测试需要两种不同的数据：
+*种子数据*
+	预先初始化到被测系统中的数据，反映测试开始时SUT的状态
+*测试流量*
+	在测试执行过程中，由测试本身发送至被测系统的数据。
+
+Because of the notion of the separate and larger SUT, the work to seed the SUT state is often orders of magnitude more complex than the setup work done in a unit test. For example:
 *Domain* *data*
 	Some databases contain data prepopulated into tables and used as configuration for the environment. Actual service binaries using such a database may fail on startup if domain data is not provided.
 *Realistic* *baseline*
 	For an SUT to be perceived as realistic, it might require a realistic set of base data at startup, both in terms of quality and quantity. For example, large tests of a social network likely need a realistic social graph as the base state for tests: enough test users with realistic profiles as well as enough interconnections between those users must exist for the testing to be accepted.
 *Seeding* *APIs*
 	The APIs by which data is seeded may be complex. It might be possible to directly write to a datastore, but doing so might bypass triggers and checks performed by the actual binaries that perform the writes.
+
+由于独立的和更大的SUT的概念，SUT状态的种子工作往往比单元测试中的设置工作要复杂得多。比如说：
+*领域数据*
+	一些数据库包含预先填充到表中的数据，并作为环境的配置使用。如果不提供领域数据，使用这种数据库的实际服务二进制文件可能在启动时失败。
+*现实的基线*
+	要使SUT被认为是现实的，它可能需要在启动时提供一组现实的基础数据，包括质量和数量。例如，社交网络的大型测试可能需要一个真实的社交图作为测试的基本状态：必须有足够多的具有真实配置文件的测试用户以及这些用户之间的足够互联，才能接受测试。
+*种子APIs*
+	数据种子的API可能很复杂。也许可以直接写入数据存储，但这样做可能会绕过由执行写入的实际二进制文件执行的触发器和检查。
 
 Data can be generated in different ways, such as the following:
 *Handcrafted* *data*
@@ -356,23 +429,48 @@ Data can be generated in different ways, such as the following:
 *Sampled* *data*
 	Copying data can provide too much data to reasonably work with. Sampling data can reduce the volume, thus reducing test time and making it easier to reason about. “Smart sampling” consists of techniques to copy the minimum data necessary to achieve maximum coverage.
 
-### Verification
+数据可以通过不同的方式产生，比如说以下几种：
+*手工制作数据*
+	与小型测试一样，我们可以手动创建大型测试的测试数据。但是在一个大型SUT中为多个服务设置数据可能需要更多的工作，并且我们可能需要为大型测试创建大量数据。
+*复制的数据*
+	我们可以复制数据，通常来自生产。例如，我们可以通过从生产地图数据的副本开始测试地球地图，以提供基线，然后测试我们对它的更改。
+*抽样数据*
+	复制数据可以提供太多的数据来进行合理的工作。采样数据可以减少数量，从而减少测试时间，使其更容易推理。"智能抽样 "包括复制最小的数据以达到最大覆盖率的技术。
+
+### Verification 验证
 
 After an SUT is running and traffic is sent to it, we must still verify the behavior. There are a few different ways to do this:
 *Manual*
-Much like when you try out your binary locally, manual verification uses humans to interact with an SUT to determine whether it functions correctly. This verification can consist of testing for regressions by performing actions as defined on a consistent test plan or it can be exploratory, working a way through different interaction paths to identify possible new failures.
+	Much like when you try out your binary locally, manual verification uses humans to interact with an SUT to determine whether it functions correctly. This verification can consist of testing for regressions by performing actions as defined on a consistent test plan or it can be exploratory, working a way through different interaction paths to identify possible new failures.
 Note that manual regression testing does not scale sublinearly: the larger a system grows and the more journeys through it there are, the more human time is needed to manually test.
 *Assertions*
-Much like with unit tests, these are explicit checks about the intended behavior of the system. For example, for an integration test of Google search of xyzzy, an assertion might be as follows:
+	Much like with unit tests, these are explicit checks about the intended behavior of the system. For example, for an integration test of Google search of xyzzy, an assertion might be as follows:
+
 ```java 
 assertThat(response.Contains("Colossal Cave"))
 ```
 *A/B* *comparison* *(differential)*
 	Instead of defining explicit assertions, A/B testing involves running two copies of the SUT, sending the same data, and comparing the output. The intended behavior is not explicitly defined: a human must manually go through the differences to ensure any changes are intended.
 
-## Types of Larger Tests
+在SUT运行并向其发送流量后，我们仍然必须验证其行为。有几种不同的方法可以做到这一点。
+*手动*
+	就像你在本地尝试你的二进制文件一样，手动验证使用人工与SUT互动以确定它的功能是否正确。这种验证可以包括通过执行一致的测试计划中定义的操作来测试回归，也可以是探索性的，通过不同的交互路径来识别可能的新故障。
+需要注意的是，人工回归测试的规模不是线性的：系统越大，通过它的操作越多，需要人力测试的时间就越多。
+*断言*
+	与单元测试一样，这些是对系统预期行为的明确检查。例如，对于谷歌搜索xyzzy的集成测试，一个断言可能如下：
+
+```
+assertThat(response.Contains("Colossal Cave"))
+```
+
+*A/B测试*
+	A/B测试不是定义显式断言，而是运行SUT的两个副本，发送相同的数据，并比较输出。未明确定义预期行为：人工必须手动检查差异，以确保任何预期更改。
+
+## Types of Larger Tests 大型测试的类型
 
 We can now combine these different approaches to the SUT, data, and assertions to create different kinds of large tests. Each test then has different properties as to which risks it mitigates; how much toil is required to write, maintain, and debug it; and how much it costs in terms of resources to run.
+
+我们现在可以将这些不同的方法组合到SUT、数据和断言中，以创建不同类型的大型测试。然后，每项测试都有不同的特性，可以降低哪些风险；编写、维护和调试它需要多少劳动；以及它在运行资源方面的成本。
 
 What follows is a list of different kinds of large tests that we use at Google, how they are composed, what purpose they serve, and what their limitations are:
 •   Functional testing of one or more binaries
@@ -386,90 +484,157 @@ What follows is a list of different kinds of large tests that we use at Google, 
 •   Disaster recovery and chaos engineering
 •   User evaluation
 
+下面是我们在谷歌使用的各种大型测试的列表，它们是如何组成的，它们的用途是什么，它们的局限性是什么：
+• 一个或多个二进制文件的功能测试
+• 浏览器和设备测试
+• 性能、负载和压力测试
+• 部署配置测试
+• 探索性测试
+• A/B对比（回归）测试
+• 用户验收测试（UAT）
+• 探针和金丝雀分析
+• 灾难恢复和混沌工程
+• 用户评价
+
 Given such a wide number of combinations and thus a wide range of tests, how do we manage what to do and when? Part of designing software is drafting the test plan, and a key part of the test plan is a strategic outline of what types of testing are needed and how much of each. This test strategy identifies the primary risk vectors and the necessary testing approaches to mitigate those risk vectors.
+
+考虑到如此广泛的组合和如此广泛的测试，我们如何管理做什么以及何时做？软件设计的一部分是起草测试计划，而测试计划的一个关键部分是需要什么类型的测试以及每种测试需要多少的战略大纲。该测试策略确定了主要风险向量和缓解这些风险向量的必要测试方法。
 
 At Google, we have a specialized engineering role of “Test Engineer,” and one of the things we look for in a good test engineer is the ability to outline a test strategy for our products.
 
-### Functional Testing of One or More Interacting Binaries
+在谷歌，我们有一个专门的工程角色“测试工程师”，我们在一个好的测试工程师身上寻找的东西之一就是能够为我们的产品勾勒出一个测试策略。
+
+### Functional Testing of One or More Interacting Binaries 一个或多个二进制文件的功能测试
 
 Tests of these type have the following characteristics:
 •   SUT: single-machine hermetic or cloud-deployed isolated
 •   Data: handcrafted
 •   Verification: assertions
 
+此类试验具有以下特点：
+• SUT：单机密封或云部署隔离
+• 数据：手工制作
+• 核查：断言
+
 As we have seen so far, unit tests are not capable of testing a complex system with true fidelity, simply because they are packaged in a different way than the real code is packaged. Many functional testing scenarios interact with a given binary differently than with classes inside that binary, and these functional tests require separate SUTs and thus are canonical, larger tests.
+到目前为止，我们已经看到，单元测试无法以真正的反正测试复杂系统，仅仅是因为它们的打包方式与实际代码的打包方式不同。许多功能测试场景与给定二进制文件的交互方式不同于与该二进制文件中的类的交互方式，这些功能测试需要单独的SUT，因此是规范的、更大的测试。
 
 Testing the interactions of multiple binaries is, unsurprisingly, even more complicated than testing a single binary. A common use case is within microservices environments when services are deployed as many separate binaries. In this case, a functional test can cover the real interactions between the binaries by bringing up an SUT composed of all the relevant binaries and by interacting with it through a published API.
+毫不奇怪，测试多个二进制文件的相互作用甚至比测试单个二进制文件更复杂。一个常见的案例是在微服务环境中，当服务被部署为许多独立的二进制文件。在这种情况下，功能测试可以通过提出由所有相关二进制文件组成的SUT，并通过发布的API与之交互，来覆盖二进制文件之间的真实交互。
 
-### Browser and Device Testing
+### Browser and Device Testing 浏览器和设备测试
 
 Testing web UIs and mobile applications is a special case of functional testing of one or more interacting binaries. It is possible to unit test the underlying code, but for the end users, the public API is the application itself. Having tests that interact with the application as a third party through its frontend provides an extra layer of coverage.
+测试web UI和移动应用程序是对一个或多个交互二进制文件进行功能测试的特例。可以对底层代码进行单元测试，但对于最终用户来说，公共API是应用程序本身。将测试作为第三方通过其前端与应用程序交互提供了额外的覆盖层。
 
-### Performance, Load, and Stress testing
-
+### Performance, Load, and Stress testing 性能、负载和压力测试
 Tests of these type have the following characteristics:
 •   SUT: cloud-deployed isolated
 •   Data: handcrafted or multiplexed from production
 •   Verification: diff (performance metrics)
 
+此类试验具有以下特点：
+•SUT：云部署隔离
+•数据：手工制作或从生产中多路传输
+•验证：差异（性能指标）
+
 Although it is possible to test a small unit in terms of performance, load, and stress, often such tests require sending simultaneous traffic to an external API. That definition implies that such tests are multithreaded tests that usually test at the scope of a binary under test. However, these tests are critical for ensuring that there is no degradation in performance between versions and that the system can handle expected spikes in traffic.
+
+尽管可以在性能、负载和压力方面测试小型单元，但此类测试通常需要同时向外部API发送通信量。该定义意味着此类测试是多线程测试，通常在被测二进制文件的范围内进行测试。但是，这些测试对于确保版本之间的性能不会下降以及系统能够处理预期的流量峰值至关重要。
 
 As the scale of the load test grows, the scope of the input data also grows, and it eventually becomes difficult to generate the scale of load required to trigger bugs under load. Load and stress handling are “highly emergent” properties of a system; that is, these complex behaviors belong to the overall system but not the individual members. Therefore, it is important to make these tests look as close to production as possible. Each SUT requires resources akin to what production requires, and it becomes difficult to mitigate noise from the production topology.
 
+随着负载测试规模的增长，输入数据的范围也在增长，甚至很难在负载下生成触发bug所需的负载规模。负载和压力处理是系统的 "高度涌现 "属性；也就是说，这些复杂的行为属于整个系统，而不是个别组成。因此，重要的是使这些测试看起来尽可能地接近生产。每个SUT所需的资源与生产所需的资源类似，因此很难缓解生产拓扑中的噪音。
+
 One area of research for eliminating noise in performance tests is in modifying the deployment topology—how the various binaries are distributed across a network of machines. The machine running a binary can affect the performance characteristics; thus, if in a performance diff test, the base version runs on a fast machine (or one with a fast network) and the new version on a slow one, it can appear like a performance regression. This characteristic implies that the optimal deployment is to run both versions on the same machine. If a single machine cannot fit both versions of the binary, an alternative is to calibrate by performing multiple runs and removing peaks and valleys.
 
-### Deployment Configuration Testing
+消除性能测试中的噪音的一个研究领域是修改部署拓扑结构--各种二进制文件在机器网络中的分布。运行二进制文件的机器会影响性能特性；因此，如果在性能差异测试中，基本版本在快速机器（或具有高速网络的机器）上运行，而新版本在慢速机器上运行，则可能会出现性能回归。此特性意味着最佳部署是在同一台机器上运行两个版本。如果一台机器无法同时安装两种版本的二进制文件，另一种方法是通过执行多次运行并消除峰值和谷值来进行校准。
+
+### Deployment Configuration Testing 部署配置测试
 
 Tests of these type have the following characteristics:
 •   SUT: single-machine hermetic or cloud-deployed isolated
 •   Data: none
 •   Verification: assertions (doesn’t crash)
 
+此类试验具有以下特点：
+•SUT：单机密封或云部署隔离
+•数据：无
+•验证：断言（不会崩溃）
+
 Many times, it is not the code that is the source of defects but instead configuration: data files, databases, option definitions, and so on. Larger tests can test the integration of the SUT with its configuration files because these configuration files are read during the launch of the given binary.
 
-Such a test is really a smoke test of the SUT without needing much in the way of additional data or verification. If the SUT starts successfully, the test passes. If not, the test fails.
+很多时候，缺陷的根源不是代码，而是配置：数据文件、数据库、选项定义等等。较大的测试可以测试SUT与其配置文件的集成，因为这些配置文件是在给定二进制文件启动期间读取的。
 
-### Exploratory Testing
+Such a test is really a smoke test of the SUT without needing much in the way of additional data or verification. If the SUT starts successfully, the test passes. If not, the test fails.
+这种测试实际上是SUT的烟雾测试，不需要太多额外的数据或验证。如果SUT成功启动，则测试通过。否则，测试失败。
+
+### Exploratory Testing 探索性测试
 
 Tests of these type have the following characteristics:
 •   SUT: production or shared staging
 •   Data: production or a known test universe
 •   Verification: manual
 
+此类试验具有以下特点：
+• SUT：生产或共享暂存
+• 数据：生产或已知测试范围
+• 核查：手动
+
 Exploratory testing[2](#_bookmark1281) is a form of manual testing that focuses not on looking for behavioral regressions by repeating known test flows, but on looking for questionable behavior by trying out new user scenarios. Trained users/testers interact with a product through its public APIs, looking for new paths through the system and for which behavior deviates from either expected or intuitive behavior, or if there are security vulnerabilities.
+
+探索性测试是一种手动测试，它的重点不是通过重复已知的测试流来寻找行为回归，而是通过尝试新的用户场景来寻找有问题的行为。训练有素的用户/测试人员通过产品的公共API与产品交互，在系统中寻找新的路径，寻找行为偏离预期或直观行为的路径，或者是否存在安全漏洞。
 
 Exploratory testing is useful for both new and launched systems to uncover unanticipated behaviors and side effects. By having testers follow different reachable paths through the system, we can increase the system coverage and, when these testers identify bugs, capture new automated functional tests. In a sense, this is a bit like a manual “fuzz testing” version of functional integration testing.
 
-#### Limitations
+探索性测试对于新系统和已发布系统都很有用，可以发现意外行为和副作用。通过让测试人员在系统中遵循不同的可到达路径，我们可以增加系统覆盖率，并且当这些测试人员发现bug时，可以捕获新的自动化功能测试。在某种意义上，这有点像功能集成测试的手动“模糊测试”版本。
+
+#### Limitations 局限性
 
 Manual testing does not scale sublinearly; that is, it requires human time to perform the manual tests. Any defects found by exploratory tests should be replicated with an automated test that can run much more frequently.
+手动测试不会进行次线性扩展；也就是说，执行手动测试需要人工时间。通过探索性测试发现的任何缺陷都应该通过能够更频繁地运行的自动化测试进行复制。
 
-#### Bug bashes
+#### Bug bashes 消灭bug
 
 One common approach we use for manual exploratory testing is the [bug bash](https://oreil.ly/zRLyA). A team of engineers and related personnel (managers, product managers, test engineers, anyone with familiarity with the product) schedules a “meeting,” but at this session, everyone involved manually tests the product. There can be some published guidelines as to particular focus areas for the bug bash and/or starting points for using the system, but the goal is to provide enough interaction variety to document questionable product behaviors and outright bugs.
 
-### A/B Diff Regression Testing
+我们用于手动探索性测试的一种常见方法是bug bash。一组工程师和相关人员（经理、产品经理、测试工程师、熟悉产品的任何人）安排了一次“会议”，但在此情况下，所有相关人员都会手动测试产品。对于bug bash的特定关注领域和/或使用系统的起点，可能会有一些已发布的指南，但目标是提供足够的交互多样性，以记录有问题的产品行为和底层的bug。
+
+### A/B Diff Regression Testing  A/B对比测试
 
 Tests of these type have the following characteristics:
 •   SUT: two cloud-deployed isolated environments
 •   Data: usually multiplexed from production or sampled
 •   Verification: A/B diff comparison
 
+此类试验具有以下特点：
+•SUT：两个云部署的隔离环境
+•数据：通常从生产或取样中多路传输
+•验证：A/B差异比较
+
 Unit tests cover expected behavior paths for a small section of code. But it is impossible to predict many of the possible failure modes for a given publicly facing product. Additionally, as Hyrum’s Law states, the actual public API is not the declared one but all user-visible aspects of a product. Given those two properties, it is no surprise that A/B diff tests are possibly the most common form of larger testing at Google. This approach conceptually dates back to 1998. At Google, we have been running tests based on this model since 2001 for most of our products, starting with Ads, Search, and Maps.
+
+单元测试覆盖了一小部分代码的预期行为路径。但是，对于给定的面向公众的产品，预测许多可能的故障模式是不可能的。。此外，正如Hyrum's Law所指出的，实际的公共API不是声明的API，而是一个产品的所有用户可见的方面。鉴于这两个特性，A/B对比测试可能是谷歌最常见的大型测试形式，这并不奇怪。这种方法在概念上可以追溯到1998年。在谷歌，我们从2001年开始为我们的大多数产品进行基于这种模式的测试，从广告、搜索和地图开始。
 
 A/B diff tests operate by sending traffic to a public API and comparing the responses between old and new versions (especially during migrations). Any deviations in behavior must be reconciled as either anticipated or unanticipated (regressions). In this case, the SUT is composed of two sets of real binaries: one running at the candidate version and the other running at the base version. A third binary sends traffic and compares the results.
 
+A/B对比测试通过向公共API发送流量并比较新旧版本之间的响应（特别是在迁移期间）。任何行为上的偏差都必须作为预期的或未预期的（回归）进行调整。在这种情况下，SUT由两组真实的二进制文件组成：一个运行在候选版本，另一个运行在基本版本。第三个二进制程序发送流量并比较结果。
+
 There are other variants. We use A-A testing (comparing a system to itself) to identify nondeterministic behavior, noise, and flakiness, and to help remove those from A-B diffs. We also occasionally use A-B-C testing, comparing the last production version, the baseline build, and a pending change, to make it easy at one glance to see not only the impact of an immediate change, but also the accumulated impacts of what would be the next-to-release version.
+还有其他的变体。我们使用A-A测试（将系统与自身进行比较）来识别非决定性行为、噪音和松散型，并帮助从A-B差异中去除这些东西。我们有时也会使用A-B-C测试，比较最后的生产版本、基线构建和一个待定的变化，以便一眼就能看出即时更改的影响，以及下一个发布版本的累积影响。
 
 A/B diff tests are a cheap but automatable way to detect unanticipated side effects for any launched system.
+
+A/B差异测试是一种低成本但可自动检测任何已启动系统意外副作用的方法。
 
 ```
 2	James A. Whittaker, Exploratory Software Testing: Tips, Tricks, Tours, and Techniques to Guide Test Design
 (New York: Addison-Wesley Professional, 2009).
+2     詹姆斯·惠塔克，探索性软件测试： 提示， 诡计， 旅行，和技巧到指导测验设计（纽约：Addison-Wesley Professional，2009年）。
 
 ```
 
-#### Limitations
+#### Limitations  局限性
 
 Diff testing does introduce a few challenges to solve:
 *Approval*
