@@ -493,7 +493,7 @@ What follows is a list of different kinds of large tests that we use at Google, 
 • A/B对比（回归）测试
 • 用户验收测试（UAT）
 • 探针和金丝雀分析
-• 灾难恢复和混沌工程
+• 故障恢复和混沌工程
 • 用户评价
 
 Given such a wide number of combinations and thus a wide range of tests, how do we manage what to do and when? Part of designing software is drafting the test plan, and a key part of the test plan is a strategic outline of what types of testing are needed and how much of each. This test strategy identifies the primary risk vectors and the necessary testing approaches to mitigate those risk vectors.
@@ -646,6 +646,16 @@ Diff testing does introduce a few challenges to solve:
 *Setup*
 	Configuring and maintaining one SUT is fairly challenging. Creating two at a time can double the complexity, especially if these share interdependencies.
 
+对比测试确实带来了一些需要解决的挑战：
+*批准*
+	必须有人对结果有足够的了解，才能知道是否会出现任何差异。与典型的测试不同，不清楚差异是好是坏（或者基线版本实际上是否有效），因此在这个过程中通常需要手动步骤。
+*噪音*
+	对于对比测试来说，任何在结果中引入意料之外的噪音都会导致对结果进行更多的手动查验。有必要对噪声进行补救，这也是建立一个好的对比测试的一个很大的复杂性来源。
+*覆盖率*
+	为对比测试产生足够的有用流量是一个具有挑战性的问题。测试数据必须涵盖足够多的场景，以确定角落的差异，但很难手动管理这样的数据。
+*配置*
+	配置和维护一个SUT是相当具有挑战性的。一次创建两个可以使复杂性加倍，特别是如果这些共享相互依赖关系。
+
 ### UAT
 
 Tests of these type have the following characteristics:
@@ -653,68 +663,120 @@ Tests of these type have the following characteristics:
 •   Data: handcrafted
 •   Verification: assertions
 
+此类试验具有以下特点：
+• SUT：机器密封或云部署隔离
+• 数据：手工制作
+• 核查：断言
+
 A key aspect of unit tests is that they are written by the developer writing the code under test. But that makes it quite likely that misunderstandings about the *intended* behavior of a product are reflected not only in the code, but also the unit tests. Such unit tests verify that code is “Working as implemented” instead of “Working as intended.”
+
+单元测试的一个关键方面是，它们是由编写被测代码的开发人员编写的。但是，这使得对产品的*预期行为的误解很可能不仅反映在代码中，而且也反映在单元测试中。这样的单元测试验证了代码是 "按实现工作 "而不是 "按预期工作"。
 
 For cases in which there is either a specific end customer or a customer proxy (a customer committee or even a product manager), UATs are automated tests that exercise the product through public APIs to ensure the overall behavior for specific [user jour‐](https://oreil.ly/lOaOq) [neys ](https://oreil.ly/lOaOq)is as intended. Multiple public frameworks exist (e.g., Cucumber and RSpec) to make such tests writable/readable in a user-friendly language, often in the context of “runnable specifications.”
 
+对于有特定终端客户或客户代理（客户委员会甚至产品经理）的情况，UAT是通过公共API执行产品的自动化测试，以确保特定用户工作的总体行为符合预期。存在多个公共框架（例如，Cucumber和RSpec），使这种测试可以用用户友好的语言写/读，通常是在 "可运行规范 "的背景下。
+
 Google does not actually do a lot of automated UAT and does not use specification languages very much. Many of Google’s products historically have been created by the software engineers themselves. There has been little need for runnable specification languages because those defining the intended product behavior are often fluent in the actual coding languages themselves.
 
-### Probers and Canary Analysis
+谷歌实际上并没有做很多自动化的UAT，也不怎么使用规范语言。谷歌的许多产品在历史上都是由软件工程师自己创建的。几乎不需要可运行的规范语言，因为那些定义预期产品行为的规范语言通常能够流利地使用实际的编码语言。
+
+### Probers and Canary Analysis 探针和金丝雀分析
 
 Tests of these type have the following characteristics:
 •   SUT: production
 •   Data: production
 •   Verification: assertions and A/B diff (of metrics)
 
+此类试验具有以下特点：
+• SUT：生产
+• 数据：生产
+• 验证：断言和A/B差异（度量）
+
+
 Probers and canary analysis are ways to ensure that the production environment itself is healthy. In these respects, they are a form of production monitoring, but they are structurally very similar to other large tests.
+
+探针和金丝雀分析是确保生产环境本身健康的方法。在这些方面，它们是生产监控的一种形式，但在结构上与其他大型测试非常相似。
 
 Probers are functional tests that run encoded assertions against the production environment. Usually these tests perform well-known and deterministic read-only actions so that the assertions hold even though the production data changes over time. For example, a prober might perform a Google search at [www.google.com ](http://www.google.com/)and verify that a result is returned, but not actually verify the contents of the result. In that respect, they are “smoke tests” of the production system, but they provide early detection of major issues.
 
+Probers是功能测试，针对生产环境运行编码的断言。通常，这些测试执行众所周知的和确定的只读动作，这样即使生产数据随时间变化，断言也能成立。例如，探针可能在 [www.google.com](http://www.google.com/) 执行谷歌搜索，并验证返回的结果，但实际上并不验证结果的内容。在这方面，它们是生产系统的 "烟雾测试"，但可以及早发现重大问题。
+
 Canary analysis is similar, except that it focuses on when a release is being pushed to the production environment. If the release is staged over time, we can run both prober assertions targeting the upgraded (canary) services as well as compare health metrics of both the canary and baseline parts of production and make sure that they are not out of line.
+
+金丝雀分析也是类似的，只不过它关注的是一个版本何时被推送到生产环境。如果发布是分阶段进行的，我们可以同时运行针对升级（金丝雀）服务的探针断言，以及比较生产中金丝雀和基线部分的健康指标，并确保它们没有失衡。
 
 Probers should be used in any live system. If the production rollout process includes a phase in which the binary is deployed to a limited subset of the production machines (a canary phase), canary analysis should be used during that procedure.
 
-#### Limitations
+探针应该在任何实时系统中使用。如果生产推广过程包括一个阶段，其中二进制文件被部署到生产机器的有限子集的阶段（一个金丝雀阶段），金丝雀分析应该在该过程中使用。
+
+#### Limitations 局限性
 
 Any issues caught at this point in time (in production) are already affecting end users.
 
+此时（生产中）发现的任何问题都已经影响到最终用户。
+
 If a prober performs a mutable (write) action, it will modify the state of production. This could lead to one of three outcomes: nondeterminism and failure of the assertions, failure of the ability to write in the future, or user-visible side effects.
 
+如果探针执行可变（写入）操作，它将修改生产状态。这可能导致以下三种结果之一：不确定性和评估失败、未来写入能力失败或用户可见的副作用。
 
-
-### Disaster Recovery and Chaos Engineering
+### Disaster Recovery and Chaos Engineering 故障恢复与混沌工程
 
 Tests of these type have the following characteristics:
 •   SUT: production
 •   Data: production and user-crafted (fault injection)
 •   Verification: manual and A/B diff (metrics)
 
+此类试验具有以下特点：
+• SUT：生产
+• 数据：生产和用户定制（故障注入）
+• 验证：手动和A/B对比（指标）
+
 These test how well your systems will react to unexpected changes or failures.
+
+这些测试将测试系统对意外更改或故障的反应。
 
 For years, Google has run an annual war game called [DiRT ](https://oreil.ly/17ffL)(Disaster Recovery Testing) during which faults are injected into our infrastructure at a nearly planetary scale. We simulate everything from datacenter fires to malicious attacks. In one memorable case, we simulated an earthquake that completely isolated our headquarters in Mountain View, California, from the rest of the company. Doing so exposed not only technical shortcomings but also revealed the challenge of running a company when all the key decision makers were unreachable.[3](#_bookmark1293)
 
+多年来，谷歌每年都会举办一场名为“灾难恢复测试”[DiRT](https://oreil.ly/17ffL)(Disaster Recovery Testing)的演练，在这场演练中，故障几乎以全球规模注入我们的基础设施。我们模拟了从数据中心火灾到恶意攻击的一切。在一个令人难忘的案例中，我们模拟了一场地震，将我们位于加州山景城的总部与公司其他部门完全隔离。这样做不仅暴露了技术上的缺陷，也揭示了在所有关键决策者都无法联系到的情况下，管理公司的挑战。
+
 The impacts of DiRT tests require a lot of coordination across the company; by contrast, chaos engineering is more of a “continuous testing” for your technical infrastructure. [Made popular by Netflix](https://oreil.ly/BCwdM), chaos engineering involves writing programs that continuously introduce a background level of faults into your systems and seeing what happens. Some of the faults can be quite large, but in most cases, chaos testing tools are designed to restore functionality before things get out of hand. The goal of chaos engineering is to help teams break assumptions of stability and reliability and help them grapple with the challenges of building resiliency in. Today, teams at Google perform thousands of chaos tests each week using our own home-grown system called Catzilla.
+
+DiRT测试的影响需要整个公司的大量协调；相比之下，混沌工程更像是对你的技术基础设施的 "持续测试"。[由Netflix推广](https://oreil.ly/BCwdM)，混沌工程包括编写程序，在你的系统中不断引入背景水平的故障，并观察会发生什么。有些故障可能相当大，但在大多数情况下，混沌测试工具旨在在事情失控之前恢复功能。混沌工程的目标是帮助团队打破稳定性和可靠性的假设，帮助他们应对建立弹性的挑战。今天，谷歌的团队每周都会使用我们自己开发的名为Catzilla的系统进行数千次混沌测试。
 
 These kinds of fault and negative tests make sense for live production systems that have enough theoretical fault tolerance to support them and for which the costs and risks of the tests themselves are affordable.
 
+这些类型的故障和负面测试对于具有足够理论容错能力的实时生产系统是有意义的，并且测试本身的成本和风险是可以承受的。
+
 ```
 3	During this test, almost no one could get anything done, so many people gave up on work and went to one of our many cafes, and in doing so, we ended up creating a DDoS attack on our cafe teams!
+3   在这次测试中，几乎没有人能完成任何事情，所以很多人放弃了工作，去了我们众多咖啡馆中的一家，在这样做的过程中，我们最终对我们的咖啡馆团队发起了DDoS攻击！
 ```
 
-#### Limitations
+#### Limitations 局限性
 
 Any issues caught at this point in time (in production) are already affecting end users.
 
+此时（生产中）发现的任何问题都已经影响到最终用户。
+
 DiRT is quite expensive to run, and therefore we run a coordinated exercise on an infrequent scale. When we create this level of outage, we actually cause pain and negatively impact employee performance.
+
+DiRT的运行成本相当高，因此我们不经常进行协作演练。当我们制造这种程度的故障时，我们实际上造成了痛苦，并对员工的绩效产生了负面影响。
 
 If a prober performs a mutable (write) action, it will modify the state of production. This could lead to either nondeterminism and failure of the assertions, failure of the ability to write in the future, or user-visible side effects.
 
-### User Evaluation
+如果探针执行了一个可变（写）的动作，它将修改生产的状态。这可能导致非确定性和断言的失败，未来写入能力的失败，或用户可见的副作用。
+
+### User Evaluation 用户评价
 
 Tests of these type have the following characteristics:
 •   SUT: production
 •   Data: production
 •   Verification: manual and A/B diffs (of metrics)
+
+此类试验具有以下特点：
+• SUT：生产
+• 数据：生产
+• 验证：手动和A/B对比（度量）
 
 Production-based testing makes it possible to collect a lot of data about user behavior. We have a few different ways to collect metrics about the popularity of and issues with upcoming features, which provides us with an alternative to UAT:
 *Dogfooding*
@@ -724,26 +786,49 @@ Production-based testing makes it possible to collect a lot of data about user b
 	This is a [massively important approach for Google](https://oreil.ly/OAvqF). One of the first stories a Noogler hears upon joining the company is about the time Google launched an experiment changing the background shading color for AdWords ads in Google Search and noticed a significant increase in ad clicks for users in the experimental group versus the control group.
 *Rater* *evaluation*
 	Human raters are presented with results for a given operation and choose which one is “better” and why. This feedback is then used to determine whether a given change is positive, neutral, or negative. For example, Google has historically used rater evaluation for search queries (we have published the guidelines we give our raters). In some cases, the feedback from this ratings data can help determine launch go/no-go for algorithm changes. Rater evaluation is critical for nondeterministic systems like machine learning systems for which there is no clear correct answer, only a notion of better or worse.
+	
+基于产品的测试可以收集大量关于用户行为的数据。我们有几种不同的方法来收集有关即将推出的功能的受欢迎程度和问题的指标，这为我们提供了UAT的替代方案：
+*狗粮*
+	我们可以利用有限的推广和实验，将生产中的功能提供给一部分用户使用。我们有时会和自己的员工一起这样做（吃自己的狗粮），他们会在真实的部署环境中给我们提供宝贵的反馈。
+*实验*
+	在用户不知情的情况下，将一个新的行为作为一个实验提供给一部分用户。然后，将实验组与控制组在某种期望的指标方面进行综合比较。例如，在YouTube，我们做了一个有限的实验，改变了视频加分的方式（取消了降分），只有一部分用户看到了这个变化。
+	这是一个[对谷歌来说非常重要的方法]（https://oreil.ly/OAvqF）。Noogler在加入公司后听到的第一个故事是关于谷歌推出了一个实验，改变了谷歌搜索中AdWords广告的背景阴影颜色，并注意到实验组的用户与对照组相比，广告点击量明显增加。
+*评分员评价*
+	评分员会被告知某一特定操作的结果，并选择哪一个 "更好 "以及原因。然后，这种反馈被用来确定一个特定的变更是正面、中性还是负面的。例如，谷歌在历史上一直使用评分员对搜索查询进行评估（我们已经公布了我们给评员者的指导方针）。在某些情况下，来自该评级数据的反馈有助于确定算法更改的启动通过/不通过。评价员的评价对于像机器学习系统这样的非确定性系统至关重要，因为这些系统没有明确的正确答案，只有一个更好或更差的概念。
 
-## Large Tests and the Developer Workflow
+## Large Tests and the Developer Workflow  大型测试和开发人员工作流程
 
 We’ve talked about what large tests are, why to have them, when to have them, and how much to have, but we have not said much about the who. Who writes the tests? Who runs the tests and investigates the failures? Who owns the tests? And how do we make this tolerable?
+我们已经讨论了什么是大型测试，为什么要做测试，什么时候做，做多少测试，但我们还没有说太多是谁的问题。谁来写测试？谁来运行测试并调查故障？谁拥有这些测试？我们如何让这一切变得可以忍受？
 
 Although standard unit test infrastructure might not apply, it is still critical to integrate larger tests into the developer workflow. One way of doing this is to ensure that automated mechanisms for presubmit and post-submit execution exist, even if these are different mechanisms than the unit test ones. At Google, many of these large tests do not belong in TAP. They are nonhermetic, too flaky, and/or too resource intensive. But we still need to keep them from breaking or else they provide no signal and become too difficult to triage. What we do, then, is to have a separate post-submit continuous build for these. We also encourage running these tests presubmit, because that provides feedback directly to the author.
 
+尽管标准的单元测试基础设施可能不适用，但将大型测试集成到开发人员的工作流程中仍然是至关重要的。做到这一点的一个方法是确保存在预提交和后提交执行的自动化机制，即使这些机制与单元测试的机制不同。在谷歌，许多大型测试不属于TAP。它们不密封、太薄和/或资源密集。但是我们仍然需要防止它们被破坏，否则它们就不能提供任何信号，并且变得太难处理了。那么，我们所做的就是为这些测试建立一个单独的提交后持续构建。我们也鼓励在提交前运行这些测试，因为这样可以直接向作者提供反馈。
+
 A/B diff tests that require manual blessing of diffs can also be incorporated into such a workflow. For presubmit, it can be a code-review requirement to approve any diffs in the UI before approving the change. One such test we have files release-blocking bugs automatically if code is submitted with unresolved diffs.
+
+需要手动批准的A/B对比测试也可以被纳入这样一个工作流程。对于预提交，在批准更改之前批准UI中的任何差异可能是代码审查要求。我们有一个这样的测试，如果提交的代码有未解决的差异，就会自动归档阻断发布的错误。
 
 In some cases, tests are so large or painful that presubmit execution adds too much developer friction. These tests still run post-submit and are also run as part of the release process. The drawback to not running these presubmit is that the taint makes it into the monorepo and we need to identify the culprit change to roll it back. But we need to make the trade-off between developer pain and the incurred change latency and the reliability of the continuous build.
 
-### Authoring Large Tests
+在某些情况下，测试是如此之大或痛苦，以至于提交前的执行增加了太多的开发者负担。这些测试仍然在提交后运行，并且作为发布过程的一部分运行。不在提交前运行这些测试的缺点是，bug会进入monorepo，我们需要确定罪魁祸首的变化来回滚它。但我们需要在开发人员的痛苦和所产生的变更延迟与持续构建的可靠性之间做出权衡。
+
+### Authoring Large Tests 编写大型测试
 
 Although the structure of large tests is fairly standard, there is still a challenge with creating such a test, especially if it is the first time someone on the team has done so.
+虽然大型测试的结构是相当标准的，但创建这样的测试仍然存在挑战，特别是当团队中有人第一次操作时。
 
 The best way to make it possible to write such tests is to have clear libraries, documentation, and examples. Unit tests are easy to write because of native language support (JUnit was once esoteric but is now mainstream). We reuse these assertion libraries for functional integration tests, but we also have created over time libraries for interacting with SUTs, for running A/B diffs, for seeding test data, and for orchestrating test workflows.
 
+要使写这种测试成为可能，最好的办法是有明确的库、文档和例子。单元测试很容易写，因为有本地语言的支持（JUnit曾经是深奥的，但现在是主流）。我们重新使用这些断言库进行功能集成测试，但随着时间的推移，我们也创建了与SUT交互的库，用于运行A/B差异，用于播种测试数据，以及用于协调测试工作流。
+
 Larger tests are more expensive to maintain, in both resources and human time, but not all large tests are created equal. One reason that A/B diff tests are popular is that they have less human cost in maintaining the verification step. Similarly, production SUTs have less maintenance cost than isolated hermetic SUTs. And because all of this authored infrastructure and code must be maintained, the cost savings can compound.
 
+大型测试在资源和人力时间方面的维护成本较高，但不是所有的大型测试都是一样的。A/B对比测试受欢迎的一个原因是，它们在维护验证步骤方面的人力成本较低。同样，生产型SUT的维护成本比隔离的封闭型SUT要低。而且，由于所有这些自创的基础设施和代码都必须被维护，成本的节省可以是落地的。
+
 However, this cost must be looked at holistically. If the cost of manually reconciling diffs or of supporting and safeguarding production testing outweighs the savings, it becomes ineffective.
+
+然而，必须从整体上看待这一成本。如果手动协调差异或支持和保护生产测试的成本超过了节省的成本，那么它将变得无效。
 
 ### Running Large Tests
 
