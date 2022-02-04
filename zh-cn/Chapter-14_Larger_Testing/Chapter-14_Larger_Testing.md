@@ -830,17 +830,25 @@ However, this cost must be looked at holistically. If the cost of manually recon
 
 然而，必须从整体上看待这一成本。如果手动协调差异或支持和保护生产测试的成本超过了节省的成本，那么它将变得无效。
 
-### Running Large Tests
+### Running Large Tests 进行大型测试
 
 We mentioned above how our larger tests don’t fit in TAP and so we have alternate continuous builds and presubmits for them. One of the initial challenges for our engineers is how to even run nonstandard tests and how to iterate on them.
 
+我们在上面提到，我们的大型测试不适合在TAP中进行，所以我们为它们准备了备用的持续构建和预提交。对我们的工程师来说，最初的挑战之一是如何运行非标准的测试，以及如何对它们进行迭代。
+
 As much as possible, we have tried to make our larger tests run in ways familiar for our engineers. Our presubmit infrastructure puts a common API in front of running both these tests and running TAP tests, and our code review infrastructure shows both sets of results. But many large tests are bespoke and thus need specific documentation for how to run them on demand. This can be a source of frustration for unfamiliar engineers.
 
-#### Speeding up tests
+我们尽可能地使我们的大型测试以工程师熟悉的方式运作。我们的预提交基础设施在运行这些测试和运行TAP测试之前都提供了一个通用的API，我们的代码审查基础设施显示了这两组结果。但许多大型测试是定制的，因此需要具体的文档来说明如何按需运行它们。对于不熟悉的工程师来说，这可能是一个令人沮丧的原因。
+
+#### Speeding up tests  加快测试进度
 
 Engineers don’t wait for slow tests. The slower a test is, the less frequently an engineer will run it, and the longer the wait after a failure until it is passing again.
 
+工程师不会等待缓慢的测试。测试越慢，工程师运行测试的频率就越低，失败后等待测试再次通过的时间就越长。
+
 The best way to speed up a test is often to reduce its scope or to split a large test into two smaller tests that can run in parallel. But there are some other tricks that you can do to speed up larger tests.
+
+加速测试的最佳方法通常是缩小其范围，或者将大型测试拆分为两个可以并行运行的小型测试。但是，您还可以使用其他一些技巧来加速更大的测试。
 
 Some naive tests will use time-based sleeps to wait for nondeterministic action to occur, and this is quite common in larger tests. However, these tests do not have thread limitations, and real production users want to wait as little as possible, so it is best for tests to react the way real production users would. Approaches include the following:
 
@@ -848,43 +856,82 @@ Some naive tests will use time-based sleeps to wait for nondeterministic action 
 •   Implementing an event handler.
 •   Subscribing to a notification system for an event completion.
 
+一些简单的测试会使用基于时间延迟注入来等待非确定性的动作发生，这在大型测试中是很常见的。但是，这些测试没有线程限制，并且实际生产用户希望等待的时间尽可能少，因此最好让测试以实际生产用户的方式做出反应。方法包括：  
+- 在时间窗口内重复轮询状态转换，以使事件以接近微秒的频率完成。如果测试无法达到稳定状态，你可以将其与超时值结合起来。
+- 实现一个事件处理程序。
+- 订阅事件完成通知系统。
+
 Note that tests that rely on sleeps and timeouts will all start failing when the fleet running those tests becomes overloaded, which spirals because those tests need to be rerun more often, increasing the load further.
+
+请注意，当运行这些测试的负载变得超载时，依赖延时和超时的测试都会开始失败，这是因为这些测试需要更频繁地重新运行，进一步增加了负载。
+
 *Lower internal system timeouts and delays*
 	A production system is usually configured assuming a distributed deployment topology, but an SUT might be deployed on a single machine (or at least a cluster of colocated machines). If there are hardcoded timeouts or (especially) sleep statements in the production code to account for production system delay, these should be made tunable and reduced when running tests.
+
+*更低的内部系统超时和延迟*。
+	生产系统通常采用分布式部署拓扑进行配置，但SUT可能部署在一台机器上（或至少是一个群集的机器）。如果在生产代码中存在硬编码超时或（特别是）休眠语句来解释生产系统延迟，则应在运行测试时使其可调并减少。
+
 *Optimize test build time*
 	One downside of our monorepo is that all of the dependencies for a large test are built and provided as inputs, but this might not be necessary for some larger tests. If the SUT is composed of a core part that is truly the focus of the test and some other necessary peer binary dependencies, it might be possible to use prebuilt versions of those other binaries at a known good version. Our build system (based on the monorepo) does not support this model easily, but the approach is actually more reflective of production in which different services release at different versions.
+	
+*优化测试构建时间*。
+	我们的monorepo的一个缺点是，大型测试的所有依赖项都是作为输入构建和提供的，但对于一些大型测试来说，这可能不是必需的。如果SUT是由一个真正的测试重点的核心部分和其他一些必要的对等二进制依赖组成的，那么可以在已知的良好版本中使用这些其他二进制文件的预构建版本。我们的构建系统（基于monorepo）不容易支持这种模式，但该方法实际上更能反映不同服务以不同版本发布的生产。
 
-#### Driving out flakiness
+#### Driving out flakiness  驱除松散性
 
 Flakiness is bad enough for unit tests, but for larger tests, it can make them unusable. A team should view eliminating flakiness of such tests as a high priority. But how can flakiness be removed from such tests?
 
+对于单元测试来说，松散性已经很糟糕了，但对于大型测试来说，它可能会使它们无法使用。一个团队应该把消除这种测试的松散性视为一个高度优先事项。但是，如何才能从这些测试中消除松散性呢？
+
 Minimizing flakiness starts with reducing the scope of the test—a hermetic SUT will not be at risk of the kinds of multiuser and real-world flakiness of production or a shared staging environment, and a single-machine hermetic SUT will not have the network and deployment flakiness issues of a distributed SUT. But you can mitigate other flakiness issues through test design and implementation and other techniques. In some cases, you will need to balance these with test speed.
+
+最大限度地减少松散，首先要减少测试的范围--封闭的SUT不会有生产或共享暂存环境的各种多用户和真实世界松散的风险，单机封闭的SUT不会有分布式SUT的网络和部署闪失问题。但是你可以通过测试设计和实施以及其他技术来减轻其他的松散性问题。在某些情况下，你需要平衡这些与测试速度。
 
 Just as making tests reactive or event driven can speed them up, it can also remove flakiness. Timed sleeps require timeout maintenance, and these timeouts can be embedded in the test code. Increasing internal system timeouts can reduce flakiness, whereas reducing internal timeouts can lead to flakiness if the system behaves in a nondeterministic way. The key here is to identify a trade-off that defines both a tolerable system behavior for end users (e.g., our maximum allowable timeout is *n* seconds) but handles flaky test execution behaviors well.
 
+正如使测试反应式或事件驱动可以加快它们的速度一样，它也可以消除松散性。定时休眠需要超时维护，这些超时可以嵌入测试代码中。增加系统的内部超时可以减少松散性，而减少内部超时可以导致松散性，如果系统的行为是不确定的。这里的关键是确定一个权衡，既要为终端用户定义一个可容忍的系统行为（例如，我们允许的最大超时是*n*秒），但很好地处理了不稳定的测试执行行为。
+
 A bigger problem with internal system timeouts is that exceeding them can lead to difficult errors to triage. A production system will often try to limit end-user exposure to catastrophic failure by handling possible internal system issues gracefully. For example, if Google cannot serve an ad in a given time limit, we don’t return a 500, we just don’t serve an ad. But this looks to a test runner as if the ad-serving code might be broken when there is just a flaky timeout issue. It’s important to make the failure mode obvious in this case and to make it easy to tune such internal timeouts for test scenarios.
 
-#### Making tests understandable
+内部系统超时的一个更大问题是，超过这些超时会导致难以分类的错误。生产系统通常会试图通过优雅地方式处理可能的内部系统问题来限制终端用户对灾难性故障的暴露。例如，如果谷歌不能在给定的时间限制内提供广告，我们不会返回500，我们只是不提供广告。但在测试运行人员看来，如果只是出现异常超时问题，广告服务可能会被中断。在这种情况下，重要的是使故障模式变得明显，并使调整测试场景的此类内部超时变得容易
+
+#### Making tests understandable  让测试变得易懂
 
 A specific case for which it can be difficult to integrate tests into the developer workflow is when those tests produce results that are unintelligible to the engineer running the tests. Even unit tests can produce some confusion—if my change breaks your test, it can be difficult to understand why if I am generally unfamiliar with your code—but for larger tests, such confusion can be insurmountable. Tests that are assertive must provide a clear pass/fail signal and must provide meaningful error output to help triage the source of failure. Tests that require human investigation, like A/B diff tests, require special handling to be meaningful or else risk being skipped during presubmit.
+
+当这些测试产生的结果对运行测试的工程师来说是无法理解的时候，就很难将测试整合到开发者的工作流程中。即使是单元测试也会产生一些混乱--如果我的修改破坏了你的测试，如果我一般不熟悉你的代码，就很难理解为什么，但对于大型测试，这种混乱可能是无法克服的。坚定的测试必须提供一个明确的通过/失败信号，并且必须提供有意义的错误输出，以帮助分类失败的原因。需要人工调查的测试，如A/B对比测试，需要特殊处理才能有意义，否则在预提交期间有被跳过的风险。
 
 How does this work in practice? A good large test that fails should do the following:
 *Have a message that clearly identifies what the failure is*
 	The worst-case scenario is to have an error that just says “Assertion failed” and a stack trace. A good error anticipates the test runner’s unfamiliarity with the code and provides a message that gives context: “In test_ReturnsOneFullPageOfSearchResultsForAPopularQuery, expected 10 search results but got 1.” For a performance or A/B diff test that fails, there should be a clear explanation in the output of what is being measured and why the behavior is considered suspect.
-*Minimize* *the* *effort* *necessary* *to* *identify* *the* *root* *cause* *of* *the* *discrepancy*
+*Minimize the effort necessary to identify the root cause of  the discrepancy*
 	A stack trace is not useful for larger tests because the call chain can span multiple process boundaries. Instead, it’s necessary to produce a trace across the call chain or to invest in automation that can narrow down the culprit. The test should produce some kind of artifact to this effect. For example, [Dapper](https://oreil.ly/FXzbv) is a framework used by Google to associate a single request ID with all the requests in an RPC call chain, and all of the associated logs for that request can be correlated by that ID to facilitate tracing.
-*Provide* *support* *and* *contact* *information.*
+*Provide support and contact information.*
 	It should be easy for the test runner to get help by making the owners and supporters of the test easy to contact.
 
-#### Owning Large Tests
+这在实践中是如何运作的？一个成功的大型测试应该从失败中获取到信息，要做到以下几点：
+*有一个明确指出失败原因的信息*。
+	最坏的情况是有一个错误，只是说 "断言失败 "和一个堆栈跟踪。一个好的错误能预见到测试运行者对代码的不熟悉，并提供一个信息来说明背景。”in test_ReturnsOneFullPageOfSearchResultsForAPopularQuery中，预期有10个搜索结果，但得到了1个。" 对于失败的性能或A/B对比测试，在输出中应该有一个明确的解释，说明什么是被测量的，为什么该行为被认为是可疑的。
+*尽量减少识别差异的根本原因所需的努力*。
+	堆栈跟踪对较大的测试没有用，因为调用链可能跨越多个进程边界。相反，有必要在整个调用链中产生一个跟踪，或者投资于能够缩小罪魁祸首的自动化。测试应该产生某种工具来达到这个效果。例如，[Dapper](https://oreil.ly/FXzbv)是谷歌使用的一个框架，将一个单一的请求ID与RPC调用链中的所有请求相关联，该请求的所有相关日志都可以通过该ID进行关联，以方便追踪。
+*提供支持和联系信息*。
+	通过使测试的所有者和支持者易于联系，测试运行者应该很容易获得帮助。
 
+#### Owning Large Tests  拥有大型测试 
 Larger tests must have documented owners—engineers who can adequately review changes to the test and who can be counted on to provide support in the case of test failures. Without proper ownership, a test can fall victim to the following:
 •   It becomes more difficult for contributors to modify and update the test
 •   It takes longer to resolve test failures
 
+大型测试必须有记录的所有者--他们可以充分审查测试的变更，并且在测试失败的情况下，可以依靠他们提供支持。没有适当的所有权，测试可能成为以下情况的受害者：
+- 参与者修改和更新测试变得更加困难
+- 解决测试失败需要更长的时间
+
 And the test rots.
+而且测试也会腐烂。
 
 Integration tests of components within a particular project should be owned by the project lead. Feature-focused tests (tests that cover a particular business feature across a set of services) should be owned by a “feature owner”; in some cases, this owner might be a software engineer responsible for the feature implementation end to end; in other cases it might be a product manager or a “test engineer” who owns the description of the business scenario. Whoever owns the test must be empowered to ensure its overall health and must have both the ability to support its maintenance and the incentives to do so.
+
+特定项目中组件的集成测试应由项目负责人负责。以功能为中心的测试（覆盖一组服务中特定业务功能的测试）应由“功能所有者”负责；在某些情况下，该所有者可能是负责端到端功能实现的软件工程师；在其他情况下，可能是负责业务场景描述的产品经理或“测试工程师”。无论谁拥有该测试，都必须有权确保其整体健康，并且必须具备支持其维护的能力和这样做的激励。
 
 It is possible to build automation around test owners if this information is recorded in a structured way. Some approaches that we use include the following:
 *Regular code ownership*
@@ -892,9 +939,18 @@ It is possible to build automation around test owners if this information is rec
 *Per-test* *annotations*
 	In some cases, multiple test methods can be added to a single test class or module, and each of these test methods can have a different feature owner. We use  per-language structured annotations to document the test owner in each of these cases so that if a particular test method fails, we can identify the owner to contact.
 
-## Conclusion
+如果以结构化的方式记录此信息，则可以围绕测试所有者构建自动化。我们使用的一些方法包括：
+*常规代码所有权*
+	在许多情况下，大型测试是一个独立的代码构件，它位于代码库中的特定位置。在这种情况下，我们可以使用monorepo中已经存在的所有者（第9章）信息来提示自动化，特定测试的所有者是测试代码的所有者。
+*每个测试注释*
+	在某些情况下，可以将多个测试方法添加到单个测试类或模块中，并且这些测试方法中的每一个都可以有不同的特性所有者。我们使用每种语言的结构化注释，用于记录每种情况下的测试所有者，以便在特定测试方法失败时，我们可以确定要联系的所有者。
+
+
+## Conclusion 总结
 
 A comprehensive test suite requires larger tests, both to ensure that tests match the fidelity of the system under test and to address issues that unit tests cannot adequately cover. Because such tests are necessarily more complex and slower to run, care must be taken to ensure such larger tests are properly owned, well maintained, and run when necessary (such as before deployments to production). Overall, such larger tests must still be made as small as possible (while still retaining fidelity) to avoid developer friction. A comprehensive test strategy that identifies the risks of a system, and the larger tests that address them, is necessary for most software projects.
+
+一个全面的测试套件需要大型测试，既要确保测试与被测系统的仿真度相匹配，又要解决单元测试不能充分覆盖的问题。因为这样的测试必然更复杂，运行速度更慢，所以必须注意确保这样的大型测试是正确的，良好的维护，并在必要时运行（例如在部署到生产之前）。总的来说，这种大型测试仍然必须尽可能的小（同时仍然保留仿真度），以避免开发人员的阻力。一个全面的测试策略，确定系统的风险，以及解决这些风险的大型测试，对大多数软件项目来说是必要的。
 
 ## TL;DRs
 •   Larger tests cover things unit tests cannot.
@@ -902,5 +958,9 @@ A comprehensive test suite requires larger tests, both to ensure that tests matc
 •   A good design includes a test strategy that identifies risks and larger tests that mitigate them.
 •   Extra effort must be made with larger tests to keep them from creating friction in the developer workflow.
 
+- 大型测试涵盖了单元测试不能涵盖的内容。
+- 大型测试是由被测系统、数据、操作和验证组成。
+- 良好的设计包括识别风险的测试策略和缓解风险的大型测试。
+- 必须对大型测试做出额外的努力，以防止它们在开发者的工作流程中产生阻力。
 
 
