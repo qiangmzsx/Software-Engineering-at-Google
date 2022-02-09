@@ -10,6 +10,10 @@
 
 本人边看边记录翻译和学习笔记。  
 
+## 在线阅读
+
+https://qiangmzsx.github.io/Software-Engineering-at-Google/#/
+
 ## 当前状态
 
 | PART              | 部分          | 章节                                              | 名称                                                         | 状态        | 翻译人员                               | 计划完成时间   | 备注                                                         |

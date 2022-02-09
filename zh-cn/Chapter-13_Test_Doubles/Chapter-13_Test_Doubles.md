@@ -43,13 +43,19 @@ The use of test doubles introduces a few complications to software development t
 *仿真度*
 	仿真度是指测试替代的行为与它所替代的真实实现的行为有多大的相似性。如果测试替代的行为与真正的实现有很大的不同，那么使用测试替代的测试可能不会提供太多的价值--例如，想象一下，尝试用测试替代为一个数据库写一个测试，这个数据库忽略了添加到数据库的任何数据，总是返回空结果。但是完美的仿真可能是不可行的；测试替代通常需要比实际的实现简单得多，以便适合在测试中使用。在许多情况下，即使没有完美的仿真度，使用测试替代也是合适的。使用测试替代的单元测试通常需要由执行实际实现的更大范围的测试来支持。
 
-## Test Doubles at Google
+## Test Doubles at Google 谷歌的测试替代
 
 At Google, we’ve seen countless examples of the benefits to productivity and software quality that test doubles can bring to a codebase, as well as the negative impact they can cause when used improperly. The practices we follow at Google have evolved over time based on these experiences. Historically, we had few guidelines on how to effectively use test doubles, but best practices evolved as we saw common patterns and antipatterns arise in many teams’ codebases.
 
+在谷歌，我们已经看到了无数的例子，说明测试替代可以为代码库提升生产力和软件质量方面的好处，以及在使用不当时可能造成的负面影响。我们在谷歌遵循的做法是基于这些经验随着时间的推移而演变的。从历史上看，我们很少有关于如何有效地使用测试替代，但最佳实践随着我们看到许多团队的代码库中出现了常见模式和反模式而不断发展。
+
 One lesson we learned the hard way is the danger of overusing mocking frameworks, which allow you to easily create test doubles (we will discuss mocking frameworks in more detail later in this chapter). When mocking frameworks first came into use at Google, they seemed like a hammer fit for every nail—they made it very easy to write highly focused tests against isolated pieces of code without having to worry about how to construct the dependencies of that code. It wasn’t until several years and countless tests later that we began to realize the cost of such tests: though these tests were easy to write, we suffered greatly given that they required constant effort to maintain while rarely finding bugs. The pendulum at Google has now begun swinging in the other direction, with many engineers avoiding mocking frameworks in favor of writing more realistic tests.
 
+我们经过艰苦的历程学到的一个教训是过度使用模拟框架的危险，它允许你轻松创建测试替代（我们将在本章后面更详细地讨论模拟框架）。当mocking框架首次在Google使用时，它们就像一把锤子，适合每一根钉子。它们使得针对独立的代码段编写高度集中的测试变得非常容易，而不必担心如何构建代码的依赖关系。直到几年和无数次测试之后，我们才开始意识到这些测试的成本：尽管这些测试很容易编写，但由于它们需要不断的努力来维护，而很少发现bug，我们遭受了巨大的损失。谷歌的天平现在开始向另一个方向摆动，许多工程师避免模仿框架，转而编写更真实的测试。
+
 Even though the practices discussed in this chapter are generally agreed upon at Google, the actual application of them varies widely from team to team. This variance stems from engineers having inconsistent knowledge of these practices, inertia in an existing codebase that doesn’t conform to these practices, or teams doing what is easiest for the short term without thinking about the long-term implications.
+
+
 
 ## Basic Concepts
 
