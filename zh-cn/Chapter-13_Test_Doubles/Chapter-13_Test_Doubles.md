@@ -324,27 +324,49 @@ As discussed later in this chapter, interaction testing is useful in certain sit
 
 ### Real Implementations 真实实现
 
+Although test doubles can be invaluable testing tools, our first choice for tests is to use the real implementations of the system under test’s dependencies; that is, the same implementations that are used in production code. Tests have higher fidelity when they execute code as it will be executed in production, and using real implementa‐
+tions helps accomplish this.
+
+尽管测试替代是非常有价值的测试工具，但我们对测试的第一选择是使用被测系统依赖的真实实现；也就是说，与生产代码中使用的实现相同。当测试执行代码时，其仿真度更高，因为它将在生产中执行。
+做法有助于实现这一目标。
+
 At Google, the preference for real implementations developed over time as we saw that overuse of mocking frameworks had a tendency to pollute tests with repetitive code that got out of sync with the real implementation and made refactoring difficult. We’ll look at this topic in more detail later in this chapter.
+
+在谷歌，对真实实现的偏好随着时间的推移而发展，因为我们看到过度使用模拟框架有一种倾向，即使用与真实实现不同步的重复代码污染测试，从而使重构变得困难。我们将在本章后面更详细地讨论这个主题。
 
 Preferring real implementations in tests is known as [*classical testing*](https://oreil.ly/OWw7h). There is also a style of testing known as *mockist testing*, in which the preference is to use mocking frameworks instead of real implementations. Even though some people in the software industry practice mockist testing (including the [creators of the first mocking](https://oreil.ly/_QWy7) [frameworks](https://oreil.ly/_QWy7)), at Google, we have found that this style of testing is difficult to scale. It requires engineers to follow [strict guidelines when designing the system under test](http://jmock.org/oopsla2004.pdf), and the default behavior of most engineers at Google has been to write code in a way that is more suitable for the classical testing style.
 
-### Prefer Realism Over Isolation
+在测试中更倾向于使用真实实现被称为[*经典测试*]（https://oreil.ly/OWw7h）。还有一种测试风格被称为*模拟测试*，其中倾向于使用模拟框架而不是真实实现。尽管软件行业的一些人在进行模拟测试（包括[第一个模拟框架](https://oreil.ly/_QWy7)的创造者），但在谷歌，我们发现这种测试风格很难扩展。它要求工程师遵循[设计被测系统时的严格准则](http://jmock.org/oopsla2004.pdf)，而谷歌大多数工程师的默认行为是以一种更适合经典测试风格的方式来编写代码。
+
+### Prefer Realism Over Isolation 倾向于现实主义而不是孤立主义
 
 Using real implementations for dependencies makes the system under test more realistic given that all code in these real implementations will be executed in the test. In contrast, a test that utilizes test doubles isolates the system under test from its dependencies so that the test does not execute code in the dependencies of the system under test.
 
+考虑到这些真实实现中的所有代码都将在测试中执行，使用真实实现进行依赖性测试会使被测系统更加真实。相比之下，使用测试替代的测试会将被测系统与其依赖性隔离开来，这样测试就不会在被测系统的依赖关系中执行代码。
+
 We prefer realistic tests because they give more confidence that the system under test is working properly. If unit tests rely too much on test doubles, an engineer might need to run integration tests or manually verify that their feature is working as expected in order to gain this same level of confidence. Carrying out these extra tasks can slow down development and can even allow bugs to slip through if engineers skip these tasks entirely when they are too time consuming to carry out compared to running unit tests.
+
+我们更喜欢真实测试，因为它们能让人对被测系统的正常工作更有信心。如果单元测试过于依赖测试替代，工程师可能需要运行集成测试或手动验证他们的功能是按预期工作的，以获得同样的信心水平。执行这些额外的任务会减慢开发速度，如果工程师完全跳过这些任务，那么与运行单元测试相比，执行这些任务太耗时，甚至会让bug溜走。
 
 Replacing all dependencies of a class with test doubles arbitrarily isolates the system under test to the implementation that the author happens to put directly into the class and excludes implementation that happens to be in different classes. However, a good test should be independent of implementation—it should be written in terms of the API being tested rather than in terms of how the implementation is structured.
 
+将类的所有依赖项替换为测试替代项可以任意地将被测系统与作者直接放入类中的实现隔离开来，并排除恰好位于不同类中的实现。然而，一个好的测试应该独立于实现，它应该根据API编写正在进行测试，而不是根据实现的结构进行测试。
+
 Using real implementations can cause your test to fail if there is a bug in the real implementation. This is good! You *want* your tests to fail in such cases because it indicates that your code won’t work properly in production. Sometimes, a bug in a real implementation can cause a cascade of test failures because other tests that use the real implementation might fail, too. But with good developer tools, such as a Continuous Integration (CI) system, it is usually easy to track down the change that caused the failure.
+
+如果真实的实现中存在错误，使用真实的实现会导致你的测试失败。这是很好的。你希望你的测试在这种情况下失败，因为它表明你的代码在生产中不能正常工作。有时，真实实现中的一个错误会导致一连串的测试失败，因为其他使用真实实现的测试也可能失败。但是有了好的开发者工具，如持续集成（CI）系统，通常很容易追踪到导致失败的变化。
 
 -----
 
-#### Case Study: @DoNotMock
+#### Case Study: @DoNotMock 案例研究：@DoNotMock
 
 At Google, we’ve seen enough tests that over-rely on mocking frameworks to motivate the creation of the @DoNotMock annotation in Java, which is available as part of the [ErrorProne ](https://github.com/google/error-prone)static analysis tool. This annotation is a way for API owners to declare, “this type should not be mocked because better alternatives exist.”
 
+在Google，我们已经看到了足够多的过度依赖模拟框架的测试，这促使我们在Java中创建了@DoNotMock注解，它可以作为[ErrorProne](https://github.com/google/error-prone)静态分析工具的一部分。这个注解是API所有者声明的一种方式，"这个类型不应该被模拟，因为存在更好的替代方案"。
+
 If an engineer attempts to use a mocking framework to create an instance of a class or interface that has been annotated as @DoNotMock, as demonstrated in [Example 13-10](#_bookmark1112), they will see an error directing them to use a more suitable test strategy, such as a real implementation or a fake. This annotation is most commonly used for value objects that are simple enough to use as-is, as well as for APIs that have well-engineered fakes available.
+
+如果工程师试图使用模拟框架来创建一个被注解为@DoNotMock的类或接口的实例，如例13-10所示，他们会看到一个错误，指示他们使用更合适的测试策略，如真实的实现或伪造。这个注解最常用于那些简单到可以按原样使用的值对象，以及那些有精心设计的伪造的API。
 
 *Example* *13-10. The @DoNotMock annotation*
 
@@ -357,43 +379,77 @@ public abstract class Query {
 
 Why would an API owner care? In short, it severely constrains the API owner’s ability to make changes to their implementation over time. As we’ll explore later in the chapter, every time a mocking framework is used for stubbing or interaction testing, it duplicates behavior provided by the API.
 
+为什么API所有者会在意这个问题呢？简而言之，它严重限制了API所有者随时间对其实现进行更改的能力。正如我们在本章后面将探讨的那样，每次使用模拟框架进行存根或交互测试时，它都会复制API提供的行为。
+
 When the API owner wants to change their API, they might find that it has been mocked thousands or even tens of thousands of times throughout Google’s codebase! These test doubles are very likely to exhibit behavior that violates the API contract of the type being mocked—for instance, returning null for a method that can never return null. Had the tests used the real implementation or a fake, the API owner could make changes to their implementation without first fixing thousands of flawed tests.
 
-### How to Decide When to Use a Real Implementation
+当API所有者想要改变他们的API时，他们可能会发现它已经在整个Google的代码库中被模拟了数千次甚至上万次！这些测试替代很可能表现出违反被模拟类型的API契约的行为--例如，为一个永远不能返回null的方法返回null。这些测试替身很可能表现出违反被模拟类型的API契约的行为--例如，为一个永远不能返回空的方法返回空。如果测试使用的是真正的实现或伪造，API所有者可以对他们的实现进行修改，而不需要先修复成千上万的有缺陷的测试。
+
+-----
+
+### How to Decide When to Use a Real Implementation 如何决定何时使用真实实现
 
 A real implementation is preferred if it is fast, deterministic, and has simple dependencies. For example, a real implementation should be used for a [*value object*](https://oreil.ly/UZiXP). Examples include an amount of money, a date, a geographical address, or a collection class such as a list or a map.
 
+如果真实实现速度快、确定性强且依赖性简单，则首选真实实现。例如，一个真实实现应该被用于[*值对象*](https://oreil.ly/UZiXP)。例子包括一笔钱、一个日期、一个地理位置，或者一个集合类，如列表或地图。
+
 However, for more complex code, using a real implementation often isn’t feasible. There might not be an exact answer on when to use a real implementation or a test double given that there are trade-offs to be made, so you need to take the following considerations into account.
 
-#### Execution time
+然而，对于更复杂的代码，使用真实实现通常是不可行的。考虑到需要进行权衡，可能没有关于何时使用真实实现或测试替代的确切答案，因此需要考虑以下因素。
+
+#### Execution time 执行时间
 
 One of the most important qualities of unit tests is that they should be fast—you want to be able to continually run them during development so that you can get quick feedback on whether your code is working (and you also want them to finish quickly when run in a CI system). As a result, a test double can be very useful when the real implementation is slow.
 
+单元测试的一个最重要的特性是它们应该是快速的--你希望能够在开发过程中持续运行它们，以便能够快速获得代码是否正常工作的反馈（你还希望它们在CI系统中运行时能够快速完成）因此，当实际实现缓慢时，测试替代可能非常有用。
+
 How slow is too slow for a unit test? If a real implementation added one millisecond to the running time of each individual test case, few people would classify it as slow. But what if it added 10 milliseconds, 100 milliseconds, 1 second, and so on?
+
+对于一个单元测试来说，多慢才算慢？如果一个真正实现在每个单独的测试用例的运行时间上增加一毫秒，很少有人会将其归类为慢。但如果它增加了10毫秒，100毫秒，1秒等等呢？
 
 There is no exact answer here—it can depend on whether engineers feel a loss in productivity, and how many tests are using the real implementation (one second extra per test case may be reasonable if there are five test cases, but not if there are 500). For borderline situations, it is often simpler to use a real implementation until it becomes too slow to use, at which point the tests can be updated to use a test double instead.
 
+这里没有确切的答案--它可能取决于工程师是否感到生产率下降，以及有多少测试正在使用实际实现（如果有5个测试用例，每个测试用例多一秒钟可能是合理的，但如果有500个测试用例就不一样了）。对于临界情况，通常更容易使用实际实现，直到它变得太慢而无法使用，此时可以更新测试以使用测试替代。
+
 Parellelization of tests can also help reduce execution time. At Google, our test infrastructure makes it trivial to split up tests in a test suite to be executed across multiple servers. This increases the cost of CPU time, but it can provide a large savings in developer time. We discuss this more in [Chapter 18](#_bookmark1596).
+
+测试的并行化也有助于减少执行时间。在谷歌，我们的测试基础设施使得将测试套件中的测试拆分到多个服务器上执行变得非常简单。这增加了CPU的成本，但它可以为开发人员节省大量时间。我们在第18章中对此有更多的讨论。
 
 Another trade-off to be aware of: using a real implementation can result in increased build times given that the tests need to build the real implementation as well as all of its dependencies. Using a highly scalable build system like [Bazel ](https://bazel.build/)can help because it caches unchanged build artifacts.
 
-#### Determinism
+另一个需要注意的权衡：使用一个真实实现会导致构建时间的增加，因为测试需要构建真实实现以及它的所有依赖。使用像[Bazel](https://bazel.build/)这样的高度可扩展的构建系统会有帮助，因为它缓存了未改变的构建构件。
+
+#### Determinism 确定性
 
 A test is [*deterministic* ](https://oreil.ly/brxJl)if, for a given version of the system under test, running the test always results in the same outcome; that is, the test either always passes or always fails. In contrast, a test is [*nondeterministic* ](https://oreil.ly/5pG0f)if its outcome can change, even if the system under test remains unchanged.
 
+如果对于被测系统的给定版本，运行测试的结果总是相同的，也就是说，测试要么总是通过，要么总是失败，那么这个测试就是[*确定性*](https://oreil.ly/brxJl)。相反，如果一个测试的结果可以改变，即使被测系统保持不变，那么它就是[*非确定性*](https://oreil.ly/5pG0f)。
+
 [Nondeterminism in tests ](https://oreil.ly/71OFU)can lead to flakiness—tests can occasionally fail even when there are no changes to the system under test. As discussed in [Chapter 11](#_bookmark838), flakiness harms the health of a test suite if developers start to distrust the results of the test and ignore failures. If use of a real implementation rarely causes flakiness, it might not warrant a response, because there is little disruption to engineers. But if flakiness hap‐pens often, it might be time to replace a real implementation with a test double because doing so will improve the fidelity of the test.
+
+[测试中的非确定性](https://oreil.ly/71OFU)会导致松散性--即使被测系统没有变化，测试也会偶尔失败。正如在第11章中所讨论的，如果开发人员开始不相信测试的结果并忽视失败，那么松散性会损害测试组件的健康。如果使用一个真正实现很少引起松散性，它可能不值得响应，因为对工程师的干扰很小。但是，如果经常发生故障，可能是时候用一个测试替代真实实现了，因为这样做会提高测试的仿真度。
 
 A real implementation can be much more complex compared to a test double, which increases the likelihood that it will be nondeterministic. For example, a real implementation that utilizes multithreading might occasionally cause a test to fail if the output of the system under test differs depending on the order in which the threads are executed.
 
+与测试替代相比，真正的实现可能要复杂得多，这增加了它不确定性的概率。例如，如果被测系统的输出因线程的执行顺序不同而不同，利用多线程的真实实现可能偶尔会导致测试失败。
+
 A common cause of nondeterminism is code that is not [hermetic](https://oreil.ly/aes__); that is, it has dependencies on external services that are outside the control of a test. For example, a test that tries to read the contents of a web page from an HTTP server might fail if the server is overloaded or if the web page contents change. Instead, a test double should be used to prevent the test from depending on an external server. If using a test double is not feasible, another option is to use a hermetic instance of a server, which has its life cycle controlled by the test. Hermetic instances are discussed in more detail in the next chapter.
+
+不确定性的一个常见原因是代码不够封闭；也就是说，它依赖于测试无法控制的外部服务。例如，如果服务器过载或网页内容更改，尝试从HTTP服务器读取网页内容的测试可能会失败。相反，应该使用测试替代来防止测试依赖于外部服务器。如果使用测试工具不可行，另一种选择是使用服务器的封闭实例，其生命周期由测试控制。下一章将更详细地讨论封闭实例。
 
 Another example of nondeterminism is code that relies on the system clock given that the output of the system under test can differ depending on the current time. Instead of relying on the system clock, a test can use a test double that hardcodes a specific time.
 
-#### Dependency construction
+不确定性的另一个例子是依赖于系统时钟的代码，因为被测系统的输出可能因当前时间而异。测试可以使用硬编码特定时间的测试替代，而不是依赖于系统时钟。
+
+#### Dependency construction 依赖关系的构建
 
 When using a real implementation, you need to construct all of its dependencies. For example, an object needs its entire dependency tree to be constructed: all objects that it depends on, all objects that these dependent objects depend on, and so on. A test double often has no dependencies, so constructing a test double can be much simpler compared to constructing a real implementation.
 
+当使用真正的实现时，你需要构造它的所有依赖项。例如，一个对象需要构造其整个依赖关系树：它所依赖的所有对象，这些依赖对象所依赖的所有对象，等等。测试替代通常没有依赖项，因此与构建实际实现相比，构建测试替代要简单得多。
+
 As an extreme example, imagine trying to create the object in the code snippet that follows in a test. It would be time consuming to determine how to construct each individual object. Tests will also require constant maintenance because they need to be updated when the signature of these objects’ constructors is modified:
+
+作为一个极端的例子，想象一下尝试在测试中后面的代码段中创建对象。确定如何构造每个单独的对象将非常耗时。测试还需要持续维护，因为当这些对象的构造函数的签名被修改时，测试需要更新：
 
 ```jav
 Foo foo = new Foo(new A(new B(new C()), new D()), new E(), ..., new Z());
@@ -401,17 +457,25 @@ Foo foo = new Foo(new A(new B(new C()), new D()), new E(), ..., new Z());
 
 It can be tempting to instead use a test double because constructing one can be trivial. For example, this is all it takes to construct a test double when using the Mockito mocking framework:
 
+使用测试替代是很有诱惑力的，因为构建一个测试替代是很简单的。例如，在使用模拟框架时，这就是构建一个测试替代的全部内容：
+
 ```java
 @Mock Foo mockFoo;
 ```
 
 Although creating this test double is much simpler, there are significant benefits to using the real implementation, as discussed earlier in this section. There are also often significant downsides to overusing test doubles in this way, which we look at later in this chapter. So, a trade-off needs to be made when considering whether to use a real implementation or a test double.
 
+尽管创建这个测试替代要简单得多，但使用真正实现有很大的好处，正如本节前面所讨论的。以这种方式过度使用测试替代往往也有很大的弊端，我们在本章后面会看一下。所以，在考虑是使用真实实现还是测试替身时，需要做一个权衡。
+
 Rather than manually constructing the object in tests, the ideal solution is to use the same object construction code that is used in the production code, such as a factory method or automated dependency injection. To support the use case for tests, the object construction code needs to be flexible enough to be able to use test doubles rather than hardcoding the implementations that will be used for production.
 
-## Faking
+与其在测试中手动构建对象，理想的解决方案是使用生产代码中使用的相同的对象构建代码，如工厂方法或自动依赖注入。为了支持测试的使用情况，对象构造代码需要有足够的灵活性，能够使用测试替代，而不是硬编码将用于生产的实现。
+
+## Faking 伪造
 
 If using a real implementation is not feasible within a test, the best option is often to use a fake in its place. A fake is preferred over other test double techniques because it behaves similarly to the real implementation: the system under test shouldn’t even be able to tell whether it is interacting with a real implementation or a fake. [Example 13-11 ](#_bookmark1127)illustrates a fake file system. 
+
+
 
 *Example* *13-11.* *A* *fake* *file* *system*
 
@@ -419,20 +483,25 @@ If using a real implementation is not feasible within a test, the best option is
 // This fake implements the FileSystem interface. This interface is also
 // used by the real implementation.
 public class FakeFileSystem implements FileSystem {
-// Stores a map of file name to file contents. The files are stored in
-// memory instead of on disk since tests shouldn’t need to do disk I/O.
-private Map<String, String> files = new HashMap<>(); @Override
-public void writeFile(String fileName, String contents) {
-// Add the file name and contents to the map.
-files.add(fileName, contents);
-}
-@Override
-public String readFile(String fileName) { String contents = files.get(fileName);
-// The real implementation will throw this exception if the
-// file isn’t found, so the fake must throw it too.
-if (contents == null) { throw new FileNotFoundException(fileName); }
-return contents;
-}
+    // Stores a map of file name to file contents. The files are stored in
+    // memory instead of on disk since tests shouldn’t need to do disk I/O.
+    private Map < String, String > files = new HashMap < > ();@
+    Override
+    public void writeFile(String fileName, String contents) {
+        // Add the file name and contents to the map.
+        files.add(fileName, contents);
+    }
+  
+  	@Override
+    public String readFile(String fileName) {
+        String contents = files.get(fileName);
+        // The real implementation will throw this exception if the
+        // file isn’t found, so the fake must throw it too.
+        if(contents == null) {
+            throw new FileNotFoundException(fileName);
+        }
+        return contents;
+    }
 }
 ```
 
@@ -748,34 +817,6 @@ Although test doubles are great for working around dependencies that are difficu
 •   Overuse of stubbing leads to tests that are unclear and brittle.
 
 •   Interaction testing should be avoided when possible: it leads to tests that are brittle because it exposes implementation details of the system under test.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
