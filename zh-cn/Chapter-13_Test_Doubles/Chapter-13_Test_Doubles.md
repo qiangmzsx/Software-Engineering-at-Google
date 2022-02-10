@@ -55,45 +55,52 @@ One lesson we learned the hard way is the danger of overusing mocking frameworks
 
 Even though the practices discussed in this chapter are generally agreed upon at Google, the actual application of them varies widely from team to team. This variance stems from engineers having inconsistent knowledge of these practices, inertia in an existing codebase that doesn’t conform to these practices, or teams doing what is easiest for the short term without thinking about the long-term implications.
 
+尽管本章中讨论的实践在谷歌公司得到普遍认可，但实际应用情况因团队而异。这种差异源于工程师对这些实践的认识差异，现有代码库中的习惯不符合这些实践，或者团队只做短期内最容易的事情而不考虑长期影响。
 
-
-## Basic Concepts
+## Basic Concepts 基本概念
 
 Before we dive into how to effectively use test doubles, let’s cover some of the basic concepts related to them. These build the foundation for best practices that we will discuss later in this chapter.
 
-### An Example Test Double
+在我们深入研究如何有效地使用测试替代之前，让我们先介绍一些与之相关的基本概念。这些为我们在本章后面讨论的最佳实践奠定了基础。
+
+### An Example Test Double 测试替代的示例
 
 Imagine an ecommerce site that needs to process credit card payments. At its core, it might have something like the code shown in [Example 13-1](#_bookmark1068).
+
+想象一个需要处理信用卡支付的电子商务网站。在其核心部分，它可能有类似于例13-1中所示的代码。
 
 *Example* *13-1.* *A* *credit* *card* *service*
 
 ```java
 class PaymentProcessor {
-private CreditCardService creditCardService;
-...
-boolean makePayment(CreditCard creditCard, Money amount) {
-if (creditCard.isExpired()) { return false; }
-boolean success = creditCardService.chargeCreditCard(creditCard,  amount);
-return success;
-}
+  private CreditCardService creditCardService;
+  ...
+  boolean makePayment(CreditCard creditCard, Money amount) {
+    if (creditCard.isExpired()) { return false; }
+    boolean success = creditCardService.chargeCreditCard(creditCard,  amount);
+    return success;
+  }
 }
 
 ```
 
 It would be infeasible to use a real credit card service in a test (imagine all the transaction fees from running the test!), but a test double could be used in its place to *simulate* the behavior of the real system. The code in [Example 13-2](#_bookmark1069) shows an extremely simple test double.
 
+在测试中使用真正的信用卡服务是不可行的（想象一下运行测试所产生的所有交易费用！），但是可以用一个测试用的替代来*模拟*真实系统的行为。例13-2中的代码展示了一个非常简单的测试替代。
+
 *Example 13-2. A trivial test double*
 
 ```java
 class TestDoubleCreditCardService implements CreditCardService { @Override
-public boolean chargeCreditCard(CreditCard creditCard, Money amount) {
-return true;
+  public boolean chargeCreditCard(CreditCard creditCard, Money amount) {
+  	return true;
+  }
 }
-}
-
 ```
 
 Although this test double doesn’t look very useful, using it in a test still allows us to test some of the logic in the makePayment() method. For example, in [Example 13-3](#_bookmark1070), we can validate that the method behaves properly when the credit card is expired because the code path that the test exercises doesn’t rely on the behavior of the credit card service.
+
+虽然这个测试替代看起来不是很有用，但在测试中使用它仍然可以让我们测试makePayment()方法中的一些逻辑。例如，在例13-3中，我们可以验证该方法在信用卡过期时的行为是否正确，因为测试执行的代码路径不依赖于信用卡服务的行为。
 
 *Example 13-3. Using the test double*
 
@@ -105,56 +112,78 @@ boolean success = paymentProcessor.makePayment(EXPIRED_CARD, AMOUNT); assertThat
 
 The following sections in this chapter will discuss how to make use of test doubles in more complex situations than this one.
 
+本章下面的章节将讨论如何在比这更复杂的情况下使用测试替代。
+
 ### Seams
+
+```
+Seams是可以更改程序中的行为而无需在指定位置进行编辑的地方。
+```
 
 Code is said to be [*testable* ](https://oreil.ly/yssV2)if it is written in a way that makes it possible to write unit tests for the code. A [*seam* ](https://oreil.ly/pFSFf)is a way to make code testable by allowing for the use of test doubles—it makes it possible to use different dependencies for the system under test rather than the dependencies used in a production environment.
 
+如果代码的编写方式能够使代码的单元测试成为可能，那么代码就被称为[*可测试代码*](https://oreil.ly/yssV2)。[*seam*](https://oreil.ly/pFSFf)是一种通过允许使用测试替代使代码可测试的方法--它使被测系统可以使用不同的依赖项，而不是生产环境中使用的依赖项。
+
 [*Dependency* *injection* ](https://oreil.ly/og9p9)is a common technique for introducing seams. In short, when a class utilizes dependency injection, any classes it needs to use (i.e., the class’s *dependencies*) are passed to it rather than instantiated directly, making it possible for these dependencies to be substituted in tests.
 
+[*依赖注入*](https://oreil.ly/og9p9)是一种引入seams的常见技术。简而言之，当一个类利用依赖注入时，它需要使用的任何类（即该类的*依赖*）被传递给它，而不是直接实例化，从而使这些依赖项可以在测试中被替换。
+
 [Example 13-4 ](#_bookmark1074)shows an example of dependency injection. Rather than the constructor creating an instance of CreditCardService, it accepts an instance as a parameter.
+
+示例13-4显示了依赖项注入的示例。它接受实例作为参数，而不是创建CreditCardService实例的构造函数。
 
 *Example* *13-4.* *Dependency* *injection*
 
 ```java
 class PaymentProcessor {
-private CreditCardService creditCardService;
+  private CreditCardService creditCardService;
 
-PaymentProcessor(CreditCardService creditCardService) {
-this.creditCardService = creditCardService;
-}
-...
+  PaymentProcessor(CreditCardService creditCardService) {
+ 	 	this.creditCardService = creditCardService;
+  }
+  ...
 }
 
 ```
 
 The code that calls this constructor is responsible for creating an appropriate Credit CardService instance. Whereas the production code can pass in an implementation of CreditCardService that communicates with an external server, the test can pass in a test double, as demonstrated in [Example 13-5](#_bookmark1075).
 
+调用这个构造函数的代码负责创建一个合适的CreditCardService实例。生产代码可以传入一个与外部服务器通信的CreditCardService的实现，而测试可以传入一个测试用的替代，如例13-5所示。
+
 *Example 13-5. Passing in a test double*
 
 ```java
 class PaymentProcessor {
-private CreditCardService creditCardService;
+	private CreditCardService creditCardService;
 
-PaymentProcessor(CreditCardService creditCardService) {
-this.creditCardService = creditCardService;
-}
-...
+  PaymentProcessor(CreditCardService creditCardService) {
+    this.creditCardService = creditCardService;
+  }
+  ...
 }
 ```
 
 To reduce boilerplate associated with manually specifying constructors, automated dependency injection frameworks can be used for constructing object graphs automatically. At Google, [Guice ](https://github.com/google/guice)and [Dagger ](https://google.github.io/dagger)are automated dependency injection frameworks that are commonly used for Java code.
 
+为了减少与手动指定构造函数有关的模板，可以使用自动依赖注入框架来自动构建对象。在谷歌，[Guice](https://github.com/google/guice)和[Dagger](https://google.github.io/dagger)是自动依赖注入框架，通常用于Java代码。
+
 With dynamically typed languages such as Python or JavaScript, it is possible to dynamically replace individual functions or object methods. Dependency injection is less important in these languages because this capability makes it possible to use real implementations of dependencies in tests while only overriding functions or methods of the dependency that are unsuitable for tests.
+
+对于动态类型的语言，如Python或JavaScript，有可能动态地替换单个函数或对象方法。依赖注入在这些语言中不太重要，因为这种功能使得在测试中使用依赖项的实际实现成为可能，同时只覆盖不适合测试的依赖项的函数或方法。
 
 Writing testable code requires an upfront investment. It is especially critical early in the lifetime of a codebase because the later testability is taken into account, the more difficult it is to apply to a codebase. Code written without testing in mind typically needs to be refactored or rewritten before you can add appropriate tests.
 
-### Mocking Frameworks
+编写可测试代码需要前期投资。在代码库生命周期的早期，这一点尤其重要，因为越晚考虑可测试性，就越难应用到代码库中。在没有考虑到测试的情况下编写的代码通常需要重构或重写，然后才可以添加适当的测试。
+
+### Mocking Frameworks 模拟框架
 
 A *mocking framework* is a software library that makes it easier to create test doubles within tests; it allows you to replace an object with a *mock*, which is a test double whose behavior is specified inline in a test. The use of mocking frameworks reduces boilerplate because you don’t need to define a new class each time you need a test double.
 
+一个*mocking框架*是一个软件库，它使得在测试中创建测试替代更加容易；它允许您将对象替换为模拟对象，模拟对象是在测试中内联指定其行为的测试替代。模拟框架的使用减少了模板文件，因为你不需要在每次需要测试时定义一个新类。
+
 [Example 13-6](#_bookmark1081) demonstrates the use of [Mockito](https://site.mockito.org/), a mocking framework for Java. Mockito creates a test double for CreditCardService and instructs it to return a specific value.
 
- 
+ 例13-6演示了[Mockito](https://site.mockito.org/)的使用，这是一个Java的模拟框架。Mockito为CreditCardService创建了一个测试替代，并指定它返回一个特定的值。
 
 *Example 13-6. Mocking frameworks*
 
@@ -165,18 +194,19 @@ PaymentProcessor paymentProcessor;
 
 // Create a test double of CreditCardService with just one line of code.
 @Mock CreditCardService mockCreditCardService; @Before public void setUp() {
-// Pass in the test double to the system under test.
-paymentProcessor = new PaymentProcessor(mockCreditCardService);
+    // Pass in the test double to the system under test.
+    paymentProcessor = new PaymentProcessor(mockCreditCardService);
 }
 @Test public void chargeCreditCardFails_returnFalse() {
-// Give some behavior to the test double: it will return false
-// anytime the chargeCreditCard() method is called. The usage of
-// “any()” for the method’s arguments tells the test double to
-// return false regardless of which arguments are passed.
-when(mockCreditCardService.chargeCreditCard(any(), any())
-.thenReturn(false);
-boolean success = paymentProcessor.makePayment(CREDIT_CARD, AMOUNT); assertThat(success).isFalse();
-}
+    // Give some behavior to the test double: it will return false
+    // anytime the chargeCreditCard() method is called. The usage of
+    // “any()” for the method’s arguments tells the test double to
+    // return false regardless of which arguments are passed.
+    when(mockCreditCardService.chargeCreditCard(any(), any())
+    .thenReturn(false);
+    boolean success = paymentProcessor.makePayment(CREDIT_CARD, AMOUNT);
+    assertThat(success).isFalse();
+  }
 }
 ```
 
@@ -184,19 +214,27 @@ boolean success = paymentProcessor.makePayment(CREDIT_CARD, AMOUNT); assertThat(
 
 Mocking frameworks exist for most major programming languages. At Google, we use Mockito for Java, [the googlemock component of Googletest ](https://github.com/google/googletest)for C++, and [uni‐](https://oreil.ly/clzvH) [ttest.mock ](https://oreil.ly/clzvH)for Python.
 
+大多数主要的编程语言都有模拟框架。在Google，我们在Java中使用Mockito，在C++中使用[Googletest的googlemock组件](https://github.com/google/googletest)，在Python中使用[uni-ttest.mock](https://oreil.ly/clzvH) 。
+
 Although mocking frameworks facilitate easier usage of test doubles, they come with some significant caveats given that their overuse will often make a codebase more difficult to maintain. We cover some of these problems later in this chapter.
 
-## Techniques for Using Test Doubles
+尽管模拟框架有助于更容易地使用测试替代，但它们也有一些重要的注意事项，因为过度使用它们往往会使代码库更难维护。我们将在本章的后面介绍其中的一些问题。
+
+## Techniques for Using Test Doubles 测试替代的使用技巧
 
 There are three primary techniques for using test doubles. This section presents a brief introduction to these techniques to give you a quick overview of what they are and how they differ. Later sections in this chapter go into more details on how to effectively apply them.
 
+使用双重测试有三种主要技术。本节简要介绍这些技术，让您快速了解它们是什么以及它们之间的区别。本章后面几节将详细介绍如何有效地应用它们。
+
 An engineer who is aware of the distinctions between these techniques is more likely to know the appropriate technique to use when faced with the need to use a test double.
 
-### Faking
+知道到这些技术之间区别的工程师更有可能在面临需要使用测试替代时知道使用哪种适当的技术。
+
+### Faking 伪造
 
 A [*fake*](https://oreil.ly/rymnI) is a lightweight implementation of an API that behaves similar to the real implementation but isn’t suitable for production; for example, an in-memory database. [Example 13-7 ](#_bookmark1089)presents an example of faking.
 
- 
+ [*fake*](https://oreil.ly/rymnI)是一个API的轻量级实现，其行为类似于真实实现，但不适合生产；例如，一个内存数据库。例13-7介绍了一个伪造的例子。
 
 *Example 13-7. A simple* *fake*
 
@@ -215,15 +253,19 @@ fakeAuthorizationService.addAuthorizedUser(new User(USER_ID)); assertThat(access
 
 ```
 
-
-
 Using a fake is often the ideal technique when you need to use a test double, but a fake might not exist for an object you need to use in a test, and writing one can be challenging because you need to ensure that it has similar behavior to the real implementation, now and in the future.
 
-### Stubbing
+当你需要使用测试替代时，使用伪造通常是理想的技术，但是对于你需要在测试中使用的对象，伪造可能不存在，编写伪造可能是一项挑战，因为你需要确保它在现在和将来具有与真实实施类似的行为。
+
+### Stubbing 打桩
 
 [*Stubbing* ](https://oreil.ly/gmShS)is the process of giving behavior to a function that otherwise has no behavior on its own—you specify to the function exactly what values to return (that is, you *stub* the return values).
 
+存根是指将行为赋予一个函数的过程，如果该函数本身没有行为，则你可以为该函数指定要返回的值（即打桩返回值）。
+
 [Example 13-8](#_bookmark1093) illustrates stubbing. The when(...).thenReturn(...) method calls from the Mockito mocking framework specify the behavior of the lookupUser() method.
+
+例13-8说明了打桩的问题。来自Mockito模拟框架的when(...).thenReturn(...)方法调用指定了lookupUser()方法的行为。
 
 *Example* *13-8.* *Stubbing*
 
@@ -240,13 +282,21 @@ when(mockAuthorizationService.lookupUser(USER_ID)).thenReturn(USER); assertThat(
 
 Stubbing is typically done through mocking frameworks to reduce boilerplate that would otherwise be needed for manually creating new classes that hardcode return values.
 
+打桩通常是通过模拟框架来完成的，以减少手动创建新的类来硬编码返回值所需的模板。
+
 Although stubbing can be a quick and simple technique to apply, it has limitations, which we’ll discuss later in this chapter.
 
-#### Interaction Testing
+虽然打桩是一种快速而简单的应用技术，但它也有局限性，我们将在本章后面讨论。
+
+#### Interaction Testing 交互测试
 
 [*Interaction testing* ](https://oreil.ly/zGfFn)is a way to validate *how* a function is called without actually calling the implementation of the function. A test should fail if a function isn’t called the correct way—for example, if the function isn’t called at all, it’s called too many times, or it’s called with the wrong arguments.
 
+交互测试是一种在不实际调用函数实现的情况下验证函数调用方式的方法。如果函数没有正确调用，测试应该失败。例如，如果函数根本没有被调用，调用次数太多，或者调用参数错误。
+
 [Example 13-9 ](#_bookmark1097)presents an instance of interaction testing. The verify(...) method from the Mockito mocking framework is used to validate that lookupUser() is called as expected.
+
+例13-9展示了一个交互测试的实例。来自Mockito 模拟框架的verify(...)方法被用来验证lookupUser()是否按预期调用。
 
 *Example* *13-9. Interaction testing*
 
@@ -262,13 +312,17 @@ verify(mockAuthorizationService).lookupUser(USER_ID);
 
 Similar to stubbing, interaction testing is typically done through mocking frameworks. This reduces boilerplate compared to manually creating new classes that contain code to keep track of how often a function is called and which arguments were passed in.
 
+与打桩类似，交互测试通常是通过模拟框架完成的。与手动创建包含代码的新类以跟踪函数调用频率和传入参数相比，这减少了模板文件。
+
 Interaction testing is sometimes called [*mocking*](https://oreil.ly/IfMoR). We avoid this terminology in this chapter because it can be confused with mocking frameworks, which can be used for stubbing as well as for interaction testing.
+
+交互测试有时被称为mocking。我们在本章中避免使用这个术语，因为它可能与mocking框架混淆，mocking框架既可用于stubing，也可用于交互测试。
 
 As discussed later in this chapter, interaction testing is useful in certain situations but should be avoided when possible because overuse can easily result in brittle tests.
 
-### Real Implementations
+正如本章后面所讨论的，交互测试在某些情况下很有用，但应尽可能避免，因为过度使用很容易导致脆性测试。
 
-Although test doubles can be invaluable testing tools, our first choice for tests is to use the real implementations of the system under test’s dependencies; that is, the same implementations that are used in production code. Tests have higher fidelity when they execute code as it will be executed in production, and using real implementations helps accomplish this.
+### Real Implementations 真实实现
 
 At Google, the preference for real implementations developed over time as we saw that overuse of mocking frameworks had a tendency to pollute tests with repetitive code that got out of sync with the real implementation and made refactoring difficult. We’ll look at this topic in more detail later in this chapter.
 
