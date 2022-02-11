@@ -471,11 +471,11 @@ Rather than manually constructing the object in tests, the ideal solution is to 
 
 与其在测试中手动构建对象，理想的解决方案是使用生产代码中使用的相同的对象构建代码，如工厂方法或自动依赖注入。为了支持测试的使用情况，对象构造代码需要有足够的灵活性，能够使用测试替代，而不是硬编码将用于生产的实现。
 
-## Faking 伪造
+## Faking 伪造测试
 
 If using a real implementation is not feasible within a test, the best option is often to use a fake in its place. A fake is preferred over other test double techniques because it behaves similarly to the real implementation: the system under test shouldn’t even be able to tell whether it is interacting with a real implementation or a fake. [Example 13-11 ](#_bookmark1127)illustrates a fake file system. 
 
-
+如果在测试中使用真实的实现是不可行的，那么最好的选择通常是使用伪造实现。与其他测试替代技术相比，伪造测试技术更受欢迎，因为它的行为类似于真实的实现：被测试的系统甚至不能判断它是与真实的实现交互还是与伪造测试交互。示例13-11演示了一个伪造文件系统。
 
 *Example* *13-11.* *A* *fake* *file* *system*
 
@@ -507,55 +507,93 @@ public class FakeFileSystem implements FileSystem {
 
 
 
-### Why Are Fakes Important?
+### Why Are Fakes Important? 为什么伪造测试很重要？
 
 Fakes can be a powerful tool for testing: they execute quickly and allow you to effectively test your code without the drawbacks of using real implementations.
 
+伪造测试是一个强大的测试工具：它们可以快速执行，并允许你有效地测试代码，而没有使用真实实现的缺点。
+
 A single fake has the power to radically improve the testing experience of an API. If you scale that to a large number of fakes for all sorts of APIs, fakes can provide an enormous boost to engineering velocity across a software organization.
+
+一个伪造的API就可以从根本上改善API的测试体验。如果将其扩展到各种API的大量伪造，伪造可以极大地提高整个软件组织的工程速度。
 
 At the other end of the spectrum, in a software organization where fakes are rare, velocity will be slower because engineers can end up struggling with using real implementations that lead to slow and flaky tests. Or engineers might resort to other test double techniques such as stubbing or interaction testing, which, as we’ll examine later in this chapter, can result in tests that are unclear, brittle, and less effective.
 
-### When Should Fakes Be Written?
+另一方面，在一个使用伪造测试很少的软件组织中，速度会慢一些，因为工程师最终会在使用真正实现时遇到困难，从而导致测试缓慢和不稳定。或者工程师可能会求助于其他测试替代技术，如打桩或交互测试，正如我们将在本章后面讨论的那样，这些技术可能会导致测试不清晰、脆弱且效率较低。
+
+### When Should Fakes Be Written? 什么时候应该写伪造测试？
 
 A fake requires more effort and more domain experience to create because it needs to behave similarly to the real implementation. A fake also requires maintenance: whenever the behavior of the real implementation changes, the fake must also be updated to match this behavior. Because of this, the team that owns the real implementation should write and maintain a fake.
 
+伪造测试需要更多的努力和更多的领域经验来创建，因为它需要与真实实现类似的行为。伪造测试代码还需要维护：当实际实现的行为发生更改时，伪造测试代码也必须更新以匹配此行为。因此，拥有真正实现的团队应该编写并维护一个伪造测试代码。
+
 If a team is considering writing a fake, a trade-off needs to be made on whether the productivity improvements that will result from the use of the fake outweigh the costs of writing and maintaining it. If there are only a handful of users, it might not be worth their time, whereas if there are hundreds of users, it can result in an obvious productivity improvement.
+
+如果一个团队正在考虑编写一个伪造测试，就需要权衡使用伪造测试所带来的生产力的提高是否超过了编写和维护的成本。如果只有少数几个用户，可能不值得他们花费时间，而如果有几百个用户，这可以显著提高生产率。
 
 To reduce the number of fakes that need to be maintained, a fake should typically be created only at the root of the code that isn’t feasible for use in tests. For example, if a database can’t be used in tests, a fake should exist for the database API itself rather than for each class that calls the database API.
 
+为了减少需要维护的伪造测试代码的数量，伪造测试代码通常应该只在测试中不可行的代码根处创建。例如，如果一个数据库不能在测试中使用，那么应该为数据库API本身而不是为调用数据库API的每个类存在一个伪造数据库。
+
 Maintaining a fake can be burdensome if its implementation needs to be duplicated across programming languages, such as for a service that has client libraries that allow the service to be invoked from different languages. One solution for this case is to create a single fake service implementation and have tests configure the client libraries to send requests to this fake service. This approach is more heavyweight compared to having the fake written entirely in memory because it requires the test to communicate across processes. However, it can be a reasonable trade-off to make, as long as the tests can still execute quickly.
 
-### The Fidelity of Fakes
+如果需要跨编程语言复制伪造测试代码的实现，例如对于具有允许从不同语言调用服务的客户端库的服务，则维护伪造测试代码可能会很麻烦。这种情况下的一个解决方案是创建一个伪造服务实现，并让测试配置客户端库以向该伪造服务发送请求。与将伪造测试代码完全写入内存相比，这种方法更为重要，因为它需要测试跨进程进行通信。但是，只要测试仍然可以快速执行，那么这是一个合理的权衡。
+
+### The Fidelity of Fakes 伪造测试的仿真度
 
 Perhaps the most important concept surrounding the creation of fakes is *fidelity*; in other words, how closely the behavior of a fake matches the behavior of the real implementation. If the behavior of a fake doesn’t match the behavior of the real implementation, a test using that fake is not useful—a test might pass when the fake is used, but this same code path might not work properly in the real implementation.
 
+也许围绕着创建伪造测试的最重要的概念是*仿真度*；换句话说，伪造测试的行为与真实实现的行为的匹配程度。如果伪造测试的行为与真实实现的行为不匹配，那么使用该伪造测试就没有用处--当使用该伪造测试时，测试可能会通过，但同样的代码路径在真实实现中可能无法正常工作。
+
 Perfect fidelity is not always feasible. After all, the fake was necessary because the real implementation wasn’t suitable in one way or another. For example, a fake database would usually not have fidelity to a real database in terms of hard drive storage because the fake would store everything in memory.
+
+完美的仿真并不总是可行的。毕竟，伪造是必要的，因为真正实现在某种程度上并不适合。例如，在硬盘存储方面，一个伪造数据库通常不会与真正的数据库一样，因为伪造数据库会把所有东西都存储在内存中。
 
 Primarily, however, a fake should maintain fidelity to the API contracts of the real implementation. For any given input to an API, a fake should return the same output and perform the same state changes of its corresponding real implementation. For example, for a real implementation of database.save(itemId), if an item is successfully saved when its ID does not yet exist but an error is produced when the ID already exists, the fake must conform to this same behavior.
 
+然而，主要的是，伪造测试应该保持对真实实现的API契约的完整性。对于API的任何给定的输入，伪造测试应该返回相同的输出，并对其相应的实际实现执行相同的状态更改。例如，对于数据库.save(itemId)的真实实现，如果一个项目在其ID不存在的情况下被成功保存，但在ID已经存在的情况下会产生一个错误，伪造数据库必须符合这个相同的行为。
+
 One way to think about this is that the fake must have perfect fidelity to the real implementation, but *only from the perspective of the test*. For example, a fake for a hashing API doesn’t need to guarantee that the hash value for a given input is exactly the same as the hash value that is generated by the real implementation—tests likely don’t care about the specific hash value, only that the hash value is unique for a given input. If the contract of the hashing API doesn’t make guarantees of what specific hash values will be returned, the fake is still conforming to the contract even if it doesn’t have perfect fidelity to the real implementation.
+
+一种思考方式是，伪造测试必须对真正的实现有完美的仿真度，但只能从测试的角度来看。例如，一个伪造hash API不需要保证给定输入的hash值与真实实现产生的hash值完全相同--测试可能不关心具体的hash值，只关心给定输入的hash值是唯一的。如果hash API的契约没有保证将返回哪些特定的hash值，那么伪造函数仍然符合契约，即使它与真实实现没有完美的仿真度。
 
 Other examples where perfect fidelity typically might not be useful for fakes include latency and resource consumption. However, a fake cannot be used if you need to explicitly test for these constraints (e.g., a performance test that verifies the latency of a function call), so you would need to resort to other mechanisms, such as by using a real implementation instead of a fake.
 
+完美仿真度通常不适用于伪造的其他示例包括延迟和资源消耗。但是，如果你需要显式测试这些约束（例如，验证函数调用延迟的性能测试），则不能使用伪造函数，因此你需要求助于其他机制，例如使用真实实现而不是伪造函数。
+
 A fake might not need to have 100% of the functionality of its corresponding real implementation, especially if such behavior is not needed by most tests (e.g., error handling code for rare edge cases). It is best to have the fake fail fast in this case; for example, raise an error if an unsupported code path is executed. This failure communicates to the engineer that the fake is not appropriate in this situation.
 
-### Fakes Should Be Tested
+伪造测试代码可能不需要拥有其对应的真实实现的100%功能，尤其是在大多数测试不需要这种行为的情况下（例如，罕见边缘情况下的错误处理代码）。在这种情况下，最好让伪造测试快速失效；例如，如果执行了不受支持的代码路径，则引发错误。该故障告知工程师，在这种情况下，伪造测试是不合适的。
+
+### Fakes Should Be Tested  伪造测试应当被测试
 
 A fake must have its *own* tests to ensure that it conforms to the API of its corresponding real implementation. A fake without tests might initially provide realistic behavior, but without tests, this behavior can diverge over time as the real implementation evolves.
 
+伪造测试必须有自己的*测试，以确保它符合其相应的真实实现的API。没有测试的伪造最初可能会提供真实的行为，但如果没有测试，随着时间的推移，这种行为会随着真实实现的发展而发生变化。
+
 One approach to writing tests for fakes involves writing tests against the API’s public interface and running those tests against both the real implementation and the fake (these are known as [*contract tests*](https://oreil.ly/yuVlX)). The tests that run against the real implementation will likely be slower, but their downside is minimized because they need to be run only by the owners of the fake.
 
-### What to Do If a Fake Is Not Available
+为伪造测试编写测试的一种方法是针对API的公共接口编写测试，并针对真实实现和伪造测试运行这些测试（这些被称为[*合同测试*](https://oreil.ly/yuVlX)）。针对真实实现运行的测试可能会更慢，但它们的缺点会被最小化，因为它们只需要由伪造测试代码的所有者运行。
+
+### What to Do If a Fake Is Not Available 如果没有伪造测试怎么办？
 
 If a fake is not available, first ask the owners of the API to create one. The owners might not be familiar with the concept of fakes, or they might not realize the benefit they provide to users of an API.
 
+如果没有伪造测试，首先要求API的所有者创建一个。所有者可能不熟悉伪造测试的概念，或者他们可能没有意识到伪造测试对API用户的好处。
+
 If the owners of an API are unwilling or unable to create a fake, you might be able to write your own. One way to do this is to wrap all calls to the API in a single class and then create a fake version of the class that doesn’t talk to the API. Doing this can also be much simpler than creating a fake for the entire API because often you’ll need to use only a subset of the API’s behavior anyway. At Google, some teams have even contributed their fake to the owners of the API, which has allowed other teams to benefit from the fake.
+
+如果一个API的所有者不愿意或无法创建一个伪造测试，你可以写一个。实现这一点的一种方法是将对API的所有调用封装在一个类中，然后创建一个不与API对话的类的伪造测试版本。这样做也比为整个API创建一个伪造测试API简单得多，因为通常您只需要使用API行为的一个子集。在谷歌，一些团队甚至将他们的伪造测试贡献给API的所有者，这使得其他团队可以从伪造测试中获益。
 
 Finally, you could decide to settle on using a real implementation (and deal with the trade-offs of real implementations that are mentioned earlier in this chapter), or resort to other test double techniques (and deal with the trade-offs that we will mention later in this chapter).
 
+最后，你可以决定定位于使用真实实现（并处理本章前面提到的真实实现的权衡问题），或者求助于其他测试替代技术（并处理本章后面提到的权衡问题）。
+
 In some cases, you can think of a fake as an optimization: if tests are too slow using a real implementation, you can create a fake to make them run faster. But if the speedup from a fake doesn’t outweigh the work it would take to create and maintain the fake, it would be better to stick with using the real implementation.
 
-## Stubbing
+在某些情况下，可以将伪造测试代码视为优化：如果使用真实实现的测试太慢，可以创建伪代码以使它们运行得更快。但是，如果伪造测试代码的加速比不超过创建和维护伪造测试代码所需的工作量，那么最好还是坚持使用真实实现。
+
+## Stubbing 打桩
 
 As discussed earlier in this chapter, stubbing is a way for a test to hardcode behavior for a function that otherwise has no behavior on its own. It is often a quick and easy way to replace a real implementation in a test. For example, the code in [Example 13-12 ](#_bookmark1144)uses stubbing to simulate the response from a credit card server.
 
