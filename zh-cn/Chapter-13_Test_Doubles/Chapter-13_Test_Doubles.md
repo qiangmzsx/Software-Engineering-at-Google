@@ -597,6 +597,8 @@ In some cases, you can think of a fake as an optimization: if tests are too slow
 
 As discussed earlier in this chapter, stubbing is a way for a test to hardcode behavior for a function that otherwise has no behavior on its own. It is often a quick and easy way to replace a real implementation in a test. For example, the code in [Example 13-12 ](#_bookmark1144)uses stubbing to simulate the response from a credit card server.
 
+正如本章前面所讨论的，存根是一种测试函数硬编码行为的方法，否则函数本身就没有行为。它通常是一种快速而简单的方法来替代测试中的真实实现。例如，例13-12中的代码使用存根来模拟信用卡服务器的响应。
+
 *Example* *13-12.* *Using* *stubbing* *to* *simulate* *responses*
 
 ```java
@@ -610,23 +612,33 @@ assertThat(transactionCounter.getTransactionCount()).isEqualTo(3);
 
 
 
-### The Dangers of Overusing Stubbing
+### The Dangers of Overusing Stubbing  过度使用打桩的危害
 
 Because stubbing is so easy to apply in tests, it can be tempting to use this technique anytime it’s not trivial to use a real implementation. However, overuse of stubbing can result in major losses in productivity for engineers who need to maintain these tests.
 
-#### Tests become unclear
+因为打桩在测试中很容易应用，所以在使用真实实现不容易的情况下，使用这种技术是很诱惑力的。然而，过度使用打桩会导致需要维护这些测试的工程师的生产力的重大损失。
+
+#### Tests become unclear 测试变得不清晰
 
 Stubbing involves writing extra code to define the behavior of the functions being stubbed. Having this extra code detracts from the intent of the test, and this code can be difficult to understand if you’re not familiar with the implementation of the system under test.
 
+打桩涉及编写额外的代码来定义被打桩的函数的行为。额外的代码会影响测试的意图，如果你不熟悉被测系统的实现，这些代码会很难理解。
+
 A key sign that stubbing isn’t appropriate for a test is if you find yourself mentally stepping through the system under test in order to understand why certain functions in the test are stubbed.
 
-#### Tests become brittle
+打桩不适用于测试的一个关键标志是，如果你发现自己为了理解为什么测试中的某些功能是打桩的，而在思路已经跃出了被测系统。
+
+#### Tests become brittle 测试变得脆弱
 
 Stubbing leaks implementation details of your code into your test. When implementation details in your production code change, you’ll need to update your tests to reflect these changes. Ideally, a good test should need to change only if user-facing behavior of an API changes; it should remain unaffected by changes to the API’s implementation.
 
-#### Tests become less effective
+打桩测试将你的代码的实现细节泄露给你的测试。当生产代码中的实现细节改变时，你需要更新你的测试以反映这些变化。理想情况下，一个好的测试应该只在API面向用户的行为发生变化时才需要改变；它应该不受API实现变化的影响。
+
+#### Tests become less effective 测试有效性降低
 
 With stubbing, there is no way to ensure the function being stubbed behaves like the real implementation, such as in a statement like that shown in the following snippet that hardcodes part of the contract of the add() method (*“If 1 and 2 are passed in, 3* *will be returned”*):
+
+在打桩的情况下，没有办法确保被打桩的函数表现得像真实实现，比如像下面这个片段中的语句，硬编码了add()方法的部分契约（*"如果传入1和2，3将被返回 "*）。
 
 ```java
 when(stubCalculator.add(1, 2)).thenReturn(3);
@@ -634,120 +646,156 @@ when(stubCalculator.add(1, 2)).thenReturn(3);
 
 Stubbing is a poor choice if the system under test depends on the real implementation’s contract because you will be forced to duplicate the details of the contract, and there is no way to guarantee that the contract is correct (i.e., that the stubbed function has fidelity to the real implementation).
 
+如果被测试的系统依赖于真实实现的契约，打桩测试是一个糟糕的选择，因为你将被迫复制契约的细节，而且没有办法保证契约的正确性（即，打桩函数对真实实现的仿真度）。
+
 Additionally, with stubbing there is no way to store state, which can make it difficult to test certain aspects of your code. For example, if you call database.save(item) on either a real implementation or a fake, you might be able to retrieve the item by calling database.get(item.id()) given that both of these calls are accessing internal state, but with stubbing, there is no way to do this.
 
-An example of overusing stubbing
+此外，使用打桩测试无法存储状态，这会使测试代码的某些方面变得困难。例如，如果你在一个真实实现或位置实现上调用database.save(item)，你可能会通过调用database.get(item.id())来检索项目，因为这两个调用都是在访问内部状态，但在打桩测试中，没有办法这样做。
+
+An example of overusing stubbing.
+
+一个过度使用打桩测试的例子。
 
 [Example 13-13 ](#_bookmark1151)illustrates a test that overuses stubbing.
+
+例13-13说明了一个过度使用打桩的测试。
 
 *Example* *13-13.* *Overuse* *of* *stubbing*
 
 ```java
-@Test public void creditCardIsCharged() {
-// Pass in test doubles that were created by a mocking framework.
-paymentProcessor =
-new PaymentProcessor(mockCreditCardServer, mockTransactionProcessor);
-// Set up stubbing for these test doubles. 
-  when(mockCreditCardServer.isServerAvailable()).thenReturn(true); when(mockTransactionProcessor.beginTransaction()).thenReturn(transaction);  when(mockCreditCardServer.initTransaction(transaction)).thenReturn(true); when(mockCreditCardServer.pay(transaction, creditCard, 500))
-.thenReturn(false); when(mockTransactionProcessor.endTransaction()).thenReturn(true);
-// Call the system under test.
-paymentProcessor.processPayment(creditCard, Money.dollars(500));
-// There is no way to tell if the pay() method actually carried out the
-// transaction, so the only thing the test can do is verify that the
-// pay() method was called.
-verify(mockCreditCardServer).pay(transaction, creditCard, 500);
+@Test
+public void creditCardIsCharged() {
+    // Pass in test doubles that were created by a mocking framework.
+    paymentProcessor = new PaymentProcessor(mockCreditCardServer, mockTransactionProcessor);
+    // Set up stubbing for these test doubles. 
+    when(mockCreditCardServer.isServerAvailable()).thenReturn(true);
+    when(mockTransactionProcessor.beginTransaction()).thenReturn(transaction);
+    when(mockCreditCardServer.initTransaction(transaction)).thenReturn(true);
+    when(mockCreditCardServer.pay(transaction, creditCard, 500)).thenReturn(false);
+    when(mockTransactionProcessor.endTransaction()).thenReturn(true);
+    // Call the system under test.
+    paymentProcessor.processPayment(creditCard, Money.dollars(500));
+    // There is no way to tell if the pay() method actually carried out the
+    // transaction, so the only thing the test can do is verify that the
+    // pay() method was called.
+    verify(mockCreditCardServer).pay(transaction, creditCard, 500);
 }
-
 ```
 
 [Example 13-14 ](#_bookmark1153)rewrites the same test but avoids using stubbing. Notice how the test is shorter and that implementation details (such as how the transaction processor is used) are not exposed in the test. No special setup is needed because the credit card server knows how to behave.
 
+例13-14重写了同样的测试，但避免了使用打桩测试方式。注意这个测试是如何精简的，并且在测试中没有暴露实现细节（比如如何使用交易处理器）。不需要特别的设置，因为信用卡服务器知道如何操作。
+
 *Example* *13-14.* *Refactoring* *a* *test* *to* *avoid* *stubbing*
 
 ```java
-@Test public void creditCardIsCharged() {
-paymentProcessor =
-new PaymentProcessor(creditCardServer, transactionProcessor);
-// Call the system under test.
-paymentProcessor.processPayment(creditCard, Money.dollars(500));
-// Query the credit card server state to see if the payment went through.
-assertThat(creditCardServer.getMostRecentCharge(creditCard))
-.isEqualTo(500);
+@Test
+public void creditCardIsCharged() {
+    paymentProcessor = new PaymentProcessor(creditCardServer, transactionProcessor);
+    // Call the system under test.
+    paymentProcessor.processPayment(creditCard, Money.dollars(500));
+    // Query the credit card server state to see if the payment went through.
+    assertThat(creditCardServer.getMostRecentCharge(creditCard)).isEqualTo(500);
 }
 ```
 
 We obviously don’t want such a test to talk to an external credit card server, so a fake credit card server would be more suitable. If a fake isn’t available, another option is to use a real implementation that talks to a hermetic credit card server, although this will increase the execution time of the tests. (We explore hermetic servers in the next chapter.)
 
-### When Is Stubbing Appropriate?
+显然，我们不希望这样的测试与外部信用卡服务器交互，因此更适合使用假信用卡服务器。如果一个伪造不可用，另一个选择是使用一个真实实现，与一个封闭的信用卡服务器交互，尽管这会增加测试的执行时间。（我们将在下一章中探讨封闭服务器。）
+
+### When Is Stubbing Appropriate? 什么情况下才适合使用打桩测试？
 
 Rather than a catch-all replacement for a real implementation, stubbing is appropriate when you need a function to return a specific value to get the system under test into a certain state, such as [Example 13-12](#_bookmark1144) that requires the system under test to return a non-empty list of transactions. Because a function’s behavior is defined inline in the test, stubbing can simulate a wide variety of return values or errors that might not be possible to trigger from a real implementation or a fake.
 
+当你需要一个函数返回一个特定的值以使被测系统进入某种状态时，打桩方式就很合适，而不是真实实现的万能替代品，例如例13-12要求被测系统返回一个非空的事务列表。因为一个函数的行为是在测试中内联定义的，所以打桩可以模拟各种各样的返回值或错误，而这些返回值或错误可能无法从真实实现或伪造测试中触发。
+
 To ensure its purpose is clear, each stubbed function should have a direct relationship with the test’s assertions. As a result, a test typically should stub out a small number of functions because stubbing out many functions can lead to tests that are less clear. A test that requires many functions to be stubbed can be a sign that stubbing is being overused, or that the system under test is too complex and should be refactored.
+
+为了确保其目的明确，每个打桩函数应该与测试的断言直接相关。因此，一个测试通常应该打桩少量的函数，因为打桩太多会导致函数不够清晰。一个需要打桩许多函数的测试是一个迹象，表明打桩被过度使用，或者被测系统过于复杂，应该被重构。
 
 Note that even when stubbing is appropriate, real implementations or fakes are still preferred because they don’t expose implementation details and they give you more guarantees about the correctness of the code compared to stubbing. But stubbing can be a reasonable technique to use, as long as its usage is constrained so that tests don’t become overly complex.
 
-## Interaction Testing
+请注意，即使打桩测试是合适的，真实实现或伪造测试仍然是首选，因为它们不会暴露实现的细节，与打桩测试相比，它们能给你更多关于代码的正确性的保证。但打桩可以是一种合理的技术，只要它的使用受到限制，使测试不会变得过于复杂。
+
+## Interaction Testing  交互测试
 
 As discussed earlier in this chapter, interaction testing is a way to validate how a function is called without actually calling the implementation of the function.
 
+正如本章前面所讨论的，交互测试是一种验证函数如何被调用的方法，而不需要实际调用该函数的实现。
+
 Mocking frameworks make it easy to perform interaction testing. However, to keep tests useful, readable, and resilient to change, it’s important to perform interaction testing only when necessary.
 
-### Prefer State Testing Over Interaction Testing
+模拟框架使执行交互测试变得容易。然而，为了保持测试的有用性、可读性和应变能力，只在必要时执行交互测试是很重要的。
+
+### Prefer State Testing Over Interaction Testing 推荐状态测试而非交互测试
 
 In contrast to interaction testing, it is preferred to test code through [*state* *testing*](https://oreil.ly/k3hSR).
 
+与交互测试相比，最好是通过[*状态测试*](https://oreil.ly/k3hSR)来测试代码。
+
 With state testing, you call the system under test and validate that either the correct value was returned or that some other state in the system under test was properly changed. [Example 13-15 ](#_bookmark1162)presents an example of state testing.
+
+通过状态测试，你可以调用被测系统，并验证返回的值是否正确，或者被测系统中的其他状态是否已正确更改。示例13-15给出了一个状态测试示例。
 
 *Example 13-15. State testing*
 
  ```java
- @Test public void sortNumbers() {
- NumberSorter numberSorter = new NumberSorter(quicksort, bubbleSort);
- // Call the system under test.
- List sortedList = numberSorter.sortNumbers(newList(3, 1, 2));
- // Validate that the returned list is sorted. It doesn’t matter which
- // sorting algorithm is used, as long as the right result was returned.
- assertThat(sortedList).isEqualTo(newList(1, 2, 3));
+ @Test
+ public void sortNumbers() {
+     NumberSorter numberSorter = new NumberSorter(quicksort, bubbleSort);
+     // Call the system under test.
+     List sortedList = numberSorter.sortNumbers(newList(3, 1, 2));
+     // Validate that the returned list is sorted. It doesn’t matter which
+     // sorting algorithm is used, as long as the right result was returned.
+     assertThat(sortedList).isEqualTo(newList(1, 2, 3));
  }
  ```
 
-
-
 [Example 13-16 ](#_bookmark1163)illustrates a similar test scenario but instead uses interaction testing. Note how it’s impossible for this test to determine that the numbers are actually sorted, because the test doubles don’t know how to sort the numbers—all it can tell you is that the system under test tried to sort the numbers.
 
- 
+ 示例13-16说明了一个类似的测试场景，但使用了交互测试。请注意，此测试无法确定数字是否实际已排序，因为测试替代不知道如何对数字进行排序--它所能告诉你的是，被测试系统尝试对数字进行排序。
 
 *Example* *13-16.* *Interaction* *testing*
 
 ```java
-@Test public void sortNumbers_quicksortIsUsed() {
-// Pass in test doubles that were created by a mocking framework.
-NumberSorter numberSorter =
-new NumberSorter(mockQuicksort, mockBubbleSort);
-
-// Call the system under test.
-numberSorter.sortNumbers(newList(3, 1, 2));
-
-// Validate that numberSorter.sortNumbers() used quicksort. The test
-// will fail if mockQuicksort.sort() is never called (e.g., if
-// mockBubbleSort is used) or if it’s called with the wrong arguments.
-verify(mockQuicksort).sort(newList(3, 1, 2));
+@Test 
+public void sortNumbers_quicksortIsUsed() {
+    // Pass in test doubles that were created by a mocking framework.
+    NumberSorter numberSorter = new NumberSorter(mockQuicksort, mockBubbleSort);
+    // Call the system under test.
+    numberSorter.sortNumbers(newList(3, 1, 2));
+    // Validate that numberSorter.sortNumbers() used quicksort. The test
+    // will fail if mockQuicksort.sort() is never called (e.g., if
+    // mockBubbleSort is used) or if it’s called with the wrong arguments.
+    verify(mockQuicksort).sort(newList(3, 1, 2));
 }
 ```
 
 At Google, we’ve found that emphasizing state testing is more scalable; it reduces test brittleness, making it easier to change and maintain code over time.
 
+在谷歌，我们发现强调状态测试更具可扩展性；它减少了测试的脆弱性，使得随着时间的推移更容易更改和维护代码。
+
 The primary issue with interaction testing is that it can’t tell you that the system under test is working properly; it can only validate that certain functions are called as expected. It requires you to make an assumption about the behavior of the code; for example, “*If* *database.save(item) is called, we assume the item will be saved to the database.*” State testing is preferred because it actually validates this assumption (such as by saving an item to a database and then querying the database to validate that the item exists).
+
+交互测试的主要问题是它不能告诉您被测试的系统是否正常工作；它只能验证是否按预期调用了某些函数。它要求你对代码的行为做出假设；例如，首选“如果”状态测试，因为它实际上验证了该假设（例如，将项目保存到数据库，然后查询数据库以验证该项目是否存在）。如果调用了*database.save(item)*，则假定该项将保存到数据库中。
 
 Another downside of interaction testing is that it utilizes implementation details of the system under test—to validate that a function was called, you are exposing to the test that the system under test calls this function. Similar to stubbing, this extra code makes tests brittle because it leaks implementation details of your production code into tests. Some people at Google jokingly refer to tests that overuse interaction testing as [*change-detector* *tests* ](https://oreil.ly/zkMDu)because they fail in response to any change to the production code, even if the behavior of the system under test remains unchanged.
 
-### When Is Interaction Testing Appropriate?
+交互测试的另一个缺点是，它利用被测系统的实现细节--验证某个函数是否被调用，你向测试暴露了被测系统调用这个函数。与打桩类似，这个额外的代码使测试变得脆弱，因为它将生产代码的实现细节泄漏到测试中。谷歌的一些人开玩笑地把过度使用交互测试的测试称为[*变更检测器测试*](https://oreil.ly/zkMDu)，因为它们对生产代码的任何改变都会失败，即使被测系统的行为保持不变。
+
+### When Is Interaction Testing Appropriate? 什么时候适合进行交互测试？
 
 There are some cases for which interaction testing is warranted:
 
+在某些情况下，交互测试是有必要的：
+
 •   You cannot perform state testing because you are unable to use a real implementation or a fake (e.g., if the real implementation is too slow and no fake exists). As a fallback, you can perform interaction testing to validate that certain functions are called. Although not ideal, this does provide some basic level of confidence that the system under test is working as expected.
 
+- 你不能进行状态测试，因为你无法使用真实实现或伪造实现（例如，如果真实实现太慢，而且没有伪造测试存在）。作为备用方案，你可以进行交互测试以验证某些函数被调用。虽然不是很理想，但这确实提供了一些基本的功能，即被测系统正在按照预期工作。
+
 •   Differences in the number or order of calls to a function would cause undesired behavior. Interaction testing is useful because it could be difficult to validate this behavior with state testing. For example, if you expect a caching feature to reduce the number of calls to a database, you can verify that the database object is not accessed more times than expected. Using Mockito, the code might look similar to this:
+
+-  对一个函数的调用数量或顺序的不同会导致不在预期内的行为。交互测试是有用的，因为用状态测试可能很难验证这种行为。例如，如果你期望一个缓存功能能减少对数据库的调用次数，你可以验证数据库对象的访问次数没有超过预期。使用Mockito，代码可能看起来类似于这样：
 
 ```java
 verify(databaseReader, atMostOnce()).selectRecords();
@@ -755,11 +803,15 @@ verify(databaseReader, atMostOnce()).selectRecords();
 
 Interaction testing is not a complete replacement for state testing. If you are not able to perform state testing in a unit test, strongly consider supplementing your test suite with larger-scoped tests that do perform state testing. For instance, if you have a unit test that validates usage of a database through interaction testing, consider adding an integration test that can perform state testing against a real database. Larger-scope testing is an important strategy for risk mitigation, and we discuss it in the next chapter.
 
-#### Best Practices for Interaction Testing
+交互测试不能完全替代状态测试。如果无法在单元测试中执行状态测试，请强烈考虑用更大范围的执行状态测试的范围测试来补充测试组件。例如，如果你有一个单元测试，通过交互测试来验证数据库的使用，考虑添加一个集成测试，可以对真实数据库进行状态测试。更大范围的测试是减轻风险的重要策略，我们将在下一章中讨论它。
+
+#### Best Practices for Interaction Testing 交互测试的最佳实践
 
 When performing interaction testing, following these practices can reduce some of the impact of the aforementioned downsides.
 
-#### Prefer to perform interaction testing only for state-changing functions
+在进行交互测试时，遵循这些做法可以减少上述弊端的一些影响。
+
+#### Prefer to perform interaction testing only for state-changing functions 倾向于只对状态改变的功能进行交互测试
 
 When a system under test calls a function on a dependency, that call falls into one of two categories:
 
@@ -775,88 +827,127 @@ sendEmail(), saveRecord(), logAccess().
 
 ​	Functions that don’t have side effects; they return information about the world outside the system under test and don’t modify anything. Examples: getUser(), findResults(), readFile().
 
+当被测系统调用一个依赖关系上的函数时，该调用属于两类中的一类：
+*改变状态*
+	对被测系统以外的范围有副作用的函数。例子。
+
+```java
+sendEmail(), saveRecord(), logAccess().
+```
+
+*不改变状态*
+
+​	没有副作用的函数；它们返回关于被测系统以外的范围的信息，不修改任何东西。例如：getUser(), findResults(), readFile()。
+
 In general, you should perform interaction testing only for functions that are state- changing. Performing interaction testing for non-state-changing functions is usually redundant given that the system under test will use the return value of the function to do other work that you can assert. The interaction itself is not an important detail for correctness, because it has no side effects.
+
+一般来说，你应该只对状态变化的函数进行交互测试。考虑到被测系统将使用函数的返回值来执行您可以断言的其他工作，对非状态变化函数执行交互测试通常是多余的。交互本身对于正确性来说不是一个重要的细节，因为它没有副作用。
 
 Performing interaction testing for non-state-changing functions makes your test brittle because you’ll need to update the test anytime the pattern of interactions changes. It also makes the test less readable given that the additional assertions make it more difficult to determine which assertions are important for ensuring correctness of the code. By contrast, state-changing interactions represent something useful that your code is doing to change state somewhere else.
 
+对非状态变化的函数进行交互测试会使你的测试变得很脆弱，因为你需要在交互模式发生变化时更新测试。由于附加的断言使得确定哪些断言对于确保代码的正确性很重要变得更加困难，因此它还使得测试的可读性降低。相比之下，状态改变的交互代表了你的代码为改变其他地方的状态所做的有用的事情。
+
 [Example 13-17](#_bookmark1171) demonstrates interaction testing on both state-changing and non- state-changing functions.
+
+例13-17展示了对状态变化和非状态变化函数的交互测试。
 
 *Example 13-17. State-changing and non-state-changing interactions*
 
 ```java
-@Test public void grantUserPermission() { UserAuthorizer userAuthorizer =
-new UserAuthorizer(mockUserService, mockPermissionDatabase); when(mockPermissionService.getPermission(FAKE_USER)).thenReturn(EMPTY);
-
-// Call the system under test.
-userAuthorizer.grantPermission(USER_ACCESS);
-
-// addPermission() is state-changing, so it is reasonable to perform
-// interaction testing to validate that it was called.
-verify(mockPermissionDatabase).addPermission(FAKE_USER,  USER_ACCESS);
-
-// getPermission() is non-state-changing, so this line of code isn’t
-// needed. One clue that interaction testing may not be needed:
-// getPermission() was already stubbed earlier in this test.
-verify(mockPermissionDatabase).getPermission(FAKE_USER);
+@Test public void grantUserPermission() {
+    UserAuthorizer userAuthorizer = new UserAuthorizer(mockUserService, mockPermissionDatabase);
+    when(mockPermissionService.getPermission(FAKE_USER)).thenReturn(EMPTY);
+    // Call the system under test.
+    userAuthorizer.grantPermission(USER_ACCESS);
+    // addPermission() is state-changing, so it is reasonable to perform
+    // interaction testing to validate that it was called.
+    verify(mockPermissionDatabase).addPermission(FAKE_USER, USER_ACCESS);
+    // getPermission() is non-state-changing, so this line of code isn’t
+    // needed. One clue that interaction testing may not be needed:
+    // getPermission() was already stubbed earlier in this test.
+    verify(mockPermissionDatabase).getPermission(FAKE_USER);
 }
 ```
 
-#### Avoid overspecification
+#### Avoid overspecification 避免过度规范化
 
 In [Chapter 12](#_bookmark938), we discuss why it is useful to test behaviors rather than methods. This means that a test method should focus on verifying one behavior of a method or class rather than trying to verify multiple behaviors in a single test.
 
+在第12章中，我们将讨论为什么测试行为比测试方法更有用。这意味着一个测试方法应该关注于验证一个方法或类的一个行为，而不是试图在一个测试中验证多个行为。
+
 When performing interaction testing, we should aim to apply the same principle by avoiding overspecifying which functions and arguments are validated. This leads to tests that are clearer and more concise. It also leads to tests that are resilient to changes made to behaviors that are outside the scope of each test, so fewer tests will fail if a change is made to a way a function is called.
 
+在进行交互测试时，我们应该通过避免过度指定哪些函数和参数被验证，来达到应用同样的原则。这将导致测试更清晰、更简洁。这也导致了测试对每个测试范围之外的行为的改变有弹性，所以如果改变了一个函数的调用方式，更少的测试会失败。
+
 [Example 13-18 ](#_bookmark1174)illustrates interaction testing with overspecification. The intention of the test is to validate that the user’s name is included in the greeting prompt, but the test will fail if unrelated behavior is changed.
+
+示例13-18说明了过度规范的交互测试。测试的目的是验证用户名是否包含在问候语提示中，但如果不相关的行为发生更改，测试将失败。
 
  *Example* *13-18.* *Overspecified* *interaction* *tests*
 
 ```java
-@Test public void displayGreeting_renderUserName() { when(mockUserService.getUserName()).thenReturn("Fake User"); userGreeter.displayGreeting(); // Call the system under test.
-
-// The test will fail if any of the arguments to setText() are changed.
-verify(userPrompt).setText("Fake User", "Good morning!", "Version 2.1");
-
-// The test will fail if setIcon() is not called, even though this
-// behavior is incidental to the test since it is not related to
-// validating the user name.
-verify(userPrompt).setIcon(IMAGE_SUNSHINE);
+@Test public void displayGreeting_renderUserName() {
+    when(mockUserService.getUserName()).thenReturn("Fake User");
+    userGreeter.displayGreeting();
+    // Call the system under test.
+    // The test will fail if any of the arguments to setText() are changed.
+    verify(userPrompt).setText("Fake User", "Good morning!", "Version 2.1");
+    // The test will fail if setIcon() is not called, even though this
+    // behavior is incidental to the test since it is not related to
+    // validating the user name.
+    verify(userPrompt).setIcon(IMAGE_SUNSHINE);
 }
 ```
 
 [Example 13-19](#_bookmark1176) illustrates interaction testing with more care in specifying relevant arguments and functions. The behaviors being tested are split into separate tests, and each test validates the minimum amount necessary for ensuring the behavior it is testing is correct.
 
+例13-19说明了交互测试在指定相关参数和函数时更加谨慎。被测试的行为被分成独立的测试，每个测试都验证了确保它所测试的行为是正确的所需的最小量。
+
  *Example* *13-19.* *Well-specified* *interaction* *tests*
 
 ```java
-@Test public void displayGreeting_renderUserName() { when(mockUserService.getUserName()).thenReturn("Fake User"); userGreeter.displayGreeting(); // Call the system under test. verify(userPrompter).setText(eq("Fake User"), any(), any());
+@Test public void displayGreeting_renderUserName() {
+    when(mockUserService.getUserName()).thenReturn("Fake User");
+    userGreeter.displayGreeting(); // Call the system under test. 
+    verify(userPrompter).setText(eq("Fake User"), any(), any());
 }
-@Test public void displayGreeting_timeIsMorning_useMorningSettings() { setTimeOfDay(TIME_MORNING);
-userGreeter.displayGreeting(); // Call the system under test. verify(userPrompt).setText(any(), eq("Good morning!"), any()); verify(userPrompt).setIcon(IMAGE_SUNSHINE);
+
+@Test public void displayGreeting_timeIsMorning_useMorningSettings() {
+    setTimeOfDay(TIME_MORNING);
+    userGreeter.displayGreeting(); // Call the system under test. 
+    verify(userPrompt).setText(any(), eq("Good morning!"), any());
+    verify(userPrompt).setIcon(IMAGE_SUNSHINE);
 }
 ```
 
 
 
-## Conclusion
+## Conclusion 总结
 
 We’ve learned that test doubles are crucial to engineering velocity because they can help comprehensively test your code and ensure that your tests run fast. On the other hand, misusing them can be a major drain on productivity because they can lead to tests that are unclear, brittle, and less effective. This is why it’s important for engineers to understand the best practices for how to effectively apply test doubles.
 
+我们已经了解到，测试替代对工程速度至关重要，因为它们可以帮助全面测试代码并确保测试快速运行。另一方面，误用它们可能是生产率的主要消耗，因为它们可能导致测试不清楚、不可靠、效率较低。这就是为什么工程师了解如何有效应用测试替代的最佳实践非常重要。
+
 There is often no exact answer regarding whether to use a real implementation or a test double, or which test double technique to use. An engineer might need to make some trade-offs when deciding the proper approach for their use case.
+
+关于是使用真实实现还是测试替代，或者使用哪种测试替代技术，通常没有确切的答案。工程师在为他们的用例决定合适的方法时可能需要做出一些权衡。
 
 Although test doubles are great for working around dependencies that are difficult to use in tests, if you want to maximize confidence in your code, at some point you still want to exercise these dependencies in tests. The next chapter will cover larger-scope testing, for which these dependencies are used regardless of their suitability for unit tests; for example, even if they are slow or nondeterministic.
 
+尽管测试替代对于处理测试中难以使用的依赖项非常有用，但如果你想最大限度地提高代码的可信度，在某些时候你仍然希望在测试中使用这些依赖项。下一章将介绍更大范围的测试，对于这些测试，不管它们是否适合单元测试，都将使用这些依赖关系；例如，即使它们很慢或不确定。
+
 ## TL;DRs
-
-•   A real implementation should be preferred over a test double.
-
-•   A fake is often the ideal solution if a real implementation can’t be used in a test.
-
-•   Overuse of stubbing leads to tests that are unclear and brittle.
-
-•   Interaction testing should be avoided when possible: it leads to tests that are brittle because it exposes implementation details of the system under test.
+- A real implementation should be preferred over a test double.
+- A fake is often the ideal solution if a real implementation can’t be used in a test.
+- Overuse of stubbing leads to tests that are unclear and brittle.
+- Interaction testing should be avoided when possible: it leads to tests that are brittle because it exposes implementation details of the system under test.
 
 
+
+- 真实实现应优先于测试替代。
+- 如果在测试中不能使用真实实现，那么伪造实现通常是理想的解决方案。
+- 过度使用打桩会导致测试不明确和变脆。
+- 在可能的情况下，应避免交互测试：因为交互测试会暴露被测系统的实现细节，所以会导致测试不连贯。
 
 
 
