@@ -14,6 +14,8 @@
 
 After doing the hard work of writing code, you need some hardware to run it. Thus, you go to buy or rent that hardware. This, in essence, is *Compute as a Service* (CaaS), in which “Compute” is shorthand for the computing power needed to actually run your programs.
 
+在完成了编写代码的艰苦工作之后，你需要一些硬件来运行它。因此，你可以购买或租用这些硬件。本质上，这就是“计算即服务”（Compute as a Service，CaaS），其中“计算”是实际运行程序所需的计算能力的简写。
+
 This chapter is about how this simple concept—just give me the hardware to run my stuff[1](#_bookmark2133)—maps into a system that will survive and scale as your organization evolves and grows. It is somewhat long because the topic is complex, and divided into four sections:
 
 •   [“Taming the Compute Environment” on page 518 ](#_bookmark2134)covers how Google arrived at its solution for this problem and explains some of the key concepts of CaaS.
@@ -24,37 +26,55 @@ This chapter is about how this simple concept—just give me the hardware to run
 
 •   Finally, [“Choosing a Compute Service” on page 535](#_bookmark2202) is dedicated primarily to those engineers who will make a decision about what compute service to use in their organization.
 
+本章讲述的是这个简单的概念--如何为我提供硬件--如何组成一个系统，随着你的组织的发展和壮大而生存和扩展。本章有点长，因为主题很复杂，分为四个部分：
+- 第518页的 "驯服计算环境"涵盖了谷歌是如何得出这个问题的解决方案的，并解释了CaaS的一些关键概念。
 
+- 第523页的 "为托管计算编写软件"展示了托管计算解决方案如何影响工程师编写软件。
+- 第523页的 "为托管计算编写软件"展示了托管计算解决方案如何影响工程师编写软件。我们相信，"牛，而不是宠物"/灵活的调度模式是谷歌在过去15年成功的根本，也是软件工程师工具箱中的重要工具。
+- 第530页的 "CaaS随时间和规模的变化"更深入地探讨了谷歌在组织成长和发展过程中对计算架构的各种选择是如何发挥的一些经验。
+- 最后，第535页的 "选择计算服务"主要是献给那些将决定在其组织中使用何种计算服务的工程师。
 
 ```
 1	Disclaimer: for some applications, the “hardware to run it” is the hardware of your customers (think, for example, of a shrink-wrapped game you bought a decade ago). This presents very different challenges that we do not cover in this chapter.
+1   免责声明：对于某些应用程序，“运行它的硬件”是您客户的硬件（例如，想想您十年前购买的一款压缩包装的游戏）。这就提出了我们在本章中没有涉及的非常不同的挑战。
 ```
 
 
 
-## Taming the Compute Environment
+## Taming the Compute Environment 驯服计算机环境
 
 Google’s internal Borg system[2](#_bookmark2138) was a precursor for many of today’s CaaS architectures (like Kubernetes or Mesos). To better understand how the particular aspects of such a service answer the needs of a growing and evolving organization, we’ll trace the evo‐ lution of Borg and the efforts of Google engineers to tame the compute environment.
 
-### Automation of Toil
+谷歌的内部Borg系统是今天许多CaaS架构（如Kubernetes或Mesos）的前身。为了更好地理解这种服务的特定方面如何满足一个不断增长和发展的组织的需要，我们将追溯Borg的发展和谷歌工程师为驯服计算环境所做的努力。
+
+### Automation of Toil 自动化操作
 
 Imagine being a student at the university around the turn of the century. If you wanted to deploy some new, beautiful code, you’d SFTP the code onto one of the machines in the university’s computer lab, SSH into the machine, compile and run the code. This is a tempting solution in its simplicity, but it runs into considerable issues over time and at scale. However, because that’s roughly what many projects begin with, multiple organizations end up with processes that are somewhat stream‐ lined evolutions of this system, at least for some tasks—the number of machines grows (so you SFTP and SSH into many of them), but the underlying technology remains. For example, in 2002, Jeff Dean, one of Google’s most senior engineers, wrote the following about running an automated data-processing task as a part of the release process:
 
 ​	[Running the task] is a logistical, time-consuming nightmare. It currently requires get‐ ting a list of 50+ machines, starting up a process on each of these 50+ machines, and monitoring its progress on each of the 50+ machines. There is no support for automat‐ ically migrating the computation to another machine if one of the machines dies, and monitoring the progress of the jobs is done in an ad hoc manner [...] Furthermore, since processes can interfere with each other, there is a complicated, human- implemented “sign up” file to throttle the use of machines, which results in less-than- optimal scheduling, and increased contention for the scarce machine resources
 
+想象一下，在世纪之交的时候，你是一个大学的学生。如果你想部署一些新的、牛逼的代码，你会把代码从SFTP复制到大学计算机实验室的一台机器上，SSH进入机器，编译并运行代码。这是一个简单而诱人的解决方案，但随着时间的推移和规模的扩大，它遇到了相当多的问题。然而，因为这大概是许多项目开始时的情况，多个组织最终采用的流程在某种程度上是这个系统的流程演变，至少对于某些任务来说是这样的--机器的数量增加了（所以你SFTP和SSH进入其中许多机器），但底层技术仍然存在。例如，2002年，谷歌最资深的工程师之一杰夫·迪恩（Jeff Dean）写了以下关于在发布过程中运行自动数据处理任务的文章：
+
+​		[运行任务]是一个组织管理的、耗时的噩梦。目前，它需要获得一个50多台机器的列表，在这50多台机器上各启动一个进程，并在这50多台机器上各监控其进度。如果其中一台机器宕机了，不支持自动将计算迁移到另一台机器上，而且监测工作的进展是以临时的方式进行的[......]此外，由于进程可以相互干扰，有一个复杂的、人工实现的 "注册 "文件来节制机器的使用，这导致了非最优调度，增加了对稀缺机器资源的争夺。	
+
 This was an early trigger in Google’s efforts to tame the compute environment, which explains well how the naive solution becomes unmaintainable at larger scale.
 
-
+这是谷歌努力驯服计算环境的早期导火索，这很好地解释了这种幼稚的解决方案如何在更大范围内变得不可维护。
 
 ```
 2	Abhishek Verma, Luis Pedrosa, Madhukar R Korupolu, David Oppenheimer, Eric Tune, and John Wilkes, “Large-scale cluster management at Google with Borg,” EuroSys, Article No.: 18 (April 2015): 1–17.
+2   Abhishek Verma、Luis Pedrosa、Madhukar R Korupolu、David Oppenheimer、Eric Tune和John Wilkes，“谷歌与Borg的大规模集群管理”，EuroSys，文章编号：18（2015年4月）：1-17。
 ```
 
-#### Simple automations
+#### Simple automations 简单自动化
 
 There are simple things that an organization can do to mitigate some of the pain. The process of deploying a binary onto each of the 50+ machines and starting it there can easily be automated through a shell script, and then—if this is to be a reusable solu‐ tion—through a more robust piece of code in an easier-to-maintain language that will perform the deployment in parallel (especially since the “50+” is likely to grow over time).
 
+一个组织可以做一些简单的事情来减轻一些痛苦。将二进制文件部署到50多台机器上并在其中启动的过程可以通过一个shell脚本轻松实现自动化，如果这是一个可重用的解决方案，则可以通过一段更健壮的代码，使用一种更易于维护的语言，并行执行部署（特别是因为“50+”可能会随着时间的推移而增长）。
+
 More interestingly, the monitoring of each machine can also be automated. Initially, the person in charge of the process would like to know (and be able to intervene) if something went wrong with one of the replicas. This means exporting some monitor‐ ing metrics (like “the process is alive” and “number of documents processed”) from the process—by having it write to a shared storage, or call out to a monitoring ser‐ vice, where they can see anomalies at a glance. Current open source solutions in that space are, for instance, setting up a dashboard in a monitoring tool like Graphana or Prometheus.
+
+更有趣的是，对每台机器的监控也可以自动化。最初，负责进程的人希望知道（并能够进行干预），如果其中一个副本出了问题。这意味着从进程中输出一些监控指标（如 "进程是活的 "和 "处理的文件数"）--让它写到一个共享存储中，或调用一个监控服务，在那里他们可以一眼看到异常情况。目前该领域的开源解决方案是，例如，在Graphana或Prometheus等监控工具中设置一个仪表盘。
 
 If an anomaly is detected, the usual mitigation strategy is to SSH into the machine, kill the process (if it’s still alive), and start it again. This is tedious, possibly error prone (be sure you connect to the right machine, and be sure to kill the right pro‐ cess), and could be automated:
 
@@ -62,9 +82,18 @@ If an anomaly is detected, the usual mitigation strategy is to SSH into the mach
 
 •   Instead of logging in to the machine to start the process again after death, it might be enough to wrap the whole execution in a “while true; do run && break; done” shell script.
 
+如果检测到异常，通常的缓解策略是通过SSH进入机器，杀死进程（如果它还活着），然后重新启动它。这很繁琐，可能容易出错（要确保你连接到正确的机器，并确保杀死正确的进程），并且可以自动化：
+- 与其手动监控故障，不如在机器上使用一个代理，检测异常情况（比如 "该进程在过去5分钟内没有报告它处于”活动状态"或 "该进程在过去10分钟内没有处理任何文件"），如果检测到异常情况，就杀死该进程。
+
+- 与其在宕掉后登录到机器上再次启动进程，不如将整个执行过程包裹在一个 "while true; do run && break; done "的shell脚本中。
+
 The cloud world equivalent is setting an autohealing policy (to kill and re-create a VM or container after it fails a health check).
 
+在云计算世界中，相当于设置了一个自动修复策略（在运行状况检查失败后杀死并重新创建VM或容器）。
+
 These relatively simple improvements address a part of Jeff Dean’s problem described earlier, but not all of it; human-implemented throttling, and moving to a new machine, require more involved solutions.
+
+这些相对简单的改进解决了前面描述的杰夫·迪恩问题的一部分，但不是全部；人工实现的流程，以及转移到新机器，需要更复杂的解决方案。
 
 #### Automated scheduling
 
