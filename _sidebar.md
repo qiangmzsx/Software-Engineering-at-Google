@@ -8,6 +8,7 @@
 - [第十三章 测试替代](zh-cn/Chapter-13_Test_Doubles/Chapter-13_Test_Doubles.md)
 - [第十四章 大型测试](zh-cn/Chapter-14_Larger_Testing/Chapter-14_Larger_Testing.md)
 - [第十五章 废弃](zh-cn/Chapter-15_Deprecation/Chapter-15_Deprecation.md)
+- [第十七章 代码搜索](zh-cn/Chapter-17_Code_Search/Chapter-17_Code_Search.md)
 - [第十八章 构建系统，构建理念](zh-cn/Chapter-18_Build_Systems_and_Build_Philosophy/Chapter-18_Build_Systems_and_Build_Philosophy.md)
 - [第十九章：体验：谷歌的代码审查工具](zh-cn/Chapter-19_Critique_Googles_Code_Review_Tool/Chapter-19_Critique_Googles_Code_Review_Tool.md)
 - [后记](zh-cn/Afterword.md)
