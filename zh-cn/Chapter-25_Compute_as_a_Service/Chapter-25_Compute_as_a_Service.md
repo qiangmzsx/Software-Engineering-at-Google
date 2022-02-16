@@ -298,51 +298,83 @@ However, there are also multiple serving applications that do not naturally fit 
 
 One common theme in the previous description focused on *state* as a source of issues when trying to treat jobs like cattle.[12](#_bookmark2173) Whenever you replace one of your cattle jobs, you lose all the in-process state (as well as everything that was on local storage, if the job is moved to a different machine). This means that the in-process state should be treated as transient, whereas “real storage” needs to occur elsewhere.
 
+在前面的描述中，有一个共同的主题集中在*状态*上，当试图像对待牛一样对待作业时，*状态*是问题的来源。每当你替换你的一个牛的作业时，你会失去所有的进程中的状态（以及所有在本地存储的东西，如果作业被转移到不同的机器上）。这意味着进程内状态应被视为瞬态，而“真实存储”需要发生在其他地方。
+
 The simplest way of dealing with this is extracting all storage to an external storage system. This means that anything that should survive past the scope of serving a sin‐ gle request (in the serving job case) or processing one chunk of data (in the batch case) needs to be stored off machine, in durable, persistent storage. If all your local state is immutable, making your application failure resistant should be relatively painless.
+
+处理这个问题的最简单方法是将所有的存储提取到外部存储系统。这意味着任何应该在服务单一请求（在服务工作的情况下）或处理一个数据块（在批处理的情况下）的范围内生存的东西都需要存储在机器外的持久性存储中。如果所有的本地状态都是不可变的，那么让应用程序具有抗故障能力应该是相对容易的。
 
 Unfortunately, most applications are not that simple. One natural question that might come to mind is, “How are these durable, persistent storage solutions implemented— are *they* cattle?” The answer should be “yes.” Persistent state can be managed by cattle through state replication. On a different level, RAID arrays are an analogous concept; we treat disks as transient (accept the fact one of them can be gone) while still main‐ taining state. In the servers world, this might be realized through multiple replicas holding a single piece of data and synchronizing to make sure every piece of data is replicated a sufficient number of times (usually 3 to 5). Note that setting this up cor‐ rectly is difficult (some way of consensus handling is needed to deal with writes), and so Google developed a number of specialized storage solutions[13](#_bookmark2175) that were enablers for most applications adopting a model where all state is transient.
 
+不幸的是，大多数应用并不那么简单。可能会想到的一个自然而然问题是："这些持久的存储解决方案是如何实现的—它们是*牛*吗？" 答案应该是 "是的"。牛可以通过状态复制来管理持久状态。在不同的层面上，RAID阵列是一个类似的概念；我们将磁盘视为暂时的（接受其中一个可以消失的事实），同时仍保持主要状态。在服务器世界中，这可以通过多个副本来实现，多个副本保存一个数据段并进行同步，以确保每个数据段都被复制足够的次数（通常为3到5次）。请注意，正确设置此选项很困难（需要某种一致性处理方式来处理写操作），因此Google开发了许多专门的存储解决方案13，这些解决方案是采用所有状态都是瞬态的模型的大多数应用程序的推动者。
+
 Other types of local storage that cattle can use covers “re-creatable” data that is held locally to improve serving latency. Caching is the most obvious example here: a cache is nothing more than transient local storage that holds state in a transient location, but banks on the state not going away all the time, which allows for better perfor‐ mance characteristics on average. A key lesson for Google production infrastructure has been to provision the cache to meet your latency goals, but provision the core application for the total load. This has allowed us to avoid outages when the cache layer was lost because the noncached path was provisioned to handle the total load (although with higher latency). However, there is a clear trade-off here: how much to spend on the redundancy to mitigate the risk of an outage when cache capacity is lost.
+
+牛可以使用的其他类型的本地存储包括本地保存的“可重新创建”数据，以改善服务延迟。缓存是这里最明显的例子：缓存只不过是在一个短暂的位置上保存状态的本地存储，但却依赖于该状态不会一直消失，这使得平均性能特征更好。谷歌生产基础设施的一个关键经验是，配置缓存以满足你的延迟要求，但为总负载配置核心应用程序。这使得我们能够在缓存层丢失时避免故障，因为非缓存路径的配置能够处理总的负载（尽管延迟更高）。然而，这里有一个明显的权衡：当缓存容量丢失时，要在冗余上花多少钱才能减轻故障的风险。
 
 In a similar vein to caching, data might be pulled in from external storage to local in the warm-up of an application, in order to improve request serving latency.
 
+与缓存类似，在应用程序的预热过程中，数据可能从外部存储拉到本地，以改善请求服务延迟。
+
 One more case of using local storage—this time in case of data that’s written more than read—is batching writes. This is a common strategy for monitoring data (think, for instance, about gathering CPU utilization statistics from the fleet for the purposes of guiding the autoscaling system), but it can be used anywhere where it is acceptable for a fraction of data to perish, either because we do not need 100% data coverage (this is the monitoring case), or because the data that perishes can be re-created (this is the case of a batch job that processes data in chunks, and writes some output for each chunk). Note that in many cases, even if a particular calculation has to take a long time, it can be split into smaller time windows by periodic checkpointing of state to persistent storage.
+
+还有一种使用本地存储的情况--这次是在数据写入多于读取的情况下--是批量写入。这是监控数据的常见策略（例如，考虑从机群中收集CPU利用率的统计数据，以指导自动伸缩系统），但它也可以用在任何可以接受部分数据丢失的地方，因为我们不需要100%的数据覆盖（这是监控的情况），或者因为丢失的数据可以重新创建（这是一个批处理作业的情况，它分块处理数据，并为每个分块写一些输出）。请注意，在很多情况下，即使一个特定的计算需要很长的时间，也可以通过定期检查状态到持久性存储的方式将其分割成更小的时间窗口。
 
 ```
 12	Note that, besides distributed state, there are other requirements to setting up an effective “servers as cattle” solution, like discovery and load-balancing systems (so that your application, which moves around the data‐ center, can be accessed effectively). Because this book is less about building a full CaaS infrastructure and more about how such an infrastructure relates to the art of software engineering, we won’t go into more detail here.
 13	See, for example, Sanjay Ghemawat, Howard Gobioff, and Shun-Tak Leung, “The Google File System,” Pro‐ ceedings of the 19th ACM Symposium on Operating Systems, 2003; Fay Chang et al., “Bigtable: A Distributed Storage System for Structured Data,” 7th USENIX Symposium on Operating Systems Design and Implemen‐ tation (OSDI); or James C. Corbett et al., “Spanner: Google’s Globally Distributed Database,” OSDI, 2012.
+12 请注意，除了分布式状态，建立一个有效的 "服务器即牛 "解决方案还有其他要求，比如发现和负载平衡系统（以便你的应用程序，在数据中心内移动，可以被有效访问）。因为这本书与其说是关于建立一个完整的CaaS基础设施，不如说是关于这样的基础设施与软件工程艺术的关系，所以我们在这里就不多说了。
+13 例如，见Sanjay Ghemawat, Howard Gobioff, and Shun-Tak Leung, "The Google File System," Pro- ceedings of the 19th ACM Symposium on Operating Systems, 2003; Fay Chang等人, "Bigtable: 一个结构化数据的分布式存储系统，"第七届USENIX操作系统设计和实施研讨会（OSDI）；或James C. Corbett等人，”Spanner:谷歌的全球分布式数据库"，OSDI，2012。
 
 ```
 
 
 
-#### Connecting to a Service
+#### Connecting to a Service 连接到服务
 
 As mentioned earlier, if anything in the system has the name of the host on which your program runs hardcoded (or even provided as a configuration parameter at startup), your program replicas are not cattle. However, to connect to your applica‐ tion, another application does need to get your address from somewhere. Where?
 
+如前所述，如果系统中的任何内容都有你的程序所运行的主机的名字的硬编码（甚至在启动时作为配置参数提供），则程序副本不可用。然而，为了连接到你的应用程序，另一个应用程序确实需要从某个地方获得你的地址。在哪里？
+
 The answer is to have an extra layer of indirection; that is, other applications refer to your application by some identifier that is durable across restarts of the specific “backend” instances. That identifier can be resolved by another system that the scheduler writes to when it places your application on a particular machine. Now, to avoid distributed storage lookups on the critical path of making a request to your application, clients will likely look up the address that your app can be found on, and set up a connection, at startup time, and monitor it in the background. This is gener‐ ally called *service discovery*, and many compute offerings have built-in or modular solutions. Most such solutions also include some form of load balancing, which reduces coupling to specific backends even more.
+
+答案是有一个额外的代理层；也就是说，其他应用程序通过某个标识符来引用你的应用程序，这些标识符在特定的 "后端 "实例的重启中是持久的。这个标识符可以由另一个系统来解决，当调度器把你的应用程序放在一个特定的机器上时，它就会写到这个系统。现在，为了避免在向你的应用程序发出请求的关键路径上进行分布式存储查询，客户可能会在启动时查询你的应用程序的地址，并建立一个连接，并在后台监控它。这通常被称为*服务发现*，许多计算产品有内置或模块化的解决方案。大多数这样的解决方案还包括某种形式的负载平衡，这就进一步减少了与特定后端的耦合。
 
 A repercussion of this model is that you will likely need to repeat your requests in some cases, because the server you are talking to might be taken down before it man‐ ages to answer.[14](#_bookmark2178) Retrying requests is standard practice for network communication (e.g., mobile app to a server) because of network issues, but it might be less intuitive for things like a server communicating with its database. This makes it important to design the API of your servers in a way that handles such failures gracefully. For mutating requests, dealing with repeated requests is tricky. The property you want to guarantee is some variant of *idempotency—*that the result of issuing a request twice is the same as issuing it once. One useful tool to help with idempotency is client- assigned identifiers: if you are creating something (e.g., an order to deliver a pizza to a specific address), the order is assigned some identifier by the client; and if an order with that identifier was already recorded, the server assumes it’s a repeated request and reports success (it might also validate that the parameters of the order match).
 
+这种模式的影响是，在某些情况下，你可能需要重复你的请求，因为你对话的服务器可能在响应之前就被关闭了。由于网络问题，重试请求是网络通信的标准做法（例如，移动应用程序到服务器），但对于像服务器与数据库通信的事情来说，这可能不够直接。这使得在设计你的服务器的API时，必须能够优雅地处理这种故障。对于突变的请求，处理重复请求是很棘手的。你想保证的属性是*幂等性变体*--发出一个请求两次的结果与发出一次相同。帮助实现幂等性的一个有用工具是客户机指定的标识符：如果你正在创建一些东西（例如，将比萨饼送到一个特定的地址的订单），该订单由客户端分配一些标识符；如果一个具有该标识符的订单已经被记录下来，服务器会认为这是一个重复的请求并报告成功（它也可能验证该订单的参数是否匹配）。
+
 One more surprising thing that we saw happen is that sometimes the scheduler loses contact with a particular machine due to some network problem. It then decides that all of the work there is lost and reschedules it onto other machines—and then the machine comes back! Now we have two programs on two different machines, both thinking they are “replica072.” The way for them to disambiguate is to check which one of them is referred to by the address resolution system (and the other one should terminate itself or be terminated); but it also is one more case for idempotency: two replicas performing the same work and serving the same role are another potential source of request duplication.
 
-
+我们看到的另一件令人惊讶的事情是，有时调度器会因为一些网络问题而与某台机器失去联系。然后它认为那里的所有工作都丢失了，并将其重新安排到其他机器上--然后这台机器又回来了! 现在我们在两台不同的机器上有两个程序，都认为自己是 "replica072"。他们消除歧义的方法是检查他们中的哪一个被地址解析系统提及（而另一个应该终止自己或被终止）；但这也是幂等性的另一个案例：两个执行相同工作并担任相同角色的副本是请求重复的另一个潜在来源。
 
 ```
 14	Note that retries need to be implemented correctly—with backoff, graceful degradation and tools to avoid cas‐ cading failures like jitter. Thus, this should likely be a part of Remote Procedure Call library, instead of imple‐ mented by hand by each developer. See, for example, Chapter 22: Addressing Cascading Failures in the SRE book.
+14 请注意，重试需要正确地实现--用后退、优雅降级和工具来避免像抖动那样的失败。因此，这可能应该是远程过程调用库的一部分，而不是由每个开发人员手工实现。例如，见SRE书中的第22章：解决级联故障。
+
 ```
 
-### One-Off Code
+### One-Off Code 一次性代码
 
 Most of the previous discussion focused on production-quality jobs, either those serving user traffic, or data-processing pipelines producing production data. How‐ ever, the life of a software engineer also involves running one-off analyses, explora‐ tory prototypes, custom data-processing pipelines, and more. These need compute resources.
 
+前面的讨论大多集中在生产质量的工作上，要么是那些为用户流量服务的工作，要么是产生生产数据的数据处理管道。然而，软件工程师的生活也涉及到运行一次性分析、探索性原型、定制数据处理管道等等。这些都需要计算资源。
+
 Often, the engineer’s workstation is a satisfactory solution to the need for compute resources. If one wants to, say, automate the skimming through the 1 GB of logs that a service produced over the last day to check whether a suspicious line A always occurs before the error line B, they can just download the logs, write a short Python script, and let it run for a minute or two.
+
+通常，工程师工作站是满足计算资源需求的满意解决方案。比如说，如果想自动浏览服务在最后一天生成的1GB日志，以检查可疑行a是否总是出现在错误行B之前，他们可以下载日志，编写一个简短的Python脚本，然后让它运行一两分钟。
 
 But if they want to automate the skimming through 1 TB of logs that service pro‐ duced over the last year (for a similar purpose), waiting for roughly a day for the results to come in is likely not acceptable. A compute service that allows the engineer to just run the analysis on a distributed environment in several minutes (utilizing a few hundred cores) means the difference between having the analysis now and having it tomorrow. For tasks that require iteration—for example, if I will need to refine the query after seeing the results—the difference may be between having it done in a day and not having it done at all.
 
+但是，如果他们想自动浏览去年服务生产的1 TB日志（出于类似目的），等待大约一天的结果可能是不可接受的。一个允许工程师在几分钟内（利用几百个内核）在分布式环境中运行分析的计算服务意味着现在进行分析和明天进行分析的区别。例如，对于需要迭代的任务，如果我在看到结果后需要优化查询，那么在一天内完成查询和根本不完成查询之间可能存在差异。
+
 One concern that arises at times with this approach is that allowing engineers to just run one-off jobs on the distributed environment risks them wasting resources. This is, of course, a trade-off, but one that should be made consciously. It’s very unlikely that the cost of processing that the engineer runs is going to be more expensive than the engineer’s time spent on writing the processing code. The exact trade-off values differ depending on an organization’s compute environment and how much it pays its engineers, but it’s unlikely that a thousand core hours costs anything close to a day of engineering work. Compute resources, in that respect, are similar to markers, which we discussed in the opening of the book; there is a small savings opportunity for the company in instituting a process to acquire more compute resources, but this process is likely to cost much more in lost engineering opportunity and time than it saves.
 
+这种方法有时会引起一个问题，即允许工程师在分布式环境中运行一次性作业可能会浪费资源。当然，这是一种权衡，但应该有意识地进行权衡。工程师运行的处理成本很可能不会比工程师写处理代码的时间更贵。确切的权衡值取决于一个组织的计算环境和它付给工程师的工资多少，但一千个核心小时的成本不太可能接近一天的工程工作。在这方面，计算资源类似于标记，我们在本书的开篇中讨论过；对于公司来说，建立一个获取更多计算资源的过程是一个很小的节约机会，但是这个过程在失去工程机会和时间方面的成本可能比它节省的成本高得多。
+
 That said, compute resources differ from markers in that it’s easy to take way too many by accident. Although it’s unlikely someone will carry off a thousand markers, it’s totally possible someone will accidentally write a program that occupies a thou‐ sand machines without noticing.[15](#_bookmark2187) The natural solution to this is instituting quotas for resource usage by individual engineers. An alternative used by Google is to observe that because we’re running low-priority batch workloads effectively for free (see the section on multitenancy later on), we can provide engineers with almost unlimited quota for low-priority batch, which is good enough for most one-off engi‐ neering tasks.
+
+这就是说，计算资源与标记的不同之处在于，很容易因意外而占用过多的资源。虽然不太可能有人会携带上千个标记，但完全有可能有人会无意中编写一个程序，在没有注意到的情况下占用了上千台机器。解决这一问题的自然方法是为每个工程师的资源使用设定配额。谷歌使用的一个替代方案是，由于我们正在有效地免费运行低优先级的批处理工作负载（见后面关于多租户的部分），我们可以为工程师提供几乎无限的低优先级批处理配额，这对于大多数一次性工程任务来说已经足够了。
 
 ## CaaS Over Time and Scale
 
