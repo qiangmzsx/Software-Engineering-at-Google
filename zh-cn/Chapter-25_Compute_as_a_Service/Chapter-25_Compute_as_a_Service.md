@@ -445,27 +445,36 @@ The point here is not that you should run your containers in PID namespaces. Alt
 
 这里的重点不是说你应该在PID命名空间中运行你的容器。尽管这是个好主意，但这并不是有趣的经验。当Borg的容器被建立时，PID命名空间并不存在；即使它们存在，期望2003年设计Borg的工程师认识到引入它们的价值也是不合理的。即使是现在，机器上也肯定有一些资源没有被充分隔离，这可能会在某一天造成问题。这强调了设计一个容器系统的挑战，该系统将被证明是可以长期维护的，因此使用一个由更广泛的社区开发和使用的容器系统的价值，在那里，这些类型的问题已经存在为其他人发生的事件，已将所吸取的经验教训纳入其中。
 
-### One Service to Rule Them All
+### One Service to Rule Them All 一种服务统治一切
 
 As discussed earlier, the original WorkQueue design was targeted at only some batch jobs, which ended up all sharing a pool of machines managed by the WorkQueue, and a different architecture was used for serving jobs, with each particular serving job running in its own, dedicated pool of machines. The open source equivalent would be running a separate Kubernetes cluster for each type of workload (plus one pool for all the batch jobs).
 
+如前所述，最初的WorkQueue设计只针对一些批处理作业，这些作业最终都共享一个由WorkQueue管理的机器池，而对于服务作业则采用不同的架构，每个特定的服务作业都运行在自己的专用机器池中。开放源码的做法是为每种工作负载运行一个单独的Kubernetes集群（加上一个用于所有批处理工作的池）。
+
 In 2003, the Borg project was started, aiming (and eventually succeeding at) building a compute service that assimilates these disparate pools into one large pool. Borg’s pool covered both serving and batch jobs and became the only pool in any datacenter (the equivalent would be running a single large Kubernetes cluster for all workloads in each geographical location). There are two significant efficiency gains here worth discussing.
+
+2003年，Borg项目启动，旨在（并最终成功地）建立一个计算服务，将这些不同的资源池整合为一个大资源池。Borg的资源池涵盖了服务和批处理工作，并成为任何数据中心的唯一资源池（相当于为每个地理位置的所有工作负载运行一个大型Kubernetes集群）。这里有两个显著的效率提升值得讨论。
 
 The first one is that serving machines became cattle (the way the Borg design doc put it: “*Machines are anonymous:* programs don’t care which machine they run on as long as it has the right characteristics”). If every team managing a serving job must manage their own pool of machines (their own cluster), the same organizational overhead of maintaining and administering that pool is applied to every one of these teams. As time passes, the management practices of these pools will diverge over time, making company-wide changes (like moving to a new server architecture, or switching datacenters) more and more complex. A unified management infrastructure—that is, a *common* compute service for all the workloads in the organization—allows Google to avoid this linear scaling factor; there aren’t *n* different management practices for the physical machines in the fleet, there’s just Borg.[16](#_bookmark2197)
 
+第一个是，服务于机器的人变成了牛（Borg设计文档是这样说的。"*机器是透明的：*程序并不关心它们在哪台机器上运行，只要它有正确的特征"）。如果每个管理服务工作的团队都必须管理他们自己的资源池（他们自己的集群），那么维护和管理这个资源池的组织开销也同样适用于这些团队中的每个人。随着时间的推移，这些资源池的管理实践会随着时间的推移而产生分歧，使整个公司范围内的变化（如转移到一个新的服务器架构，或切换数据中心）变得越来越复杂。一个统一的管理基础设施--也就是一个适用于组织中所有工作负载的*通用*计算服务--允许谷歌避免这种线性扩展因素；对于机群中的物理机器没有*N*种不同的管理实践，只有Borg。
+
 The second one is more subtle and might not be applicable to every organization, but it was very relevant to Google. The distinct needs of batch and serving jobs turn out to be complementary. Serving jobs usually need to be overprovisioned because they need to have capacity to serve user traffic without significant latency decreases, even in the case of a usage spike or partial infrastructure outage. This means that a machine running only serving jobs will be underutilized. It’s tempting to try to take advantage of that slack by overcommitting the machine, but that defeats the purpose of the slack in the first place, because if the spike/outage does happen, the resources we need will not be available.
+
+第二个问题更加微妙，可能并不适用于每个组织，但它与谷歌非常相关。批量作业和服务作业的不同需求是互补的。服务工作通常需要超额配置，因为它们需要有能力为用户流量提供服务而不出现明显的延迟下降，即使在使用量激增或部分基础设施中断的情况下。这意味着仅运行服务作业的机器将未得到充分利用。试图通过过度使用机器来利用这种闲置是很有诱惑力的，但这首先违背了闲置的目的，因为如果出现高峰/中断出现，我们需要的资源将无法使用。
 
 However, this reasoning applies only to serving jobs! If we have a number of serving jobs on a machine and these jobs are requesting RAM and CPU that sum up to the total size of the machine, no more serving jobs can be put in there, even if real utilization of resources is only 30% of capacity. But we *can* (and, in Borg, will) put batch jobs in the spare 70%, with the policy that if any of the serving jobs need the memory or CPU, we will reclaim it from the batch jobs (by freezing them in the case of CPU or killing in the case of RAM). Because the batch jobs are interested in throughput (measured in aggregate across hundreds of workers, not for individual tasks) and their individual replicas are cattle anyway, they will be more than happy to soak up this spare capacity of serving jobs.
 
+然而，这种推理仅适用于服务作业！如果我们在一台机器上有许多服务作业，而这些作业请求的RAM和CPU总计为机器的总和，即使资源的实际利用率仅为容量的30%，也不能在其中放置更多的服务作业。但我们可以（而且，在Borg，我们）将批处理作业放在备用70%中，策略是，如果任何服务作业需要内存或CPU，我们将从批处理作业中回收（在CPU的情况下冻结它们，在RAM的情况下杀死它们）。因为批处理作业对吞吐量感兴趣（在数百名worker中进行聚合测量，而不是针对单个任务），而且它们的单个副本无论如何都是牛，所以它们将非常乐意吸收服务作业的这一剩余容量。
+
 Depending on the shape of the workloads in a given pool of machines, this means that either all of the batch workload is effectively running on free resources (because we are paying for them in the slack of serving jobs anyway) or all the serving workload is effectively paying for only what they use, not for the slack capacity they need for failure resistance (because the batch jobs are running in that slack). In Google’s case, most of the time, it turns out we run batch effectively for free.
 
-
+根据给定资源池池中工作负载的形状，这意味着要么所有批处理工作负载都有效地运行在空闲资源上（因为我们无论如何都是在空闲的服务作业中为它们付费）或者，所有的服务性工作负载实际上只为他们使用的东西付费，而不是为他们抵抗故障所需的闲置容量付费（因为批处理作业是在这种闲置状态下运行的）。在谷歌的案例中，大多数时候，事实证明我们免费有效地运行批处理。
 
 ```
 16	As in any complex system, there are exceptions. Not all machines owned by Google are Borg-managed, and not every datacenter is covered by a single Borg cell. But the majority of engineers work in an environment in which they don’t touch non-Borg machines, or nonstandard cells.
+16 正如任何复杂的系统一样，也有例外。并非所有谷歌拥有的机器都由Borg管理，也不是每个数据中心都由一个Borg单元覆盖。但大多数工程师的工作环境是，他们不接触非Borg机，也不接触非标准的单元。
 ```
-
-
 
 #### Multitenancy for serving jobs
 
