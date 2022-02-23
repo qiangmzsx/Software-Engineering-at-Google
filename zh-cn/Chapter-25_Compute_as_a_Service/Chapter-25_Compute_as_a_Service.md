@@ -502,6 +502,8 @@ Borg调度器接收扩容服务或批处理作业的配置，作为远程过程�
 
 Depending on documentation and tribal knowledge over code submitted to a repository is rarely a good idea in general because both documentation and tribal knowledge have a tendency to deteriorate over time (see [Chapter 3](#_bookmark182)). However, the next natural step in the evolution—wrapping the execution of the CLI in a locally developed script—is still inferior to using a dedicated configuration language to specify the configuration of your service.
 
+在一般情况下，依靠文档和团队知识而不是提交给资源库的代码不会是个好主意，因为文档和团队知识都有随着时间推移而退化的趋势（见[第三章]）。然而，前进中的下一个自然步骤--将CLI的执行包裹在本地开发的脚本中--仍然不如使用专门的配置语言来指定服务的配置。
+
 Over time, the runtime presence of a logical service will typically grow beyond a single set of replicated containers in one datacenter across many axes:
 
 •   It will spread its presence across multiple datacenters (both for user affinity and failure resistance).
@@ -510,77 +512,128 @@ Over time, the runtime presence of a logical service will typically grow beyond 
 
 •   It will accrue additional replicated containers of different types in the form of attached services, like a memcached accompanying the service.
 
+随着时间的推移，逻辑服务的运行时存在通常会超过在一个数据中心的部署容器组，跨越多个区域：
+- 它将在多个数据中心分散其存在（既有用户亲和力，也有抗故障能力）。
+- 除了生产环境/配置之外，它还会分叉到拥有临时和开发环境。
+- 它将以附加服务的形式累积不同类型的额外副本容器，如服务附带的memcached。
+
 Management of the service is much simplified if this complex setup can be expressed in a standardized configuration language that allows easy expression of standard operations (like “update my service to the new version of the binary, but taking down no more than 5% of capacity at any given time”).
+
+如果这种复杂的设置可以用一种标准化的配置语言来表达，那么服务的管理就会大大简化，这种语言可以方便地表达标准操作（比如“将我的服务更新为新版本的二进制文件，但在任何给定时间占用的容量不超过5%”）。
 
 A standardized configuration language provides standard configuration that other teams can easily include in their service definition. As usual, we emphasize the value of such standard configuration over time and scale. If every team writes a different snippet of custom code to stand up their memcached service, it becomes very difficult to perform organization-wide tasks like swapping out to a new memcache implementation (e.g., for performance or licencing reasons) or to push a security update to all the memcache deployments. Also note that such a standardized configuration language is a requirement for automation in deployment (see [Chapter 24](#_bookmark2100)).
 
-## Choosing a Compute Service
+标准化配置语言提供标准配置，其他团队可以轻松地将其包含在服务定义中。像往常一样，我们强调这种标准配置在时间和规模上的价值。如果每个团队都编写不同的自定义代码片段以支持其memcache服务，则执行组织范围内的任务（如切换到新的memcache实现）或将安全更新推送到所有memcache部署将变得非常困难。还要注意，这种标准化配置语言是部署自动化的一个要求（参见第24章
+
+## Choosing a Compute Service 选择计算服务
 
 It’s unlikely any organization will go down the path that Google went, building its own compute architecture from scratch. These days, modern compute offerings are available both in the open source world (like Kubernetes or Mesos, or, at a different level of abstraction, OpenWhisk or Knative), or as public cloud managed offerings (again, at different levels of complexity, from things like Google Cloud Platform’s Managed Instance Groups or Amazon Web Services Elastic Compute Cloud [Amazon EC2] autoscaling; to managed containers similar to Borg, like Microsoft Azure Kubernetes Service [AKS] or Google Kubernetes Engine [GKE]; to a serverless offering like AWS Lambda or Google’s Cloud Functions).
 
+不太可能有别的组织会重走谷歌走过的路，从头开始构建自己的计算架构。如今，现代计算产品在开源世界（比如Kubernetes或Mesos，或者在不同的抽象层次上，OpenWhisk或Knative），或作为公共云管理产品（同样，在不同的复杂性级别，从Google云平台的托管实例组或Amazon Web服务弹性计算云[Amazon EC2]自动伸缩；到类似于Borg的托管容器，如Microsoft Azure Kubernetes服务[AKS]或谷歌Kubernetes引擎[GKE]；提供类似AWS Lambda或谷歌云功能的无服务器服务）。
+
 However, most organizations will *choose* a compute service, just as Google did internally. Note that a compute infrastructure has a high lock-in factor. One reason for that is because code will be written in a way that takes advantage of all the properties of the system (Hyrum’s Law); thus, for instance, if you choose a VM-based offering, teams will tweak their particular VM images; and if you choose a specific container- based solution, teams will call out to the APIs of the cluster manager. If your architecture allows code to treat VMs (or containers) as pets, teams will do so, and then a move to a solution that depends on them being treated like cattle (or even different forms of pets) will be difficult.
+
+然而，大多数组织会*选择一个计算服务*，就像谷歌内部那样。请注意，计算基础设施有一个很高的锁定因素。其中一个原因是，代码的编写方式将充分利用系统的所有特性（海勒姆定律）；因此，例如，如果你选择了一个基于虚拟机的产品，团队将调整他们特定的虚拟机镜像；如果你选择了一个特定的基于容器的解决方案，团队将调用集群管理器的API。如果您的架构允许代码将虚拟机（或容器）视为宠物，那么团队将这样做，然后转向一种解决方案，将它们视为牛（甚至不同形式的宠物）将是困难的。
 
 To show how even the smallest details of a compute solution can end up locked in, consider how Borg runs the command that the user provided in the configuration. In most cases, the command will be the execution of a binary (possibly followed by a number of arguments). However, for convenience, the authors of Borg also included the possibility of passing in a shell script; for example, while true; do ./ my_binary; done.[17](#_bookmark2204) However, whereas a binary execution can be done through a simple fork-and-exec (which is what Borg does), the shell script needs to be run by a shell like Bash. So, Borg actually executed /usr/bin/bash -c $USER_COMMAND, which works in the case of a simple binary execution as well.
 
+为了说明即使是计算解决方案中最小的细节也会最终被锁定，考虑一下Borg如何运行用户在配置中提供的命令。在大多数情况下，该命令将是执行一个二进制文件（后面可能有一些参数）。然而，为了方便起见，Borg的作者也包括了传入一个shell脚本的可能性；例如，`while true; do ./ my_binary; done`。 然而，二进制的执行可以通过一个简单的fork-and-exec来完成（这就是Borg的做法），shell脚本需要由一个像Bash这样的shell来运行。所以，Borg实际上是执行/usr/bin/bash -c $USER_COMMAND，该命令也适用于简单的二进制执行。
+
 At some point, the Borg team realized that at Google’s scale, the resources—mostly memory—consumed by this Bash wrapper are non-negligible, and decided to move over to using a more lightweight shell: ash. So, the team made a change to the process runner code to run /usr/bin/ash -c $USER_COMMAND instead.
+
+在某种程度上，Borg团队意识到在Google的规模下，这个Bash包装器所消耗的资源--主要是内存--是不可忽视的，并决定转而使用一个更轻量级的shell：ash。因此，该团队对进程运行器的代码进行了修改，改为运行`/usr/bin/ash -c $USER_COMMAND`。
 
 You would think that this is not a risky change; after all, we control the environment, we know that both of these binaries exist, and so there should be no way this doesn’t work. In reality, the way this didn’t work is that the Borg engineers were not the first to notice the extra memory overhead of running Bash. Some teams were creative in their desire to limit memory usage and replaced (in their custom filesystem overlay) the Bash command with a custom-written piece of “execute the second argument” code. These teams, of course, were very aware of their memory usage, and so when the Borg team changed the process runner to use ash (which was not overwritten by the custom code), their memory usage increased (because it started including ash usage instead of the custom code usage), and this caused alerts, rolling back the change, and a certain amount of unhappiness.
 
+你会认为这不是一个有风险的改变；毕竟，我们控制了环境，我们知道这两个二进制文件都存在，所以这不可能不起作用。事实上，这不起作用的原因是，Borg的工程师们并不是第一个注意到运行Bash的额外内存开销的人。一些团队在限制内存使用方面很有创意，他们（在他们的自定义文件系统覆盖中）用一段自定义编写的 "执行第二个参数 "的代码来替换Bash命令。当然，这些团队非常清楚他们的内存使用情况，因此当Borg团队将进程运行器改为使用ash（没有被自定义代码覆盖）时，他们的内存使用量增加了（因为它开始包括ash的nei使用量而不是自定义代码的内存使用量），这引起了警报、回滚变化和一定程度的不愉快。
+
 Another reason that a compute service choice is difficult to change over time is that any compute service choice will eventually become surrounded by a large ecosystem of helper services—tools for logging, monitoring, debugging, alerting, visualization, on-the-fly analysis, configuration languages and meta-languages, user interfaces, and more. These tools would need to be rewritten as a part of a compute service change, and even understanding and enumerating those tools is likely to be a challenge for a medium or large organization.
+
+计算服务的选择难以随时间变化的另一个原因是，任何计算服务的选择最终都会被一个庞大的辅助服务生态系统所包围--用于记录、监控、调试、警报、可视化、即时分析、配置语言和元语言、用户界面等等的工具。这些工具需要作为计算服务变革的一部分被重写，甚至理解和列举这些工具对于一个大中型组织来说都可能是一个挑战。
 
 Thus, the choice of a compute architecture is important. As with most software engineering choices, this one involves trade-offs. Let’s discuss a few.
 
-
+因此，计算架构的选择是很重要的。与大多数软件工程的选择一样，这个选择涉及到权衡。让我们来讨论一下。
 
 ```
-17	This particular command is actively harmful under Borg because it prevents Borg’s mechanisms for dealing with failure from kicking in. However, more complex wrappers that echo parts of the environment to logging, for example, are still in use to help debug startup problems.
+17	This particular command is actively harmful under Borg because it prevents Borg’s mechanisms for dealing with failure from kicking in. However, more complex wrappers that echo parts of the environment to logging, for example, are still in use to help debug startup problems.  
+
+17  这个特殊的命令在Borg下是有害的，因为它阻止Borg处理故障的机制启动。但是，更复杂的包装器（例如，将环境的一部分回送到日志记录）仍然在使用，以帮助调试启动问题。
 ```
 
-### Centralization Versus Customization
+### Centralization Versus Customization 统一与定制
 
 From the point of view of management overhead of the compute stack (and also from the point of view of resource efficiency), the best an organization can do is adopt a single CaaS solution to manage its entire fleet of machines and use only the tools available there for everybody. This ensures that as the organization grows, the cost of managing the fleet remains manageable. This path is basically what Google has done with Borg.
 
-Need for customization
+从计算栈的管理开销的角度来看（也从资源效率的角度来看），一个组织能做的最好的事情就是统一采用一个的CaaS解决方案来管理它的整个机群，并且只使用那里的工具供大家使用。这可以确保随着组织的发展，管理集群的成本仍然是可控的。这条路基本上就是谷歌对Borg所做的。
+
+#### Need for customization 定制化
 
 However, a growing organization will have increasingly diverse needs. For instance, when Google launched the Google Compute Engine (the “VM as a Service” public cloud offering) in 2012, the VMs, just as most everything else at Google, were managed by Borg. This means that each VM was running in a separate container controlled by Borg. However, the “cattle” approach to task management did not suit Cloud’s workloads, because each particular container was actually a VM that some particular user was running, and Cloud’s users did not, typically, treat the VMs as cattle.[18](#_bookmark2207)
 
+然而，一个不断发展的组织将有越来越多样化的需求。例如，当谷歌在2012年推出谷歌计算引擎（“虚拟机即服务”公共云产品）时，这些虚拟机与谷歌的大多数其他产品一样，都是Borg设计的。这意味着每个虚拟机都在博格控制的单独容器中运行。然而，任务管理的“牛”方法并不适合云的工作负载，因为每个特定容器实际上是某个特定用户正在运行的VM，而云的用户通常不会将VM视为牛。
+
 Reconciling this difference required considerable work on both sides. The Cloud organization made sure to support live migration of VMs; that is, the ability to take a VM running on one machine, spin up a copy of that VM on another machine, bring the copy to be a perfect image, and finally redirect all traffic to the copy, without causing a noticeable period when service is unavailable.[19](#_bookmark2209) Borg, on the other hand, had to be adapted to avoid at-will killing of containers containing VMs (to provide the time to migrate the VM’s contents to the new machine), and also, given that the whole migration process is more expensive, Borg’s scheduling algorithms were adapted to optimize for decreasing the risk of rescheduling being needed.[20](#_bookmark2210) Of course, these modifications were rolled out only for the machines running the cloud workloads, leading to a (small, but still noticeable) bifurcation of Google’s internal compute offering.
+
+调和这种差异需要双方做大量的工作。云计算组织确保支持虚拟机的实时迁移；也就是说，能够在一台机器上运行一个虚拟机，在另一台机器上启动该虚拟机的副本，使该副本成为一个完美的镜像，并最终将所有流量重定向到该副本，而不会造成明显的服务不可用期。  另一方面，Borg必须进行调整，以避免随意杀死包含虚拟机的容器（以提供时间将虚拟机的内容迁移到新机器上），同时，鉴于整个迁移过程更加耗时，Borg的调度算法被调整为优化，以减少需要重新调度的风险。当然，这些修改只针对运行云工作负载的机器，导致了谷歌内部计算产品的分化（很小，但仍然很明显）。
 
 ```
 18	My mail server is not interchangeable with your graphics rendering job, even if both of those tasks are running in the same form of VM.
+18  我的邮件服务器不能与图形渲染作业互换，即使这两个任务都以相同的VM形式运行。
 ```
 
 A different example—but one that also leads to a bifurcation—comes from Search. Around 2011, one of the replicated containers serving Google Search web traffic had a giant index built up on local disks, storing the less-often-accessed part of the Google index of the web (the more common queries were served by in-memory caches from other containers). Building up this index on a particular machine required the capacity of multiple hard drives and took several hours to fill in the data. However, at the time, Borg assumed that if any of the disks that a particular container had data on had gone bad, the container will be unable to continue, and needs to be rescheduled to a different machine. This combination (along with the relatively high failure rate of spinning disks, compared to other hardware) caused severe availability problems; containers were taken down all the time and then took forever to start up again. To address this, Borg had to add the capability for a container to deal with disk failure by itself, opting out of Borg’s default treatment; while the Search team had to adapt the process to continue operation with partial data loss.
 
+一个不同的例子--但也导致了分叉--来自于搜索。2011年左右，一个为谷歌搜索网络流量服务的复制容器在本地磁盘上建立了一个巨大的索引，存储了谷歌网络索引中不常被访问的部分（更常见的查询由其他容器的内存缓存提供）。在一台特定的机器上建立这个索引需要多个硬盘的容量，并且需要几个小时来填入数据。然而，在当时，Borg认为，如果某个特定容器上有数据的任何磁盘坏了，该容器将无法继续运行，需要重新调度到另一台机器上。这种组合（与其他硬件相比，旋转磁盘的故障率相对较高）造成了严重的可用性问题；容器总是被关闭，然后又要花很长时间才能重新启动。为了解决这个问题，Borg必须增加容器自己处理磁盘故障的能力，选择不使用Borg的默认处理方式；而搜索团队必须调整流程，在部分数据丢失的情况下继续运行。
+
 Multiple other bifurcations, covering areas like filesystem shape, filesystem access, memory control, allocation and access, CPU/memory locality, special hardware, special scheduling constraints, and more, caused the API surface of Borg to become large and unwieldy, and the intersection of behaviors became difficult to predict, and even more difficult to test. Nobody really knew whether the expected thing happened if a container requested *both* the special Cloud treatment for eviction *and* the custom Search treatment for disk failure (and in many cases, it was not even obvious what “expected” means).
+
+其他多个分叉，涵盖了文件系统形状、文件系统访问、内存控制、分配和访问、CPU/内存定位、特殊硬件、特殊调度约束等领域，导致Borg的API体量变得庞大而笨重，各种行为的交叉点变得难以预测，甚至更难测试。没有人真正知道，如果一个容器同时请求特殊的云处理（用于驱逐）和自定义的磁盘故障搜索处理（在许多情况下，“预期”的含义甚至不明显），预期的事情是否会发生。
 
 ```
 19	This is not the only motivation for making user VMs possible to live migrate; it also offers considerable user- facing benefits because it means the host operating system can be patched and the host hardware updated without disrupting the VM. The alternative (used by other major cloud vendors) is to deliver “maintenance event notices,” which mean the VM can be, for example, rebooted or stopped and later started up by the cloud provider.
 20	This is particularly relevant given that not all customer VMs are opted into live migration; for some workloads even the short period of degraded performance during the migration is unacceptable. These customers will receive maintenance event notices, and Borg will avoid evicting the containers with those VMs unless strictly necessary.
 
+19  这不是让用户虚拟机能够实时迁移的唯一动机；它还提供了大量面向用户的好处，因为这意味着可以修补主机操作系统并更新主机硬件，而不会中断VM。另一种选择（其他主要云供应商使用）是提供“维护事件通知”，这意味着云提供商可以重新启动或停止VM，然后再启动VM。
+20  考虑到并非所有客户虚拟机都选择实时迁移，这一点尤其重要；对于某些工作负载，即使在迁移过程中出现短期性能下降也是不可接受的。这些客户将收到维护事件通知，除非严格必要，否则Borg将避免驱逐带有这些VM的容器。
+
 ```
 
 After 2012, the Borg team devoted significant time to cleaning up the API of Borg. It discovered some of the functionalities Borg offered were no longer used at all.[21](#_bookmark2214) The more concerning group of functionalities were those that were used by multiple containers, but it was unclear whether intentionally—the process of copying the configuration files between projects led to proliferation of usage of features that were originally intended for power users only. Whitelisting was introduced for certain features to limit their spread and clearly mark them as poweruser–only. However, the cleanup is still ongoing, and some changes (like using labels for identifying groups of containers) are still not fully done.[22](#_bookmark2215)
 
+2012年后，Borg团队花了大量时间来清理Borg的API。它发现博格提供的一些功能已不再使用。令人关注的功能组是多个容器使用的功能组，但目前尚不清楚，在项目之间复制配置文件的过程是否有意导致原本只针对超级用户的功能的使用激增。某些功能被引入了白名单，以限制它们的传播，并明确地将它们标记为仅适用于特权用户。然而，清理工作仍在进行，一些变化（如使用标签来识别容器组）仍未完全完成。
+
 As usual with trade-offs, although there are ways to invest effort and get some of the benefits of customization while not suffering the worst downsides (like the aforementioned whitelisting for power functionality), in the end there are hard choices to be made. These choices usually take the form of multiple small questions: do we accept expanding the explicit (or worse, implicit) API surface to accommodate a particular user of our infrastructure, or do we significantly inconvenience that user, but maintain higher coherence?
 
-### Level of Abstraction: Serverless
+与通常的权衡方法一样，尽管有一些方法可以投入精力并从定制中获得一些好处，同时又不会遭受最坏的负面影响（如前面提到的特权白名单），但最终还是要做出艰难的选择。这些选择通常以多个小问题的形式出现：我们是否接受扩展显式（或更糟的是，隐式）API表面以适应我们基础设施的特定用户，或者我们是否显著地给该用户带来不便，但主要是保持更高的一致性？
+
+### Level of Abstraction: Serverless 抽象级别：无服务器
 
 The description of taming the compute environment by Google can easily be read as a tale of increasing and improving abstraction—the more advanced versions of Borg took care of more management responsibilities and isolated the container more from the underlying environment. It’s easy to get the impression this is a simple story: more abstraction is good; less abstraction is bad.
 
+谷歌对驯服计算环境的描述很容易被理解为一个增加和改进抽象的故事--更高级的Borg版本承担了更多的管理责任，并将容器与底层环境更多地隔离。这很容易让人觉得这是一个简单的故事：更多的抽象是好的；更少的抽象是差的。
+
 Of course, it is not that simple. The landscape here is complex, with multiple offerings. In [“Taming the Compute Environment” on page 518](#_bookmark2134), we discussed the progression from dealing with pets running on bare-metal machines (either owned by your organization or rented from a colocation center) to managing containers as cattle. In between, as an alternative path, are VM-based offerings in which VMs can progress from being a more flexible substitute for bare metal (in Infrastructure as a Service offerings like Google Compute Engine [GCE] or Amazon EC2) to heavier substitutes for containers (with autoscaling, rightsizing, and other management tools).
+
+当然，事情没有那么简单。这里的情况很复杂，有多种产品。在第518页的 "驯服计算环境"中，我们讨论了从处理在裸机上运行的宠物（无论是你的组织拥有的还是从主机托管中心租用的）到管理容器的进展情况。在这两者之间，作为一个替代路径，是基于虚拟机的产品，其中虚拟机可以从更灵活地替代裸机（在基础设施即服务产品中，如谷歌计算引擎[GCE]或亚马逊EC2）发展到更重地替代容器（具有自动伸缩、权限调整和其他管理工具）。
 
 In Google’s experience, the choice of managing cattle (and not pets) is the solution to managing at scale. To reiterate, if each of your teams will need just one pet machine in each of your datacenters, your management costs will rise superlinearly with your organization’s growth (because both the number of teams *and* the number of datacenters a team occupies are likely to grow). And after the choice to manage cattle is made, containers are a natural choice for management; they are lighter weight (implying smaller resource overheads and startup times) and configurable enough that should you need to provide specialized hardware access to a specific type of workload, you can (if you so choose) allow punching a hole through easily.
 
+根据谷歌的经验，选择管理牛（而不是宠物）是规模管理的解决方案。重申一下，如果你的每个团队在每个数据中心只需要一台宠物机，那么你的管理成本将随着你的组织的增长而呈超线性上升（因为团队的数量*和*一个团队所占用的数据中心的数量都可能增长）。而在选择了管理牛之后，容器是管理的自然选择；它们的重量更轻（意味着更小的资源开销和启动时间），而且可配置，如果你需要为特定类型的工作负载提供专门的硬件访问，你可以（如果你选择的话）允许轻松透传通过。
+
 The advantage of VMs as cattle lies primarily in the ability to bring our own operating system, which matters if your workloads require a diverse set of operating systems to run. Multiple organizations will also have preexisting experience in managing VMs, and preexisting configurations and workloads based on VMs, and so might choose to use VMs instead of containers to ease migration costs.
+
+虚拟机作为牛的优势主要在于能够带来我们自己的操作系统，如果你的工作环境需要一组不同的操作系统来运行，这一点很重要。多个组织在管理虚拟机、基于虚拟机的现有配置和工作负载方面也有经验，因此可能会选择使用虚拟机而不是容器来降低迁移成本。
 
 ```
 21	A good reminder that monitoring and tracking the usage of your features is valuable over time.
 22	This means that Kubernetes, which benefited from the experience of cleaning up Borg but was not hampered by a broad existing userbase to begin with, was significantly more modern in quite a few aspects (like its treatment of labels) from the beginning. That said, Kubernetes suffers some of the same issues now that it has broad adoption across a variety of types of applications.
 
+21  这是一个很好的提醒，随着时间的推移，监视和跟踪功能的使用是很有价值的。
+22  这意味着Kubernetes从清理Borg的经验中获益，但从一开始就没有受到广泛的现有用户基础的阻碍，从一开始就在很多方面（如标签的处理）明显更加现代化。也就是说，Kubernetes现在也遇到了一些相同的问题，因为它在各种类型的应用程序中得到了广泛的采用。
 ```
 
-What is serverless?
+#### What is serverless? 什么是无服务器？
 
 An even higher level of abstraction is *serverless* offerings.[23](#_bookmark2218) Assume that an organization is serving web content and is using (or willing to adopt) a common server framework for handling the HTTP requests and serving responses. The key defining trait of a framework is the inversion of control—so, the user will only be responsible for writing an “Action” or “Handler” of some sort—a function in the chosen language that takes the request parameters and returns the response.
 
