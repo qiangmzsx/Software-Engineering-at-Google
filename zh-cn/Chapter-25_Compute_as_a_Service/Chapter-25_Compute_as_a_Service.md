@@ -661,57 +661,97 @@ Most discussions of serverless frameworks compare them to the “VMs as pets” 
 
 First note that a serverless architecture requires your code to be *truly stateless*; it’s unlikely we will be able to run your users’ VMs or implement Spanner inside the serverless architecture. All the ways of managing local state (except not using it) that we talked about earlier do not apply. In the containerized world, you might spend a few seconds or minutes at startup setting up connections to other services, populating caches from cold storage, and so on, and you expect that in the typical case you will be given a grace period before termination. In a serverless model, there is no local state that is really persisted across requests; everything that you want to use, you should set up in request-scope.
 
-
+首先要注意的是，无服务器架构要求你的代码必须是*真正的无状态*；我们不太可能在无服务器架构内运行你用户的虚拟机或实现Spanner。我们之前谈到的所有管理本地状态的方法（除了不使用它）都不适用。在容器化的世界里，你可能会在启动时花几秒钟或几分钟的时间来设置与其他服务的连接，从冷数据中填充缓存，等等，你期望在典型情况下，在终止前会有一个宽限期。在无服务器模型中，不存在真正跨请求持久化的本地状态；所有你想使用的东西，你都应该在请求范围内设置。
 
 In practice, most organizations have needs that cannot be served by truly stateless workloads. This can either lead to depending on specific solutions (either home grown or third party) for specific problems (like a managed database solution, which is a frequent companion to a public cloud serverless offering) or to having two solutions: a container-based one and a serverless one. It’s worth mentioning that many or most serverless frameworks are built on top of other compute layers: AppEngine runs on Borg, Knative runs on Kubernetes, Lambda runs on Amazon EC2.
 
+在实践中，大多数组织的需求都无法由真正的无状态工作负载来满足。这可能会导致依赖特定的解决方案（无论是本地的还是第三方的）来解决特定的问题（比如管理数据库的解决方案，这是公有云无服务器产品的常见配套），或者拥有两个解决方案：一个基于容器的解决方案和一个无服务器的解决方案。值得一提的是，许多或大多数无服务器框架是建立在其他计算层之上的。AppEngine运行在Borg上，Knative运行在Kubernetes上，Lambda运行在Amazon EC2上。
+
 The managed serverless model is attractive for *adaptable scaling* of the resource cost, especially at the low-traffic end. In, say, Kubernetes, your replicated container cannot scale down to zero containers (because the assumption is that spinning up both a container and a node is too slow to be done at request serving time). This means that there is a minimum cost of just having an application available in the persistent cluster model. On the other hand, a serverless application can easily scale down to zero; and so the cost of just owning it scales with the traffic.
+
+管理无服务器模式对于资源成本的*适应性扩展*很有吸引力，特别是在低流量的一端。在Kubernetes中，你的容器不能缩容到零容器（因为假设在请求服务时间内，同时启动容器和节点的速度太慢）。这意味着，在持久化集群模型中，仅仅拥有一个应用程序是有最低成本的。另一方面，无服务器应用程序可以很容易地缩容到零；因此，仅仅拥有它的成本随着流量的增加而增加。
 
 At the very high-traffic end, you will necessarily be limited by the underlying infrastructure, regardless of the compute solution. If your application needs to use 100,000 cores to serve its traffic, there needs to be 100,000 physical cores available in whatever physical equipment is backing the infrastructure you are using. At the somewhat lower end, where your application does have enough traffic to keep multiple servers busy but not enough to present problems to the infrastructure provider, both the persistent container solution and the serverless solution can scale to handle it, although the scaling of the serverless solution will be more reactive and more granular than that of the persistent container one.
 
+在非常高的流量端，无论采用何种计算解决方案，您都必须受到底层基础设施的限制。如果你的应用程序需要使用100,000个核心来服务于它的流量，那么在你所使用的基础设施的任何物理设备中需要有100,000个物理核心可用。在较低端的情况下，如果你的应用有足够的流量让多个服务器忙碌，但又不足以给基础设施提供商带来问题，那么持久化容器解决方案和无服务器解决方案都可以扩展来处理，尽管无服务器解决方案的扩展将比持久化容器解决方案更具有高响应和细粒度。
+
 Finally, adopting a serverless solution implies a certain loss of control over your environment. On some level, this is a good thing: having control means having to exercise it, and that means management overhead. But, of course, this also means that if you need some extra functionality that’s not available in the framework you use, it will become a problem for you.
+
+最后，采用无服务器解决方案意味着在一定程度上失去了对环境的控制。在某种程度上，这是一件好事：拥有控制权意味着必须行使它，而这意味着管理开销。但当然，这也意味着，如果你需要一些你所使用的框架中没有的额外功能，这将成为你的一个问题。
 
 To take one specific instance of that, the Google Code Jam team (running a programming contest for thousands of participants, with a frontend running on Google AppEngine) had a custom-made script to hit the contest webpage with an artificial traffic spike several minutes before the contest start, in order to warm up enough instances of the app to serve the actual traffic that happened when the contest started. This worked, but it’s the sort of hand-tweaking (and also hacking) that one would hope to get away from by choosing a serverless solution.
 
-#### The trade-off
+举个具体的例子，谷歌Code Jam团队（为数千名参赛者举办的编程比赛，其前端运行在谷歌AppEngine上）有一个定制的脚本，在比赛开始前几分钟给比赛网页带来了人为的流量高峰，以便为应用程序的足够实例预热，为比赛开始时的实际流量提供服务。这很有效，但这是人们希望通过选择无服务器解决方案来摆脱的那种手工调整（也是黑客科技）。
+
+#### The trade-off 权衡
 
 Google’s choice in this trade-off was not to invest heavily into serverless solutions. Google’s persistent containers solution, Borg, is advanced enough to offer most of the serverless benefits (like autoscaling, various frameworks for different types of applications, deployment tools, unified logging and monitoring tools, and more). The one thing missing is the more aggressive scaling (in particular, the ability to scale down to zero), but the vast majority of Google’s resource footprint comes from high-traffic services, and so it’s comparably cheap to overprovision the small services. At the same time, Google runs multiple applications that would not work in the “truly stateless” world, from GCE, through home-grown database systems like [BigQuery ](https://cloud.google.com/bigquery)or Spanner, to servers that take a long time to populate the cache, like the aforementioned long- tail search serving jobs. Thus, the benefits of having one common unified architecture for all of these things outweigh the potential gains for having a separate serverless stack for a part of a part of the workloads.
 
+谷歌在这种权衡中的选择是不对无服务器解决方案进行大量投资。谷歌的持久化容器解决方案Borg足够先进，可以提供大部分无服务器的好处（比如自动伸缩、针对不同类型应用的各种框架、部署工具、统一的日志和监控工具等等）。缺少的是更积极的扩展（特别是将规模缩小到零的能力），但谷歌的绝大部分资源足迹来自高流量服务，因此过度供应小服务的成本相对较低。同时，谷歌运行的多个应用程序在“真正无状态”的世界中不起作用，从GCE，到自制的数据库系统，如[BigQuery](https://cloud.google.com/bigquery)或Spanner，再到需要长时间填充缓存的服务器，如上述的长尾搜索服务工作。因此，对所有这些事情采用一个共同的统一架构的好处超过了对一部分工作负载采用单独的无服务器方向的潜在收益。
+
 However, Google’s choice is not necessarily the correct choice for every organization: other organizations have successfully built out on mixed container/serverless architectures, or on purely serverless architectures utilizing third-party solutions for storage.
+
+然而，谷歌的选择并不一定是每个组织的正确选择：其他组织已经成功地建立了混合容器/无服务器架构，或在纯粹的无服务器架构上利用第三方解决方案进行存储。
 
 The main pull of serverless, however, comes not in the case of a large organization making the choice, but in the case of a smaller organization or team; in that case, the comparison is inherently unfair. The serverless model, though being more restrictive, allows the infrastructure vendor to pick up a much larger share of the overall management overhead and thus *decrease the management overhead* for the users. Running the code of one team on a shared serverless architecture, like AWS Lambda or Google’s Cloud Run, is significantly simpler (and cheaper) than setting up a cluster to run the code on a managed container service like GKE or AKS if the cluster is not being shared among many teams. If your team wants to reap the benefits of a managed compute offering but your larger organization is unwilling or unable to move to a persistent containers-based solution, a serverless offering by one of the public cloud providers is likely to be attractive to you because the cost (in resources and management) of a shared cluster amortizes well only if the cluster is truly shared (between multiple teams in the organization).
 
+然而，无服务器的主要吸引力并不是来自于一个大型组织的选择，而是来自于一个较小的组织或团队；在这种情况下，这种比较本身就是不公平的。无服务器模式虽然限制更大，但允许基础设施供应商承担更大的总体管理开销，从而减少用户的管理开销。在共享的无服务器体系结构（如AWS Lambda或Google的Cloud Run）上运行一个团队的代码，要比在多个团队之间不共享集群的情况下，在GKE或AKS等托管容器服务上设置集群来运行代码要简单得多（而且更便宜）。如果你的团队希望从托管计算产品中获益，但你的公司不愿意或无法转向基于持久容器的解决方案，那么由一家公共云提供商提供的无服务器产品可能会对你有吸引力，因为成本（资源和成本）很高只有当集群真正共享（在组织中的多个团队之间）时，共享集群的管理才能很好地摊销。
+
 Note, however, that as your organization grows and adoption of managed technologies spreads, you are likely to outgrow the constraints of a purely serverless solution. This makes solutions where a break-out path exists (like from KNative to Kubernetes) attractive given that they provide a natural path to a unified compute architecture like Google’s, should your organization decide to go down that path.
 
-### Public Versus Private
+但是，请注意，随着组织的发展和托管技术的普及，你很可能会超越纯无服务器解决方案的限制。这使得存在突破路径的解决方案（如从KNative到Kubernetes）具有吸引力，因为如果您的组织决定走这条路，它们提供了一条通向像Google这样的统一计算体系结构的自然路径。
+
+### Public Versus Private 公有与私有
 
 Back when Google was starting, the CaaS offerings were primarily homegrown; if you wanted one, you built it. Your only choice in the public-versus-private space was between owning the machines and renting them, but all the management of your fleet was up to you.
 
+当谷歌刚刚起步时，CaaS产品主要是本土产品；如果你想要一个，你就建造它。在公共空间和私有空间中，你唯一的选择是拥有机器和租用机器，但你的集群的所有管理都取决于你。
+
 In the age of public cloud, there are cheaper options, but there are also more choices, and an organization will have to make them.
+
+在公有云时代，有更便宜的选择，但也有更多的选择，组织必须做出选择。
 
 An organization using a public cloud is effectively outsourcing (a part of) the management overhead to a public cloud provider. For many organizations, this is an attractive proposition—they can focus on providing value in their specific area of expertise and do not need to grow significant infrastructure expertise. Although the cloud providers (of course) charge more than the bare cost of the metal to recoup the management expenses, they have the expertise already built up, and they are sharing it across multiple customers.
 
+使用公共云的机构实际上是将管理费用（部分）外包给公共云供应商。对于许多组织来说，这是一个有吸引力的提议--他们可以专注于在其特定的专业领域提供价值，而不需要增加重要的基础架构专业知识。虽然云供应商（当然）收取的费用超过了裸机的最低成本，以收回管理费用，但他们已经建立了专业知识，并在多个客户之间共享。
+
 Additionally, a public cloud is a way to scale the infrastructure more easily. As the level of abstraction grows—from colocations, through buying VM time, up to managed containers and serverless offerings—the ease of scaling up increases—from having to sign a rental agreement for colocation space, through the need to run a CLI to get a few more VMs, up to autoscaling tools for which your resource footprint changes automatically with the traffic you receive. Especially for young organizations or products, predicting resource requirements is challenging, and so the advantages of not having to provision resources up front are significant.
+
+此外，公共云是一种更容易扩展基础设施的方式。随着抽象水平的提高--从主机托管，到购买虚拟机时间，再到管理容器和无服务器产品--扩展的难度也在增加--从必须签署主机托管空间的租赁协议，到需要运行CLI来获得更多的虚拟机，再到自动扩展工具，你的资源足迹随着你收到的流量自动变化。特别是对于年轻的组织或产品，预测资源需求是具有挑战性的，因此，不必预先配置资源的优势是非常显著的。
 
 One significant concern when choosing a cloud provider is the fear of lock-in—the provider might suddenly increase their prices or maybe just fail, leaving an organization in a very difficult position. One of the first serverless offering providers, Zimki, a Platform as a Service environment for running JavaScript, shut down in 2007 with three months’ notice.
 
+在选择云计算供应商时，一个重要的顾虑是担心被锁定--供应商可能会突然涨价，或者直接倒闭，让企业陷入非常困难的境地。最早的无服务器提供商之一Zimki，一个运行JavaScript的平台即服务环境，在2007年关闭，只提前三个月通知。
+
 A partial mitigation for this is to use public cloud solutions that run using an open source architecture (like Kubernetes). This is intended to make sure that a migration path exists, even if the particular infrastructure provider becomes unacceptable for some reason. Although this mitigates a significant part of the risk, it is not a perfect strategy. Because of Hyrum’s Law, it’s difficult to guarantee no parts that are specific to a given provider will be used.
+
+对此的部分缓解措施是使用使用开源架构（如Kubernetes）运行的公共云解决方案。这是为了确保存在一个迁移路径，即使特定的基础设施供应商由于某种原因变得不可接受。虽然这减轻了很大一部分风险，但这并不是一个完美的策略。由于海勒姆定律，很难保证不使用特定供应商的特定部分。
 
 Two extensions of that strategy are possible. One is to use a lower-level public cloud solution (like Amazon EC2) and run a higher-level open source solution (like OpenWhisk or KNative) on top of it. This tries to ensure that if you want to migrate out, you can take whatever tweaks you did to the higher-level solution, tooling you built on top of it, and implicit dependencies you have along with you. The other is to run multicloud; that is, to use managed services based on the same open source solutions from two or more different cloud providers (say, GKE and AKS for Kubernetes). This provides an even easier path for migration out of one of them, and also makes it more difficult to depend on specific implementation details available in one one of them.
 
+这一战略有两种可能的扩展。一种是使用较低级别的公有云解决方案（如亚马逊EC2），并在其上运行较高级别的开源解决方案（如OpenWhisk或KNative）。这试图确保如果你想迁移出去，你可以带着你对高级解决方案所做的任何调整，你在它上面建立的工具，以及你拥有的隐性依赖。另一种是运行多云；也就是说，使用基于两个或多个不同的云供应商的相同开源解决方案的管理服务（例如，Kubernetes的GKE和AKS）。这为迁移出其中一个提供了更容易的路径，同时也使你更难依赖其中一个的具体实施细节。
+
 One more related strategy—less for managing lock-in, and more for managing migration—is to run in a hybrid cloud; that is, have a part of your overall workload on your private infrastructure, and part of it run on a public cloud provider. One of the ways this can be used is to use the public cloud as a way to deal with overflow. An organization can run most of its typical workload on a private cloud, but in case of resource shortage, scale some of the workloads out to a public cloud. Again, to make this work effectively, the same open source compute infrastructure solution needs to be used in both spaces.
+
+还有一个相关的策略--不是为了管理锁定，而是为了管理迁移--是在混合云中运行；也就是说，在你的私有基础设施上有一部分整体工作负载，而在公共云供应商上运行一部分。其中一种方法是使用公共云来处理多出的资源需求。一个组织可以在私有云上运行其大部分典型的工作负载，但在资源短缺的情况下，将一些工作负载扩展到公共云上。同样，为了使其有效运作，需要在两个空间使用相同的开源计算基础设施解决方案。
 
 Both multicloud and hybrid cloud strategies require the multiple environments to be connected well, through direct network connectivity between machines in different environments and common APIs that are available in both.
 
-## Conclusion
+多云和混合云战略都需要将多个环境很好地连接起来，通过不同环境中的机器之间的直接网络连接和两个环境中都有的通用API。
+
+## Conclusion 总结
 
 Over the course of building, refining, and running its compute infrastructure, Google learned the value of a well-designed, common compute infrastructure. Having a single infrastructure for the entire organization (e.g., one or a small number of shared Kubernetes clusters per region) provides significant efficiency gains in management and resource costs and allows the development of shared tooling on top of that infrastructure. In the building of such an architecture, containers are a key tool to allow sharing a physical (or virtual) machine between different tasks (leading to resource efficiency) as well as to provide an abstraction layer between the application and the operating system that provides resilience over time.
 
+在构建、完善和运行计算基础设施的过程中，谷歌认识到了设计良好的通用计算基础设施的价值。为整个组织提供单一的基础设施（例如，每个区域一个或少数共享Kubernetes集群）可以显著提高管理效率和资源成本，并允许在基础设施之上开发共享工具。在构建这样一个体系结构时，容器是一个关键工具，它允许在不同的任务之间共享物理（或虚拟）机器（从而提高资源效率），并在应用程序和操作系统之间提供一个抽象层，随着时间的推移提供弹性。
+
 Utilizing a container-based architecture well requires designing applications to use the “cattle” model: engineering your application to consist of nodes that can be easily and automatically replaced allows scaling to thousands of instances. Writing software to be compatible with that model requires different thought patterns; for example, treating all local storage (including disk) as ephemeral and avoiding hardcoding hostnames.
 
-
+充分利用基于容器的体系结构需要设计使用“牛”模型的应用程序：将应用程序设计为由可以轻松自动替换的节点组成，从而可以扩展到数千个实例。编写与该模型兼容的软件需要不同的思维模式；例如，将所有本地存储（包括磁盘）视为短暂的，并避免硬编码主机名。
 
 That said, although Google has, overall, been both satisfied and successful with its choice of architecture, other organizations will choose from a wide range of compute services—from the “pets” model of hand-managed VMs or machines, through “cattle” replicated containers, to the abstract “serverless” model, all available in managed and open source flavors; your choice is a complex trade-off of many factors.
+
+这就是说，尽管谷歌总体上对其架构的选择感到满意并取得了成功，但其他组织将从一系列计算服务中进行选择，从手工管理的虚拟机或机器的“宠物”模型，通过“牛”复制容器，到抽象的“无服务器”模型，所有版本都有托管和开源版本；你的选择是许多因素的复杂权衡。
 
 ## TL;DRs
 
@@ -723,7 +763,10 @@ That said, although Google has, overall, been both satisfied and successful with
 
 •   The compute solution for an organization should be chosen thoughtfully to provide appropriate levels of abstraction.
 
-
+- 规模化需要一个通用的基础设施来运行生产中的工作负载。
+- 一个计算解决方案可以为软件提供一个标准化的、稳定的抽象和环境。
+- 软件需要适应一个分布式的、可管理的计算环境。
+- 组织的计算解决方案应经过深思熟虑的选择，以提供适当的抽象级别。
 
 
 
