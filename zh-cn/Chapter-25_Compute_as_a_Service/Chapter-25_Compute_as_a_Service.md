@@ -131,7 +131,7 @@ So far, we implicitly assumed a one-to-one mapping between machines and the prog
 
 The natural solution is to specify, for each program, its resource requirements (in terms of CPU, RAM, disk space), and then ask the scheduler to bin-pack replicas of the program onto the available pool of machines.
 
-最自然的解决方案是为每个程序指定其资源需求（CPU、RAM、磁盘空间），然后要求调度器将程序的副本打包到可用的机器池中。
+最自然的解决方案是为每个程序指定其资源需求（CPU、RAM、磁盘空间），然后要求调度器将程序的副本打包到可用的机器资源池中。
 
 #### My neighbor’s dog barks in my RAM 邻居家的狗在我的内存中吠叫
 
@@ -449,15 +449,15 @@ The point here is not that you should run your containers in PID namespaces. Alt
 
 As discussed earlier, the original WorkQueue design was targeted at only some batch jobs, which ended up all sharing a pool of machines managed by the WorkQueue, and a different architecture was used for serving jobs, with each particular serving job running in its own, dedicated pool of machines. The open source equivalent would be running a separate Kubernetes cluster for each type of workload (plus one pool for all the batch jobs).
 
-如前所述，最初的WorkQueue设计只针对一些批处理作业，这些作业最终都共享一个由WorkQueue管理的机器池，而对于服务作业则采用不同的架构，每个特定的服务作业都运行在自己的专用机器池中。开放源码的做法是为每种工作负载运行一个单独的Kubernetes集群（加上一个用于所有批处理工作的池）。
+如前所述，最初的WorkQueue设计只针对一些批处理作业，这些作业最终都共享一个由WorkQueue管理的机器资源池，而对于服务作业则采用不同的架构，每个特定的服务作业都运行在自己的专用机器资源池中。开放源码的做法是为每种工作负载运行一个单独的Kubernetes集群（加上一个用于所有批处理工作的池）。
 
 In 2003, the Borg project was started, aiming (and eventually succeeding at) building a compute service that assimilates these disparate pools into one large pool. Borg’s pool covered both serving and batch jobs and became the only pool in any datacenter (the equivalent would be running a single large Kubernetes cluster for all workloads in each geographical location). There are two significant efficiency gains here worth discussing.
 
-2003年，Borg项目启动，旨在（并最终成功地）建立一个计算服务，将这些不同的资源池整合为一个大资源池。Borg的资源池涵盖了服务和批处理工作，并成为任何数据中心的唯一资源池（相当于为每个地理位置的所有工作负载运行一个大型Kubernetes集群）。这里有两个显著的效率提升值得讨论。
+2003年，Borg项目启动，旨在（并最终成功地）建立一个计算服务，将这些不同的机器资源池整合为一个大机器资源池。Borg的机器资源池涵盖了服务和批处理工作，并成为任何数据中心的唯一机器资源池（相当于为每个地理位置的所有工作负载运行一个大型Kubernetes集群）。这里有两个显著的效率提升值得讨论。
 
 The first one is that serving machines became cattle (the way the Borg design doc put it: “*Machines are anonymous:* programs don’t care which machine they run on as long as it has the right characteristics”). If every team managing a serving job must manage their own pool of machines (their own cluster), the same organizational overhead of maintaining and administering that pool is applied to every one of these teams. As time passes, the management practices of these pools will diverge over time, making company-wide changes (like moving to a new server architecture, or switching datacenters) more and more complex. A unified management infrastructure—that is, a *common* compute service for all the workloads in the organization—allows Google to avoid this linear scaling factor; there aren’t *n* different management practices for the physical machines in the fleet, there’s just Borg.[16](#_bookmark2197)
 
-第一个是，服务于机器的人变成了牛（Borg设计文档是这样说的。"*机器是透明的：*程序并不关心它们在哪台机器上运行，只要它有正确的特征"）。如果每个管理服务工作的团队都必须管理他们自己的资源池（他们自己的集群），那么维护和管理这个资源池的组织开销也同样适用于这些团队中的每个人。随着时间的推移，这些资源池的管理实践会随着时间的推移而产生分歧，使整个公司范围内的变化（如转移到一个新的服务器架构，或切换数据中心）变得越来越复杂。一个统一的管理基础设施--也就是一个适用于组织中所有工作负载的*通用*计算服务--允许谷歌避免这种线性扩展因素；对于机群中的物理机器没有*N*种不同的管理实践，只有Borg。
+第一个是，服务于机器的人变成了牛（Borg设计文档是这样说的。"*机器是透明的：*程序并不关心它们在哪台机器上运行，只要它有正确的特征"）。如果每个管理服务工作的团队都必须管理他们自己的机器资源池（他们自己的集群），那么维护和管理这个机器资源池的组织开销也同样适用于这些团队中的每个人。随着时间的推移，这些机器资源池的管理实践会随着时间的推移而产生分歧，使整个公司范围内的变化（如转移到一个新的服务器架构，或切换数据中心）变得越来越复杂。一个统一的管理基础设施--也就是一个适用于组织中所有工作负载的*通用*计算服务--允许谷歌避免这种线性扩展因素；对于机群中的物理机器没有*N*种不同的管理实践，只有Borg。
 
 The second one is more subtle and might not be applicable to every organization, but it was very relevant to Google. The distinct needs of batch and serving jobs turn out to be complementary. Serving jobs usually need to be overprovisioned because they need to have capacity to serve user traffic without significant latency decreases, even in the case of a usage spike or partial infrastructure outage. This means that a machine running only serving jobs will be underutilized. It’s tempting to try to take advantage of that slack by overcommitting the machine, but that defeats the purpose of the slack in the first place, because if the spike/outage does happen, the resources we need will not be available.
 
@@ -469,14 +469,14 @@ However, this reasoning applies only to serving jobs! If we have a number of ser
 
 Depending on the shape of the workloads in a given pool of machines, this means that either all of the batch workload is effectively running on free resources (because we are paying for them in the slack of serving jobs anyway) or all the serving workload is effectively paying for only what they use, not for the slack capacity they need for failure resistance (because the batch jobs are running in that slack). In Google’s case, most of the time, it turns out we run batch effectively for free.
 
-根据给定资源池池中工作负载的形状，这意味着要么所有批处理工作负载都有效地运行在空闲资源上（因为我们无论如何都是在空闲的服务作业中为它们付费）或者，所有的服务性工作负载实际上只为他们使用的东西付费，而不是为他们抵抗故障所需的闲置容量付费（因为批处理作业是在这种闲置状态下运行的）。在谷歌的案例中，大多数时候，事实证明我们免费有效地运行批处理。
+根据给定机器资源池池中工作负载的形状，这意味着要么所有批处理工作负载都有效地运行在空闲资源上（因为我们无论如何都是在空闲的服务作业中为它们付费）或者，所有的服务性工作负载实际上只为他们使用的东西付费，而不是为他们抵抗故障所需的闲置容量付费（因为批处理作业是在这种闲置状态下运行的）。在谷歌的案例中，大多数时候，事实证明我们免费有效地运行批处理。
 
 ```
 16	As in any complex system, there are exceptions. Not all machines owned by Google are Borg-managed, and not every datacenter is covered by a single Borg cell. But the majority of engineers work in an environment in which they don’t touch non-Borg machines, or nonstandard cells.
 16 正如任何复杂的系统一样，也有例外。并非所有谷歌拥有的机器都由Borg管理，也不是每个数据中心都由一个Borg单元覆盖。但大多数工程师的工作环境是，他们不接触非Borg机，也不接触非标准的单元。
 ```
 
-#### Multitenancy for serving jobs
+#### Multitenancy for serving jobs 为工作提供服务的多租户
 
 Earlier, we discussed a number of requirements that a compute service must satisfy to be suitable for running serving jobs. As previously discussed, there are multiple advantages to having the serving jobs be managed by a common compute solution, but this also comes with challenges. One particular requirement worth repeating is a discovery service, discussed in [“Connecting to a Service” on page 528](#_bookmark2176). There are a number of other requirements that are new when we want to extend the scope of a managed compute solution to serving tasks, for example:
 
@@ -484,13 +484,21 @@ Earlier, we discussed a number of requirements that a compute service must satis
 
 •   A batch job can usually be killed without warning. What we lose is some of the already performed processing, which can be redone. When a serving job is killed without warning, we likely risk some user-facing traffic returning errors or (at best) having increased latency; it is preferable to give several seconds of warning ahead of time so that the job can finish serving requests it has in flight and not accept new ones.
 
+早些时候，我们讨论了计算服务必须满足的一些要求，以适合运行服务作业。正如之前所讨论的，让服务作业由一个共同的计算解决方案来管理有多种好处，但这也伴随着挑战。一个值得重复的特殊要求是发现服务，在[第528页的 "连接到服务"]中讨论过。当我们想把托管计算解决方案的范围扩展到服务任务时，还有一些其他的要求是新的，比如说。
+
+- 作业的重新调度需要节制：尽管杀死并重新启动一个批处理作业的50%的副本可能是可以接受的（因为这只会导致处理过程中的暂时性突变，而我们真正关心的是吞吐量），但杀死并重新启动一个服务作业的50%的副本是不太可能接受的（因为剩下的作业可能太少，无法在等待重新启动的作业再次出现的同时为用户流量提供服务）。
+
+- 一个批处理作业通常可以在没有警告的情况下被杀死。我们失去的是一些已经执行的处理，这些处理可以重新进行。当一个服务工作在没有警告的情况下被杀死时，我们很可能冒着一些面向用户的流量返回错误或（最多）延迟增加的风险；最好是提前几秒钟发出警告，以便工作能够完成服务它在运行中的请求，不再接受新的请求。
+
 For the aforementioned efficiency reasons, Borg covers both batch and serving jobs, but multiple compute offerings split the two concepts—typically, a shared pool of machines for batch jobs, and dedicated, stable pools of machines for serving jobs. Regardless of whether the same compute architecture is used for both types of jobs, however, both groups benefit from being treated like cattle.
 
+出于上述效率原因，Borg同时涵盖了批处理和服务作业，但多个计算产品将这两个概念分割开来--通常情况下，批处理作业使用共享的机器资源池，而服务工作使用专用的、稳定的机器资源池。然而，无论这两类工作是否使用相同的计算架构，这两类工作都会因被当作牛一样对待而受益。
 
-
-### Submitted Configuration
+### Submitted Configuration 提交配置
 
 The Borg scheduler receives the configuration of a replicated service or batch job to run in the cell as the contents of a Remote Procedure Call (RPC). It’s possible for the operator of the service to manage it by using a command-line interface (CLI) that sends those RPCs, and have the parameters to the CLI stored in shared documentation, or in their head.
+
+Borg调度器接收扩容服务或批处理作业的配置，作为远程过程调用（RPC）的内容在单元中运行。服务运营商可以通过使用命令行界面（CLI）对其进行管理，该界面发送这些RPC，并将参数存储在共享文档或其Header中。
 
 Depending on documentation and tribal knowledge over code submitted to a repository is rarely a good idea in general because both documentation and tribal knowledge have a tendency to deteriorate over time (see [Chapter 3](#_bookmark182)). However, the next natural step in the evolution—wrapping the execution of the CLI in a locally developed script—is still inferior to using a dedicated configuration language to specify the configuration of your service.
 
