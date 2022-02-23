@@ -637,19 +637,31 @@ The advantage of VMs as cattle lies primarily in the ability to bring our own op
 
 An even higher level of abstraction is *serverless* offerings.[23](#_bookmark2218) Assume that an organization is serving web content and is using (or willing to adopt) a common server framework for handling the HTTP requests and serving responses. The key defining trait of a framework is the inversion of control—so, the user will only be responsible for writing an “Action” or “Handler” of some sort—a function in the chosen language that takes the request parameters and returns the response.
 
+更高层次的抽象是无服务器产品。假设一个组织正在为网络内容提供服务，并且正在使用（或愿意采用）一个通用的服务器框架来处理HTTP请求和提供响应。框架的关键定义特征是控制权的倒置--因此，用户只负责编写某种 "行动 "或 "处理程序"--所选语言中的函数，接收请求参数并返回响应。
+
 In the Borg world, the way you run this code is that you stand up a replicated container, each replica containing a server consisting of framework code and your functions. If traffic increases, you will handle this by scaling up (adding replicas or expanding into new datacenters). If traffic decreases, you will scale down. Note that a minimal presence (Google usually assumes at least three replicas in each datacenter a server is running in) is required.
+
+在Borg的世界里，你运行这段代码的方式是，你建立一个副本的容器，每个副本包含一个由框架代码和你的功能组成的服务器。如果流量增加，你将通过扩大规模来处理（增加副本或扩展到新的数据中心）。如果流量减少，你将缩小规模。请注意，需要一个最小的存在（谷歌通常假设服务器运行的每个数据中心至少有三个副本）。
 
 However, if multiple different teams are using the same framework, a different approach is possible: instead of just making the machines multitenant, we can also make the framework servers themselves multitenant. In this approach, we end up running a larger number of framework servers, dynamically load/unload the action code on different servers as needed, and dynamically direct requests to those servers that have the relevant action code loaded. Individual teams no longer run servers, hence “serverless.”
 
+但是，如果多个不同的团队使用同一个框架，就可以采用不同的方法：不只是让机器多租，我们还可以让框架服务器本身共享。在这种方法中，我们最终会运行更多的框架服务器，根据需要在不同的服务器上动态加载/卸载动作代码，并将请求动态地引导到那些加载了相关动作代码的服务器。各个团队不再运行服务器，因此 "无服务器"。
+
 Most discussions of serverless frameworks compare them to the “VMs as pets” model. In this context, the serverless concept is a true revolution, as it brings in all of the benefits of cattle management—autoscaling, lower overhead, lack of explicit provisioning of servers. However, as described earlier, the move to a shared, multitenant,cattle-based model should already be a goal for an organization planning to scale; and so the natural comparison point for serverless architectures should be “persistent containers” architecture like Borg, Kubernetes, or Mesosphere.
+
+大多数关于无服务器框架的讨论都将其与 "虚拟机作为宠物 "的模式相比较。在这种情况下，无服务器概念是一场真正的革命，因为它带来了牛群管理的所有好处--自动扩展、较低的开销、缺乏明确的服务器配置。然而，正如前文所述，对于计划扩展的组织来说，转向共享、多租户、基于牛的模式应该已经是一个目标；因此，无服务器架构的自然比较点应该是 "持久性容器 "架构，如Borg、Kubernetes或Mesosphere。
 
 ```
 23	FaaS (Function as a Service) and PaaS (Platform as a Service) are related terms to serverless. There are differences between the three terms, but there are more similarities, and the boundaries are somewhat blurred.
+
+23 FaaS（功能即服务）和PaaS（平台即服务）是与无服务器相关的术语。这三个术语之间有区别，但更多的是相似之处，而且边界有些模糊不清。
 ```
 
-#### Pros and cons
+#### Pros and cons 利与弊
 
 First note that a serverless architecture requires your code to be *truly stateless*; it’s unlikely we will be able to run your users’ VMs or implement Spanner inside the serverless architecture. All the ways of managing local state (except not using it) that we talked about earlier do not apply. In the containerized world, you might spend a few seconds or minutes at startup setting up connections to other services, populating caches from cold storage, and so on, and you expect that in the typical case you will be given a grace period before termination. In a serverless model, there is no local state that is really persisted across requests; everything that you want to use, you should set up in request-scope.
+
+
 
 In practice, most organizations have needs that cannot be served by truly stateless workloads. This can either lead to depending on specific solutions (either home grown or third party) for specific problems (like a managed database solution, which is a frequent companion to a public cloud serverless offering) or to having two solutions: a container-based one and a serverless one. It’s worth mentioning that many or most serverless frameworks are built on top of other compute layers: AppEngine runs on Borg, Knative runs on Kubernetes, Lambda runs on Amazon EC2.
 
