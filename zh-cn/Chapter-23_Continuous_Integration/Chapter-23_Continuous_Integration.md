@@ -231,9 +231,11 @@ As an RC progresses through environments, its artifacts (e.g., binaries, contain
 7 我们称这些为 "空中碰撞"，因为它发生的概率极低；然而，当这种情况发生时，其结果可能是相当令人惊讶的。
 ```
 
-### Continuous Testing
+### Continuous Testing 持续测试
 
 Let’s look at how CB and CD fit in as we apply Continuous Testing (CT) to a code change throughout its lifetime, as shown [Figure 23-2](#_bookmark2049).
+
+让我们来看看，当我们将持续测试（CT）应用于代码变更的整个生命周期时，CB和CD是如何配合的，如图23-2所示。
 
 ![Figure 23-2](./images/Figure 23-2.png)
 
@@ -241,23 +243,39 @@ Let’s look at how CB and CD fit in as we apply Continuous Testing (CT) to a co
 
 The rightward arrow shows the progression of a single code change from local development to production. Again, one of our key objectives in CI is determining *what* to test *when* in this progression. Later in this chapter, we’ll introduce the different testing phases and provide some considerations for what to test in presubmit versus post-submit, and in the RC and beyond. We’ll show that, as we shift to the right, the code change is subjected to progressively larger-scoped automated tests.
 
-#### Why presubmit isn’t enough
+向右箭头显示单个代码更改从本地开发到生产的过程。同样，我我们在CI中的一个关键目标是确定在这个过程中*什么时候*测试什么。在本章后面，我们将介绍不同的测试阶段，并就提交前与提交后以及RC和其他阶段测试内容的注意事项。我们将展示，当我们向右移动时，代码更改将受到范围越来越大的自动化测试的影响。
+
+#### Why presubmit isn’t enough 为什么仅靠预提交还不够的
 
 With the objective to catch problematic changes as soon as possible and the ability to run automated tests on presubmit, you might be wondering: why not just run all tests on presubmit?
 
+为了尽快发现有问题的更改，并且能够在预提交上运行自动测试，你可能会想：为什么不在预提交时运行所有测试？
+
 The main reason is that it’s too expensive. Engineer productivity is extremely valuable, and waiting a long time to run every test during code submission can be severely disruptive. Further, by removing the constraint for presubmits to be exhaustive, a lot of efficiency gains can be made if tests pass far more frequently than they fail. For example, the tests that are run can be restricted to certain scopes, or selected based on a model that predicts their likelihood of detecting a failure.
+
+主要原因是它成本太高了。工程师的工作效率是非常宝贵的，在提交代码期间等待很长时间运行每个测试可能会严重降低生产力。此外，通过取消对预提交的限制，如果测试通过的频率远远高于失败的频率，就可以获得大量的效率提升。例如，运行的测试可以限制在特定范围内，或者根据预测其检测故障可能性的模型进行选择。
 
 Similarly, it’s expensive for engineers to be blocked on presubmit by failures arising from instability or flakiness that has nothing to do with their code change.
 
+同样，如果工程师在提交前被与他们的代码修改无关的不稳定或软弱性引起的故障所阻挡，代价也很高。
+
 Another reason is that during the time we run presubmit tests to confirm that a change is safe, the underlying repository might have changed in a manner that is incompatible with the changes being tested. That is, it is possible for two changes that touch completely different files to cause a test to fail. We call this a mid-air collision,and though generally rare, it happens most days at our scale. CI systems for smaller repositories or projects can avoid this problem by serializing submits so that there is no difference between what is about to enter and what just did.
 
-#### Presubmit versus post-submit
+另一个原因是，在我们运行预提交测试以确认更改是安全的过程中，底层存储库可能以与正在测试的更改不兼容的方式进行了更改。也就是说，两个涉及完全不同文件的更改可能会导致测试失败。我们称这种情况为空中碰撞，虽然一般来说很少发生，但大多数情况下都会发生在我们的掌控范围内。用于较小存储库或项目的CI系统可以通过序列化提交来避免此问题，以便在即将输入的内容和刚刚输入的内容之间没有区别。
+
+#### Presubmit versus post-submit 预提交与提交后
 
 So, which tests *should* be run on presubmit? Our general rule of thumb is: only fast, reliable ones. You can accept some loss of coverage on presubmit, but that means you need to catch any issues that slip by on post-submit, and accept some number of rollbacks. On post-submit, you can accept longer times and some instability, as long as you have proper mechanisms to deal with it.
 
+那么，哪些测试*应该*在预提交时运行？我们的一般经验法则是：只有快速、可靠的测试。你可以接受在预提交时有一些覆盖面的损失，但这意味着你需要在提交后抓住任何漏掉的问题，并接受一定的回滚的次数。在提交后，你可以接受更长的时间和一些不稳定性，只要你有适当的机制来处理它。
+
 We don’t want to waste valuable engineer productivity by waiting too long for slow tests or for too many tests—we typically limit presubmit tests to just those for the project where the change is happening. We also run tests concurrently, so there is a resource decision to consider as well. Finally, we don’t want to run unreliable tests on presubmit, because the cost of having many engineers affected by them, debugging the same problem that is not related to their code change, is too high.
 
+我们不想因为等待太长时间的缓慢测试或太多测试而浪费宝贵的工程师生产力--我们通常将预提交的测试限制在发生变化的项目上。我们还同时运行测试，所以也要考虑资源决定。最后，我们不希望在预提交时运行不可靠的测试，因为让许多工程师受其影响，调试与他们的代码变更无关的同一个问题的成本太高。
+
 Most teams at Google run their small tests (like unit tests) on presubmit[8](#_bookmark2053)—these are the obvious ones to run as they tend to be the fastest and most reliable. Whether and how to run larger-scoped tests on presubmit is the more interesting question, and this varies by team. For teams that do want to run them, hermetic testing is a proven approach to reducing their inherent instability. Another option is to allow large- scoped tests to be unreliable on presubmit but disable them aggressively when they start failing.
+
+谷歌的大多数团队都在预提交上运行他们的小型测试（如单元测试）--这些是明显要运行的，因为它们往往是最快和最可靠的。是否以及如何在提交前运行更大范围的测试是个更有趣的问题，这因团队而异。对于想要运行这些测试的团队来说，封闭测试是一种行之有效的方法来减少其固有的不稳定性。另一个选择是允许大范围的测试在预提交时不可靠，但当它们开始失败时，要主动禁用它们。
 
 #### Release candidate testing
 
