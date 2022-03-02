@@ -486,7 +486,8 @@ The introduction of go/ links (see Chapter 3) allowed most documents to, in effe
 
 ----
 
-## Documentation Philosophy 文档理念
+##  Documentation Philosophy 写文档秘诀
+
 Caveat: the following section is more of a treatise on technical writing best practices (and personal opinion) than of “how Google does it.” Consider it optional for software engineers to fully grasp, though understanding these concepts will likely allow you to more easily write technical information.
 
 注意：以下部分更像是一篇关于技术写作最佳实践的论文（和个人观点），而不是 "谷歌是如何做到的"。对于软件工程师来说，可以考虑让他们完全掌握，尽管理解这些概念可能会让你更容易写出技术信息。
@@ -579,8 +580,11 @@ To change the quality of engineering documentation, engineers—and the entire e
 
 ## TL;DRs
 •	Documentation is hugely important over time and scale.
+
 •	Documentation changes should leverage the existing developer workflow.
+
 •	Keep documents focused on one purpose.
+
 •	Write for your audience, not yourself.
 
 - 随着时间和规模的增长，文档是非常重要的。
