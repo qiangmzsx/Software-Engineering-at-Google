@@ -327,28 +327,44 @@ There are several reasons why it’s important to run a comprehensive, automated
 
 ​	在这种情况下，CD可以从真正的head切分，并运行必要的最小的测试集，对紧急推送感到有信心，而不等待完整的CB通过。
 
-#### Production testing
+#### Production testing 生产测试
 
 Our continuous, automated testing process goes all the way to the final deployed environment: production. We should run the same suite of tests against production (sometimes called *probers*) that we did against the release candidate earlier on to verify: 1) the working state of production, according to our tests, and 2) the relevance of our tests, according to production.
 
+我们的持续、自动化测试过程一直持续到最后的部署环境：生产环境。我们应该对生产环境运行相同的测试套件（有时称为*probers*），就像我们早期对候选发布版所做的那样，以验证：1）根据我们的测试，生产环境的工作状态；2）根据生产环境，我们测试的相关性。
+
 Continuous testing at each step of the application’s progression, each with its own trade-offs, serves as a reminder of the value in a “defense in depth” approach to catching bugs—it isn’t just one bit of technology or policy that we rely upon for quality and stability, it’s many testing approaches combined.
+
+在应用程序进展的每一步进行持续测试，每一步都有其自身的权衡，这提醒了 "深度防御 "方法在捕捉错误方面的价值--我们依靠的不仅仅是一种技术或政策来保证质量和稳定性，还有多种测试方法的结合。
 
 -----
 
-CI Is Alerting
+CI Is Alerting CI正在告警
 Titus Winters
 
 As with responsibly running production systems, sustainably maintaining software systems also requires continual automated monitoring. Just as we use a monitoring and alerting system to understand how production systems respond to change, CI reveals how our software is responding to changes in its environment. Whereas production monitoring relies on passive alerts and active probers of running systems, CI uses unit and integration tests to detect changes to the software before it is deployed. Drawing comparisons between these two domains lets us apply knowledge from one to the other.
 
+与负责任地运行生产系统一样，可持续地维护软件系统也需要持续的自动监控。正如我们使用监控和告警系统来了解生产系统对变化的反应一样，CI揭示了我们的软件是如何对其环境的变化做出反应的。生产监控依赖于运行系统的被动告警和主动探测，而CI则使用单元和集成测试来检测软件在部署前的变化。在这两个领域之间进行比较，可以让我们把一个领域的知识应用到另一个领域。
+
 Both CI and alerting serve the same overall purpose in the developer workflow—to identify problems as quickly as reasonably possible. CI emphasizes the early side of the developer workflow, and catches problems by surfacing test failures. Alerting focuses on the late end of the same workflow and catches problems by monitoring metrics and reporting when they exceed some threshold. Both are forms of “identify problems automatically, as soon as possible.”
+
+CI和告警在开发者工作流程中的总体目的是一样的--尽可能快地发现问题。CI强调开发者工作流程的早期阶段，并通过显示测试失败来捕获问题。告警侧重于同一工作流程的后期，通过监测指标并在指标超过某个阈值时报告来捕捉问题。两者都是 "自动、尽快地识别问题"的形式。
 
 A well-managed alerting system helps to ensure that your Service-Level Objectives (SLOs) are being met. A good CI system helps to ensure that your build is in good shape—the code compiles, tests pass, and you could deploy a new release if you needed to. Best-practice policies in both spaces focus a lot on ideas of fidelity and actionable alerting: tests should fail only when the important underlying invariant is violated, rather than because the test is brittle or flaky. A flaky test that fails every few CI runs is just as much of a problem as a spurious alert going off every few minutes and generating a page for the on-call. If it isn’t actionable, it shouldn’t be alerting. If it isn’t actually violating the invariants of the SUT, it shouldn’t be a test failure.
 
+一个管理良好的告警系统有助于确保你的服务水平目标（SLO）得到满足。一个好的CI系统有助于确保你的构建处于良好状态--代码编译，测试通过，如果需要的话，你可以部署一个新版本。这两个领域的最佳实践策略都非常注重仿真度和可操作的告警：测试应该只在重要的基础不变因素被违反时才失败，而不是因为测试很脆弱或不稳定。一个脆弱的测试，每运行几次CI就会失败，就像一个虚假的警报每隔几分钟就会响起，并为值班人员生成一个页面一样，是一个问题。如果它不具有可操作性，就不应该发出警报。如果它实际上没有违反SUT的不变性，就不应该是测试失败。
+
 CI and alerting share an underlying conceptual framework. For instance, there’s a similar relationship between localized signals (unit tests, monitoring of isolated statistics/cause-based alerting) and cross-dependency signals (integration and release tests, black-box probing). The highest fidelity indicators of whether an aggregate system is working are the end-to-end signals, but we pay for that fidelity in flakiness, increasing resource costs, and difficulty in debugging root causes.
+
+CI和告警共享一个基本的概念框架。例如，在局部信号（单元测试、独立统计监测/基于原因的警报）和交叉依赖信号（集成和发布测试、黑盒探测）之间存在类似的关系。衡量一个整体系统是否工作的最高仿真度指标是端到端的信号，但我们要为这种仿真度付出代价，即松散性、不断增加的资源成本和调试根源的难度。
 
 Similarly, we see an underlying connection in the failure modes for both domains. Brittle cause-based alerts fire based on crossing an arbitrary threshold (say, retries in the past hour), without there necessarily being a fundamental connection between that threshold and system health as seen by an end user. Brittle tests fail when an arbitrary test requirement or invariant is violated, without there necessarily being a fundamental connection between that invariant and the correctness of the software being tested. In most cases these are easy to write, and potentially helpful in debugging a larger issue. In both cases they are rough proxies for overall health/correctness, failing to capture the holistic behavior. If you don’t have an easy end-to-end probe, but you do make it easy to collect some aggregate statistics, teams will write threshold alerts based on arbitrary statistics. If you don’t have a high-level way to say, “Fail the test if the decoded image isn’t roughly the same as this decoded image,” teams will instead build tests that assert that the byte streams are identical.
 
+同样，我们在这两个领域的故障模式中看到了一种潜在的联系。脆弱的基于原因的告警基于超过任意阈值（例如，过去一小时内的重试）而启动，而该阈值与终端用户看到的系统健康状况之间不一定有根本联系。当一个任意的测试要求或不变量被违反时，脆性测试就会失败，而不一定在该不变量和被测软件的正确性之间有根本的联系。在大多数情况下，这些测试很容易写，并有可能有助于调试更大的问题。在这两种情况下，它们都是整体健康/正确性的粗略代理，无法捕获整体行为。如果你没有一个简单的端到端探针，但你确实可以轻松地收集一些聚合统计信息，那么团队将基于任意统计信息编写阈值警报。如果你没有一个高层次的方法说："如果解码后的图像与这个解码后的图像不大致相同，则测试失败"，团队就会建立测试，断言字节流是相同的。
+
 Cause-based alerts and brittle tests can still have value; they just aren’t the ideal way to identify potential problems in an alerting scenario. In the event of an actual failure, having more debug detail available can be useful. When SREs are debugging an outage, it can be useful to have information of the form, “An hour ago users, started experiencing more failed requests. Around the same, time the number of retries started ticking up. Let’s start investigating there.” Similarly, brittle tests can still provide extra debugging information: “The image rendering pipeline started spitting out garbage. One of the unit tests suggests that we’re getting different bytes back from the JPEG compressor. Let’s start investigating there.”
+
+基于原因的告警和脆性测试仍然有价值；它们只是在告警场景中不是识别潜在问题的理想方式。在实际发生故障的情况下，有更多的调试细节可以使用。当SRE正在调试一个故障时，有这样的信息是很有用的："一小时前，用户开始遇到更多的失败请求。大约在同一时间，重试的数量开始上升。让我们开始调查。" 同样地，脆弱的测试仍然可以提供额外的调试信息。"图像渲染管道开始吐出垃圾。其中一个单元测试表明，我们从JPEG压缩器那里得到了不同的字节。让我们开始调查吧。"
 
 Although monitoring and alerting are considered a part of the SRE/production management domain, where the insight of “Error Budgets” is well understood,[9](#_bookmark2057) CI comes from a perspective that still tends to be focused on absolutes. Framing CI as the “left shift” of alerting starts to suggest ways to reason about those policies and propose better best practices:
 
@@ -358,13 +374,25 @@ Although monitoring and alerting are considered a part of the SRE/production man
 
 •   Policies that say, “Nobody can commit if our latest CI results aren’t green” are probably misguided. If CI reports an issue, such failures should definitely be *investigated* before letting people commit or compound the issue. But if the root cause is well understood and clearly would not affect production, blocking commits is unreasonable.
 
+尽管监控和告警被认为是SRE/生产管理领域的一部分，其中 "错误成本 "的洞察力被很好地理解，CI来自一个仍然倾向于关注绝对性的视角。将CI定义为告警的 "左移"，开始建议如何推理这些政策并提出更好的最佳实践：
+
+- 在CI上实现100%的绿色率，就像在生产服务中实现100%的正常运行时间一样，是非常昂贵的。如果这确实是你的目标，那么最大的问题之一就是测试和提交之间的竞争条件。
+
+- 把每一个告警都当作一个相同原因来处理，一般来说不是正确的方法。如果一个告警在生产中被触发，但服务实际上并没有受到影响，让告警沉默是正确的选择。对于测试失败也是如此：在我们的CI系统学会如何说“已知此测试因无关原因而失败”之前，我们可能应该更自由地接受禁用失败测试的更改。并非所有测试失败都表明即将出现生产问题。
+
+- 那些说 "如果我们最新的CI结果不是绿色的，任何人都不能提交 "的政策可能是错误的。如果 CI 报告了一个问题，在让人们提交或使问题复杂化之前，肯定要对这种失败进行调查。但如果根本原因已被充分理解，并且显然不会影响生产，那么阻止提交是不合理的。
+
 This “CI is alerting” insight is new, and we’re still figuring out how to fully draw parallels. Given the higher stakes involved, it’s unsurprising that SRE has put a lot of thought into best practices surrounding monitoring and alerting, whereas CI has been viewed as more of a luxury feature.[10](#_bookmark2058) For the next few years, the task in software engineering will be to see where existing SRE practice can be reconceptualized in a CI context to help reformulate the testing and CI landscape—and perhaps where best practices in testing can help clarify goals and policies on monitoring and alerting.
+
+这种 "CI就是警报 "的见解是新的，我们仍在摸索如何充分地得出相似之处。鉴于所涉及的风险较高，SRE对围绕监控和警报的最佳实践进行了大量的思考，而CI则被视为一种奢侈的功能，这一点并不奇怪。在未来几年，软件工程的任务将是看看现有的SRE实践可以在CI背景下重新概念化，以帮助重新制定测试和CI景观，也许测试的最佳实践可以帮助澄清监控和警报的目标和政策。
 
 ----
 
 ```
 9	Aiming for 100% uptime is the wrong target. Pick something like 99.9% or 99.999% as a business or product trade-off, define and monitor your actual uptime, and use that “budget” as an input to how aggressively you’re willing to push risky releases.
 10	We believe CI is actually critical to the software engineering ecosystem: a must-have, not a luxury. But that is not universally understood yet.
+9 以100%的正常运行时间为目标是错误的。选择像99.9%或99.999%这样的目标作为业务或产品的权衡，定义并监控你的实际正常运行时间，并使用该 "成本预算 "作为你愿意多积极地推动风险发布的输入。
+10 我们相信CI实际上对软件工程生态系统至关重要：它是必需品，而不是奢侈品。但这一点尚未得到普遍理解。
 
 ```
 
