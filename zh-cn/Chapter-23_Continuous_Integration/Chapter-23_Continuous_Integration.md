@@ -1,5 +1,3 @@
-
-
 **CHAPTER** **23
 
 # Continuous Integration
@@ -516,57 +514,89 @@ As we’ve seen in this section, hermetic testing can both reduce instability in
 
 正如我们在本节中所看到的，封闭测试既可以减少大范围测试中的不稳定性，也可以帮助隔离故障，解决我们在上一节中确定的两个重大CI挑战。然而，封闭式后端也可能更昂贵，因为它们使用更多的资源，并且设置速度较慢。许多团队在他们的测试环境中使用密封和活动后端的组合。
 
-## CI at Google
+## CI at Google 谷歌的CI
 
 Now let’s look in more detail at how CI is implemented at Google. First, we’ll look at our global continuous build, TAP, used by the vast majority of teams at Google, and how it enables some of the practices and addresses some of the challenges that we looked at in the previous section. We’ll also look at one application, Google Takeout, and how a CI transformation helped it scale both as a platform and as a service.
 
+现在让我们更详细地看看CI在谷歌是如何实施的。首先，我们将了解谷歌绝大多数团队使用的全球持续构建TAP，以及它是如何实现一些实践和解决我们在上一节中看到的一些挑战的。我们还将介绍一个应用程序Google Takeout，以及CI转换如何帮助其作为平台和服务进行扩展。
+
 -----
 
-TAP: Google’s Global Continuous Build
+TAP: Google’s Global Continuous Build 谷歌的全球持续构建
 
-**Adam Bender**
+**Adam Bender** **亚当-本德 **
 
 We run a massive continuous build, called the Test Automation Platform (TAP), of our entire codebase. It is responsible for running the majority of our automated tests. As a direct consequence of our use of a monorepo, TAP is the gateway for almost all changes at Google. Every day it is responsible for handling more than 50,000 unique changes *and* running more than four billion individual test cases.
 
+我们在整个代码库中运行一个大规模的持续构建，称为测试自动化平台（TAP）。它负责运行我们大部分的自动化测试。由于我们使用的是monorepo，TAP是谷歌几乎所有变化的门户。每天，它负责处理超过50,000个独特的变化，运行超过40亿个单独的测试用例。
+
 TAP is the beating heart of Google’s development infrastructure. Conceptually, the process is very simple. When an engineer attempts to submit code, TAP runs the associated tests and reports success or failure. If the tests pass, the change is allowed into the codebase.
 
-**Presubmit optimization**
+TAP是谷歌发展基础设施的核心。从概念上讲，这个过程非常简单。当工程师试图提交代码时，TAP将运行相关测试并报告成功或失败。如果测试通过，则允许更改进入代码库。
+
+**Presubmit optimization** **预提交优化**
 
 To catch issues quickly and consistently, it is important to ensure that tests are run against every change. Without a CB, running tests is usually left to individual engineer discretion, and that often leads to a few motivated engineers trying to run all tests and keep up with the failures.
 
+为了快速和持续地发现问题，必须确保对每一个变化都进行测试。如果没有CB，运行测试通常是由个别工程师决定的，这往往会导致一些有积极性的工程师试图运行所有的测试并跟进故障。
+
 As discussed earlier, waiting a long time to run every test on presubmit can be severely disruptive, in some cases taking hours. To minimize the time spent waiting, Google’s CB approach allows potentially breaking changes to land in the repository (remember that they become immediately visible to the rest of the company!). All we ask is for each team to create a fast subset of tests, often a project’s unit tests, that can be run before a change is submitted (usually before it is sent for code review)—the presubmit. Empirically, a change that passes the presubmit has a very high likelihood (95%+) of passing the rest of the tests, and we optimistically allow it to be integrated so that other engineers can then begin to use it.
+
+如前所述，等待很长时间来运行预提交的每个测试可能会造成严重破坏，在某些情况下需要数小时。为了最大限度地减少等待时间，谷歌的CB方法允许潜在的破坏性更改提交到存储库中（请记住，这些更改会立即被公司其他人看到！）。我们只要求每个团队创建一个快速的测试子集，通常是一个项目的单元测试，可以在提交更改之前（通常是在发送更改进行代码审查之前）运行这些测试。根据经验，通过预提交的变更通过其余测试的可能性非常高（95%+），我们乐观地允许将其集成，以便其他工程师可以开始使用它。
 
 After a change has been submitted, we use TAP to asynchronously run all potentially affected tests, including larger and slower tests.
 
+提交更改后，我们使用TAP异步运行所有可能受影响的测试，包括较大和较慢的测试。
+
 When a change causes a test to fail in TAP, it is imperative that the change be fixed quickly to prevent blocking other engineers. We have established a cultural norm that strongly discourages committing any new work on top of known failing tests, though flaky tests make this difficult. Thus, when a change is committed that breaks a team’s build in TAP, that change may prevent the team from making forward progress or building a new release. As a result, dealing with breakages quickly is imperative.
+
+当变更导致TAP测试失败时，必须迅速修复变更，以防止阻塞其他工程师。我们已经建立了一种文化规范，强烈反对在已知失败测试的基础上进行任何新的工作，尽管不可靠的测试会让这变得困难。因此，当提交的变更打破了团队的内置TAP时，该变更可能会阻止团队向前推进或构建新版本。因此，快速处理故障势在必行。
 
 To deal with such breakages, each team has a “Build Cop.” The Build Cop’s responsibility is keeping all the tests passing in their particular project, regardless of who breaks them. When a Build Cop is notified of a failing test in their project, they drop whatever they are doing and fix the build. This is usually by identifying the offending change and determining whether it needs to be rolled back (the preferred solution) or can be fixed going forward (a riskier proposition).
 
+为了处理这种破坏，每个团队都有一个 "Build Cop"。Build Cop的责任是保持他们特定项目的所有测试通过，无论谁破坏了它们。当Build Cop被告知他们的项目中有一个失败的测试时，他们会放下手中的工作，修复构建。这通常是通过识别违规的变化，并确定它是否需要回滚（首选解决方案）或可以继续修复（风险较大）。
+
 In practice, the trade-off of allowing changes to be committed before verifying all tests has really paid off; the average wait time to submit a change is around 11 minutes, often run in the background. Coupled with the discipline of the Build Cop, we are able to efficiently detect and address breakages detected by longer running tests with a minimal amount of disruption.
 
-**Culprit** **finding**
+在实践中，允许在验证所有测试之前提交更改的折衷方案已经真正得到了回报；提交更改的平均等待时间约为11分钟，通常在后台运行。再加上Build Cop的原则，我们能够以最小的中断量有效地检测和解决运行时间较长的测试检测到的故障。
+
+**Culprit finding** **发现罪魁祸首**
 
 One of the problems we face with large test suites at Google is finding the specific change that broke a test. Conceptually, this should be really easy: grab a change, run the tests, if any tests fail, mark the change as bad. Unfortunately, due to a prevalence of flakes and the occasional issues with the testing infrastructure itself, having confidence that a failure is real isn’t easy. To make matters more complicated, TAP must evaluate so many changes a day (more than one a second) that it can no longer run every test on every change. Instead, it falls back to batching related changes together, which reduces the total number of unique tests to be run. Although this approach can make it faster to run tests, it can obscure which change in the batch caused a test to break.
 
+谷歌大型测试套件面临的一个问题是找到破坏测试的具体变化。从概念上讲，这应该很容易：抓取一个变更，运行测试，如果任何测试失败，将变更标记为坏的。不幸的是，由于片断的流行以及测试基础设施本身偶尔出现的问题，要确信失败是真实的并不容易。更加复杂的是，TAP必须每天评估如此多的变化（一秒钟超过一个），以至于它不能再对每个变化运行每个测试。取而代之的是，它退回到批处理相关的更改，这减少了要运行的独特测试的总数。尽管这种方法可以加快运行测试的速度，但它可以掩盖批处理中导致测试中断的更改。
+
 To speed up failure identification, we use two different approaches. First, TAP automatically splits a failing batch up into individual changes and reruns the tests against each change in isolation. This process can sometimes take a while to converge on a failure, so in addition, we have created culprit finding tools that an individual developer can use to binary search through a batch of changes and identify which one is the likely culprit.
 
-**Failure** **management**
+为了加快故障识别，我们使用了两种不同的方法。首先，TAP自动将失败的批次拆分为单独的更改，并针对每个更改单独重新运行测试。这个过程有时需要一段时间才能收敛到失败，因此，我们还创建了罪魁祸首查找工具，每个开发人员可以使用这些工具通过一批更改进行二进制搜索，并确定哪一个是可能的罪魁祸首。
+
+**Failure management** **故障管理**
 
 After a breaking change has been isolated, it is important to fix it as quickly as possible. The presence of failing tests can quickly begin to erode confidence in the test suite. As mentioned previously, fixing a broken build is the responsibility of the Build Cop. The most effective tool the Build Cop has is the *rollback*.
 
+在隔离破坏性变更后，尽快修复该变更非常重要。失败测试的存在可能会很快开始侵蚀测试套件的信心。如前所述，修复损坏的构建是Build Cop的责任。Build Cop最有效的工具是*回滚*。
+
 Rolling a change back is often the fastest and safest route to fix a build because it quickly restores the system to a known good state.[12](#_bookmark2084) In fact, TAP has recently been upgraded to automatically roll back changes when it has high confidence that they are the culprit.
+
+回滚更改通常是修复生成的最快和最安全的方法，因为它可以快速将系统恢复到已知的良好状态。事实上，TAP最近已升级为自动回滚更改，当它高度确信更改是罪魁祸首时。
 
 Fast rollbacks work hand in hand with a test suite to ensure continued productivity. Tests give us confidence to change, rollbacks give us confidence to undo. Without tests, rollbacks can’t be done safely. Without rollbacks, broken tests can’t be fixed quickly, thereby reducing confidence in the system.
 
-**Resource** **constraints**
+快速回滚与测试套件携手并进，以确保持续的生产力。测试给了我们改变的信心，回滚给了我们撤销的信心。没有测试，回滚就不能安全进行。没有回滚，破损的测试就不能被快速修复，从而降低了对系统的信心。
+
+**Resource constraints** **资源限制**
 
 Although engineers can run tests locally, most test executions happen in a distributed build-and-test system called *Forge*. Forge allows engineers to run their builds and tests in our datacenters, which maximizes parallelism. At our scale, the resources required to run all tests executed on-demand by engineers and all tests being run as part of the CB process are enormous. Even given the amount of compute resources we have, systems like Forge and TAP are resource constrained. To work around these constraints, engineers working on TAP have come up with some clever ways to determine which tests should be run at which times to ensure that the minimal amount of resources are spent to validate a given change.
 
+虽然工程师可以在本地运行测试，但大多数测试的执行是在一个叫做*Forge*的分布式构建和测试系统中进行。Forge允许工程师在我们的数据中心运行他们的构建和测试，这最大限度地提高了并行性。在我们的规模下，运行所有由工程师按需执行的测试以及作为CB流程一部分运行的所有测试所需的资源是巨大的。即使考虑到我们拥有的计算资源量，像Forge和TAP这样的系统也受到资源限制。为了解决这些限制，在TAP上工作的工程师想出了一些聪明的方法来确定哪些测试应该在什么时候运行，以确保花费最少的资源来验证一个特定的变化。
+
 The primary mechanism for determining which tests need to be run is an analysis of the downstream dependency graph for every change. Google’s distributed build tools, Forge and Blaze, maintain a near-real-time version of the global dependency graph and make it available to TAP. As a result, TAP can quickly determine which tests are downstream from any change and run the minimal set to be sure the change is safe.
+
+确定需要运行哪些测试的主要机制是分析每个更改的下游依赖关系图。谷歌的分布式构建工具Forge和Blaze维护了一个近乎实时的全球依赖关系图版本，并可供用户使用。因此，TAP可以快速确定任何更改的下游测试，并运行最小集以确保更改是安全的。
 
 Another factor influencing the use of TAP is the speed of tests being run. TAP is often able to run changes with fewer tests sooner than those with more tests. This bias encourages engineers to write small, focused changes. The difference in waiting time between a change that triggers 100 tests and one that triggers 1,000 can be tens of minutes on a busy day. Engineers who want to spend less time waiting end up making smaller, targeted changes, which is a win for everyone.
 
-
+影响TAP使用的另一个因素是测试运行的速度。TAP通常能够以更少的测试比更多测试更快地运行更改。这种情况鼓励工程师编写小而集中的更改。在繁忙的一天中，触发100个测试的更改和触发1000个测试的更改之间的等待时间差异可能是几十分钟。希望花更少时间等待的工程师最终会做出更小的、有针对性的修改，这对所有人来说都是一种胜利。 
 
 ----
 
