@@ -11,6 +11,7 @@
 - [第十七章 代码搜索](zh-cn/Chapter-17_Code_Search/Chapter-17_Code_Search.md)
 - [第十八章 构建系统，构建理念](zh-cn/Chapter-18_Build_Systems_and_Build_Philosophy/Chapter-18_Build_Systems_and_Build_Philosophy.md)
 - [第十九章：体验：谷歌的代码审查工具](zh-cn/Chapter-19_Critique_Googles_Code_Review_Tool/Chapter-19_Critique_Googles_Code_Review_Tool.md)
+- [第二十三章：持续集成](zh-cn/Chapter-23_Continuous_Integration/Chapter-23_Continuous_Integration.md)
 - [第二十五章：计算即服务](zh-cn/Chapter-25_Compute_as_a_Service/Chapter-25_Compute_as_a_Service.md)
 - [后记](zh-cn/Afterword.md)
 

@@ -418,7 +418,7 @@ There’s also the challenge of *failure management—*what to do when tests fai
 
 Flaky tests pose another problem to this process. They erode confidence similar to a broken test, but finding a change to roll back is often more difficult because the failure won’t happen all the time. Some teams rely on a tool to remove such flaky tests from presubmit temporarily while the flakiness is investigated and fixed. This keeps confidence high while allowing for more time to fix the problem.
 
-不稳定的测试给这个过程带来了另一个问题。它们会侵蚀信心，就像一次失败的测试一样，但找到一个可以回滚的变化往往更困难，因为失败不会一直发生。一些团队依靠一种工具，在调查和修复不稳定的测试时，暂时从预提交中删除这种不稳定的测试。这样可以保持较高的信心，同时允许有更多的时间来修复这个问题。
+不稳定测试给这个过程带来了另一个问题。它们会侵蚀信心，就像一次失败的测试一样，但找到一个可以回滚的变化往往更困难，因为失败不会一直发生。一些团队依靠一种工具，在调查和修复不稳定的测试时，暂时从预提交中删除这种不稳定测试。这样可以保持较高的信心，同时允许有更多的时间来修复这个问题。
 
 *Test instability* is another significant challenge that we’ve already looked at in the context of presubmits. One tactic for dealing with this is to allow multiple attempts of the test to run. This is a common test configuration setting that teams use. Also, within test code, retries can be introduced at various points of specificity.
 
@@ -550,7 +550,7 @@ After a change has been submitted, we use TAP to asynchronously run all potentia
 
 When a change causes a test to fail in TAP, it is imperative that the change be fixed quickly to prevent blocking other engineers. We have established a cultural norm that strongly discourages committing any new work on top of known failing tests, though flaky tests make this difficult. Thus, when a change is committed that breaks a team’s build in TAP, that change may prevent the team from making forward progress or building a new release. As a result, dealing with breakages quickly is imperative.
 
-当变更导致TAP测试失败时，必须迅速修复变更，以防止阻塞其他工程师。我们已经建立了一种文化规范，强烈反对在已知失败测试的基础上进行任何新的工作，尽管不可靠的测试会让这变得困难。因此，当提交的变更打破了团队的内置TAP时，该变更可能会阻止团队向前推进或构建新版本。因此，快速处理故障势在必行。
+当变更导致TAP测试失败时，必须迅速修复变更，以防止阻塞其他工程师。我们已经建立了一种文化规范，强烈反对在已知失败测试的基础上进行任何新的工作，尽管不稳定测试会让这变得困难。因此，当提交的变更打破了团队的内置TAP时，该变更可能会阻止团队向前推进或构建新版本。因此，快速处理故障势在必行。
 
 To deal with such breakages, each team has a “Build Cop.” The Build Cop’s responsibility is keeping all the tests passing in their particular project, regardless of who breaks them. When a Build Cop is notified of a failing test in their project, they drop whatever they are doing and fix the build. This is usually by identifying the offending change and determining whether it needs to be rolled back (the preferred solution) or can be fixed going forward (a riskier proposition).
 
@@ -606,37 +606,65 @@ Google Takeout started out as a data backup and download product in 2011. Its fo
 
 2011年，Google Takeout开始作为一种数据备份和下载产品。其创始人率先提出了“数据解放”的理念，即用户无论走到哪里，都应该能够轻松地以可用的格式携带数据。他们首先将Takeout与少量谷歌产品整合在一起，制作用户照片、联系人列表等档案，以便在他们的要求下下载。然而，Takeout并没有在很长一段时间内保持规模，它不仅是一个平台，而且是一项针对各种谷歌产品的服务。正如我们将看到的，有效的CI对于保持任何大型项目的健康至关重要，但在应用程序快速增长时尤为关键。
 
-**Scenario #1: Continuously broken dev deploys**
+**Scenario #1: Continuously broken dev deploys** **情景#1：持续中断的开发部署**
 
 **Problem:** As Takeout gained a reputation as a powerful Google-wide data fetching, archiving, and download tool, other teams at the company began to turn to it, requesting APIs so that their own applications could provide backup and download functionality, too, including Google Drive (folder downloads are served by Takeout) and Gmail (for ZIP file previews). All in all, Takeout grew from being the backend for just the original Google Takeout product, to providing APIs for at least 10 other Google products, offering a wide range of functionality.
 
+**问题:**随着Takeout作为功能强大的Google范围内的数据获取、归档和下载工具而声名鹊起，该公司的其他团队开始转向它，请求API以便他们自己的应用程序也可以提供备份和下载功能，包括Google Drive（文件夹下载由Takeout提供）和Gmail（用于ZIP文件预览）. 总之，Takeout从最初的Google Takeout产品的后端发展到为至少10种其他Google产品提供API，提供广泛的功能。
+
 The team decided to deploy each of the new APIs as a customized instance, using the same original Takeout binaries but configuring them to work a little differently. For example, the environment for Drive bulk downloads has the largest fleet, the most quota reserved for fetching files from the Drive API, and some custom authentication logic to allow non-signed-in users to download public folders.
+
+团队决定将每个新的API部署为一个定制的实例，使用相同的原始Takeout二进制文件，但将它们配置成有点不同的工作方式。例如，用于Drive批量下载的环境拥有最大的集群，为从Drive API获取文件保留了最多的配额，以及一些自定义的认证逻辑，允许未登录的用户下载公共文件夹。
 
 Before long, Takeout faced “flag issues.” Flags added for one of the instances would break the others, and their deployments would break when servers could not start up due to configuration incompatibilities. Beyond feature configuration, there was security and ACL configuration, too. For example, the consumer Drive download service should not have access to keys that encrypt enterprise Gmail exports. Configuration quickly became complicated and led to nearly nightly breakages.
 
+不久，Takeout就面临“标志问题”。为其中一个实例添加的标志将破坏其他实例，当服务器由于配置不兼容而无法启动时，它们的部署将中断。除了功能配置之外，还有安全性和ACL配置。例如，消费者驱动器下载服务不应访问加密企业Gmail导出的密钥。配置很快变得复杂，几乎每晚都会发生故障。
+
 Some efforts were made to detangle and modularize configuration, but the bigger problem this exposed was that when a Takeout engineer wanted to make a code change, it was not practical to manually test that each server started up under each configuration. They didn’t find out about configuration failures until the next day’s deploy. There were unit tests that ran on presubmit and post-submit (by TAP), but those weren’t sufficient to catch these kinds of issues.
+
+我们做了一些努力来分解和模块化配置，但这暴露出的更大的问题是，当Takeout工程师想要修改代码时，手动测试每台服务器是否在每种配置下启动是不切实际的。他们在第二天的部署中才发现配置失败的情况。有一些单元测试是在提交前和提交后运行的（通过TAP），但这些测试不足以捕获此类问题。
 
 **What the team did.** The team created temporary, sandboxed mini-environments for each of these instances that ran on presubmit and tested that all servers were healthy on startup. Running the temporary environments on presubmit prevented 95% of broken servers from bad configuration and reduced nightly deployment failures by 50%.
 
+**团队所做的**。**团队为每个实例创建了临时的、沙盒式的迷你环境，在预提交时运行，并测试所有服务器在启动时是否健康。在提交前运行临时环境可以防止95%的服务器因配置不当而损坏，并将夜间部署失败率降低了50%。
+
 Although these new sandboxed presubmit tests dramatically reduced deployment failures, they didn’t remove them entirely. In particular, Takeout’s end-to-end tests would still frequently break the deploy, and these tests were difficult to run on presubmit (because they use test accounts, which still behave like real accounts in some respects and are subject to the same security and privacy safeguards). Redesigning them to be presubmit friendly would have been too big an undertaking.
+
+尽管这些新的沙盒式预提交测试大大减少了部署失败，但它们并没有完全消除它们。特别是，Takeout的端到端测试仍然经常中断部署，而且这些测试很难在预提交中运行（因为它们使用的是测试账户，在某些方面仍然与真实账户一样，并受到同样的安全和隐私保护）。重新设计它们以使其对预提交友好，将是一项巨大的工程。
 
 If the team couldn’t run end-to-end tests in presubmit, when could it run them? It wanted to get end-to-end test results more quickly than the next day’s dev deploy and decided every two hours was a good starting point. But the team didn’t want to do a full dev deploy this often—this would incur overhead and disrupt long-running processes that engineers were testing in dev. Making a new shared test environment for these tests also seemed like too much overhead to provision resources for, plus culprit finding (i.e., finding the deployment that led to a failure) could involve some undesirable manual work.
 
+如果团队不能在预提交中运行端到端测试，那么它什么时候可以运行？它想比第二天的开发部署更快得到端到端的测试结果，并决定每两小时一次是一个好的起点。但团队并不想这么频繁地进行全面的开发部署--这将产生开销，并扰乱工程师在开发中测试的长期运行的流程。为这些测试建立一个新的共享测试环境，似乎也需要太多的开销来提供资源，再加上查找问题（即找到导致失败的部署）可能涉及一些不可预知的手动工作。
+
 So, the team reused the sandboxed environments from presubmit, easily extending them to a new post-submit environment. Unlike presubmit, post-submit was compliant with security safeguards to use the test accounts (for one, because the code has been approved), so the end-to-end tests could be run there. The post-submit CI runs every two hours, grabbing the latest code and configuration from green head, creates an RC, and runs the same end-to-end test suite against it that is already run in dev.
+
+因此，该团队重新使用了预提交的沙盒环境，轻松地将它们扩展到新的后提交环境。与预提交不同，后提交符合安全保障措施，可以使用测试账户（其一，因为代码已经被批准），所以端到端的测试可以在那里运行。提交后的CI每两小时运行一次，从绿头抓取最新的代码和配置，创建一个RC，并针对它运行已经在开发中运行的相同的端到端测试套件。
 
 **Lesson learned.** Faster feedback loops prevent problems in dev deploys:
 
-•   Moving tests for different Takeout products from “after nightly deploy” to presubmit prevented 95% of broken servers from bad configuration and reduced nightly deployment failures by 50%.
+-   Moving tests for different Takeout products from “after nightly deploy” to presubmit prevented 95% of broken servers from bad configuration and reduced nightly deployment failures by 50%.
 
-•   Though end-to-end tests couldn’t be moved all the way to presubmit, they were still moved from “after nightly deploy” to “post-submit within two hours.” This effectively cut the “culprit set” by 12 times.
+-   Though end-to-end tests couldn’t be moved all the way to presubmit, they were still moved from “after nightly deploy” to “post-submit within two hours.” This effectively cut the “culprit set” by 12 times.
 
-**Scenario #2: Indecipherable test logs**
+**经验教训。**更快的反馈循环防止了开发部署中的问题：
+
+- 将不同Takeout产品的测试从 "夜间部署后 "转移到预提交，可以防止95%的服务器因配置不良而损坏，并将夜间部署的失败率降低50%。
+
+- 尽管端到端测试不能全部转移到预提交，但它们仍然从 "夜间部署后 "转移到 "两小时内提交后"。这有效地将 "罪魁祸首集 "减少了12倍。
+
+**Scenario #2: Indecipherable test logs**  **场景2：无法识别的测试日志**
 
 **Problem:** As Takeout incorporated more Google products, it grew into a mature platform that allowed product teams to insert plug-ins, with product-specific data- fetching code, directly into Takeout’s binary. For example, the Google Photos plug-in knows how to fetch photos, album metadata, and the like. Takeout expanded from its original “handful” of products to now integrate with more than *90*.
 
+**问题：**随着Takeout整合了更多的谷歌产品，它已经发展成为一个成熟的平台，允许产品团队直接在Takeout的二进制文件中插入插件，其中包含产品特定的数据获取代码。例如，谷歌照片插件知道如何获取照片、相册元数据等。Takeout从最初的 "少数 "产品扩展到现在与超过*90个*的产品集成。
+
 Takeout’s end-to-end tests dumped its failures to a log, and this approach didn’t scale to 90 product plug-ins. As more products integrated, more failures were introduced. Even though the team was running the tests earlier and more often with the addition of the post-submit CI, multiple failures would still pile up inside and were easy to miss. Going through these logs became a frustrating time sink, and the tests were almost always failing.
 
+Takeout的端到端测试将其故障转储到日志中，这种方法不能扩展到90个产品插件。随着更多产品的集成，更多的故障被引入。尽管团队在提交后的CI中更早更频繁地运行测试，但多个故障还是会堆积在里面，很容易被忽略。翻阅这些日志成了一个令人沮丧的时间消耗，而且测试几乎总是失败。
+
 **What the team did.** The team refactored the tests into a dynamic, configuration-based suite (using a [parameterized test runner](https://oreil.ly/UxkHk)) that reported results in a friendlier UI, clearly showing individual test results as green or red: no more digging through logs. They also made failures much easier to debug, most notably, by displaying failure information, with links to logs, directly in the error message. For example, if Takeout failed to fetch a file from Gmail, the test would dynamically construct a link that searched for that file’s ID in the Takeout logs and include it in the test failure message. This automated much of the debugging process for product plug-in engineers and required less of the Takeout team’s assistance in sending them logs, as demonstrated in [Figure 23-3](#_bookmark2091).
+
+**团队所做的**。团队将测试重构为一个动态的、基于配置的套件（使用一个参数化的测试运行器），在一个更友好的用户界面中报告结果，清楚地显示单个测试结果为绿色或红色：不再翻阅日志。他们还使失败变得更容易调试，最明显的是，在错误信息中直接显示失败信息，并提供日志链接。例如，如果Takeout从Gmail获取文件失败，测试将动态地构建一个链接，在Takeout日志中搜索该文件的ID，并将其包含在测试失败信息中。如图23-3所示，这使产品插件工程师的大部分调试过程自动化，并在向他们发送日志时不再需要Takeout团队的协助。
 
 ![Figure 23-3](./images/Figure 23-3.png)
 
@@ -644,72 +672,108 @@ Takeout’s end-to-end tests dumped its failures to a log, and this approach did
 
 **Lesson learned.** Accessible, actionable feedback from CI reduces test failures and improves productivity. These initiatives reduced the Takeout team’s involvement in debugging client (product plug-in) test failures by 35%.
 
-**Scenario #3: Debugging “all of Google”**
+**经验教训。**来自CI的可访问、可操作的反馈减少了测试失败，提高了生产力。这些举措使Takeout团队参与调试客户（产品插件）测试失败的情况减少了35%。
+
+**Scenario #3: Debugging “all of Google”**  **情景#3：调试 "所有谷歌"**
 
 **Problem:** An interesting side effect of the Takeout CI that the team did not anticipate was that, because it verified the output of 90-some odd end-user–facing products, in the form of an archive, they were basically testing “all of Google” and catching issues that had nothing to do with Takeout. This was a good thing—Takeout was able to help contribute to the quality of Google’s products overall. However, this introduced a problem for their CI processes: they needed better failure isolation so that they could determine which problems were in their build (which were the minority) and which lay in loosely coupled microservices behind the product APIs they called.
 
+**问题：**Takeout CI的一个有趣的副作用是团队没有预料到的，因为它以归档的形式验证了90多个面向最终用户的产品的输出，他们基本上是在测试 "所有的Google产品"，捕捉与Takeout无关的问题。这是一件好事--Takeout能够帮助提高谷歌产品的整体质量。然而，这给他们的CI流程带来了一个问题：他们需要更好的故障隔离，以便他们能够确定哪些问题是在他们的构建中（哪些是少数），哪些是在他们调用的产品API背后松散耦合的微服务中。
+
 **What the team did.** The team’s solution was to run the exact same test suite continuously against production as it already did in its post-submit CI. This was cheap to implement and allowed the team to isolate which failures were new in its build and which were in production; for instance, the result of a microservice release somewhere else “in Google.”
+
+**团队所做的**。该团队的解决方案是针对生产持续运行完全相同的测试套件，正如它在提交后CI中所做的那样。这样做的成本很低，并允许团队隔离哪些故障是在其构建中出现的，哪些是在生产中出现的；例如，微服务发布的结果“在谷歌的其他地方”。
 
 **Lesson learned.** Running the same test suite against prod and a post-submit CI (with newly built binaries, but the same live backends) is a cheap way to isolate failures.
 
+**经验教训**。对生产环境和提交后的CI运行相同的测试套件（使用新构建的二进制文件，但相同的实时后端）是隔离故障的廉价方法。
+
 **Remaining challenge.** Going forward, the burden of testing “all of Google” (obviously, this is an exaggeration, as most product problems are caught by their respective teams) grows as Takeout integrates with more products and as those products become more complex. Manual comparisons between this CI and prod are an expensive use of the Build Cop’s time.
+
+**仍然存在的挑战。**展望未来，随着Takeout与更多的产品整合，以及这些产品变得更加复杂，测试 "所有谷歌"（显然，这是一个夸张的说法，因为大多数产品问题都是由他们各自的团队发现的）的负担越来越重。在这个CI和prod之间进行手动比较是对Build Cop时间的昂贵使用。
 
 **Future improvement.** This presents an interesting opportunity to try hermetic testing with record/replay in Takeout’s post-submit CI. In theory, this would eliminate failures from backend product APIs surfacing in Takeout’s CI, which would make the suite more stable and effective at catching failures in the last two hours of Takeout changes—which is its intended purpose.
 
-Scenario #4: Keeping it green
+**Scenario #4: Keeping it green**  **场景4：保持绿色**
 
 **Problem:** As the platform supported more product plug-ins, which each included end-to-end tests, these tests would fail and the end-to-end test suites were nearly always broken. The failures could not all be immediately fixed. Many were due to bugs in product plug-in binaries, which the Takeout team had no control over. And some failures mattered more than others—low-priority bugs and bugs in the test code did not need to block a release, whereas higher-priority bugs did. The team could easily disable tests by commenting them out, but that would make the failures too easy to forget about.
 
+**问题**：随着平台支持更多的产品插件，每个插件都包括端到端的测试，这些测试会失败，端到端的测试套件几乎总是被破坏。这些故障不可能都被立即修复。许多故障是由于产品插件二进制文件中的错误，Takeout 团队无法控制这些错误。有些故障比其他故障更重要--低优先级的bug和测试代码中的bug不需要阻止发布，而高优先级的bug需要阻止。团队可以很容易地通过注释它们来禁用测试，但这将使失败者很容易忘记。
+
 One common source of failures: tests would break when product plug-ins were rolling out a feature. For example, a playlist-fetching feature for the YouTube plug-in might be enabled for testing in dev for a few months before being enabled in prod. The Takeout tests only knew about one result to check, so that often resulted in the test needing to be disabled in particular environments and manually curated as the feature rolled out.
+
+一个常见的失败原因是：当产品插件推出一个功能时，测试会中断。例如，YouTube插件的播放列表获取功能可能在开发阶段启用了几个月的测试，然后才在生产阶段启用。Takeout测试只知道要检查一个结果，所以这往往导致测试需要在特定的环境中被禁用，并在功能推出时被手动修复。
 
 **What the team did.** The team came up with a strategic way to disable failing tests by tagging them with an associated bug and filing that off to the responsible team (usually a product plug-in team). When a failing test was tagged with a bug, the team’s testing framework would suppress its failure. This allowed the test suite to stay green and still provide confidence that everything else, besides the known issues, was passing, as illustrated in [Figure 23-4](#_bookmark2092).
 
+**团队所做的**。该团队提出了一种禁用失败测试的战略方法，方法是使用相关错误标记失败测试，并将其提交给负责的团队（通常是产品插件团队）。当失败的测试被标记为错误时，团队的测试框架将抑制其失败。这允许测试套件保持绿色，并且仍然提供信心，证明除已知问题外的所有其他问题都通过了，如图23-4所示。
+
 ![Figure 23-4](./images/Figure 23-4.png)
 
-*Figure* *23-4.* *Achieving* *greenness* *through* *(responsible)* *test* *disablement*
+*Figure* *23-4.* *Achieving* *greenness* *through* *(responsible)* *test* *disablement* *通过（责任人）测试禁用来实现绿色*
 
 For the rollout problem, the team added capability for plug-in engineers to specify the name of a feature flag, or ID of a code change, that enabled a particular feature along with the output to expect both with and without the feature. The tests were equipped to query the test environment to determine whether the given feature was enabled there and verified the expected output accordingly.
 
+对于推广问题，团队增加了插件工程师指定功能标志名称或代码更改ID的功能，该功能使特定功能和输出能够同时使用和不使用该功能。测试配备了查询测试环境的功能，以确定给定的功能是否在那里启用，并相应地验证预期输出。
+
 When bug tags from disabled tests began to accumulate and were not updated, the team automated their cleanup. The tests would now check whether a bug was closed by querying our bug system’s API. If a tagged-failing test actually passed and was passing for longer than a configured time limit, the test would prompt to clean up the tag (and mark the bug fixed, if it wasn’t already). There was one exception for this strategy: flaky tests. For these, the team would allow a test to be tagged as flaky, and the system wouldn’t prompt a tagged “flaky” failure for cleanup if it passed.
 
-These changes made a mostly self-maintaining test suite, as illustrated in [Figure 23-5](#_bookmark2093).
+当被禁用的测试的bug标签开始积累并且不被更新时，该团队将其清理自动化。测试现在会通过查询我们的错误系统的API来检查一个错误是否被关闭。如果一个被标记为失败的测试实际通过了，并且通过的时间超过了配置的时间限制，测试就会提示清理标签（如果还没有被修复的话，就标记为bug修复）。这个策略有一个例外：不稳定的测试。对于这些，团队将允许测试被标记为不稳定，如果测试通过了，系统不会提示清理标记的 "不稳定 "故障。
+
+These changes made a mostly self-maintaining test suite, as illustrated in [Figure 23-5](#_bookmark2093).‘
+
+’这些变化使得测试套件大多是自我维护的，如图23-5所示。
 
 ![Figure 23-5](./images/Figure 23-5.png)
 
-*Figure 23-5. Mean time to close bug, after fix submitted*
-
- 
+*Figure 23-5. Mean time to close bug, after fix submitted* *提交修复程序后关闭bug的平均时间*
 
 **Lessons learned.** Disabling failing tests that can’t be immediately fixed is a practical approach to keeping your suite green, which gives confidence that you’re aware of all test failures. Also, automating the test suite’s maintenance, including rollout management and updating tracking bugs for fixed tests, keeps the suite clean and prevents technical debt. In DevOps parlance, we could call the metric in [Figure 23-5 ](#_bookmark2093)MTTCU: mean time to clean up.
 
+**经验教训。**禁用无法立即修复的失败测试是保持套件绿色的一种切实可行的方法，这使人相信你知道所有的测试失败。另外，自动化测试套件的维护，包括推出管理和更新跟踪固定测试的bug，保持套件的清洁，防止技术债务。用DevOps的说法，我们可以把图23-5MTTCU中的指标称为：平均清理时间。
+
 **Future improvement.** Automating the filing and tagging of bugs would be a helpful next step. This is still a manual and burdensome process. As mentioned earlier, some of our larger teams already do this.
+
+**未来的改进。**自动归档和标记bug将是一个有用的下一步。这仍然是一个手动和繁重的过程。正如前面提到的，我们的一些大型团队已经这样做了。
 
 **Further challenges.** The scenarios we’ve described are far from the only CI challenges faced by Takeout, and there are still more problems to solve. For example, we mentioned the difficulty of isolating failures from upstream services in [“CI Challenges” on](#_bookmark2059) [page 490](#_bookmark2059). This is a problem that Takeout still faces with rare breakages originating with upstream services, such as when a security update in the streaming infrastructure used by Takeout’s “Drive folder downloads” API broke archive decryption when it deployed to production. The upstream services are staged and tested themselves, but there is no simple way to automatically check with CI if they are compatible with Takeout after they’re launched into production. An initial solution involved creating an “upstream staging” CI environment to test production Takeout binaries against the staged versions of their upstream dependencies. However, this proved difficult to maintain, with additional compatibility issues between staging and production versions.
 
+**进一步的挑战。**我们所描述的场景远不是Takeout所面临的唯一的CI挑战，还有更多问题需要解决。例如，我们在第490页的 "CI挑战 "中提到了从上游服务隔离故障的困难。这是Takeout仍然面临的一个问题，即源于上游服务的罕见故障，例如Takeout的“驱动器文件夹下载”API使用的流式基础结构中的安全更新在部署到生产环境时破坏了存档解密。上游服务都是经过阶段性测试的，但没有简单的方法在它们投入生产后用CI自动检查它们是否与Takeout兼容。最初的解决方案是创建一个 "上游临时 "的CI环境，根据上游依赖的暂存版本测试Takeout的生产二进制文件。然而，这被证明是很难维护的，在临时版本和生产版本之间存在着额外的兼容性问题。
 
-
-### But I Can’t Afford CI
+### But I Can’t Afford CI  但我用不起CI费用
 
 You might be thinking that’s all well and good, but you have neither the time nor money to build any of this. We certainly acknowledge that Google might have more resources to implement CI than the typical startup does. Yet many of our products have grown so quickly that they didn’t have time to develop a CI system either (at least not an adequate one).
 
+你可能会想，这一切都很好，但你既没有时间也没有钱来建立这些。我们当然承认，谷歌可能比一般的创业公司拥有更多的资源来实施CI。然而，我们的许多产品成长得如此之快，以至于他们也没有时间去开发一个CI系统（至少不是一个合适的系统）。
+
 In your own products and organizations, try and think of the cost you are already paying for problems discovered and dealt with in production. These negatively affect the end user or client, of course, but they also affect the team. Frequent production fire-fighting is stressful and demoralizing. Although building out CI systems is expensive, it’s not necessarily a new cost as much as a cost shifted left to an earlier— and more preferable—stage, reducing the incidence, and thus the cost, of problems occurring too far to the right. CI leads to a more stable product and happier developer culture in which engineers feel more confident that “the system” will catch problems, and they can focus more on features and less on fixing.
 
-## Conclusion
+在你自己的产品和组织中，试着想想你已经为在生产中发现和处理的问题支付了多少成本。这些问题当然会对最终用户或客户产生负面影响，但它们也会影响到团队。频繁的生产救火是一种压力和士气的体现。尽管建立CI系统是昂贵的，但它不一定是一个新的成本，而是将成本转移到一个更早的、更可取的阶段，减少问题的发生率，从而减少成本，因为问题发生在右边。CI带来了更稳定的产品和更快乐的开发运营文化，在这种文化中，工程师更相信“系统”会发现问题，他们可以更多地关注功能，而不是修复问题。
+
+## Conclusion 总结
 
 Even though we’ve described our CI processes and some of how we’ve automated them, none of this is to say that we have developed perfect CI systems. After all, a CI system itself is just software and is never complete and should be adjusted to meet the evolving demands of the application and engineers it is meant to serve. We’ve tried to illustrate this with the evolution of Takeout’s CI and the future areas of improvement we point out.
 
+尽管我们已经描述了我们的 CI 流程和一些自动化的方法，但这并不是说我们已经开发了完美的 CI 系统。毕竟，CI系统本身只是一个软件，永远不会完整，应该进行调整以满足应用程序和工程师不断变化的需求。我们试图用Takeout的CI的演变和我们指出的未来改进领域来说明这一点。
+
 ## TL;DRs
 
-•   A CI system decides what tests to use, and when.
+- A CI system decides what tests to use, and when.
 
-•   CI systems become progressively more necessary as your codebase ages and grows in scale.
+- CI systems become progressively more necessary as your codebase ages and grows in scale.
 
-•   CI should optimize quicker, more reliable tests on presubmit and slower, less deterministic tests on post-submit.
+- CI should optimize quicker, more reliable tests on presubmit and slower, less deterministic tests on post-submit.
 
-•   Accessible, actionable feedback allows a CI system to become more efficient.
+- Accessible, actionable feedback allows a CI system to become more efficient.
 
 
+- CI系统决定使用什么测试以及何时使用。
 
+- 随着代码库的老化和规模的扩大，CI系统变得越来越有必要。
+
+- CI应该在提交前优化更快、更可靠的测试，在提交后优化更慢、更不确定的测试。
+
+- 可访问、可操作的反馈使CI系统变得更加有效。
 
 
 
