@@ -1,4 +1,4 @@
-**CHAPTER** **23
+**CHAPTER  23 **
 
 # Continuous Integration
 
