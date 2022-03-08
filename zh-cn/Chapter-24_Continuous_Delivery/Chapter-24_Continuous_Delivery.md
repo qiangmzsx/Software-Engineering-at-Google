@@ -8,64 +8,112 @@
                         Written by adha Narayan, Bobbi Jones, Sheri Shipe, and David Owens Edited by Lisa Carey
 
 Given how quickly and unpredictably the technology landscape shifts, the competitive advantage for any product lies in its ability to quickly go to market. An organization’s velocity is a critical factor in its ability to compete with other players, maintain product and service quality, or adapt to new regulation. This velocity is bottlenecked by the time to deployment. Deployment doesn’t just happen once at initial launch. There is a saying among educators that no lesson plan survives its first contact with the student body. In much the same way, no software is perfect at first launch, and the only guarantee is that you’ll have to update it. Quickly.
+
+鉴于技术领域的变化是如此之快且不可预测，任何产品的竞争优势都在于其快速进入市场的能力。一个组织的速度是其与其他参与者竞争、保持产品和服务质量或适应新法规能力的关键因素。这种速度受到部署时间的瓶颈制约。部署不会在初始启动时只发生一次。教育家们有一种说法，没有一个教案能在第一次与学生接触后幸存下来。同样，没有一款软件在第一次发布时是完美的，唯一的保证就是你必须更新它。迅速地
+
 The long-term life cycle of a software product involves rapid exploration of new ideas, rapid responses to landscape shifts or user issues, and enabling developer velocity at scale. From Eric Raymond’s The Cathedral and the Bazaar to Eric Reis’ The Lean Startup, the key to any organization’s long-term success has always been in its ability to get ideas executed and into users’ hands as quickly as possible and reacting quickly to their feedback. Martin Fowler, in his book Continuous Delivery (aka CD), points out that “The biggest risk to any software effort is that you end up building something that isn’t useful. The earlier and more frequently you get working software in front of real users, the quicker you get feedback to find out how valuable it really is.”
+
+软件产品的长期生命周期包括快速探索新想法、快速响应环境变化或用户问题，以及实现大规模开发速度。从埃里克·雷蒙德（Eric Raymond）的《大教堂与集市》（The Cathedral and The Bazaar）到埃里克·赖斯（Eric Reis）的《精益创业》（The Lean Startup），任何组织长期成功的关键始终在于其能够尽快将想法付诸实施并交到用户手中，并对他们的反馈做出快速反应。马丁·福勒（Martin Fowler）在其著作《持续交付》（Continuous Delivery，又名CD）中指出，“任何软件工作的最大风险是，你最终建立的东西并不实用。你越早、越频繁地将工作中的软件展现在真正的用户面前，你就能越快地得到反馈，发现它到底有多大价值。”
+
 Work that stays in progress for a long time before delivering user value is high risk and high cost, and can even be a drain on morale. At Google, we strive to release early and often, or “launch and iterate,” to enable teams to see the impact of their work quickly and to adapt faster to a shifting market. The value of code is not realized at the time of submission but when features are available to your users. Reducing the time between “code complete” and user feedback minimizes the cost of work that is in progress.
 
-	You get extraordinary outcomes by realizing that the launch *never lands* but that it begins a learning cycle where you then fix the next most important thing, measure how it went, fix the next thing, etc.—and it is *never complete*.
+在交付用户价值之前进行很长时间的工作是高风险和高成本的，甚至可能会消耗士气。在谷歌，我们努力做到早期和经常发布，或者说 "发布和迭代"，以使团队能够迅速看到他们工作的影响，并更快地适应不断变化的市场。代码的价值不是在提交时实现的，而是在你的用户可以使用的功能时实现的。缩短 "代码完成 "和用户反馈之间的时间，可以将正在进行中的工作的成本降到最低。
 
+	You get extraordinary outcomes by realizing that the launch *never lands* but that it begins a learning cycle where you then fix the next most important thing, measure how it went, fix the next thing, etc.—and it is *never complete*.
+	
 	—David Weekly, Former Google product manager
+	
+	当你意识到发射从未着陆，但它开始了一个学习周期，然后你修复下一个最重要的事情，衡量它如何进行，修复下一个事情，等等——而且它永远不会完成。
+	-David Weekly，前谷歌产品经理
 
 At Google, the practices we describe in this book allow hundreds (or in some cases thousands) of engineers to quickly troubleshoot problems, to independently work on new features without worrying about the release, and to understand the effectiveness of new features through A/B experimentation. This chapter focuses on the key levers of rapid innovation, including managing risk, enabling developer velocity at scale, and understanding the cost and value trade-off of each feature you launch.
 
-## Idioms of Continuous Delivery at Google
+在谷歌，我们在本书中描述的做法使数百名（或在某些情况下数千名）工程师能够快速排除问题，独立完成新功能而不必担心发布问题，并通过A/B实验了解新功能的有效性。本章重点关注快速创新的关键杠杆，包括管理风险、实现大规模的开发者速度，以及了解你推出的每个功能的成本和价值权衡。
+
+## Idioms of Continuous Delivery at Google 谷歌持续交付的习惯用法
 
 A core tenet of Continuous Delivery (CD) as well as of Agile methodology is that over time, smaller batches of changes result in higher quality; in other words, *faster is safer*. This can seem deeply controversial to teams at first glance, especially if the prerequisites for setting up CD—for example, Continuous Integration (CI) and testing— are not yet in place. Because it might take a while for all teams to realize the ideal of CD, we focus on developing various aspects that deliver value independently en route to the end goal. Here are some of these:
 
 *Agility*
 
-	Release frequently and in small batches
+​	Release frequently and in small batches
 
 *Automation*
 
-	Reduce or remove repetitive overhead of frequent releases
+​	Reduce or remove repetitive overhead of frequent releases
 
 *Isolation*
 
-	Strive for modular architecture to isolate changes and make troubleshooting easier
+​	Strive for modular architecture to isolate changes and make troubleshooting easier
 
 *Reliability*
 
-	Measure key health indicators like crashes or latency and keep improving them
+​	Measure key health indicators like crashes or latency and keep improving them
 
 *Data-driven* *decision* *making*
 
-	Use A/B testing on health metrics to ensure quality
+​	Use A/B testing on health metrics to ensure quality
 
 *Phased* *rollout*
 
-	Roll out changes to a few users before shipping to everyone
+​	Roll out changes to a few users before shipping to everyone
+
+持续交付（CD）以及敏捷方法论的一个核心原则是，随着时间的推移，小批量的变更会带来更高的质量；换句话说，越快越安全。乍一看，这似乎对团队有很大的争议，尤其是当建立CD的前提条件--例如，持续集成（CI）和测试--还没有到位的时候。因为所有团队可能需要一段时间才能实现CD的理想，所以我们将重点放在开发能够在实现最终目标的过程中独立交付价值的各个方面。下面是其中的一些：
+
+*敏捷性*
+
+​	频繁地、小批量地发布。
+*自动化*
+
+​	减少或消除频繁发布的重复性开销。
+*隔离性*
+
+​	努力实现模块化体系结构，以隔离更改并使故障排除更加容易。
+*可靠性*
+
+​	衡量关键的健康指标，如崩溃或延迟，并不断改善它们。
+*数据驱动的决策*
+
+​	在健康指标上使用A/B测试以确保质量。
+*分阶段推出*
+
+​	在向所有人发送之前，先在少数用户中推广变更。
 
 At first, releasing new versions of software frequently might seem risky. As your userbase grows, you might fear the backlash from angry users if there are any bugs that you didn’t catch in testing, and you might quite simply have too much new code in your product to test exhaustively. But this is precisely where CD can help. Ideally, there are so few changes between one release and the next that troubleshooting issues is trivial. In the limit, with CD, every change goes through the QA pipeline and is automatically deployed into production. This is often not a practical reality for many teams, and so there is often work of culture change toward CD as an intermediate step, during which teams can build their readiness to deploy at any time without actually doing so, building up their confidence to release more frequently in the future.
 
- 
+ 起初，频繁发布新版本的软件可能看起来很冒险。随着用户群的增长，你可能会担心如果有任何你在测试中没有发现的错误，你会受到愤怒的用户的反击，或许你可能在产品中包含太多的新代码，无法详尽地测试。但这恰恰是CD可以帮助的地方。理想情况下，一个版本和下一个版本之间的变化非常少，排除问题是非常简单的。在极限情况下，有了CD，每个变化都会通过QA管道，并自动部署到生产中。对于许多团队来说，这通常不是一个实际的现实，因此，作为中间步骤，通常会有文化变革工作，在这一过程中，团队可以建立随时部署的准备，而不必实际这样做，从而建立信心，在未来更频繁地发布。
 
-## Velocity Is a Team Sport: How to Break Up a Deployment into Manageable Pieces
+## Velocity Is a Team Sport: How to Break Up a Deployment into Manageable Pieces   速度是一项团队运动：如何将部署工作分解成可管理的部分
 
 When a team is small, changes come into a codebase at a certain rate. We’ve seen an antipattern emerge as a team grows over time or splits into subteams: a subteam branches off its code to avoid stepping on anyone’s feet, but then struggles, later, with integration and culprit finding. At Google, we prefer that teams continue to develop at head in the shared codebase and set up CI testing, automatic rollbacks, and culprit finding to identify issues quickly. This is discussed at length in [Chapter 23](#_bookmark2022).
 
+当一个团队很小的时候，变化以一定的速度进入一个代码库。我们看到，随着时间的推移，一个团队的成长或分裂成子团队，会出现一种反模式：一个子团队将其代码分支，以避免踩到其他团队的脚，但后来却在集成和寻找罪魁祸首方面陷入困境。在谷歌，我们更倾向于团队继续在共享代码库中进行开发，并设置CI测试、自动回滚和故障查找，以快速识别问题。这在第23章中有详细的讨论。
+
 One of our codebases, YouTube, is a large, monolithic Python application. The release process is laborious, with Build Cops, release managers, and other volunteers. Almost every release has multiple cherry-picked changes and respins. There is also a 50-hour manual regression testing cycle run by a remote QA team on every release. When the operational cost of a release is this high, a cycle begins to develop in which you wait to push out your release until you’re able to test it a bit more. Meanwhile, someone wants to add just one more feature that’s almost ready, and pretty soon you have yourself a release process that’s laborious, error prone, and slow. Worst of all, the experts who did the release last time are burned out and have left the team, and now nobody even knows how to troubleshoot those strange crashes that happen when you try to release an update, leaving you panicky at the very thought of pushing that button.
+
+我们的一个代码库，YouTube，是一个大型的、单体的Python应用程序。发布过程很费劲，有Build Cops、发布经理和其他志愿者。乎每个版本都有多个精心挑选的更改和响应。每个版本还有一个由远程QA团队运行的50小时手工回归测试周期。当一个发布的操作成本如此之高时，就会形成一个循环，在这个循环中，你会等待推送你的版本，直到你能够对其进行更多的测试。与此同时，有人想再增加一个几乎已经准备好的功能，很快你就有了一个费力、容易出错和缓慢的发布过程。最糟糕的是，上次做发布工作的专家已经精疲力尽，离开了团队，现在甚至没有人知道如何解决那些当你试图发布更新时发生的奇怪崩溃，让你一想到要按下那个按钮就感到恐慌。
 
 If your releases are costly and sometimes risky, the *instinct* is to slow down your release cadence and increase your stability period. However, this only provides short- term stability gains, and over time it slows velocity and frustrates teams and users. The *answer* is to reduce cost, increase discipline, and make the risks more incremental, but it is critical to resist the obvious operational fixes and invest in long-term architectural changes. The obvious operational fixes to this problem lead to a few traditional approaches: reverting to a traditional planning model that leaves little room for learning or iteration, adding more governance and oversight to the development process, and implementing risk reviews or rewarding low-risk (and often low-value) features.
 
+如果你的发布是昂贵的，有时是有风险的，那么*本能*的反应是放慢你的发布节奏，增加你的稳定期。然而，这只能提供短期的稳定性收益，随着时间的推移，它会减慢速度，使团队和用户感到沮丧。答案是降低成本，提高纪律性，使风险更多的增加，但关键是要抵制明显的操作修复，投资于长期的架构变化。对这个问题的明显的操作性修正导致了一些传统的方法：恢复到传统的计划模式，为学习或迭代留下很少的空间，为开发过程增加更多的治理和监督，以及实施风险审查或奖励低风险（通常是低价值）的功能。
+
 The investment with the best return, though, is migrating to a microservice architecture, which can empower a large product team with the ability to remain scrappy and innovative while simultaneously reducing risk. In some cases, at Google, the answer has been to rewrite an application from scratch rather than simply migrating it, establishing the desired modularity into the new architecture. Although either of these options can take months and is likely painful in the short term, the value gained in terms of operational cost and cognitive simplicity will pay off over an application’s lifespan of years.
 
-## Evaluating Changes in Isolation: Flag-Guarding Features
+不过，回报率最高的投资是迁移到微服务架构，这可以使一个大型产品团队有能力保持活力和创新，同时降低风险。在某些情况下，在谷歌，答案是从头开始重写一个应用程序，而不是简单地迁移它，在新的架构中建立所需的模块化。尽管这两种选择都需要几个月的时间，而且在短期内可能是痛苦的，但在运营成本和认知的简单性方面获得的价值将在应用程序多年的生命周期中得到回报。
+
+## Evaluating Changes in Isolation: Flag-Guarding Features 评估隔离中的更改：标志保护功能
 
 A key to reliable continuous releases is to make sure engineers “flag guard” *all changes*. As a product grows, there will be multiple features under various stages of development coexisting in a binary. Flag guarding can be used to control the inclusion or expression of feature code in the product on a feature-by-feature basis and can be expressed differently for release and development builds. A feature flag disabled for a build should allow build tools to strip the feature from the build if the language permits it. For instance, a stable feature that has already shipped to customers might be enabled for both development and release builds. A feature under development might be enabled only for development, protecting users from an unfinished feature. New feature code lives in the binary alongside the old codepath—both can run, but the new code is guarded by a flag. If the new code works, you can remove the old codepath and launch the feature fully in a subsequent release. If there’s a problem, the flag value can be updated independently from the binary release via a dynamic config update.
 
+可靠的连续发布的关键是确保工程师“保护”所有更改。随着产品的发展，在不同的开发阶段，将有多种功能以二进制形式共存。标志保护可用于控制产品中功能代码的包含或表达，以功能为基础，并可在发布和开发版本中以不同方式表达。如果局域网允许，为构建禁用的功能标志应允许构建工具从构建中剥离该功能。例如，一个已经提供给客户的稳定特性可能会在开发版本和发布版本中启用。正在开发的功能可能仅为开发而启用，从而保护用户不受未完成功能的影响。新的特性代码与旧的代码路径一起存在于二进制文件中，两者都可以运行，但新代码由一个标志保护。如果新代码有效，您可以删除旧代码路径，并在后续版本中完全启动该功能。如果出现问题，可以通过动态配置更新独立于二进制版本更新标志值。
+
 In the old world of binary releases, we had to time press releases closely with our binary rollouts. We had to have a successful rollout before a press release about new functionality or a new feature could be issued. This meant that the feature would be out in the wild before it was announced, and the risk of it being discovered ahead of time was very real.
 
+在过去的二进制发布的世界里，我们必须将新闻发布时间与二进制发布时间紧密配合。在发布关于新功能或新功能的新闻稿之前，我们必须进行成功的展示。这意味着该功能将在发布之前就已经公开，提前被发现的风险是非常现实的。
+
 This is where the beauty of the flag guard comes to play. If the new code has a flag, the flag can be updated to turn your feature on immediately before the press release, thus minimizing the risk of leaking a feature. Note that flag-guarded code is not a *perfect* safety net for truly sensitive features. Code can still be scraped and analyzed if it’s not well obfuscated, and not all features can be hidden behind flags without adding a lot of complexity. Moreover, even flag configuration changes must be rolled out with care. Turning on a flag for 100% of your users all at once is not a great idea, so a configuration service that manages safe configuration rollouts is a good investment. Nevertheless, the level of control and the ability to decouple the destiny of a particular feature from the overall product release are powerful levers for long-term sustainability of the application.
+
+这就是标志的魅力所在。如果新的代码有一个标志，标志可以被更新，在新闻发布前立即打开你的功能，从而最大限度地减少了功能泄露的风险。请注意，对于真正敏感的功能，有标志的代码并不是一个完美的安全网。如果代码没有被很好地混淆，它仍然可以被抓取和分析，而且不是所有的功能都可以隐藏在标志后面而不增加很多复杂性。此外，即使是标志配置的改变，也必须谨慎地推出。一次性为100%的用户打开一个标志并不是一个好主意，所以一个能管理安全配置推出的配置服务是一个很好的投资。尽管如此，控制水平和将特定功能的命运与整个产品发布脱钩的能力是应用程序长期可持续性的有力杠杆。
 
 ## Striving for Agility: Setting Up a Release Train
 
