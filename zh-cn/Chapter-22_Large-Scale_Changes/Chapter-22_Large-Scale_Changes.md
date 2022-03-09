@@ -1,4 +1,3 @@
-
 **CHAPTER  22 **
 
 # Large-Scale Changes
@@ -171,147 +170,233 @@ At Google, we’ve found the counter to this to be good, old-fashioned  testing.
 
 LSCs really work only when the bulk of the effort for them can be done by computers, not humans. As good as humans can be with ambiguity, computers rely upon consistent environments to apply the proper code transformations to the correct places. If your organization has many different VCSs, Continuous Integration (CI) systems, project-specific tooling, or formatting guidelines, it is difficult to make sweeping changes across your entire codebase. Simplifying the environment to add more consistency will help both the humans who need to move around in it and the robots making automated transformations.
 
+只有当大部分的工作由计算机而不是人类来完成时，LSC才能真正发挥作用。尽管人类可以很好地处理模棱两可的问题，但计算机依赖于一致的环境将正确的代码转换应用到正确的位置。如果你的组织有许多不同的VCS、持续集成（CI）系统、特定项目的工具或格式化准则，就很难在整个代码库中进行全面的更改。简化环境以增加一致性将有助于需要在其中移动的人类和进行自动转换的机器人。
+
 For example, many projects at Google have presubmit tests configured to run before changes are made to their codebase. Those checks can be very complex, ranging from checking new dependencies against a whitelist, to running tests, to ensuring that the change has an associated bug. Many of these checks are relevant for teams writing new features, but for LSCs, they just add additional irrelevant complexity.
+
+例如，谷歌的许多项目都配置了预提交测试，以便在对其代码库进行修改之前运行。这些检查可能非常复杂，从对照白名单检查新的依赖关系，到运行测试，再到确保变化有相关的bug。这些检查中有许多与编写新功能的团队有关，但对于LSC来说，它们只是增加了额外的无关的复杂性。
 
 We’ve decided to embrace some of this complexity, such as running presubmit tests, by making it standard across our codebase. For other inconsistencies, we advise teams to omit their special checks when parts of LSCs touch their project code. Most teams are happy to help given the benefit these kinds of changes are to their projects.
 
-### Testing
+我们已经决定采用这种复杂性，例如通过使其成为我们代码库中的标准来运行预提交测试。对于其他不一致性，我们建议团队在LSC的某些部分接触到其项目代码时忽略其特殊检查。鉴于此类变更对其项目的好处，大多数团队都乐于提供帮助。
+
+### Testing  测试
 
 Every change should be tested (a process we’ll talk about more in just a moment), but the larger the change, the more difficult it is to actually test it appropriately. Google’s CI system will run not only the tests immediately impacted by a change, but also any tests that transitively depend on the changed files.[6](#_bookmark1961) This means a change gets broad coverage, but we’ve also observed that the farther away in the dependency graph a test is from the impacted files, the more unlikely a failure is to have been caused by the change itself.
 
+每个变更都应该进行测试（稍后我们将详细讨论这个过程），但是变更越大，实际测试它就越困难。Google的CI系统不仅会运行立即受到更改影响的测试，还会运行过渡依赖于更改文件的任何测试。这意味着更改会得到广泛的覆盖，但我们还观察到，在依赖关系图中，测试距离受影响文件越远，失败越不可能是由变化本身造成的。
+
 Small, independent changes are easier to validate, because each of them affects a smaller set of tests, but also because test failures are easier to diagnose and fix. Finding the root cause of a test failure in a change of 25 files is pretty straightforward; finding 1 in a 10,000-file change is like the proverbial needle in a haystack.
+
+小的、独立的更改更容易验证，因为每个更改都会影响较小的测试集，但也因为测试失败更容易诊断和修复。在25个文件的更改中找到测试失败的根本原因非常简单；在10000个文件更改中找到1个，就像谚语中大海捞针一样。
 
 The trade-off in this decision is that smaller changes will cause the same tests to be run multiple times, particularly tests that depend on large parts of the codebase. Because engineer time spent tracking down test failures is much more expensive than the compute time required to run these extra tests, we’ve made the conscious decision that this is a trade-off we’re willing to make. That same trade-off might not hold for all organizations, but it is worth examining what the proper balance is for yours.
 
+这个决定的权衡是，较小的更改将导致相同的测试运行多次，特别是依赖于大部分代码库的测试。因为工程师跟踪测试失败所花费的时间比运行这些额外测试所需的计算时间要昂贵得多，所以我们有意识地决定，这是我们愿意做出的权衡。这种权衡可能并不适用于所有组织，但值得研究的是，对于你的组织来说，什么才是适当的平衡。
+
 ```
 6  This probably sounds like overkill, and it likely is. We’re doing active research on the best way to determine the “right” set of tests for a given change, balancing the cost of compute time to run the tests, and the human cost of making the wrong choice.
+
+6 这听起来可能是矫枉过正，而且很可能是。我们正在积极研究为一个特定的变化确定 "正确 "的测试集的最佳方法，平衡运行测试的计算时间成本和做出错误选择的人力成本。
 ```
 
 -----
 
-##### Case Study: Testing LSCs
+##### Case Study: Testing LSCs  案例研究：测试LSC
 
 ***Adam Bender***
 
 Today it is common for a double-digit percentage (10% to 20%) of the changes in a project to be the result of LSCs, meaning a substantial amount of code is changed in projects by people whose full-time job is unrelated to those projects. Without good tests, such work would be impossible, and Google’s codebase would quickly atrophy under its own weight. LSCs enable us to systematically migrate our entire codebase to newer APIs, deprecate older APIs, change language versions, and remove popular but dangerous practices.
 
+如今，一个项目中两位数百分比（10%到20%）的变更是LSC的结果是很常见的，这意味着大量的代码是由全职工作与这些项目无关的人在项目中变更的。如果没有良好的测试，这样的工作将是不可能的，谷歌的代码库将在自身的压力下迅速萎缩。LSC使我们能够系统地将整个代码库迁移到较新的API，弃用较旧的API，更改语言版本，并删除流行但危险的做法。
+
 Even a simple one-line signature change becomes complicated when made in a thousand different places across hundreds of different products and services.[7](#_bookmark1965) After the change is written, you need to coordinate code reviews across dozens of teams. Lastly, after reviews are approved, you need to run as many tests as you can to be sure the change is safe.[8](#_bookmark1966) We say “as many as you can,” because a good-sized LSC could trigger a rerun of every single test at Google, and that can take a while. In fact, many LSCs have to plan time to catch downstream clients whose code backslides while the LSC makes its way through the process.
+
+即使是一个简单的单行签名修改，如果在上百个不同的产品和服务的一千多个不同的地方进行，也会变得很复杂。修改写完后，你需要协调几十个团队的代码审查。最后，在审查通过后，你需要运行尽可能多的测试，以确保变化是安全的。我们说 "尽可能多"，是因为一个规模不错的LSC可能会触发谷歌的每一个测试的重新运行，而这可能需要一段时间。事实上，许多LSC必须计划好时间，以便在LSC进行的过程中抓住那些代码倒退的下游客户。
 
 Testing an LSC can be a slow and frustrating process. When a change is sufficiently large, your local environment is almost guaranteed to be permanently out of sync with head as the codebase shifts like sand around your work. In such circumstances, it is easy to find yourself running and rerunning tests just to ensure your changes continue to be valid. When a project has flaky tests or is missing unit test coverage, it can require a lot of manual intervention and slow down the entire process. To help speed things up, we use a strategy called the TAP (Test Automation Platform) train.
 
-**Riding** **the** **TAP** **Train**
+测试LSC可能是一个缓慢而令人沮丧的过程。当一个变更足够大的时候，你的本地环境几乎可以肯定会与head永久不同步，因为代码库会像沙子一样在你的工作中移动。在这种情况下，很容易发现自己在运行和重新运行测试，以确保你的变化继续有效。当一个项目有不稳定的测试或缺少单元测试覆盖率时，它可能需要大量的人工干预并拖慢整个过程。为了帮助加快进度，我们使用了一种叫做TAP（测试自动化平台）的策略。
+
+**Riding the TAP Train**  **搭乘TAP列车** 
 
 The core insight to LSCs is that they rarely interact with one another, and most affected tests are going to pass for most LSCs. As a result, we can test more than one change at a time and reduce the total number of tests executed. The train model has proven to be very effective for testing LSCs.
 
+对LSC的核心见解是，它们很少相互影响，对于大多数LSC来说，大多数受影响的测试都会通过。因此，我们可以一次测试一个以上的变化，减少执行的测试总数。事实证明，训练模型对测试LSC非常有效。
+
 The TAP train takes advantage of two facts:
 
-  LSCs tend to be pure refactorings and therefore very narrow in scope, preserving local semantics.
+- LSCs tend to be pure refactorings and therefore very narrow in scope, preserving local semantics.
 
-  •Individual changes are often simpler and highly scrutinized, so they are correct
+- Individual changes are often simpler and highly scrutinized, so they are correct  more often than not.
 
-    more often than not.
+TAP列车利用了两个事实：
+- LSC往往是纯粹的重构，因此范围非常窄，保留了本地语义。
+- 单独的修改通常比较简单，而且受到高度审查，所以它们往往是正确的。
 
 The train model also has the advantage that it works for multiple changes at the same time and doesn’t require that each individual change ride in isolation.[9](#_bookmark1972)
+
+列车模型还有一个优点，即它同时适用于多个变化，不要求每个单独的变化都是孤立的。
 
 The train has five steps and is started fresh every three hours:
 
 1.  For each change on the train, run a sample of 1,000 randomly-selected tests.
-
 2.  Gather up all the changes that passed their 1,000 tests and create one uberchange from all of them: “the train.”
-
 3.  Run the union of all tests directly affected by the group of changes. Given a large enough (or low-level enough) LSC, this can mean running every single test in Google’s repository. This process can take more than six hours to complete.
-
 4.  For each nonflaky test that fails, rerun it individually against each change that made it into the train to determine which changes caused it to fail.
-
 5.  TAP generates a report for each change that boarded the train. The report describes all passing and failing targets and can be used as evidence that an LSC is safe to submit.
+
+列车模式有五个阶段，每三小时重新启动一次：
+
+1.  对于列车上的每个变化，运行1000个随机选择的测试样本。
+2.  收集所有通过1000次测试的变化，并从所有这些变化中创建一个超级变化：”车次"。
+3.  运行所有直接受该组变化影响的测试的联合。如果LSC足够大（或足够底层），这可能意味着运行谷歌资源库中的每一个测试。这个过程可能需要六个多小时来完成。
+4.  对于每一个失败的非漏洞测试，针对每一个进入火车的变化单独重新运行它，以确定哪些变化导致它失败。
+5.  TAP为每个上火车的变化生成一份报告。该报告描述了所有通过和未通过的目标，可以作为LSC可以安全提交的证据。
 
 -----
 
-### Code Review
+### Code Review 代码审查
 
 Finally, as we mentioned in [Chapter 9](#_bookmark664), all changes need to be reviewed before submission, and this policy applies even for LSCs. Reviewing large commits can be tedious, onerous, and even error prone, particularly if the changes are generated by hand (a process you want to avoid, as we’ll discuss shortly). In just a moment, we’ll look at how tooling can often help in this space, but for some classes of changes, we still want humans to explicitly verify they are correct. Breaking an LSC into separate shards makes this much easier.
 
+最后，正如我们在第9章中提到的，所有的修改都需要在提交前进行审核，这个政策甚至适用于LSC。审阅大型提交可能会很乏味、繁重，甚至容易出错，特别是如果这些修改是手工生成的（我们很快就会讨论，这是一个你想避免的过程）。稍后，我们将看看工具化如何在这个领域提供帮助，但对于某些类别的修改，我们仍然希望人类明确地验证它们是否正确。将一个LSC分解成独立的片段，使之更容易。
+
 -----
 
-**Case** **Study:** **scoped_ptr** **to** **std::unique_ptr**
+##### Case Study: scoped_ptr to std::unique_ptr  案例研究：scoped_ptr到std::unique_ptr
 
 Since its earliest days, Google’s C++ codebase has had a self-destructing smart pointer for wrapping heap-allocated C++ objects and ensuring that they are destroyed when the smart pointer goes out of scope. This type was called scoped_ptr and was used extensively throughout Google’s codebase to ensure that object lifetimes were appropriately managed. It wasn’t perfect, but given the limitations of the then-current C++ standard (C++98) when the type was first introduced, it made for safer programs.
 
+从最早期开始，Google的C++代码库就有一个自毁的智能指针，用于包装堆分配的C++对象，并确保在智能指针超出范围时将其销毁。这种类型被称为scoped_ptr，在Google的代码库中被广泛使用，以确保对象的寿命得到适当的管理。它并不完美，但考虑到该类型首次引入时当时的C++标准（C++98）的限制，它使程序更加安全。
+
 In C++11, the language introduced a new type: std::unique_ptr. It fulfilled the same function as scoped_ptr, but also prevented other classes of bugs that the language now could detect. std::unique_ptr was strictly better than scoped_ptr, yet Google’s codebase had more than 500,000 references to scoped_ptr scattered among millions of source files. Moving to the more modern type required the largest LSC attempted to that point within Google.
+
+在C++11中，该语言引入了一个新的类型：std::unique_ptr。std::unique_ptr严格来说比scoped_ptr好，但Google的代码库中有超过50万个对scoped_ptr的引用，散布在数百万个源文件中。向更现代的模式发展需要谷歌内部最大的LSC。
 
 Over the course of several months, several engineers attacked the problem in parallel. Using Google’s large-scale migration infrastructure, we were able to change references to scoped_ptr into references to std::unique_ptr as well as slowly adapt scoped_ptr to behave more closely to std::unique_ptr. At the height of the migration process, we were consistently generating, testing and committing more than 700 independent changes, touching more than 15,000 files *per day*. Today, we sometimes manage 10 times that throughput, having refined our practices and improved our tooling.
 
+在几个月的时间里，几位工程师同时攻克了这个问题。利用谷歌的大规模迁移基础设施，我们能够将对scoped_ptr的引用改为对std::unique_ptr的引用，并慢慢调整scoped_ptr，使其行为更接近于std::unique_ptr。在迁移过程的高峰期，我们一直在生成、测试和提交超过700个独立的变化，每天*触及*超过15000个文件。今天，在完善了我们的实践和改进了我们的工具后，我们有时能管理10倍的吞吐量。
+
 Like almost all LSCs, this one had a very long tail of tracking down various nuanced behavior dependencies (another manifestation of Hyrum’s Law), fighting race conditions with other engineers, and uses in generated code that weren’t detectable by our automated tooling. We continued to work on these manually as they were discovered by the testing infrastructure.
+
+像几乎所有的LSC一样，这个LSC有一个长尾效应，那就是追踪各种细微的行为依赖（Hyrum定律的另一种表现），与其他工程师一起对抗竞赛条件，以及使用生成的代码，而我们的自动化工具是无法检测到的。我们继续手动处理这些问题，因为它们是由测试基础设施发现的。
 
 scoped_ptr was also used as a parameter type in some widely used APIs, which made small independent changes difficult. We contemplated writing a call-graph analysis system that could change an API and its callers, transitively, in one commit, but were concerned that the resulting changes would themselves be too large to commit atomically.
 
+scoped_ptr在一些广泛使用的API中也被用作参数类型，这使得小的独立变化变得困难。我们考虑过编写一个调用图分析系统，它可以在一次提交中改变API及其调用者，但我们担心由此产生的改变本身太大，无法原子提交。
+
 In the end, we were able to finally remove scoped_ptr by first making it a type alias of std::unique_ptr and then performing the textual substitution between the old alias and the new, before eventually just removing the old scoped_ptr alias. Today, Google’s codebase benefits from using the same standard type as the rest of the C++ ecosystem, which was possible only because of our technology and tooling for LSCs.
+
+最后，我们能够最终删除scoped_ptr，首先让它成为std::unique_ptr的类型别名，然后在旧的别名和新的别名之间进行文本替换，最后只是删除旧的scoped_ptr别名。今天，谷歌的代码库从使用与C++生态系统其他部分相同的标准类型中受益，这可能是因为我们的技术和工具为LSC。
 
 -----
 
-## LSC Infrastructure
+## LSC Infrastructure  LSC基础设施
 
 Google has invested in a significant amount of infrastructure to make LSCs possible. This infrastructure includes tooling for change creation, change management, change review, and testing. However, perhaps the most important support for LSCs has been the evolution of cultural norms around large-scale changes and the oversight given to them. Although the sets of technical and social tools might differ for your organization, the general principles should be the same.
 
-### Policies and Culture
+谷歌已经投资了大量的基础设施，使LSC成为可能。这种基础设施包括用于创建变更、变更管理、变更审查和测试的工具。然而，对LSC最重要的支持可能是围绕大规模变化和对它们的监督的文化规范的演变。虽然你的组织的技术和社会工具集可能有所不同，但一般原则应该是相同的。
+
+### Policies and Culture  政策和文化
 
 As we’ve described in [Chapter 16](#_bookmark1364), Google stores the bulk of its source code in a single monolithic repository (monorepo), and every engineer has visibility into almost all of this code. This high degree of openness means that any engineer can edit any file and send those edits for review to those who can approve them. However, each of those edits has costs, both to generate as well as review.[10](#_bookmark1981)
 
+正如我们在第16章中所描述的那样，谷歌将其大部分源代码存储在单个代码库（monorepo）中，每个工程师都可以看到几乎所有这些代码。这种高度的开放性意味着任何工程师都可以编辑任何文件，并将这些编辑发送给可以批准它们的人进行审查。然而，每一个编辑都有成本，包括生成和审查。
+
 Historically, these costs have been somewhat symmetric, which limited the scope of changes a single engineer or team could generate. As Google’s LSC tooling improved, it became easier to generate a large number of changes very cheaply, and it became equally easy for a single engineer to impose a burden on a large number of reviewers across the company. Even though we want to encourage widespread improvements to our codebase, we want to make sure there is some oversight and thoughtfulness behind them, rather than indiscriminate tweaking.[11](#_bookmark1982)
+
+从历史上看，这些成本在某种程度上是对称的，这限制了单个工程师或团队可能产生的变更范围。随着谷歌LSC工具的改进，以极低的成本生成大量更改变得更加容易，而对于单个工程师来说，给公司内的大量审阅者施加负担也变得同样容易。尽管我们希望鼓励对我们的代码库进行广泛的改进，但我们希望确保在这些改进背后有一些疏忽和深思熟虑，而不是随意的调整。
 
 The end result is a lightweight approval process for teams and individuals seeking to make LSCs across Google. This process is overseen by a group of experienced engineers who are familiar with the nuances of various languages, as well as invited domain experts for the particular change in question. The goal of this process is not to prohibit LSCs, but to help change authors produce the best possible changes, which make the most use of Google’s technical and human capital. Occasionally, this group might suggest that a cleanup just isn’t worth it: for example, cleaning up a common typo without any way of preventing recurrence.
 
+最终的结果是为寻求在谷歌范围内进行LSC的团队和个人提供了一个轻量级的审批过程。这个过程由一群经验丰富的工程师监督，他们熟悉各种语言的细微差别，并邀请了相关特定变化的领域专家。这个过程的目的不是要禁止LSC，而是要帮助修改者产生尽可能好的修改，从而最大限度地利用谷歌的技术和人力资本。偶尔，这个小组可能会建议清理工作不值得做：例如，清理一个常见的错别字，但没有任何办法防止再次发生。
+
 Related to these policies was a shift in cultural norms surrounding LSCs. Although it is important for code owners to have a sense of responsibility for their software, they also needed to learn that LSCs were an important part of Google’s effort to scale our software engineering practices. Just as product teams are the most familiar with their own software, library infrastructure teams know the nuances of the infrastructure, and getting product teams to trust that domain expertise is an important step toward social acceptance of LSCs. As a result of this culture shift, local product teams have grown to trust LSC authors to make changes relevant to those authors’ domains.
 
+与这些政策相关的是围绕LSC的文化规范的转变。虽然代码所有者对自己的软件有责任感很重要，但他们也需要了解LSC是Google努力扩展软件工程实践的重要组成部分。正如产品团队最熟悉自己的软件一样，基础类库团队也知道基础设施的细微差别，让产品团队相信领域专业知识是LSC获得社会认可的重要一步。作为这种文化转变的结果，本地产品团队已经开始信任LSC作者，让他们做出与这些作者的领域相关的更改。
+
 Occasionally, local owners question the purpose of a specific commit being made as part of a broader LSC, and change authors respond to these comments just as they would other review comments. Socially, it’s important that code owners understand the changes happening to their software, but they also have come to realize that they don’t hold a veto over the broader LSC. Over time, we’ve found that a good FAQ and a solid historic track record of improvements have generated widespread endorsement of LSCs throughout Google.
+
+偶尔，本地所有者会质疑作为更广泛的LSC的一部分的特定提交的目的，而变更作者会像回应其他审查意见一样回应这些意见。从社会角度来说，代码所有者了解发生在他们软件上的变化是很重要的，但他们也意识到他们对更广泛的LSC并不拥有否决权。随着时间的推移，我们发现，一个好的FAQ和一个可靠的历史改进记录已经在整个谷歌产生了对LSC的广泛认可。
 
 ```
 10  There are obvious technical costs here in terms of compute and storage, but the human costs in time to review a change far outweigh the technical ones.
 
 11   For example, we do not want the resulting tools to be used as a mechanism to fight over the proper spelling of “gray” or “grey” in comments.
+
+10  在计算和存储方面存在明显的技术成本，但及时审查变更所需的人力成本远远超过技术成本。
+11  例如，我们不希望由此产生的工具被用作一种机制来争夺评论中“灰色”或“灰色”的正确拼写。
 ```
 
-### Codebase Insight
+### Codebase Insight  代码库的洞察力
 
 To do LSCs, we’ve found it invaluable to be able to do large-scale analysis of our codebase, both on a textual level using traditional tools, as well as on a semantic level. For example, Google’s use of the semantic indexing tool [Kythe ](https://kythe.io/)provides a complete map of the links between parts of our codebase, allowing us to ask questions such as “Where are the callers of this function?” or “Which classes derive from this one?” Kythe and similar tools also provide programmatic access to their data so that they can be incorporated into refactoring tools. (For further examples, see Chapters [17 ](#_bookmark1485)and [20](#_bookmark1781).)
 
+要进行LSC，我们发现能够使用传统工具在文本级别和语义级别上对代码库进行大规模分析是非常宝贵的。例如，Google使用语义索引工具Kythe提供了代码库各部分之间链接的完整地图，允许我们提出诸如“此函数的调用方在哪里？”或“哪些类源自此函数？”Kythe和类似的工具还提供对其数据的编程访问，以便可以将它们合并到重构工具中。（更多示例请参见第17章和第20章。）
+
 We also use compiler-based indices to run abstract syntax tree-based analysis and transformations over our codebase. Tools such as [ClangMR](https://oreil.ly/c6xvO), JavacFlume, or [Refaster](https://oreil.ly/Er03J), which can perform transformations in a highly parallelizable way, depend on these insights as part of their function. For smaller changes, authors can use specialized, custom tools, perl or sed, regular expression matching, or even a simple shell script.
+
+我们还使用基于编译器的索引，在我们的代码库上运行基于抽象语法树的分析和转换。诸如[ClangMR](https://oreil.ly/c6xvO)、JavacFlume或[Refaster](https://oreil.ly/Er03J)等工具，可以以高度可并行的方式进行转换，其功能的一部分依赖于这些洞察力。对于较小的变化，作者可以使用专门的、定制的工具、perl或sed、正则表达式匹配，甚至是一个简单的shell脚本。
 
 Whatever tool your organization uses for change creation, it’s important that its human effort scale sublinearly with the codebase; in other words, it should take roughly the same amount of human time to generate the collection of all required changes, no matter the size of the repository. The change creation tooling should also be comprehensive across the codebase, so that an author can be assured that their change covers all of the cases they’re trying to fix.
 
+无论你的组织使用什么工具来创建变更，重要的是它的人力与代码库成次线性扩展；换句话说，无论代码库的大小，它都应该花费大致相同的人力时间来生成所有需要的变更集合。变更创建工具也应该在整个代码库中是全面的，这样作者就可以确信他们的变更涵盖了他们试图修复的所有情况。
+
 As with other areas in this book, an early investment in tooling usually pays off in the short to medium term. As a rule of thumb, we’ve long held that if a change requires more than 500 edits, it’s usually more efficient for an engineer to learn and execute our change-generation tools rather than manually execute that edit. For experienced “code janitors,” that number is often much smaller.
 
-### Change Management
+与本书中的其他领域一样，对工具的早期投资通常在中短期内获得回报。根据经验，我们一直认为，如果一个变更需要500次以上的编辑，工程师学习和执行我们的变更生成工具通常比手动执行该编辑更有效。对于有经验的“代码管理员”，这个数字通常要小得多。
+
+### Change Management  变更管理
 
 Arguably the most important piece of large-scale change infrastructure is the set of tooling that shards a master change into smaller pieces and manages the process of testing, mailing, reviewing, and committing them independently. At Google, this tool is called Rosie, and we discuss its use more completely in a few moments when we examine our LSC process. In many respects, Rosie is not just a tool, but an entire platform for making LSCs at Google scale. It provides the ability to split the large sets of comprehensive changes produced by tooling into smaller shards, which can be tested, reviewed, and submitted independently.
 
-### Testing
+可以说，大规模变更基础设施中最重要的部分是一套工具，它将主变更分割成小块，并独立管理测试、推送、审查和提交的过程。在谷歌，这个工具被称为Rosie，我们将在稍后检查我们的LSC过程时更全面地讨论它的使用。在许多方面，Rosie不仅仅是一个工具，而是一个在谷歌规模上制作LSC的整个平台。它提供了一种能力，可以将工具产生的大型综合修改集分割成较小的分片，这些分片可以被独立测试、审查和提交。
+
+### Testing  测试
 
 Testing is another important piece of large-scale-change–enabling infrastructure. As discussed in [Chapter 11](#_bookmark838), tests are one of the important ways that we validate our software will behave as expected. This is particularly important when applying changes that are not authored by humans. A robust testing culture and infrastructure means that other tooling can be confident that these changes don’t have unintended effects.
 
+测试是支持大规模变革的基础设施的另一个重要部分。正如在第11章中所讨论的，测试是我们验证我们的软件将按照预期行为的重要方法之一。这在应用非人工编写的更改时尤为重要。一个强大的测试文化和基础设施意味着其他工具可以确信这些更改不会产生意外的影响。
+
 Google’s testing strategy for LSCs differs slightly from that of normal changes while still using the same underlying CI infrastructure. Testing LSCs means not just ensuring the large master change doesn’t cause failures, but that each shard can be submitted safely and independently. Because each shard can contain arbitrary files, we don’t use the standard project-based presubmit tests. Instead, we run each shard over the transitive closure of every test it might affect, which we discussed earlier.
 
-### Language Support
+谷歌针对LSC的测试策略与普通更改略有不同，但仍使用相同的底层CI基础设施。测试LSC不仅意味着确保大型主更改不会导致失败，而且还意味着可以安全、独立地提交每个分片。因为每个分片可以包含任意文件，所以我们不使用标准的基于项目的预提交测试。相反，我们在它可能影响的每个测试的可传递闭包上运行每个分片，我们在前面讨论过。
+
+### Language Support  编程语言支持
 
 LSCs at Google are typically done on a per-language basis, and some languages support them much more easily than others. We’ve found that language features such as type aliasing and forwarding functions are invaluable for allowing existing users to continue to function while we introduce new systems and migrate users to them nonatomically. For languages that lack these features, it is often difficult to migrate systems incrementally.[12](#_bookmark1993)
 
+谷歌的LSC通常以每种编程语言为基础，有些语言比其他语言更容易支持LSC。我们发现，在我们引入新系统并以非原子方式将用户迁移到这些系统时，诸如类型别名和转发功能之类的语言功能对于允许现有用户继续工作是非常宝贵的。对于缺少这些功能的编程语言，通常很难增量迁移系统。
+
 We’ve also found that statically typed languages are much easier to perform large automated changes in than dynamically typed languages. Compiler-based tools along with strong static analysis provide a significant amount of information that we can use to build tools to affect LSCs and reject invalid transformations before they even get to the testing phase. The unfortunate result of this is that languages like Python, Ruby, and JavaScript that are dynamically typed are extra difficult for maintainers. Language choice is, in many respects, intimately tied to the question of code lifespan: languages that tend to be viewed as more focused on developer productivity tend to be more difficult to maintain. Although this isn’t an intrinsic design requirement, it is where the current state of the art happens to be.
+
+我们还发现，静态类型的语言比动态类型的语言更容易进行大规模的自动化修改。基于编译器的工具以及强大的静态分析提供了大量的信息，我们可以利用这些信息来建立影响LSC的工具，并在它们进入测试阶段之前拒绝无效的转换。这样做的不幸结果是，像Python、Ruby和JavaScript这些动态类型的语言对维护者来说是额外困难的。在许多方面，编程语言的选择与代码寿命的问题密切相关：那些倾向于被视为更注重开发者生产力的编程语言往往更难维护。虽然这不是一个固有的设计要求，但这是目前的技术状况。
 
 Finally, it’s worth pointing out that automatic language formatters are a crucial part of the LSC infrastructure. Because we work toward optimizing our code for readability, we want to make sure that any changes produced by automated tooling are intelligible to both immediate reviewers and future readers of the code. All of the LSCgeneration tools run the automated formatter appropriate to the language being changed as a separate pass so that the change-specific tooling does not need to concern itself with formatting specifics. Applying automated formatting, such as [google-java-format ](https://github.com/google/google-java-format)or [clang-format](https://clang.llvm.org/docs/ClangFormat.html), to our codebase means that automatically produced changes will “fit in” with code written by a human, reducing future development friction. Without automated formatting, large-scale automated changes would never have become the accepted status quo at Google.
 
+最后，值得指出的是，自动语言格式化程序是LSC基础设施的一个重要组成部分。因为我们致力于优化我们的代码的可读性，我们希望确保任何由自动工具产生的变化对即时的审查者和未来的代码读者来说都是可理解的。所有的LSC生成工具都将适合于被修改的语言的自动格式化器作为一个单独的通道来运行，这样，针对修改的工具就不需要关注格式化的细节了。将自动格式化，如[google-java-format](https://github.com/google/google-java-format)或[clang-format](https://clang.llvm.org/docs/ClangFormat.html)，应用到我们的代码库中，意味着自动产生的变化将与人类编写的代码 “合并"，减少未来的开发阻力。如果没有自动格式化，大规模的自动修改就永远不会成为谷歌的公认现状。
+
 ```
-12   In fact, Go recently introduced these kinds of language features specifically to support large-scale refactorings (see [*https://talks.golang.org/2016/refactor.article*](https://talks.golang.org/2016/refactor.article)).
+12   In fact, Go recently introduced these kinds of language features specifically to support large-scale refactorings （ see [https://talks.golang.org/2016/refactor.article](https://talks.golang.org/2016/refactor.article) ）.
+12  事实上，Go最近专门引入了这些类型的语言特性来支持大规模重构（参见https://talks.golang.org/2016/refactor.article).
 ```
 
 -----
 
-**Case** **Study:** **Operation** **RoseHub**
+##### Case Study: Operation RoseHub  案例研究： Operation RoseHub 
 
 LSCs have become a large part of Google’s internal culture, but they are starting to have implications in the broader world. Perhaps the best known case so far was “[Operation RoseHub](https://oreil.ly/txtDj).”
 
+LSC已经成为谷歌内部文化的一个重要部分，但它们开始在更广泛的世界中产生影响。迄今为止，最著名的案例也许是"Operation RoseHub"。
+
 In early 2017, a vulnerability in the Apache Commons library allowed any Java application with a vulnerable version of the library in its transitive classpath to become susceptible to remote execution. This bug became known as the Mad Gadget. Among other things, it allowed an avaricious hacker to encrypt the San Francisco Municipal Transportation Agency’s systems and shut down its operations. Because the only requirement for the vulnerability was having the wrong library somewhere in its classpath, anything that depended on even one of many open source projects on GitHub was vulnerable.
 
+2017年初，Apache Commons库中的一个漏洞允许任何在其跨类路径中具有该库的脆弱版本的Java应用程序变得容易被远程执行。这个漏洞被称为 "疯狂小工具"。在其他方面，它允许一个贪婪的黑客对旧金山市交通局的系统进行加密并关闭其运作。由于该漏洞的唯一要求是在其classpath中的某个地方有错误的库，任何依赖于GitHub上许多开源项目的东西都会受到攻击。
+
 To solve this problem, some enterprising Googlers launched their own version of the LSC process. By using tools such as [BigQuery](https://cloud.google.com/bigquery), volunteers identified affected projects and sent more than 2,600 patches to upgrade their versions of the Commons library to one that addressed Mad Gadget. Instead of automated tools managing the process, more than 50 humans made this LSC work.
+
+为了解决这个问题，一些有进取心的Googlers发起了他们自己版本的LSC程序。通过使用[BigQuery](https://cloud.google.com/bigquery)等工具，志愿者们确定了受影响的项目，并发送了2600多个补丁，将其版本的Commons库升级为解决Mad Gadget的版本。在这个过程中，不是由自动化工具来管理，而是由50多个人类来完成这个LSC的工作。
 
 -----
 
