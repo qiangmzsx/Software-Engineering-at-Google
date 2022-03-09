@@ -120,35 +120,54 @@ As the ability to make changes across our entire codebase has improved, the dive
 
 Before we discuss the process that Google uses to actually effect LSCs, we should talk about why many kinds of changes can’t be committed atomically. In an ideal world, all logical changes could be packaged into a single atomic commit that could be tested, reviewed, and committed independent of other changes. Unfortunately, as a repository—and the number of engineers working in it—grows, that ideal becomes less feasible. It can be completely infeasible even at small scale when using a set of distributed or federated repositories.
 
-### Technical Limitations
+在我们讨论Google实际影响LSC的过程之前，我们应该先谈谈为什么很多种类的更改不能原子化地提交。在理想情况下，所有逻辑更改都可以打包成单个原子提交，可以独立于其他更改进行测试、审查和提交。不幸的是，随着版本库和在其中工作的工程师数量的增加，这种理想变得不太可行。当使用一组分布式或联邦版本库时，即使在小规模下也完全不可行。
+
+### Technical Limitations  技术限制
 
 To begin with, most Version Control Systems (VCSs) have operations that scale linearly with the size of a change. Your system might be able to handle small commits (e.g., on the order of tens of files) just fine, but might not have sufficient memory or processing power to atomically commit thousands of files at once. In centralized VCSs, commits can block other writers (and in older systems, readers) from using the system as they process, meaning that large commits stall other users of the system.
 
+首先，大多数版本控制系统（VCS）的操作都会随着更改的大小进行线性扩展。你的系统可能能够很好地处理小规模提交（例如，几十个文件的数量），但可能没有足够的内存或处理能力来一次性提交成千上万的文件。在集中式VCS中，提交会阻止其他写入程序（以及在旧系统中的读卡器）在处理时使用系统，这意味着大型提交会使系统的其他用户陷入停滞。
+
 In short, it might not be just “difficult” or “unwise” to make a large change atomically: it might simply be impossible with a given infrastructure. Splitting the large change into smaller, independent chunks gets around these limitations, although it makes the execution of the change more complex.[5](#_bookmark1953)
 
-### Merge Conflicts
+简言之，以原子方式进行大规模更改可能不仅仅是“困难”或“不明智的”：对于给定的基础设施，这可能根本不可能。将较大的更改拆分为较小的独立块可以绕过这些限制，尽管这会使更改的执行更加复杂。
+
+```
+5  See [*https://ieeexplore.ieee.org/abstract/document/8443579*](https://ieeexplore.ieee.org/abstract/document/8443579).
+```
+### Merge Conflicts 合并冲突
 
 As the size of a change grows, the potential for merge conflicts also increases. Every version control system we know of requires updating and merging, potentially with manual resolution, if a newer version of a file exists in the central repository. As the number of files in a change increases, the probability of encountering a merge conflict also grows and is compounded by the number of engineers working in the repository.
 
+随着变更规模的增加，合并冲突的可能性也会增加。我们知道的每个版本控制系统都需要更新和合并，如果中央版本库中存在较新版本的文件，则可能需要手动解析。随着更改中文件数量的增加，遇到合并冲突的可能性也会增加，并且在版本库中工作的工程师数量也会增加。
+
 If your company is small, you might be able to sneak in a change that touches every file in the repository on a weekend when nobody is doing development. Or you might have an informal system of grabbing the global repository lock by passing a virtual (or even physical!) token around your development team. At a large, global company like Google, these approaches are just not feasible: somebody is always making changes to the repository.
+
+如果你的公司很小，你可能会在周末没有人做开发的时候，偷偷地修改版本库中的每个文件。或者你可能有一个非正式的系统，通过在开发团队中传递一个虚拟的（甚至是物理的！）令牌来抓取全局的版本库锁。在谷歌这样的大公司，这些方法是不可行的：总有人在对版本库进行修改。
 
 With few files in a change, the probability of merge conflicts shrinks, so they are more likely to be committed without problems. This property also holds for the following areas as well.
 
-```
-1  See [*https://ieeexplore.ieee.org/abstract/document/8443579*](https://ieeexplore.ieee.org/abstract/document/8443579).
-```
+由于更改中的文件很少，合并冲突的可能性会减小，因此它们更有可能在提交时不会出现问题。该属性也适用于以下区域。
 
-### No Haunted Graveyards
+### No Haunted Graveyards  没有闹鬼的墓地
 
 The SREs who run Google’s production services have a mantra: “No Haunted Graveyards.” A haunted graveyard in this sense is a system that is so ancient, obtuse, or complex that no one dares enter it. Haunted graveyards are often business-critical systems that are frozen in time because any attempt to change them could cause the system to fail in incomprehensible ways, costing the business real money. They pose a real existential risk and can consume an inordinate amount of resources.
 
+运营谷歌生产服务的SRE们有一句格言：“没有闹鬼墓地”。从这个意义上说，闹鬼墓地是一个如此古老、迟钝或复杂的系统，以至于没有人敢进入它。闹鬼的墓地往往是被冻结的关键业务系统，因为任何试图改变它们的行为都可能导致系统以无法理解的方式失败，从而使企业付出实实在在的代价。它们构成了真正的生存风险，并可能消耗过多的资源。
+
 Haunted graveyards don’t just exist in production systems, however; they can be found in codebases. Many organizations have bits of software that are old and unmaintained, written by someone long off the team, and on the critical path of some important revenue-generating functionality. These systems are also frozen in time, with layers of bureaucracy built up to prevent changes that might cause instability. Nobody wants to be the network support engineer II who flipped the wrong bit!
+
+然而，闹鬼的墓地并不仅仅存在于生产系统中，它们也可以在代码库中找到。许多组织都有一些老旧的、未经维护的软件，它们是由早已离开团队的人编写的，并且处于一些重要的创收功能的关键路径上。这些系统也被冻结在时间中，层层叠叠的官僚机构建立起来，防止可能导致不稳定的变化。没有人想成为网络支持工程师，他犯了错误！
 
 These parts of a codebase are anathema to the LSC process because they prevent the completion of large migrations, the decommissioning of other systems upon which they rely, or the upgrade of compilers or libraries that they use. From an LSC perspective, haunted graveyards prevent all kinds of meaningful progress.
 
-At Google, we’ve found the counter to this to be good, ol’-fashioned testing. When software is thoroughly tested, we can make arbitrary changes to it and know with confidence whether those changes are breaking, no matter the age or complexity of the system. Writing those tests takes a lot of effort, but it allows a codebase like Google’s to evolve over long periods of time, consigning the notion of haunted software graveyards to a graveyard of its own.
+代码库的这些部分是LSC过程的诅咒，因为它们阻止了大型迁移的完成、它们所依赖的其他系统的退役，或者它们所使用的编译器或库的升级。从LSC的角度来看，闹鬼的墓地阻止了各种有意义的进步。
 
-### Heterogeneity
+At Google, we’ve found the counter to this to be good, old-fashioned  testing. When software is thoroughly tested, we can make arbitrary changes to it and know with confidence whether those changes are breaking, no matter the age or complexity of the system. Writing those tests takes a lot of effort, but it allows a codebase like Google’s to evolve over long periods of time, consigning the notion of haunted software graveyards to a graveyard of its own.
+
+在谷歌，我们发现这是一个好的、老式的测试。当软件经过彻底测试后，我们可以对其进行任意更改，并有信心地知道这些更改是否正在中断，无论系统的时间或复杂性如何。编写这些测试需要很多努力，但它允许像谷歌这样的代码库在很长一段时间内进化，将闹鬼软件墓地的概念交付给它自己的墓地。
+
+### Heterogeneity  异质性
 
 LSCs really work only when the bulk of the effort for them can be done by computers, not humans. As good as humans can be with ambiguity, computers rely upon consistent environments to apply the proper code transformations to the correct places. If your organization has many different VCSs, Continuous Integration (CI) systems, project-specific tooling, or formatting guidelines, it is difficult to make sweeping changes across your entire codebase. Simplifying the environment to add more consistency will help both the humans who need to move around in it and the robots making automated transformations.
 
