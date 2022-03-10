@@ -400,7 +400,7 @@ To solve this problem, some enterprising Googlers launched their own version of 
 
 -----
 
-## The LSC Process
+## The LSC Process  LSC过程
 
 With these pieces of infrastructure in place, we can now talk about the process for actually making an LSC. This roughly breaks down into four phases (with very nebulous boundaries between them):
 
@@ -412,71 +412,123 @@ With these pieces of infrastructure in place, we can now talk about the process 
 
 4.  Cleanup
 
+有了这些基础设施，我们现在可以谈谈实际制作LSC的过程。这大致可分为四个阶段（它们之间的界限非常模糊）：
+
+- 授权
+
+- 变更创建
+
+- 分片管理
+
+- 清理
+
 Typically, these steps happen after a new system, class, or function has been written, but it’s important to keep them in mind during the design of the new system. At Google, we aim to design successor systems with a migration path from older systems in mind, so that system maintainers can move their users to the new system automatically.
 
-### Authorization
+通常，这些步骤发生在编写新系统、类或函数之后，但在设计新系统时记住它们很重要。在谷歌，我们的目标是在设计后继系统时考虑到从旧系统的迁移路径，以便系统维护人员能够自动将用户转移到新系统。
+
+### Authorization  授权
 
 We ask potential authors to fill out a brief document explaining the reason for a proposed change, its estimated impact across the codebase (i.e., how many smaller shards the large change would generate), and answers to any questions potential reviewers might have. This process also forces authors to think about how they will describe the change to an engineer unfamiliar with it in the form of an FAQ and proposed change description. Authors also get “domain review” from the owners of the API being refactored.
 
+我们要求潜在作者填写一份简短的文档，解释提出变更的原因、其对整个代码库的估计影响（即，大变更将产生多少较小的碎片），并回答潜在评审员可能提出的任何问题。这一过程还迫使作者思考他们将如何以常见问题解答和提出的变更描述的形式向不熟悉变更的工程师描述变更。作者还可以从正在重构的API的所有者那里获得"专业审查"。
+
 This proposal is then forwarded to an email list with about a dozen people who have oversight over the entire process. After discussion, the committee gives feedback on how to move forward. For example, one of the most common changes made by the committee is to direct all of the code reviews for an LSC to go to a single “global approver.” Many first-time LSC authors tend to assume that local project owners should review everything, but for most mechanical LSCs, it’s cheaper to have a single expert understand the nature of the change and build automation around reviewing it properly.
+
+然后，这个提案被转发到一个有大约十几个人的电子邮件列表，这些人对整个过程进行监督。经过讨论，委员会就如何推进工作给出反馈。例如，委员会做出的最常见的改变之一是将一个LSC的所有代码审查交给一个 "全球批准人"。许多第一次做LSC的人倾向于认为当地的项目负责人应该审查所有的东西，但对于大多数自动LSC来说，让一个专家了解变化的性质并围绕着正确的审查建立自动化是比较低成本。
 
 After the change is approved, the author can move forward in getting their change submitted. Historically, the committee has been very liberal with their approval,[13](#_bookmark2005) and often gives approval not just for a specific change, but also for a broad set of related changes. Committee members can, at their discretion, fast-track obvious changes without the need for full deliberation.
 
+在修改被批准后，作者可以继续推进他们的修改提交。从历史上看，委员会在批准方面是非常宽松的，而且常常不仅批准某一特定的修改，而且批准一系列广泛的相关修改。委员会成员可以酌情快速处理明显的修改，而不需要进行充分的审议。
+
 The intent of this process is to provide oversight and an escalation path, without being too onerous for the LSC authors. The committee is also empowered as the escalation body for concerns or conflicts about an LSC: local owners who disagree with the change can appeal to this group who can then arbitrate any conflicts. In practice, this has rarely been needed.
 
-### Change Creation
-
-After getting the required approval, an LSC author will begin to produce the actual code edits. Sometimes, these can be generated comprehensively into a single large global change that will be subsequently sharded into many smaller independent pieces. Usually, the size of the change is too large to fit in a single global change, due to technical limitations of the underlying version control system.
-
-The change generation process should be as automated as possible so that the parent change can be updated as users backslide into old uses[14](#_bookmark2009) or textual merge conflicts occur in the changed code. Occasionally, for the rare case in which technical tools aren’t able to generate the global change, we have sharded change generation across humans (see [“Case Study: Operation RoseHub” on page 472](#_bookmark1994)). Although much more labor intensive than automatically generating changes, this allows global changes to happen much more quickly for time-sensitive applications.
-
-Keep in mind that we optimize for human readability of our codebase, so whatever tool generates changes, we want the resulting changes to look as much like humangenerated changes as possible. This requirement leads to the necessity of style guides and automatic formatting tools (see [Chapter 8](#_bookmark580)).[15](#_bookmark2010)
+这个过程的目的是提供监督和升级的途径，而不对LSC的作者过于繁琐。该委员会还被授权作为对LSC的担忧或冲突的升级机构：不同意改变的本地业主可以向该小组提出上诉，该小组可以对任何冲突进行仲裁。在实践中，很少需要这样做。
 
 ```
 13  The only kinds of changes that the committee has outright rejected have been those that are deemed dangerous, such as converting all NULL instances to nullptr, or extremely low-value, such as changing spelling from British English to American English, or vice versa. As our experience with such changes has increased and the cost of LSCs has dropped, the threshold for approval has as well.
+
+13  委员会完全拒绝的唯一类型的更改是那些被视为危险的更改，如将所有空实例转换为空PTR，或极低的值，如将拼写从英式英语更改为美式英语，或反之亦然。随着我们在此类变更方面的经验增加，LSC的成本降低，批准门槛也随之降低。
 ```
 
-### Sharding and Submitting
+### Change Creation 变更创建
+
+After getting the required approval, an LSC author will begin to produce the actual code edits. Sometimes, these can be generated comprehensively into a single large global change that will be subsequently sharded into many smaller independent pieces. Usually, the size of the change is too large to fit in a single global change, due to technical limitations of the underlying version control system.
+
+在获得必要的批准后，LSC作者将开始制作实际的代码编辑。有时，这些内容可以全面地生成一个大的全局变化，随后将被分割成许多小的独立部分。通常情况下，由于底层版本控制系统的技术限制，修改的规模太大，无法容纳在一个全局修改中。
+
+The change generation process should be as automated as possible so that the parent change can be updated as users backslide into old uses[14](#_bookmark2009) or textual merge conflicts occur in the changed code. Occasionally, for the rare case in which technical tools aren’t able to generate the global change, we have sharded change generation across humans (see [“Case Study: Operation RoseHub” on page 472](#_bookmark1994)). Although much more labor intensive than automatically generating changes, this allows global changes to happen much more quickly for time-sensitive applications.
+
+变更生成过程应尽可能自动化，以便在用户退回到旧的使用方式14或在变更的代码中出现文本合并冲突时，可以更新父级变更。偶尔，在技术工具无法生成全局变更的罕见情况下，我们也会将变更的生成分给人工（见第472页的 "案例研究：RoseHub行动"）。尽管这比自动生成变更要耗费更多的人力，但对于时间敏感的应用来说，这使得全局性的变更能够更快发生。
+
+Keep in mind that we optimize for human readability of our codebase, so whatever tool generates changes, we want the resulting changes to look as much like humangenerated changes as possible. This requirement leads to the necessity of style guides and automatic formatting tools (see [Chapter 8](#_bookmark580)).[15](#_bookmark2010)
+
+请记住，我们对代码库的可读性进行了优化，所以无论什么工具产生的变化，我们都希望产生的变化看起来尽可能的像人类生成的变更。这一要求导致了风格指南和自动格式化工具的必要性（见第8章）。
+
+### Sharding and Submitting  分区与提交
 
 After a global change has been generated, the author then starts running Rosie. Rosie takes a large change and shards it based upon project boundaries and ownership rules into changes that *can* be submitted atomically. It then puts each individually sharded change through an independent test-mail-submit pipeline. Rosie can be a heavy user of other pieces of Google’s developer infrastructure, so it caps the number of outstanding shards for any given LSC, runs at lower priority, and communicates with the rest of the infrastructure about how much load it is acceptable to generate on our shared testing infrastructure.
 
+在全局变更产生之后，作者就开始运行Rosie。Rosie接收一个大的变化，并根据项目边界和所有权规则将其分割成可以原子化提交的变化。然后，它把每个单独的分片变化通过一个独立的测试-邮件-提交管道。Rosie可能是谷歌开发者基础设施其他部分的重度用户，所以它对任何给定的LSC的未完成分片数量设置上限，以较低的优先级运行，并与基础设施的其他部分进行沟通，了解它在我们的共享测试基础设施上产生多少负载是可以接受的。
+
 We talk more about the specific test-mail-submit process for each shard below.
+
+我们在下面会更多地谈论每个分片的具体测试-邮件提交过程。
 
 ```
 14   This happens for many reasons: copy-and-paste from existing examples, committing changes that have been in development for some time, or simply reliance on old habits.
 
 15   In actuality, this is the reasoning behind the original work on clang-format for C++.
+
+14  发生这种情况的原因有很多：从现有示例复制和粘贴，提交已经开发了一段时间的更改，或者仅仅依靠旧习惯。
+15  实际上，这是C++ CLAN格式的原始工作背后的推理。
+
 ```
 
 
 
 -----
 
-**Cattle** **Versus** **Pets**
+##### Cattle Versus Pets  牛与宠物 
 
 We often use the “cattle and pets” analogy when referring to individual machines in a distributed computing environment, but the same principles can apply to changes within a codebase.
 
+当提到分布式计算环境中的单个机器时，我们经常使用 "牛和宠物 "的比喻，但同样的原则可以适用于代码库中的变化。
+
 At Google, as at most organizations, typical changes to the codebase are handcrafted by individual engineers working on specific features or bug fixes. Engineers might spend days or weeks working through the creation, testing, and review of a single change. They come to know the change intimately, and are proud when it is finally committed to the main repository. The creation of such a change is akin to owning and raising a favorite pet.
 
-In contrast, effective handling of LSCs requires a high degree of automation and pro‐
+在谷歌，和大多数组织一样，代码库的典型变化是由从事特定功能或错误修复的个别工程师手动生成的。工程师们可能会花几天或几周的时间来创建、测试和审查一个单一的变化。他们密切了解这个变化，当它最终被提交到主资源库时，他们会感到很自豪。创建这样的变化就像拥有和养育一只喜爱的宠物一样。
 
-duces an enormous number of individual changes. In this environment, we’ve found it useful to treat specific changes as cattle: nameless and faceless commits that might be rolled back or otherwise rejected at any given time with little cost unless the entire herd is affected. Often this happens because of an unforeseen problem not caught by tests, or even something as simple as a merge conflict.
+In contrast, effective handling of LSCs requires a high degree of automation and produces an enormous number of individual changes. In this environment, we’ve found it useful to treat specific changes as cattle: nameless and faceless commits that might be rolled back or otherwise rejected at any given time with little cost unless the entire herd is affected. Often this happens because of an unforeseen problem not caught by tests, or even something as simple as a merge conflict.
+
+相比之下，有效地处理LSC需要高度的自动化，并产生大量的单独变化。在这种环境下，我们发现把特定的修改当作牛来对待是很有用的：无名无姓的提交，在任何时候都可能被回滚或以其他方式拒绝，除非整个牛群受到影响，否则代价很小。通常情况下，这种情况发生的原因是测试没有发现的意外问题，甚至是像合并冲突这样简单的事情。
 
 With a “pet” commit, it can be difficult to not take rejection personally, but when working with many changes as part of a large-scale change, it’s just the nature of the job. Having automation means that tooling can be updated and new changes generated at very low cost, so losing a few cattle now and then isn’t a problem.
 
+对于一个 "宠物 "提交，不把拒绝放在心上是很难的，但当作为大规模变革的一部分而处理许多变化时，这只是工作的性质。拥有自动化意味着工具可以更新，并以非常低的成本产生新的变化，所以偶尔失去几头牛并不是什么问题。
+
 -----
 
-#### Testing
+#### Testing 测试
 
 Each independent shard is tested by running it through TAP, Google’s CI framework. We run every test that depends on the files in a given change transitively, which often creates high load on our CI system.
 
+每个独立的分片都是通过谷歌的CI框架TAP来测试的。我们运行每一个依赖于特定变化中的文件的测试，这常常给我们的CI系统带来高负荷。
+
 This might sound computationally expensive, but in practice, the vast majority of shards affect fewer than one thousand tests, out of the millions across our codebase. For those that affect more, we can group them together: first running the union of all affected tests for all shards, and then for each individual shard running just the intersection of its affected tests with those that failed the first run. Most of these unions cause almost every test in the codebase to be run, so adding additional changes to that batch of shards is nearly free.
+
+这可能听起来很昂贵，但实际上，在我们的代码库中的数百万个测试中，绝大多数碎片影响的测试不到一千。对于那些影响更多的测试，我们可以将它们分组：首先运行所有分片的所有受影响测试的联合，然后对于每个单独的分片，只运行其受影响的测试与那些第一次运行失败的测试的交集。这些联合体中的大多数导致代码库中的几乎每一个测试都被运行，因此向该批分片添加额外的变化几乎是无额外负担的。
 
 One of the drawbacks of running such a large number of tests is that independent low-probability events are almost certainties at large enough scale. Flaky and brittle tests, such as those discussed in [Chapter 11](#_bookmark838), which often don’t harm the teams that write and maintain them, are particularly difficult for LSC authors. Although fairly low impact for individual teams, flaky tests can seriously affect the throughput of an LSC system. Automatic flake detection and elimination systems help with this issue, but it can be a constant effort to ensure that teams that write flaky tests are the ones that bear their costs.
 
+运行如此大量的测试的缺点之一是，独立的低概率事件在足够大的规模下几乎是确定出现的。脆弱和易碎的测试，如第11章中讨论的那些，通常不会损害编写和维护它们的团队，对LSC作者来说特别困难。虽然对单个团队的影响相当小，但分片测试会严重影响LSC系统的吞吐量。自动片断检测和消除系统有助于解决这个问题，但要确保编写片断测试的团队承担其成本，这可能是一个持续的努力。
+
 In our experience with LSCs as semantic-preserving, machine-generated changes, we are now much more confident in the correctness of a single change than a test with any recent history of flakiness—so much so that recently flaky tests are now ignored when submitting via our automated tooling. In theory, this means that a single shard can cause a regression that is detected only by a flaky test going from flaky to failing. In practice, we see this so rarely that it’s easier to deal with it via human communication rather than automation.
 
+根据我们对LSC作为语义保护、机器生成的更改的经验，我们现在对单个变化的正确性比对近期有任何不稳定测试更有信心--以至于最近不稳定测试现在在通过我们的自动化工具提交时被忽略了。在理论上，这意味着一个单一的分片可能会导致回归，而这个回归只能由一个不稳定的测试从不稳定到失败来检测。在实践中，我们很少看到这种情况，所以通过人工沟通而不是自动化来处理它。
+
 For any LSC process, individual shards should be committable independently. This means that they don’t have any interdependence or that the sharding mechanism can group dependent changes (such as to a header file and its implementation) together. Just like any other change, large-scale change shards must also pass project-specific checks before being reviewed and committed.
+
+对于任何LSC过程来说，各个分片应该是可以独立提交的。这意味着它们没有任何相互依赖性，或者说分片机制可以将相互依赖的变更（比如对头文件和其实现的变更）归为一组。就像其他变化一样，大规模的更改分片在被审查和提交之前也必须通过项目特定的检查。
 
 #### Mailing reviewers
 
