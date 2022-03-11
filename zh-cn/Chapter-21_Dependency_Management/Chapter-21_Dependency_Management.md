@@ -96,35 +96,54 @@ In programming terms, it’s clearly better to reuse some existing infrastructur
 
 When we start considering time, the situation gains some complicated trade-offs. Just because you get to avoid a *development* cost doesn’t mean importing a dependency is the correct choice. In a software engineering organization that is aware of time and change, we need to also be mindful of its ongoing maintenance costs. Even if we import a dependency with no intent of upgrading it, discovered security vulnerabilities, changing platforms, and evolving dependency networks can conspire to force that upgrade, regardless of our intent. When that day comes, how expensive is it going to be? Some dependencies are more explicit than others about the expected maintenance cost for merely using that dependency: how much compatibility is assumed? How much evolution is assumed? How are changes handled? For how long are releases supported?
 
+当我们开始考虑时间时，情况就会出现一些复杂的权衡。仅仅因为你可以避免*开发*的成本，并不意味着导入一个依赖关系是正确的选择。在一个了解时间和变化的软件工程组织中，我们还需要注意其持续的维护成本。即使我们在导入依赖关系时并不打算对其进行升级，被发现的安全漏洞、不断变化的平台和不断发展的依赖关系网络也会合力迫使我们进行升级，而不管我们的意图如何。当这一天到来时，它将会有多昂贵？有些依赖关系比其他依赖关系更清楚地说明了仅仅使用该依赖关系的预期维护成本：假定有多少兼容性？假设有多大的演变？如何处理变化？版本支持多长时间？
+
 We suggest that a dependency provider should be clearer about the answers to these questions. Consider the example set by large infrastructure projects with millions of users and their compatibility promises.
+
+我们建议，依赖提供者应该更清楚地了解这些问题的答案。考虑一下拥有数百万用户的大型基础设施项目及其兼容性承诺所树立的榜样。
 
 #### C++
 
 For the C++ standard library, the model is one of nearly indefinite backward compatibility. Binaries built against an older version of the standard library are expected to build and link with the newer standard: the standard provides not only API compatibility, but ongoing backward compatibility for the binary artifacts, known as *ABI compatibility*. The extent to which this has been upheld varies from platform to platform. For users of gcc on Linux, it’s likely that most code works fine over a range of roughly a decade. The standard doesn’t explicitly call out its commitment to ABI compatibility—there are no public-facing policy documents on that point. However, the standard does publish [Standing Document 8 ](https://oreil.ly/LoJq8)(SD-8), which calls out a small set of types of change that the standard library can make between versions, defining implicitly what type of changes to be prepared for. Java is similar: source is compatible between language versions, and JAR files from older releases will readily work with newer versions.
 
+对于C++标准库来说，这种模式是一种几乎无限期的向后兼容性。根据标准库的旧版本构建的二进制文件有望与较新的标准进行构建和链接：标准不仅提供了API兼容性，还为二进制工件提供了持续的向后兼容性，即所谓的*ABI兼容性*。这一点在不同的平台上被坚持的程度是不同的。对于Linux上的gcc用户来说，可能大多数代码在大约十年的范围内都能正常工作。该标准没有明确指出它对ABI兼容性的承诺--在这一点上没有面向公众的政策文件。然而，该标准确实发布了[常设文件8](https://oreil.ly/LoJq8)(SD-8)，其中列出了标准库在不同版本之间可以进行的一小部分变化类型，隐含地定义了需要准备的变化类型。Java也是如此：语言版本之间的源代码是兼容的，旧版本的JAR文件很容易在新版本中运行。
+
 #### Go
 
 Not all languages prioritize the same amount of compatibility. The Go programming language explicitly promises source compatibility between most releases, but no binary compatibility. You cannot build a library in Go with one version of the language and link that library into a Go program built with a different version of the language.
+
+并非所有的语言都优先考虑相同规格的兼容性。Go编程语言明确承诺大多数版本之间的源代码兼容，但没有二进制兼容。你不能用一个版本的Go语言建立一个库，然后把这个库链接到用另一个版本的语言建立的Go程序中。
 
 #### Abseil
 
 Google’s Abseil project is much like Go, with an important caveat about time. We are unwilling to commit to compatibility *indefinitely*: Abseil lies at the foundation of most of our most computationally heavy services internally, which we believe are likely to be in use for many years to come. This means we’re careful to reserve the right to make changes, especially in implementation details and ABI, in order to allow better performance. We have experienced far too many instances of an API turning out to be confusing and error prone after the fact; publishing such known faults to tens of thousands of developers for the indefinite future feels wrong. Internally, we already have roughly 250 million lines of C++ code that depend on this library—we aren’t going to make API changes lightly, but it must be possible. To that end, Abseil explicitly does not promise ABI compatibility, but does promise a slightly limited form of API compatibility: we won’t make a breaking API change without also providing an automated refactoring tool that will transform code from the old API to the new transparently. We feel that shifts the risk of unexpected costs significantly in favor of users: no matter what version a dependency was written against, a user of that dependency and Abseil should be able to use the most current version. The highest cost should be “run this tool,” and presumably send the resulting patch for review in the mid-level dependency (liba or libb, continuing our example from earlier). In practice, the project is new enough that we haven’t had to make any significant API breaking changes. We can’t say how well this will work for the ecosystem as a whole, but in theory, it seems like a good balance for stability versus ease of upgrade.
 
+谷歌的Abseil项目很像Go，对时间有一个重要的警告。我们不愿意无限期地致力于兼容性。Abseil是我们内部大多数计算量最大的服务的基础，我们相信这些服务可能会在未来很多年内使用。这意味着我们小心翼翼地保留修改的权利，特别是在实现细节和ABI方面，以实现更好的性能。我们已经经历了太多的例子，一个API在事后被证明是混乱和容易出错的；在无限期的未来向成千上万的开发者公布这种已知的错误感觉是错误的。在内部，我们已经有大约2.5亿行的C++代码依赖于这个库，我们不会轻易改变API，但它必须是可以改变的。为此，Abseil明确地不承诺ABI的兼容性，但确实承诺了一种稍微有限的API兼容性：我们不会在不提供自动重构工具的情况下做出破坏性的API改变，该工具将透明地将代码从旧的API转换到新的API。我们觉得这将意外成本的风险大大地转移到了用户身上：无论一个依赖关系是针对哪个版本编写的，该依赖关系和Abseil的用户都应该能够使用最新的版本。最高的成本应该是 "运行这个工具"，并推测在中级依赖关系（liba或libb，继续我们前面的例子）中发送产生的补丁以供审查。在实践中，这个项目足够新，我们没有必要做任何重大的API破坏性改变。我们不能说这对整个生态系统会有多好的效果，但在理论上，这似乎是对稳定性和易升级的一个良好平衡。
+
 #### Boost
 
 By comparison, the Boost C++ library makes no promises of [compatibility between](https://www.boost.org/users/faq.html) [versions](https://www.boost.org/users/faq.html). Most code doesn’t change, of course, but “many of the Boost libraries are actively maintained and improved, so backward compatibility with prior version isn’t always possible.” Users are advised to upgrade only at a period in their project life cycle in which some change will not cause problems. The goal for Boost is fundamentally different than the standard library or Abseil: Boost is an experimental proving ground. A particular release from the Boost stream is probably perfectly stable and appropriate for use in many projects, but Boost’s project goals do not prioritize compatibility between versions—other long-lived projects might experience some friction keeping up to date. The Boost developers are every bit as expert as the developers for the standard library[4](#_bookmark1870)—none of this is about technical expertise: this is purely a matter of what a project does or does not promise and prioritize.
 
+相比之下，Boost C++库没有承诺[不同版本](https://www.boost.org/users/faq.html)的兼容性。当然，大多数代码不会改变，但 "许多Boost库都在积极维护和改进，所以向后兼容以前的版本并不总是可能的"。我们建议用户只在项目生命周期的某个阶段进行升级，因为在这个阶段，一些变化不会造成问题。Boost的目标与标准库或Abseil有根本的不同：Boost是一个实验性的证明场。Boost的某个版本可能非常稳定，适合在许多项目中使用，但是Boost的项目目标并不优先考虑版本之间的兼容性--其他长期项目可能会遇到一些与最新版本保持同步的阻力。Boost的开发者和标准库的开发者一样都是专家--这与技术专长无关：这纯粹是一个项目是否承诺和优先考虑的问题。
+
 Looking at the libraries in this discussion, it’s important to recognize that these compatibility issues are *software engineering* issues, not *programming* issues. You can download something like Boost with no compatibility promise and embed it deeply in the most critical, long-lived systems in your organization; it will *work* just fine. All of the concerns here are about how those dependencies will change over time, keeping up with updates, and the difficulty of getting developers to worry about maintenance instead of just getting features working. Within Google, there is a constant stream of guidance directed to our engineers to help them consider this difference between “I got it to work” and “this is working in a supported fashion.” That’s unsurprising: it’s basic application of Hyrum’s Law, after all.
+
+从这个讨论中的库来看，重要的是要认识到这些兼容性问题是*软件工程*问题，而不是*编程*问题。你可以下载像Boost这样没有兼容性承诺的东西，并把它深深地嵌入到你的组织中最关键、生命周期最长的系统中；它可以*正常工作*。这里所有的担忧都是关于这些依赖关系会随着时间的推移而改变，跟上更新的步伐，以及让开发者担心维护而不是让功能正常工作的困难。在谷歌内部，有源源不断的指导意见指向我们的工程师，帮助他们考虑“我让它起作用了”和“这是以一种支持的方式起作用的”之间的区别。这并不奇怪：毕竟，这是Hyrum定律的基本应用。
 
 Put more broadly: it is important to realize that dependency management has a wholly different nature in a programming task versus a software engineering task. If you’re in a problem space for which maintenance over time is relevant, dependency management is difficult. If you’re purely developing a solution for today with no need to ever update anything, it is perfectly reasonable to grab as many readily available dependencies as you like with no thought of how to use them responsibly or plan for upgrades. Getting your program to work today by violating everything in SD-8 and also relying on binary compatibility from Boost and Abseil works fine…so long as you never upgrade the standard library, Boost, or Abseil, and neither does anything that depends on you.
 
+更广泛地说：重要的是要意识到，依赖管理在编程任务和软件工程任务中具有完全不同的性质。如果你所处的问题空间与随时间的维护相关，则依赖关系管理很困难。如果你只是为今天开发一个解决方案，而不需要更新任何东西，那么你完全可以随心所欲地抓取许多现成的依赖关系，而不考虑如何负责任地使用它们或为升级做计划。通过违反SD-8中的所有规定，并依靠Boost和Abseil的二进制兼容性，使你的程序今天就能运行......只要你不升级标准库、Boost或Abseil，也不升级任何依赖你的东西，就可以了。
+
 ```
 4	In many cases, there is significant overlap in those populations.
+4 在许多情况下，这些人群中存在着明显的重叠。
 ```
 
-### Considerations When Importing
+### Considerations When Importing  导入依赖的注意事项
 
 Importing a dependency for use in a programming project is nearly free: assuming that you’ve taken the time to ensure that it does what you need and isn’t secretly a security hole, it is almost always cheaper to reuse than to reimplement functionality. Even if that dependency has taken the step of clarifying what compatibility promise it will make, so long as we aren’t ever upgrading, anything you build on top of that snapshot of your dependency is fine, no matter how many rules you violate in consuming that API. But when we move from programming to software engineering, those dependencies become subtly more expensive, and there are a host of hidden costs and questions that need to be answered. Hopefully, you consider these costs before importing, and, hopefully, you know when you’re working on a programming project versus working on a software engineering project.
+
+导入一个依赖关系用于编程项目几乎是免费的：假设你已经花了时间来确保它做了你需要的事情，并且没有隐蔽的安全漏洞，那么重用几乎总是比重新实现功能要划算。即使该依赖关系已经采取了澄清它将作出什么兼容性承诺的步骤，只要我们不曾升级，你在该依赖关系的快照之上建立的任何东西都是好的，无论你在消费该API时违反了多少规则。但是，当我们从编程转向软件工程时，这些依赖关系的成本会变得微妙地更高，而且有一系列的隐藏成本和问题需要回答。希望你在导入之前考虑到这些成本，而且，希望你知道你什么时候是在做一个编程项目，而不是在做一个软件工程项目。
 
 When engineers at Google try to import dependencies, we encourage them to ask this (incomplete) list of questions first:
 
@@ -152,33 +171,80 @@ When engineers at Google try to import dependencies, we encourage them to ask th
 
 •   How difficult do we expect it to be to perform an upgrade?
 
+当谷歌的工程师试图导入依赖关系时，我们鼓励他们先问这个（不完整）的问题清单：
+
+- 该项目是否有你可以运行的测试？
+
+- 这些测试是否通过？
+
+- 谁在提供这个依赖关系？即使在 "无担保 "的开放源码软件项目中，也有相当大的经验和技能范围--依赖C++标准库或Java的Guava库的兼容性，与从GitHub或npm中随机选择一个项目是完全不同的事情。信誉不是一切，但它值得调研。
+
+- 该项目希望达到什么样的兼容性？
+
+- 该项目是否详细说明了预计会支持什么样的用法？
+
+- 该项目有多受欢迎？
+
+- 我们将在多长时间内依赖这个项目？
+
+- 该项目多长时间做一次突破性的改变？项目多久进行一次突破性的变更？在此基础上，添加一些简短的内部重点问题：
+    - 在谷歌内部实现该功能会有多复杂？
+
+    - 我们有什么激励措施来保持这个依赖性的最新状态？
+
+    - 谁来执行升级？
+
+    - 我们预计进行升级会有多大难度？
+
+
 Our own Russ Cox has [written about this more extensively](https://research.swtch.com/deps). We can’t give a perfect formula for deciding when it’s cheaper in the long term to import versus reimplement; we fail at this ourselves, more often than not.
 
-### How Google Handles Importing Dependencies
+我们的Russ Cox已经[更广泛地写到了这一点]（https://research.swtch.com/deps）。我们无法给出一个完美的公式来决定从长远来看，什么时候引入和重新实施更划算；我们自己在这方面经常失败。
+
+### How Google Handles Importing Dependencies  Google如何处理导入依赖
 
 In short: we could do better.
 
+简言之：我们可以做得更好。
+
 The overwhelming majority of dependencies in any given Google project are internally developed. This means that the vast majority of our internal dependency- management story isn’t really dependency management, it’s just source control—by design. As we have mentioned, it is a far easier thing to manage and control the complexities and risks involved in adding dependencies when the providers and consumers are part of the same organization and have proper visibility and Continuous Integration (CI; see [Chapter 23](#_bookmark2022)) available. Most problems in dependency management stop being problems when you can see exactly how your code is being used and know exactly the impact of any given change. Source control (when you control the projects in question) is far easier than dependency management (when you don’t).
+
+在任何特定的Google项目中，绝大多数的依赖都是内部开发的。这意味着，我们的内部依赖管理故事中的绝大部分并不是真正的依赖管理，它只是设计上的源头控制。正如我们所提到的，当提供者和消费者是同一组织的一部分，并且有适当的可见性和持续集成（CI；见第23章）时，管理和控制增加依赖关系所涉及的复杂性和风险是一件容易得多的事情。当你能准确地看到你的代码是如何被使用的，并准确地知道任何给定变化的影响时，依赖管理中的大多数问题就不再是问题了。源头控制（当你控制有关项目时）要比依赖管理（当你不控制时）容易得多。
 
 That ease of use begins failing when it comes to our handling of external projects. For projects that we are importing from the OSS ecosystem or commercial partners, those dependencies are added into a separate directory of our monorepo, labeled *third_party*. Let’s examine how a new OSS project is added to *third_party*.
 
+当涉及到我们对外部项目的处理时，这种易用性开始失效了。对于我们从开放源码软件生态系统或商业伙伴那里导入的项目，这些依赖关系被添加到我们monorepo的一个单独目录中，标记为*third_party*。我们来看看一个新的OSS项目是如何被添加到*third_party*的。
+
 Alice, a software engineer at Google, is working on a project and realizes that there is an open source solution available. She would really like to have this project completed and demo’ed soon, to get it out of the way before going on vacation. The choice then is whether to reimplement that functionality from scratch or download the OSS package and get it added to *third_party*. It’s very likely that Alice decides that the faster development solution makes sense: she downloads the package and follows a few steps in our *third_party* policies. This is a fairly simple checklist: make sure it builds with our build system, make sure there isn’t an existing version of that package, and make sure at least two engineers are signed up as OWNERS to maintain the package in the event that any maintenance is necessary. Alice gets her teammate Bob to say, “Yes, I’ll help.” Neither of them need to have any experience maintaining a *third_party* package, and they have conveniently avoided the need to understand anything about the *implementation* of this package. At most, they have gained a little experience with its interface as part of using it to solve the prevacation demo problem.
+
+Alice是谷歌的一名软件工程师，她正在做一个项目，并意识到有一个开源的解决方案可用。她真的很想尽快完成这个项目并进行演示，希望在去度假之前把它解决掉。然后的选择是，是从头开始重新实现这个功能，还是下载开放源码包，并将其添加到*第三方*。很可能Alice决定更快的开发方案是有意义的：她下载了包，并按照我们的*third_party*政策中的几个步骤进行了操作。这是一个相当简单的清单：确保它在我们的构建系统中构建，确保该软件包没有现有的版本，并确保至少有两名工程师注册为所有者，在有必要进行任何维护时维护该软件包。爱丽丝让她的队友Bob说，"是的，我会帮忙"。他们都不需要有维护*第三方*包的经验，而且他们很方便地避免了对这个包的*实施*的了解。最多，他们对它的界面获得了一点经验，作为使用它来解决预先演示问题的一部分。
 
 From this point on, the package is usually available to other Google teams to use in their own projects. The act of adding additional dependencies is completely transparent to Alice and Bob: they might be completely unaware that the package they downloaded and promised to maintain has become popular. Subtly, even if they are monitoring for new direct usage of their package, they might not necessarily notice growth in the *transitive* usage of their package. If they use it for a demo, while Charlie adds a dependency from within the guts of our Search infrastructure, the package will have suddenly moved from fairly innocuous to being in the critical infrastructure for important Google systems. However, we don’t have any particular signals surfaced to Charlie when he is considering whether to add this dependency.
 
+从这时起，该软件包通常可以供其他谷歌团队在他们自己的项目中使用。添加额外的依赖关系的行为对Alice和Bob来说是完全透明的：他们可能完全没有意识到他们下载并承诺维护的软件包已经变得很流行。微妙的是，即使他们在监测他们的软件包的新的直接使用情况，他们也不一定会注意到他们的软件包的*过渡性*使用的增长。如果他们把它用于演示，而Charlie为我们的搜索基础设施的内部增加了一个依赖，那么这个包就会突然从相当无害的地方变成谷歌重要系统的关键基础设施。然而，当Charlie考虑是否要添加这个依赖时，我们没有任何特别的信号提示给他。
+
 Now, it’s possible that this scenario is perfectly fine. Perhaps that dependency is well written, has no security bugs, and isn’t depended upon by other OSS projects. It might be *possible* for it to go quite a few years without being updated. It’s not necessarily *wise* for that to happen: changes externally might have optimized it or added important new functionality, or cleaned up security holes before CVEs[5](#_bookmark1877) were discovered. The longer that the package exists, the more dependencies (direct and indirect) are likely to accrue. The more that the package remains stable, the more that we are likely to accrete Hyrum’s Law reliance on the particulars of the version that is checked into *third_party*.
+
+现在，这种情况有可能是完美的。也许这个依赖关系写得很好，没有安全漏洞，也没有被其他OSS项目所依赖。这可能是*有可能的*，因为它可以在相当长的时间内不被更新。但这并不一定是明智之举：外部的变化可能已经优化了它，或者增加了重要的新功能，或者在CVE被发现之前清理了安全漏洞。软件包存在的时间越长，依赖（直接和间接）就越多。软件包越是保持稳定，我们就越有可能增Hyrum定律对被检查到*第三方*的版本的特定依赖。
 
 One day, Alice and Bob are informed that an upgrade is critical. It could be the disclosure of a security vulnerability in the package itself or in an OSS project that depends upon it that forces an upgrade. Bob has transitioned to management and hasn’t touched the codebase in a while. Alice has moved to another team since the demo and hasn’t used this package again. Nobody changed the OWNERS file. Thousands of projects depend on this indirectly—we can’t just delete it without breaking the build for Search and a dozen other big teams. Nobody has any experience with the implementation details of this package. Alice isn’t necessarily on a team that has a lot of experience undoing Hyrum’s Law subtleties that have accrued over time.
 
+有一天，Alice和Bob被告知，升级是很关键的。这可能是软件包本身或依赖它的OSS项目中的安全漏洞被披露，从而迫使他们进行升级。Bob已经成为管理层，并且已经有一段时间没有碰过代码库了。Alice在演示后转到了另一个团队，并没有再使用这个包。没有人改变OWNERS文件。成千上万的项目都间接地依赖于此--我们不能在不破坏Search和其他十几个大团队的构建的情况下直接删除它。没有人对这个包的实现细节有任何经验。Alice所在的团队不一定有在消除Hyrum定律随着时间积累的微妙之处方面经验丰富。
+
 All of which is to say: Alice and the other users of this package are in for a costly and difficult upgrade, with the security team exerting pressure to get this resolved immediately. Nobody in this scenario has practice in performing the upgrade, and the upgrade is extra difficult because it is covering many smaller releases covering the entire period between initial introduction of the package into *third_party* and the security disclosure.
+
+所有这些都是说。Alice和这个软件包的其他用户将面临一次代价高昂而困难的升级，安全团队正在施加压力以立即解决这个问题。在这种情况下，没有人有执行升级的经验，而且升级是非常困难的，因为它涵盖了许多较小的版本，涵盖了从最初将软件包引入*第三方*到安全披露的整个时期。
 
 Our *third_party* policies don’t work for these unfortunately common scenarios. We roughly understand that we need a higher bar for ownership, we need to make it easier (and more rewarding) to update regularly and more difficult for *third_party* packages to be orphaned and important at the same time. The difficulty is that it is difficult for codebase maintainers and *third_party* leads to say, “No, you can’t use this thing that solves your development problem perfectly because we don’t have resources to update everyone with new versions constantly.” Projects that are popular and have no compatibility promise (like Boost) are particularly risky: our developers might be very familiar with using that dependency to solve programming problems outside of Google, but allowing it to become ingrained into the fabric of our codebase is a big risk. Our codebase has an expected lifespan of decades at this point: upstream projects that are not explicitly prioritizing stability are a risk.
 
+我们的*第三方包*政策不适用于这些不幸的常见情况。我们大致明白，我们需要一个更高的所有权标准，我们需要让定期更新更容易（和更多的回报），让*第三方包*更难成为孤儿，同时也更重要。困难在于，代码库维护者和*第三方包*领导很难说："不，你不能使用这个能完美解决你的开发问题的东西，因为我们没有资源不断为大家更新新版本"。那些流行的、没有兼容性承诺的项目（比如Boost）尤其有风险：我们的开发者可能非常熟悉使用这种依赖关系来解决谷歌以外的编程问题，但允许它根植于我们的代码库结构中是一个很大的风险。在这一点上，我们的代码库有几十年的预期寿命：上游项目如果没有明确地优先考虑稳定性，就是一种风险。
+
 ```
 5	Common Vulnerabilities and Exposures
+5   常见漏洞和暴露
 ```
 
-## Dependency Management, In Theory
+## Dependency Management, In Theory  理论上的依赖管理
 
 Having looked at the ways that dependency management is difficult and how it can go wrong, let’s discuss more specifically the problems we’re trying to solve and how we might go about solving them. Throughout this chapter, we call back to the formulation, “How do we manage code that comes from outside our organization (or that we don’t perfectly control): how do we update it, how do we manage the things it depends upon over time?” We need to be clear that any good solution here avoids conflicting requirements of any form, including diamond dependency version conflicts, even in a dynamic ecosystem in which new dependencies or other requirements might be added (at any point in the network). We also need to be aware of the impact of time: all software has bugs, some of those will be security critical, and some fraction of our dependencies will therefore be *critical* to update over a long enough period of time.
 
