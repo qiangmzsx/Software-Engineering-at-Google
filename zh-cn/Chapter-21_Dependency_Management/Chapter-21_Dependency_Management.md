@@ -248,52 +248,88 @@ Our *third_party* policies don’t work for these unfortunately common scenarios
 
 Having looked at the ways that dependency management is difficult and how it can go wrong, let’s discuss more specifically the problems we’re trying to solve and how we might go about solving them. Throughout this chapter, we call back to the formulation, “How do we manage code that comes from outside our organization (or that we don’t perfectly control): how do we update it, how do we manage the things it depends upon over time?” We need to be clear that any good solution here avoids conflicting requirements of any form, including diamond dependency version conflicts, even in a dynamic ecosystem in which new dependencies or other requirements might be added (at any point in the network). We also need to be aware of the impact of time: all software has bugs, some of those will be security critical, and some fraction of our dependencies will therefore be *critical* to update over a long enough period of time.
 
+在了解了依赖管理的困难以及它如何出错之后，让我们更具体地讨论我们要解决的问题以及我们如何去解决它们。在本章中，我们一直在呼吁："我们如何管理来自我们组织之外（或我们不能完全控制）的代码：我们如何更新它，如何管理它所依赖的东西？我们需要清楚，这里的任何好的解决方案都会避免任何形式的需求冲突，包括钻石依赖版本冲突，甚至在一个动态的生态系统中，可能会增加新的依赖或其他需求（在网络中的任何一点）。我们还需要意识到时间的影响：所有的软件都有bug，其中一些将是安全上的关键，因此我们的依赖中的一些部分将在足够长的时间内可更新。
+
 A stable dependency-management scheme must therefore be flexible with time and scale: we can’t assume indefinite stability of any particular node in the dependency graph, nor can we assume that no new dependencies are added (either in code we control or in code we depend upon). If a solution to dependency management prevents conflicting requirement problems among your dependencies, it’s a good solution. If it does so without assuming stability in dependency version or dependency fan-out, coordination or visibility between organizations, or significant compute resources, it’s a great solution.
+
+因此，一个稳定的依赖管理方案必须在时间和规模上具有灵活性：我们不能假设依赖关系中任何特定节点的无限稳定，也不能假设没有新的依赖被添加（无论是在我们控制的代码中还是在我们依赖的代码中）。如果一个依赖管理的解决方案能够防止你的依赖关系中出现冲突的需求问题，那么它就是一个好的解决方案。如果它不需要假设依赖版本或依赖关系的稳定性，不需要组织间的协调或可见性，也不需要大量的计算资源，那么它就是一个很好的解决方案。
 
 When proposing solutions to dependency management, there are four common options that we know of that exhibit at least some of the appropriate properties: nothing ever changes, semantic versioning, bundle everything that you need (coordinating not per project, but per distribution), or Live at Head.
 
-### Nothing Changes (aka The Static Dependency Model)
+在提出依赖性管理的解决方案时，我们知道有四种常见的选择，它们至少表现出一些适当的属性：无任何更改、语义版本控制、捆绑你所需要的一切（不是按项目协调，而是按发行量协调），或直接使用最新版本。
+
+### Nothing Changes (aka The Static Dependency Model)  无任何更改（也称为静态依赖模型）
 
 The simplest way to ensure stable dependencies is to never change them: no API changes, no behavioral changes, nothing. Bug fixes are allowed only if no user code could be broken. This prioritizes compatibility and stability over all else. Clearly, such a scheme is not ideal due to the assumption of indefinite stability. If, somehow, we get to a world in which security issues and bug fixes are a nonissue and dependencies aren’t changing, the Nothing Changes model is very appealing: if we start with satisfiable constraints, we’ll be able to maintain that property indefinitely.
 
+确保稳定的依赖关系的最简单方法是永远不要更改它们：不要改变API，不要改变行为，什么都不要。只有在没有用户代码被破坏的情况下才允许修复错误。这将兼容性和稳定性置于所有其他方面之上。显然，这样的方案并不理想，因为有无限期的稳定性的假设。如果以某种方式，我们到达了一个安全问题和错误修复都不是问题，并且依赖关系不发生变化的世界，那么 "无变化 "模型就非常有吸引力：如果我们从可满足的约束开始，我们就能无限期地保持这种特性。
+
 Although not sustainable in the long term, practically speaking, this is where every organization starts: up until you’ve demonstrated that the expected lifespan of your project is long enough that change becomes necessary, it’s really easy to live in a world where we assume that nothing changes. It’s also important to note: this is probably the right model for most new organizations. It is comparatively rare to know that you’re starting a project that is going to live for decades and have a *need* to be able to update dependencies smoothly. It’s much more reasonable to hope that stability is a real option and pretend that dependencies are perfectly stable for the first few years of a project.
+
+虽然从长远来看是不可持续的，但实际上，这是每个组织的出发点：直到你证明你的项目的预期生命周期足够长，有必要进行更改，我们真的很容易生活在一个假设没有变化的世界里。同样重要的是要注意：这可能是大多数新组织的正确模式。相对来说，很少有人知道你开始的项目将运行几十年，并且*需要*能够顺利地更新依赖关系。希望稳定是一个真正的选择，并假装依赖关系在项目的前几年是完全稳定的，这显然要合理得多。
 
 The downside to this model is that, over a long enough time period, it *is* false, and there isn’t a clear indication of exactly how long you can pretend that it is legitimate. We don’t have long-term early warning systems for security bugs or other critical issues that might force you to upgrade a dependency—and because of chains of dependencies, a single upgrade can in theory become a forced update to your entire dependency network.
 
+这种模式的缺点是，在足够长的时间内，它*是不存在*，并且没有明确的迹象表明你可以假装它是合理的。我们没有针对安全漏洞或其他可能迫使您升级依赖关系的关键问题的长期预警系统，这些问题可能会迫使你升级一个依赖关系--由于依赖关系链的存在，一个单一的升级在理论上可以成为你整个依赖关系网络的强制更新。
+
 In this model, version selection is simple: there are no decisions to be made, because there are no versions.
 
-### Semantic Versioning
+在这个模型中，版本选择很简单：因为没有版本，所以不需要做出任何决定。
+
+### Semantic Versioning  语义版本管理
 
 The de facto standard for “how do we manage a network of dependencies today?” is semantic versioning (SemVer).[6](#_bookmark1886) SemVer is the nearly ubiquitous practice of representing a version number for some dependency (especially libraries) using three decimal-separated integers, such as 2.4.72 or 1.1.4. In the most common convention, the three component numbers represent major, minor, and patch versions, with the implication that a changed major number indicates a change to an existing API that can break existing usage, a changed minor number indicates purely added functionality that should not break existing usage, and a changed patch version is reserved for non-API-impacting implementation details and bug fixes that are viewed as particularly low risk.
 
+"我们今天如何管理依赖关系网络？"事实上的标准是语义版本管理（SemVer）。SemVer是一种几乎无处不在的做法，即用三个十进制分隔的整数来表示某些依赖关系（尤其是库）的版本号，例如2.4.72或1.1.4。在最常见的惯例中，三个组成部分的数字代表主要、次要和补丁版本，其含义是：改变主要数字表示对现有API的改变，可能会破坏现有的使用，改变次要数字表示纯粹增加的功能，不应该破坏现有的使用，而改变补丁版本是保留给非API影响的实施细节和被视为特别低风险的bug修复。
+
 With the SemVer separation of major/minor/patch versions, the assumption is that a version requirement can generally be expressed as “anything newer than,” barring API-incompatible changes (major version changes). Commonly, we’ll see “Requires libbase ≥ 1.5,” that requirement would be compatible with any libbase in 1.5, including 1.5.1, and anything in 1.6 onward, but not libbase 1.4.9 (missing the API introduced in 1.5) or 2.x (some APIs in libbase were changed incompatibly). Major version changes are a significant incompatibility: because an existing piece of functionality has changed (or been removed), there are potential incompatibilities for all dependents. Version requirements exist (explicitly or implicitly) whenever one dependency uses another: we might see “liba requires libbase ≥ 1.5” and “libb requires libbase ≥ 1.4.7.”
+
+由于SemVer将主要/次要/补丁版本分离，假设版本需求通常可以表示为“任何更新的”，除非API不兼容的更改（主版本更改）。通常，我们会看到 "Requires libbase ≥ 1.5"，这个需求会与1.5中的任何libbase兼容，包括1.5.1，以及1.6以后的任何东西，但不包括libbase 1.4.9（缺少1.5中引入的API）或2.x（libbase中的一些API被不兼容地更改）。主要的版本变化是一种重要的不兼容：由于现有功能已更改（或已删除），因此所有依赖项都存在潜在的不兼容性。只要一个依赖关系使用另一个依赖关系，就会存在版本要求（明确地或隐含地）：我们可能看到 "liba requires libbase ≥ 1.5" 和 "libb requires libbase ≥ 1.4.7"。
 
 If we formalize these requirements, we can conceptualize a dependency network as a collection of software components (nodes) and the requirements between them (edges). Edge labels in this network change as a function of the version of the source node, either as dependencies are added (or removed) or as the SemVer requirement is updated because of a change in the source node (requiring a newly added feature in a dependency, for instance). Because this whole network is changing asynchronously over time, the process of finding a mutually compatible set of dependencies that satisfy all the transitive requirements of your application can be challenging.[7](#_bookmark1889) Version- satisfiability solvers for SemVer are very much akin to SAT-solvers in logic and algorithms research: given a set of constraints (version requirements on dependency edges), can we find a set of versions for the nodes in question that satisfies all constraints? Most package management ecosystems are built on top of these sorts of graphs, governed by their SemVer SAT-solvers.
 
+如果我们将这些要求标准化，我们可以将依赖网络概念化为软件组件（节点）和它们之间的要求（边缘）的集合。这个网络中的边缘标签作为源节点版本的函数而变化，要么是由于依赖关系被添加（或删除），要么是由于源节点的变化而更新SemVer需求（例如，要求在依赖关系中添加新的功能）。由于整个依赖网络是随着时间的推移而异步变化的，因此，找到一组相互兼容的依赖关系，以满足应用程序的所有可传递需求的过程可能是一个具有挑战性的过程。SemVer的版本满足求解器非常类似于逻辑和算法研究中的SAT求解器：给定一组约束（依赖边的版本要求），我们能否为有关节点找到一组满足所有约束的版本？大多数软件包管理生态系统都是建立在这类图之上的，由其SemVer SAT求解器管理。
+
 SemVer and its SAT-solvers aren’t in any way promising that there *exists* a solution to a given set of dependency constraints. Situations in which dependency constraints cannot be satisfied are created constantly, as we’ve already seen: if a lower-level component (libbase) makes a major-number bump, and some (but not all) of the libraries that depend on it (libb but not liba) have upgraded, we will encounter the diamond dependency issue.
+
+SemVer和它的SAT求解器并不保证对一组给定的依赖性约束*存在*的解决方案。正如我们已经看到的，无法满足依赖性约束的情况不断出现：如果一个较低级别的组件（libbase）进行了重大的数字升级，而一些（但不是全部）依赖它的库（libb但不是liba）已经升级，我们就会遇到钻石依赖问题。
 
 SemVer solutions to dependency management are usually SAT-solver based. Version selection is a matter of running some algorithm to find an assignment of versions for dependencies in the network that satisfies all of the version-requirement constraints. When no such satisfying assignment of versions exists, we colloquially call it “dependency hell.”
 
+SemVer对依赖管理的解决方案通常是基于SAT求解器的。版本选择是一个运行某种算法的问题，为依赖网络中的依赖关系找到一个满足所有版本要求约束的版本分配。当不存在这种满意的版本分配时，我们通俗称它为 "依赖地狱"。
+
 We’ll look at some of the limitations of SemVer in more detail later in this chapter.
+
+我们将在本章后面详细介绍SemVer的一些限制。
 
 ```
 6	Strictly speaking, SemVer refers only to the emerging practice of applying semantics to major/minor/patch version numbers, not the application of compatible version requirements among dependencies numbered in that fashion. There are numerous minor variations on those requirements among different ecosystems, but in general, the version-number-plus-constraints system described here as SemVer is representative of the practice at large.
+
+6 严格来说，SemVer只是指对主要/次要/补丁版本号应用语义的新兴做法，而不是在以这种方式编号的依赖关系中应用兼容的版本要求。在不同的生态系统中，这些要求有许多细微的变化，但总的来说，这里描述的SemVer的版本号加约束系统是对整个实践的代表。
 ```
 
-### Bundled Distribution Models
+### Bundled Distribution Models  捆绑分销模式
 
 As an industry, we’ve seen the application of a powerful model of managing dependencies for decades now: an organization gathers up a collection of dependencies, finds a mutually compatible set of those, and releases the collection as a single unit. This is what happens, for instance, with Linux distributions—there’s no guarantee that the various pieces that are included in a distro are cut from the same point in time. In fact, it’s somewhat more likely that the lower-level dependencies are somewhat older than the higher-level ones, just to account for the time it takes to integrate them.
 
+作为一个行业，几十年来我们已经看到了一个强大的依赖管理模型的应用：一个组织收集一组依赖项，找到一组相互兼容的依赖项，并将这些依赖项作为一个单元发布。例如，这就是发生在Linux发行版上的情况--不能保证包含在发行版中的各个部分是在同一时间点上划分的。事实上，更有可能的是，低级别的依赖关系比高级别的依赖关系要老一些，只是为了考虑到集成它们所需要的时间。
+
 This “draw a bigger box around it all and release that collection” model introduces entirely new actors: the distributors. Although the maintainers of all of the individual dependencies may have little or no knowledge of the other dependencies, these higher-level *distributors* are involved in the process of finding, patching, and testing a mutually compatible set of versions to include. Distributors are the engineers responsible for proposing a set of versions to bundle together, testing those to find bugs in that dependency tree, and resolving any issues.
+
+这一“围绕这一切画一个更大的盒子并发布该系列”的模式引入了全新的参与者：分销商。尽管所有独立依赖的维护者可能对其他依赖知之甚少或一无所知，但这些高层次分发者参与了查找、修补和测试要包含的相互兼容的版本集的过程。分销商是工程师，负责提出一组捆绑在一起的版本，测试这些版本以发现依赖关系树中的错误，并解决任何问题。
 
 For an outside user, this works great, so long as you can properly rely on only one of these bundled distributions. This is effectively the same as changing a dependency network into a single aggregated dependency and giving that a version number. Rather than saying, “I depend on these 72 libraries at these versions,” this is, “I depend on RedHat version N,” or, “I depend on the pieces in the NPM graph at time T.”
 
+对于外部用户来说，这非常有效，只要你能正确地依赖这些捆绑的发行版中的一个。这实际上等于把一个依赖网络变成单个聚合依赖关系并为其提供版本号相同。与其说 "我在这些版本中依赖于这72个库"，不如说 "我依赖RedHat的版本N"，或者 "我依赖于时间T时NPM图中的片段"。
+
 In the bundled distribution approach, version selection is handled by dedicated distributors.
 
-
+在捆绑式分销方式中，版本选择由专门的分销商处理。
 
 ```
 7	In fact, it has been proven that SemVer constraints applied to a dependency network are NP-complete.
+
+7   事实上，已经证明了应用于依赖网络的SemVer约束是NP完全的。
 ```
 
 
@@ -314,7 +350,7 @@ In the Live at Head approach, version selection is handled by asking “What is 
 8	Especially the author and others in the Google C++ community.
 ```
 
-## The Limitations of SemVer
+## The Limitations of SemVer 语义版本管理的局限性
 
 The Live at Head approach may build on recognized practices for version control (trunk-based development) but is largely unproven at scale. SemVer is the de facto standard for dependency management today, but as we’ve suggested, it is not without its limitations. Because it is such a popular approach, it is worth looking at it in more detail and highlighting what we believe to be its potential pitfalls.
 
