@@ -637,38 +637,57 @@ Then, for unrelated reasons, C++ library teams began tweaking observable-but-not
 
 ----
 
-#### Case Study: AppEngine
+#### Case Study: AppEngine  案例研究：AppEngine
 
-A more serious example of exposing ourselves to greater risk of unexpected technical dependency comes from publishing Google’s AppEngine service. This service allows users to write their applications on top of an existing framework in one of several popular programming languages. So long as the application is written with a proper
-storage/state management model, the AppEngine service allows those applications to scale up to huge usage levels: backing storage and frontend management are managed and cloned on demand by Google’s production infrastructure.
+A more serious example of exposing ourselves to greater risk of unexpected technical dependency comes from publishing Google’s AppEngine service. This service allows users to write their applications on top of an existing framework in one of several popular programming languages. So long as the application is written with a proper storage/state management model, the AppEngine service allows those applications to scale up to huge usage levels: backing storage and frontend management are managed and cloned on demand by Google’s production infrastructure.
 
-Originally, AppEngine’s support for Python was a 32-bit build running with an older version of the Python interpreter. The AppEngine system itself was (of course) implemented in our monorepo and built with the rest of our common tools, in Python and in C++ for backend support. In 2014 we started the process of doing a major update to the Python runtime alongside our C++ compiler and standard library installations, with the result being that we effectively tied “code that builds with the current C++ compiler” to “code that uses the updated Python version”—a project that upgraded one of those dependencies inherently upgraded the other at the same time. For most projects, this was a non-issue. For a few projects, because of edge cases and Hyrum’s Law, our language platform experts wound up doing some investigation and debugging to unblock the transition. In a terrifying instance of Hyrum’s Law running into
-business practicalities, AppEngine discovered that many of its users, our paying customers, couldn’t (or wouldn’t) update: either they didn’t want to take the change to the newer Python version, or they couldn’t afford the resource consumption changes involved in moving from 32-bit to 64-bit Python. Because there were some customers that were paying a significant amount of money for AppEngine services, AppEngine was able to make a strong business case that a forced switch to the new language and compiler versions must be delayed. This inherently meant that every piece of C++ code in the transitive closure of dependencies from AppEngine had to be compatible with the older compiler and standard library versions: any bug fixes or performance optimizations that could be made to that infrastructure had to be compatible across versions. That situation persisted for almost three years.
+一个更严重的技术依赖将我们自己暴露在意料外的更大风险中的例子来自于发布谷歌的AppEngine服务。这项服务允许用户在现有框架的基础上用几种流行的编程语言之一编写他们的应用程序。只要应用程序是用适当的存储/状态管理模型编写的，AppEngine服务允许这些应用程序扩展到超大规模的使用水平：备份存储和前端管理是由谷歌的生产基础设施按需管理和复制的。
+
+Originally, AppEngine’s support for Python was a 32-bit build running with an older version of the Python interpreter. The AppEngine system itself was (of course) implemented in our monorepo and built with the rest of our common tools, in Python and in C++ for backend support. In 2014 we started the process of doing a major update to the Python runtime alongside our C++ compiler and standard library installations, with the result being that we effectively tied “code that builds with the current C++ compiler” to “code that uses the updated Python version”—a project that upgraded one of those dependencies inherently upgraded the other at the same time. For most projects, this was a non-issue. For a few projects, because of edge cases and Hyrum’s Law, our language platform experts wound up doing some investigation and debugging to unblock the transition. In a terrifying instance of Hyrum’s Law running into business practicalities, AppEngine discovered that many of its users, our paying customers, couldn’t (or wouldn’t) update: either they didn’t want to take the change to the newer Python version, or they couldn’t afford the resource consumption changes involved in moving from 32-bit to 64-bit Python. Because there were some customers that were paying a significant amount of money for AppEngine services, AppEngine was able to make a strong business case that a forced switch to the new language and compiler versions must be delayed. This inherently meant that every piece of C++ code in the transitive closure of dependencies from AppEngine had to be compatible with the older compiler and standard library versions: any bug fixes or performance optimizations that could be made to that infrastructure had to be compatible across versions. That situation persisted for almost three years.
+
+最初，AppEngine对Python的支持是使用旧版本的Python解释器运行的32位构建。AppEngine系统本身（当然）是在我们的monorepo中实现的，并与我们其他的通用工具一起构建，用Python和C++来支持后端。2014年，我们开始对Python运行时进行重大更新，同时安装C++编译器和标准库，其结果是我们有效地将 "用当前C++编译器构建的代码 "与 "使用更新的Python版本的代码 "联系起来--一个项目如果升级了这些依赖中的一个，就同时升级了另一个。对于大多数项目来说，这并不是一个问题。对于少数项目，由于边缘案例和Hyrum定律，我们的语言平台专家最终做了一些调查和调试，以解除过渡的障碍。在一个可怕的Hyrum定律与商业实际相结合的例子中，AppEngine发现它的许多用户，即我们的付费客户，不能（或不愿）更新：要么他们不想改变到较新的Python版本，要么他们负担不起从32位到64位Python的资源消耗变化。因为有一些客户为AppEngine的服务支付了大量的费用，AppEngine能够提出一个强有力的商业方案，即必须推迟强制切换到新的语言和编译器版本。这就意味着AppEngine的依赖关系中的每一段C++代码都必须与旧的编译器和标准库版本兼容：对该基础设施的任何错误修复或性能优化都必须跨版本兼容。这种情况持续了近三年。
 
 -----
 
 With enough users, any “observable” of your system will come to be depended upon by somebody. At Google, we constrain all of our internal users within the boundaries of our technical stack and ensure visibility into their usage with the monorepo and code indexing systems, so it is far easier to ensure that useful change remains possible. When we shift from source control to dependency management and lose visibility into how code is used or are subject to competing priorities from outside groups (especially ones that are paying you), it becomes much more difficult to make pure engineering trade-offs. Releasing APIs of any sort exposes you to the possibility of competing priorities and unforeseen constraints by outsiders. This isn’t to say that you shouldn’t release APIs; it serves only to provide the reminder: external users of an API cost a lot more to maintain than internal ones.
 
+有了足够多的用户，你的系统的任何 "可观察到的 "都会被某些人所依赖。在谷歌，我们把所有的内部用户都限制在我们的技术堆栈的范围内，并通过monorepo和代码索引系统确保对他们的使用情况的可见性，所以更容易确保有用的改变是可能的。当我们从源码控制转向依赖管理，并失去了对代码使用情况的可见性，或者受到来自外部团体（尤其是那些付钱给你的团体）的高优先级的影响时，要做出纯粹的工程权衡就变得更加困难。发布任何类型的API都会使你暴露在竞争性的优先级和外部人员不可预见的限制的可能性中。这并不是说你不应该发布API；这只是为了提醒你：API的外部用户比内部用户的维护成本高得多。
+
 Sharing code with the outside world, either as an open source release or as a closed- source library release, is not a simple matter of charity (in the OSS case) or business opportunity (in the closed-source case). Dependent users that you cannot monitor, in different organizations, with different priorities, will eventually exert some form of Hyrum’s Law inertia on that code. Especially if you are working with long timescales, it is impossible to accurately predict the set of necessary or useful changes that could become valuable. When evaluating whether to release something, be aware of the long-term risks: externally shared dependencies are often much more expensive to modify over time.
 
-## Conclusion
+与外界分享代码，无论是作为开放源码发布还是作为闭源库发布，都不是一个简单的慈善问题（在开放源码的情况下）或商业机会（在闭源的情况下）。你无法监控的依赖用户，在不同的组织中，有不同的优先级，最终会对该代码施加某种形式的海勒姆法则的惯性。特别是当你工作的时间尺度较长时，你不可能准确地预测可能成为有价值的必要或有用的变化的集合。当评估是否要发布一些东西时，要意识到长期的风险：外部共享的依赖关系随着时间的推移，修改的成本往往要高得多。
+
+## Conclusion  总结
 
 Dependency management is inherently challenging—we’re looking for solutions to management of complex API surfaces and webs of dependencies, where the maintainers of those dependencies generally have little or no assumption of coordination. The de facto standard for managing a network of dependencies is semantic versioning, or SemVer, which provides a lossy summary of the perceived risk in adopting any particular change. SemVer presupposes that we can a priori predict the severity of a change, in the absence of knowledge of how the API in question is being consumed: Hyrum’s Law informs us otherwise. However, SemVer works well enough at small scale, and even better when we include the MVS approach. As the size of the dependency network grows, Hyrum’s Law issues and fidelity loss in SemVer make managing the selection of new versions increasingly difficult.
 
+依赖管理在本质上是一种挑战--我们正在寻找管理复杂的API表面和依赖关系网络的解决方案，这些依赖关系的维护者通常很少或根本没有协调的假设。管理依赖关系网络的事实上的标准是语义版本管理（SemVer），它对采用任何特定变化的感知风险提供了有损的总结。SemVer的前提是，在不知道有关的API是如何被消费的情况下，我们可以先验地预测变化的严重性。海勒姆定律告诉我们并非如此。然而，SemVer在小规模下工作得足够好，当我们包括MVS方法时，甚至更好。随着依赖网络规模的扩大，SemVer中的Hyrum定律问题和保真度损失使得管理新版本的选择越来越困难。
+
 It is possible, however, that we move toward a world in which maintainer-provided estimates of compatibility (SemVer version numbers) are dropped in favor of experience-driven evidence: running the tests of affected downstream packages. If API providers take greater responsibility for testing against their users and clearly advertise what types of changes are expected, we have the possibility of higher-fidelity dependency networks at even larger scale.
+
+然而，我们有可能走向这样一个世界：维护者提供的兼容性估计（SemVer版本号）被放弃，而采用经验驱动的证据：运行受影响的下游包的测试。如果API提供者承担起更大的责任，针对他们的用户进行测试，并明确宣传预计会有哪些类型的变化，我们就有可能在更大的范围内建立更高仿真的依赖网络。
 
 ## TL;DRs
 
-•   Prefer source control problems to dependency management problems: if you can get more code from your organization to have better transparency and coordination, those are important simplifications.
+- Prefer source control problems to dependency management problems: if you can get more code from your organization to have better transparency and coordination, those are important simplifications.
 
-•   Adding a dependency isn’t free for a software engineering project, and the complexity in establishing an “ongoing” trust relationship is challenging. Importing dependencies into your organization needs to be done carefully, with an understanding of the ongoing support costs.
+- Adding a dependency isn’t free for a software engineering project, and the complexity in establishing an “ongoing” trust relationship is challenging. Importing dependencies into your organization needs to be done carefully, with an understanding of the ongoing support costs.
 
-•   A dependency is a contract: there is a give and take, and both providers and consumers have some rights and responsibilities in that contract. Providers should be clear about what they are trying to promise over time.
+- A dependency is a contract: there is a give and take, and both providers and consumers have some rights and responsibilities in that contract. Providers should be clear about what they are trying to promise over time.
 
-•   SemVer is a lossy-compression shorthand estimate for “How risky does a human think this change is?” SemVer with a SAT-solver in a package manager takes those estimates and escalates them to function as absolutes. This can result in either overconstraint (dependency hell) or underconstraint (versions that should work together that don’t).
+- SemVer is a lossy-compression shorthand estimate for “How risky does a human think this change is?” SemVer with a SAT-solver in a package manager takes those estimates and escalates them to function as absolutes. This can result in either overconstraint (dependency hell) or underconstraint (versions that should work together that don’t).
 
-•   By comparison, testing and CI provide actual evidence of whether a new set of versions work together.
+- By comparison, testing and CI provide actual evidence of whether a new set of versions work together.
 
+- 更倾向于源控制问题，而不是依赖性管理问题：如果你能从你的组织中获得更多的代码，以便有更好的透明度和协调，这些都是重要的简化。
+
+- 对于一个软件工程项目来说，增加一个依赖关系并不是免费的，建立一个 "持续 "的信任关系的复杂性是具有挑战性的。将依赖关系导入你的组织需要谨慎行事，并了解持续支持的成本。
+
+- 依赖关系是一个合同：有付出就有收获，提供者和消费者在该合同中都有一些权利和责任。供应商应该清楚地了解他们在一段时间内试图承诺什么。
+
+- SemVer是对 "人类认为这一变化的风险有多大 "的一种有损压缩的速记估计。SemVer与软件包管理器中的SAT解算器一起，将这些估计值升级为绝对值。这可能会导致过度约束（依赖性地狱）或不足约束（应该一起工作的版本却没有）。
+
+- 相比之下，测试和CI提供了一组新版本是否能一起工作的实际证据。
 
 
 
