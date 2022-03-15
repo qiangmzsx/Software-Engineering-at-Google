@@ -287,29 +287,50 @@ The most common reason for problematic interaction tests is an over reliance on 
 
 交互测试出现问题的最常见原因是过度依赖嘲弄框架。这些框架可以很容易地创建测试替换，记录并验证针对它们的每个调用，并在测试中使用这些替换来代替真实对象。这种策略直接导致了脆弱的交互测试，因此我们倾向于使用真实对象而不是模拟对象，只要真实对象是快速和确定的。
 
+## Writing Clear Tests  编写清晰的测试
 
-## Writing Clear Tests
 Sooner or later, even if we’ve completely avoided brittleness, our tests will fail. Failure is a good thing—test failures provide useful signals to engineers, and are one of the main ways that a unit test provides value.
 Test failures happen for one of two reasons:3
+
 - The system under test has a problem or is incomplete. This result is exactly what tests are designed for: alerting you to bugs so that you can fix them.
 - The test itself is flawed. In this case, nothing is wrong with the system under test, but the test was specified incorrectly. If this was an existing test rather than one that you just wrote, this means that the test is brittle. The previous section discussed how to avoid brittle tests, but it’s rarely possible to eliminate them entirely.
 
+总有一天，即使我们已经完全避免了脆弱性，我们的测试也会失败。失败是一件好事--测试失败为工程师提供了有用的信号，也是单元测试提供价值的主要方式之一。
+测试失败有两个原因之一：
+
+- 被测系统有问题或不完整。这个结果正是测试的设计目的：提醒你注意bug，以便你能修复它们。
+- 测试本身是有缺陷的。在这种情况下，被测系统没有任何问题，但测试的指定是不正确的。如果这是一个现有的测试，而不是你刚写的测试，这意味着测试是脆弱的。上一节讨论了如何避免脆弱测试，但很少有可能完全消除它们。
+
 When a test fails, an engineer’s first job is to identify which of these cases the failure falls into and then to diagnose the actual problem. The speed at which the engineer can do so depends on the test’s clarity. A clear test is one whose purpose for existing and reason for failing is immediately clear to the engineer diagnosing a failure. Tests fail to achieve clarity when their reasons for failure aren’t obvious or when it’s difficult to figure out why they were originally written. Clear tests also bring other benefits, such as documenting the system under test and more easily serving as a basis for new tests.
+
+当测试失败时，工程师的首要工作是确定失败属于哪种情况，然后诊断出实际问题。工程师定位问题的速度取决于测试的清晰程度。清晰的测试是指工程师在诊断故障时，立即明确其存在目的和故障原因的测试。如果测试失败的原因不明显，或者很难弄清楚最初写这些测试的原因，那么测试就无法达到清晰的效果。清晰的测试还能带来其他的好处，比如记录被测系统，更容易作为新测试的基础。
 
 Test clarity becomes significant over time. Tests will often outlast the engineers who wrote them, and the requirements and understanding of a system will shift subtly as it ages. It’s entirely possible that a failing test might have been written years ago by an engineer no longer on the team, leaving no way to figure out its purpose or how to fix it. This stands in contrast with unclear production code, whose purpose you can usually determine with enough effort by looking at what calls it and what breaks when it’s removed. With an unclear test, you might never understand its purpose, since removing the test will have no effect other than (potentially) introducing a subtle hole in test coverage.
 
+随着时间的推移，测试的清晰度变得非常重要。测试往往比编写测试的工程师的时间更长，而且随着时间的推移，对系统的要求和理解会发生微妙的变化。一个失败的测试完全有可能是多年前由一个已经不在团队中的工程师写的，没有办法弄清楚其目的或如何修复它。这与不明确的生产代码形成了鲜明的对比，你通常可以通过查看调用代码的内容和删除代码后的故障来确定其目的。对于一个不明确的测试，你可能永远不会明白它的目的，因为删除该测试除了（潜在地）在测试覆盖率中引入一个细微的漏洞之外没有任何影响。
+
 In the worst case, these obscure tests just end up getting deleted when engineers can’t figure out how to fix them. Not only does removing such tests introduce a hole in test coverage, but it also indicates that the test has been providing zero value for perhaps the entire period it has existed (which could have been years).
+
+在最坏的情况下，这些晦涩难懂的测试最终会被删除，因为工程师不知道如何修复它们。删除这些测试不仅会在测试覆盖率上带来漏洞，而且还表明该测试在其存在的整个期间（可能是多年）一直提供零价值。
+
 For a test suite to scale and be useful over time, it’s important that each individual test in that suite be as clear as possible. This section explores techniques and ways of thinking about tests to achieve clarity.
+
+为了使测试套件能够随时间扩展并变得有用，套件中的每个测试都尽可能清晰是很重要的。本节探讨了为实现清晰性而考虑测试的技术和方法。
 
 ```
 3	These are also the same two reasons that a test can be “flaky.” Either the system under test has a nondeterministic fault, or the test is flawed such that it sometimes fails when it should pass.
+
+3   这也是测试可能“不稳定”的两个原因。要么被测系统存在不确定性故障，要么测试存在缺陷，以至于在通过测试时有时会失败。
 ```
 
+### Make Your Tests Complete and Concise  确保你的测试完整和简明
 
-### Make Your Tests Complete and Concise
 Two high-level properties that help tests achieve clarity are completeness and conciseness. A test is complete when its body contains all of the information a reader needs in order to understand how it arrives at its result. A test is concise when it contains no other distracting or irrelevant information. Example 12-6 shows a test that is neither complete nor concise:
 
-Example 12-6. An incomplete and cluttered test
+帮助测试实现清晰的两个高级属性是完整性和简洁性。一个测试是完整的，当它的主体包含读者需要的所有信息，以了解它是如何得出结果的。当一个测试不包含其他分散注意力的或不相关的信息时，它就是简洁的。例12-6显示了一个既不完整也不简洁的测试：
+
+*Example 12-6. An incomplete and cluttered test*   *例12-6. 一个不完整且杂乱的测试*
+
 ```java
 @Test
 public void shouldPerformAddition() {
@@ -321,7 +342,9 @@ public void shouldPerformAddition() {
 
 The test is passing a lot of irrelevant information into the constructor, and the actual important parts of the test are hidden inside of a helper method. The test can be made more complete by clarifying the inputs of the helper method, and more concise by using another helper to hide the irrelevant details of constructing the calculator, as illustrated in Example 12-7.
 
-Example 12-7. A complete, concise test
+测试将大量不相关的信息传递给构造函数，测试的实际重要部分隐藏在辅助方法中。通过澄清辅助方法的输入，可以使测试更加完整，通过使用另一个辅助隐藏构建计算器的无关细节，可以使测试更加简洁，如示例12-7所示。
+
+*Example 12-7. A complete, concise test*  *实例 12-7. A. 完整且简洁的测验*
 
 ```java
 @Test
@@ -335,11 +358,15 @@ public void shouldPerformAddition() {
 
 Ideas we discuss later, especially around code sharing, will tie back to completeness and conciseness. In particular, it can often be worth violating the DRY (Don’t Repeat Yourself) principle if it leads to clearer tests. Remember: a test’s body should contain all of the information needed to understand it without containing any irrelevant or distracting information.
 
-### Test Behaviors, Not Methods
+我们稍后讨论的观点，特别是围绕代码共享，将与完整性和简洁性挂钩。需要注意的是，如果能使测试更清晰，违反DRY（不要重复自己）原则通常是值得的。记住：一个测试的主体应该包含理解它所需要的所有信息，而不包含任何无关或分散的信息。
+
+### Test Behaviors, Not Methods  测试行为，而不是方法
 
 The first instinct of many engineers is to try to match the structure of their tests to the structure of their code such that every production method has a corresponding test method. This pattern can be convenient at first, but over time it leads to problems: as the method being tested grows more complex, its test also grows in complexity and becomes more difficult to reason about. For example, consider the snippet of code in Example 12-8, which displays the results of a transaction.
 
-Example 12-8. A transaction snippet
+许多工程师的第一直觉是试图将他们的测试结构与他们的代码结构相匹配，这样每个产品方法都有一个相应的测试方法。这种模式一开始很方便，但随着时间的推移，它会导致问题：随着被测试的方法越来越复杂，它的测试也越来越复杂，变得越来越难以理解。例如，考虑例12-8中的代码片段，它显示了一个事务的结果。
+
+*Example 12-8. A transaction snippet*  *例12-8. 一个事务片段*
 
 ```java
 public void displayTransactionResults(User user, Transaction transaction) {
@@ -348,28 +375,33 @@ public void displayTransactionResults(User user, Transaction transaction) {
         ui.showMessage("Warning: your balance is low!");
     }
 }
-
 ```
 It wouldn’t be uncommon to find a test covering both of the messages that might be shown by the method, as presented in Example 12-9.
 
-Example 12-9. A method-driven test
+如例12-9所示，一个测试涵盖了该方法可能显示的两个信息，这并不罕见。
+
+*Example 12-9. A method-driven test*   *例12-9. 方法驱动的测试*
 
 ```java
 @Test
 public void testDisplayTransactionResults() {
-    transactionProcessor.displayTransactionResults(newUserWithBalance(LOW_BALANCE_THRESHOLD.plus(dollars(2))), new Transaction("Some Item", dollars(3)));
+transactionProcessor.displayTransactionResults(newUserWithBalance(LOW_BALANCE_THRESHOLD.plus(dollars(2))), new Transaction("Some Item", dollars(3)));
     assertThat(ui.getText()).contains("You bought a Some Item");
     assertThat(ui.getText()).contains("your balance is low");
 }
 
 ```
 
-
 With such tests, it’s likely that the test started out covering only the first method. Later, an engineer expanded the test when the second message was added (violating the idea of unchanging tests that we discussed earlier). This modification sets a bad precedent: as the method under test becomes more complex and implements more functionality, its unit test will become increasingly convoluted and grow more and more difficult to work with.
+
+对于这样的测试，很可能一开始测试只包括第一个方法。后来，当第二条信息被添加进来时，工程师扩展了测试（违反了我们前面讨论的不变的测试理念）。这种修改开创了一个不好的先例：随着被测方法变得越来越复杂，实现的功能越来越多，其单元测试也会变得越来越复杂，越来越难以使用。
 
 The problem is that framing tests around methods can naturally encourage unclear tests because a single method often does a few different things under the hood and might have several tricky edge and corner cases. There’s a better way: rather than writing a test for each method, write a test for each behavior.4 A behavior is any guarantee that a system makes about how it will respond to a series of inputs while in a particular state.5 Behaviors can often be expressed using the words “given,” “when,” and “then”: “Given that a bank account is empty, when attempting to withdraw money from it, then the transaction is rejected.” The mapping between methods and behaviors is many-to-many: most nontrivial methods implement multiple behaviors, and some behaviors rely on the interaction of multiple methods. The previous example can be rewritten using behavior-driven tests, as presented in Example 12-10.
 
-Example 12-10. A behavior-driven test
+问题是，围绕方法测试框架自然会鼓励不清晰测试，因为单个方法经常在背后下做一些不同的事情，可能有几个棘手的边缘和角落的情况。有一个更好的方法：与其为每个方法写一个测试，不如为每个行为写一个测试。 行为是一个系统对它在特定状态下如何响应一系列输入的任何保证。"鉴于一个银行账户是空的，当试图从该账户中取钱时，该交易被拒绝。" 方法和行为之间的映射是多对多的：大多数不重要的方法实现了多个行为，一些行为依赖于多个方法的交互。前面的例子可以用行为驱动的测试来重写，如例12-10所介绍。
+
+*Example 12-10. A behavior-driven test*   *例12-10. 行为驱动的测试*
+
 ```java
 @Test
 public void displayTransactionResults_showsItemName() {
@@ -387,17 +419,24 @@ public void displayTransactionResults_showsLowBalanceWarning() {
 
 The extra boilerplate required to split apart the single test is more than worth it, and the resulting tests are much clearer than the original test. Behavior-driven tests tend to be clearer than method-oriented tests for several reasons. First, they read more like natural language, allowing them to be naturally understood rather than requiring laborious mental parsing. Second, they more clearly express cause and effect because each test is more limited in scope. Finally, the fact that each test is short and descriptive makes it easier to see what functionality is already tested and encourages engineers to add new streamlined test methods instead of piling onto existing methods.
 
+拆分单个测试所需的额外模板文件非常值得，并且最终的测试比原来测试更清晰。行为驱动测试往往比面向方法的测试更清晰，原因有几个。首先，它们阅读起来更像自然语言，让人们自然地理解它们，而不需要语言繁琐的心理分析。其次，它们更清楚地表达了因果关系，因为每个测试的范围都更有限。最后，每个测试都很短且描述性强，这一事实使我们更容易看到已经测试了哪些功能，并鼓励工程师添加新的简洁测试方法，而不是堆积在现有方法上。
+
 ```
 4	See https://testing.googleblog.com/2014/04/testing-on-toilet-test-behaviors-not.html and https://dannorth.net/ introducing-bdd.
 5	Furthermore, a feature (in the product sense of the word) can be expressed as a collection of behaviors.
 
+4 见https://testing.googleblog.com/2014/04/testing-on-toilet-test-behaviors-not.html 和 https://dannorth.net/ 介绍-bdd。
+5 此外，一个特征（在这个词的产品意义上）可以被表达为一个行为的集合。
 ```
 
-Structure tests to emphasize behaviors
+#### Structure tests to emphasize behaviors  强调行为的结构测试
 
 Thinking about tests as being coupled to behaviors instead of methods significantly affects how they should be structured. Remember that every behavior has three parts: a “given” component that defines how the system is set up, a “when” component that defines the action to be taken on the system, and a “then” component that validates the result.6 Tests are clearest when this structure is explicit. Some frameworks like Cucumber and Spock directly bake in given/when/then. Other languages can use whitespace and optional comments to make the structure stand out, such as that shown in Example 12-11.
 
-Example 12-11. A well-structured test
+将测试视为与行为而非方法相耦合会显著影响测试的结构。请记住，每个行为都有三个部分：一个是定义系统如何设置的 "给定 "组件，一个是定义对系统采取的行动的 "何时 "组件，以及一个验证结果的 "何时 "组件。当此结构是显式的时，测试是最清晰的。一些框架（如Cucumber和Spock）直接在给定的/when/then中烘焙。其他语言可以使用空格和可选注释使结构突出，如示例12-11所示。
+
+*Example 12-11. A well-structured test*  *例12-11. 一个结构良好的测试*
+
 ```java  
 @Test
 public void transferFundsShouldMoveMoneyBetweenAccounts() {
@@ -421,12 +460,23 @@ This level of description isn’t always necessary in trivial tests, and it’s 
 
 3.	Finally, a reader can look at the actual code to see precisely how that behavior is expressed.
 
+这种程度的描述在琐碎的测试中并不总是必要的，通常省略注释并依靠空白来使各部分清晰。然而，明确的注释可以使更复杂的测试更容易理解。这种模式使我们有可能在三个层次的粒度上阅读测试。
+
+1.	读者可以从测试方法的名称开始（下面讨论），以获得对被测试行为的粗略描述。
+
+2.	如果这还不够，读者可以查看给定的/when/then注释，以获得行为的正式描述。
+
+3.	最后，读者可以查看实际代码，以准确地看到该行为是如何表达的。
 
 This pattern is most commonly violated by interspersing assertions among multiple calls to the system under test (i.e., combining the “when” and “then” blocks). Merging the “then” and “when” blocks in this way can make the test less clear because it makes it difficult to distinguish the action being performed from the expected result.
 
+最常见的违反模式是在对被测系统的多个调用之间穿插断言（即，组合“when”和“then”块）。以这种方式合并 "then "和 "when "块会使测试不那么清晰，因为它使人们难以区分正在执行的操作和预期结果。
+
 When a test does want to validate each step in a multistep process, it’s acceptable to define alternating sequences of when/then blocks. Long blocks can also be made more descriptive by splitting them up with the word “and.” Example 12-12 shows what a relatively complex, behavior-driven test might look like.
 
-Example 12-12. Alternating when/then blocks within a test
+当一个测试确实想验证一个多步骤过程中的每个步骤时，定义when/then块的交替序列是可以接受的。长的区块也可以用 "and"字来分割，使其更具描述性。例12-12显示了一个相对复杂的、行为驱动的测试是什么样子的。
+
+*Example 12-12. Alternating when/then blocks within a test*   *例12-12. 在一个测试中交替使用when/then块*
 
 ```java 
 @Test
@@ -454,16 +504,25 @@ public void shouldTimeOutConnections() {
 
 When writing such tests, be careful to ensure that you’re not inadvertently testing multiple behaviors at the same time. Each test should cover only a single behavior, and the vast majority of unit tests require only one “when” and one “then” block.
 
+在编写这种测试时，要注意确保你不会无意中同时测试多个行为。每个测试应该只覆盖一个行为，绝大多数的单元测试只需要一个 "when "和一个 "then "块。
+
 ```
 6	These components are sometimes referred to as “arrange,” “act,” and “assert.”
+6 这些组成部分有时被称为 "安排"、"行动 "和 "断言"。
 ```
 
-#### Name tests after the behavior being tested
+#### Name tests after the behavior being tested  以被测试的行为命名测试
+
 Method-oriented tests are usually named after the method being tested (e.g., a test for the updateBalance method is usually called testUpdateBalance). With more focused behavior-driven tests, we have a lot more flexibility and the chance to convey useful information in the test’s name. The test name is very important: it will often be the first or only token visible in failure reports, so it’s your best opportunity to communicate the problem when the test breaks. It’s also the most straightforward way to express the intent of the test.
+
+面向方法的测试通常以被测试的方法命名（例如，对 updateBalance 方法的测试通常称为 testUpdateBalance）。对于更加集中的行为驱动的测试，我们有更多的灵活性，并有机会在测试的名称中传达有用的信息。测试名称非常重要：它通常是失败报告中第一个或唯一一个可见的标记，所以当测试中断时，它是你沟通问题的最好机会。它也是表达测试意图的最直接的方式。
 
 A test’s name should summarize the behavior it is testing. A good name describes both the actions that are being taken on a system and the expected outcome. Test names will sometimes include additional information like the state of the system or its environment before taking action on it. Some languages and frameworks make this easier than others by allowing tests to be nested within one another and named using strings, such as in Example 12-13, which uses Jasmine.
 
-Example 12-13. Some sample nested naming patterns
+测试的名字应该概括它所测试的行为。一个好的名字既能描述在系统上采取的行动，又能描述预期的结果。测试名称有时会包括额外的信息，如系统或其环境的状态。一些语言和框架允许测试相互嵌套，并使用字符串命名，例如例12-13，其中使用了Jasmine，这样做比其他语言和框架更容易。
+
+*Example 12-13. Some sample nested naming patterns*  *例12-1. 一些嵌套命名模式的例子*
+
 ```java
 describe("multiplication", function() {
     describe("with a positive number", function() {
@@ -490,7 +549,10 @@ describe("multiplication", function() {
 
 Other languages require us to encode all of this information in a method name, leading to method naming patterns like that shown in Example 12-14.
 
-Example 12-14. Some sample method naming patterns
+其他语言要求我们在方法名中编码所有这些信息，导致方法的命名模式如例12-14所示。
+
+*Example 12-14. Some sample method naming patterns*  例12-14. 一些示例方法的命名模式
+
 ```
 multiplyingTwoPositiveNumbersShouldReturnAPositiveNumber 
 multiply_postiveAndNegative_returnsNegative 
@@ -499,7 +561,13 @@ divide_byZero_throwsException
 
 Names like this are much more verbose than we’d normally want to write for methods in production code, but the use case is different: we never need to write code that calls these, and their names frequently need to be read by humans in reports. Hence, the extra verbosity is warranted.
 
+像这样的名字比我们通常为产品代码中的方法所写的要啰嗦得多，但使用情况不同：我们从来不需要写代码来调用这些方法，而且它们的名字经常需要由人类在报告中阅读。因此，额外的言辞是有必要的。
+
 Many different naming strategies are acceptable so long as they’re used consistently within a single test class. A good trick if you’re stuck is to try starting the test name with the word “should.” When taken with the name of the class being tested, this naming scheme allows the test name to be read as a sentence. For example, a test of a BankAccount class named shouldNotAllowWithdrawalsWhenBalanceIsEmpty can be read as “BankAccount should not allow withdrawals when balance is empty.” By reading the names of all the test methods in a suite, you should get a good sense of the behaviors implemented by the system under test. Such names also help ensure that the test stays focused on a single behavior: if you need to use the word “and” in a test name, there’s a good chance that you’re actually testing multiple behaviors and should be writing multiple tests!
+
+许多不同的命名策略是可以接受的，只要它们在一个测试类中使用一致。如果你陷入困境，一个好的技巧是尝试用 "应该 "这个词来开始测试名称。当与被测类的名称一起使用时，这种命名方案允许将测试名称作为一个句子来阅读。例如，一个名为shouldNotAllowWithdrawalsWhenBalanceIsEmpty的BankAccount类的测试可以被理解为 "BankAccount不应该允许在余额为空时提款"。通过阅读套件中所有测试方法的名称，你应该对被测系统实现的行为有一个很好的了解。这样的名字也有助于确保测试集中在单个行为上：如果你需要在测试名称中使用 "and"这个词，很有可能你实际上是在测试多个行为，应该写多个测试!
+
+
 
 ### Don’t Put Logic in Tests
 
