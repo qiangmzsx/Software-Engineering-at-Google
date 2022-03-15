@@ -569,14 +569,18 @@ Many different naming strategies are acceptable so long as they’re used consis
 
 
 
-### Don’t Put Logic in Tests
+### Don’t Put Logic in Tests  不要把逻辑放进测试中
 
 Clear tests are trivially correct upon inspection; that is, it is obvious that a test is doing the correct thing just from glancing at it. This is possible in test code because each test needs to handle only a particular set of inputs, whereas production code must be generalized to handle any input. For production code, we’re able to write tests that ensure complex logic is correct. But test code doesn’t have that luxury—if you feel like you need to write a test to verify your test, something has gone wrong!
 
+清晰的测试在检查时通常是正确的；也就是说，很明显，只要看一眼，测试就做了正确的事情。这在测试代码中是可能的，因为每个测试只需要处理一组特定的输入，而产品代码必须被泛化以处理任何输入。对于产品代码，我们能够编写测试，确保复杂的逻辑是正确的。但测试代码没有那么奢侈--如果你觉得你需要写一个测试来验证你的测试，那就说明出了问题！这是不可能的。
+
 Complexity is most often introduced in the form of logic. Logic is defined via the imperative parts of programming languages such as operators, loops, and conditionals. When a piece of code contains logic, you need to do a bit of mental computation to determine its result instead of just reading it off of the screen. It doesn’t take much logic to make a test more difficult to reason about. For example, does the test in Example 12-15 look correct to you?
 
+复杂性最常以逻辑的形式引入。逻辑是通过编程语言的指令部分来定义的，如运算符、循环和条件。当一段代码包含逻辑时，你需要做一些心理预期来确定其结果，而不是仅仅从屏幕上读出来。不需要太多的逻辑就可以使一个测试变得更难理解。例如，例12-15中的测试在你看来是否正确？
 
-Example 12-15. Logic concealing a bug
+*Example 12-15. Logic concealing a bug*  *例12-15. 掩盖bug的逻辑*
+
 ```java 
 @Test
 public void shouldNavigateToAlbumsPage() {
@@ -588,7 +592,10 @@ public void shouldNavigateToAlbumsPage() {
 ```
 There’s not much logic here: really just one string concatenation. But if we simplify the test by removing that one bit of logic, a bug immediately becomes clear, as demonstrated in Example 12-16.
 
-Example 12-16. A test without logic reveals the bug
+这里没有什么逻辑：实际上只是一个字符串连接。但是，如果我们通过删除这一点逻辑来简化测试，一个错误就会立即变得清晰，如例12-16所示。
+
+*Example 12-16. A test without logic reveals the bug*  *例12-16. 没有逻辑的测试揭示了bug*
+
 ```java 
 @Test
 public void shouldNavigateToPhotosPage() {
@@ -600,9 +607,14 @@ public void shouldNavigateToPhotosPage() {
 
 When the whole string is written out, we can see right away that we’re expecting two slashes in the URL instead of just one. If the production code made a similar mistake, this test would fail to detect a bug. Duplicating the base URL was a small price to pay for making the test more descriptive and meaningful (see the discussion of DAMP versus DRY tests later in this chapter).
 
+当写出整个字符串时，我们可以立即看到，我们期望URL中有两个斜杠，而不是一个。如果产品代码犯了类似的错误，此测试将无法检测到错误。复制基本URL是为了使测试更具描述性和意义而付出的小代价（见本章后面关于DAMP与DRY测试的讨论）。
+
 If humans are bad at spotting bugs from string concatenation, we’re even worse at spotting bugs that come from more sophisticated programming constructs like loops and conditionals. The lesson is clear: in test code, stick to straight-line code over clever logic, and consider tolerating some duplication when it makes the test more descriptive and meaningful. We’ll discuss ideas around duplication and code sharing later in this chapter.
 
+如果人类不善于发现来自字符串连接的错误，那么我们更不善于发现来自更复杂的编程结构的错误，如循环和条件。这个教训很清晰：在测试代码中，坚持使用直线代码而不是复杂的逻辑，并在测试更具描述性的时候考虑容忍一些重复。我们将在本章后面讨论关于重复和代码共享的想法。
+
 ### Write Clear Failure Messages
+
 One last aspect of clarity has to do not with how a test is written, but with what an engineer sees when it fails. In an ideal world, an engineer could diagnose a problem just from reading its failure message in a log or report without ever having to look at the test itself. A good failure message contains much the same information as the test’s name: it should clearly express the desired outcome, the actual outcome, and any relevant parameters.
 
 Here’s an example of a bad failure message:
