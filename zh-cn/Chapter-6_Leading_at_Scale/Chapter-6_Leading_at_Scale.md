@@ -102,11 +102,11 @@ A number of leaders struggled with this issue over the years but failed to addre
 
 So what changed? At some point, we took a step back, identified the blinders, and did a full reevaluation of the trade-offs. It turns out that the pursuit of “quality” has not one, but two different costs. The first cost is to the user: more quality usually means more data being sent out, which means more latency. The second cost is to Google: more quality means doing more work to generate the data, which costs more CPU time in our servers—what we call “serving capacity.” Although leadership had often trodden carefully around the trade-off between quality and capacity, it had never treated latency as a full citizen in the calculus. As the old joke goes, “Good, Fast, Cheap—pick two.” A simple way to depict the trade-offs is to draw a triangle of ten‐ sion between Good (Quality), Fast (Latency), and Cheap (Capacity), as illustrated in Figure 6-1.
 
-那么什么变了呢？在某个时间点，我们回顾了下，识别出了专家，然后还是重新评估这其中的权衡。结果证明对于“质量”的追求，有不是一个，而是两方面的开销。第一个开销是对用户的：更好的质量通常意味着需要传输更多的数据，也就意味着更多的延迟。第二方面的开销在 Google 本身：更好的质量意味着需要更多的工作来生成这些数据，这将消耗我们更多的服务器 CPU 时间，也就是我们说的 “服务容量”。尽管管理者曾经仔细地在质量和容量之间来回踱步，“延迟”从未被当做一等公民对待。就像老话说的“好、快、便宜只能选两个”（鱼和熊掌不可兼得？）。描绘这其中的权衡的最好的方式就是画一个这三者之间的张立三角：好（质量），快（延迟）和便宜（容量），如下图 6-1 所示。
+那么什么变了呢？在某个时间点，我们回顾了下，识别出了专家，然后还是重新评估这其中的权衡。结果证明对于“质量”的追求，有不是一个，而是两方面的开销。第一个开销是对用户的：更好的质量通常意味着需要传输更多的数据，也就意味着更多的延迟。第二方面的开销在 Google 本身：更好的质量意味着需要更多的工作来生成这些数据，这将消耗我们更多的服务器 CPU 时间，也就是我们说的 “服务利用率”。尽管管理者曾经仔细地在质量和利用率之间来回踱步，“延迟”从未被当做一等公民对待。就像老话说的“好、快、便宜只能选两个”（鱼和熊掌不可兼得？）。描绘这其中的权衡的最好的方式就是画一个这三者之间的张立三角：好（质量），快（延迟）和便宜（利用率），如下图 6-1 所示。
 
 
 That’s exactly what was happening here. It’s easy to improve any one of these traits by deliberately harming at least one of the other two. For example, you can improve quality by putting more data on the search results page—but doing so will hurt capacity and latency. You can also do a direct trade-off between latency and capacity by changing the traffic load on your serving cluster. If you send more queries to the cluster, you get increased capacity in the sense that you get better utilization of the CPUs—more bang for your hardware buck. But higher load increases resource con‐ tention within a computer, making the average latency of a query worse. If you deliberately decrease a cluster’s traffic (run it “cooler”), you have less serving capacity overall, but each query becomes faster.
-这正是这里在发生的情况。通过损坏另外一个或两个特性，改善其中的一个特性很容易，比如说，你可以通过在搜索结果页展示更多的内容来提升搜索质量，但这将会伤害系统容量和延迟。通过改变系统负载，你还可以在延迟和容量之间做一次权衡。如果你给系统发送更多请求，将增加系统负载，电脑将会有更大的压力，从而导致平均响应时间更高。如果你故意地降低请求的流量，系统的总使用率将降低，但每次请求都会变快。
+这正是这里在发生的情况。通过损坏另外一个或两个特性，改善其中的一个特性很容易，比如说，你可以通过在搜索结果页展示更多的内容来提升搜索质量，但这将会伤害系统利用率和延迟。通过改变系统负载，你还可以在延迟和容量之间做一次权衡。如果你给系统发送更多请求，将增加系统负载，电脑将会有更大的压力，从而导致平均响应时间更高。如果你故意地降低请求的流量，系统的总使用率将降低，但每次请求都会变快。
 
 The main point here is that this insight—a better understanding of all the trade-offs— allowed us to start experimenting with new ways of balancing. Instead of treating latency as an unavoidable and accidental side effect, we could now treat it as a first-class goal along with our other goals. This led to new strategies for us. For example, our data scientists were able to measure exactly how much latency hurt user engage‐ ment. This allowed them to construct a metric that pitted quality-driven improve‐ ments to short-term user engagement against latency-driven damage to long-term user engagement. This approach allows us to make more data-driven decisions about product changes. For example, if a small change improves quality but also hurts latency, we can quantitatively decide whether the change is worth launching or not. We are always deciding whether our quality, latency, and capacity changes are in bal‐ ance, and iterating on our decisions every month.
 
@@ -117,5 +117,104 @@ The main point here is that this insight—a better understanding of all the tra
 ## 一直保持离开
 
 At face value, Always Be Leaving sounds like terrible advice. Why would a good leader be trying to leave? In fact, this is a famous quote from Bharat Mediratta, a former Google engineering director. What he meant was that it’s not just your job to solve an ambiguous problem, but to get your organization to solve it by itself, without you present. If you can do that, it frees you up to move to a new problem (or new organi‐ zation), leaving a trail of self-sufficient success in your wake.
+
+从字面自私上看，"一直保持离开" 听上去是一个可怕的建议。为什么一个好的领导者要尝试离开他的团队呢？事实上这是引用的前谷歌工程主管 Bharat Mediratta 的话。他的意思是你的任务不仅仅是解决边界不清晰的问题，而是还要引导你的组织在你不在的情况下自己解决问题。如果你能做到这点，将释放你一部分精力去解决新的问题（或去管理新的组织），在你身后留下一个个能自给自足的团队。
+
 The antipattern here, of course, is a situation in which you’ve set yourself up to be a single point of failure (SPOF). As we noted earlier in this book, Googlers have a term for that, the bus factor: the number of people that need to get hit by a bus before your project is completely doomed.
 Of course, the “bus” here is just a metaphor. People become sick; they switch teams or companies; they move away. As a litmus test, think about a difficult problem that your team is making good progress on. Now imagine that you, the leader, disappear. Does your team keep going? Does it continue to be successful? Here’s an even simpler test: think about the last vacation you took that was at least a week long. Did you keep checking your work email? (Most leaders do.) Ask yourself why. Will things fall apart if you don’t pay attention? If so, you have very likely made yourself an SPOF. You need to fix that.
+
+这里的反模式是，把你自己置为单点故障的情况。就像我们在本书前面说的那样，谷歌员工有一个个专用短语来说明这个情况--“公交因子”：如果 N 个人同时被公交车撞倒，能够让你的项目完全毁掉，则 N 就是这个“公交因子”。
+当然，这里的“公交”是一个隐喻。人们会生病，会换团队或公司，会离职。作为测试，可以想想一个你团队正在尝试解决并取得了良好进展的难题。然后想象作为领导者的你消失了。你的团队还能够继续前进吗？它还能继续成功吗？还有一个更简单的测试：想想上一次你休超过一周的假期的时候。你是在不停地查看邮件吗？（大多数管理者会）然后问问你自己为什么。你给你不注意，事情会一团糟吗。如果是，你很可能把你自己置于“单点故障”的境地。你需要改善这个状况。
+
+## Your Mission: Build a “Self-Driving” Team
+
+## 你的使命：构建一个“自愈型”的团队
+
+Coming back to Bharat’s quote: being a successful leader means building an organization that is able to solve the difficult problem by itself. That organization needs to have a strong set of leaders, healthy engineering processes, and a positive, self-perpetuating culture that persists over time. Yes, this is difficult; but it gets back to the fact that leading a team of teams is often more about organizing people rather than being a technical wizard. Again, there are three main parts to constructing this sort of self-sufficient group: dividing the problem space, delegating subproblems, and iterating as needed.
+
+让我们回到引用的 Bharat 的话：做一个成功的管理者意味着构建一个能够独自解决问题的组织。这个组织需要有一组稳定的领导者，一个健康的工程流程，一个积极的，能够自我延续，经时间沉淀的文化。
+是的，这很难；但是这回归到了事情的本质，领导团队的团队通常更多地意味着管理人，而不是作为一个技术向导。再强调一次，这种自给自足的团队有三个主要的组成部分：划分问题域，委托子任务，以及对于不足的地方反复迭代。
+
+## Dividing the Problem Space
+
+## 划分问题域
+
+Challenging problems are usually composed of difficult subproblems. If you’re leading a team of teams, an obvious choice is to put a team in charge of each subproblem. The risk, however, is that the subproblems can change over time, and rigid team boundaries won’t be able to notice or adapt to this fact. If you’re able, consider an organizational structure that is looser—one in which subteams can change size, individuals can migrate between subteams, and the problems assigned to subteams can morph over time. This involves walking a fine line between “too rigid” and “too vague.” On the one hand, you want your subteams to have a clear sense of problem, purpose, and steady accomplishment; on the other hand, people need the freedom to change direction and try new things in response to a changing environment.
+
+有挑战的问题通常由许多有困难的子问题组成。如果你在管理一个由团队组成的团队，一个显而易见的做法是让每个团队负责一个子问题。然而这样做的风险是问题会随着时间而改变，一个死板的团队边界可能不能够察觉或适应这种情况。如果你能够决定，可以尝试构建一个组织结构松散的团队，它能够动态地调整团队规模，员工能够在子团队直接切换，而且每个团队处理的子问题能够切换。这意味着要在太死板和太松散的边缘游走。一方面，你想要你的团队能够对问题和目标有一个清晰的认知，能够有较高的完成度；另一方面，人们需要能自由的切换方向来尝试新鲜事物，来应对不断变化的环境。
+
+### Example: Subdividing the “latency problem” of Google Search
+
+### 例子： 细分 Google 搜索的“延迟问题”
+
+When approaching the problem of Search latency, we realized that the problem could, at a minimum, be subdivided into two general spaces: work that addressed the symptoms of latency, and different work that addressed the causes of latency. It was obvious that we needed to staff many projects to optimize our codebase for speed, but focusing only on speed wouldn’t be enough. There were still thousands of engineers increasing the complexity and “quality” of search results, undoing the speed improvements as quickly as they landed, so we also needed people to focus on a parallel problem space of preventing latency in the first place. We discovered gaps in our metrics, in our latency analysis tools, and in our developer education and documentation. By assigning different teams to work on latency causes and symptoms at the same time, we were able to systematically control latency over the long term. (Also, notice how these teams owned the problems, not specific solutions!)
+
+当开始接触搜索延迟的问题时，我们意识到在最小粒度下我们可以将问题大体划分为两个方面：一方面是定位延迟的现象，另一方面是挖掘延迟的根本原因。很显然我们需要为很多团队配备人员来优化项目的代码库的性能问题，但仅仅关注性能是不够的。与此同时仍有数千名工程师增加系统的复杂度和搜索结果的“质量”，使对系统延迟的优化刚上线就被抵消掉了。因此我们还需要人关注一个并行的问题域，在第一时间来阻止增加延迟的改动。我们发现在我们的监控指标、延迟分析工具以及员工培训和文档中都存在有断层。通过在同一时间将延迟定位和原因分析分配给不同团队，我们能够长期系统性地控制延迟问题。（同时，这里需要关注的是这些团队是如何管理这些问题的，而不是关注具体的解决方案！）
+
+### Delegating subproblems to leaders
+
+### 将子问题托管给子团队领导们
+
+It’s essentially a cliché for management books to talk about “delegation,” but there’s a reason for that: delegation is really difficult to learn. It goes against all our instincts for efficiency and achievement. That difficulty is the reason for the adage, “If you want something done right, do it yourself.”
+
+对于管理类书籍来说，“托管”有点陈词滥调了，但是这背后其实有一个原因：托管太难学了。对于效率或是成功，它几乎是反直觉的。这个困难的原因就如谚语说的那样“如果你想做对某件事，那就自己去做”。
+
+That said, if you agree that your mission is to build a self-driving organization, the main mechanism of teaching is through delegation. You must build a set of self-sufficient leaders, and delegation is absolutely the most effective way to train them. You give them an assignment, let them fail, and then try again and try again. Silicon Valley has well-known mantras about “failing fast and iterating.” That philosophy doesn’t just apply to engineering design, but to human learning as well.
+
+如果你的使命是构建一个自驱型的组织，那主要的方法就是通过托管。你必须培养出一系列的能够自我成长、自给自足的领导，允许他们失败，然后一遍又一遍的尝试。硅谷有一个有名的咒语“快速失败，然后反复迭代。”这个理论不仅适用于工程设计方面，同样也适用于人类学习。
+
+As a leader, your plate is constantly filling up with important tasks that need to be done. Most of these tasks are things that are fairly easy for you do. Suppose that you’re working diligently through your inbox, responding to problems, and then you decide to put 20 minutes aside to fix a longstanding and nagging issue. But before you carry out the task, be mindful and stop yourself. Ask this critical question: Am I really the only one who can do this work?
+
+作为一个领导，你的桌面上经常摆满了各种重要的问题需要被解决。大多数对于你来说都很简单。假设你正在努力地处理来自收件箱的问题，然后决定花20分钟处理一个存在了很久的细碎的问题。但是在你开始着手这件任务前，先停下来想想。问自己这个重要的问题：你是唯一一个能解决这个问题的人吗？
+
+Sure, it might be most efficient for you to do it, but then you’re failing to train your leaders. You’re not building a self-sufficient organization. Unless the task is truly time sensitive and on fire, bite the bullet and assign the work to someone else—presumably someone who you know can do it but will probably take much longer to finish. Coach them on the work if need be. You need to create opportunities for your leaders to grow; they need to learn to “level up” and do this work themselves so that you’re no longer in the critical path.
+
+当然，你做这个工作可能效率最高，但是这意味着在培训领导这件事上你正在失败。你不是在构建一个自给自足型的组织。除非这件事真的是迫在眉睫，你要硬着头皮把这件工作指派给一个你觉得能够完成，但可能会花费更多时间的人，并且你需要给与适当的指导。你需要创造机会来让你的领导成长；他们需要学着“升级”，然后自己解决这个问题，这样你就不在关键路径上了。
+
+The corollary here is that you need to be mindful of your own purpose as a leader of leaders. If you find yourself deep in the weeds, you’re doing a disservice to your organization. When you get to work each day, ask yourself a different critical question: What can I do that nobody else on my team can do?
+
+这里的推论是，在做领导的领导这件事上，你可能需要格外留心。如果你发现你陷在细节里陷得太深，你可能正在破坏你的团队。每天工作时，你要问自己另外一个重要的问题：有什么事情是除了我以为团队里的其他人做不了的？
+
+There are a number of good answers. For example, you can protect your teams from organizational politics; you can give them encouragement; you can make sure everyone is treating one another well, creating a culture of humility, trust, and respect. It’s also important to “manage up,” making sure your management chain understands what your group is doing and staying connected to the company at large. But often the most common and important answer to this question is: “I can see the forest through the trees.” In other words, you can define a high-level strategy. Your strategy needs to cover not just overall technical direction, but an organizational strategy as well. You’re building a blueprint for how the ambiguous problem is solved and how your organization can manage the problem over time. You’re continuously mapping out the forest, and then assigning the tree-cutting to others.
+
+这个问题又很多很好的答案。你可以避免你的团队搞办公室政治；你可以给他们鼓励；你可以确保每个人被友善地对待；你可以创造一个谦逊、互相信任、互相尊重的团队文化。同事向上管理也很重要，确保你的管理者能够知道你的团队做的怎么样，以及确保在公司规模较大时团队不与公司脱节。但通常最常见也是最重要的答案是：“通过树木见森林。”换句话说，你能够指定一个高级别的战略。你的战略应该不仅包含技术战略，还应该包含组织战略。你在构建一个关于如何解决边界不清晰的问题，以及如何让团队能够长久地解决问题的蓝图。你持续性地在森林中规划砍树的路线，而把砍树的具体问题交给别人。
+
+### Adjusting and iterating
+
+### 适应与迭代
+
+Let’s assume that you’ve now reached the point at which you’ve built a self-sustaining machine. You’re no longer an SPOF. Congratulations! What do you do now?
+Before answering, note that you have actually liberated yourself—you now have the freedom to “Always Be Leaving.” This could be the freedom to tackle a new, adjacent problem, or perhaps you could even move yourself to a whole new department and problem space, making room for the careers of the leaders you’ve trained. This is a great way of avoiding personal burnout.
+The simple answer to “what now?” is to direct this machine and keep it healthy. But unless there’s a crisis, you should use a gentle touch. The book Debugging Teams2 has a parable about making mindful adjustments:
+
+让我们假设现在你已经构建了一个能够自给自足的团队，你不再是团队的单点瓶颈。恭喜！那么接下来你做什么呢？
+在回答这个问题之前，请注意实际上你已经解放了你自己--现在你有离开团队的自由了。你可以自由地选择去解决一个新的问题，甚至你可以去到一个全新的部门解决新的问题，来为你培养的其他领导者腾出一些上升空间。这是避免职业生涯倦怠的很好的方法。
+“现在去做什么”这个问题的一个简单的回答是指导你的团队然后让它持续保持健康。但是除非有很难解决的危机，你就不应该过多地去插手管理团队了。《调试你的团队2》这本书对于如何做有意义的调整有一个比较好的隐喻：
+
+>There’s a story about a Master of all things mechanical who had long since retired. His former company was having a problem that no one could fix, so they called in the Master to see if he could help find the problem. The Master examined the machine, listened to it, and eventually pulled out a worn piece of chalk and made a small X on the side of the machine. He informed the technician that there was a loose wire that needed repair at that very spot. The technician opened the machine and tightened the loose wire, thus fixing the problem. When the Master’s invoice arrived for $10,000, the irate CEO wrote back demanding a breakdown for this ridiculously high charge for a simple chalk mark! The Master responded with another invoice, showing a $1 cost for the chalk to make the mark, and $9,999 for knowing where to put it.
+>To us, this is a story about wisdom: that a single, carefully considered adjustment can have gigantic effects. We use this technique when managing people. We imagine our team as flying around in a great blimp, headed slowly and surely in a certain direction. Instead of micromanaging and trying to make continuous course corrections, we spend most of the week carefully watching and listening. At the end of the week we make a small chalk mark in a precise location on the blimp, then give a small but critical “tap” to adjust the course.
+
+>有一个关于机械大师的故事，机械方面他无所不知，已经退休很久了。他的前公司遇到了一个没人能修复的问题，所以他们请了这个大师来看看能否帮助解决这个问题。大师仔细检查了机器，并贴近听了听。最终他掏出一截粉笔然后在机器侧面画了一个小小的叉。他告诉技术员打开机器，然后在他打叉的地方有一根电线松了需要绑紧。技术员打开了机器然后绑紧了那根电线，然后机器就修好了！当公司收到这位大师的 10,000 美金的账单后，CEO 大怒并向大师索要账单明细。然后大师又寄了一张有明细的账单，上面写着：做标记用的粉笔 1 美元，知道在哪里做标记 999 美元。
+>对我们来说，这是一个关于智慧的故事：一个经过深思熟虑的细微的调整能够产生巨大的作用。在管理人员时，我们也使用这个技巧。我们想象我们的团队在一个巨大的飞艇上飞行，朝着一个特定的方向缓慢而确定地前进。我们不是通过微操作来不断地修正航向，而是花数周的时间仔细地观察和倾听。最终，我们在飞艇上的某一个精确的位置画一个很小，确至关重要的记号，轻轻一击，来修正航线。
+
+This is what good management is about: 95% observation and listening, and 5% making critical adjustments in just the right place. Listen to your leaders and skip-reports. Talk to your customers, and remember that often (especially if your team builds engineering infrastructure), your “customers” are not end users out in the world, but your coworkers. Customers’ happiness requires just as much intense listening as your reports’ happiness. What’s working and what isn’t? Is this self-driving blimp headed in the proper direction? Your direction should be iterative, but thoughtful and minimal, making the minimum adjustments necessary to correct course. If you regress into micromanagement, you risk becoming an SPOF again! “Always Be Leaving” is a call to macromanagement.
+
+这个故事说明了什么样的管理是好的管理：95% 是观察和倾听，5% 是在适当的位置做关键的调整。和你的客户聊聊，而且这些客户经常并不是外在的终端客户（尤其是当你的团队是在构建工程化的基础设施时），而是你的同事。要想让客户满意，就得像认真看报告那样，认真倾听你的客户。什么有效，什么无效呢？这个自驱的飞艇的航线正确吗？你的指引需要是反复迭代的，但是需要是经过深思熟虑地，通过最小的调整来修正航线。如果你退行到了去过度细节，你需要警惕你可能又成为了单点瓶颈！“保持放手”是说要进行宏观管理。
+
+### Take care in anchoring a team’s identity
+
+### 确定团队定位时要留心
+
+A common mistake is to put a team in charge of a specific product rather than a general problem. A product is a solution to a problem. The life expectancy of solutions can be short, and products can be replaced by better solutions. However, a problem— if chosen well—can be evergreen. Anchoring a team identity to a specific solution (“We are the team that manages the Git repositories”) can lead to all sorts of angst over time. What if a large percentage of your engineers want to switch to a new version control system? The team is likely to “dig in,” defend its solution, and resist change, even if this is not the best path for the organization. The team clings to its blinders, because the solution has become part of the team’s identity and self-worth. If the team instead owns the problem (e.g., “We are the team that provides version con‐ trol to the company”), it is freed up to experiment with different solutions over time.
+
+一个常见的错误是让一个团队负责一个特定的产品而不是负责解决一类问题。一个产品是一个问题的一种解决方案。一个解决方案的生命周期可能很短，一个产品可能会被更好的方案替代。然而，一个问题（如果这个问题的定位比较合理）却可以是经久不衰的。将一个团队定位为一个特点的解决方案（“我们是负责 Git 的团队”）随着时间的推移将会带来各种各样的麻烦。假如很大一部分工程师想切换到一个新的版本控制系统怎么办？这个团队很可能会“较真”，坚持它原有的解决方案，拒绝改变，及时它并不是最适合整个组织的方案。这个团队依赖它的“专家”，因为这个解决方案已经成为这个团队的一部分，这关怀团队的自我价值。如果团队改为是负责解决这个问题（比方说“我们是为这个公司提供版本管理的团队”），那么随着时间的推移,这个团队将不再被束缚去做实验尝试不同的解决方案。
+
+## Always Be Scaling
+
+## 一直保持扩张
+
+A lot of leadership books talk about “scaling” in the context of learning to “maximize your impact”—strategies to grow your team and influence. We’re not going to discuss those things here beyond what we’ve already mentioned. It’s probably obvious that building a self-driving organization with strong leaders is already a great recipe for growth and success.
+Instead, we’re going to discuss team scaling from a defensive and personal point of view rather than an offensive one. As a leader, your most precious resource is your limi‐ ted pool of time, attention, and energy. If you aggressively build out your teams’ responsibilities and power without learning to protect your personal sanity in the process, the scaling is doomed to fail. And so we’re going to talk about how to effectively scale yourself through this process.
+
+很多管理学书籍会在讲“最大化你的影响力”的上下文中讲“扩张”，通过这种策略来增长你的团队和影响力。由于我们已经提过的原因，我们不会在这里讨论这些问题。构建一个自驱的、拥有强大领导的组织已经是增长和成功的一个显而易见的方法。
+取而代之，我们将讨论从防御性和从个人观点出发而不是进攻性地扩张团队。作为领导者，你最宝贵的资源是你有限的时间、精力和能量。如果你在没有学会保护维持自己的精神正常的情况下，就激进地增加团队的职责和权力，你的扩张将注定失败。于是我们接下来将讨论如何在扩张的过程中有效地提升自己。
