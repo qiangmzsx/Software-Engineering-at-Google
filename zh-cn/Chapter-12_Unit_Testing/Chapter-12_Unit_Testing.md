@@ -613,16 +613,24 @@ If humans are bad at spotting bugs from string concatenation, we’re even worse
 
 如果人类不善于发现来自字符串连接的错误，那么我们更不善于发现来自更复杂的编程结构的错误，如循环和条件。这个教训很清晰：在测试代码中，坚持使用直线代码而不是复杂的逻辑，并在测试更具描述性的时候考虑容忍一些重复。我们将在本章后面讨论关于重复和代码共享的想法。
 
-### Write Clear Failure Messages
+### Write Clear Failure Messages  给出清晰的失败信息
 
 One last aspect of clarity has to do not with how a test is written, but with what an engineer sees when it fails. In an ideal world, an engineer could diagnose a problem just from reading its failure message in a log or report without ever having to look at the test itself. A good failure message contains much the same information as the test’s name: it should clearly express the desired outcome, the actual outcome, and any relevant parameters.
 
+清晰度的最后一个方面与测试的编写方式无关，而是与工程师在测试失败时看到的信息有关。在一个理想的世界里，工程师可以通过阅读日志或报告中的失败信息来诊断一个问题，而不需要看测试本身。一个好的故障信息包含与测试名称相同的信息：它应该清楚地表达预期结果、实际结果和任何相关的参数。
+
 Here’s an example of a bad failure message:
+
+下面是一个糟糕失败消息的示例：
+
 ```
 Test failed: account is closed
 ```
 
 Did the test fail because the account was closed, or was the account expected to be closed and the test failed because it wasn’t? A better failure message clearly distinguishes the expected from the actual state and gives more context about the result:
+
+测试失败是因为帐户已关闭，还是因为帐户预期将关闭，而测试失败是因为帐户未关闭？一条更好的失败消息清楚地将预期状态与实际状态区分开来，并提供有关结果的更多上下文：
+
 ```
 Expected an account in state CLOSED, but got account:
 <{name: "my-account", state: "OPEN"}
@@ -630,7 +638,10 @@ Expected an account in state CLOSED, but got account:
 
 Good libraries can help make it easier to write useful failure messages. Consider the assertions in Example 12-17 in a Java test, the first of which uses classical JUnit asserts, and the second of which uses Truth, an assertion library developed by Google:
 
-Example 12-17. An assertion using the Truth library
+好的库可以帮助我们更容易写出有用的失败信息。考虑一下例12-17中Java测试中的断言，第一个断言使用了经典的JUnit断言，第二个断言使用了Truth，一个由Google开发的断言库：
+
+*Example 12-17. An assertion using the Truth library*   *例12-17.  使用Truth库的断言*
+
 ```java
 Set<String> colors = ImmutableSet.of("red", "green", "blue"); 
 assertTrue(colors.contains("orange")); // JUnit 
@@ -639,9 +650,14 @@ assertThat(colors).contains("orange"); // Truth
 
 Because the first assertion only receives a Boolean value, it is only able to give a generic error message like “expected <true> but was <false>,” which isn’t very informative in a failing test output. Because the second assertion explicitly receives the subject of the assertion, it is able to give a much more useful error message: AssertionError: <[red, green, blue]> should have contained <orange>.”
 
+因为第一个断言只接收一个布尔值，所以它只能给出一个通用的错误信息，如 "预期<true>，但得到的是<false>"，这在失败的测试输出中不是很有意义。因为第二个断言明确地接收断言的主题，它能够给出一个更有用的错误信息。AssertionError: <[red, green, blue]>应该包含<orange>"。
+
 Not all languages have such helpers available, but it should always be possible to manually specify the important information in the failure message. For example, test assertions in Go conventionally look like Example 12-18.
 
-Example 12-18. A test assertion in Go
+并非所有的语言都有这样的辅助工具，但总是可以手动指定失败信息中的重要信息。例如，Go中的测试断言通常看起来像例12-18。
+
+*Example 12-18. A test assertion in Go*   *例12-18. Go中的测试断言*
+
 ```go
 result: = Add(2, 3)
 if result != 5 {
@@ -649,15 +665,21 @@ if result != 5 {
 }
 ```
 
-## Tests and Code Sharing: DAMP, Not DRY
+## Tests and Code Sharing: DAMP, Not DRY  测试和代码共享：DAMP，而不是DRY
 
 One final aspect of writing clear tests and avoiding brittleness has to do with code sharing. Most software attempts to achieve a principle called DRY—“Don’t Repeat Yourself.” DRY states that software is easier to maintain if every concept is canonically represented in one place and code duplication is kept to a minimum. This approach is especially valuable in making changes easier because an engineer needs to update only one piece of code rather than tracking down multiple references. The downside to such consolidation is that it can make code unclear, requiring readers to follow chains of references to understand what the code is doing.
 
+编写清晰的测试和避免脆弱性的最后一个方面与代码共享有关。大多数软件都试图实现一个称为DRY的原则——“不要重复你自己。”DRY指出，如果每个概念都在一个地方被规范地表示，并且代码复制保持在最低限度，那么软件就更容易维护。这种方法在简化更改方面尤其有用，因为工程师只需要更新一段代码，而不需要跟踪多个引用。。这种合并的缺点是，它可能会使代码变得不清楚，需要读者跟随引用链来理解代码在做什么。
+
 In normal production code, that downside is usually a small price to pay for making code easier to change and work with. But this cost/benefit analysis plays out a little differently in the context of test code. Good tests are designed to be stable, and in fact you usually want them to break when the system being tested changes. So DRY doesn’t have quite as much benefit when it comes to test code. At the same time, the costs of complexity are greater for tests: production code has the benefit of a test suite to ensure that it keeps working as it becomes complex, whereas tests must stand by themselves, risking bugs if they aren’t self-evidently correct. As mentioned earlier, something has gone wrong if tests start becoming complex enough that it feels like they need their own tests to ensure that they’re working properly.
+
+在正常的产品代码中，为了使代码更容易修改和使用，这种缺点通常是一个很小的代价。但是这种成本/效益分析在测试代码的背景下有一点不同。好的测试被设计成稳定的，事实上，当被测试的系统发生变化时，你通常希望它们会被破坏。因此，当涉及到测试代码时，DRY并没有那么多的好处。同时，对于测试来说，复杂性的成本更高：产品代码具有测试套件的优势，可以确保它在变得复杂时继续工作，而测试必须独立进行，如果它们不明显正确，则可能出现错误。如前所述，如果测试变得足够复杂，以至于感觉需要自己的测试来确保它们正常工作，那么就会出现问题。
 
 Instead of being completely DRY, test code should often strive to be DAMP—that is, to promote “Descriptive And Meaningful Phrases.” A little bit of duplication is OK in tests so long as that duplication makes the test simpler and clearer. To illustrate, Example 12-19 presents some tests that are far too DRY.
 
-Example 12-19. A test that is too DRY
+与其说是完全的DRY，不如说测试代码应该经常努力做到DAMP--也就是提倡 "描述性和有意义的短语"。在测试中，一点点的重复是可以的，只要这种重复能使测试更简单、更清晰。为了说明这一点，例12-19介绍了一些过于DRY的测试。
+
+*Example 12-19. A test that is too DRY*   *例12-19. 一个过于DRY的测试*
 
 ```java
 @Test
@@ -703,7 +725,10 @@ private static void validateForumAndUsers(Forum forum, List < User > users) {
 
 The problems in this code should be apparent based on the previous discussion of clarity. For one, although the test bodies are very concise, they are not complete: important details are hidden away in helper methods that the reader can’t see without having to scroll to a completely different part of the file. Those helpers are also full of logic that makes them more difficult to verify at a glance (did you spot the bug?). The test becomes much clearer when it’s rewritten to use DAMP, as shown in Example 12-20.
 
-Example 12-20. Tests should be DAMP
+基于前面对清晰度的讨论，这段代码中的问题应该是显而易见的。首先，尽管测试主体非常简洁，但它们并不完整：重要的细节被隐藏在辅助方法中，读者如果不滚动到文件的完全不同部分就看不到这些方法。那些辅助方法也充满了逻辑，使它们更难以一目了然地验证（你发现了这个错误吗？） 当它被改写成使用DAMP时，测试就变得清晰多了，如例12-20所示。
+
+*Example 12-20. Tests should be DAMP*   *例12-20. 测试应该是DAMP*
+
 ```java  
 @Test
 public void shouldAllowMultipleUsers() {
@@ -733,13 +758,20 @@ public void shouldNotRegisterBannedUsers() {
 
 These tests have more duplication, and the test bodies are a bit longer, but the extra verbosity is worth it. Each individual test is far more meaningful and can be understood entirely without leaving the test body. A reader of these tests can feel confident that the tests do what they claim to do and aren’t hiding any bugs.
 
+这些测试有更多的重复，测试体也有点长，但额外的言辞是值得的。每个单独的测试都更有意义，不离开测试主体就可以完全理解。这些测试的读者可以确信，这些测试做了他们声称要做的事情，并且没有隐藏任何bug。
+
 DAMP is not a replacement for DRY; it is complementary to it. Helper methods and test infrastructure can still help make tests clearer by making them more concise, factoring out repetitive steps whose details aren’t relevant to the particular behavior being tested. The important point is that such refactoring should be done with an eye toward making tests more descriptive and meaningful, and not solely in the name of reducing repetition. The rest of this section will explore common patterns for sharing code across tests.
 
+DAMP不是DRY的替代品；它是对DRY的补充。辅助方法和测试基础设施仍然可以帮助使测试更清晰，使其更简洁，剔除重复的步骤，其细节与被测试的特定行为不相关。重要的一点是，这样的重构应该着眼于使测试更有描述性和意义，而不是仅仅以减少重复的名义进行。本节的其余部分将探讨跨测试共享代码的常见模式。
 
-### Shared Values
+
+### Shared  Values  共享值
 Many tests are structured by defining a set of shared values to be used by tests and then by defining the tests that cover various cases for how these values interact. Example 12-21 illustrates what such tests look like.
 
-Example 12-21. Shared values with ambiguous names
+许多测试的结构是通过定义一组测试使用的共享值，然后通过定义测试来涵盖这些值如何交互的各种情况。例12-21说明了此类测试的模样。
+
+*Example 12-21. Shared values with ambiguous names*  *例12-21. 名称不明确的共享值*
+
 ```java
 private static final Account ACCOUNT_1 = Account.newBuilder()
     .setState(AccountState.OPEN).setBalance(50).build();
@@ -764,9 +796,13 @@ public void canBuyItem_returnsFalseWhenBalanceInsufficient() {
 ```
 This strategy can make tests very concise, but it causes problems as the test suite grows. For one, it can be difficult to understand why a particular value was chosen for a test. In Example 12-21, the test names fortunately clarify which scenarios are being tested, but you still need to scroll up to the definitions to confirm that ACCOUNT_1 and ACCOUNT_2 are appropriate for those scenarios. More descriptive constant names (e.g.,CLOSED_ACCOUNT and ACCOUNT_WITH_LOW_BALANCE) help a bit, but they still make it more difficult to see the exact details of the value being tested, and the ease of reusing these values can encourage engineers to do so even when the name doesn’t exactly describe what the test needs.
 
+此策略可以使测试非常简洁，但随着测试套件的增长，它会导致问题。首先，很难理解为什么选择某个特定值进行测试。在示例12-21中，幸运的是，测试名称澄清了正在测试的场景，但你仍然需要向上滚动到定义，以确认ACCOUNT_1和ACCOUNT_2适用于这些场景。更具描述性的常量名称（例如，CLOSED_ACCOUNT 和 ACCOUNT_WITH_LOW_BALANCE）有一些帮助，但它们仍然使查看被测试值的确切细节变得更加困难，并且重用这些值的方便性可以鼓励工程师这样做，即使名称不能准确描述测试需要什么。
+
 Engineers are usually drawn to using shared constants because constructing individual values in each test can be verbose. A better way to accomplish this goal is to construct data using helper methods (see Example 12-22) that require the test author to specify only values they care about, and setting reasonable defaults7 for all other values. This construction is trivial to do in languages that support named parameters, but languages without named parameters can use constructs such as the Builder pattern to emulate them (often with the assistance of tools such as AutoValue):
 
-*Example 12-22. Shared values using helper methods*
+工程师通常倾向于使用共享常量，因为在每个测试中构造单独的值可能会很冗长。实现此目标的更好方法是使用辅助方法（参见示例12-22）构造数据，该方法要求测试作者仅指定他们关心的值，并为所有其他值设置合理的默认值。在支持命名参数的语言中，这种构造非常简单，但是没有命名参数的语言可以使用构建器模式等构造来模拟它们（通常需要AutoValue等工具的帮助）：
+
+*Example 12-22. Shared values using helper methods*   *例12-22. 使用辅助方法的共享值*
 
 ```java
 #A helper method wraps a constructor by defining arbitrary defaults
@@ -803,14 +839,26 @@ public void fullNameShouldCombineFirstAndLastNames() {
 
 Using helper methods to construct these values allows each test to create the exact values it needs without having to worry about specifying irrelevant information or conflicting with other tests.
 
-### Shared Setup
+```
+7	In many cases, it can even be useful to slightly randomize the default values returned for fields that aren’t explicitly set. This helps to ensure that two different instances won’t accidentally compare as equal, and makes it more difficult for engineers to hardcode dependencies on the defaults.
+7   在许多情况下，甚至可以对未显式设置的字段返回的默认值进行轻微的随机化。这有助于确保两个不同的实例不会意外地比较为相等，并使工程师更难硬编码对默认值的依赖关系。
+```
+
+### Shared Setup  共享设置
 A related way that tests shared code is via setup/initialization logic. Many test frameworks allow engineers to define methods to execute before each test in a suite is run. Used appropriately, these methods can make tests clearer and more concise by obviating the repetition of tedious and irrelevant initialization logic. Used inappropriately, these methods can harm a test’s completeness by hiding important details in a separate initialization method.
+
+测试共享代码的相关方法是通过设置/初始化逻辑。许多测试框架允许工程师在运行套件中的每个测试之前定义要执行的方法。如果使用得当，这些方法可以避免重复繁琐和不相关的初始化逻辑，从而使测试更清晰、更简洁。如果使用不当，这些方法会在单独的初始化方法中隐藏重要细节，从而损害测试的完整性。
 
 The best use case for setup methods is to construct the object under tests and its collaborators. This is useful when the majority of tests don’t care about the specific arguments used to construct those objects and can let them stay in their default states. The same idea also applies to stubbing return values for test doubles, which is a concept that we explore in more detail in Chapter 13.
 
+设置方法的最佳用例是构造被测试对象及其col-laborator。当大多数测试不关心用于构造这些对象的特定参数，并且可以让它们保持默认状态时，这非常有用。同样的想法也适用于测试替换的打桩返回值，这是一个我们在第13章中详细探讨的概念。
+
 One risk in using setup methods is that they can lead to unclear tests if those tests begin to depend on the particular values used in setup. For example, the test in Example 12-23 seems incomplete because a reader of the test needs to go hunting to discover where the string “Donald Knuth” came from.
 
-Example 12-23. Dependencies on values in setup methods
+使用设置方法的一个风险是，如果这些测试开始依赖于设置中使用的特定值，它们可能导致测试不明确。例如，例12-23中的测试似乎不完整，因为测试的读者需要去寻找字符串“Donald Knuth”的来源。
+
+*Example 12-23. Dependencies on values in setup methods*   *例12-23. 设置方法中对数值的依赖性*
+
 ```java
 private NameService nameService;
 private UserStore userStore;
@@ -833,7 +881,10 @@ public void shouldReturnNameFromService() {
 
 Tests like these that explicitly care about particular values should state those values directly, overriding the default defined in the setup method if need be. The resulting test contains slightly more repetition, as shown in Example 12-24, but the result is far more descriptive and meaningful.
 
-Example 12-24. Overriding values in setup mMethods
+像这样明确关心特定值的测试应该直接说明这些值，如果需要的话，可以覆盖setup方法中定义的默认值。如例12-24所示，所产生的测试包含了稍多的重复，但其结果是更有描述性和意义的。
+
+*Example 12-24. Overriding values in setup Methods*   *例12-24. 重写设置方法中的值*
+
 ```java
 private NameService nameService;
 private UserStore userStore;
@@ -854,14 +905,21 @@ public void shouldReturnNameFromService() {
 }
 ```
 
-### Shared Helpers and Validation
+### Shared  Helpers  and  Validation  共享辅助和验证
 The last common way that code is shared across tests is via “helper methods” called from the body of the test methods. We already discussed how helper methods can be a useful way for concisely constructing test values—this usage is warranted, but other types of helper methods can be dangerous.
+
+最后一种在测试中共享代码的常见方式是通过从测试方法主体中调用 "辅助方法"。我们已经讨论了辅助方法如何成为简明地构建测试值的有用方法--这种用法是有必要的，但其他类型的辅助方法可能是危险的。
 
 One common type of helper is a method that performs a common set of assertions against a system under test. The extreme example is a validate method called at the end of every test method, which performs a set of fixed checks against the system under test. Such a validation strategy can be a bad habit to get into because tests using this approach are less behavior driven. With such tests, it is much more difficult to determine the intent of any particular test and to infer what exact case the author had in mind when writing it. When bugs are introduced, this strategy can also make them more difficult to localize because they will frequently cause a large number of tests to start failing.
 
+一种常见的辅助工具是对被测系统执行一套共同的断言的方法。极端的例子是在每个测试方法的末尾调用一个验证方法，它对被测系统执行一组固定的检查。这样的验证策略可能是一个不好的习惯，因为使用这种方法的测试是较少的行为驱动。有了这样的测试，就更难确定任何特定测试的意图，也更难推断出作者在编写测试时到底想到了什么情况。当bug被引入时，这种策略也会使它们更难被定位，因为它们会经常导致大量的测试开始失败。
+
 More focused validation methods can still be useful, however. The best validation helper methods assert a single conceptual fact about their inputs, in contrast to general-purpose validation methods that cover a range of conditions. Such methods can be particularly helpful when the condition that they are validating is conceptually simple but requires looping or conditional logic to implement that would reduce clarity were it included in the body of a test method. For example, the helper method in Example 12-25 might be useful in a test covering several different cases around account access.
 
-Example 12-25. A conceptually simple test
+然而，更有针对性的验证方法仍然是有用的。最好的验证辅助方法只断言其输入的一个概念性事实，与涵盖一系列条件的通用验证方法相反。当他们验证的条件在概念上很简单，但需要循环或条件逻辑来实现，如果将其包含在测试方法的主体中，就会降低清晰度，这样的方法特别有用。例如，例12-25中的辅助方法在测试中可能很有用，它涵盖了围绕账户访问的几种不同情况。
+
+*Example 12-25. A conceptually simple test*   *例12-25. 概念上简单的测试*
+
 ```java
 private void assertUserHasAccessToAccount(User user, Account account) {
     for(long userId: account.getUsersWithAccess()) {
@@ -873,17 +931,27 @@ private void assertUserHasAccessToAccount(User user, Account account) {
 }
 ```
 
-### Defining Test Infrastructure
+### Defining Test Infrastructure  界定测试基础加
 The techniques we’ve discussed so far cover sharing code across methods in a single test class or suite. Sometimes, it can also be valuable to share code across multiple test suites. We refer to this sort of code as test infrastructure. Though it is usually more valuable in integration or end-to-end tests, carefully designed test infrastructure can make unit tests much easier to write in some circumstances.
+
+到目前为止，我们讨论的技术包括在单个测试类或测试套件中跨方法共享代码。有时，跨多个测试套件共享代码也很有价值。我们将这种代码称为测试基础结构。尽管它通常在集成或端到端测试中更有价值，但精心设计的测试基础框架可以使单元测试在某些情况下更易于编写。
 
 Custom test infrastructure must be approached more carefully than the code sharing that happens within a single test suite. In many ways, test infrastructure code is more similar to production code than it is to other test code given that it can have many callers that depend on it and can be difficult to change without introducing breakages. Most engineers aren’t expected to make changes to the common test infrastructure while testing their own features. Test infrastructure needs to be treated as its own separate product, and accordingly, test infrastructure must always have its own tests.
 
+自定义测试基础框架必须比在单个测试套件中发生的代码共享更谨慎地对待。在许多方面，测试基础框架的代码比其他测试代码更类似于产品代码，因为它可能有许多依赖它的调用者，并且在不引入破坏的情况下很难改变。大多数工程师不希望在测试他们自己的功能时对通用测试基础空间进行修改。测试基础架构需要被当作自己独立的产品，相应地，测试基础框架必须始终有自己的测试。
+
 Of course, most of the test infrastructure that most engineers use comes in the form of well-known third-party libraries like JUnit. A huge number of such libraries are available, and standardizing on them within an organization should happen as early and universally as possible. For example, Google many years ago mandated Mockito as the only mocking framework that should be used in new Java tests and banned new tests from using other mocking frameworks. This edict produced some grumbling at the time from people comfortable with other frameworks, but today, it’s universally seen as a good move that made our tests easier to understand and work with.
+
+当然，大多数工程师使用的测试基础框架都是以知名的第三方库的形式出现的，如JUnit。有大量这样的库可以使用，在一个组织内对它们进行标准化应该尽可能早地和普遍地发生。例如，Google多年前规定Mockito是新的Java测试中唯一应该使用的模拟框架，并禁止新的测试使用其他模拟框架。这一规定在当时引起了一些对其他框架感到满意的人的不满，但今天，人们普遍认为这是一个好的举措，使我们的测试更容易理解和使用。
 
 ## Conclusion
 Unit tests are one of the most powerful tools that we as software engineers have to make sure that our systems keep working over time in the face of unanticipated changes. But with great power comes great responsibility, and careless use of unit testing can result in a system that requires much more effort to maintain and takes much more effort to change without actually improving our confidence in said system.
 
+单元测试是我们作为软件工程师所拥有的最强大的工具之一，它可以确保我们的系统在面对意料之外的变化时仍能正常工作。但是，强大的力量伴随着巨大的责任，不小心使用单元测试会导致系统需要更多的努力来维护，需要更多的努力来更改，不然不会真正提高我们对所述系统的信心。
+
 Unit tests at Google are far from perfect, but we’ve found tests that follow the practices outlined in this chapter to be orders of magnitude more valuable than those that don’t. We hope they’ll help you to improve the quality of your own tests!
+
+谷歌的单元测试远非完美，但我们发现遵循本章所述做法的测试比那些不遵循的测试要有价值得多。我们希望它们能帮助你提高你自己的测试的质量。
 
 ## TL;DRs
 - Strive for unchanging tests.
@@ -906,7 +974,25 @@ Unit tests at Google are far from perfect, but we’ve found tests that follow t
 
 - Follow DAMP over DRY when sharing code for tests.
 
+- 努力实现不变的测试。
 
+- 通过公共API进行测试。
+
+- 测试状态，而不是交互。
+
+- 使你的测试完整和简明。
+
+- 测试行为，而不是方法。
+
+- 强调行为的结构测试。
+
+- 在测试行为后命名测试。
+
+- 不要把逻辑放在测试中。
+
+- 编写清晰的失败信息。
+
+- 在分享测试的代码时，遵循DAMP而不是DRY。
 
 
 
