@@ -845,7 +845,6 @@ public void setUp() {
     userStore = new UserStore(nameService);
 }
 
-
 @Test
 public void shouldReturnNameFromService() {
     nameService.set("user1", "Margaret Hamilton");

@@ -485,11 +485,9 @@ We talk more about the specific test-mail-submit process for each shard below.
 
 ```
 
-
-
 -----
 
-##### Cattle Versus Pets  牛与宠物 
+##### Cattle Versus Pets  牛与宠物
 
 We often use the “cattle and pets” analogy when referring to individual machines in a distributed computing environment, but the same principles can apply to changes within a codebase.
 
