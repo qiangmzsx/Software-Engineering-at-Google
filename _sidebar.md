@@ -5,6 +5,7 @@
 - [第三章 知识共享](zh-cn/Chapter-3_Knowledge_Sharing/Chapter-3_Knowledge_Sharing.md)
 - [第四章 公平工程](zh-cn/Chapter-4_Engineering_for_Equity/Chapter-4_Engineering_for_Equity.md)
 - [第十章 文档](zh-cn/Chapter-10_Documentation/Chapter-10_Documentatio.md)
+- [第十二章：单元测试](zh-cn/Chapter-12_Unit_Testing/Chapter-12_Unit_Testing.md)
 - [第十三章 测试替代](zh-cn/Chapter-13_Test_Doubles/Chapter-13_Test_Doubles.md)
 - [第十四章 大型测试](zh-cn/Chapter-14_Larger_Testing/Chapter-14_Larger_Testing.md)
 - [第十五章 废弃](zh-cn/Chapter-15_Deprecation/Chapter-15_Deprecation.md)
