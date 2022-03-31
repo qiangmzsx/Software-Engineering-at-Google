@@ -22,7 +22,7 @@ After preventing bugs, the most important purpose of a test is to improve engine
 - They tend to make it easy to understand what’s wrong when they fail because each test is conceptually simple and focused on a particular part of the system.
 - They can serve as documentation and examples, showing engineers how to use the part of the system being tested and how that system is intended to work.
 
-在实现防止bug之后，测试最重要的目的是提高工程师的生产效率。与范围更广的测试相比，单元测试有许多特性，使其成为优化生产xiaolv1的绝佳方式:
+在实现防止bug之后，测试最重要的目的是提高工程师的生产效率。与范围更广的测试相比，单元测试有许多特性，使其成为优化生产效率的绝佳方式:
 
 - 根据谷歌对测试规模的定义，它们往往是小型的。小型测试是快速和确定的，允许开发人员频繁地运行它们，作为他们工作流程的一部分，并获得即时反馈。
 
@@ -895,7 +895,6 @@ public void setUp() {
     nameService.set("user1", "Donald Knuth");
     userStore = new UserStore(nameService);
 }
-
 
 @Test
 public void shouldReturnNameFromService() {

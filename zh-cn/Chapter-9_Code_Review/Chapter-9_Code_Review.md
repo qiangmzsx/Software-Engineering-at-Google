@@ -18,11 +18,15 @@ Some of the benefits of code review, such as detecting bugs in code before they 
 
 ```
 1	We also use Gerrit to review Git code, primarily for our open source projects. However, Critique is the primary tool of a typical software engineer at Google.
+2 Steve McConnell, Code Complete (Redmond: Microsoft Press, 2004).
+
 ```
 
-## Code Review Flow
+## Code Review Flow  代码审查流程
 
 Code reviews can happen at many stages of software development. At Google, code reviews take place before a change can be committed to the codebase; this stage is also known as a *precommit review*. The primary end goal of a code review is to get another engineer to consent to the change, which we denote by tagging the change as “looks good to me” (LGTM). We use this LGTM as a necessary permissions “bit” (combined with other bits noted below) to allow the change to be committed.
+
+代码评审可以发生在软件开发的许多阶段。在谷歌，代码评审是在更改提交到代码库之前进行的；这一阶段也称为委员会前审查。代码评审的主要最终目标是让另一位工程师同意变更，我们通过将变更标记为“我觉得不错”（LGTM）来表示。我们将此LGTM用作必要的权限“标识”（与下面提到的其他标识结合使用），以允许提交更改。
 
 A typical code review at Google goes through the following steps:
 
@@ -38,25 +42,51 @@ A typical code review at Google goes through the following steps:
 
 6.   After a change is marked LGTM, the author is allowed to commit the change to the codebase, provided they *resolve* *all* *comments* and that the change is *approved*. We’ll cover approval in the next section.
 
+谷歌的典型代码审查过程如下：
+
+1.   用户在其工作区的代码库中写入一个改动。然后作者创建变更的快照：一个补丁和相应的描述，上传到代码审查工具。此更改会产生与代码库的*差异*，用于评估已更改的代码。
+
+2.   作者可以使用此初始补丁应用自动审查注释或进行自我审查。当作者对变更的差异感到满意时，他们会将变更邮寄给一个或多个审查者。此过程通知这些审查者，要求他们查看快照并对其进行评论。
+
+3.   *审查者*在代码审阅工具中打开更改，并在一些评论要求明确的解决方案。有些仅仅信息性的。
+
+4.   作者修改更改并根据反馈上传新快照，然后回复给审查者。步骤3和4可重复多次。
+
+5.   在审查员对变更的最新状态感到满意后，他们同意变更，并通过将其标记为“我觉得不错”（LGTM）来接受变更。默认情况下，只需要一个LGTM，尽管惯例可能要求所有审核人同意变更。
+
+6.   在更改被标记为LGTM之后，作者可以将更改提交到代码库，前提是他们*解决*所有*评论*，并且该变更被*批准*。我们将在下一节中讨论批准问题。
+
 We’ll go over this process in more detail later in this chapter.
+
+我们将在本章后面更详细地介绍这个过程。
 
 -----
 
-#### Code Is a Liability
+#### Code Is a Liability    编码是一种责任
 
 It’s important to remember (and accept) that code itself is a liability. It might be a necessary liability, but by itself, code is simply a maintenance task to someone somewhere down the line. Much like the fuel that an airplane carries, it has weight, though it is, of course, [necessary for that airplane to fly](https://oreil.ly/TmoWX).
 
+重要的是要记住（并接受），编码本身就是一种责任。它可能是一种必要的责任，但就其本身而言，编码只是某个人的一项维护任务。就像飞机携带的燃料一样，它有重量，尽管它当然是[飞机飞行的必要条件](https://oreil.ly/TmoWX)。
+
 New features are often necessary, of course, but care should be taken before developing code in the first place to ensure that any new feature is warranted. Duplicated code not only is a wasted effort, it can actually cost more in time than not having the code at all; changes that could be easily performed under one code pattern often require more effort when there is duplication in the codebase. Writing entirely new code is so frowned upon that some of us have a saying: “If you’re writing it from scratch, you’re doing it wrong!”
+
+当然，新特性通常是必要的，但在开发代码之前，首先要注意确保任何新特性都是有必要的。重复的代码不仅是一种浪费，而且实际上比根本没有代码要花费更多的时间；当代码库中存在重复时，可以在一个代码模式下轻松执行的更改通常需要更多的工作。编写全新的代码是如此令人不快，以至于我们中的一些人都有这样一句话：“如果你是从头开始写的，那你就是做错了！”
 
 This is especially true of library or utility code. Chances are, if you are writing a utility, someone else somewhere in a codebase the size of Google’s has probably done something similar. Tools such as those discussed in [Chapter 17 ](#_bookmark1485)are therefore critical for both finding such utility code and preventing the introduction of duplicate code. Ideally, this research is done beforehand, and a design for anything new has been communicated to the proper groups before any new code is written.
 
+这对于库或实用程序代码来说尤其如此。有可能，如果你正在写一个实用程序，那么在像Google那样大的代码库中，其他人可能已经做了类似的事情。因此，像那些在第17章中讨论的工具对于找到这些实用程序代码和防止引入重复的代码都是至关重要的。理想情况下，这种研究是事先完成的，在编写任何新的代码之前，任何新的设计都已经传达给适当的小组。
+
 Of course, new projects happen, new techniques are introduced, new components are needed, and so on. All that said, a code review is not an occasion to rehash or debate previous design decisions. Design decisions often take time, requiring the circulation of design proposals, debate on the design in API reviews or similar meetings, and perhaps the development of prototypes. As much as a code review of entirely new code should not come out of the blue, the code review process itself should also not be viewed as an opportunity to revisit previous decisions.
+
+当然，新项目的发生，新技术的引入，新组件的需要，等等。综上所述，代码审查并不是一个重提或辩论以前的设计决策的时机。设计决策通常需要时间，需要分发设计方案，在API评审或类似的会议上对设计进行辩论，也许还需要开发原型。就像对全新的代码进行代码审查不应该突然出现一样，代码审查过程本身也不应该被看作是重新审视以前决策的时机。
 
 ----
 
-## How Code Review Works at Google
+## How Code Review Works at Google  谷歌的代码审查工作
 
 We’ve pointed out roughly how the typical code review process works, but the devil is in the details. This section outlines in detail how code review works at Google and how these practices allow it to scale properly over time.
+
+我们已经粗略地指出了典型的代码审查过程是如何工作的，但问题在于细节。本节详细概述了谷歌的代码审查工作原理，以及这些实践如何使其能够随时间适当扩展。
 
 There are three aspects of review that require “approval” for any given change at Google:
 
@@ -64,34 +94,66 @@ There are three aspects of review that require “approval” for any given chan
 -   Approval from one of the code owners that the code is appropriate for this particular part of the codebase (and can be checked into a particular directory). This approval might be implicit if the author is such an owner. Google’s codebase is a tree structure with hierarchical owners of particular directories. (See [Chapter 16](#_bookmark1364)). Owners act as gatekeepers for their particular directories. A change might be proposed by any engineer and LGTM’ed by any other engineer, but an owner of the directory in question must also *approve* this addition to their part of the codebase. Such an owner might be a tech lead or other engineer deemed expert in that particular area of the codebase. It’s generally up to each team to decide how broadly or narrowly to assign ownership privileges.
 -   Approval from someone with language “readability”[3](#_bookmark681) that the code conforms to the language’s style and best practices, checking whether the code is written in the manner we expect. This approval, again, might be implicit if the author has such readability. These engineers are pulled from a company-wide pool of engineers who have been granted readability in that programming language.
 
+对于Google的任何特定变化，有三个方面的审查需要 "批准"：
+
+- 由另一位工程师进行的正确性和理解性检查，检查代码是否合适，以及代码是否符合作者的要求。这通常是一个团队成员，尽管不一定是。这反映在LGTM权限的 "标识 "上，在同行审查者同意代码 "看起来不错 "之后，该标识将被设置。
+- 来自代码所有者之一的批准，即该代码适合于代码库的这个特定部分（并且可以被检查到一个特定的目录）。如果作者是这样一个所有者，这种批准可能是隐含的。谷歌的代码库是一个树状结构，有特定目录的分层所有者。(见第16章）。所有者作为他们特定目录的看门人。任何工程师都可以提出修改意见，任何其他工程师也可以提出LGTM，但有关目录的所有者必须*批准*在他们的代码库中加入这一内容。这样的所有者可能是技术领导或其他被认为是代码库特定领域的专家的工程师。通常由每个团队决定分配所有权特权的范围是宽还是窄。
+- 拥有语言 "可读性"的人批准代码符合语言的风格和最佳实践，检查代码是否以我们期望的方式编写。如果作者有这样的可读性，这种认可又可能是隐含的。这些工程师来自公司范围内的工程师队伍，他们被授予了该编程语言的可读性。
+
 Although this level of control sounds onerous—and, admittedly, it sometimes is— most reviews have one person assuming all three roles, which speeds up the process quite a bit. Importantly, the author can also assume the latter two roles, needing only an LGTM from another engineer to check code into their own codebase, provided they already have readability in that language (which owners often do).
+
+虽然这种程度的控制听起来很繁琐--而且，不可否认，有时的确如此--但大多数审查都是由一个人承担这三个角色，这就大大加快了审查过程。重要的是，作者也可以承担后两个角色，只需要另一个工程师的LGTM就可以将代码检查到他们自己的代码库中，前提是他们已经具备了该语言的可读性（所有者经常这样做）。
 
 These requirements allow the code review process to be quite flexible. A tech lead who is an owner of a project and has that code’s language readability can submit a code change with only an LGTM from another engineer. An intern without such authority can submit the same change to the same codebase, provided they get approval from an owner with language readability. The three aforementioned permission “bits” can be combined in any combination. An author can even request more than one LGTM from separate people by explicitly tagging the change as wanting an LGTM from all reviewers.
 
+这些要求使得代码审查过程非常灵活。技术负责人是一个项目的所有者，并且具有代码的语言可读性，可以只使用另一个工程师的LGTM提交代码更改。没有这种权限的实习生可以将相同的更改提交给相同的代码库，前提是他们获得具有语言可读性的所有者的批准。上述三个许可“标识”可以任意组合。作者甚至可以从不同的人处请求多个LGTM，方法是明确地将更改标记为希望从所有审阅者处获得LGTM。
+
 In practice, most code reviews that require more than one approval usually go through a two-step process: gaining an LGTM from a peer engineer, and then seeking approval from appropriate code owner/readability reviewer(s). This allows the two roles to focus on different aspects of the code review and saves review time. The primary reviewer can focus on code correctness and the general validity of the code change; the code owner can focus on whether this change is appropriate for their part of the codebase without having to focus on the details of each line of code. An approver is often looking for something different than a peer reviewer, in other words. After all, someone is trying to check in code to their project/directory. They are more concerned with questions such as: “Will this code be easy or difficult to maintain?” “Does it add to my technical debt?” “Do we have the expertise to maintain it within our team?”
+
+在实践中，大多数需要不止一次批准的代码评审通常经历两个步骤：从同行工程师那里获得LGTM，然后从适当的代码所有者/可读性审查员处寻求批准。这使得这两个角色可以专注于代码审查的不同方面，并节省审查时间。主要审查员可以关注代码正确性和代码更改的一般有效性；在实践中，大多数需要一个以上批准的代码审查通常要经过两个步骤：从同行工程师那里获得LGTM，然后再从适当的代码所有者/可读性审查者那里寻求批准。这使得两个角色可以专注于代码审查的不同方面，并节省审查时间。主要的审查者可以专注于代码的正确性和代码修改的一般有效性；代码所有者可以关注此更改是否适合他们的部分，而不必关注每行代码的细节。换句话说，审批者所寻找的东西往往与同行评审者不同。毕竟，有人是想把代码签入他们的项目/目录。他们更关心的是诸如以下问题。"这段代码是容易还是难以维护？" "它是否增加了我的技术债务？" "我们的团队中是否有维护它的专业知识？"
 
 If all three of these types of reviews can be handled by one reviewer, why not just have those types of reviewers handle all code reviews? The short answer is scale. Separating the three roles adds flexibility to the code review process. If you are working with a peer on a new function within a utility library, you can get someone on your team to review the code for code correctness and comprehension. After several rounds (perhaps over several days), your code satisfies your peer reviewer and you get an LGTM. Now, you need only get an *owner* of the library (and owners often have appropriate readability) to approve the change.
 
+如果这三种类型的审查都可以由一个审查员处理，为什么不直接让这些类型的审查员处理所有的代码审查呢？简单的答案是规模。将这三种角色分开，可以增加代码审查过程的灵活性。如果你和同行一起在一个实用程序库中开发一个新的函数，你可以让你团队中的某人来审查代码的正确性和理解性。经过几轮（也许是几天的时间），你的代码让你的同行审查员满意，你就会得到一个LGTM。现在，你只需要让该库的*所有者*（而所有者往往具有适当的可读性）批准这项修改。
+
+```
+3 At Google, “readability” does not refer simply to comprehension, but to the set of styles and best practices that allow code to be maintainable to other engineers. See Chapter 3.
+
+```
+
 -----
 
-#### Ownership
+#### Ownership  所有权
 
 ***Hyrum Wright***
 
 When working on a small team in a dedicated repository, it’s common to grant the entire team access to everything in the repository. After all, you know the other engineers, the domain is narrow enough that each of you can be experts, and small numbers constrain the effect of potential errors.
 
+当一个小团队在专门的版本库中工作时，通常会授予整个团队对版本库中所有内容的访问权。毕竟，你认识其他的工程师，这个领域很窄，你们每个人都可以成为专家，而且人数少限制了潜在错误的影响范围。
+
 As the team grows larger, this approach can fail to scale. The result is either a messy repository split or a different approach to recording who has what knowledge and responsibilities in different parts of the repository. At Google, we call this set of knowledge and responsibilities *ownership* and the people to exercise them *owners*. This concept is different than possession of a collection of source code, but rather implies a sense of stewardship to act in the company’s best interest with a section of the codebase. (Indeed, “stewards” would almost certainly be a better term if we had it to do over again.)
+
+随着团队规模的扩大，这种方法可能无法扩展。其结果要么是混乱的版本库分裂，要么是用不同的方法来记录谁在版本库的不同部分拥有哪些知识和职责。在谷歌，我们把这套知识和职责称为*所有权*，把行使这些知识和职责的人称为*所有者*。这个概念不同于对源代码集合的占有，而是意味着一种管理意识，以公司的最佳利益对代码库的某个部分采取行动。(事实上，如果我们重新来过，"管家 "几乎肯定是一个更好的术语）。
 
 Specially named OWNERS files list usernames of people who have ownership responsibilities for a directory and its children. These files may also contain references to other OWNERS files or external access control lists, but eventually they resolve to a list of individuals. Each subdirectory may also contain a separate OWNERS file, and the relationship is hierarchically additive: a given file is generally owned by the union of the members of all the OWNERS files above it in the directory tree. OWNERS files may have as many entries as teams like, but we encourage a relatively small and focused list to ensure responsibility is clear.
 
-Ownership of Google’s code conveys approval rights for code within one’s purview, but these rights also come with a set of responsibilities, such as understanding the code that is owned or knowing how to find somebody who does. Different teams have different criteria for granting ownership to new members, but we generally encourage
-them not to use ownership as a rite of initiation and encourage departing members to yield ownership as soon as is practical.
+特别命名的OWNERS文件列出了对一个目录及其子目录有所有权责任的人的用户名。这些文件也可能包含对其他OWNERS文件或外部访问控制列表的引用，但最终它们会解析为个人列表。每个子目录也可能包含一个单独的OWNERS文件，而且这种关系是分层递增的：一个给定的文件通常由目录树中它上面的所有OWNERS文件的成员共同拥有。OWNERS文件可以有任意多的条目，但我们鼓励一个相对较小和集中的列表，以确保责任明确。
+
+Ownership of Google’s code conveys approval rights for code within one’s purview, but these rights also come with a set of responsibilities, such as understanding the code that is owned or knowing how to find somebody who does. Different teams have different criteria for granting ownership to new members, but we generally encourage them not to use ownership as a rite of initiation and encourage departing members to yield ownership as soon as is practical.
+
+对谷歌代码的所有权传达了对其权限范围内的代码的批准权，但这些权利也伴随着一系列的责任，如了解所拥有的代码或知道如何找到拥有这些代码的人。不同的团队在授予新成员所有权方面有不同的标准，但我们通常鼓励他们不要把所有权作为入职仪式，并鼓励离职的成员在可行的情况下尽快放弃所有权。
+
 This distributed ownership structure enables many of the other practices we’ve outlined in this book. For example, the set of people in the root OWNERS file can act as global approvers for large-scale changes (see Chapter 22) without having to bother local teams. Likewise, OWNERS files act as a kind of documentation, making it easy for people and tools to find those responsible for a given piece of code just by walking up the directory tree. When new projects are created, there’s no central authority that has to register new ownership privileges: a new OWNERS file is sufficient.
+
+这种分布式所有权结构使我们在本书中概述的许多其他做法成为可能。例如，根OWNERS文件中的一组人可以作为大规模修改的全球批准者（见第22章），而不必打扰本地团队。同样，OWNERS文件作为一种文档，使人们和工具很容易找到对某段代码负责的人，只要沿着目录树走就可以了。当新项目被创建时，没有一个中央机构需要注册新的所有权权限：一个新的OWNERS文件就足够了。
+
 This ownership mechanism is simple, yet powerful, and has scaled well over the past two decades. It is one of the ways that Google ensures that tens of thousands of engineers can operate efficiently on billions of lines of code in a single repository.
+
+这种所有权机制简单而强大，在过去的20年里得到了良好的扩展。这是谷歌确保数以万计的工程师能够在单一资源库中有效操作数十亿行代码的方法之一。
 
 -----
 
-## Code Review Benefits
+## Code Review Benefits 代码审查的好处
 
 Across the industry, code review itself is not controversial, although it is far from a universal practice. Many (maybe even most) other companies and open source projects have some form of code review, and most view the process as important as a sanity check on the introduction of new code into a codebase. Software engineers understand some of the more obvious benefits of code review, even if they might not personally think it applies in all cases. But at Google, this process is generally more thorough and wide spread than at most other companies.
 
