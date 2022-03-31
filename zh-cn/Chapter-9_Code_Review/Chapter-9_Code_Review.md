@@ -153,7 +153,7 @@ This ownership mechanism is simple, yet powerful, and has scaled well over the p
 
 -----
 
-## Code Review Benefits
+## Code Review Benefits 代码审查的好处
 
 Across the industry, code review itself is not controversial, although it is far from a universal practice. Many (maybe even most) other companies and open source projects have some form of code review, and most view the process as important as a sanity check on the introduction of new code into a codebase. Software engineers understand some of the more obvious benefits of code review, even if they might not personally think it applies in all cases. But at Google, this process is generally more thorough and wide spread than at most other companies.
 
