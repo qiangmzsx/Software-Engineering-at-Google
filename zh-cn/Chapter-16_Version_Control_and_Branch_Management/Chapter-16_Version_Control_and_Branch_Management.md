@@ -163,43 +163,70 @@ In our workflow, centrality and in-the-cloud storage for the codebase seem to be
 6 单调增加的版本号，而不是提交哈希值，是特别麻烦的。许多系统和脚本已经在谷歌开发者生态系统中成长起来，它们假定提交的数字顺序与时间顺序相同--消除这些隐藏的依赖关系是很困难的。
 ```
 
-### Source of Truth
+### Source of Truth 信息源
 
 Centralized VCSs (Subversion, CVS, Perforce, etc.) bake the source-of-truth notion into the very design of the system: whatever is most recently committed at trunk is the current version. When a developer goes to check out the project, by default that trunk version is what they will be presented with. Your changes are “done” when they have been recommitted on top of that version.
 
+集中式VCS（Subversion、CVS、Perforce等）将信息源的概念融入到系统的设计中：最近提交到主干的就是当前的版本。当一个开发者去检查项目时，默认情况下，他们将看到的是主干版本。当你的修改被重新提交到该版本上时，你的修改就 "完成 "了。
+
 However, unlike centralized VCS, there is no *inherent* notion of which copy of the distributed repository is the single source of truth in DVCS systems. In theory, it’s possible to pass around commit tags and PRs with no centralization or coordination, allowing disparate branches of development to propagate unchecked, and thus risking a conceptual return to the world of *Presentation v5 - final - redlines - Josh’s version* *v2*. Because of this, DVCS requires more explicit policy and norms than a centralized VCS does.
+
+然而，与集中式 VCS 不同，在 DVCS 系统中，并不存在哪个分布式版本库的副本是单信息源的*固有概念*。理论上，在没有集中化或协调的情况下，提交标签和PR的传递是可能的，允许不同的开发分支不受检查地传播，从而有可能在概念上回到*Presentation v5 - final - redlines - Josh's version v2*的世界。正因为如此，DVCS比集中式VCS需要更明确的策略和规范。
 
 Well-managed projects using DVCS declare one specific branch in one specific repository to be the source of truth and thus avoid the more chaotic possibilities. We see this in practice with the spread of hosted DVCS solutions like GitHub or GitLab— users can clone and fork the repository for a project, but there is still a single primary repository: things are “done” when they are in the trunk branch on that repository.
 
+使用DVCS的管理良好的项目宣布一个特定的分支在一个特定的存储库中是信息源，从而避免了更多混乱的可能性。在实践中，我们看到GitHub或GitLab等托管DVCS解决方案的普及--用户可以克隆和分叉一个项目的仓库，但仍有一个单一的主仓库：当事情出现在该仓库的主干分支时，就已经 "完成 "了。
+
 It isn’t an accident that centralization and Source of Truth has crept back into the usage even in a DVCS world. To help illustrate just how important this Source of Truth idea is, let’s imagine what happens when we don’t have a clear source of truth.
+
+即使在DVCS的世界里，集中化和信息源已经悄悄地回到了人们的使用中，这并不是一个偶然。为了说明 "信息源 "这个概念有多重要，让我们想象一下，当我们没有明确的信息源时会发生什么。
 
 ```
 7	For that matter, as of the publication of the Monorepo paper, the repository itself had something like 86 TB of data and metadata, ignoring release branches. Fitting that onto a developer workstation directly would be… challenging.
+7 就这一点而言，截至Monorepo论文发表时，仓库本身有大约86TB的数据和元数据，不包括发布分支。将其直接装入开发者的工作站将是......挑战。
 ```
 
-#### Scenario: no clear source of truth
+#### Scenario: no clear source of truth  情景：没有明确的信息源
 
 Imagine that your team adheres to the DVCS philosophy enough to avoid defining a specific branch+repository as the ultimate source of truth.
 
+想象一下，你的团队坚持DVCS的理念，足以避免将特定的分支+版本库定义为最终的信息源。
+
 In some respects, this is reminiscent of the *Presentation v5 - final - redlines - Josh’s version v2* model—after you pull from a teammate’s repository, it isn’t necessarily clear which changes are present and which are not. In some respects, it’s better than that because the DVCS model tracks the merging of individual patches at a much finer granularity than those ad hoc naming schemes, but there’s a difference between the DVCS knowing *which* changes are incorporated and every engineer being sure they have *all* the past/relevant changes represented.
+
+在某些方面，这让人想起*Presentation v5 - final - redlines - Josh's version v2*的模式--当你从队友的版本库中提取后，并不一定清楚哪些改动是存在的，哪些是不存在的。在某些方面，它比这更好，因为DVCS模型在更细的粒度上跟踪单个补丁的合并，而不是那些临时的命名方案，但DVCS知道*哪些*变化被纳入，和每个工程师确保他们已经表示了*所有*过去/相关的更改，这两者之间存在差异。。
 
 Consider what it takes to ensure that a release build includes all of the features that have been developed by each developer for the past few weeks. What (noncentralized, scalable) mechanisms are there to do that? Can we design policies that are fundamentally better than having everyone sign off? Are there any that require only sublinear human effort as the team scales up? Is that going to continue working as the number of developers on the team scales up? As far as we can see: probably not. Without a central Source of Truth, someone is going to keep a list of which features are potentially ready to be included in the next release. Eventually that bookkeeping is reproducing the model of having a centralized Source of Truth.
 
+考虑一下如何确保一个发布版本包括每个开发人员在过去几周内开发的所有功能。有什么（非集中的、可扩展的）机制可以做到这一点？我们能不能设计出从根本上比让每个人签字更好的策略？是否有任何随着团队规模的扩大只需要次线性的人力努力？随着团队中开发人员数量的增加，这是否会继续发挥作用？就我们所见：可能不会。如果没有一个核心的 "信息源"，就会有人记下哪些功能有可能被纳入下一个版本的清单。最终，这种记账方式正在重现拥有一个集中式信息源的模式。
+
 Further imagine: when a new developer joins the team, where do they get a fresh, known-good copy of the code?
+
+进一步想象：当一个新的开发人员加入团队时，他们从哪里得到一个最新的、已知的好的代码副本？
 
 DVCS enables a lot of great workflows and interesting usage models. But if you’re concerned with finding a system that requires sublinear human effort to manage as the team grows, it’s pretty important to have one repository (and one branch) actually defined to be the ultimate source of truth.
 
+DVCS实现了很多出色的工作流程和有趣的使用模式。但如果你关心的是找到一个系统，随着团队的成长，需要次线性的人力来管理，那么将一个存储库（和一个分支）实际定义为最终的信息源是相当重要的。
+
 There is some relativity in that Source of Truth. That is, for a given project, that Source of Truth might be different for a different organization. This caveat is important: it’s reasonable for engineers at Google or RedHat to have different Sources of Truth for Linux Kernel patches, still different than Linus (the Linux Kernel maintainer) himself would. DVCS works fine when organizations and their Sources of Truth are hierarchical (and invisible to those outside the organization)—that is perhaps the most practically useful effect of the DVCS model. A RedHat engineer can commit to the local Source of Truth repository, and changes can be pushed from there upstream periodically, while Linus has a completely different notion of what is the Source of Truth. So long as there is no choice or uncertainty as to where a change should be pushed, we can avoid a large class of chaotic scaling problems in the DVCS model.
+
+信息源具有某种相对性。也就是说，对于一个特定的项目，信息源对于不同的组织可能是不同的。这一点很重要：谷歌或RedHat的工程师对Linux内核补丁有不同的信息源是合理的，这与Linus（Linux内核维护者）自己的信息源还是不同的。当组织和他们的信息源是分层的（对组织外的人来说是不可见的），DVCS就能很好地工作--这也许是DVCS模型最实际的作用。一个RedHat的工程师可以提交到本地信息源仓库，并且可以定期从那里向上游推送变化，而Linus对什么是信息源有完全不同的概念。只要没有选择或不确定一个变化应该被推到哪里，我们就可以避免DVCS模型中的一大类混乱的扩展问题。
 
 In all of this thinking, we’re assigning special significance to the trunk branch. But of course, “trunk” in your VCS is only the technology default, and an organization can choose different policies on top of that. Perhaps the default branch has been abandoned and all work actually happens on some custom development branch—other than needing to provide a branch name in more operations, there’s nothing inherently broken in that approach; it’s just nonstandard. There’s an (oft-unspoken) truth when discussing version control: the technology is only one part of it for any given organization; there is almost always an equal amount of policy and usage convention on top of that.
 
+在所有这些想法中，我们为主干分支赋予了特殊的意义。但当然，VCS中的 "主干 "只是技术默认，一个组织可以在此基础上选择不同的策略。也许默认的分支已经被放弃了，所有的工作实际上都发生在某个自定义的开发分支上--除了需要在更多操作中提供分支名称之外，这种方法没有任何内在的缺陷；它只是非标准的。在讨论版本控制时，有一个（经常不说的）事实：对于任何特定的组织来说，技术只是其中的一部分；几乎总是有同等数量的策略和使用约定在上面。
+
 No topic in version control has more policy and convention than the discussion of how to use and manage branches. We look at branch management in more detail in the next section.
 
-### Version Control Versus Dependency Management
+版本控制中没有一个主题比关于如何使用和管理分支的讨论更具策略和约定。我们将在下一节更详细地介绍分支管理。
+
+### Version Control Versus Dependency Management 版本控制与依赖管理
 
 There’s a lot of conceptual similarity between discussions of version control policies and dependency management (see [Chapter 21](#_bookmark1845)). The differences are primarily in two forms: VCS policies are largely about how you manage your own code, and are usually much finer grained. Dependency management is more challenging because we primarily focus on projects managed and controlled by other organizations, at a higher granularity, and these situations mean that you don’t have perfect control. We’ll discuss a lot more of these high-level issues later in the book.
 
-## Branch Management
+关于版本控制策略和依赖管理的讨论在概念上有很多相似之处（见第21章）。差异主要体现在两种形式上。VCS策略主要是关于你如何管理你自己的代码，而且通常是更细的粒度。依赖管理更具挑战性，因为我们主要关注由其他组织管理和控制的项目，颗粒度更高，这些情况意味着你没有完美的控制。我们将在本书后面讨论更多的这些高级问题。
+
+## Branch Management  分支管理
 
 Being able to track different revisions in version control opens up a variety of different approaches for how to manage those different versions. Collectively, these different approaches fall under the term *branch management*, in contrast to a single “trunk.”
 
