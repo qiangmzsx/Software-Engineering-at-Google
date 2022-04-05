@@ -26,27 +26,38 @@ In this chapter, we’re going to look at why the use of version control has bec
 
 A VCS is a system that tracks revisions (versions) of files over time. A VCS maintains some metadata about the set of files being managed, and collectively a copy of the files and metadata is called a repository[2](#_bookmark1374) (repo for short). A VCS helps coordinate the activities of teams by allowing multiple developers to work on the same set of files simultaneously. Early VCSs did this by granting one person at a time the right to edit a file—that style of locking is enough to establish sequencing (an agreed-upon “which is newer,” an important feature of VCS). More advanced systems ensure that changes to a *collection* of files submitted at once are treated as a single unit (*atomicity* when a logical change touches multiple files). Systems like CVS (a popular VCS from the 90s) that didn’t have this atomicity for a commit were subject to corruption and lost changes. Ensuring atomicity removes the chance of previous changes being overwritten unintentionally, but requires tracking which version was last synced to—at commit time, the commit is rejected if any file in the commit has been modified at head since the last time the local developer synced. Especially in such a change-tracking VCS, a developer’s working copy of the managed files will therefore need metadata of its own. Depending on the design of the VCS, this copy of the repository can be a repository itself, or might contain a reduced amount of metadata—such a reduced copy is usually a “client” or “workspace.”
 
-
+VCS是一个跟踪文件随时间变化的修订（版本）的系统。VCS维护一些关于被管理的文件集的元数据，文件和元数据的副本统称为版本库（简称repo）。VCS通过允许多个开发者同时在同一组文件上工作来帮助协调团队的活动。早期的VCS是通过每次授予一个人编辑文件的权利来实现的--这种锁定方式足以建立顺序（一种约定的“更新的”，VCS的一个重要特性）。更高级的系统确保对一次提交的*文件集合*的更改被视为单个单元（当逻辑更改涉及多个文件时，原子性）。像CVS（90年代流行的VCS）这样的系统，如果没有这种提交的原子性，就会出现损坏和丢失更改。确保原子性消除了以前的更改被无意覆盖的可能性，但需要跟踪最后同步的版本--在提交时，如果提交中的任何文件在本地开发者最后一次同步后被修改过，则提交将被拒绝。特别是在这样一个变化跟踪的VCS中，开发者管理文件的工作副本因此需要有自己的元数据。根据VCS的设计，这个版本库的副本可以是一个版本库本身，也可以包含一个减少的元数据--这样一个减少的副本通常是一个 "客户端 "或 "工作区"。
 
 This seems like a lot of complexity: why is a VCS necessary? What is it about this sort of tool that has allowed it to become one of the few nearly universal tools for software development and software engineering?
 
-Imagine for a moment working without a VCS. For a (very) small group of distributed developers working on a project of limited scope without any understanding of version control, the simplest and lowest-infrastructure solution is to just pass copies of the project back and forth. This works best when edits are nonsimultaneous (people are working in different time zones, or at least with different working hours). If there’s any chance for people to not know which version is the most current, we immediately have an annoying problem: tracking which version is the most up to date. Anyone who has attempted to collaborate in a non-networked environment will likely recall the horrors of copying back-and-forth files named *Presentation v5 - final*
+这似乎很复杂：为什么需要一个VCS？是什么让这种工具成为为数不多的软件开发和软件工程几乎通用的工具之一？
 
-*- redlines - Josh’s version v2*. And as we shall see, when there isn’t a single agreed-upon source of truth, collaboration becomes high friction and error prone.
+Imagine for a moment working without a VCS. For a (very) small group of distributed developers working on a project of limited scope without any understanding of version control, the simplest and lowest-infrastructure solution is to just pass copies of the project back and forth. This works best when edits are nonsimultaneous (people are working in different time zones, or at least with different working hours). If there’s any chance for people to not know which version is the most current, we immediately have an annoying problem: tracking which version is the most up to date. Anyone who has attempted to collaborate in a non-networked environment will likely recall the horrors of copying back-and-forth files named *Presentation v5 - final - redlines - Josh’s version v2*. And as we shall see, when there isn’t a single agreed-upon source of truth, collaboration becomes high friction and error prone.
+
+想象一下，在没有VCS的情况下工作。对于一个（非常）小的分布式开发人员小组，在一个范围有限的项目上工作，而不了解版本控制，最简单和最低的基础设施解决方案是只是来回传递项目的副本。这在非同步编辑时效果最好（人们在不同的时区工作，或至少在不同的工作时间）。如果有任何时机让人们不知道哪个版本是最新的，我们马上就会有一个恼人的问题：追踪哪个版本是最新的。任何试图在非网络环境下进行协作的人都可能会想起来回复制名为*Presentation v5 - final - redlines - Josh's version v2*的文件的恐怖。正如我们将看到的那样， 当没有一个统一的信息来源时，合作就会变得阻力很大，容易出错。
 
 Introducing shared storage requires slightly more infrastructure (getting access to shared storage), but provides an easy and obvious solution. Coordinating work in a shared drive might suffice for a while with a small enough number of people but still requires out-of-band collaboration to avoid overwriting one another’s work. Further, working directly in that shared storage means that any development task that doesn’t keep the build working continuously will begin to impede everyone on the team—if I’m making a change to some part of this system at the same time that you kick off a build, your build won’t work. Obviously, this doesn’t scale well.
 
-In practice, lack of file locking and lack of merge tracking will inevitably lead to collisions and work being overwritten. Such a system is very likely to introduce out-of- band coordination to decide who is working on any given file. If that file-locking is encoded in software, we’ve begun reinventing an early-generation version control like RCS (among others). After you realize that granting write permissions a file at a time is too coarse grained and you begin wanting line-level tracking—we’re definitely reinventing version control. It seems nearly inevitable that we’ll want some structured mechanism to govern these collaborations. Because we seem to just be reinventing the wheel in this hypothetical, we might as well use an off-the-shelf tool.
+引入共享存储需要稍多的基础设施（获得对共享存储的访问），但提供了一个简单而显著的解决方案。在一个共享驱动器中协调工作，在人数足够少的情况下可能已经足够了，但仍然需要带外协作以避免覆盖彼此的工作。此外，直接在共享存储中工作意味着任何不能保持构建持续工作的开发任务都会开始阻碍团队中的每个人--如果我在你启动构建的同时对这个系统的某些部分进行了修改，你的构建就无法工作。很明显，这并不能很好地扩展。
+
+In practice, lack of file locking and lack of merge tracking will inevitably lead to collisions and work being overwritten. Such a system is very likely to introduce out-of-band coordination to decide who is working on any given file. If that file-locking is encoded in software, we’ve begun reinventing an early-generation version control like RCS (among others). After you realize that granting write permissions a file at a time is too coarse grained and you begin wanting line-level tracking—we’re definitely reinventing version control. It seems nearly inevitable that we’ll want some structured mechanism to govern these collaborations. Because we seem to just be reinventing the wheel in this hypothetical, we might as well use an off-the-shelf tool.
+
+在实践中，缺乏文件锁和缺乏合并跟踪将不可避免地导致冲突和工作被覆盖。这样一个系统很有可能引入带外协调，以决定谁在任何给定的文件上工作。如果这种文件锁定被编码在软件中，我们就开始重新发明像RCS（包括其他）这样的早期版本控制。当你意识到一次授予一个文件的写入权限过于粗放，而你开始需要行级跟踪时，我们肯定在重新发明版本控制。似乎不可避免的是，我们将需要一些结构化的机制来管理这些合作。因为在这个假设中，我们似乎只是在重新发明车轮，我们不妨使用一个现成的工具。
 
 ```
 2	Although the formal idea of what is and is not a repository changes a bit depending on your choice of VCS, and the terminology will vary.
+2 虽然什么是和什么不是版本库的正式概念会因你选择的VCS而有些变化，术语也会有所不同。
 ```
 
-### Why Is Version Control Important?
+### Why Is Version Control Important?  为什么版本控制很重要？
 
 While version control is practically ubiquitous now, this was not always the case. The very first VCSs date back to the 1970s (SCCS) and 1980s (RCS)—many years later than the first references to software engineering as a distinct discipline. Teams participated in “the [multiperson development of multiversion software](https://arxiv.org/pdf/1805.02742.pdf)” before the industry had any formal notion of version control. Version control evolved as a response to the novel challenges of digital collaboration. It took decades of evolution and dissemination for reliable, consistent use of version control to evolve into the norm that it is today.[3](#_bookmark1382) So how did it become so important, and, given that it seems like a self-evident solution, why might anyone resist the idea of VCS?
 
+虽然现在版本控制几乎无处不在，但情况并非总是如此。最早的VCS可以追溯到20世纪70年代（SCCS）和80年代（RCS）--比首次将软件工程作为一门独立学科的时间晚了许多年。在业界有任何正式的版本控制概念之前，团队就参与了"[多版本软件的多人开发](https://arxiv.org/pdf/1805.02742.pdf)"。版本控制是为了应对数字协作的新挑战而发展起来的。经过几十年的演变和传播，版本控制的可靠、一致的使用才演变成今天的规范。 那么，它是如何变得如此重要的呢？鉴于它似乎是一个不言而喻的解决方案，为什么会有人抵制VCS的想法呢？
+
 Recall that software engineering is programming integrated over time; we’re drawing a distinction (in dimensionality) between the instantaneous production of source code and the act of maintaining that product over time. That basic distinction goes a long way to explaining the importance of, and hesitation toward, VCS: at the most fundamental level, version control is the engineer’s primary tool for managing the interplay between raw source and time. We can conceptualize VCS as a way to extend a standard filesystem. A filesystem is a mapping from filename to contents. A VCS extends that to provide a mapping from (filename, time) to contents, along with the metadata necessary to track last sync points and audit history. Version control makes the consideration of time an explicit part of the operation: unnecessary in a program‐ming task, critical in a software engineering task. In most cases, a VCS also allows for an extra input to that mapping (a branch name) to allow for parallel mappings; thus:
+
+回顾一下，软件工程是随着时间的推移而整合的编程；我们在源代码的即时生产和随着时间的推移维护该产品的行为之间（在维度上）进行了区分。这一基本区别在很大程度上解释了VCS的重要性和对VCS的犹豫：在最基本的层面上，版本控制是工程师管理原始源和时间之间相互作用的主要工具。我们可以将VCS概念化为一种扩展标准文件系统的方式。文件系统是一个从文件名到内容的映射。VCS扩展了它，提供了从（文件名，时间）到内容的映射，以及跟踪最后同步点和审计历史所需的元数据。版本控制使时间的考虑成为操作的一个明确的部分：在编程任务中是不必要的，在软件工程任务中是关键的。在大多数情况下，VCS还允许对该映射有一个额外的输入（一个分支名称），以允许并行映射；因此：
 
 ```
 VCS(filename, time, branch) => file contents
@@ -54,28 +65,45 @@ VCS(filename, time, branch) => file contents
 
 In the default usage, that branch input will have a commonly understood default: we call that “head,” “default,” or “trunk” to denote main branch.
 
+在默认的用法中，该分支输入将有一个普遍理解的默认值：我们称之为“head”、“default”或“trunk”来表示主分支
+
 The (minor) remaining hesitation toward consistent use of version control comes almost directly from conflating programming and software engineering—we teach programming, we train programmers, we interview for jobs based on programming problems and techniques. It’s perfectly reasonable for a new hire, even at a place like Google, to have little or no experience with code that is worked on by more than one person or for more than a couple weeks. Given that experience and understanding of the problem, version control seems like an alien solution. Version control is solving a problem that our new hire hasn’t necessarily experienced: an “undo,” not for a single file but for an entire project, adding a lot of complexity for sometimes nonobvious benefits.
+
+对持续使用版本控制的（微小的）剩余犹豫几乎直接来自于编程和软件工程的融合--我们教编程，我们培训程序员，我们根据编程问题和技术来面试工作。对于一个新员工来说，即使是在像谷歌这样的地方，对于由一个以上的人或几个星期以上的时间来处理的代码，几乎没有经验，这是完全合理的。鉴于这种经验和对问题的理解，版本控制似乎是一个陌生的解决方案。版本控制正在解决一个我们的新雇员不一定经历过的问题：“撤销”，不是针对单个文件，而是针对整个项目，这增加了很多复杂性，有时并没有带来了明显的好处。
 
 In some software groups, the same result plays out when management views the job of the techies as “software development” (sit down and write code) rather than “software engineering” (produce code, keep it working and useful for some extended period). With a mental model of programming as the primary task and little understanding of the interplay between code and the passage of time, it’s easy to see something described as “go back to a previous version to undo a mistake” as a weird, high- overhead luxury.
 
+在一些软件团队中，当管理层将技术人员的工作视为“软件开发”（坐下来编写代码）而不是“软件工程”（生成代码，使其在较长时间内保持工作和有用）时，也会产生同样的结果。在把编程作为主要任务的思维模式下，以及对代码和时间流逝之间的相互作用了解甚少的情况下，很容易把 "返回到以前的版本以撤销错误 "这样的描述看作是一种奇怪的、高开销的奢侈品。
+
 In addition to allowing separate storage and reference to versions over time, version control helps us bridge the gap between single-developer and multideveloper processes. In practical terms, this is why version control is so critical to software engineering, because it allows us to scale up teams and organizations, even though we use it only infrequently as an “undo” button. Development is inherently a branch-and- merge process, both when coordinating between multiple developers or a single developer at different points in time. A VCS removes the question of “which is more recent?” Use of modern version control automates error-prone operations like tracking which set of changes have been applied. Version control is how we coordinate between multiple developers and/or multiple points in time.
+
+除了允许随着时间的推移单独存储和长期引用版本外，版本控制还帮助我们弥合单个开发人员和多个开发人员流程之间的差距。在实践中，这就是为什么版本控制对软件工程如此关键，因为它允许我们扩大团队和组织的规模，尽管我们只是不经常使用它作为一个 "撤销 "按钮。**开发本质上是一个分支和合并的过程，无论是在多个开发人员之间还是在不同时间点的单个开发人员之间进行协调。**版本控制系统消除了 "哪个是最新的？"的问题。使用现代的版本控制可以将容易出错的操作自动化，比如跟踪哪一组修改已经被应用。版本控制是我们在多个开发者和/或多个时间点之间协调的方式。
 
 Because VCS has become so thoroughly embedded in the process of software engineering, even legal and regulatory practices have caught up. VCS allows a formal record of every change to every line of code, which is increasingly necessary for satisfying audit requirements. When mixing between in-house development and appropriate use of third-party sources, VCS helps track provenance and origination for every line of code.
 
+由于风险投资已经完全融入到软件工程的过程中，甚至连法律和监管实践也迎头赶上。VCS允许对每一行代码的每一次更改进行正式记录，这对于满足审计要求越来越必要。当混合使用内部开发和第三方资源时，VCS帮助跟踪每行代码的出处和起源。
+
 In addition to the technical and regulatory aspects of tracking source over time and handling sync/branch/merge operations, version control triggers some nontechnical changes in behavior. The ritual of committing to version control and producing a commit log is a trigger for a moment of reflection: what have you accomplished since your last commit? Is the source in a state that you’re happy with? The moment of introspection associated with committing, writing up a summary, and marking a task complete might have value on its own for many people. The start of the commit process is a perfect time to run through a checklist, run static analyses (see [Chapter 20](#_bookmark1781)), check test coverage, run tests and dynamic analysis, and so on.
+
+除了随时间跟踪源和处理同步/分支/合并操作的技术和法规方面外，版本控制还会触发一些行为上的非技术性更改。提交到版本控制并生成提交日志的惯例是引发思考的一刻：自上次提交以来，你完成了什么？来源是否处于你满意的状态？对于许多人来说，与提交、撰写总结和完成任务相关的内省时刻本身可能具有价值。提交过程的开始是运行检查表、运行静态分析（参见第20章）、检查测试覆盖率、运行测试和动态分析等的最佳时机。
 
 Like any process, version control comes with some overhead: someone must configure and manage your version control system, and individual developers must use it. But make no mistake about it: these can almost always be pretty cheap. Anecdotally, most experienced software engineers will instinctively use version control for any project that lasts more than a day or two, even for a single-developer project. The consistency of that result argues that the trade-off in terms of value (including risk reduction) versus overhead must be a pretty easy one. But we’ve promised to acknowledge that context matters and to encourage engineering leaders to think for themselves. It is always worth considering alternatives, even on something as fundamental as version control.
 
+与任何流程一样，版本控制也会带来一些开销：必须有人配置和管理你的版本控制系统，并且每个开发人员都必须使用它。但别搞错了：这些几乎总是相当低成本的。有趣的是，大多数经验丰富的软件工程师会本能地对任何持续一到两天以上的项目使用版本控制，即使是单个开发人员的项目。这一结果的一致性表明，在价值（包括风险降低）和管理费用方面的权衡必须非常容易。但我们承诺要承认背景的重要性，并鼓励工程负责人独立思考。即使在像版本控制这样的基本问题上，也总是值得考虑其他选择。
+
 In truth, it’s difficult to envision any task that can be considered modern software engineering that doesn’t immediately adopt a VCS. Given that you understand the value and need for version control, you are likely now asking what type of version control you need.
+
+事实上，很难设想任何可以被认为是现代软件工程的任务不立即采用VCS。鉴于你了解版本控制的价值和需要，你现在可能会问你需要什么类型的版本控制。
 
 ```
 3	Indeed, I’ve given several public talks that use “adoption of version control” as the canonical example of how the norms of software engineering can and do evolve over time. In my experience, in the 1990s, version control was pretty well understood as a best practice but not universally followed. In the early 2000s, it was still common to encounter professional groups that didn’t use it. Today, the use of tools like Git seems ubiquitous even among college students working on personal projects. Some of this rise in adoption is likely due to better user experience in the tools (nobody wants to go back to RCS), but the role of experience and changing norms is significant.
 
+3 事实上，我曾多次公开演讲，以 "版本控制的采用 "为例，说明软件工程的规范是如何随着时间的推移而演变的。根据我的经验，在20世纪90年代，版本控制被理解为一种最佳实践，但没有得到普遍遵守。在21世纪初，不使用版本控制的专业团体仍然很常见。今天，即使在从事个人项目的大学生中，像Git这样的工具的使用似乎也是无处不在的。这种采用率的上升可能是由于在工具中更好的用户体验（没有人愿意回到RCS），但经验和不断变化的规范的作用也很重要。
 ```
 
 
 
-### Centralized VCS Versus Distributed VCS
+### Centralized VCS Versus Distributed VCS  集中式VCS与分布式VCS
 
 At the most simplistic level, all modern VCSs are equivalent to one another: so long as your system has a notion of atomically committing changes to a batch of files, everything else is just UI. You could build the same general semantics (not workflow) of any modern VCS out of another one and a pile of simple shell scripts. Thus, arguing about which VCS is “better” is primarily a matter of user experience—the core functionality is the same, the differences come in user experience, naming, edge-case features, and performance. Choosing a VCS is like choosing a filesystem format: when choosing among a modern-enough format, the differences are fairly minor, and the more important question by far is the content you fill that system with and the way you *use* it. However, major architectural differences in VCSs can make configuration, policy, and scaling decisions easier or more difficult, so it’s important to be aware of the big architectural differences, chiefly the decision between centralized or decentralized.
 
@@ -187,9 +215,9 @@ It’s easy to see how organizations fall into this trap: they see, “Merging t
 
 —there can be only one. There must be a single Source of Truth. In the end, there will be a single revision used for a release: narrowing down to a single source of truth is just the “shift left” approach for identifying what is and is not being included.
 
- ```
+```
  8	Recent informal Twitter polling suggests about 25% of software engineers have been subjected to “regularly scheduled” merge strategy meetings.
- ```
+```
 
 ### Release Branches
 
@@ -331,17 +359,17 @@ Choice leads to costs here. We highly endorse the One-Version Rule presented her
 
 ## TL;DRs
 
-•    Use version control for any software development project larger than “toy project with only one developer that will never be updated.”
+- Use version control for any software development project larger than “toy project with only one developer that will never be updated.”
 
-•    There’s an inherent scaling problem when there are choices in “which version of this should I depend upon?”
+- There’s an inherent scaling problem when there are choices in “which version of this should I depend upon?”
 
-•    One-Version Rules are surprisingly important for organizational efficiency. Removing choices in where to commit or what to depend upon can result in significant simplification.
+- One-Version Rules are surprisingly important for organizational efficiency. Removing choices in where to commit or what to depend upon can result in significant simplification.
 
-•    In some languages, you might be able to spend some effort to dodge this with technical approaches like shading, separate compilation, linker hiding, and so on. The work to get those approaches working is entirely lost labor—your software engineers aren’t producing anything, they’re just working around technical debts.
+- In some languages, you might be able to spend some effort to dodge this with technical approaches like shading, separate compilation, linker hiding, and so on. The work to get those approaches working is entirely lost labor—your software engineers aren’t producing anything, they’re just working around technical debts.
 
-•    Previous research (DORA/State of DevOps/Accelerate) has shown that trunk- based development is a predictive factor in high-performing development organizations. Long-lived dev branches are not a good default plan.
+- Previous research (DORA/State of DevOps/Accelerate) has shown that trunk- based development is a predictive factor in high-performing development organizations. Long-lived dev branches are not a good default plan.
 
-•    Use whatever version control system makes sense for you. If your organization wants to prioritize separate repositories for separate projects, it’s still probably wise for interrepository dependencies to be unpinned/“at head”/“trunk based.” There are an increasing number of VCS and build system facilities that allow you to have both small, fine-grained repositories as well as a consistent “virtual” head/trunk notion for the whole organization.
+- Use whatever version control system makes sense for you. If your organization wants to prioritize separate repositories for separate projects, it’s still probably wise for interrepository dependencies to be unpinned/“at head”/“trunk based.” There are an increasing number of VCS and build system facilities that allow you to have both small, fine-grained repositories as well as a consistent “virtual” head/trunk notion for the whole organization.
 
 
 
