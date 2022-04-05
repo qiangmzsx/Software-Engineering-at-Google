@@ -230,57 +230,84 @@ There’s a lot of conceptual similarity between discussions of version control 
 
 Being able to track different revisions in version control opens up a variety of different approaches for how to manage those different versions. Collectively, these different approaches fall under the term *branch management*, in contrast to a single “trunk.”
 
-### Work in Progress Is Akin to a Branch
+能够在版本控制中跟踪不同的修订版，为如何管理这些不同的版本提供了各种不同的方法。总的来说，这些不同的方法属于*分支管理*，与单一的 "主干 "形成对比。
+
+### Work in Progress Is Akin to a Branch  正在进行的工作类似于一个分支
 
 Any discussion that an organization has about branch management policies ought to at least acknowledge that every piece of work-in-progress in the organization is equivalent to a branch. This is more explicitly the case with a DVCS in which developers are more likely to make numerous local staging commits before pushing back to the upstream Source of Truth. This is still true of centralized VCSs: uncommitted local changes aren’t conceptually different than committed changes on a branch, other than potentially being more difficult to find and diff against. Some centralized systems even make this explicit. For example, when using Perforce, every change is given two revision numbers: one indicating the implicit branch point where the change was created, and one indicating where it was recommitted, as illustrated in [Figure 16-1](#_bookmark1418). Perforce users can query to see who has outstanding changes to a given file, inspect the pending changes in other users’ uncommitted changes, and more.
 
+组织对分支机构管理政策的任何讨论都应该至少承认组织中正在进行的每一项工作都相当于一个分支。这一点在DVCS中更为明显，因为在DVCS中，开发者更有可能在推送回上游信息源之前进行大量本地暂存提交。集中式VCS仍然如此：未提交的本地更改在概念上与分支上提交的更改没有区别，只是可能更难发现和区分。一些集中式系统甚至明确了这一点。例如，当使用Perforce时，每个更改都会有两个修订号：一个表示创建更改的隐含分支点，另一个表示重新提交更改的位置，如图16-1所示。Perforce用户可以查询查看谁对给定文件有未完成的更改，检查其他用户未提交更改中的未决更改，等等。
+
 ![Figure 16-1. Two revision numbers in Perforce](./images/Figure 16-1.png)
 
-*Figure 16-1. Two revision numbers in Perforce*
+*Figure 16-1. Two revision numbers in Perforce*  *图 16-1. Perforce中的两个修订号*
 
 This “uncommitted work is akin to a branch” idea is particularly relevant when thinking about refactoring tasks. Imagine a developer being told, “Go rename Widget to OldWidget.” Depending on an organization’s branch management policies and understanding, what counts as a branch, and which branches matter, this could have several interpretations:
+- Rename Widget on the trunk branch in the Source of Truth repository
+- Rename Widget on all branches in the Source of Truth repository
+- Rename Widget on all branches in the Source of Truth repository, and find all devs with outstanding changes to files that reference Widget
 
-•    Rename Widget on the trunk branch in the Source of Truth repository
-
-•    Rename Widget on all branches in the Source of Truth repository
-
-•    Rename Widget on all branches in the Source of Truth repository, and find all devs with outstanding changes to files that reference Widget
+这个 "未提交的工作类似于分支 "的想法在思考重构任务时特别重要。想象一下，一个开发者被告知，"将Widget重命名为OldWidget"。根据组织的分支管理策略和理解，什么是分支，以及哪个分支重要，这可能有几种解释：
+- 在信息源版本库的主干分支上重命名Widget
+- 在信息源版本库中的所有分支上重命名Widget
+- 在信息源版本库的所有分支上重命名Widget，并找到所有对引用Widget的文件有未完成修改的开发者。
 
 If we were to speculate, attempting to support that “rename this everywhere, even in outstanding changes” use case is part of why commercial centralized VCSs tend to track things like “which engineers have this file open for editing?” (We don’t think this is a scalable way to *perform* a refactoring task, but we understand the point of view.)
 
-### Dev Branches
+如果我们猜测，试图支持“到处重命名，即使在未完成的更改中”用例是为什么商业集中式VCS倾向于跟踪“哪些工程师打开此文件进行编辑？”（我们不认为这是执行重构任务的可扩展方式，但我们理解这个观点。）
+
+### Dev Branches  开发分支
 
 In the age before consistent unit testing (see [Chapter 11](#_bookmark838)), when the introduction of any given change had a high risk of regressing functionality elsewhere in the system, it made sense to treat *trunk* specially. “We don’t commit to trunk,” your Tech Lead might say, “until new changes have gone through a full round of testing. Our team uses feature-specific development branches instead.”
 
+在没有一致的单元测试的时代（见第11章），当任何给定的更改的引入都有很大的风险会使系统中其他地方的功能回滚时，特别对待*trunk*是有意义的。"我们不会向主干提交，"你的技术负责人可能会说，"在新的变更通过一轮测试之前，我们不会合并搭配主干。我们的团队使用特定于功能的开发分支。"
+
 A development branch (usually “dev branch”) is a halfway point between “this is done but not committed” and “this is what new work is based on.” The problem that these are attempting to solve (instability of the product) is a legitimate one—but one that we have found to be solved far better with more extensive use of tests, Continuous Integration (CI) (see [Chapter 23](#_bookmark2022)), and quality enforcement practices like thorough code review.
+
+开发分支（通常是 "dev branch"）是介于 "这个已经完成但未提交 "和 "这个是新工作的基础 "之间的中间点。这些试图解决的问题（产品的不稳定性）是一个合理的问题，但我们发现通过更广泛地使用测试、持续集成（CI）（见第23章）和彻底的代码审查等质量执行实践可以更好地解决这个问题。
 
 We believe that a version control policy that makes extensive use of dev branches as a means toward product stability is inherently misguided. The same set of commits are going to be merged to trunk eventually. Small merges are easier than big ones. Merges done by the engineer who authored those changes are easier than batching unrelated changes and merging later (which will happen eventually if a team is sharing a dev branch). If presubmit testing on the merge reveals any new problems, the same argument applies: it’s easier to determine whose changes are responsible for a regression if there is only one engineer involved. Merging a large dev branch implies that more changes are happening in that test run, making failures more difficult to isolate. Triaging and root-causing the problem is difficult; fixing it is even worse.
 
+我们认为，大量使用开发分支作为产品稳定性手段的版本控制策略本身上是错误的。同一组提交最终将合并到主干中。小的合并比大的合并容易。由编写这些更改的工程师进行的合并比把不相关的修改分批合并要容易（如果团队共享开发分支，最终会发生这种情况）。如果对合并进行的预提交测试发现了任何新问题，同样的论点也适用：如果只有一名工程师参与，则更容易确定谁的更改导致了回归。合并一个大型开发分支意味着在该测试运行中会发生更多的更改，从而使故障更难隔离。处理和根除问题是困难的，而修复问题就更难了。
+
 Beyond the lack of expertise and inherent problems in merging a single branch, there are significant scaling risks when relying on dev branches. This is a very common productivity drain for a software organization. When there are multiple branches being developed in isolation for long periods, coordinating merge operations becomes significantly more expensive (and possibly riskier) than they would be with trunk-based development.
 
-#### How did we become addicted to dev branches?
+除了在合并单个分支时缺乏专业知识和固有问题之外，依赖开发分支时还存在重大的扩展风险。对于软件组织来说，这是一种非常常见的生产力损失。当有多个分支长期独立开发时，协调合并操作会比基于主干的开发成本更高（可能更高）。
+
+#### How did we become addicted to dev branches?  我们是如何沉迷于开发分支的？
 
 It’s easy to see how organizations fall into this trap: they see, “Merging this long-lived development branch reduced stability” and conclude, “Branch merges are risky.” Rather than solve that with “Better testing” and “Don’t use branch-based development strategies,” they focus on slowing down and coordinating the symptom: the branch merges. Teams begin developing new branches based on other in-flight branches. Teams working on a long-lived dev branch might or might not regularly have that branch synched with the main development branch. As the organization scales up, the number of development branches grows as well, and the more effort is placed on coordinating that branch merge strategy. Increasing effort is thrown at coordination of branch merges—a task that inherently doesn’t scale. Some unlucky engineer becomes the Build Master/Merge Coordinator/Content Management Engineer, focused on acting as the single point coordinator to merge all the disparate branches in the organization. Regularly scheduled meetings attempt to ensure that the organization has “worked out the merge strategy for the week.”[8](#_bookmark1427) The teams that aren’t chosen to merge often need to re-sync and retest after each of these large merges.
 
- All of that effort in merging and retesting is *pure overhead*. The alternative requires a different paradigm: trunk-based development, rely heavily on testing and CI, keep the build green, and disable incomplete/untested features at runtime. Everyone is responsible to sync to trunk and commit; no “merge strategy” meetings, no large/expensive merges. And, no heated discussions about which version of a library should be used
+很容易看出组织是如何落入这个陷阱的：他们看到，“合并这个长期存在的开发分支会降低稳定性”，并得出结论，“分支合并是有风险的。”而不是通过“更好的测试”和“不要使用基于分支的开发策略”来解决这个问题，只是专注于减缓和协调症状：分支合并。团队开始在其他正在运行的分支的基础上开发新的分支。在一个长期存在的开发分支上工作的团队可能会也可能不会定期让该分支与主开发分支同步。随着组织规模的扩大，开发分支的数量也在增加，在协调该分支合并策略上的努力也就越多。越来越多的精力投入到分支合并的协调上--这是一项本质上无法扩展的任务。一些不走运的工程师成为构建主管/合并协调人/内容管理工程师，专注于充当单点协调人，以合并组织中所有不同的分支。定期安排的会议试图确保组织“制定了本周的合并策略”。未被选择合并的团队通常需要在每次大型合并后重新同步和测试。
 
-—there can be only one. There must be a single Source of Truth. In the end, there will be a single revision used for a release: narrowing down to a single source of truth is just the “shift left” approach for identifying what is and is not being included.
+All of that effort in merging and retesting is *pure overhead*. The alternative requires a different paradigm: trunk-based development, rely heavily on testing and CI, keep the build green, and disable incomplete/untested features at runtime. Everyone is responsible to sync to trunk and commit; no “merge strategy” meetings, no large/expensive merges. And, no heated discussions about which version of a library should be used—there can be only one. There must be a single Source of Truth. In the end, there will be a single revision used for a release: narrowing down to a single source of truth is just the “shift left” approach for identifying what is and is not being included.
+
+所有这些合并和重新测试的努力都是*纯粹的开销*。替代方案需要一个不同的范式：基于主干的开发，严重依赖测试和CI，保持绿色构建，并在运行时禁用不完整/未经测试的功能。每个人都有责任同步到主干和提交；没有 "合并策略 "会议，没有大型/高成本的合并。而且，没有关于应该使用哪个版本的库的激烈讨论--只能有一个。必须有一个单一的信息源。最终，一个版本将使用一个单一的修订版：缩小到一个单信息源，这只是确定哪些是和哪些没有被包括在内的“左移”方法。
 
 ```
  8	Recent informal Twitter polling suggests about 25% of software engineers have been subjected to “regularly scheduled” merge strategy meetings.
+ 8   最近的非正式推特民意调查显示，大约25%的软件工程师参加了“定期”的合并策略会议。
 ```
 
-### Release Branches
+### Release Branches  发布分支
 
 If the period between releases (or the release lifetime) for a product is longer than a few hours, it may be sensible to create a release branch that represents the exact code that went into the release build for your product. If any critical flaws are discovered between the actual release of that product into the wild and the next release cycle, fixes can be cherry-picked (a minimal, targeted merge) from trunk to your release branch.
 
+如果某个产品的发布间隔（或发布生命周期）超过几个小时，那么创建一个发布分支来表示进入产品发布构建的确切代码可能是明智的。如果在该产品的实际发布和下一个发布周期之间发现了任何关键缺陷，那么可以从主干到你的发布分支进行修复（最小的、有针对性的合并）。
+
 By comparison to dev branches, release branches are generally benign: it isn’t the technology of branches that is troublesome, it’s the usage. The primary difference between a dev branch and a release branch is the expected end state: a dev branch is expected to merge back to trunk, and could even be further branched by another team. A release branch is expected to be abandoned eventually.
+
+与开发分支相比，发布分支通常是良性的：麻烦的不是分支的技术，而是用法。开发分支和发布分支的主要区别在于预期的最终状态：开发分支预期会合并到主干上，甚至可能会被另一个团队进一步分支。而发布分支预计最终会被放弃。
 
 In the highest-functioning technical organizations that Google’s DevOps Research and Assessment (DORA) organization has identified, release branches are practically nonexistent. Organizations that have achieved Continuous Deployment (CD)—the ability to release from trunk many times a day—likely tend to skip release branches: it’s much easier to simply add the fix and redeploy. Thus, cherry-picks and branches seem like unnecessary overhead. Obviously, this is more applicable to organizations that deploy digitally (such as web services and apps) than those that push any form of tangible release to customers; it is generally valuable to know exactly what has been pushed to customers.
 
+在谷歌的DevOps研究和评估组织（DORA）所确定的功能最强的技术组织中，发布分支实际上是不存在的。那些已经实现了持续部署（CD）的组织--每天多次从主干发布的能力--很可能倾向于跳过发布分支：只需添加修复和重新部署就更容易了。因此，挑剔和分支似乎是不必要的开销。显然，这更适用于以数字方式部署的组织（如网络服务和应用程序），而不是那些向客户推送任何形式的有形发布的组织；通常，准确地了解向客户推出的产品是很有价值的。
+
 That same DORA research also suggests a strong positive correlation between “trunk- based development,” “no long-lived dev branches,” and good technical outcomes. The underlying idea in both of those ideas seems clear: branches are a drag on productivity. In many cases we think complex branch and merge strategies are a perceived safety crutch—an attempt to keep trunk stable. As we see throughout this book, there are other ways to achieve that outcome.
 
-## Version Control at Google
+同样的DORA研究也表明，"基于主干的开发"、"没有长期的开发分支 "和良好的技术成果之间有很强的正相关关系。这两个观点的基本思路似乎都很清楚：分支拖累了生产力。在许多情况下，我们认为复杂的分支和合并策略是一种可感知的安全支柱--试图保持主干的稳定。正如我们在本书中所看到的，还有其他的方法来实现这一结果。
+
+## Version Control at Google  谷歌的版本控制
 
 At Google, the vast majority of our source is managed in a single repository (monorepo) shared among roughly 50,000 engineers. Almost all projects that are owned by Google live there, except large open source projects like Chromium and Android. This includes public-facing products like Search, Gmail, our advertising products, our Google Cloud Platform offerings, as well as the internal infrastructure necessary to support and develop all of those products.
 
