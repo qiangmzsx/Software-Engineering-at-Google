@@ -107,36 +107,60 @@ In truth, it’s difficult to envision any task that can be considered modern so
 
 At the most simplistic level, all modern VCSs are equivalent to one another: so long as your system has a notion of atomically committing changes to a batch of files, everything else is just UI. You could build the same general semantics (not workflow) of any modern VCS out of another one and a pile of simple shell scripts. Thus, arguing about which VCS is “better” is primarily a matter of user experience—the core functionality is the same, the differences come in user experience, naming, edge-case features, and performance. Choosing a VCS is like choosing a filesystem format: when choosing among a modern-enough format, the differences are fairly minor, and the more important question by far is the content you fill that system with and the way you *use* it. However, major architectural differences in VCSs can make configuration, policy, and scaling decisions easier or more difficult, so it’s important to be aware of the big architectural differences, chiefly the decision between centralized or decentralized.
 
-#### Centralized VCS
+在最简单的层面上，所有现代VCS都是等价的：只要你的系统有一个将更改以原子方式提交给一批文件的概念，其他一切都只是UI。你可以用另一个VCS和一堆简单的shell脚本构建任何现代VCS的通用语义（而不是工作流）。因此，讨论哪些VCS“更好”主要是用户体验的问题。核心功能是相同的，不同之处在于用户体验、命名、边缘案例功能和性能。选择一个VCS就像选择一个文件系统格式：在一个足够现代的格式中进行选择时，差异是相当小的，到目前为止，更重要的问题是你在该系统中填充的内容以及你使用它的方式。然而，VCS中的主要架构差异可能会使配置、策略和扩展决策变得更容易或更困难，因此重要的是要意识到巨大的架构差异，主要是集中式和分散式之间的决策。
+
+#### Centralized VCS  集中式VCS
 
 In centralized VCS implementations, the model is one of a single central repository (likely stored on some shared compute resource for your organization). Although a developer can have files checked out and accessible on their local workstation, operations that interact on the version control status of those files need to be communicated to the central server (adding files, syncing, updating existing files, etc.). Any code that is committed by a developer is committed into that central repository. The first VCS implementations were all centralized VCSs.
 
+在集中式的VCS实现中，模型是一个单一的中央存储库（可能存储在你的组织的一些共享计算资源上）。尽管开发者可以在他们的本地工作站上签出和访问文件，但与这些文件的版本控制状态交互的操作需要与中央服务器通信（添加文件、同步、更新现有文件，等等）。任何由开发者提交的代码都会被提交到中央存储库。第一批VCS的实现都是集中式VCS。
+
 Going back to the 1970s and early 1980s, we see that the earliest of these VCSs, such as RCS, focused on locking and preventing multiple simultaneous edits. You could copy the contents of a repository, but if you wanted to edit a file, you might need to acquire a lock, enforced by the VCS, to ensure that only you are making edits. When you’ve completed an edit, you release the lock. The model worked fine when any given change was a quick thing, or if there was rarely more than one person that wanted the lock for a file at any given time. Small edits like tweaking config files worked OK, as did working on a small team that either kept disjointed working hours or that rarely worked on overlapping files for extended periods. This sort of simplistic locking has inherent problems with scale: it can work fine for a few people, but has the potential to fall apart with larger groups if any of those locks become contended.[4](#_bookmark1395)
+
+回溯到20世纪70年代和80年代初，我们看到最早的这些VCS，如RCS，侧重于锁定和防止多个同时编辑。你可以复制版本库的内容，但如果你想编辑一个文件，你可能需要获得一个锁，由VCS强制执行的锁，以确保只有你在进行编辑。当你完成了一个编辑，你就可以释放锁。当任何给定的变化是一个快速的事情，或者在任何给定的时间内很少有超过一个人想要锁定一个文件时，这种模式工作得很好。像调整配置文件这样的小的编辑工作是可以的，就像在一个小团队中工作一样，这个团队要么保持不连贯的工作时间，要么很少长时间处理重叠的文件。这种简单化的锁定在规模上有固有的问题：对几个人来说，它可以很好地工作，但如果这些锁中的任何一个被争夺，就有可能在较大的群体中崩溃。
 
 As a response to this scaling problem, the VCSs that were popular through the 90s and early 2000s operated at a higher level. These more modern centralized VCSs avoid the exclusive locking but track which changes you’ve synced, requiring your edit to be based on the most-current version of every file in your commit. CVS wrapped and refined RCS by (mostly) operating on batches of files at a time and allowing multiple developers to check out a file at the same time: so long as your base version contained all of the changes in the repository, you’re allowed to commit. Subversion advanced further by providing true atomicity for commits, version tracking, and better tracking for unusual operations (renames, use of symbolic links, etc.). The centralized repository/checked-out client model continues today within Subversion as well as most commercial VCSs.
 
+作为对这一规模问题的回应，在90年代和21世纪初流行的VCS在更高水平上运行。这些更现代化的集中式VCS避免了独占锁定，但会跟踪你已同步的更改，要求你的编辑基于提交中每个文件的最新版本。CVS通过（主要是）一次操作一批文件并允许多个开发人员同时签出一个文件来包装和细化RCS：只要你的基础版本包含存储库中的所有更改，你就可以提交。Subversion通过提供真正的提交原子性、版本跟踪和对不寻常操作（重命名、使用符号链接等）的更好跟踪而进一步发展。集中式版本库/检出客户端的模式在Subversion以及大多数商业VCS中延续至今。
+
 ```
 4	Anecdote: To illustrate this, I looked for information on what pending/unsubmitted edits Googlers had outstanding for a semipopular file in my most recent project. At the time of this writing, 27 changes are pending, 12 from people on my team, 5 from people on related teams, and 10 from engineers I’ve never met. This is basically working as expected. Technical systems or policies that require out-of-band coordination certainly don’t scale to 24/7 software engineering in distributed locations.
+
+4   轶事：为了说明这一点，我寻找了谷歌在我最近的项目中对一个半流行的文件所做的未提交/未提交编辑的信息。在撰写本文时，有27项变更尚未完成，其中12项来自我的团队，5项来自相关团队，10项来自我从未见过的工程师。这基本上按照预期工作。需要带外协调的技术系统或策略当然不能扩展到分布式位置的全天候软件工程。
 ```
 
-#### Distributed VCS
+#### Distributed VCS 分布式VCS
 
 Starting in the mid-2000s, many popular VCSs followed the Distributed Version Control System (DVCS) paradigm, seen in systems like Git and Mercurial. The primary conceptual difference between DVCS and more traditional centralized VCS (Subversion, CVS) is the question: “Where can you commit?” or perhaps, “Which copies of these files count as a repository?”
 
+从2000年中期开始，许多流行的VCS遵循分布式版本控制系统（DVCS）的范式，在Git和Mercurial等系统中看到。DVCS和更多传统的集中式VCS（Subversion，CVS）之间的主要概念差异是问题。"你可以在哪里提交？"或者说，"这些文件的哪些副本算作一个存储库？"
+
 A DVCS world does not enforce the constraint of a central repository: if you have a copy (clone, fork) of the repository, you have a repository that you can commit to as well as all of the metadata necessary to query for information about things like revision history. A standard workflow is to clone some existing repository, make some edits, commit them locally, and then push some set of commits to another repository, which may or may not be the original source of the clone. Any notion of centrality is purely conceptual, a matter of policy, not fundamental to the technology or the underlying protocols.
+
+DVCS世界不强制执行中央存储库的约束：如果你有存储库的副本（克隆、分叉），那么你就有一个可以提交的存储库以及查询有关修订历史等信息所需的所有元数据。标准工作流是克隆一些现有存储库，进行一些编辑，在本地提交，然后将一组提交推送到另一个存储库，该存储库可能是克隆的原始源，也可能不是克隆的原始源。任何关于中心性的概念都纯粹是概念性的，是一个策略问题，而不是技术或底层协议的根本。
 
 The DVCS model allows for better offline operation and collaboration without inherently declaring one particular repository to be the source of truth. One repository isn’t necessary “ahead” or “behind” because changes aren’t inherently projected into a linear timeline. However, considering common *usage*, both the centralized and DVCS models are largely interchangeable: whereas a centralized VCS provides a clearly defined central repository through technology, most DVCS ecosystems define a central repository for a project as a matter of policy. That is, most DVCS projects are built around one conceptual source of truth (a particular repository on GitHub, for instance). DVCS models tend to assume a more distributed use case and have found particularly strong adoption in the open source world.
 
+DVCS模型允许更好的离线操作和协作，而无需预先声明某个特定存储库是真相的来源。一个存储库不必“领先”或“落后”，因为更改不会固有地投射到线性时间线中。然而，考虑到通用性，集中式和DVCS模型在很大程度上是可互换的：集中式VCS通过技术提供了一个明确定义的中央存储库，而大多数DVCS生态系统将项目的中央存储库定义为一个策略问题。也就是说，大多数DVCS项目都是围绕一个信息源的概念（例如GitHub上的特定存储库）构建的。DVCS模型倾向于假设一个更分布式的用例，并且在开源世界中得到了特别强烈的采用。
+
 Generally speaking, the dominant source control system today is Git, which implements DVCS.[5](#_bookmark1398) When in doubt, use that—there’s some value in doing what everyone else does. If your use cases are expected to be unusual, gather some data and evaluate the trade-offs.
+
+一般来说，今天占主导地位的源码控制系统是Git，它实现了DVCS。当有疑问时，使用它--做别人做的事是有价值的。如果您的用例预期不寻常，请收集一些数据并评估权衡。
 
 Google has a complex relationship with DVCS: our main repository is based on a (massive) custom in-house centralized VCS. There are periodic attempts to integrate more standard external options and to match the workflow that our engineers (especially Nooglers) have come to expect from external development. Unfortunately, those attempts to move toward more common tools like Git have been stymied by the sheer size of the codebase and userbase, to say nothing of Hyrum’s Law effects tying us to a particular VCS and interface for that VCS.[6](#_bookmark1399) This is perhaps not surprising: most existing tools don’t scale well with 50,000 engineers and tens of millions of commits.[7](#_bookmark1405) The DVCS model, which often (but not always) includes transmission of history and metadata, requires a lot of data to spin up a repository to work out of.
 
+谷歌与DVCS有着复杂的关系：我们的主要资源库是基于一个（巨大的）自定义的内部集中式VCS。我们定期尝试整合更多标准的外部选项，并与我们的工程师（尤其是Nooglers）所期望的外部开发的工作流程相匹配。不幸的是，由于代码库和用户群的巨大规模，以及海勒姆定律的影响，这些向Git这样的通用工具发展的尝试受到了阻碍，更不用说将我们束缚在一个特定的VCS和VCS的界面上了。这也许并不奇怪：大多数现有的工具在面对5万名工程师和数千万的提交时都不能很好地扩展。DVCS模型，通常（但不总是）包括历史和元数据的传输，需要大量数据来加速存储库的运行。
+
 In our workflow, centrality and in-the-cloud storage for the codebase seem to be critical to scaling. The DVCS model is built around the idea of downloading the entire codebase and having access to it locally. In practice, over time and as your organization scales up, any given developer is going to operate on a relatively smaller percentage of the files in a repository, and a small fraction of the versions of those files. As we grow (in file count and engineer count), that transmission becomes almost entirely waste. The only need for locality for most files occurs when building, but distributed (and reproducible) build systems seem to scale better for that task as well (see [Chapter 18](#_bookmark1596)).
+
+在我们的工作流程中，代码库的中心化和云存储似乎对扩展至关重要。DVCS模型是围绕下载整个代码库并在本地访问它的思想构建的。在实践中，随着时间的推移和组织规模的扩大，任何给定的开发人员都会在相对较小比例的文件库中进行操作，而且这些文件的版本也只占一小部分。随着我们的增长（在文件数和工程师数方面），这种传输几乎完全变成了浪费。大多数文件在构建时只需要局部性，但分布式（和可复制的）构建系统似乎也能更好地扩展该任务（参见第18章）。
 
 ```
 5	Stack Overflow Developer Survey Results, 2018.
 6	Monotonically increasing version numbers, rather than commit hashes, are particularly troublesome. Many systems and scripts have grown up in the Google developer ecosystem that assume that the numeric ordering of commits is the same as the temporal order—undoing those hidden dependencies is difficult.
 
+5 Stack Overflow开发者调查结果，2018年。
+6 单调增加的版本号，而不是提交哈希值，是特别麻烦的。许多系统和脚本已经在谷歌开发者生态系统中成长起来，它们假定提交的数字顺序与时间顺序相同--消除这些隐藏的依赖关系是很困难的。
 ```
 
 ### Source of Truth
