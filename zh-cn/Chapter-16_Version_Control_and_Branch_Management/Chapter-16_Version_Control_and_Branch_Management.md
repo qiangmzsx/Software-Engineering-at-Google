@@ -311,30 +311,50 @@ That same DORA research also suggests a strong positive correlation between “t
 
 At Google, the vast majority of our source is managed in a single repository (monorepo) shared among roughly 50,000 engineers. Almost all projects that are owned by Google live there, except large open source projects like Chromium and Android. This includes public-facing products like Search, Gmail, our advertising products, our Google Cloud Platform offerings, as well as the internal infrastructure necessary to support and develop all of those products.
 
+在谷歌，我们的绝大多数源代码都在一个由大约50000名工程师共享的存储库（monorepo）中管理。除了像Chromium和Android这样的大型开源项目，几乎所有属于谷歌的项目都在这里。这包括面向公众的产品，如搜索、Gmail、我们的广告产品、我们的谷歌云平台产品，以及支持和开发所有这些产品所需的内部基础设施。
+
 We rely on an in-house-developed centralized VCS called Piper, built to run as a distributed microservice in our production environment. This has allowed us to use Google-standard storage, communication, and Compute as a Service technology to provide a globally available VCS storing more than 80 TB of content and metadata. The Piper monorepo is then simultaneously edited and committed to by many thousands of engineers every day. Between humans and semiautomated processes that make use of version control (or improve things checked into VCS), we’ll regularly handle 60,000 to 70,000 commits to the repository per work day. Binary artifacts are fairly common because the full repository isn’t transmitted and thus the normal costs of binary artifacts don’t really apply. Because of the focus on Google-scale from the earliest conception, operations in this VCS ecosystem are still cheap at human scale: it takes perhaps 15 seconds total to create a new client at trunk, add a file, and commit an (unreviewed) change to Piper. This low-latency interaction and well-understood/ well-designed scaling simplifies a lot of the developer experience.
+
+我们依靠内部开发的集中式VCS，名为Piper，该VCS是为在我们的生产环境中作为分布式微服务运行而构建的。这使我们能够使用谷歌标准的存储、通信和计算即服务技术，提供一个全球可用的VCS，存储超过80TB的内容和元数据。然后，Piper monorepo每天由成千上万的工程师同时进行编辑和提交。在人类和利用版本控制（或改进签入VCS的内容）的人工流程和半自动化流程之间，我们每个工作日会定期处理60,000到70,000次提交到版本库。二进制构件是相当常见的，因为完整的版本库并没有被传输，因此二进制构件的正常成本并不真正适用。由于从最初的概念就专注于谷歌规模，这个VCS生态系统的操作在人群规模上仍然是低成本的：在主干上创建一个新的客户端，添加一个文件，并向Piper提交一个（未经审查的）更改，总共可能需要15秒。这种低延迟的互动和良好的理解/设计的扩展简化了很多开发者的体验。
 
 By virtue of Piper being an in-house product, we have the ability to customize it and enforce whatever source control policies we choose. For instance, we have a notion of granular ownership in the monorepo: at every level of the file hierarchy, we can find OWNERS files that list the usernames of engineers that are allowed to approve commits within that subtree of the repository (in addition to the OWNERS that are listed at higher levels in the tree). In an environment with many repositories, this might have been achieved by having separate repositories with filesystem permissions enforcement controlling commit access or via a Git “commit hook” (action triggered at commit time) to do a separate permissions check. By controlling the VCS, we can make the concept of ownership and approval more explicit and enforced by the VCS during an attempted commit operation. The model is also flexible: ownership is just a text file, not tied to a physical separation of repositories, so it is trivial to update as the result of a team transfer or organization restructuring.
 
-### One Version
+由于Piper是一个内部产品，我们能够定制它并实施我们选择的任何源代码控制策略。例如，我们在monorepo中有一个细粒度所有权的概念：在文件层次结构的每一级，我们都可以找到OWNERS文件，其中列出了允许批准该版本库的子树中的提交的工程师的用户名（除了在树中更高层次列出的OWNERS）。在具有多个版本库的环境中，这可能是通过单独的版本库和文件系统权限执行控制提交访问，或者通过Git的 "提交钩子"（提交时触发的动作）进行单独的权限检查来实现。通过控制VCS，我们可以使所有权和批准的概念更加明确，并在尝试提交操作时由VCS强制执行。这个模型也很灵活：所有权只是一个文本文件，并不与存储库的物理分离相联系，所以在团队转移或组织结构调整的情况下，更新它是很容易的。
+
+### One Version  一个版本
 
 The incredible scaling powers of Piper alone wouldn’t allow the sort of collaboration that we rely upon. As we said earlier: version control is also about policy. In addition to our VCS, one key feature of Google’s version control policy is what we’ve come to refer to as “One Version.” This extends the “Single Source of Truth” concept we looked at earlier—ensuring that a developer knows which branch and repository is their source of truth—to something like “For every dependency in our repository, there must be only one version of that dependency to choose.”[9](#_bookmark1445) For third-party packages, this means that there can be only a single version of that package checked into our repository, in the steady state.[10](#_bookmark1446) For internal packages, this means no forking without repackaging/renaming: it must be technologically safe to mix both the original and the fork into the same project with no special effort. This is a powerful feature for our ecosystem: there are very few packages with restrictions like “If you include this package (A), you cannot include other package (B).”
 
+单凭Piper令人难以置信的扩展能力，是无法实现我们所依赖的那种协作的。正如我们之前所说：版本控制也是关于策略的。除了我们的VCS之外，谷歌版本控制策略的一个关键特征就是我们所说的 "一个版本"。这扩展了我们前面提到的 "单信息源 "的概念--确保开发者知道哪个分支和版本库是他们的信息源--到类似于 "对于我们版本库中的每个依赖，必须只有一个版本的依赖可以选择。 "对于第三方软件包，这意味着在稳定状态下，该软件包只能有一个版本被检入我们的仓库。对于内部软件包，这意味着没有重新打包/重命名的分支：在技术上必须是安全的，无需特别努力就可以将原始和分支混合到同一个项目中。这对我们的生态系统来说是一个强大的功能：很少有包有类似 "如果你包括这个软件包（A），你就不能包括其他软件包（B）"的限制。
+
 This notion of having a single copy on a single branch in a single repository as our Source of Truth is intuitive but also has some subtle depth in application. Let’s investigate a scenario in which we have a monorepo (and thus arguably have fulfilled the letter of the law on Single Source of Truth), but have allowed forks of our libraries to propagate on trunk.
 
-### Scenario: Multiple Available Versions
+将单个副本放在单个版本库中的单个分支上作为信息源的概念是直观的，但在应用中也有一些微妙的深度。让我们研究一下这样的场景：我们有一个monorepo（因此可以说已经履行了关于单信息源的法律条文），但允许我们的库的分支在主干上传播。
+
+### Scenario: Multiple Available Versions  场景：多个可用版本
 
 Imagine the following scenario: some team discovers a bug in common infrastructure code (in our case, Abseil or Guava or the like). Rather than fix it in place, the team decides to fork that infrastructure and tweak it to work around the bug—without renaming the library or the symbols. It informs other teams near them, “Hey, we have an improved version of Abseil checked in over here: check it out.” A few other teams build libraries that themselves rely on this new fork.
 
+想象一下以下情况：一些团队发现了公共基础组件代码中的一个bug（在我们的例子中，是Abseil或Guava之类的）。该团队决定不在原地修复它，而是分支该基础组件，并对其进行调整，以解决该错误--而不重命名库或符号。它通知他们附近的其他团队："嘿，我们这里有一个改进的Abseil版本：请查看。" 其他一些团队建立的库也依赖于这个新的分支。
+
 As we’ll see in [Chapter 21](#_bookmark1845), we’re now in a dangerous situation. If any project in the codebase comes to depend on both the original and the forked versions of Abseil simultaneously, in the best case, the build fails. In the worst case, we’ll be subjected to difficult-to-understand runtime bugs stemming from linking in two mismatched versions of the same library. The “fork” has effectively added a coloring/partitioning property to the codebase: the transitive dependency set for any given target must include exactly one copy of this library. Any link added from the “original flavor” partition of the codebase to the “new fork” partition will likely break things. This means that in the end that something as simple as “adding a new dependency” becomes an operation that might require running all tests for the entire codebase, to ensure that we haven’t violated one of these partitioning requirements. That’s expensive, unfortunate, and doesn’t scale well.
+
+正如我们将在第21章中看到的，我们现在处于危险的境地。如果代码库中的任何项目同时依赖Abseil的原始版本和分支版本，在最好的情况下，构建将失败。在最坏的情况下，我们将受到难以理解的运行时错误的影响，这些错误源于同一个库的两个不匹配的版本的链接。“fork”有效地为代码库添加了一个着色/分区属性：任何给定目标的可传递依赖项集必须只包含该库的一个副本。从“原始味道”的代码库添加到“新分支”分区的任何链接都可能会破坏事物。这意味着到最后，像 "添加一个新的依赖 "这样简单的操作，可能需要运行整个代码库的所有测试，以确保我们没有违反这些分区的要求。这很昂贵，很不幸，而且不能很好地扩展。
 
 In some cases, we might be able to hack things together in a way to allow a resulting executable to function correctly. Java, for instance, has a relatively standard practice called [*shading*](https://oreil.ly/RuWX3), which tweaks the names of the internal dependencies of a library to hide those dependencies from the rest of the application. When dealing with functions, this is technically sound, even if it is theoretically a bit of a hack. When dealing with types that can be passed from one package to another, shading solutions work neither in theory nor in practice. As far as we know, any technological trickery that allows multiple isolated versions of a library to function in the same binary share this limitation: that approach will work for functions, but there is no good (efficient) solution to shading types—multiple versions for any library that provides a vocabulary type (or any higher-level construct) will fail. Shading and related approaches are patching over the underlying issue: multiple versions of the same dependency are needed. (We’ll discuss how to minimize that in general in [Chapter 21](#_bookmark1845).)
 
+在某些情况下，我们也许可以通过黑客技术将一些东西拼凑在一起，使产生的可执行文件能够正常运行。例如，Java有一个相对标准的做法，叫做[*shading*](https://oreil.ly/RuWX3)，它调整了库的内部依赖的名称，以便从应用程序的其他部分隐藏这些依赖关系。当处理函数时，这在技术上是合理的，即使它在理论上有点像黑客。当处理可以从一个包传递到另一个包的类型时，着色解决方案在理论上和实践中都不起作用。据我们所知，任何允许一个库的多个孤立版本在同一个二进制中运作的技术伎俩都有这个限制：这种方法对函数来说是可行的，但对于着色类型来说，没有好的（有效的）解决方案--任何提供词汇类型（或任何更高级别的构造）的库的多个版本都会失败。着色和相关的方法是对基本问题的修补：同一依赖的多个版本是需要的。(我们将在第21章中讨论如何在一般情况下尽量减少这种情况)。
+
 Any policy system that allows for multiple versions in the same codebase is allowing for the possibility of these costly incompatibilities. It’s possible that you’ll get away with it for a while (we certainly have a number of small violations of this policy), but in general, any multiple-version situation has a very real possibility of leading to big problems.
+
+任何允许在同一代码库中使用多个版本的策略系统都可能会出现这些代价高昂的不兼容。你有可能暂时逃过一劫（我们当然有一些小的违反这一政策的行为），但一般来说，任何多版本的情况都有导致大问题的非常现实的可能性。
 
 ```
 9	For example, during an upgrade operation, there might be two versions checked in, but if a developer is adding a new dependency on an existing package, there should be no choice in which version to depend upon.
 10	That said, we fail at this in many cases because external packages sometimes have pinned copies of their own dependencies bundled in their source release. You can read more on how all of this goes wrong in Chapter 21.
 
+9  例如，在升级操作期间，可能签入了两个版本，但如果开发人员正在现有软件包上添加新的依赖，则应该没有选择依赖哪个版本。
+10 也就是说，我们在很多情况下都会失败，因为外部软件包有时会在它们的源版本中捆绑有它们自己的依赖性的钉子副本。你可以在第21章中阅读更多关于这一切是如何出错的。
 ```
 
 ### The “One-Version” Rule
@@ -435,7 +455,7 @@ The current DVCS decentralization is a sensible reaction of the technology to th
 
 Choice leads to costs here. We highly endorse the One-Version Rule presented here: developers within an organization must not have a choice where to commit, or which version of an existing component to depend upon. There are few policies we’re aware of that can have such an impact on the organization: although it might be annoying for individual developers, in the aggregate, the end result is far better.
 
-## TL;DRs
+## TL;DRs  内容提要
 
 - Use version control for any software development project larger than “toy project with only one developer that will never be updated.”
 
