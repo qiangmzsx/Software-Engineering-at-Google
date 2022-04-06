@@ -357,57 +357,87 @@ Any policy system that allows for multiple versions in the same codebase is allo
 10 也就是说，我们在很多情况下都会失败，因为外部软件包有时会在它们的源版本中捆绑有它们自己的依赖性的钉子副本。你可以在第21章中阅读更多关于这一切是如何出错的。
 ```
 
-### The “One-Version” Rule
+### The “One-Version” Rule  “一个版本”规则
 
 With that example in mind, on top of the Single Source of Truth model, we can hopefully understand the depth of this seemingly simple rule for source control and branch management:
 
-Developers must never have a choice of “What version of this component should I depend upon?”
+考虑到这个例子，在单信息源模型的基础上，我们希望能够充分理解这一看似简单的源代码控制和分支管理规则的深度：
+
+	Developers must never have a choice of “What version of this component should I depend upon?”
+	开发人员决不能有 "我应该依赖这个组件的哪个版本 "的选择？
 
 Colloquially, this becomes something like a “One-Version Rule.” In practice, “One- Version” is not hard and fast,[11](#_bookmark1451) but phrasing this around limiting the versions that can be *chosen* when adding a new dependency conveys a very powerful understanding.
 
+俗话说，这就变成了类似于 "一个版本规则 "的东西。在实践中，"一个版本 "并不是硬性规定，但在添加新依赖项时限制可以选择的版本这一措辞传达了一种非常有力的理解。
+
 For an individual developer, lack of choice can seem like an arbitrary impediment. Yet we see again and again that for an organization, it’s a critical component in efficient scaling. Consistency has a profound importance at all levels in an organization. From one perspective, this is a direct side effect of discussions about consistency and ensuring the ability to leverage consistent “choke points.”
+
+对于个人开发者来说，缺乏选择似乎是一个大障碍。然而，我们一再看到，对于一个组织来说，它是高效扩展的一个关键组成部分。一致性在一个组织的各个层面都有深远的意义。从一个角度来看，这是讨论一致性和确保利用一致 "瓶颈 "的能力的直接副作用。
 
 ```
 11	For instance, if there are external/third-party libraries that are periodically updated, it might be infeasible to update that library and update all use of it in a single atomic change. As such, it is often necessary to add a new version of that library, prevent new users from adding dependencies on the old one, and incrementally switch usage from old to new.
+11 例如，如果有定期更新的外部/第三方库，更新该库并在一次原子变化中更新对它的所有使用可能是不可行的。因此，通常有必要添加该库的新版本，防止新用户添加对旧版本的依赖，并逐步将使用从旧版本切换到新版本。
 ```
 
-### (Nearly) No Long-Lived Branches
+### (Nearly) No Long-Lived Branches  (几乎)没有长期存在的分支
 
 There are several deeper ideas and policies implicit in our One-Version Rule; foremost among them: development branches should be minimal, or at best be very short lived. This follows from a lot of published work over the past 20 years, from Agile processes to DORA research results on trunk-based development and even Phoenix Project[12](#_bookmark1459) lessons on “reducing work-in-progress.” When we include the idea of pending work as akin to a dev branch, this further reinforces that work should be done in small increments against trunk, committed regularly.
 
+在我们的 "一个版本规则 "中隐含着几个更深层次的想法和策略；其中最重要的是：开发分支应该是最小的，或者最多只能是很短的时间。这来自于过去20年里发表的大量工作，从敏捷过程到基于主干的开发的DORA研究成果，甚至凤凰计划关于 "减少进行中的工作"的教训。当我们把待完成的工作看作是类似于开发分支的想法时，这就进一步强化了工作应该针对主干，定期提交，以小的增量完成。
+
 As a counterexample: in a development community that depends heavily on long- lived development branches, it isn’t difficult to imagine opportunity for choice creeping back in.
+
+作为一个反例：在一个严重依赖长期存在的开发分支的开发社区，不难想象选择的场景又悄然而至。
 
 Imagine this scenario: some infrastructure team is working on a new Widget, better than the old one. Excitement grows. Other newly started projects ask, “Can we depend on your new Widget?” Obviously, this can be handled if you’ve invested in codebase visibility policies, but the deep problem happens when the new Widget is “allowed” but only exists in a parallel branch. Remember: new development must not have a choice when adding a dependency. That new Widget should be committed to trunk, disabled from the runtime until it’s ready, and hidden from other developers by visibility if possible—or the two Widget options should be designed such that they can coexist, linked into the same programs.
 
-Interestingly, there is already evidence of this being important in the industry. In Accelerate and the most recent State of DevOps reports, DORA points out that there is a predictive relationship between trunk-based development and high-performing software organizations. Google is not the only organization to have discovered this— nor did we necessarily have expected outcomes in mind when these policies evolved
+想象一下这样的场景：一些基础组件团队正在开发一个新的Widget，比老的更好。兴奋之情油然而生。其他新开始的项目问："我们可以依赖你的新Widget吗？" 显然，如果你在代码库的可见性策略上进行了投如，这种情况是可以处理的，但当新的Widget被 "允许 "深层次的问题就会发生但只存在于并行分支中。记住：新的开发在添加依赖关系时不能有选择。那个新的Widget应该被提交到主干，在它准备好之前被禁止在运行时使用，并且如果可能的话，通过可见性来隐藏其他开发者，或者两个Widget选项应该被设计成它们可以共存，被链接到同一个程序中。
 
-—it just seemed like nothing else worked. DORA’s result certainly matches our experience.
+Interestingly, there is already evidence of this being important in the industry. In Accelerate and the most recent State of DevOps reports, DORA points out that there is a predictive relationship between trunk-based development and high-performing software organizations. Google is not the only organization to have discovered this— nor did we necessarily have expected outcomes in mind when these policies evolved —--—it just seemed like nothing else worked. DORA’s result certainly matches our experience.
+
+有趣的是，已经有证据表明这在行业中是很重要的。在《加速》和最近的《DevOps状况》报告中，DORA指出，基于主干的开发和高绩效的软件组织之间存在着预测关系。谷歌并不是唯一发现这一点的组织--当这些政策演变时，我们也不一定有预期的结果--只是看起来没有别的办法了。DORA的结果当然与我们的经验相符。
 
 Our policies and tools for large-scale changes (LSCs; see [Chapter 22](#_bookmark1935)) put additional weight on the importance of trunk-based development: broad/shallow changes that are applied across the codebase are already a massive (often tedious) undertaking when modifying everything checked in to the trunk branch. Having an unbounded number of additional dev branches that might need to be refactored at the same time would be an awfully large tax on executing those types of changes, finding an ever- expanding set of hidden branches. In a DVCS model, it might not even be possible to identify all of those branches.
 
+我们的大规模变更（LSCs；见第22章）的策略和工具给基于主干的开发的重要性增加了砝码：当修改所有签入主干分支的内容时，适用于整个代码库的广泛/浅层变更已经是一项巨大的（通常是乏味的）工作。如果在同一时间有数量不限的额外开发分支需要被重构，那么对于执行这些类型的修改来说，将是一个非常大的负担，因为要找到一组不断扩大的隐藏分支。在DVCS模型中，甚至可能无法识别所有这些分支。
+
 Of course, our experience is not universal. You might find yourself in unusual situations that require longer-lived dev branches in parallel to (and regularly merged with) trunk.
+
+当然，我们的经验并不是万能的。你可能会发现自己处于不寻常的情况下，需要更长的开发分支与主干并行（并定期合并）。
 
 Those scenarios should be rare, and should be understood to be expensive. Across the roughly 1,000 teams that work in the Google monorepo, there are only a couple that have such a dev branch.[13](#_bookmark1462) Usually these exist for a very specific (and very unusual) reason. Most of those reasons boil down to some variation of “We have an unusual requirement for compatibility over time.” Oftentimes this is a matter of ensuring compatibility for data at rest across versions: readers and writers of some file format need to agree on that format over time even if the reader or writer implementations are modified. Other times, long-lived dev branches might come from promising API compatibility over time—when One Version isn’t enough and we need to promise that an older version of a microservice client still works with a newer server (or vice versa). That can be a very challenging requirement, something that you should not promise lightly for an actively evolving API, and something you should treat carefully to ensure that period of time doesn’t accidentally begin to grow. Dependency across time in any form is far more costly and complicated than code that is time invariant. Internally, Google production services make relatively few promises of that form.[14](#_bookmark1463) We also benefit greatly from a cap on potential version skew imposed by our “build horizon”: every job in production needs to be rebuilt and redeployed every six months, maximum. (Usually it is far more frequent than that.)
 
+这些场景应该是罕见的，并且应该理解为代价高昂。在谷歌monorepo的大约1000个团队中，只有少数团队有这样一个开发分支。这些场景的存在通常有一个非常具体（非常不寻常）的原因。大多数原因归结为“随着时间的推移，我们对兼容性有着苛刻的要求。”通常，这是一个确保跨版本的静态数据的兼容性的问题：某些文件格式的读写器需要随着时间的推移对该格式达成一致意见，即使读写器实现被修改。其他时候，长期的开发分支可能来自于对API兼容性的承诺--当一个版本还不够时，我们需要承诺旧版本的微服务客户端仍能与新版本的服务器兼容（反之亦然）。这可能是一个非常具有挑战性的要求，对于一个积极发展的API，你不应该轻易承诺，而且你应该谨慎对待，以确保这段时间不会意外地开始增长。任何形式的跨时间的依赖都比时间不变的代码要昂贵和复杂得多。在内部，谷歌生产服务相对来说很少做出这种形式的承诺。我们也从我们的 "构建范围 "所施加的潜在版本偏差上限中获益匪浅：生产中的每项工作最多每六个月就需要重建和重新部署。(通常要比这频繁得多）。
+
 We’re sure there are other situations that might necessitate long-lived dev branches. Just make sure to keep them rare. If you adopt other tools and practices discussed in this book, many will tend to exert pressure against long-lived dev branches. Automation and tooling that works great at trunk and fails (or takes more effort) for a dev branch can help encourage developers to stay current.
+
+我们确信还有其他情况可能需要长期的开发分支。只需确保它们很少。如果你采用了本书所讨论的其他工具和实践，很多人都会倾向于对长期的开发分支施加压力。自动化和工具在主干分支上运行良好，而在开发分支上则失败（或花费更多精力），这有助于鼓励开发人员保持更新。
 
 ```
 12	Kevin Behr, Gene Kim, and George Spafford, The Phoenix Project (Portland: IT Revolution Press, 2018).
+
+12  Kevin Behr、Gene Kim和George Spafford，《凤凰城项目》（波特兰：IT革命出版社，2018年）。
 ```
 
-#### What About Release Branches?
+#### What About Release Branches?  发布分支呢？
 
-Many Google teams use release branches, with limited cherry picks. If you’re going to put out a monthly release and continue working toward the next release, it’s perfectly reasonable to make a release branch. Similarly, if you’re going to ship devices to customers, it’s valuable to know exactly what version is out “in the field.” Use caution and reason, keep cherry picks to a minimum, and don’t plan to remerge with trunk. Our various teams have all sorts of policies about release branches given that relatively few teams have arrived at the sort of rapid release cadence promised by CD (see [Chap‐](#_bookmark2100) [ter 24](#_bookmark2100)) that obviates the need or desire for a release branch. Generally speaking,release branches don’t cause any widespread cost in our experience. Or, at least, no noticeable cost above and beyond the additional inherent cost to the VCS.
+Many Google teams use release branches, with limited cherry picks. If you’re going to put out a monthly release and continue working toward the next release, it’s perfectly reasonable to make a release branch. Similarly, if you’re going to ship devices to customers, it’s valuable to know exactly what version is out “in the field.” Use caution and reason, keep cherry picks to a minimum, and don’t plan to remerge with trunk. Our various teams have all sorts of policies about release branches given that relatively few teams have arrived at the sort of rapid release cadence promised by CD (see [Chapter 24](#_bookmark2100)) that obviates the need or desire for a release branch. Generally speaking,release branches don’t cause any widespread cost in our experience. Or, at least, no noticeable cost above and beyond the additional inherent cost to the VCS.
+
+许多谷歌团队使用发布分支，但选择的版本有限。如果你打算每月发布一个版本，并继续为下一个版本工作，那么创建一个发布分支是完全合理的。同样，如果你打算将设备交付给客户，准确地知道什么版本“在当前”是很有价值的。谨慎和理智，尽量减少偷梁换柱的行为，并且不要计划与主干分支重新合并。鉴于很少有团队达到CD承诺的快速发布节奏，我们的各个团队对发布分支有各种各样的策略（见第24章）这样就不需要或不需要发布分支。一般来说，根据我们的经验，发布分支不会导致任何广泛的成本。或者说，至少在VCS的额外固有成本之外，没有明显的成本。
 
 ```
 13	It’s difficult to get a precise count, but the number of such teams is almost certainly fewer than 10.
 14	Cloud interfaces are a different story.
 
+13  很难准确统计，但这样的队伍几乎肯定少于10支。
+14  云接口是另一回事。
 ```
 
-## Monorepos
+## Monorepos    单体版本库
 
 In 2016, we published a (highly cited, much discussed) paper on Google’s monorepo approach.[15](#_bookmark1469) The monorepo approach has some inherent benefits, and chief among them is that adhering to One Version is trivial: it’s usually more difficult to violate One Version than it would be to do the right thing. There’s no process of deciding which versions of anything are official, or discovering which repositories are important. Building tools to understand the state of the build (see [Chapter 23](#_bookmark2022)) doesn’t also require discovering where important repositories exist. Consistency helps scale up the impact of introducing new tools and optimizations. By and large, engineers can see what everyone else is doing and use that to inform their own choices in code and system design. These are all very good things.
+
+
 
 Given all of that and our belief in the merits of the One-Version Rule, it is reasonable to ask whether a monorepo is the One True Way. By comparison, the open source community seems to work just fine with a “manyrepo” approach built on a seemingly infinite number of noncoordinating and nonsynchronized project repositories.
 
