@@ -507,15 +507,23 @@ We expect version control and dependency management to evolve in this direction 
 
 我们预计在未来10到20年内，版本控制和依赖管理将朝着这个方向发展。VCS将专注于允许*大型版本库*，并有更好的性能扩展，但也通过提供更好的机制来消除对大版本库的需求，使它们跨越项目和组织的界限。其中一个，也许是现有的软件包管理小组或Linux发行商，将促成一个事实上的标准虚拟单一版本库。依靠单一版本库中的实用程序，可以方便地访问作为一个单元的兼容的依赖关系。我们将更普遍地认识到，版本号是时间戳，允许版本偏差增加了一个维度的复杂性（时间），这需要花费很多，而且我们可以学习如何避免。它从逻辑上类似于单一版本库的东西开始。
 
-## Conclusion
+## Conclusion  总结
 
 Version control systems are a natural extension of the collaboration challenges and opportunities provided by technology, especially shared compute resources and computer networks. They have historically evolved in lockstep with the norms of software engineering as we understand them at the time.
 
+版本控制系统是技术带来的协作挑战和机遇的自然延伸，尤其是共享计算资源和计算机网络。它们在历史上与我们当时理解的软件工程规范同步发展。
+
 Early systems provided simplistic file-granularity locking. As typical software engineering projects and teams grew larger, the scaling problems with that approach became apparent, and our understanding of version control changed to match those challenges. Then, as development increasingly moved toward an OSS model with distributed contributors, VCSs became more decentralized. We expect a shift in VCS technology that assumes constant network availability, focusing more on storage and build in the cloud to avoid transmitting unnecessary files and artifacts. This is increasingly critical for large, long-lived software engineering projects, even if it means a change in approach compared to simple single-dev/single-machine programming projects. This shift to cloud will make concrete what has emerged with DVCS approaches: even if we allow distributed development, something must still be centrally recognized as the Source of Truth.
+
+早期的系统提供了简单的文件细粒度锁功能。随着典型的软件工程项目和团队规模的扩大，这种方式的扩展问题变得很明显，我们对版本控制的理解也随着这些挑战而改变。然后，随着开发越来越多地转向具有分布式贡献者的开放源码软件模型，VCS变得更加分散。我们期待着VCS技术的转变，即假设网络的持续可用性，更加关注云存储和云构建，以避免传输不必要的文件和工件。这对于大型、长周期的软件工程项目来说越来越关键，即使这意味着与简单的单设备/单机器编程项目相比，方法上的改变。这种向云计算的转变将使DVCS方法中出现的内容具体化：即使我们允许分布式开发，也必须集中认识到某些东西是信息源。
 
 The current DVCS decentralization is a sensible reaction of the technology to the needs of the industry (especially the open source community). However, DVCS configuration needs to be tightly controlled and coupled with branch management policies that make sense for your organization. It also can often introduce unexpected scaling problems: perfect fidelity offline operation requires a lot more local data. Failure to rein in the potential complexity of a branching free-for-all can lead to a potentially unbounded amount of overhead between developers and deployment of that code. However, complex technology doesn’t need to be used in a complex fashion: as we see in monorepo and trunk-based development models, keeping branch policies simple generally leads to better engineering outcomes.
 
+目前DVCS的去中心化是该技术对行业（尤其是开源社区）需求的合理反应。然而，DVCS的配置需要严格控制，并与对你的组织有意义的分支管理政策结合起来。它还常常会引入意想不到的扩展问题：完美仿真的离线操作需要更多的本地数据。如果不控制分支自由生成的潜在复杂性，就会导致开发人员和该代码的部署之间可能会出现无限开销。然而，复杂的技术并不需要以复杂的方式来使用：正如我们在单一版本库和基于主干的开发模式中看到的那样，保持分支策略的简单通常会带来更好的工程结果。
+
 Choice leads to costs here. We highly endorse the One-Version Rule presented here: developers within an organization must not have a choice where to commit, or which version of an existing component to depend upon. There are few policies we’re aware of that can have such an impact on the organization: although it might be annoying for individual developers, in the aggregate, the end result is far better.
+
+选择带来了成本。我们高度赞同这里提出的 "单一版本规则"：组织内的开发者不能选择提交到哪里，或者选择依赖现有组件的哪个版本。据我们所知，很少有策略能对组织产生如此大的影响：尽管这对个别开发者来说可能很烦人，但从总体上看，最终结果要好得多。
 
 ## TL;DRs  内容提要
 
@@ -533,7 +541,12 @@ Choice leads to costs here. We highly endorse the One-Version Rule presented her
 
 
 
-
+- 对任何大于“只有一名开发人员且永远不会更新的玩具项目”的软件开发项目都要使用版本控制。
+- 当存在 "我应该依赖哪个版本 "的选择时，就会存在内在的扩展问题。
+- 单一版本规则对组织效率的重要性出人意料。删除提交地点或依赖内容的选择可能会导致显著的简化。。
+- 在某些语言中，你可能会花一些精力来躲避这个问题，比如着色、单独编译、链接器隐藏等等技术方法。使这些方法正常工作的工作完全是徒劳的--你的软件工程师并没有生产任何东西，他们只是在解决技术债务。
+- 以前的研究（DORA/State of DevOps/Accelerate）表明，基于干线的开发是高绩效开发组织的一个预测因素。长周期的开发分支不是一个好的默认计划。
+- 使用任何对你有意义的版本控制体系。如果你的组织想优先考虑为不同的项目建立独立的仓库，那么取消存储库间的依赖关系/“基于头部”/“基于主干”可能仍然是明智的越来越多的VCS和构建系统设施允许您拥有小型、细粒度的存储库以及整个组织一致的“虚拟”头/主干概念。
 
 
 
