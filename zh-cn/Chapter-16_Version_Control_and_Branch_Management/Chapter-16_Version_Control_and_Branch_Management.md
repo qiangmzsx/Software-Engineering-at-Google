@@ -433,47 +433,79 @@ Many Google teams use release branches, with limited cherry picks. If you’re g
 14  云接口是另一回事。
 ```
 
-## Monorepos    单体版本库
+## Monorepos    单一版本库（单库）
 
 In 2016, we published a (highly cited, much discussed) paper on Google’s monorepo approach.[15](#_bookmark1469) The monorepo approach has some inherent benefits, and chief among them is that adhering to One Version is trivial: it’s usually more difficult to violate One Version than it would be to do the right thing. There’s no process of deciding which versions of anything are official, or discovering which repositories are important. Building tools to understand the state of the build (see [Chapter 23](#_bookmark2022)) doesn’t also require discovering where important repositories exist. Consistency helps scale up the impact of introducing new tools and optimizations. By and large, engineers can see what everyone else is doing and use that to inform their own choices in code and system design. These are all very good things.
 
-
+2016年，我们发表了一篇关于Google的monorepo方法的论文（引用率很高，讨论很多）。monorepo方法有一些固有的好处，其中最主要的是遵守一个版本是微不足道的：通常违反一个版本比做正确的事情更难。没有过程来决定任何东西的哪个版本是官方的，也没有发现哪个版本库是重要的。构建工具来了解构建的状态（见第23章）也不需要发现哪里有重要的软件库。一致性有助于扩大引入新工具和优化的影响。总的来说，工程师们可以看到其他人在做什么，并利用这些来告知他们自己在代码和系统设计中的选择。这些都是非常好的事情。
 
 Given all of that and our belief in the merits of the One-Version Rule, it is reasonable to ask whether a monorepo is the One True Way. By comparison, the open source community seems to work just fine with a “manyrepo” approach built on a seemingly infinite number of noncoordinating and nonsynchronized project repositories.
 
+考虑到所有这些，以及我们对 "单一版本规则 "优点的信念，我们有理由问，单一版本库是否是唯一正确的方法。相比之下，开源社区似乎可以用 "多版本 "的方法来工作，而这种方法是建立在看似无限多的不协调和不同步的项目库之上的。
+
 In short: no, we don’t think the monorepo approach as we’ve described it is the perfect answer for everyone. Continuing the parallel between filesystem format and VCS, it’s easy to imagine deciding between using 10 drives to provide one very large logical filesystem or 10 smaller filesystems accessed separately. In a filesystem world, there are pros and cons to both. Technical issues when evaluating filesystem choice would range from outage resilience, size constraints, performance characteristics, and so on. Usability issues would likely focus more on the ability to reference files across filesystem boundaries, add symlinks, and synchronize files.
+
+简而言之：不，我们不认为我们所描述的单一版本库方法对每个人都是完美答案。持续文件系统格式和VCS之间的并行，很容易想象在使用10个驱动器提供一个非常大的逻辑文件系统还是10个单独访问的小文件系统之间做出决定。在文件系统的世界里，两者都有优点和缺点。在评估文件系统的选择时，技术上的问题包括中断恢复能力、大小限制、性能特点等等。可用性问题可能会更多地集中在跨文件系统边界引用文件、添加符号链接和同步文件的能力上。
 
 A very similar set of issues governs whether to prefer a monorepo or a collection of finer-grained repositories. The specific decisions of how to store your source code (or store your files, for that matter) are easily debatable, and in some cases, the particulars of your organization and your workflow are going to matter more than others. These are decisions you’ll need to make yourself.
 
+一组非常类似的问题决定了是选择单一版本库还是选择更细粒度的版本库的集合。如何存储你的源代码（或存储你的文件）的具体决定是很容易争论的，在某些情况下，你的组织和你的工作流程的特殊性会比其他的更重要。这些都是你需要自己做出的决定。
+
 What is important is not whether we focus on monorepo; it’s to adhere to the One- Version principle to the greatest extent possible: developers must not have a *choice* when adding a dependency onto some library that is already in use in the organization. Choice violations of the One-Version Rule lead to merge strategy discussions, diamond dependencies, lost work, and wasted effort.
+
+重要的不是我们是否关注单一版本库；而是最大限度地坚持一个版本的原则：开发人员在向组织中已经使用的某个库添加依赖时，不能有*选择*。违反一个版本原则的选择会导致合并策略的讨论、钻石依赖、工作损失和工作消耗。
 
 Software engineering tools including both VCS and build systems are increasingly providing mechanisms to smartly blend between fine-grained repositories and monorepos to provide an experience akin to the monorepo—an agreed-upon ordering of commits and understanding of the dependency graph. Git submodules, Bazel with external dependencies, and CMake subprojects all allow modern developers to synthesize something weakly approximating monorepo behavior without the costs and downsides of a monorepo.[16](#_bookmark1477) For instance, fine-grained repositories are easier to deal with in terms of scale (Git often has performance issues after a few million commits and tends to be slow to clone when repositories include large binary artifacts) and storage (VCS metadata can add up, especially if you have binary artifacts in your version control system). Fine-grained repositories in a federated/virtual-monorepo (VMR)–style repository can make it easier to isolate experimental or top-secret projects while still holding to One Version and allowing access to common utilities.
 
+包括VCS和构建系统在内的软件工程工具越来越多地提供了在细粒度版本库和单一版本库之间巧妙融合的机制，以提供类似于单一版本库的体验--一种约定的提交顺序和对依赖关系图的理解。Git子模块、带有外部依赖关系的Bazel和CMake子项目都允许现代开发者合成一些弱的近似于单一版本库的行为，而没有单一版本库的成本和弊端。例如，细粒度的版本库在规模上更容易处理（Git在几百万次提交后经常出现性能问题，而且当仓库包括大型二进制构件时，克隆速度往往很慢）和存储（VCS元数据会增加，特别是如果你的版本控制系统中有二进制构件）。联合/虚拟单一版本库（VMR）风格的细粒度版本库可以更容易地隔离实验性或最高机密的项目，同时同时仍保留一个版本并允许访问通用工具。
+
 To put it another way: if every project in your organization has the same secrecy, legal, privacy, and security requirements,[17](#_bookmark1478) a true monorepo is a fine way to go. Otherwise, *aim* for the functionality of a monorepo, but allow yourself the flexibility of implementing that experience in a different fashion. If you can manage with disjoint repositories and adhere to One Version or your workload is all disconnected enough to allow truly separate repositories, great. Otherwise, synthesizing something like a VMR in some fashion may represent the best of both worlds.
+
+换言之：如果你组织中的每个项目都有相同的保密、法律、隐私和安全要求，真正的单一版本库是一个不错的选择。否则，以单一版本库的功能为目标，但允许自己以不同的方式灵活实施该体验。如果你可以用不相干的软件库来管理，并且坚持一个版本，或者你的工作量都是不相干的，足以允许真正的独立软件库，那就太好了。否则，以某种方式合成类似于VMR的东西可能代表了两个世界的最佳状态。
 
 After all, your choice of filesystem format really doesn’t matter as much as what you write to it.
 
+毕竟，你对文件系统格式的选择与你向其写入的内容相比，真的并不重要。
+
 ```
 15	Rachel Potvin and Josh Levenberg, “Why Google stores billions of lines of code in a single repository,” Communications of the ACM, 59 No. 7 (2016): 78-87.
+
+15 Rachel Potvin和Josh Levenberg，"为什么谷歌将数十亿行代码存储在一个库中，"《ACM通讯》，59 No.7（2016）：78-87。
 ```
 
-## Future of Version Control
+## Future of Version Control  版本控制的未来
 
 Google isn’t the only organization to publicly discuss the benefits of a monorepo approach. Microsoft, Facebook, Netflix, and Uber have also publicly mentioned their reliance on the approach. DORA has published about it extensively. It’s vaguely possible that all of these successful, long-lived companies are misguided, or at least that their situations are sufficiently different as to be inapplicable to the average smaller organization. Although it’s possible, we think it is unlikely.
 
+谷歌并不是唯一一个公开讨论单一版本库方法的好处的组织。微软、Facebook、Netflix和Uber也公开提到他们对这种方法的依赖。DORA已经广泛地发表了关于它的文章。很可能所有这些成功的、长期存在的公司都被误导了，或者至少他们的情况差异很大，不适用于一般较小的组织。虽然这是可能的，但我们认为不太可能。
+
 Most arguments against monorepos focus on the technical limitations of having a single large repository. If cloning a repository from upstream is quick and cheap, developers are more likely to keep changes small and isolated (and to avoid making mistakes with committing to the wrong work-in-progress branch). If cloning a repository (or doing some other common VCS operation) takes hours of wasted developer time, you can easily see why an organization would shy away from reliance on such a large repository/operation. We luckily avoided this pitfall by focusing on providing a VCS that scales massively.
+
+大多数反对单一版本库的论点都集中在拥有一个大型版本库的技术限制上。如果从上游克隆一个版本库又快又便宜，开发者就更有可能保持小规模和隔离的更改（避免提交到错误的工作分支）。如果克隆一个版本库（或做一些其他常见的VCS操作）需要浪费开发人员几个小时的时间，你很容易理解为什么一个组织会避开对这种大型版本库/操作的依赖。我们很幸运地避免了这个陷阱，因为我们专注于提供一个可以大规模扩展的VCS。
 
 Looking at the past few years of major improvements to Git, there’s clearly a lot of work being done to support larger repositories: shallow clones, sparse branches, better optimization, and more. We expect this to continue and the importance of “but we need to keep the repository small” to diminish.
 
+回顾过去几年对Git的重大改进，显然有很多工作是为了支持更大的仓库：浅复制，稀疏分支，更好的优化，等等。我们希望这种情况能继续下去，而 "但我们需要保持仓库的小型化"的重要性则会降低。
+
 The other major argument against monorepos is that it doesn’t match how development happens in the Open Source Software (OSS) world. Although true, many of the practices in the OSS world come (rightly) from prioritizing freedom, lack of coordination, and lack of computing resources. Separate projects in the OSS world are effectively separate organizations that happen to be able to see one another’s code. Within the boundaries of an organization, we can make more assumptions: we can assume the availability of compute resources, we can assume coordination, and we can assume that there is some amount of centralized authority.
+
+反对单一版本库的另一个主要论点是，它不符合开源软件（OSS）世界中的开发方式。虽然这是事实，但开放源码软件世界中的许多做法（正确地）来自于对自由的优先考虑，缺乏协调，以及缺乏计算资源。在开放源码软件世界中，独立的项目实际上是独立的组织，碰巧可以看到彼此的代码。在一个组织的边界内，我们可以做出更多的假设：我们可以假设计算资源的可用性，我们可以假设协调，我们可以假设有一定程度的集中权限。
 
 A less common but perhaps more legitimate concern with the monorepo approach is that as your organization scales up, it is less and less likely that every piece of code is subject to exactly the same legal, compliance, regulatory, secrecy, and privacy requirements. One native advantage of a manyrepo approach is that separate repositories are obviously capable of having different sets of authorized developers, visibility, permissions, and so on. Stitching that feature into a monorepo can be done but implies some ongoing carrying costs in terms of customization and maintenance.
 
+对于单一版本库的方法，一个不太常见但也许更合理的担忧是，随着你的组织规模的扩大，越来越不可能每段代码都受到完全相同的法律、合规、监管、保密和隐私要求的约束。多版本库方法的一个原生优势是，独立的版本库显然能够拥有不同的授权开发者、可见性、权限等集合。集成这个功能到一个单库中是可以做到的，但意味着在定制和维护方面有一些持续的承载成本。
+
 At the same time, the industry seems to be inventing lightweight interrepository linkage over and over again. Sometimes, this is in the VCS (Git submodules) or the build system. So long as a collection of repositories have a consistent understanding of “what is trunk,” “which change happened first,” and mechanisms to describe dependencies, we can easily imagine stitching together a disparate collection of physical repositories into one larger VMR. Even though Piper has done very well for us, investing in a highly scaling VMR and tools to manage it and relying on off-the-shelf customization for per-repository policy requirements could have been a better investment.
+
+与此同时，业界似乎在一次又一次地发明轻量级的库间链接。有时，这是在VCS（Git子模块）或构建系统中。只要版本库的集合对 "什么是主干"、"哪个变化先发生 "有一致的理解，并有描述依赖关系的机制，我们就可以很容易地想象把不同的物理版本库的集合缝合到一个更大的VMR中。尽管Piper为我们做得很好，但投资于一个高度扩展的VMR和工具来管理它，并依靠现成的定制来满足每个版本库的策略要求，可能是一个更好的投资。
 
 As soon as someone builds a sufficiently large nugget of compatible and interdependent projects in the OSS community and publishes a VMR view of those packages, we suspect that OSS developer practices will begin to change. We see glimpses of this in the tools that *could* synthesize a virtual monorepo as well as in the work done by (for instance) large Linux distributions discovering and publishing mutually compatible revisions of thousands of packages. With unit tests, CI, and automatic version bumping for new submissions to one of those revisions, enabling a package owner to update trunk for their package (in nonbreaking fashion, of course), we think that model will catch on in the open source world. It is just a matter of efficiency, after all: a (virtual) monorepo approach with a One-Version Rule cuts down the complexity of software development by a whole (difficult) dimension: time.
 
+一旦有人在开放源码软件社区建立了足够大的兼容和相互依赖的项目，并发布了这些软件包的VMR视图，我们怀疑开放源码软件开发者的做法将开始改变。我们在*能*合成虚拟单一版本库的工具中，以及在（例如）大型Linux发行版发现和发布数千个软件包的相互兼容的修订版所做的工作中看到了这一迹象。有了单元测试、CI，以及对其中一个修订版的新提交的自动版本升级，使软件包所有者能够为他们的软件包更新主干（当然是以不破坏的方式），我们认为这种模式将在开源世界中流行起来。毕竟，这只是一个效率问题：一个（虚拟的）单一版本的方法与一个版本的规则，将软件开发的复杂性减少了一整个（困难的）层面：时间。
+
 We expect version control and dependency management to evolve in this direction in the next 10 to 20 years: VCSs will focus on *allowing* larger repositories with better performance scaling, but also removing the need for larger repositories by providing better mechanisms to stitch them together across project and organizational boundaries. Someone, perhaps the existing package management groups or Linux distributors, will catalyze a de facto standard virtual monorepo. Depending on the utilities in that monorepo will provide easy access to a compatible set of dependencies as one unit. We’ll more generally recognize that version numbers are timestamps, and that allowing version skew adds a dimensionality complexity (time) that costs a lot—and that we can learn to avoid. It starts with something logically like a monorepo.
+
+我们预计在未来10到20年内，版本控制和依赖管理将朝着这个方向发展。VCS将专注于允许*大型版本库*，并有更好的性能扩展，但也通过提供更好的机制来消除对大版本库的需求，使它们跨越项目和组织的界限。其中一个，也许是现有的软件包管理小组或Linux发行商，将促成一个事实上的标准虚拟单一版本库。依靠单一版本库中的实用程序，可以方便地访问作为一个单元的兼容的依赖关系。我们将更普遍地认识到，版本号是时间戳，允许版本偏差增加了一个维度的复杂性（时间），这需要花费很多，而且我们可以学习如何避免。它从逻辑上类似于单一版本库的东西开始。
 
 ## Conclusion
 
