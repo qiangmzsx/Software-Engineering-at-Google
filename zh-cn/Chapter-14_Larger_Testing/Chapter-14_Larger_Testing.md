@@ -889,7 +889,7 @@ Minimizing flakiness starts with reducing the scope of the test—a hermetic SUT
 
 Just as making tests reactive or event driven can speed them up, it can also remove flakiness. Timed sleeps require timeout maintenance, and these timeouts can be embedded in the test code. Increasing internal system timeouts can reduce flakiness, whereas reducing internal timeouts can lead to flakiness if the system behaves in a nondeterministic way. The key here is to identify a trade-off that defines both a tolerable system behavior for end users (e.g., our maximum allowable timeout is *n* seconds) but handles flaky test execution behaviors well.
 
-正如使测试反应式或事件驱动可以加快它们的速度一样，它也可以消除松散性。定时休眠需要超时维护，这些超时可以嵌入测试代码中。增加系统的内部超时可以减少松散性，而减少内部超时可以导致松散性，如果系统的行为是不确定的。这里的关键是确定一个权衡，既要为终端用户定义一个可容忍的系统行为（例如，我们允许的最大超时是*n*秒），但很好地处理了不稳定的测试执行行为。
+正如使测试反应式或事件驱动可以加快它们的速度一样，它也可以消除松散性。定时休眠需要超时维护，这些超时可以嵌入测试代码中。增加系统的内部超时可以减少松散性，而减少内部超时可以导致松散性，如果系统的行为是不确定的。这里的关键是确定一个权衡（平衡），既要为终端用户定义一个可容忍的系统行为（例如，我们允许的最大超时是*n*秒），但很好地处理了不稳定的测试执行行为。
 
 A bigger problem with internal system timeouts is that exceeding them can lead to difficult errors to triage. A production system will often try to limit end-user exposure to catastrophic failure by handling possible internal system issues gracefully. For example, if Google cannot serve an ad in a given time limit, we don’t return a 500, we just don’t serve an ad. But this looks to a test runner as if the ad-serving code might be broken when there is just a flaky timeout issue. It’s important to make the failure mode obvious in this case and to make it easy to tune such internal timeouts for test scenarios.
 
@@ -962,5 +962,4 @@ A comprehensive test suite requires larger tests, both to ensure that tests matc
 - 大型测试是由被测系统、数据、操作和验证组成。
 - 良好的设计包括识别风险的测试策略和缓解风险的大型测试。
 - 必须对大型测试做出额外的努力，以防止它们在开发者的工作流程中产生阻力。
-
 

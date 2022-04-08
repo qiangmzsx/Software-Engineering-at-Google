@@ -50,7 +50,7 @@ How an organization makes decisions, based on the lessons of Time and Change and
 
 ​	一个组织如何适应它的发展过程。
 
-*交易和成本*
+*权衡和成本*
 
 ​	一个组织如何根据时间和变化以及规模和增长的经验教训做出决策。
 
