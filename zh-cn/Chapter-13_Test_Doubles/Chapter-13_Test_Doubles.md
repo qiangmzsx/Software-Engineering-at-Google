@@ -427,7 +427,7 @@ A test is [*deterministic* ](https://oreil.ly/brxJl)if, for a given version of t
 
 [Nondeterminism in tests ](https://oreil.ly/71OFU)can lead to flakiness—tests can occasionally fail even when there are no changes to the system under test. As discussed in [Chapter 11](#_bookmark838), flakiness harms the health of a test suite if developers start to distrust the results of the test and ignore failures. If use of a real implementation rarely causes flakiness, it might not warrant a response, because there is little disruption to engineers. But if flakiness hap‐pens often, it might be time to replace a real implementation with a test double because doing so will improve the fidelity of the test.
 
-[测试中的非确定性](https://oreil.ly/71OFU)会导致松散性--即使被测系统没有变化，测试也会偶尔失败。正如在第11章中所讨论的，如果开发人员开始不相信测试的结果并忽视失败，那么松散性会损害测试组件的健康。如果使用一个真正实现很少引起松散性，它可能不值得响应，因为对工程师的干扰很小。但是，如果经常发生故障，可能是时候用一个测试替代真实实现了，因为这样做会提高测试的仿真度。
+[测试中的非确定性](https://oreil.ly/71OFU)会导致松散性--即使被测系统没有变化，测试也会偶尔失败。正如在第11章中所讨论的，如果开发人员开始不相信测试的结果并忽视失败，那么松散性会损害测试套件的健康。如果使用一个真正实现很少引起松散性，它可能不值得响应，因为对工程师的干扰很小。但是，如果经常发生故障，可能是时候用一个测试替代真实实现了，因为这样做会提高测试的仿真度。
 
 A real implementation can be much more complex compared to a test double, which increases the likelihood that it will be nondeterministic. For example, a real implementation that utilizes multithreading might occasionally cause a test to fail if the output of the system under test differs depending on the order in which the threads are executed.
 
@@ -803,7 +803,7 @@ verify(databaseReader, atMostOnce()).selectRecords();
 
 Interaction testing is not a complete replacement for state testing. If you are not able to perform state testing in a unit test, strongly consider supplementing your test suite with larger-scoped tests that do perform state testing. For instance, if you have a unit test that validates usage of a database through interaction testing, consider adding an integration test that can perform state testing against a real database. Larger-scope testing is an important strategy for risk mitigation, and we discuss it in the next chapter.
 
-交互测试不能完全替代状态测试。如果无法在单元测试中执行状态测试，请强烈考虑用更大范围的执行状态测试的范围测试来补充测试组件。例如，如果你有一个单元测试，通过交互测试来验证数据库的使用，考虑添加一个集成测试，可以对真实数据库进行状态测试。更大范围的测试是减轻风险的重要策略，我们将在下一章中讨论它。
+交互测试不能完全替代状态测试。如果无法在单元测试中执行状态测试，请强烈考虑用更大范围的执行状态测试的范围测试来补充测试套件。例如，如果你有一个单元测试，通过交互测试来验证数据库的使用，考虑添加一个集成测试，可以对真实数据库进行状态测试。更大范围的测试是减轻风险的重要策略，我们将在下一章中讨论它。
 
 #### Best Practices for Interaction Testing 交互测试的最佳实践
 
