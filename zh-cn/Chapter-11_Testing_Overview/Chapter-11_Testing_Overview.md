@@ -116,7 +116,7 @@ The ability for humans to manually validate every behavior in a system has been 
 ![image-20220407195824423](./images/image-20220407195824423.png)
 
 *Figure 11-1. Screenshots of two complex Google search results*  *图11-1. 两个复杂的谷歌搜索结果的截图*
-  
+
 ### Write, Run, React  编写、运行、反应
 
 In its purest form, automating testing consists of three activities: writing tests, running tests, and reacting to test failures. An automated test is a small bit of code, usually a single function or method, that calls into an isolated part of a larger system that you want to test. The test code sets up an expected environment, calls into the system, usually with a known input, and verifies the result. Some of the tests are very small, exercising a single code path; others are much larger and can involve entire systems, like a mobile operating system or web browser.
@@ -212,7 +212,7 @@ To developers coming from organizations that don’t have a strong testing cultu
 
 
 
-## Designing a Test Suite
+## Designing a Test Suite  设计测试套件
 
 Today, Google operates at a massive scale, but we haven’t always been so large, and the foundations of our approach were laid long ago. Over the years, as our codebase has grown, we have learned a lot about how to approach the design and execution of a test suite, often by making mistakes and cleaning up afterward.
 
