@@ -23,7 +23,7 @@ Larger tests are many things that small tests are not. They are not bound by the
 •	They may be nonhermetic. Large tests may share resources with other tests and traffic.
 •   They may be nondeterministic. If a large test is nonhermetic, it is almost impossible to guarantee determinism: other tests or user state may interfere with it.
 
-较大的测试有许多是小测试所不具备的内容。它们不受相同的约束；因此，它们可以表现出以下特征：
+较大的测试有许多是小型测试所不具备的内容。它们不受相同的约束；因此，它们可以表现出以下特征：
 - 它们可能很慢。我们的大型测试的默认超时时间为15分钟或1小时，但我们也有运行数小时甚至数天的测试。
 - 它们可能是不封闭的。大型测试可能与其他测试和流量共享资源。
 - 它们可能是不确定的。如果大型测试是非密封的，则几乎不可能保证确定性：其他测试或用户状态可能会干扰它。
