@@ -334,62 +334,96 @@ Remember that tests are often revisited only when something breaks. When you are
 
 **测试规模的实践。**有了测试规模的精确定义，我们就可以创建工具来执行它们。强制执行使我们能够扩展我们的测试套件，并仍然对速度、资源利用和稳定性做出一定的保证。在谷歌，这些定义的执行程度因语言而异。例如，我们使用一个自定义的安全管理器来运行所有的Java测试，如果它们试图做一些被禁止的事情，如建立网络连接，就会导致所有被标记为小型测试失败。
 
-### Test Scope
+### Test Scope  测试范围
 
 Though we at Google put a lot of emphasis on test size, another important property to consider is test scope. Test scope refers to how much code is being validated by a given test. Narrow-scoped tests (commonly called “unit tests”) are designed to validate the logic in a small, focused part of the codebase, like an individual class or method. Medium-scoped tests (commonly called *integration tests*) are designed to verify interactions between a small number of components; for example, between a server and its database. Large-scoped tests (commonly referred to by names like *functional tests*, *end-to-end* tests, or *system tests*) are designed to validate the interaction of several distinct parts of the system, or emergent behaviors that aren’t expressed in a single class or method.
 
+尽管我们在谷歌非常强调测试规模，但另一个需要考虑的重要属性是测试范围。测试范围是指给定的测试要验证多少代码。狭窄范围的测试（通常称为 "单元测试"）被设计用来验证代码库中一小部分的逻辑，比如单独的类或方法。中等范围的测试（通常称为*集成测试*）被设计用来验证少量组件之间的相互作用；例如，在服务器和它的数据库之间。大范围测试（通常被称为*功能测试*，*端到端*测试，或*系统测试*）被设计用来验证系统的几个不同部分的相互作用，或不在单个类或方法中表达的出现的行为。
+
 It’s important to note that when we talk about unit tests as being narrowly scoped, we’re referring to the code that is being *validated*, not the code that is being *executed*. It’s quite common for a class to have many dependencies or other classes it refers to, and these dependencies will naturally be invoked while testing the target class. Though some [other testing strategies ](https://oreil.ly/Lj-t3)make heavy use of test doubles (fakes or mocks) to avoid executing code outside of the system under test, at Google, we prefer to keep the real dependencies in place when it is feasible to do so. [Chapter 13 ](#_bookmark1056)discusses this issue in more detail.
+
+值得注意的是，当我们谈论单元测试是狭义的范围时，我们指的是正在*验证*的代码，而不是正在*执行*的代码。一个类有许多依赖关系或它引用的其他类是很常见的，这些依赖关系在测试目标类时自然会被调用。尽管有其他测试策略大量使用测试替代（假的或模拟的）来避免执行被测系统之外的代码，但在Google，我们更愿意在可行的情况下保持真正的依赖关系。第13章更详细地讨论了这个问题。
 
 Narrow-scoped tests tend to be small, and broad-scoped tests tend to be medium or large, but this isn’t always the case. For example, it’s possible to write a broad-scoped test of a server endpoint that covers all of its normal parsing, request validation, and business logic, which is nevertheless small because it uses doubles to stand in for all out-of-process dependencies like a database or filesystem. Similarly, it’s possible to write a narrow-scoped test of a single method that must be medium sized. For example, modern web frameworks often bundle HTML and JavaScript together, and testing a UI component like a date picker often requires running an entire browser, even to validate a single code path.
 
+狭窄范围的测试往往较小，而广泛范围的测试往往是中等或较大的，但这并不总是如此。例如，有可能对一个服务器端点写一个大范围的测试，包括所有正常的解析、请求验证和业务逻辑，但这是小范围的，因为它用替代来代替所有进程外的依赖，如数据库或文件系统。同样，也可以对一个单一的方法写一个范围较窄的测试，但必须是中等大小。例如，现代网络框架经常将HTML和JavaScript捆绑在一起，测试像日期选择器这样的UI组件经常需要运行整个浏览器，即使是验证单个的代码路径。
+
 Just as we encourage tests of smaller size, at Google, we also encourage engineers to write tests of narrower scope. As a very rough guideline, we tend to aim to have a mix of around 80% of our tests being narrow-scoped unit tests that validate the majority of our business logic; 15% medium-scoped integration tests that validate the interactions between two or more components; and 5% end-to-end tests that validate the entire system. [Figure 11-3 ](#_bookmark893)depicts how we can visualize this as a pyramid.
+
+正如我们鼓励在谷歌进行更小规模的测试一样，我们也鼓励工程师编写范围更狭窄的测试。作为一个非常粗略的指导方针，我们倾向于将大约80%的测试混合在一起，这些测试是验证大多数业务逻辑的狭窄范围单元测试；15%的中型集成测试，用于验证两个或多个组件之间的相互作用；以及验证整个系统的5%端到端测试。图11-3描述了我们如何将其视为金字塔。
 
 ![image-20220407200917862](./images/image-20220407200917862.png)
 
-*Figure 11-3. Google’s version of Mike Cohn’s test pyramid;*[*6*](#_bookmark896) *percentages are by test case* *count, and every team’s mix will be a little different*
+*Figure 11-3. Google’s version of Mike Cohn’s test pyramid;*[*6*](#_bookmark896) *percentages are by test case* *count, and every team’s mix will be a little different*   *图11-3. 谷歌对Mike Cohn的测试金字塔的版本百分比是按测试案例来计算的，每个团队的组合都会有一些不同*
 
 Unit tests form an excellent base because they are fast, stable, and dramatically narrow the scope and reduce the cognitive load required to identify all the possible behaviors a class or function has. Additionally, they make failure diagnosis quick and painless. Two antipatterns to be aware of are the “ice cream cone” and the “hourglass,” as illustrated in [Figure 11-4](#_bookmark897).
 
+单元测试是一个很好的基础，因为它们快速、稳定，并且极大地缩小了范围，减少了识别一个类或函数的所有可能行为所需的认知负荷。此外，它们使故障诊断变得快速而无感。需要注意的两个反模式是 "冰淇淋筒 "和 "沙漏"，如图11-4所示。
+
 With the ice cream cone, engineers write many end-to-end tests but few integration or unit tests. Such suites tend to be slow, unreliable, and difficult to work with. This pattern often appears in projects that start as prototypes and are quickly rushed to production, never stopping to address testing debt.
+
+在沙漏中，工程师们写了许多端到端的测试，但很少有集成或单元测试。这样的套件往往是速度慢、不可靠，而且难以使用。这种模式经常出现在以原型开始的项目中，并很快投入生产，从来没有停止过解决测试债务。
 
 The hourglass involves many end-to-end tests and many unit tests but few integration tests. It isn’t quite as bad as the ice cream cone, but it still results in many end-to- end test failures that could have been caught quicker and more easily with a suite of medium-scope tests. The hourglass pattern occurs when tight coupling makes it difficult to instantiate individual dependencies in isolation.
 
+沙漏涉及许多端到端的测试和许多单元测试，但很少有集成测试。它不像冰激凌筒那样糟糕，但它仍然导致许多端到端的测试失败，而这些失败本可以通过一套中等范围的测试更快、更容易地发现。当紧密耦合使单独实例化单个依赖项变得困难时，就会出现沙漏模式。
+
 ![image-20220407201117705](./images/image-20220407201117705.png)
 
-*Figure* *11-4.* *Test* *suite* *antipatterns*
+*Figure* *11-4.* *Test* *suite* *antipatterns*  *图11-4. 测试套件的反模式*
 
 Our recommended mix of tests is determined by our two primary goals: engineering productivity and product confidence. Favoring unit tests gives us high confidence quickly, and early in the development process. Larger tests act as sanity checks as the product develops; they should not be viewed as a primary method for catching bugs.
 
-When considering your own mix, you might want a different balance. If you emphasize integration testing, you might discover that your test suites take longer to run but catch more issues between components. When you emphasize unit tests, your test suites can complete very quickly, and you will catch many common logic bugs. But, unit tests cannot verify the interactions between components, like [a contract between](https://oreil.ly/mALqH) [two systems developed by different teams](https://oreil.ly/mALqH). A good test suite contains a blend of different test sizes and scopes that are appropriate to the local architectural and organizational realities.
+我们推荐的测试组合是由我们的两个主要目标决定的：工程生产力和产品信心。在开发过程的早期，倾向于单元测试可以让我们迅速获得高的信心。在产品的开发过程中，大型测试可以作为健康检查；它们不应被视为捕获bug的主要方法
+
+When considering your own mix, you might want a different balance. If you emphasize integration testing, you might discover that your test suites take longer to run but catch more issues between components. When you emphasize unit tests, your test suites can complete very quickly, and you will catch many common logic bugs. But, unit tests cannot verify the interactions between components, like [a contract between two systems developed by different teams](https://oreil.ly/mALqH). A good test suite contains a blend of different test sizes and scopes that are appropriate to the local architectural and organizational realities.
+
+当考虑你自己的组合时，你可能想要一个不同的平衡。如果你强调集成测试，你可能会发现你的测试套件需要更长的时间来运行，但在组件之间捕获更多的问题。当你强调单元测试时，你的测试套件可以很快完成，而且你会捕捉到许多常见的逻辑错误。但是，单元测试无法验证组件之间的交互，就像由不同团队开发的两个系统之间的契约一样。一个好的测试套件包含不同的测试规模和范围的混合，适合本地架构和组织的实际情况。
 
 ```
 6	Mike Cohn, Succeeding with Agile: Software Development Using Scrum (New York: Addison-Wesley Professional, 2009).
+
+6   Mike Cohn，《敏捷的成功：使用Scrum的软件开发》（纽约：Addison-Wesley Professio-nal，2009）。
 ```
 
-### The Beyoncé Rule
+### The Beyoncé Rule  碧昂斯规则
 
 We are often asked, when coaching new hires, which behaviors or properties actually need to be tested? The straightforward answer is: test everything that you don’t want to break. In other words, if you want to be confident that a system exhibits a particular behavior, the only way to be sure it will is to write an automated test for it. This includes all of the usual suspects like testing performance, behavioral correctness, accessibility, and security. It also includes less obvious properties like testing how a system handles failure.
 
+在指导新员工时，我们经常被问到，究竟哪些行为或属性需要被测试？直截了当的回答是：测试所有你不想破坏的东西。换句话说，如果你想确信一个系统表现出一个特定的行为，唯一能确保它会表现出这种行为的方法就是为它编写一个自动测试。这包括所有常见的可疑因素，如测试性能、行为正确性、可访问性和安全性。它还包括不太明显的属性，如测试系统如何处理故障。
+
 We have a name for this general philosophy: we call it the [Beyoncé Rule](https://oreil.ly/X7_-z). Succinctly, it can be stated as follows: “If you liked it, then you shoulda put a test on it.” The Beyoncé Rule is often invoked by infrastructure teams that are responsible for making changes across the entire codebase. If unrelated infrastructure changes pass all of your tests but still break your team’s product, you are on the hook for fixing it and adding the additional tests.
+
+我们对这一总体理念有一个名称：我们称之为碧昂斯规则。简而言之，它可以被陈述如下。"如果你喜欢它，那么你就应该对它进行测试"。碧昂斯规则通常由负责在整个代码库中进行更改的基础架构团队引用。如果不相关的基础设施变化通过了你所有的测试，但仍然破坏了你的团队的产品，你就得负责修复它并增加额外的测试。
 
 ----
 
-#### Testing for Failure
+#### Testing for Failure  失败测试
 
 One of the most important situations a system must account for is failure. Failure is inevitable, but waiting for an actual catastrophe to find out how well a system responds to a catastrophe is a recipe for pain. Instead of waiting for a failure, write automated tests that simulate common kinds of failures. This includes simulating exceptions or errors in unit tests and injecting Remote Procedure Call (RPC) errors or latency in integration and end-to-end tests. It can also include much larger disruptions that affect the real production network using techniques like Chaos Engineering. A predictable and controlled response to adverse conditions is a hallmark of a reliable system.
 
+系统必须考虑的最重要的情况之一是失败。失败是不可避免的，但是等待实际的故障来发现系统对故障的反应如何，是一种痛苦的诀窍。与其等待失败，不如写自动测试来模拟常见的失败类型。这包括在单元测试中模拟异常或错误，在集成和端到端测试中注入远程过程调用（RPC）错误或延迟。它还可以包括使用混沌工程等技术影响真实生产网络的更大的破坏。对不利条件的可预测和可控制的反应是一个可靠系统的标志。
+
 -----
 
-### A Note on Code Coverage
+### A Note on Code Coverage  关于代码覆盖率的注意事项
 
 Code coverage is a measure of which lines of feature code are exercised by which tests. If you have 100 lines of code and your tests execute 90 of them, you have 90% code coverage.[7](#_bookmark905) Code coverage is often held up as the gold standard metric for understanding test quality, and that is somewhat unfortunate. It is possible to exercise a lot of lines of code with a few tests, never checking that each line is doing anything useful. That’s because code coverage only measures that a line was invoked, not what happened as a result. (We recommend only measuring coverage from small tests to avoid coverage inflation that occurs when executing larger tests.)
 
+代码覆盖率是衡量哪些特征代码行被哪些测试所执行的标准。如果你有100行代码，你的测试执行了其中的90行，你就有90%的代码覆盖率。 代码覆盖率经常被认为是理解测试质量的黄金标准，这是很不幸的。有可能用几个测试来验证大量的代码行，但从未检查过每一行是否在做任何有用的事情。这是因为代码覆盖率只衡量一行被调用的情况，而不是结果。(我们建议只测量小型测试的覆盖率，以避免执行大型测试时出现覆盖率膨胀）。
+
 An even more insidious problem with code coverage is that, like other metrics, it quickly becomes a goal unto itself. It is common for teams to establish a bar for expected code coverage—for instance, 80%. At first, that sounds eminently reasonable; surely you want to have at least that much coverage. In practice, what happens is that instead of treating 80% like a floor, engineers treat it like a ceiling. Soon, changes begin landing with no more than 80% coverage. After all, why do more work than the metric requires?
+
+代码覆盖率的一个更隐蔽的问题是，像其他指标一样，它很快就变成了一个单独的目标。对于团队来说，建立一个预期代码覆盖率的标准是很常见的，比如说80%。起初，这听起来非常合理；你肯定希望至少有这么多的覆盖率。在实践中，发生的情况是，工程师们不是把80%当作一个底线，而是把它当作一个上限。很快，变化就开始了，覆盖率不超过80%。毕竟，为什么要做比指标要求更多的工作？
 
 A better way to approach the quality of your test suite is to think about the behaviors that are tested. Do you have confidence that everything your customers expect to work will work? Do you feel confident you can catch breaking changes in your dependencies? Are your tests stable and reliable? Questions like these are a more holistic way to think about a test suite. Every product and team is going to be different; some will have difficult-to-test interactions with hardware, some involve massive datasets. Trying to answer the question “do we have enough tests?” with a single number ignores a lot of context and is unlikely to be useful. Code coverage can provide some insight into untested code, but it is not a substitute for thinking critically about how well your system is tested.
 
+评估测试套件质量的更好方法是考虑测试的行为。你有信心你的客户所期望的一切都能正常工作吗？你是否有信心能抓住你的依赖关系中的突发变化？你的测试是否稳定和可靠？像这样的问题是思考测试套件的一种更全面的方式。每个产品和团队都是不同的；有些会有难以测试的与硬件的互动，有些涉及到大量的数据集。试图用一个独立的数字来回答 "我们有足够的测试吗？"忽略了很多背景，不太可能是有用的。代码覆盖率可以提供一些对未测试代码的洞察力，但它不能替代对系统测试情况的批判性思考。
+
 ```
 7	Keep in mind that there are different kinds of coverage (line, path, branch, etc.), and each says something different about which code has been tested. In this simple example, line coverage is being used.
+
+7 请记住，有不同种类的覆盖率（行、路径、分支等），每一种都说明了不同的代码被测试的情况。在这个简单的例子中，我们使用的是行覆盖。
 ```
 
 ## Testing at Google Scale
