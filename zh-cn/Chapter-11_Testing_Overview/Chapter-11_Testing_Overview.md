@@ -426,17 +426,27 @@ A better way to approach the quality of your test suite is to think about the be
 7 请记住，有不同种类的覆盖率（行、路径、分支等），每一种都说明了不同的代码被测试的情况。在这个简单的例子中，我们使用的是行覆盖。
 ```
 
-## Testing at Google Scale
+## Testing at Google Scale  以谷歌的规模进行测试
 
 Much of the guidance to this point can be applied to codebases of almost any size. However, we should spend some time on what we have learned testing at our very large scale. To understand how testing works at Google, you need an understanding of our development environment, the most important fact about which is that most of Google’s code is kept in a single, monolithic repository ([monorepo](https://oreil.ly/qSihi)). Almost every line of code for every product and service we operate is all stored in one place. We have more than two billion lines of code in the repository today.
 
+到此为止的大部分指导可以应用于几乎任何规模的代码库。然而，我们应该花一些时间来讨论我们在非常大的规模下测试所学到的东西。要了解测试在谷歌是如何工作的，你需要了解我们的开发环境，其中最重要的事实是，谷歌的大部分代码都保存在一个单个单版本版本库（monorepo）。我们运营的每种产品和服务的几乎每一行代码都存储在一个地方。今天，存储库中有20多亿行代码。
+
 Google’s codebase experiences close to 25 million lines of change every week. Roughly half of them are made by the tens of thousands of engineers working in our monorepo, and the other half by our automated systems, in the form of configuration updates or large-scale changes ([Chapter 22](#_bookmark1935)). Many of those changes are initiated from outside the immediate project. We don’t place many limitations on the ability of engineers to reuse code.
+
+谷歌的代码库每周都要经历接近2500万行的变更。其中大约一半是由成千上万的工程师在我们的monorepo中工作，另一半是由我们的自动化系统以配置更新或大规模变更的形式进行的（第22章)）。其中许多变更是由直接项目以外的人发起的。我们对工程师重用代码的能力没有施加很多限制。
 
 The openness of our codebase encourages a level of co-ownership that lets everyone take responsibility for the codebase. One benefit of such openness is the ability to directly fix bugs in a product or service you use (subject to approval, of course) instead of complaining about it. This also implies that many people will make changes in a part of the codebase owned by someone else.
 
+我们代码库的开放性鼓励了一定程度的共同所有权，让每个人都对代码库负责。这种开放性的一个好处是能够直接修复你使用的产品或服务中的错误（当然，需要获得批准），而不是抱怨它。这也意味着许多人将对其他人拥有的代码库的一部分进行更改。
+
 Another thing that makes Google a little different is that almost no teams use repository branching. All changes are committed to the repository head and are immediately visible for everyone to see. Furthermore, all software builds are performed using the last committed change that our testing infrastructure has validated. When a product or service is built, almost every dependency required to run it is also built from source, also from the head of the repository. Google manages testing at this scale by use of a CI system. One of the key components of our CI system is our Test Automated Platform (TAP).
 
+另一件让谷歌有点不同的事情是，几乎没有团队使用版本库分支。所有的更改都提交到了版本库的负责人，并且每个人都可以立即看到。此外，所有的软件构建都是使用我们的测试基础设施验证过的最后一次提交的变更。当一个产品或服务被构建时，几乎所有运行该产品或服务所需的依赖也都是从源代码构建的，也是从资源库的head。谷歌通过使用CI系统来管理这种规模的测试。我们CI系统的关键组成部分之一是我们的测试自动化平台（TAP）。
+
 Whether you are considering our size, our monorepo, or the number of products we offer, Google’s engineering environment is complex. Every week it experiences millions of changing lines, billions of test cases being run, tens of thousands of binaries being built, and hundreds of products being updated—talk about complicated!
+
+无论你考虑的是我们的规模、我们的monorepo，还是我们提供的产品数量，谷歌的工程环境都很复杂。每周，它都要经历数百万条变化的线路，数十亿个测试案例的运行，数万个二进制文件的构建，以及数百个产品的更新--说起来很复杂!
 
 ### The Pitfalls of a Large Test Suite
 
