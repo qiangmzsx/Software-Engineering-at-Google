@@ -448,63 +448,107 @@ Whether you are considering our size, our monorepo, or the number of products we
 
 无论你考虑的是我们的规模、我们的monorepo，还是我们提供的产品数量，谷歌的工程环境都很复杂。每周，它都要经历数百万条变化的线路，数十亿个测试案例的运行，数万个二进制文件的构建，以及数百个产品的更新--说起来很复杂!
 
-### The Pitfalls of a Large Test Suite
+### The Pitfalls of a Large Test Suite  大型测试套件的缺陷
 
 As a codebase grows, you will inevitably need to make changes to existing code. When poorly written, automated tests can make it more difficult to make those changes. Brittle tests—those that over-specify expected outcomes or rely on extensive and complicated boilerplate—can actually resist change. These poorly written tests can fail even when unrelated changes are made.
 
+随着代码库的增长，不可避免地需要对现有代码进行更改。如果编写得不好，自动化测试会使进行这些更改变得更加困难。脆性测试--那些过度指定预期结果或依赖广泛而复杂的模板的测试，实际上可以抵制变化。这些写得不好的测试可能会失败，即使是在进行不相关的更改时。
+
 If you have ever made a five-line change to a feature only to find dozens of unrelated, broken tests, you have felt the friction of brittle tests. Over time, this friction can make a team reticent to perform necessary refactoring to keep a codebase healthy. The subsequent chapters will cover strategies that you can use to improve the robustness and quality of your tests.
+
+如果你曾经对一个功能做了五行的修改，却发现有几十个不相关的、中断的测试，你就会感觉到脆性测试的阻力。随着时间的推移，这种阻力会使一个团队不愿意进行必要的重构来保持代码库的健康。后续章节将介绍可用于提高测试健壮性和质量的策略。
 
 Some of the worst offenders of brittle tests come from the misuse of mock objects. Google’s codebase has suffered so badly from an abuse of mocking frameworks that it has led some engineers to declare “no more mocks!” Although that is a strong statement, understanding the limitations of mock objects can help you avoid misusing them.
 
+脆性测试的一些最严重的犯错来自于对模拟对象的滥用。谷歌的代码库因滥用模拟框架而受到严重影响，导致一些工程师宣布 "不再使用模拟对象"。虽然这是一个强烈的声明，但了解模拟对象的局限性可以帮助你避免滥用它们。
+
 In addition to the friction caused by brittle tests, a larger suite of tests will be slower to run. The slower a test suite, the less frequently it will be run, and the less benefit it provides. We use a number of techniques to speed up our test suite, including parallelizing execution and using faster hardware. However, these kinds of tricks are eventually swamped by a large number of individually slow test cases.
+
+除了脆性测试引起的阻力外，大型测试套件的运行速度也会更慢。测试套件越慢，它的运行频率就越低，提供的好处也就越少。我们使用一些技术来加快我们的测试套件，包括并行执行和使用更快的硬件。然而，这些技巧甚至被大量单独的缓慢测试用例所淹没。
 
 Tests can become slow for many reasons, like booting significant portions of a system, firing up an emulator before execution, processing large datasets, or waiting for disparate systems to synchronize. Tests often start fast enough but slow down as the system grows. For example, maybe you have an integration test exercising a single dependency that takes five seconds to respond, but over the years you grow to depend on a dozen services, and now the same tests take five minutes.
 
+测试会因为很多原因而变得缓慢，比如启动系统的重要部分，在执行前启动模拟器，处理大型数据集，或者等待不同的系统同步。测试开始时往往足够快，但随着系统的发展，速度会变慢。例如，也许你有一个集成测试，它请求某个依赖，需要5秒钟的响应，但随着时间的推移，你逐步依赖十几个服务，现在同样的测试需要5分钟。
+
 Tests can also become slow due to unnecessary speed limits introduced by functions like sleep() and setTimeout(). Calls to these functions are often used as naive heuristics before checking the result of nondeterministic behavior. Sleeping for half a second here or there doesn’t seem too dangerous at first; however, if a “wait-and-check” is embedded in a widely used utility, pretty soon you have added minutes of idle time to every run of your test suite. A better solution is to actively poll for a state transition with a frequency closer to microseconds. You can combine this with a timeout value in case a test fails to reach a stable state.
+
+由于sleep()和setTimeout()等函数引入的不必要的速度限制，测试也会变得缓慢。在检查不确定性行为的结果之前，对这些函数的调用通常被用作简单的启发式。在这里或那里休眠半秒钟，起初看起来并不太危险；然而，如果 "等待和检查 "被嵌入到一个广泛使用的工具中，很快你就会在你的测试套件的每次运行中增加几分钟的等待时间。更好的解决方案是以接近微秒的频率主动轮询状态转换。你可以把它和一个超时值结合起来，以防测试无法达到稳定状态。
 
 Failing to keep a test suite deterministic and fast ensures it will become roadblock to productivity. At Google, engineers who encounter these tests have found ways to work around slowdowns, with some going as far as to skip the tests entirely when submitting changes. Obviously, this is a risky practice and should be discouraged, but if a test suite is causing more harm than good, eventually engineers will find a way to get their job done, tests or no tests.
 
+如果不能保持测试套件的确定性和快速，那么它将成为生产力的障碍。在谷歌，遇到这些测试的工程师们已经找到了解决速度慢的方法，有些人甚至在提交更改时完全跳过测试。显然，这是一种危险的做法，应该被阻止，但如果测试套件利大于弊，最终工程师会找到一种方法来完成他们的工作，不管有没有测试。
+
 The secret to living with a large test suite is to treat it with respect. Incentivize engineers to care about their tests; reward them as much for having rock-solid tests as you would for having a great feature launch. Set appropriate performance goals and refactor slow or marginal tests. Basically, treat your tests like production code. When simple changes begin taking nontrivial time, spend effort making your tests less brittle.
+
+使用大型测试套件的秘诀是尊重它。激励工程师关心他们的测试；奖励他们拥有坚如磐石的测试，就像奖励他们推出一个伟大的功能一样。设定适当的性能目标，重构渐进或边缘测试。基本上，把你的测试当作生产代码。当简单的修改开始花费大量的时间时，要花精力让你的测试不那么脆弱。
 
 In addition to developing the proper culture, invest in your testing infrastructure by developing linters, documentation, or other assistance that makes it more difficult to write bad tests. Reduce the number of frameworks and tools you need to support to increase the efficiency of the time you invest to improve things.[8](#_bookmark919) If you don’t invest in making it easy to manage your tests, eventually engineers will decide it isn’t worth having them at all.
 
+除了发展适当的文化，通过开发工具、文档或其他援助，投资于你的测试基础设施，这些帮助会使其更难写出糟糕的测试。减少你需要支持的框架和工具的数量，以提高改进工作的时间效率。如果不投资于简化测试管理，工程师最终会认为根本不值得拥有它们。
+
 ```
 8	Each supported language at Google has one standard test framework and one standard mocking/stubbing library. One set of infrastructure runs most tests in all languages across the entire codebase.
+
+8 谷歌支持的每种语言都有一个标准的测试框架和一个标准的模拟/打桩库。一套基础设施在整个代码库中运行所有语言的大多数测试。
 ```
 
-## History of Testing at Google
+## History of Testing at Google  谷歌的测试历史
 
 Now that we’ve discussed how Google approaches testing, it might be enlightening to learn how we got here. As mentioned previously, Google’s engineers didn’t always embrace the value of automated testing. In fact, until 2005, testing was closer to a curiosity than a disciplined practice. Most of the testing was done manually, if it was done at all. However, from 2005 to 2006, a testing revolution occurred and changed the way we approach software engineering. Its effects continue to reverberate within the company to this day.
 
+既然我们已经讨论了谷歌是如何进行测试的，那么了解一下我们是如何做到这一点可能会有所启发。如前所述，谷歌的工程师并不总是接受自动化测试的价值。事实上，直到2005年，测试更像是一种好奇心，而不是一种严格的实践。大部分的测试都是手动完成的，如果有的话。然而，从2005年到2006年，发生了一场测试革命，改变了我们对待软件工程的方式。其影响至今仍在公司内部回响。
+
 The experience of the GWS project, which we discussed at the opening of this chapter, acted as a catalyst. It made it clear how powerful automated testing could be. Following the improvements to GWS in 2005, the practices began spreading across the entire company. The tooling was primitive. However, the volunteers, who came to be known as the Testing Grouplet, didn’t let that slow them down.
+
+我们在本章开头讨论的GWS项目的经验，起到了催化剂的作用。它清晰地展示了自动化测试的强大功能。在2005年对GWS的改进之后，这种做法开始在整个公司推广。工具是原始的。然而，被称为 "测试小组 "的志愿者们并没有因此而懈怠。
 
 Three key initiatives helped usher automated testing into the company’s consciousness: Orientation Classes, the Test Certified program, and Testing on the Toilet. Each one had influence in a completely different way, and together they reshaped Google’s engineering culture.
 
-### Orientation Classes
+三个关键的举措有助于将自动化测试引入公司的意识。定向班、测试认证计划和厕所测试。每一项都以完全不同的方式产生影响，它们共同重塑了谷歌的工程文化。
+
+### Orientation Classes  定向班
 
 Even though much of the early engineering staff at Google eschewed testing, the pioneers of automated testing at Google knew that at the rate the company was growing, new engineers would quickly outnumber existing team members. If they could reach all the new hires in the company, it could be an extremely effective avenue for introducing cultural change. Fortunately, there was, and still is, a single choke point that all new engineering hires pass through: orientation.
 
+尽管谷歌早期的工程人员大多回避测试，但Google自动化测试的工程师们知道，按照公司的发展速度，新加入的工程师会很快超过现有的团队成员。如果他们能接触到公司所有的新员工，这可能是一个引入文化变革的极其有效的途径。幸运的是，所有新的工程人员都要经历一个瓶颈：定位。
+
 Most of Google’s early orientation program concerned things like medical benefits and how Google Search worked, but starting in 2005 it also began including an hour- long discussion of the value of automated testing.[9](#_bookmark922) The class covered the various benefits of testing, such as increased productivity, better documentation, and support for refactoring. It also covered how to write a good test. For many Nooglers (new Googlers) at the time, such a class was their first exposure to this material. Most important, all of these ideas were presented as though they were standard practice at the company. The new hires had no idea that they were being used as trojan horses to sneak this idea into their unsuspecting teams.
+
+谷歌早期的指导计划大多涉及诸如医疗福利和谷歌搜索如何工作，但从2005年开始，它也开始包括一个长达一小时的关于自动化测试价值的讨论。该课程涵盖了测试的各种好处，如提高生产力，更好的文档，以及对重构的支持。它还包括如何写一个好的测试。对于当时的许多Nooglers（新的Googlers）来说，这样的课程是他们第一次接触到这种材料。最重要的是，所有这些想法都是作为公司的标准做法来介绍的。新员工们不知道他们被当作特洛伊木马，把这种想法偷偷带入他们毫无戒心的团队。
 
 As Nooglers joined their teams following orientation, they began writing tests and questioning those on the team who didn’t. Within only a year or two, the population of engineers who had been taught testing outnumbered the pretesting culture engineers. As a result, many new projects started off on the right foot.
 
+当Noogler加入他们的团队后，他们开始写测试，并质疑团队中那些没有写的人。在短短的一两年内，接受过测试教学的工程师人数超过了预先测试的文化工程师。因此，许多新项目一开始就很顺利。
+
 Testing has now become more widely practiced in the industry, so most new hires arrive with the expectations of automated testing firmly in place. Nonetheless, orientation classes continue to set expectations about testing and connect what Nooglers  know about testing outside of Google to the challenges of doing so in our very large and very complex codebase.
+
+现在，测试已经在行业中得到了更广泛的应用，所以大多数新员工来到这里时，对自动化测试的期望已经很高了。尽管如此，迎新课程仍然要设定对测试的期望，并将Nooglers在谷歌以外的测试知识与在我们非常大和非常复杂的代码库中进行测试的挑战联系起来。
 
 ```
 9	This class was so successful that an updated version is still taught today. In fact, it is one of the longest- running orientation classes in the company’s history.
+
+9 这门课非常成功，以至于今天仍在教授更新的版本。事实上，它是公司历史上运行时间最长的定向课程之一。
 ```
 
-### Test Certified
+### Test Certified  测试认证
 
 Initially, the larger and more complex parts of our codebase appeared resistant to good testing practices. Some projects had such poor code quality that they were almost impossible to test. To give projects a clear path forward, the Testing Grouplet devised a certification program that they called Test Certified. Test Certified aimed to give teams a way to understand the maturity of their testing processes and, more critically, cookbook instructions on how to improve it.
 
+最初，我们的代码库中较大和较复杂的部分似乎对良好的测试实践有抵抗力。有些项目的代码质量很差，几乎无法测试。为了给项目提供一个明确的前进道路，测试小组设计了一个认证计划，他们称之为测试认证。测试认证的目的是让团队了解他们的测试过程的成熟度，更关键的是，提供关于如何改进测试的说明书。
+
 The program was organized into five levels, and each level required some concrete actions to improve the test hygiene on the team. The levels were designed in such a way that each step up could be accomplished within a quarter, which made it a convenient fit for Google’s internal planning cadence.
+
+该计划分为五个级别，每个级别都需要一些具体的行动来改善团队的测试状况。这些级别的设计方式是，每个级别都可以在一个季度内完成，这使得它很适合谷歌的内部规划节奏。
 
 Test Certified Level 1 covered the basics: set up a continuous build; start tracking code coverage; classify all your tests as small, medium, or large; identify (but don’t necessarily fix) flaky tests; and create a set of fast (not necessarily comprehensive) tests that can be run quickly. Each subsequent level added more challenges like “no releases with broken tests” or “remove all nondeterministic tests.” By Level 5, all tests were automated, fast tests were running before every commit, all nondeterminism had been removed, and every behavior was covered. An internal dashboard applied social pressure by showing the level of every team. It wasn’t long before teams were competing with one another to climb the ladder.
 
+测试认证的第一级涵盖了基础知识：建立持续构建；开始跟踪代码覆盖率；将你的所有测试分类为小型、中型或大型；识别（但不一定要修复）松散测试；创建一套可以快速运行的快速（不一定全面）测试。随后的每一级都增加了更多的挑战，如 "不发布有问题的测试 "或 "删除所有非确定性的测试"。到了第五级，所有的测试都是自动化的，快速测试在每次提交前都在运行，所有的非确定性都被移除，每一个行为都被覆盖。一个内部仪表板通过显示每个团队的水平来施加竞争压力。没过多久，各团队就开始互相竞争，争先恐后。
+
 By the time the Test Certified program was replaced by an automated approach in 2015 (more on pH later), it had helped more than 1,500 projects improve their testing culture.
 
-### Testing on the Toilet
+到2015年测试认证项目被自动化方法取代时（后面会有更多关于pH值的介绍），它已经帮助超过1500个项目改善了他们的测试文化。
+
+### Testing on the Toilet  厕所测试
 
 Of all the methods the Testing Grouplet used to try to improve testing at Google, perhaps none was more off-beat than Testing on the Toilet (TotT). The goal of TotT was fairly simple: actively raise awareness about testing across the entire company. The question is, what’s the best way to do that in a company with employees scattered around the world?
 

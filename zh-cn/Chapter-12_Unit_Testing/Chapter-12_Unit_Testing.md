@@ -56,11 +56,11 @@ The problems Mary ran into weren’t her fault, and there was nothing she could 
 
 Mary遇到的问题不是她的错，而且她也没有办法避免这些问题：糟糕的测试必须在出现之前被修复，以免它们给未来的工程师带来阻力。概括地说，她遇到的问题分为两类。首先，她所使用的测试是很脆弱的：它们在应对一个无害的、不相关的变化时，没有引入真正的bug而损坏。第二，测试不明确：在测试失败后，很难确定哪里出了问题，如何修复它，以及这些测试最初应该做什么。
 
-## Preventing Brittle Tests  预防脆弱测试
+## Preventing Brittle Tests  预防脆性测试
 
 As just defined, a brittle test is one that fails in the face of an unrelated change to production code that does not introduce any real bugs.[1](#_bookmark953) Such tests must be diagnosed and fixed by engineers as part of their work. In small codebases with only a few engineers, having to tweak a few tests for every change might not be a big problem. But if a team regularly writes brittle tests, test maintenance will inevitably consume a larger and larger proportion of the team’s time as they are forced to comb through an increasing number of failures in an ever-growing test suite. If a set of tests needs to be manually tweaked by engineers for each change, calling it an “automated test suite” is a bit of a stretch!
 
-正如刚才所定义的，脆弱测试是指在面对不相关的程序代码变化时失败的测试，这些变化不会引入任何真正的错误。在只有几个工程师的小型代码库中，每次修改都要调整一些测试，这可能不是一个大问题。但是，如果一个团队经常写脆弱测试，测试维护将不可避免地消耗团队越来越多的时间，因为他们不得不在不断增长的测试套件中梳理越来越多的失败。如果一套测试需要工程师为每一个变化进行手动调整，称其为 "自动化测试套件"就有点牵强了！
+正如刚才所定义的，脆性测试是指在面对不相关的程序代码变化时失败的测试，这些变化不会引入任何真正的错误。在只有几个工程师的小型代码库中，每次修改都要调整一些测试，这可能不是一个大问题。但是，如果一个团队经常写脆弱测试，测试维护将不可避免地消耗团队越来越多的时间，因为他们不得不在不断增长的测试套件中梳理越来越多的失败。如果一套测试需要工程师为每一个变化进行手动调整，称其为 "自动化测试套件"就有点牵强了！
 
 Brittle tests cause pain in codebases of any size, but they become particularly acute at Google’s scale. An individual engineer might easily run thousands of tests in a single day during the course of their work, and a single large-scale change (see [Chapter 22](#_bookmark1935)) can trigger hundreds of thousands of tests. At this scale, spurious breakages that affect even a small percentage of tests can waste huge amounts of engineering time. Teams at Google vary quite a bit in terms of how brittle their test suites are, but we’ve identified a few practices and patterns that tend to make tests more robust to change.
 
@@ -70,7 +70,7 @@ Brittle tests cause pain in codebases of any size, but they become particularly 
 
 Before talking about patterns for avoiding brittle tests, we need to answer a question: just how often should we expect to need to change a test after writing it? Any time spent updating old tests is time that can’t be spent on more valuable work. Therefore, *the ideal test is unchanging*: after it’s written, it never needs to change unless the requirements of the system under test change.
 
-在讨论避免脆弱测试的模式之前，我们需要回答一个问题：编写测试后，我们应该多久更改一次测试？任何花在更新旧测试上的时间都不能花在更有价值的工作上。因此，*理想的测试是不变的：*在编写之后，它永远不需要更改，除非被测系统的需求发生变化。
+在讨论避免脆性测试的模式之前，我们需要回答一个问题：编写测试后，我们应该多久更改一次测试？任何花在更新旧测试上的时间都不能花在更有价值的工作上。因此，*理想的测试是不变的：*在编写之后，它永远不需要更改，除非被测系统的需求发生变化。
 
 What does this look like in practice? We need to think about the kinds of changes that engineers make to production code and how we should expect tests to respond to those changes. Fundamentally, there are four kinds of changes:
 
@@ -242,7 +242,7 @@ Another way that tests commonly depend on implementation details involves not wh
 
 Interaction tests tend to be more brittle than state tests for the same reason that it’s more brittle to test a private method than to test a public method: interaction tests check *how* a system arrived at its result, whereas usually you should care only *what* the result is. [Example 12-4 ](#_bookmark971)illustrates a test that uses a test double (explained further in [Chapter 13](#_bookmark1056)) to verify how a system interacts with a database.
 
-交互测试往往比状态测试更脆，原因与测试一个私有方法比测试一个公共方法更脆的原因相同：交互测试检查系统是*如何*得到结果的，而通常你只应该关心结果是*什么*。例12-4展示了一个测试，它使用一个测试替换（在第13章中进一步解释）来验证一个系统如何与数据库交互。
+交互测试往往比状态测试更脆弱，原因与测试一个私有方法比测试一个公共方法更脆的原因相同：交互测试检查系统是*如何*得到结果的，而通常你只应该关心结果是*什么*。例12-4展示了一个测试，它使用一个测试替换（在第13章中进一步解释）来验证一个系统如何与数据库交互。
 
 *Example  12-4. A brittle interaction test*  *例12-4.  脆弱性相互作用测试*
 
@@ -299,7 +299,7 @@ Test failures happen for one of two reasons:3
 测试失败有两个原因之一：
 
 - 被测系统有问题或不完整。这个结果正是测试的设计目的：提醒你注意bug，以便你能修复它们。
-- 测试本身是有缺陷的。在这种情况下，被测系统没有任何问题，但测试的指定是不正确的。如果这是一个现有的测试，而不是你刚写的测试，这意味着测试是脆弱的。上一节讨论了如何避免脆弱测试，但很少有可能完全消除它们。
+- 测试本身是有缺陷的。在这种情况下，被测系统没有任何问题，但测试的指定是不正确的。如果这是一个现有的测试，而不是你刚写的测试，这意味着测试是脆弱的。上一节讨论了如何避免脆性测试，但很少有可能完全消除它们。
 
 When a test fails, an engineer’s first job is to identify which of these cases the failure falls into and then to diagnose the actual problem. The speed at which the engineer can do so depends on the test’s clarity. A clear test is one whose purpose for existing and reason for failing is immediately clear to the engineer diagnosing a failure. Tests fail to achieve clarity when their reasons for failure aren’t obvious or when it’s difficult to figure out why they were originally written. Clear tests also bring other benefits, such as documenting the system under test and more easily serving as a basis for new tests.
 
