@@ -952,7 +952,7 @@ Unit tests at Google are far from perfect, but we’ve found tests that follow t
 
 谷歌的单元测试远非完美，但我们发现遵循本章所述做法的测试比那些不遵循的测试要有价值得多。我们希望它们能帮助你提高你自己的测试的质量。
 
-## TL;DRs
+## TL;DRs  内容提要
 - Strive for unchanging tests.
 
 - Test via public APIs.

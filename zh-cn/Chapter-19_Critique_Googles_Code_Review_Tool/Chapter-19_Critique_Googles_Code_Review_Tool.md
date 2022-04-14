@@ -415,7 +415,7 @@ Trust and communication are core to the code review process. A tool can enhance 
 
 信任和沟通是代码审查过程的核心。工具可以增强体验，但不能替代它们。与其他工具的紧密结合也是Critique成功的一个关键因素。
 
-## TL;DRs
+## TL;DRs  内容提要
 
 •   Trust and communication are core to the code review process. A tool can enhance the experience, but it can’t replace them.
 •   Tight integration with other tools is key to great code review experience.

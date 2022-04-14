@@ -757,7 +757,7 @@ Even though we’ve described our CI processes and some of how we’ve automated
 
 尽管我们已经描述了我们的 CI 流程和一些自动化的方法，但这并不是说我们已经开发了完美的 CI 系统。毕竟，CI系统本身只是一个软件，永远不会完整，应该进行调整以满足应用程序和工程师不断变化的需求。我们试图用Takeout的CI的演变和我们指出的未来改进领域来说明这一点。
 
-## TL;DRs
+## TL;DRs  内容提要
 
 - A CI system decides what tests to use, and when.
 

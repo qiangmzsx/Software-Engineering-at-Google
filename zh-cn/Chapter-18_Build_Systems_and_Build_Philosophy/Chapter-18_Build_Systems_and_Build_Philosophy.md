@@ -646,7 +646,7 @@ The remainder of this chapter explored how to manage dependencies in an artifact
 
 本章的其余部分探讨了如何在一个基于工件的系统中管理依赖关系。我们得出的结论是：*细粒度的模块比粗粒度的模块更容易扩展。我们还讨论了管理依赖版本的困难，描述了* "一个版本规则 "*，以及所有的依赖都应该*手动和明确的版本*的观点。这样的做法可以避免像钻石依赖问题这样的常见陷阱，并允许代码库在一个具有统一构建系统的单一存储库中实现谷歌数万亿行代码的规模。
 
-# TL;DRs
+# TL;DRs  内容提要
 •   A fully featured build system is necessary to keep developers productive as an organization scales.
 •   Power and flexibility come at a cost. Restricting the build system appropriately makes it easier on developers.
 

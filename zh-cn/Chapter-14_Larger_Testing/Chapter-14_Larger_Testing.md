@@ -952,7 +952,7 @@ A comprehensive test suite requires larger tests, both to ensure that tests matc
 
 一个全面的测试套件需要大型测试，既要确保测试与被测系统的仿真度相匹配，又要解决单元测试不能充分覆盖的问题。因为这样的测试必然更复杂，运行速度更慢，所以必须注意确保这样的大型测试是正确的，良好的维护，并在必要时运行（例如在部署到生产之前）。总的来说，这种大型测试仍然必须尽可能的小（同时仍然保留仿真度），以避免开发人员的阻力。一个全面的测试策略，确定系统的风险，以及解决这些风险的大型测试，对大多数软件项目来说是必要的。
 
-## TL;DRs
+## TL;DRs  内容提要
 •   Larger tests cover things unit tests cannot.
 •   Large tests are composed of a System Under Test, Data, Action, and Verification.
 •   A good design includes a test strategy that identifies risks and larger tests that mitigate them.

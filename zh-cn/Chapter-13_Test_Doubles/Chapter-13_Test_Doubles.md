@@ -936,7 +936,7 @@ Although test doubles are great for working around dependencies that are difficu
 
 尽管测试替代对于处理测试中难以使用的依赖项非常有用，但如果你想最大限度地提高代码的可信度，在某些时候你仍然希望在测试中使用这些依赖项。下一章将介绍更大范围的测试，对于这些测试，不管它们是否适合单元测试，都将使用这些依赖关系；例如，即使它们很慢或不确定。
 
-## TL;DRs
+## TL;DRs  内容提要
 - A real implementation should be preferred over a test double.
 - A fake is often the ideal solution if a real implementation can’t be used in a test.
 - Overuse of stubbing leads to tests that are unclear and brittle.

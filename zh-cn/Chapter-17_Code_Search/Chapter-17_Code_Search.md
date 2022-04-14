@@ -474,7 +474,7 @@ For you, this might mean setting up a standard indexing profile for IDEs, sharin
 
 对您而言，这可能意味着为 IDE 设置标准索引配置文件、分享有关 egrep 的知识、运行 ctags 或设置一些自定义索引工具，例如代码搜索。无论你做什么，它几乎肯定会被使用，而且使用得更多，而且使用的方式与你预期的不同—你的开发人员将从中受益。
 
-## TL;DRs
+## TL;DRs  内容提要
 
 • Helping your developers understand code can be a big boost to engineering productivity. At Google, the key tool for this is Code Search.
 

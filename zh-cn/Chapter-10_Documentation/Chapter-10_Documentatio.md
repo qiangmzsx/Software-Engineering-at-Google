@@ -578,14 +578,11 @@ To change the quality of engineering documentation, engineers—and the entire e
 
 为了改变工程文档的质量，工程师和整个工程组织需要接受他们既是问题又是解决方案。他们需要意识到，制作高质量的文档是他们工作的一部分，从长远来看，这可以节省他们的时间和精力，而不是在当前文档状态下束手无策。对于任何一段生命周期超过几个月的代码，记录该代码的额外周期不仅有助于其他人，也有助于维护该代码。
 
-## TL;DRs
-•	Documentation is hugely important over time and scale.
-
-•	Documentation changes should leverage the existing developer workflow.
-
-•	Keep documents focused on one purpose.
-
-•	Write for your audience, not yourself.
+## TL;DRs  内容提要
+- Documentation is hugely important over time and scale.
+- Documentation changes should leverage the existing developer workflow.
+- Keep documents focused on one purpose.
+- Write for your audience, not yourself.
 
 - 随着时间和规模的增长，文档是非常重要的。
 - 文档的变化应该利用现有的开发人员的工作流程。

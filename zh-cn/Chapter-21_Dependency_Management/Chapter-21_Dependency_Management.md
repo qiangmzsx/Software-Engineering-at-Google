@@ -667,7 +667,7 @@ It is possible, however, that we move toward a world in which maintainer-provide
 
 然而，我们有可能走向这样一个世界：维护者提供的兼容性估计（SemVer版本号）被放弃，而采用经验驱动的证据：运行受影响的下游包的测试。如果API提供者承担起更大的责任，针对他们的用户进行测试，并明确宣传预计会有哪些类型的变化，我们就有可能在更大的范围内建立更高仿真的依赖网络。
 
-## TL;DRs
+## TL;DRs  内容提要
 
 - Prefer source control problems to dependency management problems: if you can get more code from your organization to have better transparency and coordination, those are important simplifications.
 

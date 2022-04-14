@@ -263,7 +263,7 @@ Simply having the structures in place that *enable* continuous deployment genera
 
 仅仅拥有*能够*持续部署的结构，就能产生大部分的价值，*即使你没有真正把这些版本推送给用户*。我们的意思是什么呢？我们实际上并不是每天都发布一个完全不同的搜索、地图或YouTube的版本，但要做到这一点，就需要一个健壮的、有良好文档记录的连续部署过程、关于用户满意度和产品健康状况的准确实时指标，以及一个协调一致的团队，该团队拥有明确的政策，以确定成功与否以及原因。在实践中，要做到这一点，往往还需要可以在生产中配置的二进制包，像代码一样管理的配置（在版本控制中），以及一个可以采取安全措施的工具链，如干运行验证、回滚/前滚机制和可靠的补丁。
 
-## TL;DRs
+## TL;DRs  内容提要
 
 - *Velocity is a team sport*: The optimal workflow for a large team that develops code collaboratively requires modularity of architecture and near-continuous integration.
 

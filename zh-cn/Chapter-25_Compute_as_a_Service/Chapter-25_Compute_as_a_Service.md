@@ -753,34 +753,16 @@ That said, although Google has, overall, been both satisfied and successful with
 
 这就是说，尽管谷歌总体上对其架构的选择感到满意并取得了成功，但其他组织将从一系列计算服务中进行选择，从手工管理的虚拟机或机器的“宠物”模型，通过“牛”复制容器，到抽象的“无服务器”模型，所有版本都有托管和开源版本；你的选择是许多因素的复杂权衡。
 
-## TL;DRs
+## TL;DRs  内容提要
 
-•   Scale requires a common infrastructure for running workloads in production.
-
-•   A compute solution can provide a standardized, stable abstraction and environment for software.
-
-•   Software needs to be adapted to a distributed, managed compute environment.
-
-•   The compute solution for an organization should be chosen thoughtfully to provide appropriate levels of abstraction.
+- Scale requires a common infrastructure for running workloads in production.
+- A compute solution can provide a standardized, stable abstraction and environment for software.
+- Software needs to be adapted to a distributed, managed compute environment.
+- The compute solution for an organization should be chosen thoughtfully to provide appropriate levels of abstraction.
 
 - 规模化需要一个通用的基础设施来运行生产中的工作负载。
 - 一个计算解决方案可以为软件提供一个标准化的、稳定的抽象和环境。
 - 软件需要适应一个分布式的、可管理的计算环境。
 - 组织的计算解决方案应经过深思熟虑的选择，以提供适当的抽象级别。
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 

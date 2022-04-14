@@ -7,6 +7,7 @@
 - [第六章：规模优先](zh-cn/Chapter-6_Leading_at_Scale/Chapter-6_Leading_at_Scale.md)
 - [第九章：代码审查](zh-cn/Chapter-9_Code_Review/Chapter-9_Code_Review.md)
 - [第十章 文档](zh-cn/Chapter-10_Documentation/Chapter-10_Documentatio.md)
+- [第十一章：测试概述](zh-cn/Chapter-11_Testing_Overview/Chapter-11_Testing_Overview.md)
 - [第十二章：单元测试](zh-cn/Chapter-12_Unit_Testing/Chapter-12_Unit_Testing.md)
 - [第十三章 测试替代](zh-cn/Chapter-13_Test_Doubles/Chapter-13_Test_Doubles.md)
 - [第十四章 大型测试](zh-cn/Chapter-14_Larger_Testing/Chapter-14_Larger_Testing.md)

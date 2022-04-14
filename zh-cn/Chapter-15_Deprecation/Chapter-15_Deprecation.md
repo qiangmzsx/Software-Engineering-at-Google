@@ -341,9 +341,8 @@ A complete deprecation process involves successfully managing social and technic
 完整的“弃用”过程涉及到管理和技术两个层面的挑战。 有效地管理“弃用”通常因不会带来盈利而被轻忽，但它对 其长期可持续性维护却至关重要。
 
 
-<a id="org9c62368"></a>
 
-# TL;DRs
+# TL;DRs  内容提要
 
 -   Software systems have continuing maintenance costs that should be weighed against the costs of removing them.
 -   Removing things is often more difficult than building them to begin with because existing users are often using the system beyond its original design.

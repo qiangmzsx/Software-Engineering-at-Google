@@ -558,7 +558,7 @@ This book discusses all of these topics: policies for an organization and for a 
 
 
 
-## TL;DRs
+## TL;DRs  内容提要
 - Software engineering” differs from “programming” in dimensionality: programming is about producing code. Software engineering extends that to include the maintenance of that code for its useful life span.
 - There is a factor of at least 100,000 times between the life spans of short-lived code and long-lived code. It is silly to assume that the same best practices apply universally on both ends of that spectrum.
 - Software is sustainable when, for the expected life span of the code, we are capable of responding to changes in dependencies, technology, or product requirements. We may choose to not change things, but we need to be capable.
@@ -582,56 +582,5 @@ This book discusses all of these topics: policies for an organization and for a 
 - “因为我说过”是做事的可怕理由。
 - 数据驱动是一个良好的开端，但实际上，大多数决策都是基于数据、假设、先例和论据的混合。最好是客观数据占这些输入的大部分，但很少可能是全部。
 - 随着时间的推移，数据驱动意味着当数据发生变化时（或假设消除时），需要改变方向。错误或修订的计划不在表中。
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 

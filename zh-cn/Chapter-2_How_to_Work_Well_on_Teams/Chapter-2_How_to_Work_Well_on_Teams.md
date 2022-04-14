@@ -514,11 +514,11 @@ The foundation for almost any software endeavor—of almost any size—is a well
 
 几乎任何规模的软件工作的基础都是一个运作良好的团队。尽管软件开发者单打独斗的 "天才神话 "仍然存在，但事实是，没有人能够真正地单干。一个软件组织要想经受住时间的考验，就必须有一种健康的文化，植根于谦逊、信任和尊重，围绕着团队而不是个人。此外，软件开发的创造性要求人们承担风险并偶尔失败；为了让人们接受这种失败，必须有一个健康的团队环境。
 
-## TL;DRs
+## TL;DRs  内容提要
 
-•    Be aware of the trade-offs of working in isolation.
-•    Acknowledge the amount of time that you and your team spend communicating and in interpersonal conflict. A small investment in understanding personalities and working styles of yourself and others can go a long way toward improving productivity.
-•    If you want to work effectively with a team or a large organization, be aware of your preferred working style and that of others.
+-  Be aware of the trade-offs of working in isolation.
+- Acknowledge the amount of time that you and your team spend communicating and in interpersonal conflict. A small investment in understanding personalities and working styles of yourself and others can go a long way toward improving productivity.
+- If you want to work effectively with a team or a large organization, be aware of your preferred working style and that of others.
 
 - 意识到孤立工作的得失。
 - 认识到你和你的团队花在沟通和人际冲突上的时间。在了解自己和他人的个性和工作风格方面进行少量投入，对提高生产力有很大帮助。

@@ -487,7 +487,7 @@ Code review is one of the most important and critical processes at Google. Code 
 
 代码审查是谷歌最重要、最关键的流程之一。代码评审充当着工程师之间的粘合剂，代码评审过程是开发人员的主要工作流程，几乎所有其他过程都必须依赖于此，从测试到静态分析再到CI。代码评审过程必须适当扩展，因此，最佳实践（包括小变更、快速反馈和迭代）对于保持开发人员满意度和适当的生产速度非常重要。
 
-## TL;DRs
+## TL;DRs  内容提要
 
 - Code review has many benefits, including ensuring code correctness, comprehension, and consistency across a codebase.
 

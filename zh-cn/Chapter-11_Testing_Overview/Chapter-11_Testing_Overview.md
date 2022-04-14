@@ -552,59 +552,100 @@ By the time the Test Certified program was replaced by an automated approach in 
 
 Of all the methods the Testing Grouplet used to try to improve testing at Google, perhaps none was more off-beat than Testing on the Toilet (TotT). The goal of TotT was fairly simple: actively raise awareness about testing across the entire company. The question is, what’s the best way to do that in a company with employees scattered around the world?
 
+在测试小组用来改善谷歌测试的所有方法中，也许没有一种方法比 "厕所测试"（TotT）更离谱。TotT的目标相当简单：积极提高整个公司的测试意识。问题是，在一个员工分散在世界各地的办公地，怎样做才是最好的？
+
 The Testing Grouplet considered the idea of a regular email newsletter, but given the heavy volume of email everyone deals with at Google, it was likely to become lost in the noise. After a little bit of brainstorming, someone proposed the idea of posting flyers in the restroom stalls as a joke. We quickly recognized the genius in it: the bathroom is one place that everyone must visit at least once each day, no matter what. Joke or not, the idea was cheap enough to implement that it had to be tried.
+
+测试小组考虑了定期发送电子邮件通讯的想法，但鉴于谷歌公司每个人都要处理大量的电子邮件，它很可能会在噪音中消失。经过一番头脑风暴后，有人提出了在洗手间的隔间里张贴海报的想法，作为一个玩笑。我们很快就认识到了其中的天才之处：无论如何，卫生间是每个人每天至少要去一次的地方。不管是不是玩笑，这个想法实施起来很简单，所以必须尝试一下。
 
 In April 2006, a short writeup covering how to improve testing in Python appeared in restroom stalls across Google. This first episode was posted by a small band of volunteers. To say the reaction was polarized is an understatement; some saw it as an invasion of personal space, and they objected strongly. Mailing lists lit up with complaints, but the TotT creators were content: the people complaining were still talking about testing.
 
+2006年4月，一篇涵盖如何改进Python测试的短文出现在整个谷歌的洗手间里。这第一集是由一小群志愿者发布的。说反应两极化是轻描淡写的；一些人认为这是对个人空间的侵犯，他们强烈反对。邮件列表中的抱怨声此起彼伏，但TotT的创造者们却很满意：抱怨的人仍在谈论测试。
+
 Ultimately, the uproar subsided and TotT quickly became a staple of Google culture. To date, engineers from across the company have produced several hundred episodes, covering almost every aspect of testing imaginable (in addition to a variety of other technical topics). New episodes are eagerly anticipated and some engineers even volunteer to post the episodes around their own buildings. We intentionally limit each episode to exactly one page, challenging authors to focus on the most important and actionable advice. A good episode contains something an engineer can take back to the desk immediately and try.
+
+最终，喧嚣平息下来，TotT迅速成为谷歌文化的主食。到目前为止，来自整个公司的工程师已经制作了数百集，涵盖了几乎所有可以想象的测试方面（除了各种其他技术主题）。人们热切期待着新的剧集，一些工程师甚至在自己的工位周围张贴剧集。我们有意将每一集的篇幅限制在一页以内，要求作者专注于最重要、最可行的建议。一集好的文章包含了工程师可以立即带回到办公桌上并进行尝试的内容。
 
 Ironically for a publication that appears in one of the more private locations, TotT has had an outsized public impact. Most external visitors see an episode at some point in their visit, and such encounters often lead to funny conversations about how Googlers always seem to be thinking about code. Additionally, TotT episodes make great blog posts, something the original TotT authors recognized early on. They began publishing [lightly edited versions publicly](https://oreil.ly/86Nho), helping to share our experience with the industry at large.
 
+具有讽刺意味的是，对于一个出现在比较隐秘的地方的出版物来说，TotT已经产生了巨大的公共影响。大多数外部访问者在他们的访问中都会看到一集，而这样的接触往往会导致有趣的对话，即Googlers似乎总是在思考代码问题。此外，TotT剧集是很好的博客文章，这一点TotT的原作者很早就认识到了。他们开始公开发表轻量级的版本，帮助与整个行业分享我们的经验。
+
 Despite starting as a joke, TotT has had the longest run and the most profound impact of any of the testing initiatives started by the Testing Grouplet.
 
-### Testing Culture Today
+尽管开始时只是一个玩笑，但TotT在测试小组发起的所有测试活动中，运行时间最长，影响最深远。
+
+### Testing Culture Today  当前的测试文化
 
 Testing culture at Google today has come a long way from 2005. Nooglers still attend orientation classes on testing, and TotT continues to be distributed almost weekly. However, the expectations of testing have more deeply embedded themselves in the daily developer workflow.
 
+与2005年相比，当前谷歌的测试文化已经有了长足的进步。Nooglers仍然参加关于测试的指导课程，TotT几乎每周都会继续分发。然而，对测试的期望已经更深入地嵌入到开发人员日常工作流程中。
+
 Every code change at Google is required to go through code review. And every change is expected to include both the feature code and tests. Reviewers are expected to review the quality and correctness of both. In fact, it is perfectly reasonable to block a change if it is missing tests.
+
+谷歌的每一次代码更改都需要经过代码审查。每一个变更都将包括特性代码和测试。评审员应评审这两个文件的质量和正确性。事实上，如果某个更改缺少测试，那么阻止它是完全合理的。
 
 As a replacement for Test Certified, one of our engineering productivity teams recently launched a tool called Project Health (pH). The pH tool continuously gathers dozens of metrics on the health of a project, including test coverage and test latency, and makes them available internally. pH is measured on a scale of one (worst) to five (best). A pH-1 project is seen as a problem for the team to address. Almost every team that runs a continuous build automatically gets a pH score.
 
+作为测试认证的替代品，我们的一个工程生产力团队最近推出了一个名为项目健康（pH）的工具。pH工具不断收集项目运行状况的几十个指标，包括测试覆盖率和测试延迟，并使它们在内部可用。pH值以1（最差）到5（最佳）的比例进行测量。pH-1项目被视为团队需要解决的问题。几乎每个运行连续构建的团队都会自动获得pH分数。
+
 Over time, testing has become an integral part of Google’s engineering culture. We have myriad ways to reinforce its value to engineers across the company. Through a combination of training, gentle nudges, mentorship, and, yes, even a little friendly competition, we have created the clear expectation that testing is everyone’s job.
+
+随着时间的推移，测试已经成为谷歌工程文化不可或缺的一部分。我们有很多方法来增强它对整个公司工程师的价值。通过培训、轻推、指导，甚至一点友好的竞争，我们已经建立了一个明确的期望，即测试是每个人的工作。
 
 Why didn’t we start by mandating the writing of tests?
 
+为什么我们不开始强制编写测试？
+
 The Testing Grouplet had considered asking for a testing mandate from senior leadership but quickly decided against it. Any mandate on how to develop code would be seriously counter to Google culture and likely slow the progress, independent of the idea being mandated. The belief was that successful ideas would spread, so the focus became demonstrating success.
+
+测试小组曾考虑要求高级领导提供测试授权，但很快决定拒绝。任何关于如何开发代码的要求都将严重违背谷歌文化，并且可能会减缓进度，这与被授权的想法无关。人们相信成功的想法会传播开来，因此重点是人如何展示成功。
 
 If engineers were deciding to write tests on their own, it meant that they had fully accepted the idea and were likely to keep doing the right thing—even if no one was compelling them to.
 
-## The Limits of Automated Testing
+如果工程师们决定自己写测试，这意味着他们已经完全接受了这个想法，并有可能继续做正确的事情--即使没有人强求他们这样做。
+
+## The Limits of Automated Testing  自动化测试的局限
 
 Automated testing is not suitable for all testing tasks. For example, testing the quality of search results often involves human judgment. We conduct targeted, internal studies using Search Quality Raters who execute real queries and record their impressions. Similarly, it is difficult to capture the nuances of audio and video quality in an automated test, so we often use human judgment to evaluate the performance of telephony or video-calling systems.
 
+自动测试并不适合所有的测试任务。例如，测试搜索结果的质量通常需要人工判断。我们使用搜索质量评测员进行有针对性的内部研究，他们执行真实的查询并记录他们的印象。同样，在自动测试中很难捕捉到音频和视频质量的细微差别，所以我们经常使用人工判断来评估电话或视频通话系统的性能。
+
 In addition to qualitative judgements, there are certain creative assessments at which humans excel. For example, searching for complex security vulnerabilities is something that humans do better than automated systems. After a human has discovered and understood a flaw, it can be added to an automated security testing system like Google’s [Cloud Security Scanner ](https://oreil.ly/6_W_q)where it can be run continuously and at scale.
+
+除了定性判断外，还有一些人擅长的创造性评估。例如，搜索复杂的安全漏洞是人工比自动化系统做得更好的事情。在人类发现并理解了一个漏洞之后，它可以被添加到一个自动化的安全测试系统中，比如谷歌的云安全扫描，在那里它可以被连续和大规模地运行。
 
 A more generalized term for this technique is Exploratory Testing. Exploratory Testing is a fundamentally creative endeavor in which someone treats the application under test as a puzzle to be broken, maybe by executing an unexpected set of steps or by inserting unexpected data. When conducting an exploratory test, the specific problems to be found are unknown at the start. They are gradually uncovered by probing commonly overlooked code paths or unusual responses from the application. As with the detection of security vulnerabilities, as soon as an exploratory test discovers an issue, an automated test should be added to prevent future regressions.
 
+这种技术的一个更概括的术语是探索性测试。探索性测试从根本上说是一种创造性的工作，有人将被测试的应用程序视为一个有待破解的难题，也许是通过执行一组意想不到的步骤或插入预料之外的数据。在进行探索性测试时，要发现的具体问题在开始时是未知的。它们是通过探测通常被忽视的代码路径或来自应用程序的不寻常的反应而逐渐发现的。与安全漏洞的检测一样，一旦探索性测试发现了问题，应添加自动测试以防止将来出现倒退。
+
 Using automated testing to cover well-understood behaviors enables the expensive and qualitative efforts of human testers to focus on the parts of your products for which they can provide the most value—and avoid boring them to tears in the process.
 
-### Conclusion
+通过使用自动化测试来覆盖被充分理解的行为，测试人员可以将昂贵的定性工作重点放在产品中他们可以提供最大价值的部分，并避免在这个过程中使他们感到无聊。
+
+### Conclusion  总结
 
 The adoption of developer-driven automated testing has been one of the most transformational software engineering practices at Google. It has enabled us to build larger systems with larger teams, faster than we ever thought possible. It has helped us keep up with the increasing pace of technological change. Over the past 15 years, we have successfully transformed our engineering culture to elevate testing into a cultural norm. Despite the company growing by a factor of almost 100 times since the journey began, our commitment to quality and testing is stronger today than it has ever been.
 
+采用开发者驱动的自动化测试是谷歌公司最具变革性的软件工程实践之一。它使我们能够以更大的团队建立更大的系统，比我们想象的要快。它帮助我们跟上了技术变革的步伐。在过去的15年里，我们已经成功地改造了我们的工程文化，将测试提升为一种文化规范。尽管自旅程开始以来，公司增长了近100倍，但我们对质量和测试的承诺比以往任何时候都更加坚定。
+
 This chapter has been written to help orient you to how Google thinks about testing. In the next few chapters, we are going to dive even deeper into some key topics that have helped shape our understanding of what it means to write good, stable, and reliable tests. We will discuss the what, why, and how of unit tests, the most common kind of test at Google. We will wade into the debate on how to effectively use test doubles in tests through techniques such as faking, stubbing, and interaction testing. Finally, we will discuss the challenges with testing larger and more complex systems, like many of those we have at Google.
+
+本章旨在帮助您了解谷歌如何看待测试。在接下来的几章中，我们将深入探讨一些关键主题，这些主题有助于我们理解编写好的、稳定的、可靠的测试意味着什么。我们将讨论单元测试的内容、原因和方式，这是谷歌最常见的测试类型。我们将深入讨论如何通过模拟、打桩和交互测试等技术在测试中有效地使用测试替代。最后，我们将讨论测试更大、更复杂的系统所面临的挑战，就像我们在谷歌遇到的许多系统一样。
 
 At the conclusion of these three chapters, you should have a much deeper and clearer picture of the testing strategies we use and, more important, why we use them.
 
-## TL;DRs
+在这三章的结尾，你应该对我们使用的测试策略有一个更深入更清晰的了解，更重要的是，我们为什么使用它们。
+
+## TL;DRs  内容提要
 
 - Automated testing is foundational to enabling software to change.
-
 - For tests to scale, they must be automated.
-
 - A balanced test suite is necessary for maintaining healthy test coverage.
-
 - “If you liked it, you should have put a test on it.”
-
 - Changing the testing culture in organizations takes time.
 
+- 自动化测试是实现软件变革的基础。
+- 为了使测试规模化，它们必须是自动化的。
+- 平衡的测试套件对于保持健康的测试覆盖率是必要的。
+- "如果你喜欢它，你应该对它进行测试"。
+- 改变组织中的测试文化需要时间。

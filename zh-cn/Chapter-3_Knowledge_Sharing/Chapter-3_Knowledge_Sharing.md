@@ -669,7 +669,7 @@ Knowledge is in some ways the most important (though intangible) capital of a so
 22  这包括控制各种因素，包括在谷歌的任职期限，以及与已经具备可读性的作者相比，没有可读性的作者的CLs通常需要额外的审查。
 ```
 
-## TL;DRs
+## TL;DRs  内容提要
 - Psychological safety is the foundation for fostering a knowledge-sharing environment.
 - Start small: ask questions and write things down.
 - Make it easy for people to get the help they need from both human experts and documented references.

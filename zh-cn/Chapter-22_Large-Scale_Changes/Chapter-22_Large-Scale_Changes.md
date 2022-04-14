@@ -583,7 +583,7 @@ No matter the size of your organization, it’s reasonable to think about how yo
 
 无论你的组织有多大的规模，你都有理由考虑如何在你的源代码集合中进行这类全面的改变。不管是出于选择还是需要，拥有这种能力将使你的组织在扩大规模时有更大的灵活性，同时使你的源代码随着时间的推移保持可塑性。
 
-## TL;DRs
+## TL;DRs  内容提要
 
 - An LSC process makes it possible to rethink the immutability of certain technical decisions.
 
@@ -596,26 +596,5 @@ No matter the size of your organization, it’s reasonable to think about how yo
 - 重构的传统模型在大范围内被打破。
 
 - 制作LSC意味着养成制作LSC的习惯。
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
