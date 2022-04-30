@@ -133,56 +133,72 @@ The cure for the “management” disease is a liberal application of “servant
 2 然而，另一个原因是，公司不应该强迫人们把管理作为职业道路的一部分：如果一个工程师能够写出大量的优秀代码，却完全没有管理人或领导团队的愿望，强迫他们进入管理层或TL的角色，你就会失去一个伟大的工程师，得到一个糟糕的经理。这不仅是一个糟糕的主意，而且是积极有害的方式。
 ```
 
-## The Engineering Manager
+## The Engineering Manager  工程经理
 
 So, what is actually expected of a manager at a modern software company? Before the computing age, “management” and “labor” might have taken on almost antagonistic roles, with the manager wielding all of the power and labor requiring collective action to achieve its own ends. But that isn’t how modern software companies work.
 
-### Manager Is a Four-Letter Word
+那么，在现代软件公司中，对经理的实际期望是什么？在计算机时代之前，"管理 "和 "劳动 "可能承担着几乎是对立的角色，管理者掌握着所有的权力，而劳动者则需要集体行动来实现自己的目的。但这并不是现代软件公司的工作方式。
+
+### Manager Is a Four-Letter Word  经理是一个由四个字母组成的词
 
 Before talking about the core responsibilities of an engineering manager at Google, let’s review the history of managers. The present-day concept of the pointy-haired manager is partially a carryover, first from military hierarchy and later adopted by the Industrial Revolution—more than a hundred years ago! Factories began popping up everywhere, and they required (usually unskilled) workers to keep the machines going. Consequently, these workers required supervisors to manage them, and because it was easy to replace these workers with other people who were desperate for a job, the managers had little motivation to treat their employees well or improve conditions for them. Whether humane or not, this method worked well for many years when the employees had nothing more to do than perform rote tasks.
 
+在谈论谷歌工程经理的核心职责之前，让我们回顾一下经理的历史。今天的顶尖经理的概念部分是延续下来的，首先是来自军队的等级制度，后来被工业革命所采用——一百多年前！工厂开始到处涌现，他们需要（通常是不熟练的）工人来维持机器运转。因此，这些工人需要主管人员来管理他们，由于很容易用其他急于找工作的人取代这些工人，主管人员没有什么动力来善待他们的雇员或改善他们的条件。无论人道与否，这种方法在许多年里都很有效，当时员工除了完成死记硬背的任务外没有其他事情可做。
+
 Managers frequently treated employees in the same way that cart drivers would treat their mules: they motivated them by alternately leading them forward with a carrot, and, when that didn’t work, whipping them with a stick. This carrot-and-stick method of management survived the transition from the factory[3](#_bookmark380) to the modern office, where the stereotype of the tough-as-nails manager-as-mule-driver flourished in the middle part of the twentieth century when employees would work at the same job for years and years.
+
+经理们经常用赶车人对待骡子的方式来对待员工：他们用胡萝卜来激励他们，当胡萝卜不起作用的时候，就用棍子来鞭打他们。这种胡萝卜加大棒的管理方法在从工厂过渡到现代办公室的过渡中幸存下来，在二十世纪中叶，当员工在同一工作岗位上工作多年后，强硬的经理人作为骡子赶车人的刻板印象在办公室里盛行。
 
 This continues today in some industries—even in industries that require creative thinking and problem solving—despite numerous studies suggesting that the anachronistic carrot and stick is ineffective and harmful to the productivity of creative people. Whereas the assembly-line worker of years past could be trained in days and replaced at will, software engineers working on large codebases can take months to get up to speed on a new team. Unlike the replaceable assembly-line worker, these people need nurturing, time, and space to think and create.
 
+尽管许多研究表明，不合时宜的胡萝卜和大棒是无效的，而且对有创造力的人的生产力有害，但这种情况今天在一些行业仍然存在——甚至在那些需要创造力思维和解决问题的行业。过去几年的装配线工人可以在几天内接受培训并被随意替换，而从事大型代码库工作的软件工程师可能需要几个月的时间才能在一个新的团队中适应。与可替换的装配线工人不同，这些人需要培养、时间和空间来思考和创造。
+
 ```
 3	For more fascinating information on optimizing the movements of factory workers, read up on Scientific Management or Taylorism, especially its effects on worker morale.
+
+3   有关优化工厂工人流动的更多有趣信息，请阅读科学管理或泰勒主义，尤其是其对工人士气的影响。
 ```
 
-### Today’s Engineering Manager
+### Today’s Engineering Manager  当今的工程经理
 
 Most people still use the title “manager” despite the fact that it’s often an anachronism. The title itself often encourages new managers to *manage* their reports. Managers can wind up acting like parents,[4](#_bookmark385) and consequently employees react like children. To frame this in the context of humility, respect, and trust: if a manager makes it obvious that they trust their employee, the employee feels positive pressure to live up to that trust. It’s that simple. A good manager forges the way for a team, looking out for their safety and well-being, all while making sure their needs are met. If there’s one thing you remember from this chapter, make it this:
+	Traditional managers worry about how to get things done, whereas great managers worry about what things get done (and trust their team to figure out how to do it).
 
-Traditional managers worry about how to get things done, whereas great managers worry about what things get done (and trust their team to figure out how to do it).
+大多数人仍然使用 "经理 "这个头衔，尽管它往往是一个不合时宜的头衔。这个头衔本身经常鼓励新经理人撰写报告。经理们可能会表现得像父母一样，因此员工的反应也像孩子。从谦逊、尊重和信任的角度来看：如果经理人明显地表示他们信任员工，那么员工就会感到有积极的压力，不辜负这种信任。就是这么简单。好的经理为团队开辟道路，关注他们的安全和福祉，同时确保他们的需求得到满足。如果你在本章中记住了一件事，那就是这个：
+	传统的经理担心的是如何把事情做好，而优秀的经理担心的是如何把事情做好（并相信他们的团队能想出办法来）。
 
-A new engineer, Jerry, joined my team a few years ago. Jerry’s last manager (at a different company) was adamant that he be at his desk from 9:00 to 5:00 every day, and assumed that if he wasn’t there, he wasn’t working enough (which is, of course, a ridiculous assumption). On his first day working with me, Jerry came to me at 4:40
+A new engineer, Jerry, joined my team a few years ago. Jerry’s last manager (at a different company) was adamant that he be at his desk from 9:00 to 5:00 every day, and assumed that if he wasn’t there, he wasn’t working enough (which is, of course, a ridiculous assumption). On his first day working with me, Jerry came to me at 4:40p.m. and stammered out an apology that he had to leave 15 minutes early because he had an appointment that he had been unable to reschedule. I looked at him, smiled, and told him flat out, “Look, as long as you get your job done, I don’t care what time you leave the office.” Jerry stared blankly at me for a few seconds, nodded, and went on his way. I treated Jerry like an adult; he always got his work done, and I never had to worry about him being at his desk, because he didn’t need a babysitter to get his work done. If your employees are so uninterested in their job that they actually need traditional-manager babysitting to be convinced to work, *that* is your real problem.
 
-p.m. and stammered out an apology that he had to leave 15 minutes early because he had an appointment that he had been unable to reschedule. I looked at him, smiled, and told him flat out, “Look, as long as you get your job done, I don’t care what time you leave the office.” Jerry stared blankly at me for a few seconds, nodded, and went on his way. I treated Jerry like an adult; he always got his work done, and I never had to worry about him being at his desk, because he didn’t need a babysitter to get his work done. If your employees are so uninterested in their job that they actually need traditional-manager babysitting to be convinced to work, *that* is your real problem.
+几年前，一位名叫杰瑞的工程师新加入了我的团队。杰里的上一任经理（在另一家公司）坚决要求他每天从早上9点到下午5点都在办公桌前，并认为如果他不在那里，就说明他工作得不够好（当然，这是一个可笑的假设）。在他和我一起工作的第一天，杰里在下午4点40分来找我，结结巴巴地道歉，说他不得不提前15分钟离开，因为他有一个约会，但他无法重新安排。我看着他，笑了笑，直截了当地告诉他："听着，只要你完成了你的工作，我不在乎你什么时候离开办公室。" 杰里茫然地盯着我看了几秒钟，点了点头，然后上路了。我对待杰瑞就像对待成年人一样，他总是能完成工作，我从来没有担心过他是否在办公桌前，因为他不需要保姆一样的来完成工作。如果你的员工对他们的工作如此不感兴趣，以至于他们实际上需要传统的经理保姆式来说服他们工作，这才是你真正的问题。
 
 -----
 
-#### Failure Is an Option
+#### Failure Is an Option  失败也是一种选择
 
 Another way to catalyze your team is to make them feel safe and secure so that they can take greater risks by building psychological safety—meaning that your team members feel like they can be themselves without fear of negative repercussions from you or their team members. Risk is a fascinating thing; most humans are terrible at evaluating risk, and most companies try to avoid risk at all costs. As a result, the usual modus operandi is to work conservatively and focus on smaller successes, even when taking a bigger risk might mean exponentially greater success. A common saying at Google is that if you try to achieve an impossible goal, there’s a good chance you’ll fail, but if you fail trying to achieve the impossible, you’ll most likely accomplish far more than you would have accomplished had you merely attempted something you knew you could complete. A good way to build a culture in which risk taking is accepted is to let your team know that it’s OK to fail.
 
+催化你的团队的另一个方法是让他们感到安全和有保障，这样他们就可以通过建立心理安全来承担更大的风险——也就是说，你的团队成员觉得他们可以做自己，而不用担心来自你或团队成员的负面反馈。风险是一个令人着迷的东西；大多数人在评估风险方面是很糟糕的，而且大多数公司试图不惜一切代价避免风险。因此，通常的工作方式是保守地工作，专注于较小的成功，即使承担较大的风险可能意味着成倍的成功。在谷歌，有一句话是这样说的：如果你试图实现一个不可能的目标，你很有可能会失败，但如果你试图实现不可能的目标而失败，你的成就很可能会远远超过你仅仅尝试你知道你可以完成的事情所取得的成就。建立一个接受风险的文化的好方法是让你的团队知道，失败是允许的。
+
 So, let’s get that out of the way: it’s OK to fail. In fact, we like to think of failure as a way of learning a lot really quickly (provided that you’re not repeatedly failing at the same thing). In addition, it’s important to see failure as an opportunity to learn and not to point fingers or assign blame. Failing fast is good because there’s not a lot at stake. Failing slowly can also teach a valuable lesson, but it is more painful because more is at risk and more can be lost (usually engineering time). Failing in a manner that affects customers is probably the least desirable failure that we encounter, but it’s also one in which we have the greatest amount of structure in place to learn from failures. As mentioned earlier, every time there is a major production failure at Google, we perform a postmortem. This procedure is a way to document the events that led to the actual failure and to develop a series of steps that will prevent it from happening in the future. This is neither an opportunity to point fingers, nor is it intended to introduce unnecessary bureaucratic checks; rather, the goal is to strongly focus on the core of the problem and fix it once and for all. It’s very difficult, but quite effective (and cathartic).
+
+所以，让我们先把话说清楚：失败是可以的。事实上，我们喜欢把失败看作是一种快速学习的方式（只要你不是在同一件事上反复犯错）。此外，重要的是把失败看作是一个学习的机会，而不是指责或推卸责任。快速失败是好的，因为没有太多的风险。缓慢的失败也能给人以宝贵的教训，但它更痛苦，因为风险更大，可能损失更多（通常是工程时间）。以影响客户的方式失败可能是我们遇到的最不可取的失败，但这也是我们从失败中学习的最大方式。如前所述，每次谷歌出现重大生产故障时，我们都会进行事后分析。这一过程是记录失败的一种方式导致实际失败的事件，并制定一系列措施防止未来发生。这既不是一个指责的机会，也不是为了引入不必要的官僚检查；相反，目标是强烈关注问题的核心，并一劳永逸地解决它。这非常困难，但相当有效（和宣泄）。
 
 Individual successes and failures are a bit different. It’s one thing to laud individual successes, but looking to assign individual blame in the case of failure is a great way to divide a team and discourage risk taking across the board. It’s alright to fail, but fail as a team and learn from your failures. If an individual succeeds, praise them in front of the team. If an individual fails, give constructive criticism in private.[5](#_bookmark391) Whatever the case, take advantage of the opportunity and apply a liberal helping of humility, respect, and trust to help your team learn from its failures.
 
+个人的成功和失败是有点不同的。赞扬个人的成功是一回事，但在失败的情况下寻找个人的责任是分裂团队的方式，并阻碍整个团队的风险承担。失败是正常的，但作为一个团队，要从失败中学习。如果一个人成功了，在团队面前表扬他们。如果一个人失败了，私下给予建设性的指导。无论是什么情况，都要利用这个机会，运用谦逊、尊重和信任的慷慨帮助，帮助你的团队从失败中吸取教训。
+
 ------
-
-
-
 
 ```
 4	If you have kids, the odds are good that you can remember with startling clarity the first time you said something to your child that made you stop and exclaim (perhaps even aloud), “Holy crap, I’ve become my mother.”
 5	Public criticism of an individual is not only ineffective (it puts people on the defense), but rarely necessary, and most often is just mean or cruel. You can be sure the rest of the team already knows when an individual has failed, so there’s no need to rub it in.
 
+4 如果你有孩子，你很有可能清楚地记得你第一次对你的孩子说了什么，让你停下来并感叹（也许甚至是大声地感叹）："我的妈呀，我已经变成我的母亲了。"
+5 对一个人的公开批评不仅没有效果（它使人们处于防御状态），而且很少有必要，大多数时候只是刻薄或残酷。你可以肯定，团队的其他成员已经知道一个人什么时候失败了，所以没有必要重复。
+
 ```
 
-
-
-## Antipatterns
+## Antipatterns  反模式
 
 Before we go over a litany of “design patterns” for successful TLs and engineering managers, we’re going to review a collection of the patterns that you *don’t* want to follow if you want to be a successful manager. We’ve observed these destructive patterns in a handful of bad managers that we’ve encountered in our careers, and in more than a few cases, ourselves.
 
