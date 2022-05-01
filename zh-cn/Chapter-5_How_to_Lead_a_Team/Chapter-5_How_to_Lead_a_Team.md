@@ -202,57 +202,100 @@ Individual successes and failures are a bit different. It’s one thing to laud 
 
 Before we go over a litany of “design patterns” for successful TLs and engineering managers, we’re going to review a collection of the patterns that you *don’t* want to follow if you want to be a successful manager. We’ve observed these destructive patterns in a handful of bad managers that we’ve encountered in our careers, and in more than a few cases, ourselves.
 
-### Antipattern: Hire Pushovers
+在我们讨论一系列成功的TL和工程经理的 "设计模式 "之前，我们要回顾一下，如果你想成为一个成功的经理，你*不能*遵循的模式。我们已经在我们职业生涯中遇到的一些糟糕经理身上观察到了这些破坏性的模式，而我们自己也遇到过不少这样的情况。
+
+### Antipattern: Hire Pushovers   反模式：雇佣推手
 
 If you’re a manager and you’re feeling insecure in your role (for whatever reason), one way to make sure no one questions your authority or threatens your job is to hire people you can push around. You can achieve this by hiring people who aren’t as smart or ambitious as you are, or just people who are more insecure than you. Even though this will cement your position as the team leader and decision maker, it will mean a lot more work for you. Your team won’t be able to make a move without you leading them like dogs on a leash. If you build a team of pushovers, you probably can’t take a vacation; the moment you leave the room, productivity comes to a screeching halt. But surely this is a small price to pay for feeling secure in your job, right?
 
+如果你是一名经理，而且你对自己的角色感到没安全感（无论什么原因），确保没有人质疑你的权威或威胁你的工作的一个方法是雇佣你可以推波助澜的人。你可以通过雇佣不如你聪明或有野心的人，或者只是比你更没有安全感的人，来实现这一目标。尽管这将巩固你作为团队领导者和决策者的地位，但这将意味着你的工作会更多。如果你不像牵着狗一样牵着他们，你的团队就无法行动。如果你建立了一个由推手组成的团队，你可能就不能休假了；你离开房间的那一刻，工作效率就急剧下降。但是，这肯定是为你的工作安全感付出的一个小代价，对吗？
+
 Instead, you should strive to hire people who are smarter than you and can replace you. This can be difficult because these very same people will challenge you on a regular basis (in addition to letting you know when you make a mistake). These very same people will also consistently impress you and make great things happen. They’ll be able to direct themselves to a much greater extent, and some will be eager to lead the team, as well. You shouldn’t see this as an attempt to usurp your power; instead, look at it as an opportunity for you to lead an additional team, investigate new opportunities, or even take a vacation without worrying about checking in on the team every day to make sure it’s getting its work done. It’s also a great chance to learn and grow—it’s a lot easier to expand your expertise when surrounded by people who are smarter than you.
 
-### Antipattern: Ignore Low Performers
+相反，你应该努力雇用比你更聪明的人，并能取代你。这可能很困难，因为这些人也会定期挑战你（除了在你犯错时只有你自己知道）。这些人也会不断地给你留下深刻印象，并让伟大的事情出现。他们将能够在更大程度上指导自己，有些人也会渴望领导团队。你不应该把这看作是企图篡夺你的权力；相反，你应该把它看作是一个机会，让你领导一个额外的团队，找到新的机会，甚至休假，而不必担心每天都要检查团队，确保它完成工作。这也是一个学习和成长的好机会——当周围有比你更聪明的人时，拓展你的专业知识会容易得多。
+
+### Antipattern: Ignore Low Performers  反模式：忽略低绩效员工
 
 Early in my career as a manager at Google, the time came for me to hand out bonus letters to my team, and I grinned as I told my manager, “I love being a manager!” Without missing a beat, my manager, a long-time industry veteran, replied, “Sometimes you get to be the tooth fairy, other times you have to be the dentist.”
 
+在我在谷歌担任经理的早期，到了给我的团队发奖金信的时候，我咧嘴笑着对我的经理说："我喜欢当经理！" 我的经理是一位长期的行业老手，他不慌不忙地回答说："有时你可以做牙仙，有时你必须做牙医。"
+
 It’s never any fun to pull teeth. We’ve seen team leaders do all the right things to build incredibly strong teams only to have these teams fail to excel (and eventually fall apart) because of just one or two low performers. We understand that the human aspect is the most challenging part of writing software, but the most difficult part of dealing with humans is handling someone who isn’t meeting expectations. Sometimes, people miss expectations because they’re not working long enough or hard enough, but the most difficult cases are when someone just isn’t capable of doing their job no matter how long or hard they work.
+
+拔牙从来不是什么有趣的事情。我们看到团队领导做了所有正确的事情，建立了令人难以置信的强大团队，但这些团队却因为一两个表现不佳的人而无法脱颖而出（并最终分崩离析）。我们知道，有些人在编写软件最具挑战性的部分是出色的，但与人打交道最困难的部分是处理没有达到预期的效果。有时，人们达不到预期是因为他们工作的时间不够长或不够努力，但最困难的情况是有人无论工作多长时间或多努力，就是没有能力完成他们的工作。
 
 Google’s Site Reliability Engineering (SRE) team has a motto: “Hope is not a strategy.” And nowhere is hope more overused as a strategy than in dealing with a low performer. Most team leaders grit their teeth, avert their eyes, and just *hope* that the low performer either magically improves or just goes away. Yet it is extremely rare that this person does either.
 
+谷歌的网站可靠性工程（SRE）团队有一个座右铭："希望不是一种策略"。而希望作为一种策略被过度使用的情况，莫过于在处理低绩效员工时。大多数团队领导咬紧牙关，转移视线，只是*希望*低绩效员工要么神奇地改善，要么就消失。然而，这种情况极少发生。
+
 While the leader is hoping and the low performer isn’t improving (or leaving), high performers on the team waste valuable time pulling the low performer along, and team morale leaks away into the ether. You can be sure that the team knows the low performer is there even if you’re ignoring them—in fact, the team is *acutely* aware of who the low performers are, because they have to carry them.
+
+当领导抱着希望，而低绩效者没有进步（或离开）的时候，团队中高绩效者就会浪费宝贵的时间来拉拢低绩效员工，而团队就会泄气。你可以肯定的是，即使你对他们忽视，团队也知道低绩效员工的存在——事实上，团队非常清楚谁是低绩效员工，因为他们必须要带着他们。
 
 Ignoring low performers is not only a way to keep new high performers from joining your team, but it’s also a way to encourage existing high performers to leave. You eventually wind up with an entire team of low performers because they’re the only ones who can’t leave of their own volition. Lastly, you aren’t even doing the low performer any favors by keeping them on the team; often, someone who wouldn’t do well on your team could actually have plenty of impact somewhere else.
 
+忽视低绩效员工不仅会阻碍新的高绩效员工加入你的团队，而且也会鼓励现有的高绩效员工离开。你最终会发现整个团队都是低绩效员工，因为他们是唯一不能主动离开的人。最后，你把低绩效员工留在团队中，甚至对他们没有任何好处；通常情况下，一个在你的团队中做得不好的人，实际上可以在其他地方产生很大的影响。
+
 The benefit of dealing with a low performer as quickly as possible is that you can put yourself in the position of helping them up or out. If you immediately deal with a low performer, you’ll often find that they merely need some encouragement or direction to slip into a higher state of productivity. If you wait too long to deal with a low performer, their relationship with the team is going to be so sour and you’re going to be so frustrated that you’re not going to be able to help them.
+
+尽快处理低绩效员工的好处是，你可以把自己放在帮助他们提升或退出的位置上。如果你立即处理一个低绩效员工，你往往会发现他们只需要一些鼓励或指导就能走向更高的生产力状态。如果你等待很长时间再来处理低绩效员工，他们与团队的关系就会变得非常糟糕，你也会感到非常沮丧，以至于你无法帮助他们。
 
 How do you effectively coach a low performer? The best analogy is to imagine that you’re helping a limping person learn to walk again, then jog, then run alongside the rest of the team. It almost always requires temporary micromanagement, but still a whole lot of humility, respect, and trust—particularly respect. Set up a specific time frame (say, two months) and some very specific goals you expect them to achieve in that period. Make the goals small, incremental, and measurable so that there’s an opportunity for lots of small successes. Meet with the team member every week to check on progress, and be sure you set really explicit expectations around each upcoming milestone so that it’s easy to measure success or failure. If the low performer can’t keep up, it will become quite obvious to both of you early in the process. At this point, the person will often acknowledge that things aren’t going well and decide to quit; in other cases, determination will kick in and they’ll “up their game” to meet expectations. Either way, by working directly with the low performer, you’re catalyzing important and necessary changes.
 
-### Antipattern: Ignore Human Issues
+你如何有效地指导低绩效员工？最好的比喻是想象你在帮助一个跛脚的人重新学会走路，然后慢跑，然后和团队的其他成员一起跑步。这几乎总是需要暂时的微观管理，但仍然需要大量的谦逊、尊重和信任——特别是尊重。设定一个具体的时间框架（例如，两个月）和一些非常具体的目标，你希望他们在这段时间内实现。把目标定得小一点，渐进一点，可衡量一点，这样就有机会取得很多小的成功。每周与团队成员见面，检查进展情况，并确保你对每个即将到来的里程碑设定了非常明确的期望，这样就很容易衡量成功或失败。如果表现不佳的人跟不上，那么在这个过程的早期，你们两个人都会很清楚。在这一点上，这个人通常会承认事情进展不顺利，并决定退出；在其他情况下，决心会启动，他们会 "提高自己的水平"，以满足期望。无论是哪种情况，通过直接与低绩效员工合作，你都会促成重要而必要的改变。
+
+### Antipattern: Ignore Human Issues  反模式：忽视人性的问题
 
 A manager has two major areas of focus for their team: the social and the technical. It’s rather common for managers to be stronger in the technical side at Google, and because most managers are promoted from a technical job (for which the primary goal of their job was to solve technical problems), they can tend to ignore human issues. It’s tempting to focus all of your energy on the technical side of your team because, as an individual contributor, you spend the vast majority of your time solving technical problems. When you were a student, your classes were all about learning the technical ins and outs of your work. Now that you’re a manager, however, you ignore the human element of your team at your own peril.
 
+经理对他们的团队有两个主要的关注领域：社会和技术。在谷歌，经理在技术方面比较强大是比较常见的，因为大多数经理都是从技术工作中晋升的（对他们来说，工作的主要目标是解决技术问题），他们可能倾向于忽视人性问题。把所有的精力都集中在团队的技术方面是很诱人的，因为作为先进个人，你的绝大部分时间都在解决技术问题。当你还是个学生的时候，你的课程都是关于学习工作的技术内涵和外延。然而，现在你是一名经理，你忽视了团队中的人性因素，这是你自己的危险。
+
 Let’s begin with an example of a leader ignoring the human element in his team. Years ago, Jake had his first child. Jake and Katie had worked together for years, both remotely and in the same office, so in the weeks following the arrival of the new baby, Jake worked from home. This worked out great for the couple, and Katie was totally fine with it because she was already used to working remotely with Jake. They were their usual productive selves until their manager, Pablo (who worked in a different office), found out that Jake was working from home for most of the week. Pablo was upset that Jake wasn’t going into the office to work with Katie, despite the fact that Jake was just as productive as always and that Katie was fine with the situation. Jake attempted to explain to Pablo that he was just as productive as he would be if he came into the office and that it was much easier on him and his wife for him to mostly work from home for a few weeks. Pablo’s response: “Dude, people have kids all the time. You need to go into the office.” Needless to say, Jake (normally a mild-mannered engineer) was enraged and lost a lot of respect for Pablo.
+
+让我们从一个领导者忽视其团队中人性的因素的例子开始。几年前，杰克有了他的第一个孩子。杰克和凯蒂在一起工作了好几年，无论是远程工作还是在同一个办公室，所以在新生婴儿出生后的几周里，杰克在家工作。这对这对夫妇来说是很好的，凯蒂也完全同意，因为她已经习惯了与杰克一起远程工作。他们像往常一样富有成效，直到他们的经理帕布罗（在另一个办公室工作）发现杰克这周大部分时间都在家里工作。帕布罗对杰克不到办公室和凯蒂一起工作感到很不高兴，尽管事实上杰克和以前一样富有成效，而且凯蒂对这种情况也感到满意。杰克试图向帕布罗解释说，如果他进办公室的话，他的工作效率也是一样的，而且这几个星期他大部分时间都在家里工作，对他和他的妻子来说要容易得多。帕布罗的回答是。"伙计，人们总是有孩子。你需要到办公室去。" 不用说，杰克（通常是一个温和的工程师）被激怒了，对帕布罗失去了以往很多尊重。
 
 There are numerous ways in which Pablo could have handled this differently: he could have showed some understanding that Jake wanted to spend more time at home with his wife and, if his productivity and team weren’t being affected, just let him continue to do so for a while. He could have negotiated that Jake go into the office for one or two days a week until things settled down. Regardless of the end result, a little bit of empathy would have gone a long way toward keeping Jake happy in this situation.
 
-### Antipattern: Be Everyone’s Friend
+帕布罗有许多方法可以以不同的方式处理这件事：他可以对杰克想花更多时间在家里陪他的妻子表示一些理解，如果他的工作效率和团队没有受到影响，就让他继续这样做一段时间。他可以协商让杰克每周到办公室工作一到两天，直到事情解决为止。无论最终结果如何，在这种情况下，一点点同理心将大大有助于让杰克保持快乐。
+
+### Antipattern: Be Everyone’s Friend  反模式：成为每个人的朋友
 
 The first foray that most people have into leadership of any sort is when they become the manager or TL of a team of which they were formerly members. Many leads don’t want to lose the friendships they’ve cultivated with their teams, so they will sometimes work extra hard to maintain friendships with their team members after becoming a team lead. This can be a recipe for disaster and for a lot of broken friendships. Don’t confuse friendship with leading with a soft touch: when you hold power over someone’s career, they might feel pressure to artificially reciprocate gestures of friendship.
 
+大多数人第一次进入任何类型的领导层是当他们成为团队的经理或TL时，他们以前是团队的成员。许多领导不想失去他们与团队培养起来的友谊，所以他们有时会在成为团队领导后特别努力地维持与团队成员的友谊。这可能会导致灾难，也可能导致许多友谊破裂。不要把友谊和温柔的领导混为一谈：当你掌握了某人职业生涯的权力时，他们可能会感到压力，需要人为地回应友谊的姿态。
+
 Remember that you can lead a team and build consensus without being a close friend of your team (or a monumental hard-ass). Likewise, you can be a tough leader without tossing your existing friendships to the wind. We’ve found that having lunch with your team can be an effective way to stay socially connected to them without making them uncomfortable—this gives you a chance to have informal conversations outside the normal work environment.
+
+请记住，你可以领导一个团队并建立共识，而不需要成为你团队的亲密朋友（或一个不折不扣的硬汉）。同样，你也可以成为一个强硬的领导者，而不把你现有的友谊扔到九霄云外。我们发现，与你的团队共进午餐是一种有效的方式，既能与他们保持社交联系，又不会让他们感到不舒服——这让你有机会在正常工作环境之外进行非正式的对话。
 
 Sometimes, it can be tricky to move into a management role over someone who has been a good friend and a peer. If the friend who is being managed is not self- managing and is not a hard worker, it can be stressful for everyone. We recommend that you avoid getting into this situation whenever possible, but if you can’t, pay extra attention to your relationship with those folks.
 
-### Antipattern: Compromise the Hiring Bar
+有时，在一个曾经是好朋友和同龄人的人身上担任管理职务可能会很棘手。如果被管理的朋友不具备自我管理的能力，也不是一个努力工作的人，那么对每个人来说都会有压力。我们建议你尽可能避免陷入这种情况，但如果你不能，就要特别注意你与这些人的关系。
+
+### Antipattern: Compromise the Hiring Bar  反模式：妥协的招聘
 
 Steve Jobs once said: “A people hire other A people; B people hire C people.” It’s incredibly easy to fall victim to this adage, and even more so when you’re trying to hire quickly. A common approach I’ve seen outside of Google is that a team needs to hire 5 engineers, so it sifts through a pile of applications, interviews 40 or 50 people, and picks the best 5 candidates regardless of whether they meet the hiring bar.
 
+史蒂夫·乔布斯曾经说过。"A类人雇用其他A类人；B类人雇用C类人。" 这句格言很容易让你成为牺牲品，尤其是当你试图快速雇佣的时候。我在谷歌之外看到的一个常见的方法是，一个团队需要招聘5名工程师，所以它筛选了一堆申请，面试了40或50人，并挑选了最好的5名候选人，不管他们是否符合招聘标准。
+
 This is one of the fastest ways to build a mediocre team.
+
+这是建立一个平庸团队的最快方式之一。
 
 The cost of finding the appropriate person—whether by paying recruiters, paying for advertising, or pounding the pavement for references—pales in comparison to the cost of dealing with an employee who you never should have hired in the first place. This “cost” manifests itself in lost team productivity, team stress, time spent managing the employee up or out, and the paperwork and stress involved in firing the employee. That’s assuming, of course, that you try to avoid the monumental cost of just leaving them on the team. If you’re managing a team for which you don’t have a say over hiring and you’re unhappy with the hires being made for your team, you need to fight tooth and nail for higher-quality engineers. If you’re still handed substandard engineers, maybe it’s time to look for another job. Without the raw materials for a great team, you’re doomed.
 
-### Antipattern: Treat Your Team Like Children
+找到合适人选的成本——无论是通过支付招聘人员费用、支付广告费用，还是为推荐人做铺垫——与处理一个你一开始就不应该雇用的员工的成本相比，都显得微不足道。这种 "成本 "体现在团队生产力的损失、团队压力、管理员工的时间以及解雇员工所涉及的文书工作和压力上。当然，这是假设你试图避免让他们留在团队中的巨大成本。如果你管理的团队在招聘方面没有发言权，而且你对你的团队所招聘的人不满意，你需要为更高素质的工程师拼命争取。如果你仍然得到不合格的工程师，也许是时候寻找另一份工作了。没有优秀团队的人才，你就注定要失败。
+
+
+### Antipattern: Treat Your Team Like Children  反模式：像对待孩子一样对待你的团队
 
 The best way to show your team that you don’t trust it is to treat team members like kids—people tend to act the way you treat them, so if you treat them like children or prisoners, don’t be surprised when that’s how they behave. You can manifest this behavior by micromanaging them or simply by being disrespectful of their abilities and giving them no opportunity to be responsible for their work. If it’s permanently necessary to micromanage people because you don’t trust them, you have a hiring failure on your hands. Well, it’s a failure unless your goal was to build a team that you can spend the rest of your life babysitting. If you hire people worthy of trust and show these people you trust them, they’ll usually rise to the occasion (sticking with the basic premise, as we mentioned earlier, that you’ve hired good people).
 
+向你的团队表明你不信任它的最好方法是把团队成员当成小孩子——人们往往会按照你对待他们的方式行事，因此如果你像对待孩子或囚犯一样对待他们，当他们的行为如此时，不要感到惊讶。你可以通过对他们进行微观管理来体现这种行为，或者仅仅是不尊重他们的能力，不给他们机会对他们的工作负责。如果因为你不信任他们而长期需要对他们进行微观管理，那么你的招聘就失败了。好吧，这是一个失败，除非你的目标是建立一个你可以用余生来照看的团队。如果你雇用值得信任的人，并向这些人展示你对他们的信任，他们通常会迎难而上（坚持我们前面提到的基本前提，即你已经雇用了优秀的人）。
+
 The results of this level of trust go all the way to more mundane things like office and computer supplies. As another example, Google provides employees with cabinets stocked with various and sundry office supplies (e.g., pens, notebooks, and other “legacy” implements of creation) that are free to take as employees need them. The IT department runs numerous “Tech Stops” that provide self-service areas that are like a mini electronics store. These contain lots of computer accessories and doodads (power supplies, cables, mice, USB drives, etc.) that would be easy to just grab and walk off with en masse, but because Google employees are being trusted to check these items out, they feel a responsibility to Do The Right Thing. Many people from typical corporations react in horror to hearing this, exclaiming that surely Google is hemorrhaging money due to people “stealing” these items. That’s certainly possible, but what about the costs of having a workforce that behaves like children or that has to waste valuable time formally requesting cheap office supplies? Surely that’s more expensive than the price of a few pens and USB cables.
+
+这种信任程度的结果一直延伸到更平凡的事情，如办公室和电脑用品。另一个例子是，谷歌为员工提供了储存有各种杂项办公用品的柜子（例如，笔、笔记本和其他 "传统 "创作工具），员工可以根据需要自由取用。IT部门经营着许多 "技术站"，提供自助服务区，就像一个小型电子产品商店。这些地方有很多电脑配件和小玩意（电源、电缆、鼠标、U盘等），这些东西很容易就被拿走了，但因为谷歌员工被信任去检查这些物品，他们觉得有责任去做正确的事情。许多来自典型企业的人听到这个消息后都会感到惊恐，他们感叹说，他们惊呼肯定是因为有人“偷”这些东西，谷歌肯定会损失惨重。这当然是可能的，但是拥有一支像小孩子一样的员工队伍，或者不得不浪费宝贵的时间正式申请廉价办公用品的成本呢？这肯定比几支笔和USB线的价格要贵。
 
 ## Positive Patterns
 
