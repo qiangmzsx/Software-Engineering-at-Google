@@ -534,35 +534,55 @@ Lastly, here’s something the best leaders know and use often when they have ad
 9 要想更好地了解技术变革是如何 "不可逆转 "的，见第22章。
 ```
 
-## People Are Like Plants
+## People Are Like Plants  人如植物
 
 My wife is the youngest of six children, and her mother was faced with the difficult task of figuring out how to raise six very different children, each of whom needed different things. I asked my mother-in-law how she managed this (see what I did there?), and she responded that kids are like plants: some are like cacti and need little water but lots of sunshine, others are like African violets and need diffuse light and moist soil, and still others are like tomatoes and will truly excel if you give them a little fertilizer. If you have six kids and give each one the same amount of water, light, and fertilizer, they’ll all get equal treatment, but the odds are good that *none* of them will get what they actually need.
 
+我的妻子是六个孩子中最小的一个，她的母亲面临着一项艰巨的任务，即如何抚养六个完全不同的孩子，每个孩子都需要不同的东西。我问我的岳母她是如何做到的（看到我在那里做了什么了吗？），她回答说，孩子就像植物：有些像仙人掌，需要很少的水，但需要大量的阳光；有些像非洲紫罗兰，需要漫射的光和湿润的土壤；还有一些像西红柿，如果你给他们一点肥料，他们会非常出色。如果你有六个孩子，并且给每个孩子相同数量的水、光和肥料，他们都会得到同等的待遇，但很有可能他们都得不到他们真正需要的东西。
+
 And so your team members are also like plants: some need more light, and some need more water (and some need more…fertilizer). It’s your job as their leader to determine who needs what and then give it to them—except instead of light, water, and fertilizer, your team needs varying amounts of motivation and direction.
+
+因此，你的团队成员也像植物一样：有些需要更多的光，有些需要更多的水（有些需要更多的......肥料）。作为他们的领导，你的工作是确定谁需要什么，然后给他们——只是你的团队需要的不是光、水和肥料，而是不同程度的动力和方向。
 
 To get all of your team members what they need, you need to motivate the ones who are in a rut and provide stronger direction to those who are distracted or uncertain of what to do. Of course, there are those who are “adrift” and need both motivation and direction. So, with this combination of motivation and direction, you can make your team happy and productive. And you don’t want to give them too much of either—because if they don’t need motivation or direction and you try giving it to them, you’re just going to annoy them.
 
+为了让所有团队成员都得到他们所需要的，你需要激励那些墨守成规的人，并为那些分心或不确定该做什么的人提供更有力的指导。当然，有些人是“漂泊”的，需要动力和方向。因此，通过这种动机和方向的结合，你可以让你的团队快乐并富有成效。你也不想给他们太多，因为如果他们不需要动力或方向，而你试图给他们动力或方向，你只会惹恼他们。
+
 Giving direction is fairly straightforward—it requires a basic understanding of what needs to be done, some simple organizational skills, and enough coordination to break it down into manageable tasks. With these tools in hand, you can provide sufficient guidance for an engineer in need of directional help. Motivation, however, is a bit more sophisticated and merits some explanation.
 
-### Intrinsic Versus Extrinsic Motivation
+给出方向是相当简单的——它需要对需要做什么有一个基本的了解，一些简单的组织技能，以及足够的协调来将其分解为可管理的任务。有了这些工具，你可以为需要定向帮助的工程师提供足够的指导。然而，动机有点复杂，值得解释一下。
+
+### Intrinsic Versus Extrinsic Motivation  内在动机与外在动机的关系
 
 There are two types of motivation: *extrinsic*, which originates from outside forces (such as monetary compensation), and *intrinsic*, which comes from within. In his book *Drive*,[10](#_bookmark456) Dan Pink explains that the way to make people the happiest and most productive isn’t to motivate them extrinsically (e.g., throw piles of cash at them); rather, you need to work to increase their intrinsic motivation. Dan claims you can increase intrinsic motivation by giving people three things: autonomy, mastery, and purpose.[11](#_bookmark457)
 
+有两种类型的动机：*外部动机*，来源于外部力量（如金钱补偿），和*内部动机*，来源于内部。丹-平克在他的书《驱动》中解释说，让人们成为最快乐、最有效率的人的方法不是外在地激励他们（例如，向他们扔大量现金）；相反，你需要努力提高他们的内在动机。丹声称，你可以通过给人们三样东西来增加内在动机：自主性、掌控力和目标。
+
 A person has autonomy when they have the ability to act on their own without someone micromanaging them.[12](#_bookmark458) With autonomous employees (and Google strives to hire mostly autonomous engineers), you might give them the general direction in which they need to take the product but leave it up to them to decide how to get there. This helps with motivation not only because they have a closer relationship with the product (and likely know better than you how to build it), but also because it gives them a much greater sense of ownership of the product. The bigger their stake is in the success of the product, the greater their interest is in seeing it succeed.
+
+当一个人能够独立行动而不受任何人的微观管理时，他就拥有了自主权。有了自主员工（谷歌努力雇佣的大多是自主工程师），你可能会给他们提供他们需要的产品的大方向，但让他们自己决定如何去做。这有助于激励，不仅因为他们与产品的关系更密切（而且可能比你更了解如何构建产品），而且还因为这让他们对产品有更大的主人翁意识。他们对产品的成功所持的股份越大，他们对看到产品成功的兴趣就越大。
 
 Mastery in its basest form simply means that you need to give someone the opportunity to improve existing skills and learn new ones. Giving ample opportunities for mastery not only helps to motivate people, it also makes them better over time, which makes for stronger teams.[13](#_bookmark459) An employee’s skills are like the blade of a knife: you can spend tens of thousands of dollars to find people with the sharpest skills for your team, but if you use that knife for years without sharpening it, you will wind up with a dull knife that is inefficient, and in some cases useless. Google gives ample opportunities for engineers to learn new things and master their craft so as to keep them sharp, efficient, and effective.
 
+掌握最基本的方式只意味着你需要给某人机会来提高现有技能并学习新技能。提供充分的掌握技能的机会不仅有助于激励员工，而且随着时间的推移，他们也会变得更好，从而形成更强大的团队。员工的技能就像刀锋：你可以花数万美元为团队找到最有技能的人，但是，如果你使用这把刀多年而没有磨快它，你会得到一把钝刀，这是低效的，在某些情况下是无用的。谷歌为工程师提供了大量学习新事物和掌握技能的机会，从而使他们保持敏锐、高效和高效。
+
 Of course, all the autonomy and mastery in the world isn’t going to help motivate someone if they’re doing work for no reason at all, which is why you need to give their work purpose. Many people work on products that have great significance, but they’re kept at arm’s length from the positive effects their products might have on their company, their customers, or even the world. Even for cases in which the product might have a much smaller impact, you can motivate your team by seeking the reason for their efforts and making this reason clear to them. If you can help them to see this purpose in their work, you’ll see a tremendous increase in their motivation and productivity.[14](#_bookmark464) One manager we know keeps a close eye on the email feedback that Google gets for its product (one of the “smaller-impact” products), and whenever she sees a message from a customer talking about how the company’s product has helped them personally or helped their business, she immediately forwards it to the engineering team. This not only motivates the team, but also frequently inspires team members to think about ways in which they can make their product even better.
 
-## Conclusion
+当然，如果某人无缘无故地工作，那么世界上所有的自主性和掌握性都无助于激励他们，这就是为什么你需要给他们工作的目的。许多人从事具有重大意义的产品，但他们与产品可能对公司、客户甚至世界产生的积极影响保持一定距离。即使在产品的影响可能小得多的情况下，你也可以通过寻找他们努力的原因并向他们说明原因来激励团队。如果你能帮助他们在工作中看到这一目标，你会看到他们的积极性和生产力有了巨大的提高。我们认识的一位经理密切关注谷歌为其产品（一种“影响较小”的产品）收到的电子邮件反馈，每当她看到客户在谈论公司的产品如何帮助他们个人或帮助他们的业务时，她会立即将其转发给工程团队。这不仅激励了团队，也经常激励团队成员思考如何让他们的产品变得更好。
+
+## Conclusion  总结
 
 Leading a team is a different task than that of being a software engineer. As a result, good software engineers do not always make good managers, and that’s OK— effective organizations allow productive career paths for both individual contributors and people managers. Although Google has found that software engineering experience itself is invaluable for managers, the most important skills an effective manager brings to the table are social ones. Good managers enable their engineering teams by helping them work well, keeping them focused on proper goals, and insulating them from problems outside the group, all while following the three pillars of humility, trust, and respect.
 
-## TL;DRs
+领导团队与作为软件工程师是不同的任务。因此，好的软件工程师并不总是能成为好的管理者，这也没关系——高效的组织为个人贡献者和人员管理者提供了富有成效的职业道路。尽管谷歌发现软件工程经验本身对管理者来说是无价的，但一个有效的管理者所带来的最重要的技能是社交技能。优秀的管理者帮助他们的工程团队做好工作，让他们专注于正确的目标，让他们远离团队之外的问题，同时遵循谦逊、信任和尊重这三大支柱。
+
+## TL;DRs  内容提要
 
 - Don’t “manage” in the traditional sense; focus on leadership, influence, and serving your team.
 - Delegate where possible; don’t DIY (Do It Yourself).
 - Pay particular attention to the focus, direction, and velocity of your team.
 
-
+- 不要进行传统意义上的 "管理"；重点是领导力、影响力和为你的团队服务。
+- 尽可能地授权；不要DIY（自己动手）。
+- 特别注意你的团队的重点、方向和效率。
 

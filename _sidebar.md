@@ -4,6 +4,7 @@
 - [第二章 如何融入团队](zh-cn/Chapter-2_How_to_Work_Well_on_Teams/Chapter-2_How_to_Work_Well_on_Teams.md)
 - [第三章 知识共享](zh-cn/Chapter-3_Knowledge_Sharing/Chapter-3_Knowledge_Sharing.md)
 - [第四章 公平工程](zh-cn/Chapter-4_Engineering_for_Equity/Chapter-4_Engineering_for_Equity.md)
+- [第五章：如何领导团队](zh-cn/Chapter-5_How_to_Lead_a_Team/Chapter-5_How_to_Lead_a_Team.md)
 - [第六章：规模优先](zh-cn/Chapter-6_Leading_at_Scale/Chapter-6_Leading_at_Scale.md)
 - [第八章：风格指导和规则](zh-cn/Chapter-8_Style_Guides_and_Rules/Chapter-8_Style_Guides_and_Rules.md)
 - [第九章：代码审查](zh-cn/Chapter-9_Code_Review/Chapter-9_Code_Review.md)
