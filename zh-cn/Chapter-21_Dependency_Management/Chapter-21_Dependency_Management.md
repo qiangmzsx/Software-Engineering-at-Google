@@ -655,7 +655,7 @@ With enough users, any “observable” of your system will come to be depended 
 
 Sharing code with the outside world, either as an open source release or as a closed- source library release, is not a simple matter of charity (in the OSS case) or business opportunity (in the closed-source case). Dependent users that you cannot monitor, in different organizations, with different priorities, will eventually exert some form of Hyrum’s Law inertia on that code. Especially if you are working with long timescales, it is impossible to accurately predict the set of necessary or useful changes that could become valuable. When evaluating whether to release something, be aware of the long-term risks: externally shared dependencies are often much more expensive to modify over time.
 
-与外界分享代码，无论是作为开放源码发布还是作为闭源库发布，都不是一个简单的慈善问题（在开放源码的情况下）或商业机会（在闭源的情况下）。你无法监控的依赖用户，在不同的组织中，有不同的优先级，最终会对该代码施加某种形式的海勒姆法则的惯性。特别是当你工作的时间尺度较长时，你不可能准确地预测可能成为有价值的必要或有用的变化的集合。当评估是否要发布一些东西时，要意识到长期的风险：外部共享的依赖关系随着时间的推移，修改的成本往往要高得多。
+与外界分享代码，无论是作为开放源码发布还是作为闭源库发布，都不是一个简单的慈善问题（在开放源码的情况下）或商业机会（在闭源的情况下）。你无法监控的依赖用户，在不同的组织中，有不同的优先级，最终会对该代码施加某种形式的海勒姆定律的惯性。特别是当你工作的时间尺度较长时，你不可能准确地预测可能成为有价值的必要或有用的变化的集合。当评估是否要发布一些东西时，要意识到长期的风险：外部共享的依赖关系随着时间的推移，修改的成本往往要高得多。
 
 ## Conclusion  总结
 
