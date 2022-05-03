@@ -30,7 +30,7 @@ Source control and dependency management are related issues separated by the que
 
 As the Open Source Software (OSS) model continues to grow and expand into new domains, and the dependency graph for many popular projects continues to expand over time, dependency management is perhaps becoming the most important problem in software engineering policy. We are no longer disconnected islands built on one or two layers outside an API. Modern software is built on towering pillars of dependencies; but just because we can build those pillars doesn’t mean we’ve yet figured out how to keep them standing and stable over time.
 
-随着开源软件（OSS）模式的不断发展和扩展到新的领域，以及许多流行项目的依赖关系随着时间的推移不断扩大，依赖管理也许正在成为软件工程政策中最重要的问题。我们不再是构建在API之外的一层或两层上的断开连接的孤岛。现代软件建立在高耸的依赖性支柱之上；但仅仅因为我们能够建造这些支柱，并不意味着我们还没有弄清楚如何让它们长期保持稳定。
+随着开源软件（OSS）模式的不断发展和扩展到新的领域，以及许多流行项目的依赖关系随着时间的推移不断扩大，依赖管理也许正在成为软件工程策略中最重要的问题。我们不再是构建在API之外的一层或两层上的断开连接的孤岛。现代软件建立在高耸的依赖性支柱之上；但仅仅因为我们能够建造这些支柱，并不意味着我们还没有弄清楚如何让它们长期保持稳定。
 
 In this chapter, we’ll look at the particular challenges of dependency management, explore solutions (common and novel) and their limitations, and look at the realities of working with dependencies, including how we’ve handled things in Google. It is important to preface all of this with an admission: we’ve invested a lot of *thought* into this problem and have extensive experience with refactoring and maintenance issues that show the practical shortcomings with existing approaches. We don’t have firsthand evidence of solutions that work well across organizations at scale. To some extent, this chapter is a summary of what we know does not work (or at least might not work at larger scales) and where we think there is the potential for better outcomes. We definitely cannot claim to have all the answers here; if we could, we wouldn’t be calling this one of the most important problems in software engineering.
 
@@ -106,7 +106,7 @@ We suggest that a dependency provider should be clearer about the answers to the
 
 For the C++ standard library, the model is one of nearly indefinite backward compatibility. Binaries built against an older version of the standard library are expected to build and link with the newer standard: the standard provides not only API compatibility, but ongoing backward compatibility for the binary artifacts, known as *ABI compatibility*. The extent to which this has been upheld varies from platform to platform. For users of gcc on Linux, it’s likely that most code works fine over a range of roughly a decade. The standard doesn’t explicitly call out its commitment to ABI compatibility—there are no public-facing policy documents on that point. However, the standard does publish [Standing Document 8 ](https://oreil.ly/LoJq8)(SD-8), which calls out a small set of types of change that the standard library can make between versions, defining implicitly what type of changes to be prepared for. Java is similar: source is compatible between language versions, and JAR files from older releases will readily work with newer versions.
 
-对于C++标准库来说，这种模式是一种几乎无限期的向后兼容性。根据标准库的旧版本构建的二进制文件有望与较新的标准进行构建和链接：标准不仅提供了API兼容性，还为二进制工件提供了持续的向后兼容性，即所谓的*ABI兼容性*。这一点在不同的平台上被坚持的程度是不同的。对于Linux上的gcc用户来说，可能大多数代码在大约十年的范围内都能正常工作。该标准没有明确指出它对ABI兼容性的承诺--在这一点上没有面向公众的政策文件。然而，该标准确实发布了[常设文件8](https://oreil.ly/LoJq8)(SD-8)，其中列出了标准库在不同版本之间可以进行的一小部分变化类型，隐含地定义了需要准备的变化类型。Java也是如此：语言版本之间的源代码是兼容的，旧版本的JAR文件很容易在新版本中运行。
+对于C++标准库来说，这种模式是一种几乎无限期的向后兼容性。根据标准库的旧版本构建的二进制文件有望与较新的标准进行构建和链接：标准不仅提供了API兼容性，还为二进制工件提供了持续的向后兼容性，即所谓的*ABI兼容性*。这一点在不同的平台上被坚持的程度是不同的。对于Linux上的gcc用户来说，可能大多数代码在大约十年的范围内都能正常工作。该标准没有明确指出它对ABI兼容性的承诺--在这一点上没有面向公众的策略文件。然而，该标准确实发布了[常设文件8](https://oreil.ly/LoJq8)(SD-8)，其中列出了标准库在不同版本之间可以进行的一小部分变化类型，隐含地定义了需要准备的变化类型。Java也是如此：语言版本之间的源代码是兼容的，旧版本的JAR文件很容易在新版本中运行。
 
 #### Go
 
@@ -217,7 +217,7 @@ That ease of use begins failing when it comes to our handling of external projec
 
 Alice, a software engineer at Google, is working on a project and realizes that there is an open source solution available. She would really like to have this project completed and demo’ed soon, to get it out of the way before going on vacation. The choice then is whether to reimplement that functionality from scratch or download the OSS package and get it added to *third_party*. It’s very likely that Alice decides that the faster development solution makes sense: she downloads the package and follows a few steps in our *third_party* policies. This is a fairly simple checklist: make sure it builds with our build system, make sure there isn’t an existing version of that package, and make sure at least two engineers are signed up as OWNERS to maintain the package in the event that any maintenance is necessary. Alice gets her teammate Bob to say, “Yes, I’ll help.” Neither of them need to have any experience maintaining a *third_party* package, and they have conveniently avoided the need to understand anything about the *implementation* of this package. At most, they have gained a little experience with its interface as part of using it to solve the prevacation demo problem.
 
-Alice是谷歌的一名软件工程师，她正在做一个项目，并意识到有一个开源的解决方案可用。她真的很想尽快完成这个项目并进行演示，希望在去度假之前把它解决掉。然后的选择是，是从头开始重新实现这个功能，还是下载开放源码包，并将其添加到*第三方*。很可能Alice决定更快的开发方案是有意义的：她下载了包，并按照我们的*third_party*政策中的几个步骤进行了操作。这是一个相当简单的清单：确保它在我们的构建系统中构建，确保该软件包没有现有的版本，并确保至少有两名工程师注册为所有者，在有必要进行任何维护时维护该软件包。爱丽丝让她的队友Bob说，"是的，我会帮忙"。他们都不需要有维护*第三方*包的经验，而且他们很方便地避免了对这个包的*实施*的了解。最多，他们对它的界面获得了一点经验，作为使用它来解决预先演示问题的一部分。
+Alice是谷歌的一名软件工程师，她正在做一个项目，并意识到有一个开源的解决方案可用。她真的很想尽快完成这个项目并进行演示，希望在去度假之前把它解决掉。然后的选择是，是从头开始重新实现这个功能，还是下载开放源码包，并将其添加到*第三方*。很可能Alice决定更快的开发方案是有意义的：她下载了包，并按照我们的*third_party*策略中的几个步骤进行了操作。这是一个相当简单的清单：确保它在我们的构建系统中构建，确保该软件包没有现有的版本，并确保至少有两名工程师注册为所有者，在有必要进行任何维护时维护该软件包。爱丽丝让她的队友Bob说，"是的，我会帮忙"。他们都不需要有维护*第三方*包的经验，而且他们很方便地避免了对这个包的*实施*的了解。最多，他们对它的界面获得了一点经验，作为使用它来解决预先演示问题的一部分。
 
 From this point on, the package is usually available to other Google teams to use in their own projects. The act of adding additional dependencies is completely transparent to Alice and Bob: they might be completely unaware that the package they downloaded and promised to maintain has become popular. Subtly, even if they are monitoring for new direct usage of their package, they might not necessarily notice growth in the *transitive* usage of their package. If they use it for a demo, while Charlie adds a dependency from within the guts of our Search infrastructure, the package will have suddenly moved from fairly innocuous to being in the critical infrastructure for important Google systems. However, we don’t have any particular signals surfaced to Charlie when he is considering whether to add this dependency.
 
@@ -237,7 +237,7 @@ All of which is to say: Alice and the other users of this package are in for a c
 
 Our *third_party* policies don’t work for these unfortunately common scenarios. We roughly understand that we need a higher bar for ownership, we need to make it easier (and more rewarding) to update regularly and more difficult for *third_party* packages to be orphaned and important at the same time. The difficulty is that it is difficult for codebase maintainers and *third_party* leads to say, “No, you can’t use this thing that solves your development problem perfectly because we don’t have resources to update everyone with new versions constantly.” Projects that are popular and have no compatibility promise (like Boost) are particularly risky: our developers might be very familiar with using that dependency to solve programming problems outside of Google, but allowing it to become ingrained into the fabric of our codebase is a big risk. Our codebase has an expected lifespan of decades at this point: upstream projects that are not explicitly prioritizing stability are a risk.
 
-我们的*第三方包*政策不适用于这些不幸的常见情况。我们大致明白，我们需要一个更高的所有权标准，我们需要让定期更新更容易（和更多的回报），让*第三方包*更难成为孤儿，同时也更重要。困难在于，代码库维护者和*第三方包*领导很难说："不，你不能使用这个能完美解决你的开发问题的东西，因为我们没有资源不断为大家更新新版本"。那些流行的、没有兼容性承诺的项目（比如Boost）尤其有风险：我们的开发者可能非常熟悉使用这种依赖关系来解决谷歌以外的编程问题，但允许它根植于我们的代码库结构中是一个很大的风险。在这一点上，我们的代码库有几十年的预期寿命：上游项目如果没有明确地优先考虑稳定性，就是一种风险。
+我们的*第三方包*策略不适用于这些不幸的常见情况。我们大致明白，我们需要一个更高的所有权标准，我们需要让定期更新更容易（和更多的回报），让*第三方包*更难成为孤儿，同时也更重要。困难在于，代码库维护者和*第三方包*领导很难说："不，你不能使用这个能完美解决你的开发问题的东西，因为我们没有资源不断为大家更新新版本"。那些流行的、没有兼容性承诺的项目（比如Boost）尤其有风险：我们的开发者可能非常熟悉使用这种依赖关系来解决谷歌以外的编程问题，但允许它根植于我们的代码库结构中是一个很大的风险。在这一点上，我们的代码库有几十年的预期寿命：上游项目如果没有明确地优先考虑稳定性，就是一种风险。
 
 ```
 5	Common Vulnerabilities and Exposures
@@ -688,7 +688,6 @@ It is possible, however, that we move toward a world in which maintainer-provide
 - SemVer是对 "人类认为这一变化的风险有多大 "的一种有损压缩的速记估计。SemVer与软件包管理器中的SAT解算器一起，将这些估计值升级为绝对值。这可能会导致过度约束（依赖性地狱）或不足约束（应该一起工作的版本却没有）。
 
 - 相比之下，测试和CI提供了一组新版本是否能一起工作的实际证据。
-
 
 
 

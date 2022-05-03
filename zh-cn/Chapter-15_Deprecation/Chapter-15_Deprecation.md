@@ -44,7 +44,7 @@ Unlike with most of the other topics we have discussed in this book, Google is s
 
 This chapter primarily deals with deprecating technical systems, not end-user products. The distinction is somewhat arbitrary given that an external-facing API is just another sort of product, and an internal API may have consumers that consider themselves end users. Although many of the principles apply to turning down a public product, we concern ourselves here with the technical and policy aspects of deprecating and removing obsolete systems where the system owner has visibility into its use.
 
-本章主要从技术层面讲“弃用”，而不是从产品层面。 考虑到面向外部的 API 也算另一种产品，而内部 API 通常 是自产自销，因此这种区别有些武断。 尽管许多原则也适用于对外产品，但我们在这里关注的是“弃用”和删除过时 的内部系统的技术和政策方面的问题。
+本章主要从技术层面讲“弃用”，而不是从产品层面。 考虑到面向外部的 API 也算另一种产品，而内部 API 通常 是自产自销，因此这种区别有些武断。 尽管许多原则也适用于对外产品，但我们在这里关注的是“弃用”和删除过时 的内部系统的技术和策略方面的问题。
 
 
 <a id="org5c84129"></a>
@@ -73,7 +73,7 @@ with the old one. Spending the effort to remove the old system can pay off as th
 > 
 > Instead of focusing on how much code we can produce, or how large is our codebase, we should instead focus on how much functionality it can deliver per unit of code and try to maximize that metric. One of the easiest ways to do so isn’t writing more code and hoping to get more functionality; it’s removing excess code and systems that are no longer needed. Deprecation policies and procedures make this possible.
 > 
-> 前面，我们断言“代码是一种负债，而不是一种资产”。如果这是真的，为什么我们用本书的大部分时间来讨论构建 可以存活数十年的软件系统的最有效方法？当它最终会出现在资产负债表的负债方时，为什么还要付出所有努力来 创建更多代码呢？代码本身不会带来价值：它提供的功能带来了价值。如果该功能满足用户需求，那么它就是一种 资产：实现此功能的代码只是实现该目的的一种手段。如果我们可以从一行可维护、可理解的代码中获得与 10,000 行错综复杂的意大利面条式代码相同的功能，我们会更喜欢前者。代码本身是有成本的——代码越简单，同 时保持相同数量的功能越好。与其关注我们可以生产多少代码，或者我们的代码库有多大，我们应该关注每单位代 码可以提供多少功能，并尝试最大化该指标。最简单的方法之一就是不要编写更多代码并希望获得更多功能；而是 删除不再需要的多余代码和系统。“弃用”政策的存在就是为了解决这个问题。
+> 前面，我们断言“代码是一种负债，而不是一种资产”。如果这是真的，为什么我们用本书的大部分时间来讨论构建 可以存活数十年的软件系统的最有效方法？当它最终会出现在资产负债表的负债方时，为什么还要付出所有努力来 创建更多代码呢？代码本身不会带来价值：它提供的功能带来了价值。如果该功能满足用户需求，那么它就是一种 资产：实现此功能的代码只是实现该目的的一种手段。如果我们可以从一行可维护、可理解的代码中获得与 10,000 行错综复杂的意大利面条式代码相同的功能，我们会更喜欢前者。代码本身是有成本的——代码越简单，同 时保持相同数量的功能越好。与其关注我们可以生产多少代码，或者我们的代码库有多大，我们应该关注每单位代 码可以提供多少功能，并尝试最大化该指标。最简单的方法之一就是不要编写更多代码并希望获得更多功能；而是 删除不再需要的多余代码和系统。“弃用”策略的存在就是为了解决这个问题。
 
 Even though deprecation is useful, we’ve learned at Google that organizations have a limit on the amount of deprecation work that is reasonable to undergo simultaneously, from the aspect of the teams doing the deprecation as well as the customers of those teams. For example, although everybody appreciates having freshly paved roads, if the public works department decided to close down every road for paving simultaneously, nobody would go anywhere. By focusing their efforts, paving crews can get specific jobs done faster while also allowing other traffic to make progress. Likewise, it’s important to choose deprecation projects with care and then commit to following through on finishing them.
 
@@ -117,7 +117,7 @@ Given the difficulty in deprecating and removing obsolete software systems, it i
 
 Like many engineering activities, deprecation of a software system can be planned as those systems are first built. Choices of programming language, software architecture, team composition, and even company policy and culture all impact how easy it will be to eventually remove a system after it has reached the end of its useful life.
 
-与许多工程活动一样，软件系统的“弃用”可以在这些系统首次设计时便进行规划。 编程语言、软件架构、团队组成， 甚至公司政策和文化的选择都会影响系统在使用寿命结束后最终将其“弃用”的难易程度。
+与许多工程活动一样，软件系统的“弃用”可以在这些系统首次设计时便进行规划。 编程语言、软件架构、团队组成， 甚至公司策略和文化的选择都会影响系统在使用寿命结束后最终将其“弃用”的难易程度。
 
 The concept of designing systems so that they can eventually be deprecated might be radical in software engineering, but it is common in other engineering disciplines. Consider the example of a nuclear power plant, which is an extremely complex piece of engineering. As part of the design of a nuclear power station, its eventual decommissioning after a lifetime of productive service must be taken into account, even going so far as to allocate funds for this purpose.1 Many of the design choices in building a nuclear power plant are affected when engineers know that it will eventually need to be decommissioned.
 
@@ -142,7 +142,7 @@ Finally, we should point out that the decision as to whether to support a projec
 
 In short, don’t start projects that your organization isn’t committed to support for the expected lifespan of the organization. Even if the organization chooses to deprecate and remove the project, there will still be costs, but they can be mitigated through planning and investments in tools and policy.
 
-简而言之，如果你的公司不打算长期支持某个项目，那么轻易不要启动这个项目。即使公司选择“弃用”项目，仍然会 有成本，但可以通过规划和投资工具和政策来降低成本。
+简而言之，如果你的公司不打算长期支持某个项目，那么轻易不要启动这个项目。即使公司选择“弃用”项目，仍然会 有成本，但可以通过规划和投资工具和策略来降低成本。
 
 
 <a id="org5f89150"></a>
@@ -197,7 +197,7 @@ At the same time, compulsory deprecations without staffing to do the work can co
 
 It’s also worth noting that even with the force of policy behind them, compulsory deprecations can still face political hurdles. Imagine trying to enforce a compulsory deprecation effort when the last remaining user of the old system is a critical piece of infrastructure your entire organization depends on. How willing would you be to break that infrastructure—and, transitively, everybody that depends on it—just for the sake of making an arbitrary deadline? It is hard to believe the deprecation is really compulsory if that team can veto its progress.
 
-还值得注意的是，即使有政策支持，强制性“弃用”仍可能面临政治障碍。 想象一下，当旧系统的最后一个剩余用户 是整个组织所依赖的关键基础架构时， 你会愿意为了在截止日期前完成迁移而破坏那个基础设施及所有依赖它的 系统吗？ 如果该团队可以否决其进展，那它的强制性就值得怀疑。
+还值得注意的是，即使有策略支持，强制性“弃用”仍可能面临政治障碍。 想象一下，当旧系统的最后一个剩余用户 是整个组织所依赖的关键基础架构时， 你会愿意为了在截止日期前完成迁移而破坏那个基础设施及所有依赖它的 系统吗？ 如果该团队可以否决其进展，那它的强制性就值得怀疑。
 
 Google’s monolithic repository and dependency graph gives us tremendous insight into how systems are used across our ecosystem. Even so, some teams might not even know they have a dependency on an obsolete system, and it can be difficult to discover these dependencies analytically. It’s also possible to find them dynamically through tests of increasing frequency and duration during which the old system is turned off temporarily. These intentional changes provide a mechanism for discovering unintended dependencies by seeing what breaks, thus alerting teams to a need to prepare for the upcoming deadline. Within Google, we occasionally change the name of implementation-only symbols to see which users are depending on them unaware.
 

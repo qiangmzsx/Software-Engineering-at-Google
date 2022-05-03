@@ -107,7 +107,7 @@ Documentation is often so tightly coupled to code that it should, as much as pos
 •    If possible, be measured for aspects such as accuracy, freshness, etc. (tools have still not caught up here)
 
 文档通常与代码紧密相连，所以应该尽可能地把它当作代码来对待。也就是说，你的文档应该：
-- 有需要遵循的内部政策或规则
+- 有需要遵循的内部策略或规则
 - 被置于源代码控制之下
 - 有明确的所有权，负责维护文档
 - 对修改进行审查（并与它所记录的代码一起改变）。

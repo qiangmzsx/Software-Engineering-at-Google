@@ -6,7 +6,7 @@ I have always been endlessly fascinated with the details of how Google does thin
 
 Working with former Googlers has only increased my curiosity. If you’ve ever worked with a former Google engineer (or “Xoogler,” as they’re sometimes called), you’ve no doubt heard the phrase “at Google we…” Coming out of Google into other companies seems to be a shocking experience, at least from the engineering side of things. As far as this outsider can tell, the systems and processes for writing code at Google must be among the best in the world, given both the scale of the company and how often peo‐ ple sing their praises.
 
-与前谷歌员工一起工事，只会增加我的好奇心。如果你曾经与前谷歌工程师（或他们有时称之为“Xoogler”）一起工作，你无疑听到过这样一句话："在谷歌我们......" 从谷歌出来进入其他公司已经是一个令人羡慕的经历，至少从工程方面来说是这样。就我这个局外人而言，考虑到公司的规模和员工对其的赞誉程度，谷歌公司编写代码的系统和流程一定是世界上最好的之一。
+与前谷歌员工一起共事，只会增加我的好奇心。如果你曾经与前谷歌工程师（或他们有时称之为“Xoogler”）一起工作，你无疑听到过这样一句话："在谷歌我们......" 从谷歌出来进入其他公司已经是一个令人羡慕的经历，至少从工程方面来说是这样。就我这个局外人而言，考虑到公司的规模和员工对其的赞誉程度，谷歌公司编写代码的系统和流程一定是世界上最好的之一。
 
 In *Software Engineering at Google*, a set of Googlers (and some Xooglers) gives us a lengthy blueprint for many of the practices, tools, and even cultural elements that underlie software engineering at Google. It’s easy to overfocus on the amazing tools that Google has built to support writing code, and this book provides a lot of details about those tools. But it also goes beyond simply describing the tooling to give us the philosophy and processes that the teams at Google follow. These can be adapted to fit a variety of circumstances, whether or not you have the scale and tooling. To my delight, there are several chapters that go deep on various aspects of automated testing, a topic that continues to meet with too much resistance in our industry.
 
@@ -14,7 +14,7 @@ In *Software Engineering at Google*, a set of Googlers (and some Xooglers) gives
 
 The great thing about tech is that there is never only one way to do something. Instead, there is a series of trade-offs we all must make depending on the circumstances of our team and situation. What can we cheaply take from open source? What can our team build? What makes sense to support for our scale? When I was grilling my Googler friends, I wanted to hear about the world at the extreme end of scale: resource rich, in both talent and money, with high demands on the software being built. This anecdotal information gave me ideas on some options that I might not otherwise have considered.
 
-技术的伟大之处在于，做一件事永远不会只有一种方法。相反，有一系列的权衡，我们都必须根据我们的团队和现状来选择。我们可以从开放源码中低成本地获取什么？我们的团队可以创建什么？对我们的规模来说，什么是有意义的支持？当我在询问我的Googler朋友时，我想听听处于规模之颠的世界：要钱有钱，要人有人，对正在构建的软件要求很高。这些信息给了我一些想法，这些想法可能是我没有考虑过的。
+技术的伟大之处在于，做一件事永远不会只有一种方法。相反，有一系列的权衡，我们都必须根据我们的团队和现状来选择。我们可以从开放源码中低成本地获取什么？我们的团队可以创建什么？对我们的规模来说，什么是有意义的支持？当我在询问我的Googler朋友时，我想听听处于规模之颠的世界：要钱有钱，要人有人，对正在构建的软件要求很高。这些信息给了我一些想法，这些想法可能是我没有思考过的。
 
 With this book, we’ve written down those options for everyone to read. Of course, Google is a unique company, and it would be foolish to assume that the right way to run your software engineering organization is to precisely copy their formula. Applied practically, this book will give you ideas on how things could be done, and a lot of information that you can use to bolster your arguments for adopting best practices like testing, knowledge sharing, and building collaborative teams.
 

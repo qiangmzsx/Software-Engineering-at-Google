@@ -82,7 +82,7 @@ GWS是负责为谷歌搜索查询提供服务的网络服务器，它对谷歌�
 
 To address these problems, the tech lead (TL) of GWS decided to institute a policy of engineer-driven, automated testing. As part of this policy, all new code changes were required to include tests, and those tests would be run continuously. Within a year of instituting this policy, the number of emergency pushes *dropped by half*. This drop occurred despite the fact that the project was seeing a record number of new changes every quarter. Even in the face of unprecedented growth and change, testing brought renewed productivity and confidence to one of the most critical projects at Google. Today, GWS has tens of thousands of tests, and releases almost every day with relatively few customer-visible failures.
 
-为了解决这些问题，GWS的技术负责人（TL）决定制定一项由工程师驱动的自动化测试政策。作为这项政策的一部分，所有新的代码修改都需要包括测试，而且这些测试将被持续运行。在实行这一政策的一年内，紧急推送的数量*下降了一半*。尽管该项目每季度都有创纪录的新改动，但还是出现了这种下降。即使面对前所未有的增长和变化，测试也给谷歌最关键的项目之一带来了新的生产力和信心。如今，GWS几乎每天都有数万个测试和发布，几乎没有客户可见的故障。
+为了解决这些问题，GWS的技术负责人（TL）决定制定一项由工程师驱动的自动化测试策略。作为这项策略的一部分，所有新的代码修改都需要包括测试，而且这些测试将被持续运行。在实行这一策略的一年内，紧急推送的数量*下降了一半*。尽管该项目每季度都有创纪录的新改动，但还是出现了这种下降。即使面对前所未有的增长和变化，测试也给谷歌最关键的项目之一带来了新的生产力和信心。如今，GWS几乎每天都有数万个测试和发布，几乎没有客户可见的故障。
 
 The changes in GWS marked a watershed for testing culture at Google as teams in other parts of the company saw the benefits of testing and moved to adopt similar tactics.
 
@@ -267,7 +267,7 @@ At Google, we encourage engineers to try to write small tests whenever possible,
 
 ```
 5	There is a little wiggle room in this policy. Tests are allowed to access a filesystem if they use a hermetic, in- memory implementation.
-5 这个政策有一点回旋余地。如果测试使用的是密封的、内存中的实现，则允许访问文件系统。
+5 这个策略有一点回旋余地。如果测试使用的是密封的、内存中的实现，则允许访问文件系统。
 ```
 
 #### Medium tests  中型测试

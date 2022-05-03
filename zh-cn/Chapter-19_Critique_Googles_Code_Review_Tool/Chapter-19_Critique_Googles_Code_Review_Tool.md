@@ -404,7 +404,7 @@ Critique需要在几个方面支持规模问题。Critique工具必须在不降�
 
 Critique favors an opinionated process and a simple interface to improve the general review workflow. However, Critique does allow some customizability: custom analyzers and presubmits provide specific context on changes, and some team-specific policies (such as requiring LGTM from multiple reviewers) can be enforced.
 
-Critique倾向于采用意见一致的流程和简单的界面来改善一般的审查工作流程。然而，Critique确实允许一些自定义功能：自定义分析器和预提交提供了具体的修改内容，而且可以强制执行一些特定的团队政策（如要求多个审稿人提供LGTM）。
+Critique倾向于采用意见一致的流程和简单的界面来改善一般的审查工作流程。然而，Critique确实允许一些自定义功能：自定义分析器和预提交提供了具体的修改内容，而且可以强制执行一些特定的团队策略（如要求多个审稿人提供LGTM）。
 
 ```
 2	Although most changes are small (fewer than 100 lines), Critique is sometimes used to review large refactoring changes that can touch hundreds or thousands of files, especially for LSCs that must be executed atomically (see Chapter 22).

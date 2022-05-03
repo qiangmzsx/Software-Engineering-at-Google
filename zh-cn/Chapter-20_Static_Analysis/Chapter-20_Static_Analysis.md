@@ -255,7 +255,7 @@ To enable a new check, we first need to clean up all instances of that problem i
 
 We also aim to never issue compiler warnings. We have found repeatedly that devel‐ opers ignore compiler warnings. We either enable a compiler check as an error (and break the build) or don’t show it in compiler output. Because the same compiler flags are used throughout the codebase, this decision is made globally. Checks that can’t be made to break the build are either suppressed or shown in code review (e.g., through Tricorder). Although not every language at Google has this policy, the most fre‐ quently used ones do. Both of the Java and C++ compilers have been configured to avoid displaying compiler warnings. The Go compiler takes this to extreme; some things that other languages would consider warnings (such as unused variables or package imports) are errors in Go.
 
-我们的目标是永远不会发出编译器警告，但是我们不断的发现开发人员会忽略编译器警告，要么启用编译器检查作为错误（并中断构建），要么不在编译器输出中显示它。因为在整个代码库中使用相同的编译器标志，所以这个决定是全局做出的。无法破坏构建的检查要么被抑制，要么在代码审查中显示（例如，通过 Tricorder）。尽管并非 Google 的所有语言都有此政策，但最常用的语言都有。Java 和 C++ 编译器都已配置为避免显示编译器警告，Go 编译器将这一点做的很好，因为在其他语言中会考虑警告的一些事情（例如未使用的变量或包导入），在 Go 中是错误的。
+我们的目标是永远不会发出编译器警告，但是我们不断的发现开发人员会忽略编译器警告，要么启用编译器检查作为错误（并中断构建），要么不在编译器输出中显示它。因为在整个代码库中使用相同的编译器标志，所以这个决定是全局做出的。无法破坏构建的检查要么被抑制，要么在代码审查中显示（例如，通过 Tricorder）。尽管并非 Google 的所有语言都有此策略，但最常用的语言都有。Java 和 C++ 编译器都已配置为避免显示编译器警告，Go 编译器将这一点做的很好，因为在其他语言中会考虑警告的一些事情（例如未使用的变量或包导入），在 Go 中是错误的。
 
 ### Analysis While Editing and Browsing Code  编辑和浏览代码时分析
 

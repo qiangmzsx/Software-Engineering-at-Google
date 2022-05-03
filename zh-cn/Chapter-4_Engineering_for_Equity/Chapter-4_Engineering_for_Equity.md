@@ -8,7 +8,7 @@
 
 In earlier chapters, we’ve explored the contrast between programming as the production of code that addresses the problem of the moment, and software engineering as the broader application of code, tools, policies, and processes to a dynamic and ambiguous problem that can span decades or even lifetimes. In this chapter, we’ll discuss the unique responsibilities of an engineer when designing products for a broad base of users. Further, we evaluate how an organization, by embracing diversity, can design systems that work for everyone, and avoid perpetuating harm against our users.
 
-在前几章中，我们已经探讨了编程与软件工程之间的对比，前者是解决当下问题的代码生产，后者则是对代码、工具、政策和流程的更广泛的应用，以解决可能跨越几十年甚至一生的动态和模糊的问题。在本章中，我们将讨论工程师在为众多用户设计产品时的独特责任。此外，我们还将评估一个组织如何通过拥抱多样性来设计适合每个人的系统，并避免对我们的用户造成永久性的伤害。
+在前几章中，我们已经探讨了编程与软件工程之间的对比，前者是解决当下问题的代码生产，后者则是对代码、工具、策略和流程的更广泛的应用，以解决可能跨越几十年甚至一生的动态和模糊的问题。在本章中，我们将讨论工程师在为众多用户设计产品时的独特责任。此外，我们还将评估一个组织如何通过拥抱多样性来设计适合每个人的系统，并避免对我们的用户造成永久性的伤害。
 
 As new as the field of software engineering is, we’re newer still at understanding the impact it has on underrepresented people and diverse societies. We did not write this chapter because we know all the answers. We do not. In fact, understanding how to engineer products that empower and respect all our users is still something Google is learning to do. We have had many public failures in protecting our most vulnerable users, and so we are writing this chapter because the path forward to more equitable products begins with evaluating our own failures and encouraging growth.
 
@@ -215,7 +215,7 @@ This analysis definitely took up significant project time, but the positive trad
 
 Google has a strong track record of investing in hiring. As the previous example illustrates, we also continually evaluate our processes in order to improve equity and inclusion. More broadly, our core values are based on respect and an unwavering commitment to a diverse and inclusive workforce. Yet, year after year, we have also missed our mark on hiring a representative workforce that reflects our users around the globe. The struggle to improve our equitable outcomes persists despite the policies and programs in place to help support inclusion initiatives and promote excellence in hiring and progression. The failure point is not in the values, intentions, or investments of the company, but rather in the application of those policies at the implementation level.
 
-谷歌在招聘方面有着良好的投入记录。正如前面的例子所示，我们也在不断评估我们的流程，以提高公平和包容性。更广泛地说，我们的核心价值观是基于尊重和对多元化和包容性劳动力的坚定承诺。然而，一年又一年，我们在雇用一支反映我们全球用户的代表性员工队伍方面却没有达到目标。尽管制定了政策和计划，以帮助支持包容倡议并促进招聘和晋升的卓越性，但改善公平结果的斗争依然存在。失败点不在于公司的价值观、意图或投入，而在于这些政策在执行层面的应用。
+谷歌在招聘方面有着良好的投入记录。正如前面的例子所示，我们也在不断评估我们的流程，以提高公平和包容性。更广泛地说，我们的核心价值观是基于尊重和对多元化和包容性劳动力的坚定承诺。然而，一年又一年，我们在雇用一支反映我们全球用户的代表性员工队伍方面却没有达到目标。尽管制定了策略和计划，以帮助支持包容倡议并促进招聘和晋升的卓越性，但改善公平结果的斗争依然存在。失败点不在于公司的价值观、意图或投入，而在于这些策略在执行层面的应用。
 
 Old habits are hard to break. The users you might be used to designing for today— the ones you are used to getting feedback from—might not be representative of all the users you need to reach. We see this play out frequently across all kinds of products, from wearables that do not work for women’s bodies to video-conferencing software that does not work well for people with darker skin tones.
 

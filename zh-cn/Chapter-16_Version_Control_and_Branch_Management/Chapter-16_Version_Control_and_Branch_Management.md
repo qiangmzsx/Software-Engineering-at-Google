@@ -236,7 +236,7 @@ Being able to track different revisions in version control opens up a variety of
 
 Any discussion that an organization has about branch management policies ought to at least acknowledge that every piece of work-in-progress in the organization is equivalent to a branch. This is more explicitly the case with a DVCS in which developers are more likely to make numerous local staging commits before pushing back to the upstream Source of Truth. This is still true of centralized VCSs: uncommitted local changes aren’t conceptually different than committed changes on a branch, other than potentially being more difficult to find and diff against. Some centralized systems even make this explicit. For example, when using Perforce, every change is given two revision numbers: one indicating the implicit branch point where the change was created, and one indicating where it was recommitted, as illustrated in [Figure 16-1](#_bookmark1418). Perforce users can query to see who has outstanding changes to a given file, inspect the pending changes in other users’ uncommitted changes, and more.
 
-组织对分支机构管理政策的任何讨论都应该至少承认组织中正在进行的每一项工作都相当于一个分支。这一点在DVCS中更为明显，因为在DVCS中，开发者更有可能在推送回上游信息源之前进行大量本地暂存提交。集中式VCS仍然如此：未提交的本地更改在概念上与分支上提交的更改没有区别，只是可能更难发现和区分。一些集中式系统甚至明确了这一点。例如，当使用Perforce时，每个更改都会有两个修订号：一个表示创建更改的隐含分支点，另一个表示重新提交更改的位置，如图16-1所示。Perforce用户可以查询查看谁对给定文件有未完成的更改，检查其他用户未提交更改中的未决更改，等等。
+组织对分支机构管理策略的任何讨论都应该至少承认组织中正在进行的每一项工作都相当于一个分支。这一点在DVCS中更为明显，因为在DVCS中，开发者更有可能在推送回上游信息源之前进行大量本地暂存提交。集中式VCS仍然如此：未提交的本地更改在概念上与分支上提交的更改没有区别，只是可能更难发现和区分。一些集中式系统甚至明确了这一点。例如，当使用Perforce时，每个更改都会有两个修订号：一个表示创建更改的隐含分支点，另一个表示重新提交更改的位置，如图16-1所示。Perforce用户可以查询查看谁对给定文件有未完成的更改，检查其他用户未提交更改中的未决更改，等等。
 
 ![Figure 16-1. Two revision numbers in Perforce](./images/Figure 16-1.png)
 
@@ -347,7 +347,7 @@ In some cases, we might be able to hack things together in a way to allow a resu
 
 Any policy system that allows for multiple versions in the same codebase is allowing for the possibility of these costly incompatibilities. It’s possible that you’ll get away with it for a while (we certainly have a number of small violations of this policy), but in general, any multiple-version situation has a very real possibility of leading to big problems.
 
-任何允许在同一代码库中使用多个版本的策略系统都可能会出现这些代价高昂的不兼容。你有可能暂时逃过一劫（我们当然有一些小的违反这一政策的行为），但一般来说，任何多版本的情况都有导致大问题的非常现实的可能性。
+任何允许在同一代码库中使用多个版本的策略系统都可能会出现这些代价高昂的不兼容。你有可能暂时逃过一劫（我们当然有一些小的违反这一策略的行为），但一般来说，任何多版本的情况都有导致大问题的非常现实的可能性。
 
 ```
 9	For example, during an upgrade operation, there might be two versions checked in, but if a developer is adding a new dependency on an existing package, there should be no choice in which version to depend upon.
@@ -395,7 +395,7 @@ Imagine this scenario: some infrastructure team is working on a new Widget, bett
 
 Interestingly, there is already evidence of this being important in the industry. In Accelerate and the most recent State of DevOps reports, DORA points out that there is a predictive relationship between trunk-based development and high-performing software organizations. Google is not the only organization to have discovered this— nor did we necessarily have expected outcomes in mind when these policies evolved —--—it just seemed like nothing else worked. DORA’s result certainly matches our experience.
 
-有趣的是，已经有证据表明这在行业中是很重要的。在《加速》和最近的《DevOps状况》报告中，DORA指出，基于主干的开发和高绩效的软件组织之间存在着预测关系。谷歌并不是唯一发现这一点的组织--当这些政策演变时，我们也不一定有预期的结果--只是看起来没有别的办法了。DORA的结果当然与我们的经验相符。
+有趣的是，已经有证据表明这在行业中是很重要的。在《加速》和最近的《DevOps状况》报告中，DORA指出，基于主干的开发和高绩效的软件组织之间存在着预测关系。谷歌并不是唯一发现这一点的组织--当这些策略演变时，我们也不一定有预期的结果--只是看起来没有别的办法了。DORA的结果当然与我们的经验相符。
 
 Our policies and tools for large-scale changes (LSCs; see [Chapter 22](#_bookmark1935)) put additional weight on the importance of trunk-based development: broad/shallow changes that are applied across the codebase are already a massive (often tedious) undertaking when modifying everything checked in to the trunk branch. Having an unbounded number of additional dev branches that might need to be refactored at the same time would be an awfully large tax on executing those types of changes, finding an ever- expanding set of hidden branches. In a DVCS model, it might not even be possible to identify all of those branches.
 
@@ -519,7 +519,7 @@ Early systems provided simplistic file-granularity locking. As typical software 
 
 The current DVCS decentralization is a sensible reaction of the technology to the needs of the industry (especially the open source community). However, DVCS configuration needs to be tightly controlled and coupled with branch management policies that make sense for your organization. It also can often introduce unexpected scaling problems: perfect fidelity offline operation requires a lot more local data. Failure to rein in the potential complexity of a branching free-for-all can lead to a potentially unbounded amount of overhead between developers and deployment of that code. However, complex technology doesn’t need to be used in a complex fashion: as we see in monorepo and trunk-based development models, keeping branch policies simple generally leads to better engineering outcomes.
 
-目前DVCS的去中心化是该技术对行业（尤其是开源社区）需求的合理反应。然而，DVCS的配置需要严格控制，并与对你的组织有意义的分支管理政策结合起来。它还常常会引入意想不到的扩展问题：完美仿真的离线操作需要更多的本地数据。如果不控制分支自由生成的潜在复杂性，就会导致开发人员和该代码的部署之间可能会出现无限开销。然而，复杂的技术并不需要以复杂的方式来使用：正如我们在单一版本库和基于主干的开发模式中看到的那样，保持分支策略的简单通常会带来更好的工程结果。
+目前DVCS的去中心化是该技术对行业（尤其是开源社区）需求的合理反应。然而，DVCS的配置需要严格控制，并与对你的组织有意义的分支管理策略结合起来。它还常常会引入意想不到的扩展问题：完美仿真的离线操作需要更多的本地数据。如果不控制分支自由生成的潜在复杂性，就会导致开发人员和该代码的部署之间可能会出现无限开销。然而，复杂的技术并不需要以复杂的方式来使用：正如我们在单一版本库和基于主干的开发模式中看到的那样，保持分支策略的简单通常会带来更好的工程结果。
 
 Choice leads to costs here. We highly endorse the One-Version Rule presented here: developers within an organization must not have a choice where to commit, or which version of an existing component to depend upon. There are few policies we’re aware of that can have such an impact on the organization: although it might be annoying for individual developers, in the aggregate, the end result is far better.
 
