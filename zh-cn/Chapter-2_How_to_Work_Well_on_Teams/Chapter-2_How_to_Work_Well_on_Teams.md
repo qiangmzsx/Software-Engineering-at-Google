@@ -8,11 +8,11 @@
 
 Because this chapter is about the cultural and social aspects of software engineering at Google, it makes sense to begin by focusing on the one variable over which you definitely have control: you.
 
-因为本章是从文化和社会方面来介绍谷歌软件工程，首先从焦距与一个你完全控制的变量开始：你自己。
+因为本章是从文化和社会方面来介绍谷歌软件工程，首先从焦聚与一个你完全控制的变量开始：你自己。
 
 People are inherently imperfect—we like to say that humans are mostly a collection of intermittent bugs. But before you can understand the bugs in your coworkers, you need to understand the bugs in yourself. We’re going to ask you to think about your own reactions, behaviors, and attitudes—and in return, we hope you gain some real insight into how to become a more efficient and successful software engineer who spends less energy dealing with people-related problems and more time writing great code.
 
-人天生是不完美的——我们常说，人类大多是一个个不同缺陷的组成集合。但是，在你了解同事身上的缺陷之前，你需要了解自己身上的缺陷。我们将要求你反思自己的反应、行为和态度——作为回报，我们希望你能够真正了解如何成为一名更高效、更成功的软件工程师，减少处理与人相关的问题的精力，花更多的时间编写牛逼的代码。
+人天生是不完美的——我们常说，人类大多是一个个不同缺点的组成集合。但是，在你了解同事身上的缺点之前，你需要了解自己身上的缺点。我们将要求你反思自己的反应、行为和态度——作为回报，我们希望你能够真正了解如何成为一名更高效、更成功的软件工程师，减少处理与人相关的问题的精力，花更多的时间编写牛逼的代码。
 
 The critical idea in this chapter is that software development is a team endeavor. And to succeed on an engineering team—or in any other creative collaboration—you need to reorganize your behaviors around the core principles of humility, respect, and trust.
 
@@ -22,7 +22,7 @@ Before we get ahead of ourselves, let’s begin by observing how software engine
 
 在我们超越自己之前，让我们首先观察软件工程师的一般行为。
 
-## Help Me Hide My Code
+## Help Me Hide My Code  帮我隐藏我的代码
 
 For the past 20 years, my colleague Ben1 and I have spoken at many programming conferences. In 2006, we launched Google’s (now deprecated) open source Project Hosting service, and at first, we used to get lots of questions and requests about the product. But around mid-2008, we began to notice a trend in the sort of requests we were getting:
     “Can you please give Subversion on Google Code the ability to hide specific branches?”
@@ -44,7 +44,7 @@ The answer is insecurity. People are afraid of others seeing and judging their w
 
 答案是缺乏安全感。人们害怕别人看到和评价他们正在进行的工作。从某种意义上说，缺乏安全感是人性的一部分——没有人喜欢被批评，尤其是那些没有完成的事情。认识到这个主题让我们看到了软件开发中一个更普遍的趋势：缺乏安全实际上是一个更大问题的征兆。
 
-## The Genius Myth天才的神话
+## The Genius Myth  天才的神话
 
 Many humans have the instinct to find and worship idols. For software engineers, those might be Linus Torvalds, Guido Van Rossum, Bill Gates—all heroes who changed the world with heroic feats. Linus wrote Linux by himself, right?
 
@@ -59,9 +59,10 @@ On that same note, did Guido Van Rossum personally write all of Python? Certainl
 同样，Guido Van Rossum是否亲自编写了所有Python？当然，他写了第一个版本。但还有数百人为后续版本做出贡献，包括想法、功能和bug修复。史蒂夫·乔布斯领导了一个建造麦金塔的整个团队，尽管比尔·盖茨以为早期家用电脑编写BASIC解释器而闻名，但他更大的成就是围绕MS-DOS系统建立了一家成功的公司。然而，他们都成为集体成就的领袖和象征。天才的神话是一种趋势，即我们需要将团队的成功归因于一个人/领导者。
 
 And what about Michael Jordan?
-It’s the same story. We idolized him, but the fact is that he didn’t win every basketball game by himself. His true genius was in the way he worked with his team. The team’s coach, Phil Jackson, was extremely clever, and his coaching techniques are legendary.
 
 那么Michael Jordan呢？
+
+It’s the same story. We idolized him, but the fact is that he didn’t win every basketball game by himself. His true genius was in the way he worked with his team. The team’s coach, Phil Jackson, was extremely clever, and his coaching techniques are legendary.
 
 这是同一个故事。我们崇拜他，但事实是他并不是一个人赢得每一场篮球比赛的。他真正的牛逼在于他与团队合作的方式。这支球队的教练Phil Jackson非常聪明，他的教练技术堪称传奇。
 
@@ -87,7 +88,7 @@ Deep down, many engineers secretly wish to be seen as geniuses. This fantasy goe
 
 在内心深处，许多工程师暗中希望被视为天才。这种幻想是这样的：
 
-- 您会被一个了不起的新概念所震撼。
+- 你会被一个了不起的新概念所震撼。
 - 你消失数周或数月躲在洞穴中，努力实现你的理想。
 - 然后世界上“发布”你的软件，用你的天才震撼每个人。
 - 你的同龄人对你的聪明感到惊讶。
@@ -109,9 +110,8 @@ It turns out that this Genius Myth is just another manifestation of our insecuri
 To quote a friend:
     *I know I get SERIOUSLY insecure about people looking before something is done. Like they are going to seriously judge me and think I’m an idiot.*
 
-引用一位朋友的话：
-
-​    *我知道，别人在我完成某事之前就来看，会让我感到非常不安全。好像他们会认真地评判我，认为我是个白痴。*
+引用一位朋友的话：  
+	​*我知道，别人在我完成某事之前就来看，会让我感到非常不安全。好像他们会认真地评判我，认为我是个白痴。*
 
 This is an extremely common feeling among programmers, and the natural reaction is to hide in a cave, work, work, work, and then polish, polish, polish, sure that no one will see your goof-ups and that you’ll still have a chance to unveil your masterpiece when you’re done. Hide away until your code is perfect.
 
@@ -138,7 +138,7 @@ First of all, how do you even know whether you’re on the right track?
 
 首先，你怎么知道自己是否在正确的轨道上？
 
-Imagine you’re a bicycle-design enthusiast, and one day you get a brilliant idea for a completely new way to design a gear shifter. You order parts and proceed to spend weeks holed up in your garage trying to build a prototype. When your neighbor— also a bike advocate—asks you what’s up, you decide not to talk about it. You don’t want anyone to know about your project until it’s absolutely perfect. Another few months go by and you’re having trouble making your prototype work correctly. But because you’re working in secrecy, it’s impossible to solicit advice from your mechanically inclined friends.
+Imagine you’re a bicycledesign enthusiast, and one day you get a brilliant idea for a completely new way to design a gear shifter. You order parts and proceed to spend weeks holed up in your garage trying to build a prototype. When your neighbor— also a bike advocate—asks you what’s up, you decide not to talk about it. You don’t want anyone to know about your project until it’s absolutely perfect. Another few months go by and you’re having trouble making your prototype work correctly. But because you’re working in secrecy, it’s impossible to solicit advice from your mechanically inclined friends.
 
 想象一下，你是一个自行车设计爱好者，有一天你有了一个牛逼的想法，可以用一种全新的方式来设计变速器。你订购零件，然后花数周时间躲在车库里，尝试制造一个原型。当你的邻居——也是自行车倡导者——问你怎么了，你决定闭口不谈。你不想让任何人知道你的项目，直到它绝对完美。又过几个月，你在让原型运行时遇到了麻烦。但因为你是在保密的情况下工作，所以不可能征求你那些有机械专家朋友的意见。
 
@@ -160,11 +160,11 @@ Early sharing isn’t just about preventing personal missteps and getting your i
 
 Bus factor (noun): the number of people that need to get hit by a bus before your project is completely doomed.
 
-巴士因子：团队里因巴士撞到的多少人，会导致项目失败。
+巴士因子：团队里因巴士撞倒的多少人，会导致项目失败。
 
 How dispersed is the knowledge and know-how in your project? If you’re the only person who understands how the prototype code works, you might enjoy good job security—but if you get hit by a bus, the project is toast. If you’re working with a colleague, however, you’ve doubled the bus factor. And if you have a small team designing and prototyping together, things are even better—the project won’t be marooned when a team member disappears. Remember: team members might not literally be hit by buses, but other unpredictable life events still happen. Someone might get married, move away, leave the company, or take leave to care for a sick relative. Ensuring that there is at least good documentation in addition to a primary and a secondary owner for each area of responsibility helps future-proof your project’s success and increases your project’s bus factor. Hopefully most engineers recognize that it is better to be one part of a successful project than the critical part of a failed project.
 
-你的项目中的知识和技能分散程度如何？如果您是唯一了解原型代码工作原理的人，你需要会受到良好的工作保障，但如果您被公交车撞到，项目就完蛋了。但是，如果你与同事合作，你的巴士因子就翻了一番。如果你有一个小团队一起进行设计和制作原型，情况会更好——当团队某个成员消失时，项目不会被孤立。记住：团队成员可能不会被公交车撞到，但其他不可预知的事件仍然会发生。有人可能会结婚、搬走、离开公司或请假照顾生病的亲属。确保每个责任领域除了一个主要和一个次要所有者之外，至少还有可用的文档，这有助于确保项目的成功，提高项目的成功率。希望大多数工程师认识到，成为成功项目的一部分比成为失败项目的关键部分要好。
+你的项目中的知识和技能分散程度如何？如果你是唯一了解原型代码工作原理的人，你需要会受到良好的工作保障，但如果你被公交车撞倒，项目就完蛋了。但是，如果你与同事合作，你的巴士因子就翻了一番。如果你有一个小团队一起进行设计和制作原型，情况会更好——当团队某个成员消失时，项目不会被孤立。记住：团队成员可能不会被公交车撞到，但其他不可预知的事件仍然会发生。有人可能会结婚、搬走、离开公司或请假照顾生病的亲属。确保每个责任领域除了一个主要和一个次要所有者之外，至少还有可用的文档，这有助于确保项目的成功，提高项目的成功率。希望大多数工程师认识到，成为成功项目的一部分比成为失败项目的关键部分要好。
 
 Beyond the bus factor, there’s the issue of overall pace of progress. It’s easy to forget that working alone is often a tough slog, much slower than people want to admit. How much do you learn when working alone? How fast do you move? Google and Stack Overflow are great sources of opinions and information, but they’re no substitute for actual human experience. Working with other people directly increases the collective wisdom behind the effort. When you become stuck on something absurd, how much time do you waste pulling yourself out of the hole? Think about how different the experience would be if you had a couple of peers to look over your shoulder and tell you—instantly—how you goofed and how to get past the problem. This is exactly why teams sit together (or do pair programming) in software engineering companies. Programming is hard. Software engineering is even harder. You need that second pair of eyes.
 
@@ -172,9 +172,9 @@ Beyond the bus factor, there’s the issue of overall pace of progress. It’s e
 
 ```
 2    Literally, if you are, in fact, a bike designer.
-实际上，如果你是一个自行车设计师。
+2  实际上，如果你是一个自行车设计师。
 3    I should note that sometimes it’s dangerous to get too much feedback too early in the process if you’re still unsure of your general direction or goal.
-我应该注意到，如果你仍然不确定自己的总体方向或目标，那么在过程中过早地获得太多反馈是很危险的。
+3  我应该注意到，如果你仍然不确定自己的总体方向或目标，那么在过程中过早地获得太多反馈是很危险的。
 ```
 
 ### Pace of Progress 进展速度
@@ -320,11 +320,11 @@ All of this preaching about humility, respect, and trust sounds like a sermon. L
 
 所有这些关于谦逊、尊重和信任的说教听起来像是布道。让我们从云端走出来，思考如何在现实生活中应用这些想法。我们将研究一系列具体的行为和例子，你可以从这些行为和例子入手。其中许多一开始听起来很明显，但在你开始思考它们之后，你会注意到你（和你的同龄人）经常因为没有遵循它们而感到内疚——我们当然注意到了这一点！
 
-#### Lose the ego丧失自我
+#### Lose the ego 丢掉自我
 
 OK, this is sort of a simpler way of telling someone without enough humility to lose their ’tude. Nobody wants to work with someone who consistently behaves like they’re the most important person in the room. Even if you know you’re the wisest person in the discussion, don’t wave it in people’s faces. For example, do you always feel like you need to have the first or last word on every subject? Do you feel the need to comment on every detail in a proposal or discussion? Or do you know somebody who does these things?
 
-好吧，这是一种更简单的方式，告诉那些没有足够谦卑的人失去他们的理智。没有人愿意和一个总是表现得像房间里最重要的人一样的人一起工作。即使你知道自己是讨论中最聪明的人，也不要当众挥舞。例如，你是否总是觉得你需要对每一个主题都说第一句话或最后一句话？您是否觉得有必要对提案或讨论中的每一个细节进行评论？或者你认识做的人吗？
+好吧，这是一种更简单的方式，告诉那些没有足够谦卑的人失去他们的理智。没有人愿意和一个总是表现得像房间里最重要的人一样的人一起工作。即使你知道自己是讨论中最聪明的人，也不要当众挥舞。例如，你是否总是觉得你需要对每一个主题都说第一句话或最后一句话？你是否觉得有必要对提案或讨论中的每一个细节进行评论？或者你认识做的人吗？
 
 Although it’s important to be humble, that doesn’t mean you need to be a doormat; there’s nothing wrong with self-confidence. Just don’t come off like a know-it-all. Even better, think about going for a “collective” ego, instead; rather than worrying about whether you’re personally awesome, try to build a sense of team accomplishment and group pride. For example, the Apache Software Foundation has a long history of creating communities around software projects. These communities have incredibly strong identities and reject people who are more concerned with self- promotion.
 
@@ -334,8 +334,7 @@ Ego manifests itself in many ways, and a lot of the time, it can get in the way 
     John Tukey almost always dressed very casually. He would go into an important office and it would take a long time before the other fellow realized that this is a first-class man and he had better listen. For a long time, John has had to overcome this kind of hostility. It’s wasted effort! I didn’t say you should conform; I said, “The appearance of conforming gets you a long way.” If you chose to assert your ego in any number of ways, “I am going to do it my way,” you pay a small steady price throughout the whole of your professional career. And this, over a whole lifetime, adds up to an enormous amount of needless trouble. […] By realizing you have to use the system and studying how to get the system to do your work, you learn how to adapt the system to your desires. Or you can fight it steadily, as a small, undeclared war, for the whole of your life.
 
 自我表现在很多方面，很多时候，它会妨碍你的生产力，拖累你。下面是Hamming演讲中的另一个精彩故事，完美地说明了这一点（重点是我们的）：
-
-​    *John Tukey 几乎总是穿得很随便。他会走进一个重要会议，过了很长一段时间，另一个人才意识到这是一个牛逼的人，他最好听从。长期以来，约翰不得不克服这种敌意。这是白费力气！我没说你应该服从；我说，“顺从的外表让你走得更远。”如果你选择以任何一种方式来主张你的自我，"我要用我的方式来做"，你就会在整个职业生涯中付出确定的小代价。而这，在整个一生中，加起来就是一个大量的不必要的麻烦。[…]通过意识到你必须使用这个系统并研究如何让这个系统完成你的工作，你学会了如何让这个系统适应你的愿望。或者你可以在你的一生中，作为一场小型的、不宣而战的战争，稳扎稳打。*
+	*John Tukey 几乎总是穿得很随便。他会走进一个重要会议，过了很长一段时间，另一个人才意识到这是一个牛逼的人，他最好听从。长期以来，约翰不得不克服这种敌意。这是白费力气！我没说你应该服从；我说，“顺从的外表让你走得更远。”如果你选择以任何一种方式来主张你的自我，"我要用我的方式来做"，你就会在整个职业生涯中付出确定的小代价。而这，在整个一生中，加起来就是一个大量的不必要的麻烦。[…]通过意识到你必须使用这个系统并研究如何让这个系统完成你的工作，你学会了如何让这个系统适应你的愿望。或者你可以在你的一生中，作为一场小型的、不宣而战的战争，稳扎稳打。*
 
 #### Learn to give and take criticism 学会给出和接受批评
 
@@ -361,17 +360,14 @@ A better way to say the same thing might be, “Hey, I’m confused by the contr
 
 #### Fail fast and iterate 快速失败并迭代
 
-There’s a well-known urban legend in the business world about a manager who makes a mistake and loses an impressive $10 million. He dejectedly goes into the office the next day and starts packing up his desk, and when he gets the inevitable “the CEO wants to see you in his office” call, he trudges into the CEO’s office and quietly slides a piece of paper across the desk.
-“What’s this?” asks the CEO.
+There’s a well-known urban legend in the business world about a manager who makes a mistake and loses an impressive $10 million. He dejectedly goes into the office the next day and starts packing up his desk, and when he gets the inevitable “the CEO wants to see you in his office” call, he trudges into the CEO’s office and quietly slides a piece of paper across the desk.  
+“What’s this?” asks the CEO.  
+“My resignation,” says the executive. “I assume you called me in here to fire me.”  
+“Fire you?” responds the CEO, incredulously. “Why would I fire you? I just spent $10 million training you!”6  
 
-“My resignation,” says the executive. “I assume you called me in here to fire me.”
-“Fire you?” responds the CEO, incredulously. “Why would I fire you? I just spent $10 million training you!”6
-
-商界有一个著名的城市传奇，说的是一位经理犯了一个错误，损失了令人印象深刻的1000万美元。第二天，他沮丧地走进办公室，开始收拾桌子。当他接到不可抗拒的“CEO想见你在办公室”电话时，他蹒跚地走进CEO办公室，悄悄地把一张纸递上桌子。
-
-"这是什么？"CEO问道。
-
-"我的辞呈，"这位经理说。"我想你叫我来是要解雇我。"
+商界有一个著名的城市传奇，说的是一位经理犯了一个错误，损失了令人印象深刻的1000万美元。第二天，他沮丧地走进办公室，开始收拾桌子。当他接到不可抗拒的“CEO想见你在办公室”电话时，他蹒跚地走进CEO办公室，悄悄地把一张纸递上桌子。  
+"这是什么？"CEO问道。  
+"我的辞呈，"这位经理说。"我想你叫我来是要解雇我。"  
 "解雇你？"首席执行官难以置信地回答道。"我为什么要解雇你？我刚刚花了1000万美元培训你！"
 
 It’s an extreme story, to be sure, but the CEO in this story understands that firing the executive wouldn’t undo the $10 million loss, and it would compound it by losing a valuable executive who he can be very sure won’t make that kind of mistake again.
@@ -380,7 +376,7 @@ It’s an extreme story, to be sure, but the CEO in this story understands that 
 
 At Google, one of our favorite mottos is that “Failure is an option.” It’s widely recognized that if you’re not failing now and then, you’re not being innovative enough or taking enough risks. Failure is viewed as a golden opportunity to learn and improve for the next go-around.7 In fact, Thomas Edison is often quoted as saying, “If I find 10,000 ways something won’t work, I haven’t failed. I am not discouraged, because every wrong attempt discarded is another step forward.”
 
-在谷歌，我们最喜欢的格言之一是“失败也是一种选择”。我们普遍认为，如果你没有遭遇过失败，你就没有足够的创新或承担足够的风险的能力。失败被视为一个黄金机会，可以在下一次尝试中学习和改进。7事实上，人们经常引用托马斯·爱迪生的话说：“如果我发现有一万种方法不能成功，我就没有失败。我并不气馁，因为每一个被抛弃的错误尝试都是向前迈出的另一步”
+在谷歌，我们最喜欢的格言之一是“失败也是一种选择”。我们普遍认为，如果你没有遭遇过失败，你就没有足够的创新或承担足够的风险的能力。失败被视为一个黄金机会，可以在下一次尝试中学习和改进。事实上，人们经常引用托马斯·爱迪生的话说：“如果我发现有一万种方法不能成功，我就没有失败。我并不气馁，因为每一个被抛弃的错误尝试都是向前迈出的另一步”
 
 Over in Google X—the division that works on “moonshots” like self-driving cars and internet access delivered by balloons—failure is deliberately built into its incentive system. People come up with outlandish ideas and coworkers are actively encouraged to shoot them down as fast as possible. Individuals are rewarded (and even compete) to see how many ideas they can disprove or invalidate in a fixed period of time. Only when a concept truly cannot be debunked at a whiteboard by all peers does it proceed to early prototype.
 
@@ -400,16 +396,15 @@ The key to learning from your mistakes is to document your failures by performin
 从错误中学习的关键是通过进行根因分析和撰写“事后总结”来记录你的失败，在谷歌（和许多其他公司）成为事后总结（国内成为复盘）。要格外小心，确保 "事后总结 "文件不只是一份无用的道歉、借口或指责的清单，这不是它的目的。正确事后总结应该总是包含对所学到的内容的解释，以及作为学习经验作为后续的改进落地。然后，确保事后总结可以随时查阅，并确保团队真正贯彻执行所建议的改变。好的故障复盘要让其他人（现在和将来）知道发生了什么，避免重蹈覆辙。不要抹去你的足迹——让它们在道路上照亮给那些追随你的人!
 
 A good postmortem should include the following:
-•    A brief summary of the event
-•    A timeline of the event, from discovery through investigation to resolution
-•    The primary cause of the event
-•    Impact and damage assessment
-•    A set of action items (with owners) to fix the problem immediately
-•    A set of action items to prevent the event from happening again
-•    Lessons learned
+- A brief summary of the event
+-  A timeline of the event, from discovery through investigation to resolution
+-  The primary cause of the event
+- Impact and damage assessment
+- A set of action items (with owners) to fix the problem immediately
+- A set of action items to prevent the event from happening again
+- Lessons learned
 
-一个好的事后总结应该包括以下内容。
-
+一个好的事后总结应该包括以下内容：
 - 事件的简要概述
 - 事件的时间线，从发现、调查到解决的过程
 - 事件的主要原因
@@ -432,24 +427,25 @@ That said, we had a longstanding history of trust and respect for each other. Co
 
 尽管如此，我们对彼此的信任和尊重由来已久。再加上耐心，这帮助我们制定了一个新的合作方法。我们会一起坐在电脑前，找出bug，然后从两个方向（自上而下和自下而上）拆分并同时解决问题，然后再返回继续查找bug。我们的耐心和即兴创作新工作方式的意愿不仅挽救了这个项目，而且也挽救了我们的友谊。
 
-#### Be open to influence 受影响
+#### Be open to influence 接受影响
 
 The more open you are to influence, the more you are able to influence; the more vulnerable you are, the stronger you appear. These statements sound like bizarre contradictions. But everyone can think of someone they’ve worked with who is just maddeningly stubborn—no matter how much people try to persuade them, they dig their heels in even more. What eventually happens to such team members? In our experience, people stop listening to their opinions or objections; instead, they end up “routing around” them like an obstacle everyone takes for granted. You certainly don’t want to be that person, so keep this idea in your head: it’s OK for someone else to change your mind. In the opening chapter of this book, we said that engineering is inherently about trade-offs. It’s impossible for you to be right about everything all the time unless you have an unchanging environment and perfect knowledge, so of course you should change your mind when presented with new evidence. Choose your battles carefully: to be heard properly, you first need to listen to others. It’s better to do this listening before putting a stake in the ground or firmly announcing a decision—if you’re constantly changing your mind, people will think you’re wishy-washy.
 
-你对影响的态度越开放，你就越能影响。越是脆弱，越是强势。这些说法听起来相互矛盾。但每个人都能想到他们曾经共事过的人，他们的固执让人抓狂--无论人们如何劝说他们，他们都会更加钻牛角尖。这样的团队成员最终会发生什么？根据我们的经验，人们不再听取他们的任何意见，不论是赞同还是反对的意见；如果，这些固执的人解决了自己固执的问题，那么他们解决了大家都认为是障碍问题。你当然不希望成为这样的人，所以要把这个想法记在脑子里： 别人可以改变你的想法。在本书的开始，我们说过，工程本质上是关于权衡的。 除非你有一个不变的环境和完美的知识，否则你不可能一直对所有事情都是正确的，所以当有新的证据时，你当然应该改变你的最初想法。谨慎选择你的战斗：要想让别人正确地听取你的意见，你首先需要倾听别人的意见。最好在下定决心或坚定地宣布决定之前进行倾听——如果你不断地改变主意，人们会认为你不坚定。
+你对影响的态度越开放，你就越能影响。越是脆弱，越是强势。这些说法听起来相互矛盾。但每个人都能想到他们曾经共事过的人，他们的固执让人抓狂——无论人们如何劝说他们，他们都会更加钻牛角尖。这样的团队成员最终会发生什么？根据我们的经验，人们不再听取他们的任何意见，不论是赞同还是反对的意见；如果，这些固执的人解决了自己固执的问题，那么他们解决了大家都认为是障碍问题。你当然不希望成为这样的人，所以要把这个想法记在脑子里： 别人可以改变你的想法。在本书的开始，我们说过，工程本质上是关于权衡的。 除非你有一个不变的环境和完美的知识，否则你不可能一直对所有事情都是正确的，所以当有新的证据时，你当然应该改变你的最初想法。谨慎选择你的战斗：要想让别人正确地听取你的意见，你首先需要倾听别人的意见。最好在下定决心或坚定地宣布决定之前进行倾听——如果你不断地改变主意，人们会认为你不坚定。
 
 The idea of vulnerability can seem strange, too. If someone admits ignorance of the topic at hand or the solution to a problem, what sort of credibility will they have in a group? Vulnerability is a show of weakness, and that destroys trust, right?
-Not true. Admitting that you’ve made a mistake or you’re simply out of your league can increase your status over the long run. In fact, the willingness to express vulnerability is an outward show of humility, it demonstrates accountability and the willingness to take responsibility, and it’s a signal that you trust others’ opinions. In return, people end up respecting your honesty and strength. Sometimes, the best thing you can do is just say, “I don’t know.”
 
 脆弱性的想法似乎也很奇怪。如果有人承认不知道手头的话题或问题的解决方案，那么他们在团队中会有什么样的可信度？脆弱是软弱的表现，这会破坏信任，对吗？
+
+Not true. Admitting that you’ve made a mistake or you’re simply out of your league can increase your status over the long run. In fact, the willingness to express vulnerability is an outward show of humility, it demonstrates accountability and the willingness to take responsibility, and it’s a signal that you trust others’ opinions. In return, people end up respecting your honesty and strength. Sometimes, the best thing you can do is just say, “I don’t know.”
 
 并非如此。从长远来看，承认自己犯了错误，或者根本不属于你的行列，都会提高你的地位。事实上，表达脆弱性的意愿是一种谦逊的外在表现，它表明了责任感和承担责任的意愿，也是你信任他人意见的信号。作为回报，人们最终会尊重你的诚实和力量。有时，你能做的最好的事情就是说，"我不知道"。
 
 Professional politicians, for example, are notorious for never admitting error or ignorance, even when it’s patently obvious that they’re wrong or unknowledgeable about a subject. This behavior exists primarily because politicians are constantly under attack by their opponents, and it’s why most people don’t believe a word that politicians say. When you’re writing software, however, you don’t need to be continually on the defensive—your teammates are collaborators, not competitors. You all have the same goal.
 
-例如，职业政客因从不承认错误或无知而臭名昭著，即使他们在某个问题上显然是错的或不知的。存在这种行为主要是因为政客们经常受到对手的攻击，这就是为什么大多数人不相信政客们说的一个字。然而，当你在编写软件时，你不需要不断地进行防守--你的团队成员是合作者，而不是竞争对手。你们都有相同的目标。
+例如，职业政客因从不承认错误或无知而臭名昭著，即使他们在某个问题上显然是错的或不知的。存在这种行为主要是因为政客们经常受到对手的攻击，这就是为什么大多数人不相信政客们说的一个字。然而，当你在编写软件时，你不需要不断地进行防守——你的团队成员是合作者，而不是竞争对手。你们都有相同的目标。
 
-### Being Googley
+### Being Googley  成为谷歌的
 
 At Google, we have our own internal version of the principles of “humility, respect, and trust” when it comes to behavior and human interactions.
 
@@ -479,30 +475,18 @@ Google eventually fixed the problem by explicitly defining a rubric for what we 
     Has a strong sense of ethics about everything they do; willing to make difficult or inconvenient decisions to protect the integrity of the team and product.
 
 谷歌最终解决了这个问题，明确定义了我们所说的“谷歌特质”（Googleynes）——我们所寻找的一套属性和行为，代表了强大的领导力，体现了 "谦逊、尊重和信任"：
-
 *在模棱两可中茁壮成长*
-
-​    即使在环境不断变化的情况下，也能处理相互冲突的信息或方向，建立共识，并对问题做出改进。
-
+	即使在环境不断变化的情况下，也能处理相互冲突的信息或方向，建立共识，并对问题做出改进。
 *重视反馈*
-
-​    谦虚优雅地接受和给出反馈，理解反馈对个人（和团队）发展的价值。
-
+	谦虚优雅地接受和给出反馈，理解反馈对个人（和团队）发展的价值。
 *走出舒适区*
-
-​    能够设定宏伟的目标并去追求，即使有来自他人的抵制或惰性。
-
+	能够设定宏伟的目标并去追求，即使有来自他人的抵制或惰性。
 *客户第一*
-
-​    对谷歌产品的用户抱有同情和尊重，并追求符合其最佳利益的行动。
-
+	对谷歌产品的用户抱有同情和尊重，并追求符合其最佳利益的行动。
 *关心团队*
-
-​    对同事抱有同情心和尊重，并积极主动地帮助他们，提高团队凝聚力。
-
+	对同事抱有同情心和尊重，并积极主动地帮助他们，提高团队凝聚力。
 *做正确的事*
-
-​    对自己所做的一切有强烈的主人感；愿意做出困难或不易的决定以保护团队和产品的完整。
+	对自己所做的一切有强烈的主人感；愿意做出困难或不易的决定以保护团队和产品的完整。
 
 Now that we have these best-practice behaviors better defined, we’ve begun to shy away from using the term “Googley.” It’s always better to be specific about expectations!
 
