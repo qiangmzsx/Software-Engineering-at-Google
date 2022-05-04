@@ -321,7 +321,7 @@ All of this preaching about humility, respect, and trust sounds like a sermon. L
 
 所有这些关于谦逊、尊重和信任的说教听起来像是布道。让我们从云端走出来，思考如何在现实生活中应用这些想法。我们将研究一系列具体的行为和例子，你可以从这些行为和例子入手。其中许多一开始听起来很明显，但在你开始思考它们之后，你会注意到你（和你的同龄人）经常因为没有遵循它们而感到内疚——我们当然注意到了这一点！
 
-#### Lose the ego 丢掉自我
+#### Lose the ego 丢掉自负
 
 OK, this is sort of a simpler way of telling someone without enough humility to lose their ’tude. Nobody wants to work with someone who consistently behaves like they’re the most important person in the room. Even if you know you’re the wisest person in the discussion, don’t wave it in people’s faces. For example, do you always feel like you need to have the first or last word on every subject? Do you feel the need to comment on every detail in a proposal or discussion? Or do you know somebody who does these things?
 
