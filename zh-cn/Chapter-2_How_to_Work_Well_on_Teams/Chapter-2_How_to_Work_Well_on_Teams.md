@@ -4,7 +4,7 @@
 
 # 第二章 如何融入团队
 
-​                                                                                                            **Written by Brian Fitzpatrick Edited by Riona MacNamara**
+​                                                              **Written by Brian Fitzpatrick Edited by Riona MacNamara**
 
 Because this chapter is about the cultural and social aspects of software engineering at Google, it makes sense to begin by focusing on the one variable over which you definitely have control: you.
 
@@ -299,7 +299,8 @@ When you began this chapter, you probably weren’t planning to sign up for some
 当你开始这一章时，你可能没有计划参加某种每周支持小组。我们有同情心。处理社会问题可能很困难：人们杂乱无章，不可预测，而且常常令人讨厌。与其把精力放在分析社会状况和采取战略行动上，不如把所有的努力都一笔勾销。使用可预测的编译器要容易得多，不是吗？为什么还要为社交活动操心呢？
 
 Here’s a quote from a famous lecture by Richard Hamming:
-    By taking the trouble to tell jokes to the secretaries and being a little friendly, I got superb secretarial help. For instance, one time for some idiot reason all the reproducing services at Murray Hill were tied up. Don’t ask me how, but they were. I wanted something done. My secretary called up somebody at Holmdel, hopped [into] the company car, made the hour-long trip down and got it reproduced, and then came back. It was a payoff for the times I had made an effort to cheer her up, tell her jokes and be friendly; it was that little extra work that later paid off for me. By realizing you have to use the system and studying how to get the system to do your work, you learn how to adapt the system to your desires.
+
+​    By taking the trouble to tell jokes to the secretaries and being a little friendly, I got superb secretarial help. For instance, one time for some idiot reason all the reproducing services at Murray Hill were tied up. Don’t ask me how, but they were. I wanted something done. My secretary called up somebody at Holmdel, hopped [into] the company car, made the hour-long trip down and got it reproduced, and then came back. It was a payoff for the times I had made an effort to cheer her up, tell her jokes and be friendly; it was that little extra work that later paid off for me. By realizing you have to use the system and studying how to get the system to do your work, you learn how to adapt the system to your desires.
 
 以下是理查德·哈明（Richard Hamming）著名演讲中的一段话：
 
