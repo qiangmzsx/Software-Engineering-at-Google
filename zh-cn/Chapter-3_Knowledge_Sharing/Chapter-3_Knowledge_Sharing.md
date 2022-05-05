@@ -501,10 +501,9 @@ go/links (sometimes referred to as goto/ links) are Google’s internal URL shor
 •	- go/links are so short that it’s easy to share them in conversation (“You should check out go/frobber!”). This is much easier than having to go find a link and then send a message to all interested parties. Having a low-friction way to share references makes it more likely that that knowledge will be shared in the first place.
 •	- go/links provide a permalink to the content, even if the underlying URL changes. When an owner moves content to a different repository (for example, moving content from a Google doc to g3doc), they can simply update the go/link’s target URL. The go/link itself remains unchanged.
 
-go/links（有时被称为goto/链接）是谷歌的内部URL缩短器。大多数谷歌内部的参考资料至少有一个内部go/links。例如，"go/ spanner "提供关于Spanner的信息，"go/python "是谷歌的Python开发者指南。这些内容可以存在于任何资源库中（g3doc、Google Drive、Google Sites等），但有一个指向它的go/links提供了一种可预测的、可记忆的访问方式。这产生了一些很好的好处：
-
-	- go/links非常短，很容易在谈话中分享它们（"你应该看看go/frobber！"）。这比去找一个链接，然后给所有感兴趣的人发一个消息要容易得多。有一个低成本的方式来分享参考资料，使得这些知识更有可能在第一时间被分享。
-	- go/links提供内容的固定链接，即使底层的URL发生变化。当所有者将内容移到一个不同的资源库时（例如，将内容从Google doc移到g3doc），他们可以简单地更新go/link的目标URL。go/link本身保持不变。
+go/links（有时被称为goto/链接）是谷歌的内部URL缩短器。大多数谷歌内部的参考资料至少有一个内部go/links。例如，"go/spanner "提供关于Spanner的信息，"go/python "是谷歌的Python开发者指南。这些内容可以存在于任何资源库中（g3doc、Google Drive、Google Sites等），但有一个指向它的go/links提供了一种可预测的、可记忆的访问方式。这产生了一些很好的好处：
+- go/links非常短，很容易在谈话中分享它们（"你应该看看go/frobber！"）。这比去找一个链接，然后给所有感兴趣的人发一个消息要容易得多。有一个低成本的方式来分享参考资料，使得这些知识更有可能在第一时间被分享。
+- go/links提供内容的固定链接，即使底层的URL发生变化。当所有者将内容移到一个不同的资源库时（例如，将内容从Google doc移到g3doc），他们可以简单地更新go/link的目标URL。go/link本身保持不变。
 
 go/links are so ingrained into Google culture that a virtuous cycle has emerged: a Googler looking for information about Frobber will likely first check go/frobber. If the go/ link doesn’t point to the Frobber Developer Guide (as expected), the Googler will generally configure the link themselves. As a result, Googlers can usually guess the correct go/link on the first try.
 
@@ -519,12 +518,13 @@ Google codelabs是有指导的实践教程，通过结合解释、工作中的�
 16	go/ links are unrelated to the Go language.
 go/link与go语言无关。
 17	External codelabs are available at https://codelabs.developers.google.com.
+17 外部代码实验室可在https://codelabs.developers.google.com。
 ```
 
 #### Static analysis 静态分析
 Static analysis tools are a powerful way to share best practices that can be checked programmatically. Every programming language has its own particular static analysis tools, but they have the same general purpose: to alert code authors and reviewers to ways in which code can be improved to follow style and best practices. Some tools go one step further and offer to automatically apply those improvements to the code.
 
-静态分析工具是分享可以通过编程检查最佳实践的强大方式。每种编程语言都有其特定的静态分析工具，它们有相同的共同目的：提醒代码作者和审查者注意可以改进代码的方式，以遵循规范和最佳实践。有些工具更进一步，提供自动将这些改进应用到代码中。
+静态分析工具是分享编程检查最佳实践的强大方式。每种编程语言都有其特定的静态分析工具，它们有相同的共同目的：提醒代码作者和审查者注意可以改进代码的方式，以遵循规范和最佳实践。有些工具更进一步，提供自动将这些改进应用到代码中。
 
 Setting up static analysis tools requires an upfront investment, but as soon as they are in place, they scale efficiently. When a check for a best practice is added to a tool, every engineer using that tool becomes aware of that best practice. This also frees up engineers to teach other things: the time and effort that would have gone into manually teaching the (now automated) best practice can instead be used to teach something else. Static analysis tools augment engineers’ knowledge. They enable an organization to apply more best practices and apply them more consistently than would otherwise be possible.
 
@@ -533,7 +533,7 @@ Setting up static analysis tools requires an upfront investment, but as soon as 
 ### Staying in the Loop 保持互动
 Some information is critical to do one’s job, such as knowing how to do a typical development workflow. Other information, such as updates on popular productivity tools, is less critical but still useful. For this type of knowledge, the formality of the information sharing medium depends on the importance of the information being delivered. For example, users expect official documentation to be kept up to date, but typically have no such expectation for newsletter content, which therefore requires less maintenance and upkeep from the owner.
 
-有些信息对于完成工作至关重要，例如知道如何执行典型的开发工作流。其他的信息，比如流行的生产力工具的更新，虽然不那么关键，但仍然有用。对于这种类型的知识，信息共享媒介的正式性取决于所传递信息的重要性。例如，用户希望官方文档保持最新，但通常不希望新闻稿内容保持最新，因此需要所有者进行较少的维护和维护。
+有些信息对于完成工作至关重要，例如知道如何执行典型的开发工作流。其他的信息，比如流行的生产力工具的更新，虽然不那么关键，但仍然有用。对于这种类型的知识，信息共享媒介的正式性取决于所传递信息的重要性。例如，用户希望官方文档保持最新，但通常对新闻稿内容没有这样的期待，因此新闻稿内容需要所有者进行较少的维护和保养。
 
 #### Newsletters 时事通讯
 Google has a number of company-wide newsletters that are sent to all engineers, including EngNews (engineering news), Ownd (Privacy/Security news), and Google’s Greatest Hits (report of the most interesting outages of the quarter). These are a good way to communicate information that is of interest to engineers but isn’t mission critical. For this type of update, we’ve found that newsletters get better engagement when they are sent less frequently and contain more useful, interesting content. Otherwise, newsletters can be perceived as spam.
@@ -550,9 +550,10 @@ Googlers like to form cross-organizational communities around various topics to 
 谷歌人喜欢围绕各种主题建立跨组织的社区和分享知识。这些开放的渠道可以让你更容易地向周围的人学习，避免信息孤岛和重复。谷歌群组尤其受欢迎：谷歌有数千个内部团体，形式各异。有些专门用于故障排除；其他人，如代码健康小组，更多的是讨论和指导。内部Google+作为非正式信息来源在谷歌用户中也很受欢迎，因为人们会发布有趣的技术分类或他们正在从事的项目的详细信息。
 
 ## Readability: Standardized Mentorship Through Code Review 可读性：通过代码审查实现标准化指导
+
 At Google, “readability” refers to more than just code readability; it is a standardized, Google-wide mentorship process for disseminating programming language best practices. Readability covers a wide breadth of expertise, including but not limited to language idioms, code structure, API design, appropriate use of common libraries, documentation, and test coverage.
 
-在谷歌，"可读性 "指的不仅仅是代码的可读性；这是一个标准化的、谷歌范围内的指导过程，用于传播编程语言最佳实践。可读性涵盖了广泛的专业知识，包括但不限于语言成语、代码结构、API设计、通用库的正确使用、文档和测试覆盖率。
+在谷歌，"可读性 "指的不仅仅是代码的可读性；这是一个标准化的、谷歌范围内的指导过程，用于传播编程语言最佳实践。可读性涵盖了广泛的专业知识，包括但不限于语言语义、代码结构、API设计、通用库的正确使用、文档和测试覆盖率。
 
 Readability started as a one-person effort. In Google’s early days, Craig Silverstein (employee ID #3) would sit down in person with every new hire and do a line-by-line “readability review” of their first major code commit. It was a nitpicky review that covered everything from ways the code could be improved to whitespace conventions. This gave Google’s codebase a uniform appearance but, more important, it taught best practices, highlighted what shared infrastructure was available, and showed new hires what it’s like to write code at Google.
 
@@ -607,8 +608,7 @@ These benefits come with some costs: readability is a heavyweight process compar
 - Potential for additional rounds of code review for authors who need readability review.
 - Scaling disadvantages of being a human-driven process. Limited to scaling linearly to organization growth because it depends on human reviewers doing specialized code reviews.
 
-这些好处伴随着一些成本：与文档和类等其他媒介相比，可读性是一个重量级的过程，因为它是强制性的，并由谷歌工具化强制执行（见第19章）。这些成本是不小的，包括以下几点。
-
+这些好处伴随着一些成本：与文档和类等其他媒介相比，可读性是一个重量级的过程，因为它是强制性的，并由谷歌工具化强制执行（见第19章）。这些成本是不小的，包括以下几点：  
 - 对于那些没有任何团队成员具备可读性的团队来说，增加了冲突，因为他们需要从团队之外寻找审查员来对CL进行可读性审批。
 - 对于需要可读性审查的作者来说，有可能需要额外的几轮代码审查。
 - 作为一个由人驱动的过程，其扩展性成为瓶颈。由于它依赖于人类审查员进行专门的代码审查，所以对组织的增长具有线性扩展的限制。
@@ -618,7 +618,6 @@ The question, then, is whether the benefits outweigh the costs. There’s also t
 那么，问题是收益是否大于成本。还有一个时间因素：收益与成本的全部效果并不在同一时间维度上。该计划对增加的短期代码审查延迟和前期成本进行了慎重的权衡，以获得更高质量代码、存储库范围内的代码一致性和增加的工程师专业知识的长期回报。效益的时间尺度较长，期望编写的代码有几年甚至几十年的潜在寿命。
 
 As with most—or perhaps all—engineering processes, there’s always room for improvement. Some of the costs can be mitigated with tooling. A number of readability comments address issues that could be detected statically and commented on automatically by static analysis tooling. As we continue to invest in static analysis, readability reviewers can increasingly focus on higher-order areas, like whether a particular block of code is understandable by outside readers who are not intimately familiar with the codebase instead of automatable detections like whether a line has trailing whitespace.
-
 
 与大多数——或许是所有的工程过程一样，总是有改进的余地。一些成本可以通过工具来降低。许多可读性注释解决了静态检测和静态分析工具自动注释的问题。随着我们对静态分析的不断投资，可读性审查员可以越来越多地关注更高层次的领域，比如某个特定的代码块是否可以被不熟悉代码库的外部读者所理解，而外部读者不熟悉代码库，而不是自动检测，例如行是否有尾随空白。
 
