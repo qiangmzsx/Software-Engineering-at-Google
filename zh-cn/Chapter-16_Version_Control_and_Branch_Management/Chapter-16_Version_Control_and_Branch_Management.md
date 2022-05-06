@@ -238,7 +238,7 @@ Any discussion that an organization has about branch management policies ought t
 
 组织对分支机构管理策略的任何讨论都应该至少承认组织中正在进行的每一项工作都相当于一个分支。这一点在DVCS中更为明显，因为在DVCS中，开发者更有可能在推送回上游信息源之前进行大量本地暂存提交。集中式VCS仍然如此：未提交的本地更改在概念上与分支上提交的更改没有区别，只是可能更难发现和区分。一些集中式系统甚至明确了这一点。例如，当使用Perforce时，每个更改都会有两个修订号：一个表示创建更改的隐含分支点，另一个表示重新提交更改的位置，如图16-1所示。Perforce用户可以查询查看谁对给定文件有未完成的更改，检查其他用户未提交更改中的未决更改，等等。
 
-![Figure 16-1. Two revision numbers in Perforce](./images/Figure 16-1.png)
+![Figure 16-1. Two revision numbers in Perforce](./images/Figure%2016-1.png)
 
 *Figure 16-1. Two revision numbers in Perforce*  *图 16-1. Perforce中的两个修订号*
 

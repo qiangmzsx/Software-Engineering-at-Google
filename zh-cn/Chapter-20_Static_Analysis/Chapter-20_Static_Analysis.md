@@ -108,7 +108,7 @@ Tricorder, our static analysis platform, is a core part of static analysis at Go
 我们的静态分析平台 ricorder是Google静态分析的核心部分。Tricorder是在Google多次尝试将静态分析与开发人员工作流集成的失败尝试中诞生的，与之前尝试的主要区别在于 我们坚持不懈地致力于让Tricorder只为用户提供有价值的结果。
 Tricorder与谷歌的主要代码审查工具Critique集成在一起。 Tricorder警告在Critique的差异查看器上显示为灰色的注释框，如图 20-1 所示。 
 
-![Figure 20-1](./images/Figure 20-1.png)
+![Figure 20-1](./images/Figure%2020-1.png)
 
 *Figure 20-1. Critique’s diff viewing, showing a static analysis warning from Tricorder in* *gray*  图20-1. Critique的diff查看，灰色显示了Tricorder的静态分析警告
 
@@ -195,7 +195,7 @@ Tricorder checks also, when possible, *provide fixes*, as shown in [Figure 20-2]
 
 Tricorder 检查也会在可能的情况下提供修复，如图 20-2 所示。
 
-![Figure 20-2](./images/Figure 20-2.png)
+![Figure 20-2](./images/Figure%2020-2.png)
 
 *Figure 20-2. View of an example static analysis fix in Critique*  图20-2. Critique中静态分析修复的例子视图
 

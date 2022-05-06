@@ -30,7 +30,7 @@ The search box is a central element of the Code Search UI (see Figure 17-1), and
 
 搜索框是代码搜索 UI 的中心元素（见图 17-1），与 Web 搜索一样，它有“建议”，开发人员可以使用这些“建议”快速导航到文件、符号或目录。对于更复杂的用例，将返回带有代码片段的结果页面。搜索本身可以被认为是即时的“在文件中查找”（如 Unix grep 命令），具有相关性排名和一些特定于代码的增强功能，如正确的语法突出显示、范围感知以及注释和字符串文字的感知。搜索也可以在命令行使用，并且可以通过远程过程调用 (RPC) API 并入其他工具。当需要事后处理或结果集太大而无法手动检查时，这会派上用场。
 
-![Figure 17-1](./images/Figure 17-1.png)
+![Figure 17-1](./images/Figure%2017-1.png)
 
 When viewing a single file, most tokens are clickable to let the user quickly navigate to related information. For example, a function call will link to its function definition, an imported filename to the actual source file, or a bug ID in a comment to the corresponding bug report. This is powered by compiler-based indexing tools like Kythe. Clicking the symbol name opens a panel with all the places the symbol is used. Similarly, hovering over local variables in a function will highlight all occurrences of that variable in the implementation. 
 
@@ -156,13 +156,13 @@ In the other direction, the Code Search link to a source file is considered its 
 
 另一方面，指向源文件的代码搜索链接被认为是其规范的“位置”。这对许多开发工具很有用（见图 17-2）。例如，日志文件行通常包含日志记录语句的文件名和行号。生产日志查看器使用代码搜索链接将日志连接回生产代码。根据可用信息，这可以是指向特定修订文件的直接链接，也可以是具有相应行号的基本文件名搜索。如果只有一个匹配文件，则在相应的行号处打开。否则，将呈现每个匹配文件中所需行的片段。
 
-![Figure 17-2](./images/Figure 17-2.png)
+![Figure 17-2](./images/Figure%2017-2.png)
 
 Similarly, stack frames are linked back to source code whether they are shown within a crash reporting tool or in log output, as shown in Figure 17-3. Depending on the programming language, the link will utilize a filename or symbol search. Because the snapshot of the repository at which the crashing binary was built is known, the search can actually be restricted to exactly this version. That way, links remain valid for a long time period, even if the corresponding code is later refactored or deleted.
 
 类似地，堆栈帧被链接回源代码，无论它们是显示在崩溃报告工具中还是显示在日志输出中，如图 17-3 所示。根据编程语言，链接将使用文件名或符号搜索。因为构建崩溃二进制文件的存储库的快照是已知的，所以实际上可以将搜索限制在这个版本。这样，即使相应的代码后来被重构或删除，链接也会在很长一段时间内保持有效。
 
-![Figure 17-3](./images/Figure 17-3.png)
+![Figure 17-3](./images/Figure%2017-3.png)
 
 Compilation errors and tests also typically refer back to a code location (e.g., test X in le at line). These can be linkified even for unsubmitted code given that most development happens in specific cloudvisible workspaces that are accessible and searchable by Code Search.
 
@@ -172,7 +172,7 @@ Finally, codelabs and other documentation refer to APIs, examples, and implement
 
 最后，代码实验室和其他文档是指 API、示例和实现。此类链接可以是引用特定类或函数的搜索查询，当文件结构更改时它们仍然有效。对于代码片段，最新的实现可以很容易地嵌入到文档页面中，如图 17-4 所示，而无需使用额外的文档标记污染源文件。
 
-![Figure 17-4](./images/Figure 17-4.png)
+![Figure 17-4](./images/Figure%2017-4.png)
 
 ### API Exposure
 

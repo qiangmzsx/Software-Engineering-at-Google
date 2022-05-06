@@ -58,7 +58,7 @@ The diamond dependency problem, and other forms of conflicting requirements, req
 
 钻石依赖问题，以及其他形式的冲突需求，需要至少三层的依赖关系，如图21-1所示。
 
-![Figure 21-1](./images/Figure 21-1.png)
+![Figure 21-1](./images/Figure%2021-1.png)
 
 *Figure* *21-1.* *The* *diamond* *dependency* *problem*  *钻石依赖问题*
 
