@@ -1,5 +1,5 @@
 
-**CHAPTER  24 **
+**CHAPTER 24**
 
 # Continuous Delivery
 

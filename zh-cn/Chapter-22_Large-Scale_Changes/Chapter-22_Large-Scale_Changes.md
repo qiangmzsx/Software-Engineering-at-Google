@@ -1,5 +1,5 @@
 
-**CHAPTER  22 **
+**CHAPTER 22**
 
 # Large-Scale Changes
 

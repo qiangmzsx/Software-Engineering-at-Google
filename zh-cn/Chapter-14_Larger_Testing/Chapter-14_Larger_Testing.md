@@ -1,4 +1,4 @@
-**CHAPTER** **14**
+**CHAPTER 14**
 
 # Larger Testing
 
