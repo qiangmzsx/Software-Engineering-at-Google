@@ -12,12 +12,11 @@ We’ve covered a lot of ground so far on the culture and composition of teams w
 
 No team can function well without a leader, especially at Google, where engineering is almost exclusively a team endeavor. At Google, we recognize two different leadership roles. A *Manager* is a leader of people, whereas a *Tech Lead* leads technology efforts. Although the responsibilities of these two roles require similar planning skills, they require quite different people skills.
 
-没有领导者，任何团队都无法正常运作，尤其是在谷歌，工程几乎完全是团队的努力。在谷歌，我们认识到两种不同的领导者角色。*经理*是人的领导，而*技术领导*则负责技术工作。虽然这两个角色的职责需要类似的规划技能，但他们需要相当不同的人际交往技能。
+没有领导者，任何团队都无法正常运作，尤其是在谷歌，工程几乎完全是团队的努力。在谷歌，我们认识到两种不同的领导者角色。*经理*是人的领导，而*技术负责人*则领导技术工作。虽然这两个角色的职责需要类似的规划技能，但他们需要相当不同的人际交往技能。
 
 A boat without a captain is nothing more than a floating waiting room: unless someone grabs the rudder and starts the engine, it’s just going to drift along aimlessly with the current. A piece of software is just like that boat: if no one pilots it, you’re left with a group of engineers burning up valuable time, just sitting around waiting for something to happen (or worse, still writing code that you don’t need). Although this chapter is about people management and technical leadership, it is still worth a read if you’re an individual contributor because it will likely help you understand your own leaders a bit better.
 
 没有船长的船只不过是一个漂浮的等候室：除非有人抓住方向舵并启动引擎，否则它只会随着水流漫无目的地漂流。一个软件就像那艘船：如果没有人驾驶它，你会被一群工程师浪费宝贵的时间，只是坐在那里等待一些事情发生（或者更糟糕的是，仍然在编写你不需要的代码）。尽管本章是关于人员管理和技术领导的，但如果你是个体贡献者，则仍值得一读，因为它可能会帮助你更好地了解你是自己的领导。
-
 
 ## Managers and Tech Leads (and Both)  经理和技术负责人（以及两者）
 
@@ -27,17 +26,17 @@ Whereas every engineering team generally has a leader, they acquire those leader
 
 In nascent teams, both roles will sometimes be filled by the same person: a *Tech Lead Manager* (TLM). On larger teams, an experienced people manager will step in to take on the management role while a senior engineer with extensive experience will step into the tech lead role. Even though manager and tech lead each play an important part in the growth and productivity of an engineering team, the people skills required to succeed in each role are wildly different.
 
-在新生团队中，这两个角色有时会由同一个人担任：*技术主管经理*（TLM）。在较大的团队中，有经验的人事经理将介入管理角色，而具有丰富经验的高级工程师将进入技术负责人的角色。尽管经理和技术负责人在工程团队的成长和生产力方面都发挥着重要作用，但在每个角色中取得成功所需的人际关系技能却大不相同。
+在新生团队中，这两个角色有时会由同一个人担任：*技术主管经理*（TLM）。在较大的团队中，有经验的人事经理将介入管理角色，而具有丰富经验的高级工程师将进入技术负责人的角色。尽管经理和技术负责人在工程团队的成长和生产效率方面都发挥着重要作用，但在每个角色中取得成功所需的人际关系技能却大不相同。
 
 ### The Engineering Manager  工程经理
 
 Many companies bring in trained people managers who might know little to nothing about software engineering to run their engineering teams. Google decided early on, however, that its software engineering managers should have an engineering background. This meant hiring experienced managers who used to be software engineers, or training software engineers to be managers (more on this later).
 
-许多公司引进了训练有素的人事经理，他们可能对软件工程知之甚少，甚至一无所知，来管理他们的工程团队。然而，谷歌很早就决定，其软件工程经理应该有工程背景。这意味着雇用曾经是软件工程师的有经验的经理，或者培训软件工程师成为经理（后面会有更多介绍）。
+许多公司引进了训练有素的人事经理，他们可能对软件工程知之甚少，甚至一无所知来管理工程团队。然而，谷歌很早就决定，其软件工程经理应该有工程背景。这意味着雇用曾经是软件工程师的有经验的经理，或者培训软件工程师成为经理（后面会有更多介绍）。
 
 At the highest level, an engineering manager is responsible for the performance, productivity, and happiness of every person on their team—including their tech lead— while still making sure that the needs of the business are met by the product for which they are responsible. Because the needs of the business and the needs of individual team members don’t always align, this can often place a manager in a difficult position.
 
-在最高层面上，工程经理要对其团队中每个人的绩效、生产力和幸福感负责--包括他们的技术负责人--同时还要确保他们负责的产品能够满足企业的需求。由于企业的需求和个人团队成员的需求并不总是一致，这往往会使经理处于困境。
+在最高层面上，工程经理要对其团队中每个人的绩效、生产效率和幸福感负责——包括他们的技术负责人——同时还要确保他们负责的产品能够满足企业的需求。由于企业的需求和个人团队成员的需求并不总是一致，这往往会使经理处于困境。
 
 ### The Tech Lead  技术负责人
 
@@ -49,23 +48,23 @@ The tech lead (TL) of a team—who will often report to the manager of that team
 
 On small and nascent teams for which engineering managers need a strong technical skill set, the default is often to have a TLM: a single person who can handle both the people and technical needs of their team. Sometimes, a TLM is a more senior person, but more often than not, the role is taken on by someone who was, until recently, an individual contributor.
 
-在小型和新生的团队中，工程经理需要强大的技术技能，默认情况下，通常会有一个TLM：一个可以同时处理团队的人员和技术需求的人。有时，TLM是一个更高级的人，但更多的时候，这个角色是由一个直到最近还是个体贡献者的人承担的。
+在小型和新生的团队中，工程经理需要强大的技术技能，默认情况下，通常会有一个TLM（技术主管经理）：一个可以同时处理团队的人员和技术需求的人。有时，TLM（技术主管经理）是一个更高级的人，但更多的时候，这个角色是由一个直到最近还是个体贡献者的人承担的。
 
 At Google, it’s customary for larger, well-established teams to have a pair of leaders— one TL and one engineering manager—working together as partners. The theory is that it’s really difficult to do both jobs at the same time (well) without completely burning out, so it’s better to have two specialists crushing each role with dedicated focus.
 
-在谷歌，大型、成熟的团队习惯于有一对领导——一个TL和一个工程经理——作为伙伴一起工作。理论上说，要同时做这两份工作（好）而又不至于完全精疲力竭，真的很困难，因此最好有两名专家专注于每个角色。
+在谷歌，大型、成熟的团队习惯于有一对领导——一个TL（技术负责人）和一个工程经理——作为伙伴一起工作。理论上说，要同时做这两份工作（好）而又不至于完全精疲力竭，真的很困难，因此最好有两名专家专注于每个角色。
 
 The job of TLM is a tricky one and often requires the TLM to learn how to balance individual work, delegation, and people management. As such, it usually requires a high degree of mentoring and assistance from more experienced TLMs. (In fact, we recommend that in addition to taking a number of classes that Google offers on this subject, a newly minted TLM seek out a senior mentor who can advise them regularly as they grow into the role.)
 
-TLM的工作很棘手，通常需要TLM学习如何平衡个人工作、授权和人员管理。因此，它通常需要经验丰富的TLM的深入指导和帮助。（事实上，我们建议新晋的TLM除了学习谷歌提供的一些关于这一主题的课程外，还应该寻找一位资深导师，在他们成长为该角色时定期向他们提供建议。）
+TLM（技术主管经理）的工作很棘手，通常需要TLM（技术主管经理）学习如何平衡个人工作、授权和人员管理。因此，它通常需要经验丰富的TLM（技术主管经理）的深入指导和帮助。（事实上，我们建议新晋的TLM（技术主管经理）除了学习谷歌提供的一些关于这一主题的课程外，还应该寻找一位资深导师，在他们成长为该角色时定期向他们提供建议。）
 
 -----
 
-#### Case Study: Influencing Without Authority  案例研究：没有权威的影响
+#### Case Study: Influencing Without Authority  案例研究：没有权威的影响力
 
 It’s generally accepted that you can get folks who report to you to do the work that you need done for your products, but it’s different when you need to get people outside of your organization—or heck, even outside of your product area sometimes—to do something that you think needs to be done. This “influence without authority” is one of the most powerful leadership traits that you can develop.
 
-人们普遍认为，你可以让向你汇报工作的人为你的产品做你需要做的工作，但当你需要让你的组织以外的人--或者说，有时甚至是你的产品领域以外的人--做你认为需要做的事情时，情况就不同了。这种“没有权威的影响力”是你可以培养的最强大的领导力特质之一。
+人们普遍认为，你可以让向你汇报工作的人为你的产品做你需要做的工作，但当你需要让你的组织以外的人——或者说，有时甚至是你的产品领域以外的人——做你认为需要做的事情时，情况就不同了。这种“没有权威的影响力”是你可以培养的最强大的领导力特质之一。
 
 For example, for years, Jeff Dean, senior engineering fellow and possibly the most well-known Googler *inside* of Google, led only a fraction of Google’s engineering team, but his influence on technical decisions and direction reaches to the ends of the entire engineering organization and beyond (thanks to his writing and speaking outside of the company).
 
@@ -81,7 +80,7 @@ Another example is a team that I started called The Data Liberation Front: with 
 
 Whether or not they’re officially appointed, someone needs to get into the driver’s seat if your product is ever going to go anywhere, and if you’re the motivated, impatient type, that person might be you. You might find yourself sucked into helping your team resolve conflicts, make decisions, and coordinate people. It happens all the time, and often by accident. Maybe you never intended to become a “leader,” but somehow it happened anyway. Some people refer to this affliction as “manageritis.”
 
-无论他们是否被正式任命，如果你的产品要发展，就需要有人进入驾驶座，如果你是一个有动力、有影响力的人，那么这个人可能就是你。你可能会发现自己被吸引去帮助你的团队解决冲突、做出决策和协调人员的行列。这种情况一直在发生，而且往往是偶然发生的。也许你从来没有想过要成为一个 "领导者"，但不知何故，它还是发生了。有些人把这种痛苦称为 "经理病"。
+无论他们是否被正式任命，如果你的产品要发展，就需要有人进入驾驶座，如果你是一个有动力、有影响力的人，那么这个人可能就是你。你可能会发现自己主动去帮助你的团队解决冲突、做出决策和协调人员的行列。这种情况一直在存在，而且往往是偶然发生的。也许你从来没有想过要成为一个 "领导者"，但不知何故，它还是发生了。有些人把这种痛苦称为 "经理病"。
 
 Even if you’ve sworn to yourself that you’ll never become a manager, at some point in your career, you’re likely to find yourself in a leadership position, especially if you’ve been successful in your role. The rest of this chapter is intended to help you understand what to do when this happens.
 
@@ -95,7 +94,7 @@ We’re not here to attempt to convince you to become a manager, but rather to h
 
 Aside from the general sense of malaise that most people feel when they hear the word “manager,” there are a number of reasons that most people don’t want to become managers. The biggest reason you’ll hear in the software development world is that you spend much less time writing code. This is true whether you become a TL or an engineering manager, and I’ll talk more about this later in the chapter, but first, let’s cover some more reasons why most of us avoid becoming managers.
 
-除了大多数人听到“经理”这个词时普遍感到的不安之外大多数人不想成为经理的原因有很多。在软件开发领域，你会听到的最大的原因是你花在编写代码上的时间要少得多。无论你是成为TL还是工程经理，这都是事实，我将在本章后面更多地讨论这一点，但首先，让我们讨论一下更多的原因为什么我们大多数人都逃避成为经理。
+除了大多数人听到“经理”这个词时普遍感到的不安之外，大多数人不想成为经理的原因有很多。在软件开发领域，你会听到的最大的原因是你花在编写代码上的时间要少得多。无论你是成为TL还是工程经理，这都是事实，我将在本章后面更多地讨论这一点，但首先，让我们讨论一下更多的原因，为什么我们大多数人都逃避成为经理。
 
 If you’ve spent the majority of your career writing code, you typically end a day with something you can point to—whether it’s code, a design document, or a pile of bugs you just closed—and say, “That’s what I did today.” But at the end of a busy day of “management,” you’ll usually find yourself thinking, “I didn’t do a damned thing today.” It’s the equivalent of spending years counting the number of apples you picked each day and changing to a job growing bananas, only to say to yourself at the end of each day, “I didn’t pick any apples,” happily ignoring the flourishing banana trees sitting next to you. Quantifying management work is more difficult than counting widgets you turned out, but just making it possible for your team to be happy and productive is a big measure of your job. Just don’t fall into the trap of counting apples when you’re growing bananas.[1](#_bookmark370)
 
@@ -103,11 +102,15 @@ If you’ve spent the majority of your career writing code, you typically end a 
 
 Another big reason for not becoming a manager is often unspoken but rooted in the famous “Peter Principle,” which states that “In a hierarchy every employee tends to rise to his level of incompetence.” Google generally avoids this by requiring that a person perform the job *above* their current level for a period of time (i.e., to “exceeds expectations” at their current level) before being promoted to that level. Most people have had a manager who was incapable of doing their job or was just really bad at managing people,[2](#_bookmark373) and we know some people who have worked only for bad managers. If you’ve been exposed only to crappy managers for your entire career, why would you *ever* want to be a manager? Why would you want to be promoted to a role that you don’t feel able to do?
 
-不成为经理的另一个重要原因往往是不言而喻的，但却源于著名的 "彼得原则"，即 "在等级制度中，每个员工都倾向于提升到自己的不称职水平"。谷歌通常通过要求一个人在晋升到该级别之前，必须在其目前的级别上完成高于当前水平的工作一段时间（即达到 "超出预期 "的目前级别）来避免这种情况。大多数人都有过一个不能胜任工作的经理，或者只是非常不善于管理人，而我们知道有些人只为糟的糕经理工作。如果你在整个职业生涯中只接触过糟糕的经理，你为什么**想成为一名经理**？你为什么要被提拔到一个你觉得无法胜任的角色？
+不成为经理的另一个重要原因往往是不言而喻的，但却源于著名的 "彼得原理"，即 "在等级制度中，每个职工趋向于上升到他所不能胜任的职位"。谷歌通常通过要求一个人在晋升到该级别之前，必须在其目前的级别上完成高于当前水平的工作一段时间（即达到 "超出预期 "的目前级别）来避免这种情况。大多数人都有过一个不能胜任工作的经理，或者只是非常不善于管理人，而我们知道有些人只为糟的糕经理工作。如果你在整个职业生涯中只接触过糟糕的经理，你为什么**想成为一名经理**？你为什么要被提拔到一个你觉得无法胜任的角色？
+
+```
+彼得原理推导：每一个职位最终都将被一个不能胜任其工作的职工所占据。层级组织的工作任务多半是由尚未达到胜任阶层的员工完成的。
+```
 
 There are, however, great reasons to consider becoming a TL or manager. First, it’s a way to scale yourself. Even if you’re great at writing code, there’s still an upper limit to the amount of code you can write. Imagine how much code a team of great engineers could write under your leadership! Second, you might just be really good at it—many people who find themselves sucked into the leadership vacuum of a project discover that they’re exceptionally skilled at providing the kind of guidance, help, and air cover a team or a company needs. Someone has to lead, so why not you?
 
-然而，有很好的理由考虑成为一名TL或经理。首先，这是一种扩展自己的方式。即使你很擅长写代码，你能写的代码量还是有上限的。想象一下，在你的领导下，一个由优秀工程师组成的团队可以写多少代码？第二，你可能真的很擅长写代码--许多人发现自己被吸进了项目的领导真空中，发现自己在提供团队或公司所需的指导、帮助和故障处理方面非常熟练。总得有人来领导，那么为什么不是你呢？
+然而，有很好的理由考虑成为一名TL或经理。首先，这是一种扩展自己的方式。即使你很擅长写代码，你能写的代码量还是有上限的。想象一下，在你的领导下，一个由优秀工程师组成的团队可以写多少代码？第二，你可能真的很擅长写代码——许多人发现自己被吸进了项目的领导真空中，发现自己在提供团队或公司所需的指导、帮助和故障处理方面非常熟练。总得有人来领导，那么为什么不是你呢？
 
 ```
 1	Another difference that takes getting used to is that the things we do as managers typically pay off over a longer timeline.
@@ -149,7 +152,7 @@ Managers frequently treated employees in the same way that cart drivers would tr
 
 This continues today in some industries—even in industries that require creative thinking and problem solving—despite numerous studies suggesting that the anachronistic carrot and stick is ineffective and harmful to the productivity of creative people. Whereas the assembly-line worker of years past could be trained in days and replaced at will, software engineers working on large codebases can take months to get up to speed on a new team. Unlike the replaceable assembly-line worker, these people need nurturing, time, and space to think and create.
 
-尽管许多研究表明，不合时宜的胡萝卜和大棒是无效的，而且对有创造力的人的生产力有害，但这种情况今天在一些行业仍然存在——甚至在那些需要创造力思维和解决问题的行业。过去几年的装配线工人可以在几天内接受培训并被随意替换，而从事大型代码库工作的软件工程师可能需要几个月的时间才能在一个新的团队中适应。与可替换的装配线工人不同，这些人需要培养、时间和空间来思考和创造。
+尽管许多研究表明，不合时宜的胡萝卜和大棒是无效的，而且对有创造力的人的生产效率有害，但这种情况今天在一些行业仍然存在——甚至在那些需要创造力思维和解决问题的行业。过去几年的装配线工人可以在几天内接受培训并被随意替换，而从事大型代码库工作的软件工程师可能需要几个月的时间才能在一个新的团队中适应。与可替换的装配线工人不同，这些人需要培养、时间和空间来思考和创造。
 
 ```
 3	For more fascinating information on optimizing the movements of factory workers, read up on Scientific Management or Taylorism, especially its effects on worker morale.
@@ -236,7 +239,7 @@ Ignoring low performers is not only a way to keep new high performers from joini
 
 The benefit of dealing with a low performer as quickly as possible is that you can put yourself in the position of helping them up or out. If you immediately deal with a low performer, you’ll often find that they merely need some encouragement or direction to slip into a higher state of productivity. If you wait too long to deal with a low performer, their relationship with the team is going to be so sour and you’re going to be so frustrated that you’re not going to be able to help them.
 
-尽快处理低绩效员工的好处是，你可以把自己放在帮助他们提升或退出的位置上。如果你立即处理一个低绩效员工，你往往会发现他们只需要一些鼓励或指导就能走向更高的生产力状态。如果你等待很长时间再来处理低绩效员工，他们与团队的关系就会变得非常糟糕，你也会感到非常沮丧，以至于你无法帮助他们。
+尽快处理低绩效员工的好处是，你可以把自己放在帮助他们提升或退出的位置上。如果你立即处理一个低绩效员工，你往往会发现他们只需要一些鼓励或指导就能走向更高的生产效率状态。如果你等待很长时间再来处理低绩效员工，他们与团队的关系就会变得非常糟糕，你也会感到非常沮丧，以至于你无法帮助他们。
 
 How do you effectively coach a low performer? The best analogy is to imagine that you’re helping a limping person learn to walk again, then jog, then run alongside the rest of the team. It almost always requires temporary micromanagement, but still a whole lot of humility, respect, and trust—particularly respect. Set up a specific time frame (say, two months) and some very specific goals you expect them to achieve in that period. Make the goals small, incremental, and measurable so that there’s an opportunity for lots of small successes. Meet with the team member every week to check on progress, and be sure you set really explicit expectations around each upcoming milestone so that it’s easy to measure success or failure. If the low performer can’t keep up, it will become quite obvious to both of you early in the process. At this point, the person will often acknowledge that things aren’t going well and decide to quit; in other cases, determination will kick in and they’ll “up their game” to meet expectations. Either way, by working directly with the low performer, you’re catalyzing important and necessary changes.
 
@@ -282,7 +285,7 @@ This is one of the fastest ways to build a mediocre team.
 
 The cost of finding the appropriate person—whether by paying recruiters, paying for advertising, or pounding the pavement for references—pales in comparison to the cost of dealing with an employee who you never should have hired in the first place. This “cost” manifests itself in lost team productivity, team stress, time spent managing the employee up or out, and the paperwork and stress involved in firing the employee. That’s assuming, of course, that you try to avoid the monumental cost of just leaving them on the team. If you’re managing a team for which you don’t have a say over hiring and you’re unhappy with the hires being made for your team, you need to fight tooth and nail for higher-quality engineers. If you’re still handed substandard engineers, maybe it’s time to look for another job. Without the raw materials for a great team, you’re doomed.
 
-找到合适人选的成本——无论是通过支付招聘人员费用、支付广告费用，还是为推荐人做铺垫——与处理一个你一开始就不应该雇用的员工的成本相比，都显得微不足道。这种 "成本 "体现在团队生产力的损失、团队压力、管理员工的时间以及解雇员工所涉及的文书工作和压力上。当然，这是假设你试图避免让他们留在团队中的巨大成本。如果你管理的团队在招聘方面没有发言权，而且你对你的团队所招聘的人不满意，你需要为更高素质的工程师拼命争取。如果你仍然得到不合格的工程师，也许是时候寻找另一份工作了。没有优秀团队的人才，你就注定要失败。
+找到合适人选的成本——无论是通过支付招聘人员费用、支付广告费用，还是为推荐人做铺垫——与处理一个你一开始就不应该雇用的员工的成本相比，都显得微不足道。这种 "成本 "体现在团队生产效率的损失、团队压力、管理员工的时间以及解雇员工所涉及的文书工作和压力上。当然，这是假设你试图避免让他们留在团队中的巨大成本。如果你管理的团队在招聘方面没有发言权，而且你对你的团队所招聘的人不满意，你需要为更高素质的工程师拼命争取。如果你仍然得到不合格的工程师，也许是时候寻找另一份工作了。没有优秀团队的人才，你就注定要失败。
 
 
 ### Antipattern: Treat Your Team Like Children  反模式：像对待孩子一样对待你的团队
@@ -461,7 +464,7 @@ Shortly after I started at Google, I had my first meeting with then-CEO Eric Sch
 
 It can also be worthwhile as a leader to pay some attention to your team’s happiness outside the office. Our colleague Mekka starts his one-on-ones by asking his reports to rate their happiness on a scale of 1 to 10, and oftentimes his reports will use this as a way to discuss happiness in *and* outside of the office. Be wary of assuming that people have no life outside of work—having unrealistic expectations about the amount of time people can put into their work will cause people to lose respect for you, or worse, to burn out. We’re not advocating that you pry into your team members’ personal lives, but being sensitive to personal situations that your team members are going through can give you a lot of insight as to why they might be more or less productive at any given time. Giving a little extra slack to a team member who is currently having a tough time at home can make them a lot more willing to put in longer hours when your team has a tight deadline to hit later.
 
-作为一个领导者，关注一下你的团队在办公室以外的幸福感也是值得的。我们的同事梅卡在他的一对一谈话中，首先要求他的报告在1到10的范围内给他们的幸福感打分，而他的报告往往会以此作为一种方式来讨论办公室内外的幸福。要警惕假设人们没有工作以外的生活——对人们能够投入工作的时间有不切实际的期望，会导致人们失去对你的尊重，或者更糟糕的是，会让人倦怠。我们并不提倡你窥探团队成员的个人生活，但对团队成员正在经历的个人情况保持敏感，可以让你深入了解为什么他们在任何特定时间可能会更有或更没有生产力。给目前在家里过得很艰难的团队成员一点额外的宽容，可以使他们在你的团队以后有一个紧迫的截止日期时更愿意投入更多的时间。
+作为一个领导者，关注一下你的团队在办公室以外的幸福感也是值得的。我们的同事梅卡在他的一对一谈话中，首先要求他的报告在1到10的范围内给他们的幸福感打分，而他的报告往往会以此作为一种方式来讨论办公室内外的幸福。要警惕假设人们没有工作以外的生活——对人们能够投入工作的时间有不切实际的期望，会导致人们失去对你的尊重，或者更糟糕的是，会让人倦怠。我们并不提倡你窥探团队成员的个人生活，但对团队成员正在经历的个人情况保持敏感，可以让你深入了解为什么他们在任何特定时间可能会更有或更没有生产效率。给目前在家里过得很艰难的团队成员一点额外的宽容，可以使他们在你的团队以后有一个紧迫的截止日期时更愿意投入更多的时间。
 
 A big part of tracking your team members’ happiness is tracking their careers. If you ask a team member where they see their career in five years, most of the time you’ll get a shrug and a blank look. When put on the spot, most people won’t say much about this, but there are usually a few things that everyone would like to do in the next five years: be promoted, learn something new, launch something important, and work with smart people. Regardless of whether they verbalize this, most people are thinking about it. If you’re going to be an effective leader, you should be thinking about how you can help make all those things happen and let your team know you’re thinking about this. The most important part of this is to take these implicit goals and make them explicit so that when you’re giving career advice you have a real set of metrics with which to evaluate situations and opportunities.
 
@@ -566,7 +569,7 @@ Mastery in its basest form simply means that you need to give someone the opport
 
 Of course, all the autonomy and mastery in the world isn’t going to help motivate someone if they’re doing work for no reason at all, which is why you need to give their work purpose. Many people work on products that have great significance, but they’re kept at arm’s length from the positive effects their products might have on their company, their customers, or even the world. Even for cases in which the product might have a much smaller impact, you can motivate your team by seeking the reason for their efforts and making this reason clear to them. If you can help them to see this purpose in their work, you’ll see a tremendous increase in their motivation and productivity.[14](#_bookmark464) One manager we know keeps a close eye on the email feedback that Google gets for its product (one of the “smaller-impact” products), and whenever she sees a message from a customer talking about how the company’s product has helped them personally or helped their business, she immediately forwards it to the engineering team. This not only motivates the team, but also frequently inspires team members to think about ways in which they can make their product even better.
 
-当然，如果某人无缘无故地工作，那么世界上所有的自主性和掌握性都无助于激励他们，这就是为什么你需要给他们工作的目的。许多人从事具有重大意义的产品，但他们与产品可能对公司、客户甚至世界产生的积极影响保持一定距离。即使在产品的影响可能小得多的情况下，你也可以通过寻找他们努力的原因并向他们说明原因来激励团队。如果你能帮助他们在工作中看到这一目标，你会看到他们的积极性和生产力有了巨大的提高。我们认识的一位经理密切关注谷歌为其产品（一种“影响较小”的产品）收到的电子邮件反馈，每当她看到客户在谈论公司的产品如何帮助他们个人或帮助他们的业务时，她会立即将其转发给工程团队。这不仅激励了团队，也经常激励团队成员思考如何让他们的产品变得更好。
+当然，如果某人无缘无故地工作，那么世界上所有的自主性和掌握性都无助于激励他们，这就是为什么你需要给他们工作的目的。许多人从事具有重大意义的产品，但他们与产品可能对公司、客户甚至世界产生的积极影响保持一定距离。即使在产品的影响可能小得多的情况下，你也可以通过寻找他们努力的原因并向他们说明原因来激励团队。如果你能帮助他们在工作中看到这一目标，你会看到他们的积极性和生产效率有了巨大的提高。我们认识的一位经理密切关注谷歌为其产品（一种“影响较小”的产品）收到的电子邮件反馈，每当她看到客户在谈论公司的产品如何帮助他们个人或帮助他们的业务时，她会立即将其转发给工程团队。这不仅激励了团队，也经常激励团队成员思考如何让他们的产品变得更好。
 
 ```
 10	See Dan’s fantastic TED talk on this subject.
