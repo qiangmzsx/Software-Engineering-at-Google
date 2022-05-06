@@ -10,15 +10,15 @@
 
 We’ve covered a lot of ground so far on the culture and composition of teams writing software, and in this chapter, we’ll take a look at the person ultimately responsible for making it all work.
 
-到目前为止，我们已经介绍了编写软件的团队的文化和组成，在本章中，我们将看看最终负责使所有工作正常进行的人。
+到目前为止，我们已经介绍了编写软件团队的文化和组成，在本章中，我们将看看最终负责使所有工作正常进行的人。
 
 No team can function well without a leader, especially at Google, where engineering is almost exclusively a team endeavor. At Google, we recognize two different leadership roles. A *Manager* is a leader of people, whereas a *Tech Lead* leads technology efforts. Although the responsibilities of these two roles require similar planning skills, they require quite different people skills.
 
-没有领导者，任何团队都无法正常运作，尤其是在谷歌，工程几乎完全是团队的努力。在谷歌，我们认识到两种不同的领导者角色。经理*是人的领导，而*技术领导*则领导技术工作。虽然这两个角色的职责需要类似的规划技能，但他们需要相当不同的人际交往技能。
+没有领导者，任何团队都无法正常运作，尤其是在谷歌，工程几乎完全是团队的努力。在谷歌，我们认识到两种不同的领导者角色。*经理*是人的领导，而*技术领导*则负责技术工作。虽然这两个角色的职责需要类似的规划技能，但他们需要相当不同的人际交往技能。
 
 A boat without a captain is nothing more than a floating waiting room: unless someone grabs the rudder and starts the engine, it’s just going to drift along aimlessly with the current. A piece of software is just like that boat: if no one pilots it, you’re left with a group of engineers burning up valuable time, just sitting around waiting for something to happen (or worse, still writing code that you don’t need). Although this chapter is about people management and technical leadership, it is still worth a read if you’re an individual contributor because it will likely help you understand your own leaders a bit better.
 
-没有船长的船只不过是一个漂浮的等候室：除非有人抓住方向舵并启动引擎，否则它只会随着水流漫无目的地漂流。一个软件就像那艘船：如果没有人驾驶它，你会被一群工程师浪费宝贵的时间，只是坐在那里等待一些事情发生（或者更糟糕的是，仍然在编写你不需要的代码）。尽管本章是关于人员管理和技术领导的，但如果你是先进个人，则仍值得一读，因为它可能会帮助你更好地了解你是自己的领导。
+没有船长的船只不过是一个漂浮的等候室：除非有人抓住方向舵并启动引擎，否则它只会随着水流漫无目的地漂流。一个软件就像那艘船：如果没有人驾驶它，你会被一群工程师浪费宝贵的时间，只是坐在那里等待一些事情发生（或者更糟糕的是，仍然在编写你不需要的代码）。尽管本章是关于人员管理和技术领导的，但如果你是个体贡献者，则仍值得一读，因为它可能会帮助你更好地了解你是自己的领导。
 
 
 ## Managers and Tech Leads (and Both)  经理和技术负责人（以及两者）
@@ -45,13 +45,13 @@ At the highest level, an engineering manager is responsible for the performance,
 
 The tech lead (TL) of a team—who will often report to the manager of that team—is responsible for (surprise!) the technical aspects of the product, including technology decisions and choices, architecture, priorities, velocity, and general project management (although on larger teams they might have program managers helping out with this). The TL will usually work hand in hand with the engineering manager to ensure that the team is adequately staffed for their product and that engineers are set to work on tasks that best match their skill sets and skill levels. Most TLs are also individual contributors, which often forces them to choose between doing something quickly themselves or delegating it to a team member to do (sometimes) more slowly. The latter is most often the correct decision for the TL as they grow the size and capability of their team.
 
-团队的技术负责人（TL）通常会向该团队的经理汇报，负责产品的技术方面，包括技术决策和选择、架构、优先级、速度和总体项目管理（尽管在较大的团队中，他们可能会有项目经理帮助处理这个问题）。TL通常会与工程经理携手合作，以确保团队有足够的人员来完成他们的产品，并确保工程师被安排在最符合他们技能组合和技能水平的任务上工作。大多数TL也是先进个人，这往往迫使他们在自己快速做某事或委托团队成员做（有时）更慢的事之间做出选择。对于TL来说，随着团队规模和能力的增长，后者通常是正确的决策。
+团队的技术负责人（TL）通常会向该团队的经理汇报，负责产品的技术方面，包括技术决策和选择、架构、优先级、速度和总体项目管理（尽管在较大的团队中，他们可能会有项目经理帮助处理这个问题）。TL通常会与工程经理携手合作，以确保团队有足够的人员来完成他们的产品，并确保工程师被安排在最符合他们技能组合和技能水平的任务上工作。大多数TL也是个体贡献者，这往往迫使他们在自己快速做某事或委托团队成员做（有时）更慢的事之间做出选择。对于TL来说，随着团队规模和能力的增长，后者通常是正确的决策。
 
 ### The Tech Lead Manager  技术主管经理
 
 On small and nascent teams for which engineering managers need a strong technical skill set, the default is often to have a TLM: a single person who can handle both the people and technical needs of their team. Sometimes, a TLM is a more senior person, but more often than not, the role is taken on by someone who was, until recently, an individual contributor.
 
-在小型和新生的团队中，工程经理需要强大的技术技能，默认情况下，通常会有一个TLM：一个可以同时处理团队的人员和技术需求的人。有时，TLM是一个更高级的人，但更多的时候，这个角色是由一个直到最近还是先进个人的人承担的。
+在小型和新生的团队中，工程经理需要强大的技术技能，默认情况下，通常会有一个TLM：一个可以同时处理团队的人员和技术需求的人。有时，TLM是一个更高级的人，但更多的时候，这个角色是由一个直到最近还是个体贡献者的人承担的。
 
 At Google, it’s customary for larger, well-established teams to have a pair of leaders— one TL and one engineering manager—working together as partners. The theory is that it’s really difficult to do both jobs at the same time (well) without completely burning out, so it’s better to have two specialists crushing each role with dedicated focus.
 
@@ -79,7 +79,7 @@ Another example is a team that I started called The Data Liberation Front: with 
 
 -----
 
-## Moving from an Individual Contributor Role to a Leadership Role  从先进个人角色转变为领导角色
+## Moving from an Individual Contributor Role to a Leadership Role  从个体贡献者角色转变为领导角色
 
 Whether or not they’re officially appointed, someone needs to get into the driver’s seat if your product is ever going to go anywhere, and if you’re the motivated, impatient type, that person might be you. You might find yourself sucked into helping your team resolve conflicts, make decisions, and coordinate people. It happens all the time, and often by accident. Maybe you never intended to become a “leader,” but somehow it happened anyway. Some people refer to this affliction as “manageritis.”
 
@@ -248,7 +248,7 @@ How do you effectively coach a low performer? The best analogy is to imagine tha
 
 A manager has two major areas of focus for their team: the social and the technical. It’s rather common for managers to be stronger in the technical side at Google, and because most managers are promoted from a technical job (for which the primary goal of their job was to solve technical problems), they can tend to ignore human issues. It’s tempting to focus all of your energy on the technical side of your team because, as an individual contributor, you spend the vast majority of your time solving technical problems. When you were a student, your classes were all about learning the technical ins and outs of your work. Now that you’re a manager, however, you ignore the human element of your team at your own peril.
 
-经理对他们的团队有两个主要的关注领域：社会和技术。在谷歌，经理在技术方面比较强大是比较常见的，因为大多数经理都是从技术工作中晋升的（对他们来说，工作的主要目标是解决技术问题），他们可能倾向于忽视人性问题。把所有的精力都集中在团队的技术方面是很诱人的，因为作为先进个人，你的绝大部分时间都在解决技术问题。当你还是个学生的时候，你的课程都是关于学习工作的技术内涵和外延。然而，现在你是一名经理，你忽视了团队中的人性因素，这是你自己的危险。
+经理对他们的团队有两个主要的关注领域：社会和技术。在谷歌，经理在技术方面比较强大是比较常见的，因为大多数经理都是从技术工作中晋升的（对他们来说，工作的主要目标是解决技术问题），他们可能倾向于忽视人性问题。把所有的精力都集中在团队的技术方面是很诱人的，因为作为个体贡献者，你的绝大部分时间都在解决技术问题。当你还是个学生的时候，你的课程都是关于学习工作的技术内涵和外延。然而，现在你是一名经理，你忽视了团队中的人性因素，这是你自己的危险。
 
 Let’s begin with an example of a leader ignoring the human element in his team. Years ago, Jake had his first child. Jake and Katie had worked together for years, both remotely and in the same office, so in the weeks following the arrival of the new baby, Jake worked from home. This worked out great for the couple, and Katie was totally fine with it because she was already used to working remotely with Jake. They were their usual productive selves until their manager, Pablo (who worked in a different office), found out that Jake was working from home for most of the week. Pablo was upset that Jake wasn’t going into the office to work with Katie, despite the fact that Jake was just as productive as always and that Katie was fine with the situation. Jake attempted to explain to Pablo that he was just as productive as he would be if he came into the office and that it was much easier on him and his wife for him to mostly work from home for a few weeks. Pablo’s response: “Dude, people have kids all the time. You need to go into the office.” Needless to say, Jake (normally a mild-mannered engineer) was enraged and lost a lot of respect for Pablo.
 
@@ -319,7 +319,7 @@ If you’re not micromanaging your team, you can be pretty certain the folks wor
 
 Most people new to a leadership role feel an enormous responsibility to get everything right, to know everything, and to have all the answers. We can assure you that you will not get everything right, nor will you have all the answers, and if you act like you do, you’ll quickly lose the respect of your team. A lot of this comes down to having a basic sense of security in your role. Think back to when you were an individual contributor; you could smell insecurity a mile away. Try to appreciate inquiry: when someone questions a decision or statement you made, remember that this person is usually just trying to better understand you. If you encourage inquiry, you’re much more likely to get the kind of constructive criticism that will make you a better leader of a better team. Finding people who will give you good constructive criticism is incredibly difficult, and it’s even more difficult to get this kind of criticism from people who “work for you.” Think about the big picture of what you’re trying to accomplish as a team, and accept feedback and criticism openly; avoid the urge to be territorial.
 
-大多数刚开始担任领导角色的人都觉得自己肩负着巨大的责任，要做好每一件事，了解每一件事，并掌握所有答案。我们可以向你保证，你不会把所有事情都做对，也不会有所有的答案，如果你这样做，你很快就会失去团队的尊重。这很大程度上取决于你的角色是否具有基本的安全感。回想一下你还是先进个人的时候，你在一英里外就能闻到不安全感。尝试欣赏询问：当有人质疑你的决定或声明时，记住这个人通常只是想更好地了解你。如果你鼓励询问，你就更有可能得到那种建设性的批评，使你成为一个更好的团队的领导者。找到会给你好的建设性批评的人是非常困难的，而从 "为你工作 "的人那里得到这种批评就更难了。想一想你作为一个团队所要完成的大局，坦然接受反馈和批评；避免地盘化的冲动。
+大多数刚开始担任领导角色的人都觉得自己肩负着巨大的责任，要做好每一件事，了解每一件事，并掌握所有答案。我们可以向你保证，你不会把所有事情都做对，也不会有所有的答案，如果你这样做，你很快就会失去团队的尊重。这很大程度上取决于你的角色是否具有基本的安全感。回想一下你还是个体贡献者的时候，你在一英里外就能闻到不安全感。尝试欣赏询问：当有人质疑你的决定或声明时，记住这个人通常只是想更好地了解你。如果你鼓励询问，你就更有可能得到那种建设性的批评，使你成为一个更好的团队的领导者。找到会给你好的建设性批评的人是非常困难的，而从 "为你工作 "的人那里得到这种批评就更难了。想一想你作为一个团队所要完成的大局，坦然接受反馈和批评；避免地盘化的冲动。
 
 The last part of losing the ego is a simple one, but many engineers would rather be boiled in oil than do it: apologize when you make a mistake. And we don’t mean you should just sprinkle “I’m sorry” throughout your conversation like salt on popcorn— you need to sincerely mean it. You are absolutely going to make mistakes, and whether or not you admit it, your team is going to know you’ve made a mistake. Your team members will know regardless of whether they talk to you (and one thing is guaranteed: they *will* talk about it with one another). Apologizing doesn’t cost money. People have enormous respect for leaders who apologize when they screw up, and contrary to popular belief, apologizing doesn’t make you vulnerable. In fact, you’ll usually gain respect from people when you apologize, because apologizing tells people that you are level headed, good at assessing situations, and—coming back to humility, respect, and trust—humble.
 
@@ -502,7 +502,7 @@ Lastly, here’s something the best leaders know and use often when they have ad
     
 下是谷歌在你担任领导职务时推荐的其他提示和窍门： 
 *委托，但要弄脏自己的手*
-    当从先进个人的角色转变为领导角色时，实现平衡是最难做到的事情之一。起初，你会倾向于自己做所有的工作，而在领导岗位上呆久了，很容易养成自己不做任何工作的习惯。如果你刚开始担任领导职务，你可能需要努力工作，把工作委托给团队中的其他工程师，即使他们完成这项工作所需的时间比你长很多。这不仅是你保持理智的一种方式，而且也是你的团队其他成员学习的方式。如果你已经领导了一段时间的团队，或者你接了一个新的团队，获得团队的尊重和了解他们的工作的最简单的方法之一就是弄脏你的手——通常是承担一个别人不愿意做的肮脏的任务。你可以有一份简历和一份一英里长的成就清单，但没有任何东西能让团队知道你有多熟练、有多谦逊（和谦逊），你喜欢跳进去做一些艰苦的工作。
+    当从个体贡献者的角色转变为领导角色时，实现平衡是最难做到的事情之一。起初，你会倾向于自己做所有的工作，而在领导岗位上呆久了，很容易养成自己不做任何工作的习惯。如果你刚开始担任领导职务，你可能需要努力工作，把工作委托给团队中的其他工程师，即使他们完成这项工作所需的时间比你长很多。这不仅是你保持理智的一种方式，而且也是你的团队其他成员学习的方式。如果你已经领导了一段时间的团队，或者你接了一个新的团队，获得团队的尊重和了解他们的工作的最简单的方法之一就是弄脏你的手——通常是承担一个别人不愿意做的肮脏的任务。你可以有一份简历和一份一英里长的成就清单，但没有任何东西能让团队知道你有多熟练、有多谦逊（和谦逊），你喜欢跳进去做一些艰苦的工作。
 
 *寻求继任者*
     除非你想在余下的职业生涯中一直做着完全相同的工作，否则要设法寻找继任者。正如我们前面提到的，这从招聘过程开始：如果你想让你的团队成员取代你，你需要雇佣有能力取代你的人，我们通常总结说，你需要 "雇佣比你更聪明的人"。在你拥有能够胜任工作的团队成员之后，你需要给他们机会承担更多的责任或偶尔领导团队。如果你这样做，你会很快看到谁最有领导才能，以及谁想领导团队。请记住，有些人更愿意只做高绩效的个人，这也是可以的。我们一直对一些公司感到惊讶，这些公司把他们最优秀的工程师，违背他们的意愿，把这些工程师扔到管理岗位上。这通常会从你的团队中减少一名优秀的工程师，而增加一名不合格的经理。
@@ -511,7 +511,7 @@ Lastly, here’s something the best leaders know and use often when they have ad
     你会（不可避免且经常地）遇到一些困难的情况，在这些情况下，你身体里的每一个细胞都在对你大喊大叫，要求你什么都不要做。这可能是你团队中的工程师，他的技术能力达不到要求。它可能是那个在每辆火车前跳来跳去的人。它可能是每周工作30小时的无心的员工。"只要等一等，就会好起来的，"你会告诉自己。"它会自己解决的，"你会合理地解释。不要落入这个陷阱——这些是你需要掀起最大波澜的情况，你需要现在就掀起。这些问题很少会自己解决，你等待解决的时间越长，它们对团队其他成员的不利影响就越大，它们会让你彻夜思考。通过等待，你只是拖延了不可避免的事情，并在这个过程中造成难以言喻的损失。因此，要采取行动，而且要迅速行动。
 
 *屏蔽团队免受混乱影响*
-    当你步入领导岗位时，你通常会发现，在你的团队之外是一个混乱和不确定（甚至是疯狂）的世界，而你在做先进个人时从未见过。当我在20世纪90年代第一次成为一名经理时（在回到先进个人之前），我对公司里发生的大量不确定性和组织混乱感到吃惊。我问另一位经理，是什么原因导致原本平静的公司突然出现这种动荡，另一位经理歇斯底里地笑我太天真了：混乱一直存在，但我以前的经理把我和我的团队其他成员都挡在外面。
+    当你步入领导岗位时，你通常会发现，在你的团队之外是一个混乱和不确定（甚至是疯狂）的世界，而你在做个体贡献者时从未见过。当我在20世纪90年代第一次成为一名经理时（在回到个体贡献者之前），我对公司里发生的大量不确定性和组织混乱感到吃惊。我问另一位经理，是什么原因导致原本平静的公司突然出现这种动荡，另一位经理歇斯底里地笑我太天真了：混乱一直存在，但我以前的经理把我和我的团队其他成员都挡在外面。
 
 *给你的团队提供空中掩护*
     尽管让你的团队了解公司 "上面 "发生的事情很重要，但同样重要的是，你要保护他们不受很多不确定因素和轻率要求的影响，这些要求可能来自你的团队之外。尽可能多地与你的团队分享信息，但不要用那些极不可能真正影响到他们的组织的疯狂行为来分散他们的注意力。
