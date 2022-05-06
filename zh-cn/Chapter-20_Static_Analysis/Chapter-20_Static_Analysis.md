@@ -1,4 +1,4 @@
-**CHAPTER** **20**
+**CHAPTER 20**
 
 # Static Analysis
 # 第二十章 静态分析

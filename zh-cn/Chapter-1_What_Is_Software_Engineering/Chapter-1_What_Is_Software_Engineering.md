@@ -1,4 +1,4 @@
-**CHAPTER** **1**
+**CHAPTER 1**
 
 # What Is Software Engineering? 
 

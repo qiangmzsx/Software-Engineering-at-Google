@@ -1,7 +1,11 @@
 **CHAPTER 6**
 
+# Leading at Scale
+
+# 第六章 规模优先
 
 In Chapter 5, we talked about what it means to go from being an “individual contrib‐ utor” to being an explicit leader of a team. It’s a natural progression to go from lead‐ ing one team to leading a set of related teams, and this chapter talks about how to be effective as you continue along the path of engineering leadership.
+
 在第五章，我们讨论了从独立开发者到一个团队的领导意味着什么。从领导一个团队转变到一系列的相关团队是很自然的过程，这章我们将讨论如何在管理工程团队中持续保持高效。
 
 As your role evolves, all the best practices still apply. You’re still a “servant leader”; you’re just serving a larger group. That said, the scope of problems you’re solving becomes larger and more abstract. You’re gradually forced to become “higher level.” That is, you’re less and less able to get into the technical or engineering details of things, and you’re being pushed to go “broad” rather than “deep.” At every step, this process is frustrating: you mourn the loss of these details, and you come to realize that your prior engineering expertise is becoming less and less relevant to your job. Instead, your effectiveness depends more than ever on your general technical intuition and ability to galvanize engineers to move in good directions.

@@ -1,4 +1,4 @@
-**CHAPTER** **18**
+**CHAPTER 18**
 
 # Build Systems and Build Philosophy
 

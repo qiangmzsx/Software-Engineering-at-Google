@@ -1,4 +1,4 @@
-**CHAPTER** **17**
+**CHAPTER 17**
 
 # Code Search
 

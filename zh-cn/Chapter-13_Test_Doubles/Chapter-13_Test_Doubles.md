@@ -1,4 +1,4 @@
-**CHAPTER** **13**
+**CHAPTER 13**
 
 # Test Doubles
 
