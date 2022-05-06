@@ -1,6 +1,6 @@
 
 
-**CHAPTER  9 **
+**CHAPTER 9**
 
 # Code Review
 
@@ -507,30 +507,3 @@ Code review is one of the most important and critical processes at Google. Code 
 - 代码审查对于整个组织的知识共享非常重要。
 - 自动化对于扩展这个过程是至关重要的。
 - 代码审查本身提供了一个历史记录。
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

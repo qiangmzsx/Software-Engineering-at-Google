@@ -1,6 +1,6 @@
 
 
-**CHAPTER  16 **
+**CHAPTER 16**
 
 # Version Control and Branch Management
 

@@ -1,4 +1,4 @@
-**CHAPTER** **4**
+**CHAPTER 4**
 
 # Engineering for Equity
 

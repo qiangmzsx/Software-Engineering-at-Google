@@ -1,4 +1,4 @@
-**CHAPTER** **8**
+**CHAPTER 8**
 
 # Style Guides and Rules
 

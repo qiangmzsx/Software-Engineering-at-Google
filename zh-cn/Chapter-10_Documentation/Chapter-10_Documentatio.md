@@ -1,4 +1,4 @@
-**CHAPTER** **10**
+**CHAPTER 10**
 
 # Documentation
 

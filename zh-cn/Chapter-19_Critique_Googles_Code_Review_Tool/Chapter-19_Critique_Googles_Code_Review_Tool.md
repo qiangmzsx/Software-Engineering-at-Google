@@ -1,4 +1,4 @@
-**CHAPTER** **19**
+**CHAPTER 19**
 
 # Critique: Google’s Code Review Tool
 

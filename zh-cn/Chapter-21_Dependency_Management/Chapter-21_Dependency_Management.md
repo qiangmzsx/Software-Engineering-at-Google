@@ -1,6 +1,6 @@
 
 
-**CHAPTER  21 **
+**CHAPTER 21**
 
 # Dependency Management
 
