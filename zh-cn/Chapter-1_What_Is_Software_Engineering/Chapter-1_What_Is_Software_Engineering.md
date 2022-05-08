@@ -333,7 +333,7 @@ This term seems to have originated from arguments that security mustn’t be def
 
 这个术语似乎源一种观点，即安全问题不能推迟到开发过程的最后阶段，必须要求“在安全上向左转移”。这种情况下的论点相对简单：如果安全问题是在产品投入生产后才发现的，修复的成本就非常高。如果在部署到生产之前就发现了安全问题，那也需要花费大量的工作来检测和修复问题，但成本更低些。如果你能够在最初的开发之前发现安全问题，将缺陷提交到版本控制就被发现，修复的成本更低：他们已经了解该功能；根据新的安全约束规范进行开发，要比提交代码后再让其他人分类标识并修复它更简单。
 
-![*Figure 1-2. Timeline of* *the developer* *workflow*](./images/figure%201-1.png)
+![*Figure 1-2. Timeline of* *the developer* *workflow*](./images/figure%201-2.png)
 
 The same basic pattern emerges many times in this book. Bugs that are caught by static analysis and code review before they are committed are much cheaper than bugs that make it to production. Providing tools and practices that highlight quality, reliability, and security early in the development process is a common goal for many of our infrastructure teams. No single process or tool needs to be perfect, so we can assume a defense-in-depth approach, hopefully catching as many defects on the left side of the graph as possible.
 
