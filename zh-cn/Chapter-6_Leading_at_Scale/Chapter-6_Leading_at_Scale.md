@@ -4,123 +4,148 @@
 
 # 第六章 规模优先
 
-In Chapter 5, we talked about what it means to go from being an “individual contrib‐ utor” to being an explicit leader of a team. It’s a natural progression to go from lead‐ ing one team to leading a set of related teams, and this chapter talks about how to be effective as you continue along the path of engineering leadership.
+In Chapter 5, we talked about what it means to go from being an “individual contributor” to being an explicit leader of a team. It’s a natural progression to go from leading one team to leading a set of related teams, and this chapter talks about how to be effective as you continue along the path of engineering leadership.
 
-在第五章，我们讨论了从独立开发者到一个团队的领导意味着什么。从领导一个团队转变到一系列的相关团队是很自然的过程，这章我们将讨论如何在管理工程团队中持续保持高效。
+在第五章，我们讨论了从"个人贡献者 "到一个团队的领导意味着什么。从领导一个团队转变到一系列的相关团队是一个很自然的过程，这章我们将讨论如何在管理工程团队中持续保持高效。
 
 As your role evolves, all the best practices still apply. You’re still a “servant leader”; you’re just serving a larger group. That said, the scope of problems you’re solving becomes larger and more abstract. You’re gradually forced to become “higher level.” That is, you’re less and less able to get into the technical or engineering details of things, and you’re being pushed to go “broad” rather than “deep.” At every step, this process is frustrating: you mourn the loss of these details, and you come to realize that your prior engineering expertise is becoming less and less relevant to your job. Instead, your effectiveness depends more than ever on your general technical intuition and ability to galvanize engineers to move in good directions.
 
-随着你角色的演进，之前的最佳实践仍适用。你仍然是一个服务型领导；你只不过是开始服务于更大的团队了。这就是说，需要你解决的问题领域更大，更抽象了。你被迫上升到了更高的层层。你越来越不太能接触到具体的技术上的或工程上的细节，被迫地，你需要知道的更“广”，而不是更“深”。这个过程的每一步都令人沮丧：你丧失了对技术细节的掌控，然后渐渐意识到之前的工程经验与你现在的工作的关联性越来越少。你的工作效率变得更加依赖对通用的技术领域的直觉和引导工程师找对正确的前进方向上。
+随着你角色的变化，之前的最佳实践仍适用。你仍然是一个服务型领导；你只不过是开始服务于更大的团队了。这就是说，需要你解决的问题领域更大，更抽象了。你被迫上升到了"更高层次"。你越来越不太能接触到具体的技术上的或工程上的细节，被迫地，你需要知道的更“广泛”，而不是更“深入”。这个过程的每一步都令人沮丧：你丧失了对技术细节的掌控，然后渐渐意识到之前的工程经验与你现在的工作的关联性越来越少。你的工作效率变得更加依赖对通用的技术领域的直觉和引导工程师找对正确的前进方向上。
 
-The process is often demoralizing—until one day you notice that you’re actually hav‐ ing much more impact as a leader than you ever had as an individual contributor. It’s a satisfying but bittersweet realization.
+The process is often demoralizing—until one day you notice that you’re actually having much more impact as a leader than you ever had as an individual contributor. It’s a satisfying but bittersweet realization.
+
+这个过程通常是令人沮丧的 -- 直到有一天你意识到作为一个领导者你比作为个人贡献者 者有多得多的影响力。这是个令人满意的，但是也是喜忧参半的领悟。
+
 So, assuming that we understand the basics of leadership, what it does it take to scale yourself into a really good leader? That’s what we talk about here, using what we call “the three Always of leadership”: Always Be Deciding, Always Be Leaving, Always Be Scaling.
 
-这个过程通常是令人沮丧的 -- 直到有一天你意识到作为一个领导者你比作为独立开发者有多得多的影响力。这是个令人满意的，但是也是喜忧参半的领悟。
-至此，假设我们已经知道了领导的本质，那么到底什么才能让你提升为一个真正优秀的管理者呢？这就是我们这里想要讨论的，我们称之为“管理上的三个总是”：总是在决定，总是在放手，总是在扩张。
+至此，假设我们已经知道了领导的本质，那么到底什么才能让你提升为一个真正优秀的管理者呢？这就是我们这里想要讨论的，我们称之为“管理上的三个总是”：始终保持决断力，始终保持放手，始终保持扩展。
 
-# 总是在决定
+## Always Be Deciding 始终保持决断力
 
-Managing a team of teams means making ever more decisions at ever-higher levels. Your job becomes more about high-level strategy rather than how to solve any spe‐ cific engineering task. At this level, most of the decisions you’ll make are about find‐ ing the correct set of trade-offs.
+Managing a team of teams means making ever more decisions at ever-higher levels. Your job becomes more about high-level strategy rather than how to solve any specific engineering task. At this level, most of the decisions you’ll make are about finding the correct set of trade-offs.
+
 管理团队组成的团队意味着在更高层面上做决定。你的工作从解决具体的工程任务变成制定更高的策略。在这个层面上，你将做的决策大多数是关于更好地权衡。
 
-## 关于机场的寓言故事
+### The Parable of the Airplane 关于机场的寓言故事
 
-Lindsay Jones is a friend of ours who is a professional theatrical sound designer and composer. He spends his life flying around the United States, hopping from produc‐ tion to production, and he’s full of crazy (and true) stories about air travel. Here’s one of our favorite stories:
+Lindsay Jones is a friend of ours who is a professional theatrical sound designer and composer. He spends his life flying around the United States, hopping from production to production, and he’s full of crazy (and true) stories about air travel. Here’s one of our favorite stories:
 
-Lindsay Jones 是我们的一个专业的戏剧声音设计师和编曲朋友。他一生大部分时间都在美国各地飞来飞去，在不同的产品之间切换。他有很多疯狂（而且真实）的关于航空旅行的故事。以下是我们最喜欢的其中一个：
+Lindsay Jones 是我们的一个专业的戏剧声音设计师和编曲朋友。他一生大部分时间都在美国各地飞来飞去，在不同的作品之间切换。他有很多疯狂（而且真实）的关于航空旅行的故事。下面是我们最喜欢的一个故事：
+	It’s 6 a.m., we’re all boarded on the plane and ready to go. The captain comes on the PA system and explains to us that, somehow, someone has overfilled the fuel tank by 10,000 gallons. Now, I’ve flown on planes for a long time, and I didn’t know that such a thing was possible. I mean, if I overfill my car by a gallon, I’m gonna have gas all over my shoes, right?
 
->It’s 6 a.m., we’re all boarded on the plane and ready to go. The captain comes on the PA system and explains to us that, somehow, someone has overfilled the fuel tank by 10,000 gallons. Now, I’ve flown on planes for a long time, and I didn’t know that such a thing was possible. I mean, if I overfill my car by a gallon, I’m gonna have gas all over my shoes, right?
-Well, so anyway, the captain then says that we have two options: we can either wait for the truck to come suck the fuel back out of the plane, which is going to take over an hour, or twenty people have to get off the plane right now to even out the weight.
-No one moves.
+	现在是早上6点，我们都登机了，飞机马上就要起飞。机长在广播中跟我们解释说，不知怎么的有人给飞机多加了 10,000 加仑汽油。我已经在飞过很久了，从没听说过怎么可能发生这种事。我是说，如果我给汽车多加1加仑的汽油，很可能我的鞋里都会灌满汽油，是吧？
+	
+	Well, so anyway, the captain then says that we have two options: we can either wait for the truck to come suck the fuel back out of the plane, which is going to take over an hour, or twenty people have to get off the plane right now to even out the weight.
+	No one moves.
+	
+	好吧，无论如何，机长说我们有两个选择：要么我们等1个多小时等卡车把多余的汽油吸走，要么请12名乘客下飞机来减轻飞机的重量。
+	没有人下飞机。
+	
+	Now, there’s this guy across the aisle from me in first class, and he is absolutely livid. He reminds me of Frank Burns on M*A*S*H; he’s just super indignant and sputtering everywhere, demanding to know who’s responsible. It’s an amazing showcase, it’s like he’s Margaret Dumont in the Marx Brothers movies.
+	
+	现在，在我头等舱的过道对面有一个人，是真的很生气了。他让给我想起了**MASH**里的Frank Burns；他现在是真的很生气，在到处嚷嚷，想知道到底谁该为此负责。这是个非常精彩的案例，简直就像电影 Marx Brothers 中的 Margaret Dumont 一样。
+	
+	So, he grabs his wallet and pulls out this massive wad of cash! And he’s like “I cannot be late for this meeting!! I will give $40 to any person who gets off this plane right now!”
+	
+	然后，他从钱包里拿出一大沓钞票！他说“我这个会不能迟到！现在谁下飞机我就给谁40美金！”
+	
+	Sure enough, people take him up on it. He gives out $40 to 20 people (which is $800 in cash, by the way!) and they all leave.
+	
+	当然人们很买他的帐，他给了20人每人40美金（总共800！），然后这些人都下飞机了。
+	
+	So, now we’re all set and we head out to the runway, and the captain comes back on the PA again. The plane’s computer has stopped working. No one knows why. Now we gotta get towed back to the gate.
+	
+	然后我们都坐下了，飞机出发准备到跑道了，结果机长又在广播上开始说话了。飞机的电脑宕机了。没人知道为什么。现在我们必须被拖回登机口。
+	
+	Frank Burns is apoplectic. I mean, seriously, I thought he was gonna have a stroke. He’s cursing and screaming. Everyone else is just looking at each other.
+	
+	Frank Burns 现在真的暴跳如雷了。真的，我感觉他快要气抽过去了。他开始咒骂和尖叫。其他人都开始面面相觑。
+	
+	We get back to the gate and this guy is demanding another flight. They offer to book him on the 9:30, which is too late. He’s like, “Isn’t there another flight before 9:30?”
+	
+	我们回到登机口，这个人要求另一个航班。他们提议给他订9:30的航班，但这已经太晚了。他说，“9点半前没有其他的航班吗？”
+	
+	The gate agent is like, “Well, there was another flight at 8, but it’s all full now. They’re closing the doors now.”
+	
+	登机口工作人员说："嗯，8点还有一个航班，但现在都满了。他们现在要关门了。"
+	
+	And he’s like, “Full?! Whaddya mean it’s full? There’s not one open seat on that plane?!?!?!”
+	
+	他就说，"满了？你说满了是什么意思？那架飞机上没有一个空位？
+	
+	The gate agent is like, “No sir, that plane was wide open until 20 passengers showed up out of nowhere and took all the seats. They were the happiest passengers I’ve ever seen, they were laughing all the way down the jet bridge.”
+	
+	空乘说，“不，这趟航班本来是有空余座位的，直到不知从哪冒出了20名乘客坐满了所有位置。他们是我见过的最高兴的乘客，他们一路有说有笑走下了廊桥。”
+	
+	It was a very quiet ride on the 9:30 flight.
+	
+	后来9点半的这趟航班一路上都很安静。
 
+This story is, of course, about trade-offs. Although most of this book focuses on various technical trade-offs in engineering systems, it turns out that trade-offs also apply to human behaviors. As a leader, you need to make decisions about what your teams should do each week. Sometimes the trade-offs are obvious (“if we work on this project, it delays that other one...”); sometimes the trade-offs have unforeseeable consequences that can come back to bite you, as in the preceding story.
 
->现在是早上6点，我们都登机了，飞机马上就要起飞。机长在广播中跟我们解释说，不知怎么的有人给飞机多加了 10,000 加仑汽油。我已经在飞过很久了，从没听说过怎么可能发生这种事。我是说，如果我给汽车多加1加仑的汽油，很可能我的鞋里都会灌满汽油，是吧？
-好吧，无论如何，机长说我们有两个选择：要么我们等1个多小时等卡车把多余的汽油吸走，要么请12名乘客下飞机来减轻飞机的重量。没有人下飞机。
+这个故事是关于权衡(trade-off)的。尽管这本书的大部分内容都聚焦在讲工程系统中的技术权衡，但是事实证明在人类行为方面同样适用。作为一个领导，你需要决定你的团队每周都做什么。有时权衡很明显（“如果我们做这个项目，那另一个项目可能会延期”）；还有的时候这些权衡会有不可预料的结果，回过头来会反咬你一口，就像前面的故事。
 
+At the highest level, your job as a leader—either of a single team or a larger organization—is to guide people toward solving difficult, ambiguous problems. By ambiguous, we mean that the problem has no obvious solution and might even be unsolvable. Either way, the problem needs to be explored, navigated, and (hopefully) wrestled into a state in which it’s under control. If writing code is analogous to chopping down trees, your job as a leader is to “see the forest through the trees” and find a workable path through that forest, directing engineers toward the important trees. There are three main steps to this process. First, you need to identify the blinders; next, you need to identify the trade-offs; and then you need to decide and iterate on a solution.
 
->Now, there’s this guy across the aisle from me in first class, and he is absolutely livid. He reminds me of Frank Burns on M*A*S*H; he’s just super indignant and sputtering everywhere, demanding to know who’s responsible. It’s an amazing showcase, it’s like he’s Margaret Dumont in the Marx Brothers movies.
-So, he grabs his wallet and pulls out this massive wad of cash! And he’s like “I cannot be late for this meeting!! I will give $40 to any person who gets off this plane right now!”
-Sure enough, people take him up on it. He gives out $40 to 20 people (which is $800 in cash, by the way!) and they all leave.
-So, now we’re all set and we head out to the runway, and the captain comes back on the PA again. The plane’s computer has stopped working. No one knows why. Now we gotta get towed back to the gate.
-Frank Burns is apoplectic. I mean, seriously, I thought he was gonna have a stroke. He’s cursing and screaming. Everyone else is just looking at each other.
-We get back to the gate and this guy is demanding another flight. They offer to book him on the 9:30, which is too late. He’s like, “Isn’t there another flight before 9:30?”
-The gate agent is like, “Well, there was another flight at 8, but it’s all full now. They’re closing the doors now.”
-And he’s like, “Full?! Whaddya mean it’s full? There’s not one open seat on that plane?!?!?!”
-The gate agent is like, “No sir, that plane was wide open until 20 passengers showed up out of nowhere and took all the seats. They were the happiest passengers I’ve ever seen, they were laughing all the way down the jet bridge.”
-It was a very quiet ride on the 9:30 flight.
+在最高层，你的工作是作为一个领导——一个小团队或一个更大的组织--引导人们解决棘手的、模糊的问题。模糊意味着这个问题没有显而易见的解法，甚至可能没有解法。另一方面，这个问题需要被探索、指引、摸爬滚打到一个可控的状态下。如果把写代码比作砍树的话，你作为一个领导的工作就是“拨开树木见森林”，找到穿越森林的路径，指引工程师找到最重要的树。首先，你需要找到专家；然后识别权衡；然后在解决方案上个反复地决定并迭代。
 
->现在，在头等舱里我对吗有一个人，是真的很生气了。他让给我想起了**MASH**里的Frank Burns；他现在是真的很生气，在到处嚷嚷，想知道到底谁该为此负责。这是个非常精彩的案例，简直就像电影 Marx Brothers 中的 Margaret Dumont 一样。
-然后，他从钱包里拿出一大沓钞票！他说“我这个会不能迟到！现在谁下飞机我就给谁40美金！”
-当然人们很买他的帐，他给了20人每人40美金（总共800！），然后这些人都下飞机了。
-然后我们都坐下了，飞机出发准备到跑道了，结果机长又在广播上开始说话了。飞机的电脑宕机了。没人知道为什么。然后我们的飞机被拖回了大门。
-Frank Burns 现在真的暴跳如雷了。真的，我感觉他快要气抽过去了。他开始咒骂和尖叫。其他人都开始面面相觑。
-我们又回到了门口，这个人开始要求机场提供其他航班。他们承诺提供给他预定一张9点半的机票，这对他来说太晚了。
-他说，“9点半前没有其他的航班吗？” 空乘人员说，“有一架8点的航班，不过现在都满了。”
-他说，“满了？什么叫满了？难倒就没有预留的备用座位吗？”
-空乘说，“不，这趟航班本来是有空余座位的，直到不知从哪冒出了20名乘客坐满了所有位置。他们是我见过的最高兴的乘客，他们一路有说有笑走下了廊桥。”
-后来9点半的这趟航班一路上都很安静。
+###  Identify the Blinders  找到盲点
 
-This story is, of course, about trade-offs. Although most of this book focuses on vari‐ ous technical trade-offs in engineering systems, it turns out that trade-offs also apply to human behaviors. As a leader, you need to make decisions about what your teams should do each week. Sometimes the trade-offs are obvious (“if we work on this project, it delays that other one...”); sometimes the trade-offs have unforeseeable con‐ sequences that can come back to bite you, as in the preceding story.
-At the highest level, your job as a leader—either of a single team or a larger organiza‐ tion—is to guide people toward solving difficult, ambiguous problems. By ambiguous, we mean that the problem has no obvious solution and might even be unsolvable. Either way, the problem needs to be explored, navigated, and (hopefully) wrestled into a state in which it’s under control. If writing code is analogous to chopping down trees, your job as a leader is to “see the forest through the trees” and find a workable path through that forest, directing engineers toward the important trees. There are three main steps to this process. First, you need to identify the blinders; next, you need to identify the trade-offs; and then you need to decide and iterate on a solution.
+When you first approach a problem, you’ll often discover that a group of people has already been wrestling with it for years. These folks have been steeped in the problem for so long that they’re wearing “blinders”—that is, they’re no longer able to see the forest. They make a bunch of assumptions about the problem (or solution) without realizing it. “This is how we’ve always done it,” they’ll say, having lost the ability to consider the status quo critically. Sometimes, you’ll discover bizarre coping mechanisms or rationalizations that have evolved to justify the status quo. This is where you —with fresh eyes—have a great advantage. You can see these blinders, ask questions, and then consider new strategies. (Of course, being unfamiliar with the problem isn’t a requirement for good leadership, but it’s often an advantage.)
 
-这个估时是关于权衡(trade-off)的。尽管这本书的大部分内容都聚焦在讲工程系统中的技术性权衡，但是事实证明在人类行为方面同样适用。作为一个领导，你需要决定你的团队每周都做什么。有时权衡很明显（“如果我们做这个项目，那另一个项目可能会延期”）；还有的时候这些权衡会有不可预料的结果，回过头来会反咬你一口，就像下面的例子那样。
-在最高层，你的工作是作为一个领导--一个小团队的领导或一个大的组织的领导--引导人们解决棘手的、模糊的问题。模糊意味着这个问题没有显而易见的解法，甚至可能没有解法。另一方面，这个问题需要被探索、指引、摸爬滚打到一个可控的状态下。如果把写代码比作砍树的话，你作为一个领导的工作就是“拨开树木见森林”，找到穿越森林的路径，指引工程师找到最重要的树。首先，你需要找到专家（？）；然后定义权衡(？)；然后在解决办法上个反复地决定--迭代。
+当你初次接触一个问题时，通常你会发现有很多人已经在这个领域摸爬滚打很多年了。这些家伙在这个领域呆了很久，以至于他们好像戴着*眼罩*——他们无法“拨开树木见森林”。对于这个问题（或解决方案），他们会做一系列的假设，但从不会去重新认识这个问题本身。他们会说，“我们一直是这样做的”，他们已经失去了思考问题现状的能力。有时，你会发现一些奇怪的应对机制或合理化建议，这些都是为了证明现状的合理性而演变的。这就是你的优势所在——你有一双新的眼睛。你可以看到这些盲点，提出问题，然后考虑新的策略。（当然，对问题不熟悉并不是好领导的要求，但它往往是一种优势。）
 
-## Identify the Blinders
-When you first approach a problem, you’ll often discover that a group of people has already been wrestling with it for years. These folks have been steeped in the problem for so long that they’re wearing “blinders”—that is, they’re no longer able to see the forest. They make a bunch of assumptions about the problem (or solution) without realizing it. “This is how we’ve always done it,” they’ll say, having lost the ability to consider the status quo critically. Sometimes, you’ll discover bizarre coping mecha‐ nisms or rationalizations that have evolved to justify the status quo. This is where you —with fresh eyes—have a great advantage. You can see these blinders, ask questions, and then consider new strategies. (Of course, being unfamiliar with the problem isn’t a requirement for good leadership, but it’s often an advantage.)
-
-## 找到专家
-当你初次接触一个问题时，通常你会发现有很多人已经在这个领域摸爬滚打很多年了。这些家伙在这个领域呆了很久，以至于他们好像戴着眼罩--他们无法“拨开树木见森林”。对于这个问题或解法，他们会做一系列的假设，但从不会去重新认识这个问题本身。他们会说，“这就是我们一直以来的做法”，他们已经失去了思考问题现状的能力。有时候你会发现一些稀奇古怪的拷贝机制，或者理性客观地分析问题的现状。这就是有崭新视野的你所拥有的巨大优势。你能够找到那些所谓的领域专家，向他们请教，并制定新的策略。（当然，对某一个领域不熟悉并不是成为一个好的领导者的必要条件，但它通常是个优势。）
-
-## Identify the Key Trade-Offs
+## Identify the Key Trade-Offs  确定关键的权衡要素
 
 By definition, important and ambiguous problems do not have magic “silver bullet” solutions. There’s no answer that works forever in all situations. There is only the best answer for the moment, and it almost certainly involves making trade-offs in one direction or another. It’s your job to call out the trade-offs, explain them to everyone, and then help decide how to balance them.
 
-## 确定关键的权衡对象
+根据定义，重要的和模糊的问题没有所谓的神奇的“银弹”解决方案。没有一劳永逸的解决方案。只有当下的最佳答案，而且几乎肯定涉及到在某个方向上的权衡。你的工作是指出这些权衡，向大家解释，然后帮助决定如何取舍。
 
-根据定义，重要的和模糊的问题没有所谓的神奇的“银弹”解决方案。没有一劳永逸的解决方案。只有针对特定时刻，特定问题的最佳答案，它几乎肯定包含一个关于权衡的问题。你的职责是识别出这些权衡，向所有人解释，然后帮助大家决定如何在直接取舍。
+### Decide, Then Iterate  做决定，然后反复迭代
 
-# Decide, Then Iterate
+After you understand the trade-offs and how they work, you’re empowered. You can use this information to make the best decision for this particular month. Next month, you might need to reevaluate and rebalance the trade-offs again; it’s an iterative process. This is what we mean when we say Always Be Deciding.
 
-# 做决定，然后反复迭代
+在你了解了这些权衡以及它们如何运作之后，你就被赋能了。这个月，你能利用这个信息来做最佳的决定，然后下个月你可能需要重新评估和权衡——这是一个反复迭代的过程。这就是我们所说的“始终保持决断力”。
 
-After you understand the trade-offs and how they work, you’re empowered. You can use this information to make the best decision for this particular month. Next month, you might need to reevaluate and rebalance the trade-offs again; it’s an iterative pro‐ cess. This is what we mean when we say Always Be Deciding.
-There’s a risk here. If you don’t frame your process as continuous rebalancing of trade-offs, your teams are likely to fall into the trap of searching for the perfect solu‐ tion, which can then lead to what some call “analysis paralysis.” You need to make your teams comfortable with iteration. One way of doing this is to lower the stakes and calm nerves by explaining: “We’re going to try this decision and see how it goes. Next month, we can undo the change or make a different decision.” This keeps folks flexible and in a state of learning from their choices.
+There’s a risk here. If you don’t frame your process as continuous rebalancing of trade-offs, your teams are likely to fall into the trap of searching for the perfect solution, which can then lead to what some call “analysis paralysis.” You need to make your teams comfortable with iteration. One way of doing this is to lower the stakes and calm nerves by explaining: “We’re going to try this decision and see how it goes. Next month, we can undo the change or make a different decision.” This keeps folks flexible and in a state of learning from their choices.
 
-在你理解了权衡，以及他们怎么起作用后，你就被赋能了。这个月，你能利用这个信息来做最好的决定，然后下个月你可能需要重新评估、权衡--这是一个反复迭代的过程。这就是我们所说的“一直在做决定”。
-不过这里也有风险。如果你不给你的分析过程框定一个边界的话，你的团队容易陷到寻找“最完美的解决方法”的漩涡中，这样使团队进入所谓的“分析瘫痪”的状态中。你需要使你的团队习惯于这个迭代过程。一种方法是每次把这种变更和风险降低，然后尝试给团队成员解释“我们将尝试这个方案看看效果，然后下个月我们可能撤销这个变更然后尝试另一种方法”来使他们冷静下来。这将使团队成员变得敏捷，并能从他们的选择中得到成长并进步。
+不过这里也有风险。如果你不给你的分析过程框定一个边界的话，你的团队容易陷到寻找“最完美的解决方法”的漩涡中，这样使团队进入所谓的“分析瘫痪”的状态中。你需要使你的团队习惯于这个迭代过程。一种方法是每次把这种变更和风险降低，然后尝试给团队成员解释“我们将尝试这个方案看看效果，然后下个月我们可能撤销这个变更或做出不同的决定”，来使他们冷静下来。这将使团队成员变得敏捷，并能从他们的选择中得到成长并进步。
 
->Case Study: Addressing the “Latency” of Web Search
+-----
+#### Case Study: Addressing the “Latency” of Web Search  案例学习: 定位网页搜索的“延迟”
+
 In managing a team of teams, there’s a natural tendency to move away from a single product and to instead own a whole “class” of products, or perhaps a broader problem that crosses products. A good example of this at Google has to do with our oldest product, Web Search.
 
-For years, thousands of Google engineers have worked on the general problem of making search results better—improving the “quality” of the results page. But it turns out that this quest for quality has a side effect: it gradually makes the product slower. Once upon a time, Google’s search results were not much more than a page of 10 blue links, each representing a relevant website. Over the past decade, however, thousands of tiny changes to improve “quality” have resulted in ever-richer results: images, vid‐ eos, boxes with Wikipedia facts, even interactive UI elements. This means the servers need to do much more work to generate information: more bytes are being sent over the wire; the client (usually a phone) is being asked to render ever-more-complex HTML and data. Even though the speed of networks and computers have markedly increased over a decade, the speed of the search page has become slower and slower: its latency has increased. This might not seem like a big deal, but the latency of a product has a direct effect (in aggregate) on users’ engagement and how often they use it. Even increases in rendering time as small as 10 ms matter. Latency creeps up slowly. This is not the fault of a specific engineering team, but rather represents a long, collective poisoning of the commons. At some point, the overall latency of Web Search grows until its effect begins to cancel out the improvements in user engage‐ ment that came from the improvements to the “quality” of the results.
+在管理一个团队的过程中，有一个很自然的趋势，那就是走出单一的产品，转而拥有多元产品的 "类别"，或者也许是一个跨越产品的更广泛的问题。这方面一个很好的例子就是 Google 历史最有悠久的产品，网页搜索。
 
-的问题，而是一个跨团队的，长期的慢性毒药。从某些方面看，网页的总延迟将会一直增加，直到它带来的副作用能够抵消掉质量优化为用户
->案例学习: 定位网页搜索的“延迟”
-在管理团队的团队时，有一个自然而然的趋势，就是需要从解决一个产品的问题转向解决一类产品的我那天，或者解决跨产品的范围更广的问题。这方面一个很好的例子就是 Google 历史最有悠久的产品 -- 网页搜索。
-多年以来，数以千计的工程师为提升搜索结果页的“质量”做了很多优化。结果发现对质量的追求也有两面性：它渐渐地使产品越来越慢。很久以前 Google 的搜索页每页只有不到10个蓝色的链接，每个链接代表一个相关网页。再过去的十年间，上千个关于“质量”的微小的变化导致搜索结果变成了一个前所未有的复杂的结果：图片、视频、有维基百科结果的文本框、甚至还有可交互的 UI 组件。这意味着服务器需要做更多的工作来生成这些信息：在网络上传输更多的数据；客户端（通常是手机）需要渲染更复杂的 HTML 和内容。尽管网络和计算机在近十年都有了飞速的提升，搜索结果页还是越来越慢了：延迟增加了。这看上去没什么大不了，但这直接影响着用户粘性。即使将网页渲染时间增加 10ms 都有影响。延迟总是一点点地增加。这并不是某一个工程团队的问题，而是一个跨团队的，长期的慢性毒药。从某些方面看，网页的总延迟将会一直增加，直到它带来的副作用能够抵消掉质量优化为用户粘性带来的益处。
+For years, thousands of Google engineers have worked on the general problem of making search results better—improving the “quality” of the results page. But it turns out that this quest for quality has a side effect: it gradually makes the product slower. Once upon a time, Google’s search results were not much more than a page of 10 blue links, each representing a relevant website. Over the past decade, however, thousands of tiny changes to improve “quality” have resulted in ever-richer results: images, videos, boxes with Wikipedia facts, even interactive UI elements. This means the servers need to do much more work to generate information: more bytes are being sent over the wire; the client (usually a phone) is being asked to render ever-more-complex HTML and data. Even though the speed of networks and computers have markedly increased over a decade, the speed of the search page has become slower and slower: its latency has increased. This might not seem like a big deal, but the latency of a product has a direct effect (in aggregate) on users’ engagement and how often they use it. Even increases in rendering time as small as 10 ms matter. Latency creeps up slowly. This is not the fault of a specific engineering team, but rather represents a long, collective poisoning of the commons. At some point, the overall latency of Web Search grows until its effect begins to cancel out the improvements in user engagement that came from the improvements to the “quality” of the results.
 
-A number of leaders struggled with this issue over the years but failed to address the problem systematically. The blinders everyone wore assumed that the only way to deal with latency was to declare a latency “code yellow”1 every two or three years, dur‐ ing which everyone dropped everything to optimize code and speed up the product. Although this strategy would work temporarily, the latency would begin creeping up again just a month or two later, and soon return to its prior levels.
+多年以来，数以千计的工程师为提升搜索结果页的“质量”做了很多优化。结果发现对内容质量的追求也有两面性：它逐渐使产品变得缓慢。很久以前 Google 的搜索页每页只有不到10个蓝色的链接，每个链接代表一个相关网页。再过去的十年间，上千个关于“质量”的微小的变化导致搜索结果变成了一个前所未有的复杂的结果：图片、视频、有维基百科结果的文本框、甚至还有可交互的 UI 组件。这意味着服务器需要做更多的工作来生成这些信息：在网络上传输更多的数据；客户端（通常是手机）需要渲染更复杂的 HTML 和内容。尽管网络和计算机在近十年都有了飞速的提升，搜索结果页速度还是越来越慢了：延迟增加了。这看上去没什么大不了，但这直接影响着用户粘性。即使将网页渲染时间增加 10ms 都有影响。延迟总是一点点地增加。这并不是某一个工程团队的问题，而是一个跨团队的，长期的慢性毒药。从某些方面看，网页的总延迟将会一直增加，直到它带来的副作用能够抵消掉质量优化为用户粘性带来的收益。
+
+A number of leaders struggled with this issue over the years but failed to address the problem systematically. The blinders everyone wore assumed that the only way to deal with latency was to declare a latency “code yellow”1 every two or three years, during which everyone dropped everything to optimize code and speed up the product. Although this strategy would work temporarily, the latency would begin creeping up again just a month or two later, and soon return to its prior levels.
 
 多年里，多位领导都尝试过系统性地解决这个问题然而最终都以失败告终。每个专家都是只有一个解法，那就是制定一个延迟的“黄线”，每一到两年就检查一次，如果延迟到达了“黄色代号”，每个人都停下来最高优先级优化代码来给产品提速。尽管这个策略会短时间的生效，但是仅仅一两个月后，延迟就又会慢慢增加，然后很快就又回到之前的水平。
 
-So what changed? At some point, we took a step back, identified the blinders, and did a full reevaluation of the trade-offs. It turns out that the pursuit of “quality” has not one, but two different costs. The first cost is to the user: more quality usually means more data being sent out, which means more latency. The second cost is to Google: more quality means doing more work to generate the data, which costs more CPU time in our servers—what we call “serving capacity.” Although leadership had often trodden carefully around the trade-off between quality and capacity, it had never treated latency as a full citizen in the calculus. As the old joke goes, “Good, Fast, Cheap—pick two.” A simple way to depict the trade-offs is to draw a triangle of ten‐ sion between Good (Quality), Fast (Latency), and Cheap (Capacity), as illustrated in Figure 6-1.
+So what changed? At some point, we took a step back, identified the blinders, and did a full reevaluation of the trade-offs. It turns out that the pursuit of “quality” has not one, but two different costs. The first cost is to the user: more quality usually means more data being sent out, which means more latency. The second cost is to Google: more quality means doing more work to generate the data, which costs more CPU time in our servers—what we call “serving capacity.” Although leadership had often trodden carefully around the trade-off between quality and capacity, it had never treated latency as a full citizen in the calculus. As the old joke goes, “Good, Fast, Cheap—pick two.” A simple way to depict the trade-offs is to draw a triangle of tension between Good (Quality), Fast (Latency), and Cheap (Capacity), as illustrated in Figure 6-1.
 
-那么什么变了呢？在某个时间点，我们回顾了下，识别出了专家，然后还是重新评估这其中的权衡。结果证明对于“质量”的追求，有不是一个，而是两方面的开销。第一个开销是对用户的：更好的质量通常意味着需要传输更多的数据，也就意味着更多的延迟。第二方面的开销在 Google 本身：更好的质量意味着需要更多的工作来生成这些数据，这将消耗我们更多的服务器 CPU 时间，也就是我们说的 “服务利用率”。尽管管理者曾经仔细地在质量和利用率之间来回踱步，“延迟”从未被当做一等公民对待。就像老话说的“好、快、便宜只能选两个”（鱼和熊掌不可兼得？）。描绘这其中的权衡的最好的方式就是画一个这三者之间的张立三角：好（质量），快（延迟）和便宜（利用率），如下图 6-1 所示。
+![Figure 6-1](./images/Figure 6-1.png)
+Figure 6-1. Trade-offs within Web Search; pick two!  图6-1. 网络搜索中的权衡；选择两个!
 
+那么什么变了呢？在某种程度上，我们退后一步，确定了盲点，并对权衡做了全面的重新评估。结果证明对于“质量”的追求，有不是一个，而是两方面的开销。第一个开销是对用户的：更好的质量通常意味着需要传输更多的数据，也就意味着更多的延迟。第二方面的开销在 Google 本身：更好的质量意味着需要更多的工作来生成这些数据，这将消耗我们更多的服务器 CPU 时间，也就是我们说的 “服务容量”。尽管管理者曾经仔细地在质量和容量之间来回踱步，“延迟”从未被当做一等公民对待。就像老话说的“好、快、便宜只能选两个”（鱼和熊掌不可兼得？）。描绘这其中的权衡的最好的方式就是画一个这三者之间的三角形：好（质量），快（延迟）和便宜（容量），如下图 6-1 所示。
 
-That’s exactly what was happening here. It’s easy to improve any one of these traits by deliberately harming at least one of the other two. For example, you can improve quality by putting more data on the search results page—but doing so will hurt capacity and latency. You can also do a direct trade-off between latency and capacity by changing the traffic load on your serving cluster. If you send more queries to the cluster, you get increased capacity in the sense that you get better utilization of the CPUs—more bang for your hardware buck. But higher load increases resource con‐ tention within a computer, making the average latency of a query worse. If you deliberately decrease a cluster’s traffic (run it “cooler”), you have less serving capacity overall, but each query becomes faster.
-这正是这里在发生的情况。通过损坏另外一个或两个特性，改善其中的一个特性很容易，比如说，你可以通过在搜索结果页展示更多的内容来提升搜索质量，但这将会伤害系统利用率和延迟。通过改变系统负载，你还可以在延迟和容量之间做一次权衡。如果你给系统发送更多请求，将增加系统负载，电脑将会有更大的压力，从而导致平均响应时间更高。如果你故意地降低请求的流量，系统的总使用率将降低，但每次请求都会变快。
+That’s exactly what was happening here. It’s easy to improve any one of these traits by deliberately harming at least one of the other two. For example, you can improve quality by putting more data on the search results page—but doing so will hurt capacity and latency. You can also do a direct trade-off between latency and capacity by changing the traffic load on your serving cluster. If you send more queries to the cluster, you get increased capacity in the sense that you get better utilization of the CPUs—more bang for your hardware buck. But higher load increases resource contention within a computer, making the average latency of a query worse. If you deliberately decrease a cluster’s traffic (run it “cooler”), you have less serving capacity overall, but each query becomes faster.
 
-The main point here is that this insight—a better understanding of all the trade-offs— allowed us to start experimenting with new ways of balancing. Instead of treating latency as an unavoidable and accidental side effect, we could now treat it as a first-class goal along with our other goals. This led to new strategies for us. For example, our data scientists were able to measure exactly how much latency hurt user engage‐ ment. This allowed them to construct a metric that pitted quality-driven improve‐ ments to short-term user engagement against latency-driven damage to long-term user engagement. This approach allows us to make more data-driven decisions about product changes. For example, if a small change improves quality but also hurts latency, we can quantitatively decide whether the change is worth launching or not. We are always deciding whether our quality, latency, and capacity changes are in bal‐ ance, and iterating on our decisions every month.
+这正是这里在发生的情况。通过损坏另外一个或两个特性，改善其中的一个特性很容易，比如说，你可以通过在搜索结果页展示更多的内容来提升搜索质量，但这将会损害容量和延迟。通过改变系统负载，你还可以在延迟和容量之间做一次权衡。如果你向集群发送更多的查询，你就会得到更多的容量，也就是说，你可以更好地利用CPU--为你的硬件付出更多。但是，更高的负载增加了计算机内的资源争夺，使查询的平均延迟变高。如果你故意减少集群的流量（"冷却 "运行），你的整体服务能力就会减少，但每个查询都会变得更快。
 
-这里的核心点是下面的这个洞见：对所有权衡点更好的洞见能够使我们找到新的实验方式来保持平衡各个方面。与其说将延迟作为一个不可避免的意外性的副作用，我们现在可以将它与其他目标一样，看做一等目标。这将引领我们采用新的策略。例如，我们的数据科学家能够测量出延迟如何影响用户粘性的精确数值。这使他们能够为延迟构建一个指标放入质量驱动的指标体系中，标识其有助于提升短期用户粘性但是对长期提升用户粘性有害。例如，如果一个小的改动能够提升质量但同时影响延迟，我们可能需要客观地从数值上判断这个改动是否值得发布。在对改动做评估时，我们将一直追求在质量、延迟、利用率保持平衡，然后每个月一次，重复做我们的决定。
+The main point here is that this insight—a better understanding of all the trade-offs—allowed us to start experimenting with new ways of balancing. Instead of treating latency as an unavoidable and accidental side effect, we could now treat it as a first-class goal along with our other goals. This led to new strategies for us. For example, our data scientists were able to measure exactly how much latency hurt user engagement. This allowed them to construct a metric that pitted quality-driven improvements to short-term user engagement against latency-driven damage to long-term user engagement. This approach allows us to make more data-driven decisions about product changes. For example, if a small change improves quality but also hurts latency, we can quantitatively decide whether the change is worth launching or not. We are always deciding whether our quality, latency, and capacity changes are in balance, and iterating on our decisions every month.
 
-## Always Be Leaving
+这里的核心点是下面的这个洞察力--对所有权衡的更好理解--使我们能够开始尝试新的平衡方式。与其说将延迟作为一个不可避免的意外副作用，我们现在可以将它与其他目标一样，看做一等目标。这将引领我们采用新的策略。例如我们的数据科学家能够准确地测量出延迟对用户参与度的损害程度。这使他们能够为延迟构建一个指标放入质量驱动的指标体系中，标识其有助于提升短期用户粘性但是对长期提升用户粘性有害。例如，如果一个小的改动能够提升质量但同时影响延迟，我们可能需要客观地从数值上判断这个改动是否值得发布。在对改动做评估时，我们将一直追求在质量、延迟、容量保持平衡，并且每个月都会对我们的决定进行迭代。
 
-## 一直保持离开
+-----
 
-At face value, Always Be Leaving sounds like terrible advice. Why would a good leader be trying to leave? In fact, this is a famous quote from Bharat Mediratta, a former Google engineering director. What he meant was that it’s not just your job to solve an ambiguous problem, but to get your organization to solve it by itself, without you present. If you can do that, it frees you up to move to a new problem (or new organi‐ zation), leaving a trail of self-sufficient success in your wake.
+## Always Be Leaving  始终保持放手
+
+At face value, Always Be Leaving sounds like terrible advice. Why would a good leader be trying to leave? In fact, this is a famous quote from Bharat Mediratta, a former Google engineering director. What he meant was that it’s not just your job to solve an ambiguous problem, but to get your organization to solve it by itself, without you present. If you can do that, it frees you up to move to a new problem (or new organization), leaving a trail of self-sufficient success in your wake.
 
 从字面自私上看，"一直保持离开" 听上去是一个可怕的建议。为什么一个好的领导者要尝试离开他的团队呢？事实上这是引用的前谷歌工程主管 Bharat Mediratta 的话。他的意思是你的任务不仅仅是解决边界不清晰的问题，而是还要引导你的组织在你不在的情况下自己解决问题。如果你能做到这点，将释放你一部分精力去解决新的问题（或去管理新的组织），在你身后留下一个个能自给自足的团队。
 
@@ -130,34 +155,27 @@ Of course, the “bus” here is just a metaphor. People become sick; they switc
 这里的反模式是，把你自己置为单点故障的情况。就像我们在本书前面说的那样，谷歌员工有一个个专用短语来说明这个情况--“公交因子”：如果 N 个人同时被公交车撞倒，能够让你的项目完全毁掉，则 N 就是这个“公交因子”。
 当然，这里的“公交”是一个隐喻。人们会生病，会换团队或公司，会离职。作为测试，可以想想一个你团队正在尝试解决并取得了良好进展的难题。然后想象作为领导者的你消失了。你的团队还能够继续前进吗？它还能继续成功吗？还有一个更简单的测试：想想上一次你休超过一周的假期的时候。你是在不停地查看邮件吗？（大多数管理者会）然后问问你自己为什么。你给你不注意，事情会一团糟吗。如果是，你很可能把你自己置于“单点故障”的境地。你需要改善这个状况。
 
-## Your Mission: Build a “Self-Driving” Team
-
-## 你的使命：构建一个“自愈型”的团队
+### Your Mission: Build a “Self-Driving” Team  你的使命：构建一个“自愈型”的团队
 
 Coming back to Bharat’s quote: being a successful leader means building an organization that is able to solve the difficult problem by itself. That organization needs to have a strong set of leaders, healthy engineering processes, and a positive, self-perpetuating culture that persists over time. Yes, this is difficult; but it gets back to the fact that leading a team of teams is often more about organizing people rather than being a technical wizard. Again, there are three main parts to constructing this sort of self-sufficient group: dividing the problem space, delegating subproblems, and iterating as needed.
 
 让我们回到引用的 Bharat 的话：做一个成功的管理者意味着构建一个能够独自解决问题的组织。这个组织需要有一组稳定的领导者，一个健康的工程流程，一个积极的，能够自我延续，经时间沉淀的文化。
 是的，这很难；但是这回归到了事情的本质，领导团队的团队通常更多地意味着管理人，而不是作为一个技术向导。再强调一次，这种自给自足的团队有三个主要的组成部分：划分问题域，委托子任务，以及对于不足的地方反复迭代。
 
-## Dividing the Problem Space
-
-## 划分问题域
+### Dividing the Problem Space  划分问题域
 
 Challenging problems are usually composed of difficult subproblems. If you’re leading a team of teams, an obvious choice is to put a team in charge of each subproblem. The risk, however, is that the subproblems can change over time, and rigid team boundaries won’t be able to notice or adapt to this fact. If you’re able, consider an organizational structure that is looser—one in which subteams can change size, individuals can migrate between subteams, and the problems assigned to subteams can morph over time. This involves walking a fine line between “too rigid” and “too vague.” On the one hand, you want your subteams to have a clear sense of problem, purpose, and steady accomplishment; on the other hand, people need the freedom to change direction and try new things in response to a changing environment.
 
 有挑战的问题通常由许多有困难的子问题组成。如果你在管理一个由团队组成的团队，一个显而易见的做法是让每个团队负责一个子问题。然而这样做的风险是问题会随着时间而改变，一个死板的团队边界可能不能够察觉或适应这种情况。如果你能够决定，可以尝试构建一个组织结构松散的团队，它能够动态地调整团队规模，员工能够在子团队直接切换，而且每个团队处理的子问题能够切换。这意味着要在太死板和太松散的边缘游走。一方面，你想要你的团队能够对问题和目标有一个清晰的认知，能够有较高的完成度；另一方面，人们需要能自由的切换方向来尝试新鲜事物，来应对不断变化的环境。
 
-### Example: Subdividing the “latency problem” of Google Search
-
+####  Example: Subdividing the “latency problem” of Google Search
 ### 例子： 细分 Google 搜索的“延迟问题”
 
 When approaching the problem of Search latency, we realized that the problem could, at a minimum, be subdivided into two general spaces: work that addressed the symptoms of latency, and different work that addressed the causes of latency. It was obvious that we needed to staff many projects to optimize our codebase for speed, but focusing only on speed wouldn’t be enough. There were still thousands of engineers increasing the complexity and “quality” of search results, undoing the speed improvements as quickly as they landed, so we also needed people to focus on a parallel problem space of preventing latency in the first place. We discovered gaps in our metrics, in our latency analysis tools, and in our developer education and documentation. By assigning different teams to work on latency causes and symptoms at the same time, we were able to systematically control latency over the long term. (Also, notice how these teams owned the problems, not specific solutions!)
 
 当开始接触搜索延迟的问题时，我们意识到在最小粒度下我们可以将问题大体划分为两个方面：一方面是定位延迟的现象，另一方面是挖掘延迟的根本原因。很显然我们需要为很多团队配备人员来优化项目的代码库的性能问题，但仅仅关注性能是不够的。与此同时仍有数千名工程师增加系统的复杂度和搜索结果的“质量”，使对系统延迟的优化刚上线就被抵消掉了。因此我们还需要人关注一个并行的问题域，在第一时间来阻止增加延迟的改动。我们发现在我们的监控指标、延迟分析工具以及员工培训和文档中都存在有断层。通过在同一时间将延迟定位和原因分析分配给不同团队，我们能够长期系统性地控制延迟问题。（同时，这里需要关注的是这些团队是如何管理这些问题的，而不是关注具体的解决方案！）
 
-### Delegating subproblems to leaders
-
-### 将子问题托管给子团队领导们
+#### Delegating subproblems to leaders  将子问题托管给子团队领导们
 
 It’s essentially a cliché for management books to talk about “delegation,” but there’s a reason for that: delegation is really difficult to learn. It goes against all our instincts for efficiency and achievement. That difficulty is the reason for the adage, “If you want something done right, do it yourself.”
 
@@ -183,9 +201,7 @@ There are a number of good answers. For example, you can protect your teams from
 
 这个问题又很多很好的答案。你可以避免你的团队搞办公室政治；你可以给他们鼓励；你可以确保每个人被友善地对待；你可以创造一个谦逊、互相信任、互相尊重的团队文化。同事向上管理也很重要，确保你的管理者能够知道你的团队做的怎么样，以及确保在公司规模较大时团队不与公司脱节。但通常最常见也是最重要的答案是：“通过树木见森林。”换句话说，你能够指定一个高级别的战略。你的战略应该不仅包含技术战略，还应该包含组织战略。你在构建一个关于如何解决边界不清晰的问题，以及如何让团队能够长久地解决问题的蓝图。你持续性地在森林中规划砍树的路线，而把砍树的具体问题交给别人。
 
-### Adjusting and iterating
-
-### 适应与迭代
+#### Adjusting and iterating  适应与迭代
 
 Let’s assume that you’ve now reached the point at which you’ve built a self-sustaining machine. You’re no longer an SPOF. Congratulations! What do you do now?
 Before answering, note that you have actually liberated yourself—you now have the freedom to “Always Be Leaving.” This could be the freedom to tackle a new, adjacent problem, or perhaps you could even move yourself to a whole new department and problem space, making room for the careers of the leaders you’ve trained. This is a great way of avoiding personal burnout.
@@ -205,27 +221,21 @@ This is what good management is about: 95% observation and listening, and 5% mak
 
 这个故事说明了什么样的管理是好的管理：95% 是观察和倾听，5% 是在适当的位置做关键的调整。和你的客户聊聊，而且这些客户经常并不是外在的终端客户（尤其是当你的团队是在构建工程化的基础设施时），而是你的同事。要想让客户满意，就得像认真看报告那样，认真倾听你的客户。什么有效，什么无效呢？这个自驱的飞艇的航线正确吗？你的指引需要是反复迭代的，但是需要是经过深思熟虑地，通过最小的调整来修正航线。如果你退行到了去过度细节，你需要警惕你可能又成为了单点瓶颈！“保持放手”是说要进行宏观管理。
 
-### Take care in anchoring a team’s identity
+#### Take care in anchoring a team’s identity   确定团队定位时要留心
 
-### 确定团队定位时要留心
-
-A common mistake is to put a team in charge of a specific product rather than a general problem. A product is a solution to a problem. The life expectancy of solutions can be short, and products can be replaced by better solutions. However, a problem— if chosen well—can be evergreen. Anchoring a team identity to a specific solution (“We are the team that manages the Git repositories”) can lead to all sorts of angst over time. What if a large percentage of your engineers want to switch to a new version control system? The team is likely to “dig in,” defend its solution, and resist change, even if this is not the best path for the organization. The team clings to its blinders, because the solution has become part of the team’s identity and self-worth. If the team instead owns the problem (e.g., “We are the team that provides version con‐ trol to the company”), it is freed up to experiment with different solutions over time.
+A common mistake is to put a team in charge of a specific product rather than a general problem. A product is a solution to a problem. The life expectancy of solutions can be short, and products can be replaced by better solutions. However, a problem— if chosen well—can be evergreen. Anchoring a team identity to a specific solution (“We are the team that manages the Git repositories”) can lead to all sorts of angst over time. What if a large percentage of your engineers want to switch to a new version control system? The team is likely to “dig in,” defend its solution, and resist change, even if this is not the best path for the organization. The team clings to its blinders, because the solution has become part of the team’s identity and self-worth. If the team instead owns the problem (e.g., “We are the team that provides version control to the company”), it is freed up to experiment with different solutions over time.
 
 一个常见的错误是让一个团队负责一个特定的产品而不是负责解决一类问题。一个产品是一个问题的一种解决方案。一个解决方案的生命周期可能很短，一个产品可能会被更好的方案替代。然而，一个问题（如果这个问题的定位比较合理）却可以是经久不衰的。将一个团队定位为一个特点的解决方案（“我们是负责 Git 的团队”）随着时间的推移将会带来各种各样的麻烦。假如很大一部分工程师想切换到一个新的版本控制系统怎么办？这个团队很可能会“较真”，坚持它原有的解决方案，拒绝改变，及时它并不是最适合整个组织的方案。这个团队依赖它的“专家”，因为这个解决方案已经成为这个团队的一部分，这关怀团队的自我价值。如果团队改为是负责解决这个问题（比方说“我们是为这个公司提供版本管理的团队”），那么随着时间的推移,这个团队将不再被束缚去做实验尝试不同的解决方案。
 
-## Always Be Scaling
-
-## 一直保持扩张
+## Always Be Scaling  始终保持扩展
 
 A lot of leadership books talk about “scaling” in the context of learning to “maximize your impact”—strategies to grow your team and influence. We’re not going to discuss those things here beyond what we’ve already mentioned. It’s probably obvious that building a self-driving organization with strong leaders is already a great recipe for growth and success.
-Instead, we’re going to discuss team scaling from a defensive and personal point of view rather than an offensive one. As a leader, your most precious resource is your limi‐ ted pool of time, attention, and energy. If you aggressively build out your teams’ responsibilities and power without learning to protect your personal sanity in the process, the scaling is doomed to fail. And so we’re going to talk about how to effectively scale yourself through this process.
+Instead, we’re going to discuss team scaling from a defensive and personal point of view rather than an offensive one. As a leader, your most precious resource is your limited pool of time, attention, and energy. If you aggressively build out your teams’ responsibilities and power without learning to protect your personal sanity in the process, the scaling is doomed to fail. And so we’re going to talk about how to effectively scale yourself through this process.
 
 很多管理学书籍会在讲“最大化你的影响力”的上下文中讲“扩张”，通过这种策略来增长你的团队和影响力。由于我们已经提过的原因，我们不会在这里讨论这些问题。构建一个自驱的、拥有强大领导的组织已经是增长和成功的一个显而易见的方法。
 取而代之，我们将讨论从防御性和从个人观点出发而不是进攻性地扩张团队。作为领导者，你最宝贵的资源是你有限的时间、精力和能量。如果你在没有学会保护维持自己的精神正常的情况下，就激进地增加团队的职责和权力，你的扩张将注定失败。于是我们接下来将讨论如何在扩张的过程中有效地提升自己。
 
-### The Cycle of Success
-
-### 成功的循环
+### The Cycle of Success  成功的循环
 
 When a team tackles a difficult problem, there’s a standard pattern that emerges, a particular cycle. It looks like this:
 
@@ -255,7 +265,7 @@ When a team tackles a difficult problem, there’s a standard pattern that emerg
 >>一些意料之外的事情发生了。你的上级把你叫到一旁然后祝贺你的成功。你发现奖励不仅仅是领导在你后背轻轻拍了一下祝贺你，而是给了你一个新的问题去解决。是的：对于成功的奖励往往是更多的工作--和更多的责任！通常是一个类似的，或者关联的问题，但是同样困难。
 
 So now you’re in a pickle. You’ve been given a new problem, but (usually) not more people. Somehow you need to solve both problems now, which likely means that the original problem still needs to be managed with half as many people in half the time. You need the other half of your people to tackle the new work! We refer to this final step as the compression stage: you’re taking everything you’ve been doing and compressing it down to half the size.
-So really, the cycle of success is more of a spiral (see Figure 6-2). Over months and years, your organization is scaling by tackling new problems and then figuring out how to compress them so that it can take on new, parallel struggles. If you’re lucky, you’re allowed to hire more people as you go. More often than not, though, your hir‐ ing doesn’t keep pace with the scaling. Larry Page, one of Google’s founders, would probably refer to this spiral as “uncomfortably exciting.”
+So really, the cycle of success is more of a spiral (see Figure 6-2). Over months and years, your organization is scaling by tackling new problems and then figuring out how to compress them so that it can take on new, parallel struggles. If you’re lucky, you’re allowed to hire more people as you go. More often than not, though, your hiring doesn’t keep pace with the scaling. Larry Page, one of Google’s founders, would probably refer to this spiral as “uncomfortably exciting.”
 所以现在你就像在一个泥潭里。你被分配给了一个新的问题，但通常并没有更多的人力。莫名其妙的你需要同时解决这两个问题，这意味着原来的问题仍需被解决，但只有一半的人力和一半的时间。你需要另一半的人力来解决新的问题！我们把这最后一步称为压缩阶段：你需要处理所有你正在处理的事情，而且需要把它的规模压缩到原来的一半。
 所以，成功的循环更像是一个螺旋（参见图 6-2）。长年累月以来，你的组织通过解决新问题来扩张，然后压缩所需的人力来能够接受新的、并行的问题。如果你足够幸运，你才能被运行招聘更多的人。然而更常见的情况是你招聘的速度赶不上你团队规模扩张的速度。Larry Page，Google 的创始人之一，喜欢把这个螺旋比作“令人不适的刺激”。
 
@@ -266,9 +276,7 @@ The spiral of success is a conundrum—it’s something that’s difficult to ma
 
 成功的螺旋确实是个难题--这是难以管理的，而且这是扩充团队的团队的核心范式。压缩问题的行为不只是关于找出使团队效率最大化的方法，而且是关于如何扩充你自己的时间和注意力来应对新的责任。
 
-### Important Versus Urgent
-
-### 重要和紧急
+### Important Versus Urgent   重要和紧急
 
 Think back to a time when you weren’t yet a leader, but still a carefree individual contributor. If you used to be a programmer, your life was likely calmer and more panicfree. You had a list of work to do, and each day you’d methodically work down your list, writing code and debugging problems. Prioritizing, planning, and executing your work was straightforward.
 
@@ -310,9 +318,7 @@ So how can you force yourself to work mostly on important things, rather than ur
 >找到一个有效的进度跟踪系统
 >>市面上有很多关于进度跟踪和排优先级的系统。一些是有基于现成的软件的（比如“待办”管理工具），一些是基于纸笔的（“Bullet Journal”方法），以及另一些没有指明具体实现方法的系统。在这最后一类中，David Allen 的书《搞定Ⅰ : 无压工作的艺术》在工程师管理者们之间很流行；它是一套关于工完成任务和将收件箱清零的抽象的方法论。这里的关键点是要去尝试不同的系统，然后选择一个对你来说最有效的系统。他们其中一些会很合适，一些并不合适，但你绝对需要找到比在电脑上贴便签更有效率的方法--它更多是在装点你的电脑屏幕。
 
-### Learn to Drop Balls
-
-### 学会漏掉一些球
+### Learn to Drop Balls  学会漏掉一些球
 
 There’s one more key technique for managing your time, and on the surface it sounds radical. For many, it contradicts years of engineering instinct. As an engineer, you pay attention to detail; you make lists, you check things off lists, you’re precise, and you finish what you start. That’s why it feels so good to close bugs in a bug tracker, or whittle your email down to inbox zero. But as a leader of leaders, your time and attention are under constant attack. No matter how much you try to avoid it, you end up dropping balls on the floor—there are just too many of them being thrown at you. It’s overwhelming, and you probably feel guilty about this all the time.
 So, at this point, let’s step back and take a frank look at the situation. If dropping some number of balls is inevitable, isn’t it better to drop certain balls deliberately rather than accidentally? At least then you have some semblance of control.
@@ -331,16 +337,14 @@ Marie Kondo 是一名组织顾问，同时也是畅销书《改变生活的魔�
 It turns out that you can also apply this philosophy to your inbox or task list—the barrage of balls being thrown at you. Divide your pile of balls into three groups: the bottom 20% are probably neither urgent nor important and very easy to delete or ignore. There’s a middle 60%, which might contain some bits of urgency or importance, but it’s a mixed bag. At the top, there’s 20% of things that are absolutely, critically important.
 
 And so now, as you work through your tasks, do not try to tackle the top 80%—you’ll still end up overwhelmed and mostly working on urgent-but-not-important tasks. Instead, mindfully identify the balls that strictly fall in the top 20%—critical things that only you can do—and focus strictly on them. Give yourself explicit permission to drop the other 80%.
-It might feel terrible to do so at first, but as you deliberately drop so many balls, you’ll discover two amazing things. First, even if you don’t delegate that middle 60% of tasks, your subleaders often notice and pick them up automatically. Second, if something in that middle bucket is truly critical, it ends up coming back to you anyway, eventually migrating up into the top 20%. You simply need to trust that things below your top-20% threshold will either be taken care of or evolve appropriately. Mean‐ while, because you’re focusing only on the critically important things, you’re able to scale your time and attention to cover your group’s ever-growing responsibilities.
+It might feel terrible to do so at first, but as you deliberately drop so many balls, you’ll discover two amazing things. First, even if you don’t delegate that middle 60% of tasks, your subleaders often notice and pick them up automatically. Second, if something in that middle bucket is truly critical, it ends up coming back to you anyway, eventually migrating up into the top 20%. You simply need to trust that things below your top-20% threshold will either be taken care of or evolve appropriately. Meanwhile, because you’re focusing only on the critically important things, you’re able to scale your time and attention to cover your group’s ever-growing responsibilities.
 
 事实上你也可以将这个理论应用到你的收件箱或任务清单中--那些像弹幕一样像你飞来的球。将你的球分成三堆：最底下的 20% 是那些从来不重要，也不紧急的，很容易删除或忽略。中间的 60% 有一些是紧急的，有一些是重要的，但是混在一起很难分清。在最上层，是那些绝对最重要的事。
 
 现在，在你工作时，不要尝试解决上面80%的问题--否则最终你仍会被问题淹没，然后花大部分精力解决那些紧急但不重要的问题。相反，你应该识别出头部最重要的20%--那些只能由你来完成的最重要的事，然后专注于他们。给你自己明确的权利来丢弃剩余的80%。
 最开始，这么做可能会感觉很可怕，但随着你故意丢掉这么多球，你将会发现两件令人惊奇的事。第一，即使你没有托管中间60%的事，你的下属领导者们通常会意识到并主动接住它们。第二，如果中间这堆球中有真正重要的事，它最终无论如何都会回到你这里，然后转换到顶部20%那堆球里。你只需相信在20%阈值下的事情最终都会被有人接管，或是在适当时候知会给适当的人。与此同时，因为你只关注最重要的事情，你可以花更多时间和注意力在承担你的团队不断增长的责任上。
 
-### Protecting Your Energy
-
-### 保护你的能量
+### Protecting Your Energy  保护你的能量
 
 We’ve talked about protecting your time and attention—but your personal energy is the other piece of the equation. All of this scaling is simply exhausting. In an environment like this, how do you stay charged and optimistic?
 Part of the answer is that over time, as you grow older, your overall stamina builds up. Early in your career, working eight hours a day in an office can feel like a shock; you come home tired and dazed. But just like training for a marathon, your brain and body build up larger reserves of stamina over time.
@@ -385,17 +389,13 @@ In the end, managing your energy is just as important as managing your time. If 
 
 最后，管理你的精力和管理你的时间一样重要。如果你学着掌握这些东西，你将会准备好迎接攻克更大的扩张的责任之环，以及构建一个自给自足的团队。
 
-## Conclusion
-
-## 总结
+## Conclusion  总结
 
 Successful leaders naturally take on more responsibility as they progress (and that’s a good and natural thing). Unless they effectively come up with techniques to properly make decisions quickly, delegate when needed, and manage their increased responsibility, they might end up feeling overwhelmed. Being an effective leader doesn’t mean that you need to make perfect decisions, do everything yourself, or work twice as hard. Instead, strive to always be deciding, always be leaving, and always be scaling.
 
 成功的领导者在管理的过程中很自然地会承担更多的责任（这是件好事）。除非他们能够高效的想出技术来快速地做决策，按需时托管，管理他们日益增长的责任，否则他们很快会感觉不知所措。作为一个高效的领导者并不意味着你要做完美的决策，所有事都亲力亲为，或者付出双倍的努力。而是需要努力地一直做决策，一直离开，一直在扩张。
 
-## TL;DRs
-
-## 内容提要
+## TL;DRs  内容提要
 
 - Always Be Deciding: Ambiguous problems have no magic answer; they’re all about finding the right trade-offs of the moment, and iterating.
 - Always Be Leaving: Your job, as a leader, is to build an organization that automatically solves a class of ambiguous problems—over time—without you needing to be present.
