@@ -18,7 +18,7 @@ The process is often demoralizing—until one day you notice that you’re actua
 
 So, assuming that we understand the basics of leadership, what it does it take to scale yourself into a really good leader? That’s what we talk about here, using what we call “the three Always of leadership”: Always Be Deciding, Always Be Leaving, Always Be Scaling.
 
-至此，假设我们已经知道了领导的本质，那么到底什么才能让你提升为一个真正优秀的管理者呢？这就是我们这里想要讨论的，我们称之为“管理上的三个总是”：始终保持决断力，始终保持离开，始终保持扩展。
+至此，假设我们已经知道了领导的本质，那么到底什么才能让你提升为一个真正优秀的管理者呢？这就是我们这里想要讨论的，我们称之为“管理上的三个总是”：始终保持决断力，始终保持离开，始终保持扩张。
 
 ## Always Be Deciding 始终保持决断力
 
@@ -233,7 +233,7 @@ A common mistake is to put a team in charge of a specific product rather than a 
 
 一个常见的错误是让一个团队负责一个特定的产品而不是负责解决一类问题。一个产品是一个问题的一种解决方案。一个解决方案的生命周期可能很短，一个产品可能会被更好的方案替代。然而，一个问题（如果这个问题的定位比较合理）却可以是经久不衰的。将一个团队定位为一个特点的解决方案（“我们是负责 Git 的团队”）随着时间的推移将会带来各种各样的麻烦。假如很大一部分工程师想切换到一个新的版本控制系统怎么办？这个团队很可能会“钻牛角尖”，坚持它原有的解决方案，拒绝改变，及时它并不是最适合整个组织的方案。这个团队依赖它的“观点”，因为这个解决方案已经成为这个团队的一部分，这关怀团队的自我价值。如果团队改为是负责解决这个问题（比方说“我们是为这个公司提供版本管理的团队”），那么随着时间的推移,这个团队将不再被束缚去做实验尝试不同的解决方案。
 
-## Always Be Scaling  始终保持扩展
+## Always Be Scaling  始终保持扩张
 
 A lot of leadership books talk about “scaling” in the context of learning to “maximize your impact”—strategies to grow your team and influence. We’re not going to discuss those things here beyond what we’ve already mentioned. It’s probably obvious that building a self-driving organization with strong leaders is already a great recipe for growth and success.
 
@@ -317,85 +317,83 @@ So how can you force yourself to work mostly on important things, rather than ur
 *找到一个有效的进度跟踪系统*
 	市面上有很多关于进度跟踪和排优先级的系统。一些是有基于现成的软件的（比如“待办”管理工具），一些是基于纸笔的（“Bullet Journal”方法），以及另一些没有指明具体实现方法的系统。在这最后一类中，David Allen 的书《搞定Ⅰ : 无压工作的艺术》在工程师管理者们之间很流行；它是一套关于工完成任务和将收件箱清零的抽象的方法论。这里的关键点是要去尝试不同的系统，然后选择一个对你来说最有效的系统。他们其中一些会很合适，一些并不合适，但你绝对需要找到比在电脑上贴便签更有效率的方法--它更多是在装点你的电脑屏幕。
 
-### Learn to Drop Balls  学会漏掉一些球
+### Learn to Drop Balls  学会丢球
 
 There’s one more key technique for managing your time, and on the surface it sounds radical. For many, it contradicts years of engineering instinct. As an engineer, you pay attention to detail; you make lists, you check things off lists, you’re precise, and you finish what you start. That’s why it feels so good to close bugs in a bug tracker, or whittle your email down to inbox zero. But as a leader of leaders, your time and attention are under constant attack. No matter how much you try to avoid it, you end up dropping balls on the floor—there are just too many of them being thrown at you. It’s overwhelming, and you probably feel guilty about this all the time.
 
-还有一个管理时间的重要方法，但是它表面上看起来有些激进。对于大多数人来说，这违反多年以来养成的工程师的直觉。作为一个工程师，你关注细节，你制作清单，然后将完成的事一件件划掉，认真仔细，保证每件事有始有终。所以在错误追踪系统中关闭 bug 或清空收件箱中的待办时，你感觉很良好。但是作为领导者的领导，你的时间和精力处在持续的压力下。哪怕你全力尝试，但总无法避免会有球接不住掉到地上--同一时间内总是有太多球扔向你了。它是难以避免的，而且你可能一直会为此感到罪恶。
+还有一个管理时间的重要方法，但是它表面上看起来有些激进。对于大多数人来说，这违反多年以来养成的工程师的直觉。作为一个工程师，你关注细节，你制作清单，然后将完成的事一件件划掉，认真仔细，保证每件事有始有终。所以在错误追踪系统中关闭 bug 或清空收件箱中的待办时，你感觉很良好。但是作为领导者的领导，你的时间和精力处在持续的压力下。哪怕你全力尝试，但总无法避免会有球接不住掉到地上--同一时间内总是有太多球扔向你了。它是难以避免的，而且你可能一直会为此感到内疚。
 
 So, at this point, let’s step back and take a frank look at the situation. If dropping some number of balls is inevitable, isn’t it better to drop certain balls deliberately rather than accidentally? At least then you have some semblance of control.
-Here’s a great way to do that.
-
 
 所以，在这一点上，让我们后退一步，然后仔细地审视下当前的局势。如果漏掉一些球是不可避免的，那么主动地去选择丢掉某些球不是比意外的丢掉更好吗？至少看起来这样更可控一些。
+
+Here’s a great way to do that.
+
 这里有一个很好的方法来达成这个目的。
 
 Marie Kondo is an organizational consultant and the author of the extremely popular book The Life-Changing Magic of Tidying Up. Her philosophy is about effectively decluttering all of the junk from your house, but it works for abstract clutter as well.
+
+Marie Kondo 是一名组织顾问，同时也是畅销书《怦然心动的人生整理魔法术》(The Life-Changing Magic of Tidying Up) 的作者。她的理论是关于如何高效地清理家中的杂物，但对于如何清理抽象的杂物也同样适用。
+
 Think of your physical possessions as living in three piles. About 20% of your things are just useless—things that you literally never touch anymore, and all very easy to throw away. About 60% of your things are somewhat interesting; they vary in importance to you, and you sometimes use them, sometimes not. And then about 20% of your possessions are exceedingly important: these are the things you use all the time, that have deep emotional meaning, or, in Ms. Kondo’s words, spark deep “joy” just holding them. The thesis of her book is that most people declutter their lives incorrectly: they spend time tossing the bottom 20% in the garbage, but the remaining 80% still feels too cluttered. She argues that the true work of decluttering is about identifying the top 20%, not the bottom 20%. If you can identify only the critical things, you should then toss out the other 80%. It sounds extreme, but it’s quite effective. It is greatly freeing to declutter so radically.
 
-Marie Kondo 是一名组织顾问，同时也是畅销书《改变生活的魔法--整洁之道》(The Life-Changing Magic of Tidying Up) 的作者。她的理论是关于如何高效地清理家中的杂物，但对于如何清理抽象的杂物也同样适用。
-假设你的物质财产有成三堆.这些东西中有大约20%是没用的--你永远都不会去触碰它们，很好识别出来，并扔掉。大约60%的东西很有趣；对于你来说，它们的重要程度不一：有些偶尔使用，有些并不会使用。另外20%对你来说极其重要：你会一直使用，这有很强的主观情感倾向，或者用 Kondo 女士的话来说，就是“只要抱着它们，就感觉充满快乐”。她的书中的主要论点是，大多数人错误地进行断舍离：它们来回折腾那最没有用的 20% 的物品，然而剩下的 80% 的物品看上去仍然很乱。她指出断舍离的关键是分辨出那20%最重要的东西，而不是最不重要的那20%。如果你能分辨出那些最关键的东西，那么剩余的80%都是你可以扔掉的。这听上去有些极端，但却是十分高效的。能够如此彻底的断舍离，一定会感觉很棒。
+假设你的物质财产有成三堆.这些东西中有大约20%是没用的--你永远都不会去触碰它们，很好识别出来，并扔掉。大约60%的东西很有趣；对于你来说，它们的重要程度不一，有时会使用它们，有时不会。另外20%对你来说极其重要：你会一直使用，这有很强的主观情感倾向，或者用 Kondo 女士的话来说，就是“只要抱着它们，就感觉充满快乐”。她的书中的主要论点是，大多数人错误地进行断舍离：它们来回折腾那最没有用的 20% 的物品，然而剩下的 80% 的物品看上去仍然很乱。她指出断舍离的关键是分辨出那20%最重要的东西，而不是最不重要的那20%。如果你能分辨出那些最关键的东西，那么剩余的80%都是你可以扔掉的。这听上去有些极端，但却是十分高效的。能够如此彻底的断舍离，一定会感觉很棒。
 
 It turns out that you can also apply this philosophy to your inbox or task list—the barrage of balls being thrown at you. Divide your pile of balls into three groups: the bottom 20% are probably neither urgent nor important and very easy to delete or ignore. There’s a middle 60%, which might contain some bits of urgency or importance, but it’s a mixed bag. At the top, there’s 20% of things that are absolutely, critically important.
 
+事实上你也可以将这个理论应用到你的收件箱或任务清单中--那些像弹幕一样像你飞来的球。将你的球分成三堆：最底下的 20% 是那些从来不重要，也不紧急的，很容易删除或忽略。中间的 60% 有一些是紧急的，有一些是重要的，但是混在一起很难分清。在最上层，是那些至关重要的事。
+
 And so now, as you work through your tasks, do not try to tackle the top 80%—you’ll still end up overwhelmed and mostly working on urgent-but-not-important tasks. Instead, mindfully identify the balls that strictly fall in the top 20%—critical things that only you can do—and focus strictly on them. Give yourself explicit permission to drop the other 80%.
+
+现在，在你工作时，不要尝试解决上面80%的问题--否则最终你仍会被问题淹没，然后花大部分精力解决那些紧急但不重要的问题。相反，你应该识别出头部最重要的20%--那些只能由你来完成的最重要的事，然后专注于他们。给你自己明确的许可来丢弃剩余的80%。
+
 It might feel terrible to do so at first, but as you deliberately drop so many balls, you’ll discover two amazing things. First, even if you don’t delegate that middle 60% of tasks, your subleaders often notice and pick them up automatically. Second, if something in that middle bucket is truly critical, it ends up coming back to you anyway, eventually migrating up into the top 20%. You simply need to trust that things below your top-20% threshold will either be taken care of or evolve appropriately. Meanwhile, because you’re focusing only on the critically important things, you’re able to scale your time and attention to cover your group’s ever-growing responsibilities.
 
-事实上你也可以将这个理论应用到你的收件箱或任务清单中--那些像弹幕一样像你飞来的球。将你的球分成三堆：最底下的 20% 是那些从来不重要，也不紧急的，很容易删除或忽略。中间的 60% 有一些是紧急的，有一些是重要的，但是混在一起很难分清。在最上层，是那些绝对最重要的事。
-
-现在，在你工作时，不要尝试解决上面80%的问题--否则最终你仍会被问题淹没，然后花大部分精力解决那些紧急但不重要的问题。相反，你应该识别出头部最重要的20%--那些只能由你来完成的最重要的事，然后专注于他们。给你自己明确的权利来丢弃剩余的80%。
 最开始，这么做可能会感觉很可怕，但随着你故意丢掉这么多球，你将会发现两件令人惊奇的事。第一，即使你没有托管中间60%的事，你的下属领导者们通常会意识到并主动接住它们。第二，如果中间这堆球中有真正重要的事，它最终无论如何都会回到你这里，然后转换到顶部20%那堆球里。你只需相信在20%阈值下的事情最终都会被有人接管，或是在适当时候知会给适当的人。与此同时，因为你只关注最重要的事情，你可以花更多时间和注意力在承担你的团队不断增长的责任上。
 
-### Protecting Your Energy  保护你的能量
+### Protecting Your Energy  保护你的精力
 
 We’ve talked about protecting your time and attention—but your personal energy is the other piece of the equation. All of this scaling is simply exhausting. In an environment like this, how do you stay charged and optimistic?
-Part of the answer is that over time, as you grow older, your overall stamina builds up. Early in your career, working eight hours a day in an office can feel like a shock; you come home tired and dazed. But just like training for a marathon, your brain and body build up larger reserves of stamina over time.
-The other key part of the answer is that leaders gradually learn to manage their energy more intelligently. It’s something they learn to pay constant attention to. Typically, this means being aware of how much energy you have at any given moment,
-and making deliberate choices to “recharge” yourself at specific moments, in specific ways. Here are some great examples of mindful energy management:
 
 我们讨论过了如何包含你的时间和精力--但是你的个人精力又是另一个等式。单单是这些扩张就足以让你精疲力尽。在这样的环境中，你如何保持持续充电和乐观呢？
+
+Part of the answer is that over time, as you grow older, your overall stamina builds up. Early in your career, working eight hours a day in an office can feel like a shock; you come home tired and dazed. But just like training for a marathon, your brain and body build up larger reserves of stamina over time.
+
 这个答案的一部分是，随着时间的推移，你年龄增长，你的耐力会随着增长。在你职业生涯的早期，在办公室连续工作8个小时就会让你感到震惊；回到家后你会感觉疲劳和空虚。但是就像马拉松训练一样，你的大脑和身体会能够储备越来越多的耐力。
+
+The other key part of the answer is that leaders gradually learn to manage their energy more intelligently. It’s something they learn to pay constant attention to. Typically, this means being aware of how much energy you have at any given moment,and making deliberate choices to “recharge” yourself at specific moments, in specific ways. Here are some great examples of mindful energy management:
+*Take real vacations*
+	A weekend is not a vacation. It takes at least three days to “forget” about your work; it takes at least a week to actually feel refreshed. But if you check your work email or chats, you ruin the recharge. A flood of worry comes back into your mind, and all of the benefit of psychological distancing dissipates. The vacation recharges only if you are truly disciplined about disconnecting. And, of course, this is possible only if you’ve built a self-driving organization.
+*Make it trivial to disconnect*
+	When you disconnect, leave your work laptop at the office. If you have work communications on your phone, remove them. For example, if your company uses G Suite (Gmail, Google Calendar, etc.), a great trick is to install these apps in a “work profile” on your phone. This causes a second set of work-badged apps to appear on your phone. For example, you’ll now have two Gmail apps: one for personal email, one for work email. On an Android phone, you can then press a single button to disable the entire work profile at once. All the work apps gray out, as if they were uninstalled, and you can’t “accidentally” check work messages until you re-enable the work profile.
+*Take real weekends, too*
+	A weekend isn’t as effective as a vacation, but it still has some rejuvenating power. Again, this recharge works only if you disconnect from work communications. Try truly signing out on Friday night, spend the weekend doing things you love, and then sign in again on Monday morning when you’re back in the office.
+*Take breaks during the day*
+	Your brain operates in natural 90-minute cycles.Use the opportunity to get up and walk around the office, or spend 10 minutes walking outside. Tiny breaks like this are only tiny recharges, but they can make a tremendous difference in your stress levels and how you feel over the next two hours of work.
+*Give yourself permission to take a mental health day*
+	Sometimes, for no reason, you just have a bad day. You might have slept well, eaten well, exercised—and yet you are still in a terrible mood anyway. If you’re a leader, this is an awful thing. Your bad mood sets the tone for everyone around you, and it can lead to terrible decisions (emails you shouldn’t have sent, overly harsh judgements, etc.). If you find yourself in this situation, just turn around and go home, declaring a sick day. Better to get nothing done that day than to do active damage.
+
 这个答案的另一部分是领导者渐渐学会更智能的管理他们的精力。这是他们持续学习投入的结果。通常，这意味着他们能够意识到自己还剩多少精力，然后决定在某个特定的时刻通过自己的方式给自己“充能”。以下是一些很好的细心管理能量方式：
-
->Take real vacations
->>A weekend is not a vacation. It takes at least three days to “forget” about your work; it takes at least a week to actually feel refreshed. But if you check your work email or chats, you ruin the recharge. A flood of worry comes back into your mind, and all of the benefit of psychological distancing dissipates. The vacation recharges only if you are truly disciplined about disconnecting. And, of course, this is possible only if you’ve built a self-driving organization.
-
->给自己真正放个假
->>一个周末并不算一个真正的假期。你需要至少三天来“忘记”你的工作；至少需要一周来让你重新感觉充满能量。但是如果你检查你的邮箱或工作聊天，你就破坏了这个充电过程。洪水般的焦虑充满你的脑袋，物理上远离工作的好处消散殆尽。只有在你真的断开与工作的连接时，你的假期才能使你真正重新充能。当然，这一切建立在你已经建立了一个自驱型组织的前提下。
-
->Make it trivial to disconnect
->>When you disconnect, leave your work laptop at the office. If you have work communications on your phone, remove them. For example, if your company uses G Suite (Gmail, Google Calendar, etc.), a great trick is to install these apps in a “work profile” on your phone. This causes a second set of work-badged apps to appear on your phone. For example, you’ll now have two Gmail apps: one for personal email, one for work email. On an Android phone, you can then press a single button to disable the entire work profile at once. All the work apps gray out, as if they were uninstalled, and you can’t “accidentally” check work messages until you re-enable the work profile.
-
->让失联的代价微不足道(主要指消息模式切换)
-当你失联时，将你的工作桌面留在办公室。如果你有工作的通讯工具留在你的手机上，将它们移除掉。比如，如果你的公司用 Google 的 G 套件(Gmail, Google Calendar 等)，一个很方便的技巧是在手机上安装一个叫“工作资料” 的软件。这将花费你几秒钟的时间来把软件标记为是否是工作软件。例如，你将有两个 Gmail 应用：一个为个人邮件，一个为工作邮件。在安卓手机上，你能够一键切换工作模式。所有工作应用软件将变灰，就像它们未安装。你也不可能“不小心”查看了工作信息直到你重新激活工作资料。
-
->Take real weekends, too
->>A weekend isn’t as effective as a vacation, but it still has some rejuvenating power. Again, this recharge works only if you disconnect from work communications. Try truly signing out on Friday night, spend the weekend doing things you love, and then sign in again on Monday morning when you’re back in the office.
-
->也要享受真正的周末
->>一个周末并不像假期一样有效，但它仍有让你振奋起来的能力。再强调一次，这样的充能只有在你断开工作联系的时候才有用。试着在周五晚上彻底退出工作状态，把周末的时间花在你喜欢的事情上，然后在周一早晨回到办公室时再重新进入工作状态。
-
->Take breaks during the day
->>Your brain operates in natural 90-minute cycles.Use the opportunity to get up and walk around the office, or spend 10 minutes walking outside. Tiny breaks like this are only tiny recharges, but they can make a tremendous difference in your stress levels and how you feel over the next two hours of work.
-
->在一天之中偶尔小休一下
->>人的大脑每90分钟会有一个自然的循环。利用这个机会站起来在办公室走一走，或者花10分钟出去走一走。像这种微小的休息只能获得很小的充能，但是这能给你的紧张度和下一个小时的工作上带来巨大的影响。
-
->Give yourself permission to take a mental health day
->>Sometimes, for no reason, you just have a bad day. You might have slept well, eaten well, exercised—and yet you are still in a terrible mood anyway. If you’re a leader, this is an awful thing. Your bad mood sets the tone for everyone around you, and it can lead to terrible decisions (emails you shouldn’t have sent, overly harsh judgements, etc.). If you find yourself in this situation, just turn around and go home, declaring a sick day. Better to get nothing done that day than to do active damage.
-
-> 给自己权限度过心理健康的一天
->>有时候，没有任何理由，你度过了糟糕的一天。你睡的很好，吃的很好，也进行了运动，但还是在很糟糕的情绪里。如果你是个领导，那这将是很悲催的一件事。你的坏情绪影响了你周围所有人的情绪，而且这将会导致很糟糕的决定（发出去不该发的邮件，给别人下达了过于残酷的评价等）。如果你发现你在这个状态下，你应该请个病假，转身回家。什么都不干也比干破坏性的事强。
+*给自己真正放个假*
+	一个周末并不算一个真正的假期。你需要至少三天来“忘记”你的工作；至少需要一周来让你重新感觉充满能量。但是如果你检查你的邮箱或工作聊天，你就破坏了这个充电过程。洪水般的焦虑充满你的脑袋，物理上远离工作的好处消散殆尽。只有在你真的断开与工作的连接时，你的假期才能使你真正重新充能。当然，这一切建立在你已经建立了一个自我驱型组织的前提下。
+*让失联的代价微不足道(主要指消息模式切换)*
+	当你失联时，将你的工作笔记本留在办公室。如果你有工作的通讯工具留在你的手机上，将它们移除掉。比如，如果你的公司用 Google 的 G 套件(Gmail, Google Calendar 等)，一个很方便的技巧是在手机上安装一个叫“工作资料” 的软件。这将花费你几秒钟的时间来把软件标记为是否是工作软件。例如，你将有两个 Gmail 应用：一个为个人邮件，一个为工作邮件。在安卓手机上，你能够一键切换工作模式。所有工作应用软件将变灰，就像它们未安装。你也不可能“不小心”查看了工作信息直到你重新激活工作资料。
+*也要享受真正的周末*
+	一个周末并不像假期一样有效，但它仍有让你振奋起来的能力。再强调一次，这样的充能只有在你断开工作联系的时候才有用。试着在周五晚上彻底退出工作状态，把周末的时间花在你喜欢的事情上，然后在周一早晨回到办公室时再重新进入工作状态。
+*在一天之中偶尔小休一下*
+	人的大脑每90分钟会有一个自然的循环。利用这个机会站起来在办公室走一走，或者花10分钟出去走一走。像这种微小的休息只能获得很小的充能，但是这能给你的紧张度和下一个小时的工作上带来巨大的影响。
+*给自己一个心理健康日的许可*
+	有时候，没有任何理由，你度过了糟糕的一天。你睡的很好，吃的很好，也进行了运动，但还是在很糟糕的情绪里。如果你是个领导，那这将是很悲催的一件事。你的坏情绪影响了你周围所有人的情绪，而且这将会导致很糟糕的决定（发出去不该发的邮件，给别人下达了过于残酷的评价等）。如果你发现你在这个状态下，你应该请个病假，转身回家。什么都不干也比干破坏性的事强。
 
 In the end, managing your energy is just as important as managing your time. If you learn to master these things, you’ll be ready to tackle the broader cycle of scaling responsibility and building a self-sufficient team.
 
-最后，管理你的精力和管理你的时间一样重要。如果你学着掌握这些东西，你将会准备好迎接攻克更大的扩张的责任之环，以及构建一个自给自足的团队。
+最后，管理你的精力和管理你的时间一样重要。如果你学会掌握这些东西，你就会准备好应对扩大责任范围和建立一个自给自足的团队这一更广泛的循环。
 
 ## Conclusion  总结
 
 Successful leaders naturally take on more responsibility as they progress (and that’s a good and natural thing). Unless they effectively come up with techniques to properly make decisions quickly, delegate when needed, and manage their increased responsibility, they might end up feeling overwhelmed. Being an effective leader doesn’t mean that you need to make perfect decisions, do everything yourself, or work twice as hard. Instead, strive to always be deciding, always be leaving, and always be scaling.
 
-成功的领导者在管理的过程中很自然地会承担更多的责任（这是件好事）。除非他们能够高效的想出技术来快速地做决策，按需时托管，管理他们日益增长的责任，否则他们很快会感觉不知所措。作为一个高效的领导者并不意味着你要做完美的决策，所有事都亲力亲为，或者付出双倍的努力。而是需要努力地一直做决策，一直离开，一直在扩张。
+成功的领导者在管理的过程中很自然地会承担更多的责任（这是件好事，也是很自然的事）。除非他们能够高效的想出技术来快速地做决策，按需时授权，管理他们日益增长的责任，否则他们很快会感觉不知所措。作为一个高效的领导者并不意味着你要做完美的决策，所有事都亲力亲为，或者付出双倍的努力。而是需要努力地始终保持决断力，始终保持离开，始终保持扩张。
 
 ## TL;DRs  内容提要
 
@@ -403,6 +401,6 @@ Successful leaders naturally take on more responsibility as they progress (and t
 - Always Be Leaving: Your job, as a leader, is to build an organization that automatically solves a class of ambiguous problems—over time—without you needing to be present.
 - Always Be Scaling: Success generates more responsibility over time, and you must proactively manage the scaling of this work in order to protect your scarce resources of personal time, attention, and energy.
 
-- 一直做决策：模糊的问题没有灵丹妙药；他们都是关于找到当下最佳的权衡，然后反复迭代。
-- 一直离开：你作为一个领导者的工作是构建一个能够自主解决一类模糊问题的组织--并且随着时间的推移，渐渐不需要你出面。
-- 一直扩张：随着时间推移，成功会产生更多责任，你必须主动管理规模扩大的工作，来保护你最稀缺的资源：时间，注意力和精力。
+- 始终保持决断力：模糊的问题没有灵丹妙药；他们都是关于找到当下最佳的权衡，然后反复迭代。
+- 始终保持离开：你作为一个领导者的工作是构建一个能够自主解决一类模糊问题的组织--并且随着时间的推移，渐渐不需要你出面。
+- 始终保持扩张：随着时间推移，成功会产生更多责任，你必须主动管理规模扩大的工作，来保护你最稀缺的资源：时间，注意力和精力。
