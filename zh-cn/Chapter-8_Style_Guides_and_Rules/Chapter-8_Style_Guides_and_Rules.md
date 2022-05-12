@@ -28,76 +28,69 @@ The wide variance among even our own style guides makes it difficult to pin down
 
 即使是我们自己的风格指南也存在很大的差异，这使得我们很难精确地描述一个风格指南应该涵盖什么内容。指导谷歌风格指南开发的决定源于保持我们代码库可持续性的需要。其他组织的代码库天生对可持续性有不同的要求，这就需要一套不同的定制规则。本章讨论了指导我们规则和指南开发的原则和过程，主要从谷歌的c++、Python和Java风格指南中抽取示例。
 
-## Why Have Rules?  为什么有规则？
+## Why Have Rules?  为什么需要规则？
 
 So why do we have rules? The goal of having rules in place is to encourage “good” behavior and discourage “bad” behavior. The interpretation of “good” and “bad” varies by organization, depending on what the organization cares about. Such desig‐ nations are not universal preferences; good versus bad is subjective, and tailored to needs. For some organizations, “good” might promote usage patterns that support a small memory footprint or prioritize potential runtime optimizations. In other organizations, “good” might promote choices that exercise new language features. Sometimes, an organization cares most deeply about consistency, so that anything inconsistent with existing patterns is “bad.” We must first recognize what a given organization values; we use rules and guidance to encourage and discourage behavior accordingly.
 
-那么我们为什么要有规则呢?制定规则的目的是鼓励“好的”行为，阻止“坏的”行为。对“好”和“坏”的解释因组织而异，这取决于组织关心的是什么。这样的设计不是普遍的偏好;好与坏是主观的，是根据需要而定的。对于一些组织，“好”可能会促进支持小内存占用或优先考虑潜在运行时优化的使用模式。在其他组织中，“好”可能促进使用新语言特性的选择。有时，组织非常关心一致性，因此与现有模式不一致的任何东西都是“不好的”。我们必须首先认识到一个给定的组织的价值;我们使用规则和指导来鼓励和阻止相应的行为。
+那么我们为什么需要规则呢?制定规则的目的是鼓励“好的”行为，阻止“坏的”行为。对“好”和“坏”的解释因组织而异，这取决于组织关心的是什么。这样的设计不是普遍的偏好;好与坏是主观的，是根据需要而定的。对于一些组织，“好”可能会促进支持小内存占用或优先考虑潜在运行时优化的使用模式。在其他组织中，“好”可能促进使用新语言特性的选择。有时，组织非常关心一致性，因此与现有模式不一致的任何东西都是“不好的”。我们必须首先认识到一个给定的组织的价值;我们使用规则和指导来鼓励和阻止相应的行为。
 
 As an organization grows, the established rules and guidelines shape the common vocabulary of coding. A common vocabulary allows engineers to concentrate on what their code needs to say rather than how they’re saying it. By shaping this vocabulary, engineers will tend to do the “good” things by default, even subcon‐ sciously. Rules thus give us broad leverage to nudge common development patterns in desired directions.
 
-随着组织的发展，已建立的规则和指导方针形成了通用的编码词汇表。通用词汇表可以让工程师专注于他们的代码需要表达什么，而不是如何表达。通过塑造这种词汇，工程师会倾向于默认地、甚至是潜意识地去做“好的”事情。因此，规则为我们提供了广泛的杠杆作用，以便将共同的开发模式推向所需的方向。
+随着组织的发展，已建立的规则和指导方针形成了通用的编码词汇表。通用词汇表可以让工程师专注于他们的代码需要表达什么，而不是如何表达。通过塑造这种词汇，工程师会倾向于默认地、甚至是潜意识地去做“好”事情。因此，规则为我们提供了广泛的杠杆作用，以便将共同的开发模式推向所需的方向。
 
 ## Creating the Rules  创建规则
 
 When defining a set of rules, the key question is not, “What rules should we have?” The question to ask is, “What goal are we trying to advance?” When we focus on the goal that the rules will be serving, identifying which rules support this goal makes it easier to distill the set of useful rules. At Google, where the style guide serves as law for coding practices, we do not ask, “What goes into the style guide?” but rather, “Why does something go into the style guide?” What does our organization gain by having a set of rules to regulate writing code?
 
-当定义一组规则时，关键问题不是“我们应该有什么规则?”我们要问的问题是:“我们想要实现的目标是什么?”当我们关注规则将服务的目标时，识别哪些规则支持这个目标，可以更容易地提取有用的规则集。在谷歌，风格指南作为编码实践的法律，我们不会问，“风格指南中包含什么?”而是“为什么要把一些东西放进风格指南?”我们的组织通过制定一套规范代码编写的规则获得了什么?
+当定义一组规则时，关键问题不是“我们应该有什么规则?”我们要问的问题是:“我们想要实现的目标是什么?”当我们关注规则将服务的目标时，识别哪些规则支持这个目标，可以更容易地提取有用的规则集。在谷歌，风格指南作为编码实践的法规，我们不会问，“风格指南中包含什么?”而是“为什么要把一些东西放进风格指南?”我们的组织通过制定一套规范代码编写的规则获得了什么?
 
 ### Guiding Principles   指导原则
 
-Let’s put things in context: Google’s engineering organization is composed of more than 30,000 engineers. That engineering population exhibits a wild variance in skill and background. About 60,000 submissions are made each day to a codebase of more than two billion lines of code that will likely exist for decades. We’re optimizing for a different set of values than most other organizations need, but to some degree, these concerns are ubiquitous—we need to sustain an engineering environment that is resilient to both scale and time.
+Let’s put things in context: Google’s engineering organization is composed of more than 30,000 engineers. That engineering population exhibits a wild variance in skill and background. About 60,000 submissions are made each day to a codebase of more than two billion lines of code that will likely exist for decades. We’re optimizing for a different set of values than most other organizations need, but to some degree, these concerns are ubiquitous——we need to sustain an engineering environment that is resilient to both scale and time.
 
-让我们把事情放在背景中:谷歌的工程组织由3万多名工程师组成。工程师群体在技能和背景方面表现出巨大的差异。每天大约有6万份文件提交给超过20亿行代码的代码库，这些代码库可能会存在几十年。我们正在优化一套不同于大多数其他组织所需要的价值，但在某种程度上，这些关注是无处不在的——我们需要维持一个对规模和时间都有弹性的工程环境。
+让我们把事情放在背景中:谷歌的工程组织由3万多名工程师组成。工程师群体在技能和背景方面表现出巨大的差异。每天大约有6万份文件提交给超过20亿行代码的代码库，这些代码库可能会存在几十年。我们正在优化一套不同于大多数其他组织所需要的价值，但在某种程度上，这些关注是无处不在的——我们需要维持一个对规模和时间都有扩展的工程环境。
 
 In this context, the goal of our rules is to manage the complexity of our development environment, keeping the codebase manageable while still allowing engineers to work productively. We are making a trade-off here: the large body of rules that helps us toward this goal does mean we are restricting choice. We lose some flexibility and we might even offend some people, but the gains of consistency and reduced conflict fur‐ nished by an authoritative standard win out.
 
-在这种情况下，我们规则的目标是管理开发环境的复杂性，保持代码库的可管理性，同时仍然允许工程师高效地工作。我们在这里做了取舍:帮助我们实现这一目标的大量规则确实意味着我们在限制选择。我们失去了一些灵活性，甚至可能会冒犯某些人，但权威标准所带来的一致性和减少冲突的收益最终获胜。
+在这种情况下，我们规则的目标是管理开发环境的复杂性，保持代码库的可管理性，同时仍然允许工程师高效地工作。我们在这里做了权衡:帮助我们实现这一目标的大量规则确实意味着我们在限制选择。我们失去了一些灵活性，甚至可能会冒犯某些人，但权威标准所带来的一致性和减少冲突的收益是最重要的。
 
 Given this view, we recognize a number of overarching principles that guide the development of our rules, which must:
-• Pull their weight
-• Optimize for the reader
-• Be consistent
-• Avoid error-prone and surprising constructs
-• Concede to practicalities when necessary
+- Pull their weight
+- Optimize for the reader
+- Be consistent
+- Avoid error-prone and surprising constructs
+- Concede to practicalities when necessary
 
 鉴于这一观点，我们认识到一些指导我们制定规则的首要原则，这些原则必须:
+- 发挥其作用
+- 为读者优化
+- 保持一致
+- 避免容易出错和令人惊讶的结构
+- 必要时对实际问题让步
 
-•限制风格的重量
-
-•为读者优化
-
-•保持一致
-
-•避免容易出错和令人惊讶的结构
-
-•必要时对实际问题让步
-
-**Rules must pull their weight**
-
-**规则必须发挥限制本身的重量**
+#### Rules must pull their weight  规则必须发挥其作用 
 
 Not everything should go into a style guide. There is a nonzero cost in asking all of the engineers in an organization to learn and adapt to any new rule that is set. With too many rules,not only will it become harder for engineers to remember all rele‐ vant rules as they write their code, but it also becomes harder for new engineers to learn their way. More rules also make it more challenging and more expensive to maintain the rule set.
 
-并不是所有的东西都应该放在风格指南中。要求组织中的所有工程师学习和适应任何新规则的成本是非零的。有太多的规则，不仅会让工程师在写代码时更难记住所有相关的规则，而且也会让新工程师更难学会他们的方法。更多的规则也会使维护规则集更具挑战性和更昂贵。
+并不是所有的东西都应该放在风格指南中。要求组织中的所有工程师学习和适应任何新规则的成本是有一定代价的。有太多的规则，不仅会让工程师在写代码时更难记住所有相关的规则，而且也会让新工程师更难学会他们的方法。更多的规则也会使维护规则集更具挑战性和更昂贵。
 
 To this end, we deliberately chose not to include rules expected to be self-evident. Google’s style guide is not intended to be interpreted in a lawyerly fashion; just because something isn’t explicitly outlawed does not imply that it is legal. For exam‐ ple, the C++ style guide has no rule against the use of goto. C++ programmers already tend to avoid it, so including an explicit rule forbidding it would introduce unnecessary overhead. If just one or two engineers are getting something wrong, adding to everyone’s mental load by creating new rules doesn’t scale.
 
-为此目的，我们有意排除了大家公认的不言而喻的规则。谷歌的风格指南不打算以法律的方式解释;仅仅因为某件事没有被明确宣布为非法，并不意味着它就是合法的。例如，c++风格指南没有规定禁止使用goto。c++程序员已经倾向于避免使用它，所以包含禁止使用它的显式规则将引入不必要的开销。如果只有一两个工程师犯了错误，那么通过创建新规则来增加每个人的负担是不利于以后扩展的。
+为此，我们有意排除了大家公认的不言而喻的规则。谷歌的风格指南不打算以法律的方式解释;没有明确规定的东西并不意味着它是合法的。例如，c++风格指南没有规定禁止使用goto。c++程序员已经倾向于避免使用它，所以包含禁止使用它的显式规则将引入不必要的开销。如果只有一两个工程师犯了错误，那么通过创建新规则来增加每个人的负担是不利于以后扩展的。
 
 #### Optimize for the reader   为读者优化
 
 Another principle of our rules is to optimize for the reader of the code rather than the author. Given the passage of time, our code will be read far more frequently than it is written. We’d rather the code be tedious to type than difficult to read. In our Python style guide, when discussing conditional expressions, we recognize that they are shorter than if statements and therefore more convenient for code authors. However, because they tend to be more difficult for readers to understand than the more ver‐ bose if statements, we restrict their usage. We value “simple to read” over “simple to write.” We’re making a trade-off here: it can cost more upfront when engineers must repeatedly type potentially longer, descriptive names for variables and types. We choose to pay this cost for the readability it provides for all future readers.
 
-我们规则的另一个原则是为代码的读者而不是作者优化。随着时间的推移，我们的代码被阅读的频率将远远高于编写的频率。我们宁愿代码是乏味的键入，而不是难以阅读。在我们的Python风格指南中，当讨论条件表达式时，我们认识到它们比if语句短，因此对代码作者来说更方便。然而，由于它们往往比更冗长的if语句更难让读者理解，所以我们限制了它们的使用。我们认为“读起来简单”比“写起来简单”更重要。我们在这里做了一个权衡:当工程师必须重复地为变量和类型输入可能更长的描述性名称时，前期的成本会更高。我们选择支付这笔费用，是因为它为所有未来的读者提供了可读性。
+我们规则的另一个原则是为代码的读者而不是作者优化。随着时间的推移，我们的代码被阅读的频率将远远高于编写的频率。我们宁愿代码是繁琐的输入，而不是难以阅读。在我们的Python风格指南中，当讨论条件表达式时，我们认识到它们比if语句短，因此对代码作者来说更方便。然而，由于它们往往比更冗长的if语句更难让读者理解，所以我们限制了它们的使用。我们认为“读起来简单”比“写起来简单”更重要。我们在这里做了一个权衡:当工程师必须重复地为变量和类型输入可能更长的描述性名称时，前期的成本会更高。我们选择支付这笔费用，是因为它为所有未来的读者提供了可读性。
 
 As part of this prioritization, we also require that engineers leave explicit evidence of intended behavior in their code. We want readers to clearly understand what the code is doing as they read it. For example, our Java, JavaScript, and C++ style guides man‐ date use of the override annotation or keyword whenever a method overrides a superclass method. Without the explicit in-place evidence of design, readers can likely figure out this intent, though it would take a bit more digging on the part of each reader working through the code.
 
-作为优先级划分的一部分，我们还要求工程师在他们的代码中留下明确的行为证据。我们希望读者在阅读代码时能够清楚地理解代码在做什么。例如，我们的Java、JavaScript和c++风格指导在方法重写超类方法时手动使用override注释或关键字。如果没有明确的设计证据，读者很可能会发现这一意图，但是这需要每个阅读代码的读者对代码进行更多的挖掘。
+作为优先级的一部分，我们还要求工程师在他们的代码中留下预期行为的明确证明。我们希望读者在阅读代码时能够清楚地理解代码在做什么。例如，我们的Java、JavaScript和C++风格指导在方法重写超类方法时手动使用override注释或关键字。如果没有明确的设计证明，读者很可能会发现这一意图，但是这需要每个阅读代码的读者对代码进行更多的挖掘。
 
 Evidence of intended behavior becomes even more important when it might be sur‐ prising. In C++, it is sometimes difficult to track the ownership of a pointer just by reading a snippet of code. If a pointer is passed to a function, without being familiar with the behavior of the function, we can’t be sure what to expect. Does the caller still own the pointer? Did the function take ownership? Can I continue using the pointer after the function returns or might it have been deleted? To avoid this problem, our C++ style guide prefers the use of std::unique_ptr when ownership transfer is intended. unique_ptr is a construct that manages pointer ownership, ensuring that only one copy of the pointer ever exists. When a function takes a unique_ptr as an argument and intends to take ownership of the pointer, callers must explicitly invoke move semantics:
 
-这可能令人惊讶，有意行为的证据变得更加重要。在c++中，有时仅通过阅读一段代码片段来跟踪指针的所有权是困难的。如果一个指针被传递给一个函数，在不熟悉该函数的行为的情况下，我们不能确定将会发生什么。调用者仍然拥有指针吗?这个函数拥有所有权了吗?我可以在函数返回后继续使用指针吗?或者它可能已经被删除了?为了避免这个问题，我们的c++风格指南更倾向于使用std::unique_ptr来实现所有权转移。Unique_ptr是一个管理指针所有权的构造，确保指针只有一个副本存在。当函数接受一个unique_ptr作为参数，并打算获得指针的所有权时，调用者必须显式地调用move语义:
+这可能令人惊讶，有意行为的证明变得更加重要。在C++中，仅仅通过阅读一段代码，有时很难追踪指针的所有权。如果一个指针被传递给一个函数，在不熟悉该函数的行为的情况下，我们不能确定将会发生什么。调用者仍然拥有指针吗?这个函数拥有所有权了吗?我可以在函数返回后继续使用指针吗?或者它可能已经被删除了?为了避免这个问题，我们的C++风格指南更倾向于使用std::unique_ptr来实现所有权转移。Unique_ptr是一个管理指针所有权的构造，确保指针只有一个副本存在。当函数接受一个unique_ptr作为参数，并打算获得指针的所有权时，调用者必须显式地调用move语义:
 
 ```
 // Function that takes a Foo* and may or may not assume ownership of 
@@ -106,11 +99,9 @@ void TakeFoo(Foo* arg);
 // Calls to the function don’t tell the reader anything about what to 
 // expect with regard to ownership after the function returns.
 Foo* my_foo(NewFoo());
-TakeFoo(my_foo);```
+TakeFoo(my_foo);
 ```
-
 Compare this to the following:
-
 将此与以下内容进行比较:
 
 ```
@@ -124,63 +115,55 @@ std::unique_ptr<Foo> my_foo(FooFactory()); TakeFoo(std::move(my_foo));
 
 Given the style guide rule, we guarantee that all call sites will include clear evidence of ownership transfer whenever it applies. With this signal in place, readers of the code don’t need to understand the behavior of every function call. We provide enough information in the API to reason about its interactions. This clear documentation of behavior at the call sites ensures that code snippets remain readable and understanda‐ ble. We aim for local reasoning, where the goal is clear understanding of what’s hap‐ pening at the call site without needing to find and reference other code, including the function’s implementation.
 
-鉴于风格指南规则，我们保证所有调用方将包括明确的所有权转移证据，无论何时适用。有了这个信号，代码的读者就不需要理解每个函数调用的行为了。我们在API中提供了足够的信息来推断它的交互。这种清晰的调用方行为文档确保了代码片段的可读性和可理解性。我们的目标是局部推理，目标是清楚地了解在调用方发生了什么，而不需要查找和引用其他代码，包括函数的具体实现。
+鉴于风格指南规则，我们保证所有调用方将包括明确的所有权转移证明，无论何时适用。有了这个信号，代码的读者就不需要理解每个函数调用的行为了。我们在API中提供了足够的信息来推断它的交互。这种清晰的调用方行为文档确保了代码片段的可读性和可理解性。我们的目标是局部推理，目标是清楚地了解在调用方发生了什么，而不需要查找和引用其他代码，包括函数的具体实现。
 
-Most style guide rules covering comments are also designed to support this goal of in-place evidence for readers. Documentation comments (the block comments pre‐ pended to a given file, class, or function) describe the design or intent of the code that follows. Implementation comments (the comments interspersed throughout the code itself) justify or highlight non-obvious choices, explain tricky bits, and underscore important parts of the code. We have style guide rules covering both types of
-comments, requiring engineers to provide the explanations another engineer might be looking for when reading through the code.
+Most style guide rules covering comments are also designed to support this goal of in-place evidence for readers. Documentation comments (the block comments pre‐ pended to a given file, class, or function) describe the design or intent of the code that follows. Implementation comments (the comments interspersed throughout the code itself) justify or highlight non-obvious choices, explain tricky bits, and underscore important parts of the code. We have style guide rules covering both types of comments, requiring engineers to provide the explanations another engineer might be looking for when reading through the code.
 
-大多数涉及注释的风格指南规则也被设计成支持为读者提供就地证据的目标。文档注释(预先挂在给定文件、类或函数上的块注释)描述了后面代码的设计或意图。实现注释(注释穿插在代码本身中)说明或突出不明显的选择，解释棘手的部分，并强调代码的重要部分。这两种类型注释的指导风格规则在指南中都有涵盖，要求工程师提供其他工程师在阅读代码时可能正在寻找的解释。
+大多数涉及注释的风格指南规则也被设计成支持为读者提供原地证明的目标。文档注释(预先挂在给定文件、类或函数上的块注释)描述了后面代码的设计或意图。实现注释(注释穿插在代码本身中)说明或突出不明显的选择，解释棘手的部分，并强调代码的重要部分。这两种类型注释的指导风格规则在指南中都有涵盖，要求工程师提供其他工程师在阅读代码时可能正在寻找的解释。
 
 #### Be consistent   保持一致性
 
 Our view on consistency within our codebase is similar to the philosophy we apply to our Google offices. With a large, distributed engineering population, teams are fre‐ quently split among offices, and Googlers often find themselves traveling to other sites. Although each office maintains its unique personality, embracing local flavor and style, for anything necessary to get work done, things are deliberately kept the same. A visiting Googler’s badge will work with all local badge readers; any Google devices will always get WiFi; the video conferencing setup in any conference room will have the same interface. A Googler doesn’t need to spend time learning how to get this all set up; they know that it will be the same no matter where they are. It’s easy to move between offices and still get work done.
 
-我们对代码库一致性的看法类似于我们应用于谷歌办公室的哲学。由于拥有庞大而分散的工程师群体，团队经常会在不同的办公室之间自由分配，谷歌员工经常会发现自己要去其他地点。尽管每个办公室都保留了自己独特的个性，融入了当地的风味和风格，但为了完成工作，有一些东西被刻意保持一致。来访的谷歌员工的徽章可以工作在所有当地的徽章阅读器上;任何谷歌设备都可以使用WiFi;任何一间会议室的视频会议设置都将具有相同的界面。谷歌员工不需要花时间去学习如何设置这些;他们知道，无论他们在哪里，这个基本条件都是一样的。在不同的办公室之间转换工作很容易，而且还能完成工作。
+我们对代码库一致性的看法类似于我们应用于谷歌办公室的理念。由于工程人员众多，分布广泛，团队经常被分到不同的办公室，而且谷歌员工经常发现自己在其他地方出差。尽管每个办公室都保留了自己独特的个性，融入了当地的风味和风格，但为了完成工作，有一些东西被刻意保持一致。来访的谷歌员工的徽章可以工作在所有当地的徽章阅读器上;任何谷歌设备都可以使用WiFi;任何一间会议室的视频会议设置都将具有相同的界面。谷歌员工不需要花时间去学习如何设置这些;他们知道，无论他们在哪里，这个基本条件都是一样的。在不同的办公室之间转换工作很容易，而且还能完成工作。
 
 That’s what we strive for with our source code. Consistency is what enables any engi‐ neer to jump into an unfamiliar part of the codebase and get to work fairly quickly. A local project can have its unique personality, but its tools are the same, its techniques are the same, its libraries are the same, and it all Just Works.
 
 这就是我们在源代码中所追求的。一致性是使任何工程师即使进入代码库中不熟悉的部分，也能够相当迅速地开始工作的原因。一个本地项目可以有它独特的个性，但是它的工具是一样的，它的技术是一样的，它的库是一样的，而且都是正常工作的。
 
-#### Advantages of consistency    一致性的优点
+##### Advantages of consistency    一致性的优点
 
 Even though it might feel restrictive for an office to be disallowed from customizing a badge reader or video conferencing interface, the consistency benefits far outweigh the creative freedom we lose. It’s the same with code: being consistent may feel con‐ straining at times, but it means more engineers get more work done with less effort:
-
-尽管不允许办公室定制徽章阅读器或视频会议界面可能会让人觉得受到限制，但一致性带来的好处远远大于我们失去的创作自由。代码也是如此:一致性有时可能会让人感到约束，但这意味着更多的工程师用更少的努力完成更多的工作:
-
 - When a codebase is internally consistent in its style and norms, engineers writing code and others reading it can focus on what’s getting done rather than how it is presented. To a large degree, this consistency allows for expert chunking. When we solve our problems with the same interfaces and format the code in a consis‐ tent way, it’s easier for experts to glance at some code, zero in on what’s impor‐ tant, and understand what it’s doing. It also makes it easier to modularize code and spot duplication. For these reasons, we focus a lot of attention on consistent naming conventions, consistent use of common patterns, and consistent format‐ ting and structure. There are also many rules that put forth a decision on a seem‐ ingly small issue solely to guarantee that things are done in only one way.For example, take the choice of the number of spaces to use for indentation or the limit set on line length . It’s the consistency of having one answer rather than the answer itself that is the valuable part here.
-
-- 当代码库的风格和规范在内部保持一致时，编写代码的工程师和阅读代码的人就可以专注于完成了什么，而不是如何呈现。在很大程度上，这种一致性允许专家分块阅读。当我们用相同的界面解决问题，并以一致的方式格式化代码时，专家们更容易浏览一些代码，锁定重要的内容，并理解它在做什么。它还使模块化代码和定位重复变得更容易。基于这些原因，我们将重点放在一致的命名约定、一致的通用模式使用以及一致的格式和结构上。也有许多规则对看似很小的问题做出决定，只是为了保证事情只能以一种方式完成。例如，选择用于缩进的空格数或行长限制只有一个答案而不是答案本身的才是这里有价值的部分。
-
 - Consistency enables scaling. Tooling is key for an organization to scale, and con‐ sistent code makes it easier to build tools that can understand, edit, and generate code. The full benefits of the tools that depend on uniformity can’t be applied if everyone has little pockets of code that differ—if a tool can keep source files updated by adding missing imports or removing unused includes, if different projects are choosing different sorting strategies for their import lists, the tool might not be able to work everywhere. When everyone is using the same compo‐ nents and when everyone’s code follows the same rules for structure and organi‐ zation, we can invest in tooling that works everywhere, building in automation for many of our maintenance tasks. If each team needed to separately invest in a bespoke version of the same tool, tailored for their unique environment, we would lose that advantage.
-
-- 支持扩展的一致性。工具是组织扩展的关键，而一致的代码使构建能够理解、编辑和生成代码的工具变得更容易。如果每个人都有少量不同的代码，那么依赖于一致性的工具的全部好处就无法应用——如果一个工具可以通过添加缺失的导入或删除未使用的包含来更新源文件，如果不同的项目为他们的导入列表选择不同的排序策略，这个工具可能不能在任何地方都适用。当每个人都使用相同的组件，当每个人的代码都遵循相同的结构和组织规则时，我们就可以投资于在任何地方都能工作的工具，为我们的许多维护任务构建自动化。如果每个团队需要分别投资同一工具的定制版本，为他们独特的环境量身定制，我们就会失去这种优势。
-
 - Consistency helps when scaling the human part of an organization, too. As an organization grows, the number of engineers working on the codebase increases. Keeping the code that everyone is working on as consistent as possible enables better mobility across projects, minimizing the ramp-up time for an engineer switching teams and building in the ability for the organization to flex and adapt as headcount needs fluctuate. A growing organization also means that people in other roles interact with the code—SREs, library engineers, and code janitors, for example. At Google, these roles often span multiple projects, which means engi‐ neers unfamiliar with a given team’s project might jump in to work on that proj‐ ect’s code. A consistent experience across the codebase makes this efficient.
-
-- 一致性在伸缩组织的人的部分时也有帮助。随着组织的增长，从事代码库工作的工程师数量也会增加。让每个人都在编写的代码尽可能一致，这样可以更好地跨项目移动，最大限度地减少工程师转换团队的过渡时间，并为组织构建适应员工需求波动的能力。一个成长中的组织还意味着其他角色的人与代码SREs、库工程师和代码管理员进行交互。在谷歌，这些角色通常跨越多个项目，这意味着不熟悉某个团队项目的工程师可能会参与到项目代码的编写中。跨代码库的一致体验使得这种方法非常有效。
-
 - Consistency also ensures resilience to time. As time passes, engineers leave projects, new people join, ownership shifts, and projects merge or split. Striving for a consistent codebase ensures that these transitions are low cost and allows us nearly unconstrained fluidity for both the code and the engineers working on it, simplifying the processes necessary for long-term maintenance.
 
-- 一致性也确保了对时间的弹性。随着时间的推移，工程师离开项目，新人加入，所有权转移，项目合并或分裂。努力实现一致的代码库可以确保这些转换的成本较低，并允许我们对代码和工作在代码上的工程师几乎不受约束的流动性，从而简化长期维护所需的过程。
+尽管不允许办公室定制徽章阅读器或视频会议界面可能会让人觉得受到限制，但一致性带来的好处远远大于我们失去的创作自由。代码也是如此:一致性有时可能会让人感到约束，但这意味着更多的工程师用更少的努力完成更多的工作:  
+- 编写代码的工程师和阅读代码的其他人就可以专注于正在完成的工作，而不是它的呈现方式。在很大程度上，这种一致性允许专家分块阅读。当我们用相同的界面解决问题，并以一致的方式格式化代码时，专家们更容易浏览一些代码，锁定重要的内容，并理解它在做什么。它还使模块化代码和定位重复变得更容易。基于这些原因，我们将重点放在一致的命名约定、一致的通用模式使用以及一致的格式和结构上。也有许多规则对看似很小的问题做出决定，只是为了保证事情只能以一种方式完成。例如，选择用于缩进的空格数或行长限制只有一个答案而不是答案本身的才是这里有价值的部分。
+- 一致性可以使规模扩大。工具是组织扩展的关键，而一致的代码使构建能够理解、编辑和生成代码的工具变得更容易。如果每个人都有少量不同的代码，那么依赖于一致性的工具的全部好处就无法应用——如果一个工具可以通过添加缺失的导入或删除未使用的包含来更新源文件，如果不同的项目为他们的导入列表选择不同的排序策略，这个工具可能不能在任何地方都适用。当每个人都使用相同的组件，当每个人的代码都遵循相同的结构和组织规则时，我们就可以投资于在任何地方都能工作的工具，为我们的许多维护任务构建自动化。如果每个团队需要分别投资同一工具的定制版本，为他们独特的环境量身定制，我们就会失去这种优势。
+- 在扩展组织的人力部分时，一致性也有帮助。随着组织的增长，从事代码库工作的工程师数量也会增加。让每个人都在编写的代码尽可能一致，这样可以更好地跨项目移动，最大限度地减少工程师转换团队的过渡时间，并为组织构建适应员工需求波动的能力。一个成长中的组织还意味着其他角色的人与代码SREs、库工程师和代码管理员进行交互。在谷歌，这些角色通常跨越多个项目，这意味着不熟悉某个团队项目的工程师可能会参与到项目代码的编写中。跨代码库的一致体验使得这种方法非常有效。
+- 一致性也确保了对时间的适应性。随着时间的推移，工程师离开项目，新人加入，所有权转移，项目合并或分裂。努力实现一致的代码库可以确保这些转换的成本较低，并允许我们对代码和工作在代码上的工程师几乎不受约束的流动，从而简化长期维护所需的过程。
   
 -----
 
-#### At Scale   在规模上
+##### At Scale   规模效应
 
-  A few years ago, our C++ style guide promised to almost never change style guide rules that would make old code inconsistent: “In some cases, there might be good arguments for changing certain style rules, but we nonetheless keep things as they are in order to preserve consistency.”
+A few years ago, our C++ style guide promised to almost never change style guide rules that would make old code inconsistent: “In some cases, there might be good arguments for changing certain style rules, but we nonetheless keep things as they are in order to preserve consistency.”
 
-  几年前，我们的c++风格指南承诺，几乎不会改变会使旧代码不一致的风格指南规则:“在某些情况下，改变某些风格规则可能有很好的理由，但我们仍然保持事物的原样，以保持一致性。”
+几年前，我们的C++风格指南承诺，几乎不会改变会使旧代码不一致的风格指南规则:“在某些情况下，改变某些风格规则可能有很好的理由，但我们仍然保持事物的原样，以保持一致性。”
 
-  When the codebase was smaller and there were fewer old, dusty corners, that made sense.
+When the codebase was smaller and there were fewer old, dusty corners, that made sense.
 
-  当代码库比较小的时候，老旧的代码比较少的时候，这是有意义的。
+当代码库比较小的时候，老旧的代码比较少的时候，这是有意义的。
 
-  When the codebase grew bigger and older, that stopped being a thing to prioritize. This was (for the arbiters behind our C++ style guide, at least) a conscious change: when striking this bit, we were explicitly stating that the C++ codebase would never again be completely consistent, nor were we even aiming for that.
+When the codebase grew bigger and older, that stopped being a thing to prioritize. This was (for the arbiters behind our C++ style guide, at least) a conscious change: when striking this bit, we were explicitly stating that the C++ codebase would never again be completely consistent, nor were we even aiming for that.
 
-  当代码库变得更大、更老时，这就不再是需要优先考虑的事情了。这是(至少对于我们c++风格指南背后的仲裁人来说)一个有意识的改变:当改变这一点时，我们明确地声明c++代码库将不再是完全一致的，我们甚至也不打算这样做。
-  It would simply be too much of a burden to not only update the rules to current best practices, but to also require that we apply those rules to everything that’s ever been written. Our Large Scale Change tooling and processes allow us to update almost all of our code to follow nearly every new pattern or syntax so that most old code exhib‐ its the most recent approved style (see Chapter 22). Such mechanisms aren’t perfect, however; when the codebase gets as large as it is, we can’t be sure every bit of old code can conform to the new best practices. Requiring perfect consistency has reached the point where there’s too much cost for the value.
+当代码库变得更大、更老旧时，这就不再是需要优先考虑的事情了。这是(至少对于我们C++风格指南背后的裁定者来说)一个有意识的改变:当改变这一点时，我们明确地声明C++代码库将不再是完全一致的，我们甚至也不打算这样做。
 
-  不仅要将规则更新到当前的最佳实践，而且还要将这些规则应用到已经编写的所有内容，这样的负担太大了。我们的大规模变更工具和过程允许我们更新几乎所有的代码，以遵循几乎每一个新的模式或语法，所以大多数旧的代码都呈现出最新的被认可的风格(见第22章)。然而，这种机制并不完美;当代码库变得足够大时，我们不能保证每一段旧代码都能符合新的最佳实践。对完美一致性的要求需要付出的价代价太大了。
+It would simply be too much of a burden to not only update the rules to current best practices, but to also require that we apply those rules to everything that’s ever been written. Our Large Scale Change tooling and processes allow us to update almost all of our code to follow nearly every new pattern or syntax so that most old code exhib‐ its the most recent approved style (see Chapter 22). Such mechanisms aren’t perfect, however; when the codebase gets as large as it is, we can’t be sure every bit of old code can conform to the new best practices. Requiring perfect consistency has reached the point where there’s too much cost for the value.
+
+不仅要将规则更新到当前的最佳实践，而且还要将这些规则应用到已经编写的所有内容，这样的负担太大了。我们的大规模变更工具和过程允许我们更新几乎所有的代码，以遵循几乎每一个新的模式或语法，所以大多数旧的代码都呈现出最新的被认可的风格(见第22章)。然而，这种机制并不完美;当代码库变得足够大时，我们不能保证每一段旧代码都能符合新的最佳实践。对完美一致性的要求需要付出的价代价太大了。
 
 -----
 
@@ -194,7 +177,7 @@ However, it is not always enough for an organization to create and stick to a se
 
 -----
 
-#### Counting Spaces  空格的计算
+##### Counting Spaces  空格的计算
 
 The Python style guide at Google initially mandated two-space indents for all of our Python code. The standard Python style guide, used by the external Python commu‐ nity, uses four-space indents. Most of our early Python development was in direct support of our C++ projects, not for actual Python applications. We therefore chose to use two-space indentation to be consistent with our C++ code, which was already formatted in that manner. As time went by, we saw that this rationale didn’t really hold up. Engineers who write Python code read and write other Python code much more often than they read and write C++ code. We were costing our engineers extra effort every time they needed to look something up or reference external code snip‐ pets. We were also going through a lot of pain each time we tried to export pieces of our code into open source, spending time reconciling the differences between our internal code and the external world we wanted to join.
 
@@ -208,7 +191,7 @@ When the time came for Starlark (a Python-based language designed at Google to s
 
 If conventions already exist, it is usually a good idea for an organization to be consis‐ tent with the outside world. For small, self-contained, and short-lived efforts, it likely won’t make a difference; internal consistency matters more than anything happening outside the project’s limited scope. Once the passage of time and potential scaling become factors, the likelihood of your code interacting with outside projects or even ending up in the outside world increase. Looking long-term, adhering to the widely accepted standard will likely pay off.
 
-如果惯例已经存在，那么一个组织与外界保持一致通常是一个好主意。对于小的，独立的，生命周期短的项目，它可能不会有什么不同;内部一致性比发生在项目有限范围之外的任何事情都重要。一旦时间的推移和潜在的可伸缩性成为因素，代码与外部项目交互甚至最终与外部世界交互的可能性就会增加。从长远来看，坚持被广泛接受的标准可能会有回报。
+如果惯例已经存在，那么一个组织与外界保持一致通常是一个好主意。对于小的，独立的，生命周期短的项目，它可能不会有什么不同;内部一致性比发生在项目有限范围之外的任何事情都重要。一旦时间的推移和潜在的扩展性成为要素，代码与外部项目交互甚至最终与外部世界交互的可能性就会增加。从长远来看，坚持被广泛接受的标准可能会有回报。
 
 #### Avoid error-prone and surprising constructs  避免容易出错和令人惊讶的结构
 
@@ -249,7 +232,7 @@ values.append(getattr(my_object, field))
 
 When searching through code, how do you know that the fields foo, bar, and baz are being accessed here? There’s no clear evidence left for the reader. You don’t easily see and therefore can’t easily validate which strings are used to access attributes of your object. What if, instead of reading those values from A_CONSTANT, we read them from a Remote Procedure Call (RPC) request message or from a data store? Such obfusca‐ ted code could cause a major security flaw, one that would be very difficult to notice, simply by validating the message incorrectly. It’s also difficult to test and verify such code.
 
-当搜索代码时，怎么知道这里访问了 foo、bar 和 baz 字段?没有给读者留下明确的证据。您不容易看到，因此也不容易验证哪些字符串用于访问对象的属性。如果不是从A_CONSTANT读取这些值，而是从远程过程调用(Remote Procedure Call, RPC)请求消息或数据存储读取这些值，那会怎么样呢?这种模糊化的代码可能会导致一个严重的安全漏洞，一个很难被发现的漏洞，只需错误地验证消息就可能发生。测试和验证这样的代码也很困难。
+当搜索代码时，怎么知道这里访问的是字段 foo、bar 和 baz ?没有给读者留下明确的证明。你不容易看到，因此也不容易验证哪些字符串用于访问对象的属性。如果不是从A_CONSTANT读取这些值，而是从远程过程调用(Remote Procedure Call, RPC)请求消息或数据存储读取这些值，那会怎么样呢?这种模糊化的代码可能会导致一个严重的安全漏洞，一个很难被发现的漏洞，只需错误地验证消息就可能发生。测试和验证这样的代码也很困难。
 
 Python’s dynamic nature allows such behavior, and in very limited circumstances, using hasattr() and getattr() is valid. In most cases, however, they just cause obfuscation and introduce bugs.
 
@@ -267,11 +250,11 @@ In the words of Ralph Waldo Emerson: “A foolish consistency is the hobgoblin o
 
 Performance matters. Sometimes, even if it means sacrificing consistency or readabil‐ ity, it just makes sense to accommodate performance optimizations. For example, although our C++ style guide prohibits use of exceptions, it includes a rule that allows the use of noexcept, an exception-related language specifier that can trigger compiler optimizations.
 
-性能很重要。有时，即使这意味着牺牲一致性或可读性，适应性能优化也是有意义的。例如，尽管我们的c++风格指南禁止使用异常，但它包含了一条允许使用noexcept的规则，noexcept是一个与异常相关的语言说明符，可以触发编译器优化。
+性能很重要。有时，即使这意味着牺牲一致性或可读性，适应性能优化也是有意义的。例如，尽管我们的C++风格指南禁止使用异常，但它包含了一条允许使用noexcept的规则，noexcept是一个与异常相关的语言说明符，可以触发编译器优化。
 
 Interoperability also matters. Code that is designed to work with specific non-Google pieces might do better if tailored for its target. For example, our C++ style guide includes an exception to the general CamelCase naming guideline that permits use of the standard library’s snake_case style for entities that mimic standard library fea‐ tures. The C++ style guide also allows exemptions for Windows programming, where compatibility with platform features requires multiple inheritance, something explicitly forbidden for all other C++ code. Both our Java and JavaScript style guides explicitly state that generated code, which frequently interfaces with or depends on components outside of a project’s ownership, is out of scope for the guide’s rules.9 Consistency is vital; adaptation is key.
 
-互操作性也很重要。为特定的非google部分而设计的代码如果适合其目标，可能会做得更好。例如，我们的C++风格指南有一个通用CamelCase命名准则的例外，它允许对模仿标准库功能的实体使用标准库的 snake_case 风格。C++风格指南还允许对Windows编程的豁免，在Windows编程中，与平台特性的兼容性需要使用多重继承，这对其他情况的C++代码来说都是明确禁止的。我们的Java和JavaScript风格指南都明确指出，生成的代码中，经常与项目之外的组件交互或依赖于这些组件的代码不在本指南的范围内。一致性是非常重要的；适应更是关键所在。
+互操作性也很重要。为特定的非google部分而设计的代码，如果为其目标量身定做，可能会做得更好。例如，我们的C++风格指南有一个通用CamelCase命名准则的例外，它允许对模仿标准库功能的实体使用标准库的 snake_case 风格。C++风格指南还允许对Windows编程的豁免，在Windows编程中，与平台特性的兼容性需要使用多重继承，这对其他情况的C++代码来说都是明确禁止的。我们的Java和JavaScript风格指南都明确指出，生成的代码中，经常与项目之外的组件交互或依赖于这些组件的代码不在本指南的范围内。一致性是非常重要的；适应更是关键所在。
 
 ### The Style Guide  风格指南
 
@@ -287,11 +270,9 @@ So, what does go into a language style guide? There are roughly three categories
 
 #### Avoiding danger  规避危险
 
-First and foremost, our style guides include rules about language features that either must or must not be done for technical reasons. We have rules about how to use static members and variables; rules about using lambda expressions; rules about handling exceptions; rules about building for threading, access control, and class inheritance. We cover which language features to use and which constructs to avoid. We call out standard vocabulary types that may be used and for what purposes. We specifically include rulings on the hard-to-use and the hard-to-use-correctly—some language features have nuanced usage patterns that might not be intuitive or easy to apply
+First and foremost, our style guides include rules about language features that either must or must not be done for technical reasons. We have rules about how to use static members and variables; rules about using lambda expressions; rules about handling exceptions; rules about building for threading, access control, and class inheritance. We cover which language features to use and which constructs to avoid. We call out standard vocabulary types that may be used and for what purposes. We specifically include rulings on the hard-to-use and the hard-to-use-correctly—some language features have nuanced usage patterns that might not be intuitive or easy to apply properly, causing subtle bugs to creep in. For each ruling in the guide, we aim to include the pros and cons that were weighed with an explanation of the decision that was reached. Most of these decisions are based on the need for resilience to time, sup‐ porting and encouraging maintainable language usage.
 
-properly, causing subtle bugs to creep in. For each ruling in the guide, we aim to include the pros and cons that were weighed with an explanation of the decision that was reached. Most of these decisions are based on the need for resilience to time, sup‐ porting and encouraging maintainable language usage.
-
-首先，我们的风格指南包括关于语言特性的规则，这些规则出于技术原因必须或不必须做。我们有关于如何使用静态成员和变量的规则;关于使用lambda表达式的规则;异常处理规则;关于构建线程、访问控制和类继承的规则。我们涵盖了要使用的语言特性和要避免的结构。我们列出了可以使用的标准词汇类型以及用途。我们特别包括了关于难以使用和难以正确使用的规则——一些语言特性具有微妙的使用模式，可能不直观或不容易正确应用，会导致一些Bug。对于指南中的每个规则，我们的目标是在描述所达成的决定时，解释权衡过的利弊。这些决定（规则）大多是基于对时间弹性的需要，或者支持和鼓励可维护的语言使用。
+首先，我们的风格指南包括关于语言特性的规则，这些规则出于技术原因必须或不必须做。我们有关于如何使用静态成员和变量的规则；关于使用lambda表达式的规则;异常处理规则；关于构建线程、访问控制和类继承的规则。我们涵盖了要使用的语言特性和要避免的结构。我们列出了可以使用的标准词汇类型以及用途。我们特别包括了关于难以使用和难以正确使用的规则——一些语言特性具有微妙的使用模式，可能不直观或不容易正确应用，会导致一些Bug。对于指南中的每个规则，我们的目标是在描述所达成的决定时，解释权衡过的利弊。这些决定（规则）大多是基于对时适应性的需要，或者支持和鼓励可维护的语言使用。
 
 #### Enforcing best practices 执行最佳实践
 
