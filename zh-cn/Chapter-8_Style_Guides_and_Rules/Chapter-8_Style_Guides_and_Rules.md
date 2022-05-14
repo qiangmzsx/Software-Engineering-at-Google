@@ -392,7 +392,7 @@ Exceptions are allowed for cases in which it is gauged to be more beneficial to 
 
 In addition to rules, we curate programming guidance in various forms, ranging from long, in-depth discussion of complex topics to short, pointed advice on best practices that we endorse.
 
-除了规则之外，我们还以各种形式提供编程指导，从对复杂主题的长而深入的讨论到对我们认可的最佳实践的短而有针对性的建议。
+除了规则之外，我们还以各种形式提供编程指导，从对复杂主题的长而深入的讨论到对我们认可的最佳实践的简短而有针对性的建议。
 
 Guidance represents the collected wisdom of our engineering experience, documenting the best practices that we’ve extracted from the lessons learned along the way. Guidance tends to focus on things that we’ve observed people frequently getting wrong or new things that are unfamiliar and therefore subject to confusion. If the rules are the “musts,” our guidance is the “shoulds.”
 
@@ -400,46 +400,44 @@ Guidance represents the collected wisdom of our engineering experience, document
 
 One example of a pool of guidance that we cultivate is a set of primers for some of the predominant languages that we use. While our style guides are prescriptive, ruling on which language features are allowed and which are disallowed, the primers are descriptive, explaining the features that the guides endorse. They are quite broad in their coverage, touching on nearly every topic that an engineer new to the language’s use at Google would need to reference. They do not delve into every detail of a given topic, but they provide explanations and recommended use. When an engineer needs to figure out how to apply a feature that they want to use, the primers aim to serve as the go-to guiding reference.
 
-我们培养的指导库的一个例子是我们使用的一些主要语言的一组引物（primers）。虽然我们的风格指南是规定性的，规定了哪些语言特性是允许的，哪些是不允许的，但引物是描述性的，解释了指南认可的特性。他们的内容相当广泛，几乎涵盖了谷歌新使用该语言的工程师需要参考的所有主题。它们不会深入研究给定主题的每一个细节，但它们提供解释和推荐使用。当工程师需要弄清楚如何应用他们想要使用的功能时，引物的目的是作为指导参考。
+我们培养的指导库的一个例子是我们使用的一些主要语言的编写入门指南。虽然我们的风格指南是规范性的，规定了哪些语言特性是允许的，哪些是不允许的，而入门指南是描述性的，解释了指南认可的特性。他们的内容相当广泛，几乎涵盖了谷歌新使用该语言的工程师需要参考的所有主题。它们不会深入研究特定主题的每一个细节，但它们提供解释和推荐使用。当工程师需要弄清楚如何应用他们想要使用的功能时，入门指南的目的是作为指导参考。
 
 A few years ago, we began publishing a series of C++ tips that offered a mix of general language advice and Google-specific tips. We cover hard things—object lifetime, copy and move semantics, argument-dependent lookup; new things—C++ 11 features as they were adopted in the codebase, preadopted C++17 types like string_view, optional, and variant; and things that needed a gentle nudge of correction—reminders not to use using directives, warnings to remember to look out for implicit bool conversions. The tips grow out of actual problems encountered, addressing real programming issues that are not covered by the style guides. Their advice, unlike the rules in the style guide, are not true canon; they are still in the category of advice rather than rule. However, given the way they grow from observed patterns rather than abstract ideals, their broad and direct applicability set them apart from most other advice as a sort of “canon of the common.” Tips are narrowly focused and relatively short, each one no more than a few minutes’ read. This “Tip of the Week” series has been extremely successful internally, with frequent citations during code reviews and technical discussions.
 
-几年前，我们开始发布一系列C++技巧，其中包括通用语言建议和谷歌特有的技巧。我们涵盖了困难的事情——对象生命期、复制和移动语义、依赖于参数的查找;新事物- C++11特性，它们在代码库中被采用，预采用的 C++17 类型，如string_view, optional, 和 variant;还有一些东西需要温和的调整——提醒不要使用using指令，警告要记住寻找隐式布尔转换。这些技巧来源于所遇到的实际问题，解决了样式指南中没有涉及的实际编程问题。与风格指南中的规则不同，它们的建议并不是真正的经典;它们仍然属于建议而非规则的范畴。然而，考虑到它们是从观察到的模式而不是抽象的理想中发展出来的，它们广泛而直接的适用性使它们有别于大多数其他建议，成为一种“共同的经典”。这些小贴士的内容都比较狭隘，篇幅也相对较短，每一条都不超过几分钟的阅读时间。这个“每周技巧”系列在内部已经非常成功，在代码评审和技术讨论中经常被引用。
+几年前，我们开始发布一系列C++提示，其中包括通用语言建议和谷歌特有的提示。我们涵盖了困难的事情——对象生命期、复制和移动语义、依赖于参数的查找;新事物- C++11特性，它们在代码库中被采用，预采用的 C++17 类型，如string_view, optional, 和 variant;还有一些东西需要温和的调整——提醒不要使用using指令，警告要记住寻找隐式布尔转换。这些技巧来源于所遇到的实际问题，解决了样式指南中没有涉及的实际编程问题。与风格指南中的规则不同，它们的建议并不是真正的经典;它们仍然属于建议而非规则的范畴。然而，考虑到它们是从观察到的模式而不是抽象的理想中发展出来的，它们广泛而直接的适用性使它们有别于大多数其他建议，成为一种“共同的经典”。这些小贴士的内容都比较狭隘，篇幅也相对较短，每一条都不超过几分钟的阅读时间。这个“每周技巧”系列在内部已经非常成功，在代码评审和技术讨论中经常被引用。
 
 Software engineers come in to a new project or codebase with knowledge of the programming language they are going to be using, but lacking the knowledge of how the programming language is used within Google. To bridge this gap, we maintain a series of “<Language>@Google 101” courses for each of the primary programming languages in use. These full-day courses focus on what makes development with that language different in our codebase. They cover the most frequently used libraries and idioms, in-house preferences, and custom tool usage. For a C++ engineer who has just become a Google C++ engineer, the course fills in the missing pieces that make them not just a good engineer, but a good Google codebase engineer.
 
 软件工程师进入一个新的项目或代码库时，已经掌握了他们将要使用的编程语言的知识，但缺乏关于如何在 Google 中使用该编程语言的知识。为了弥补这一差距，我们为使用中的每一种主要编程语言设置了一系列的“<语言>@Google 101”课程。这些全日制课程侧重于在我们的代码库中使用该语言进行开发的不同之处。它们涵盖了最常用的库和习惯用法、内部首选项和自定义工具的使用。对于一个刚刚成为谷歌C++工程师的C++工程师，该课程填补了缺失的部分，使他们不仅是一名优秀的工程师，而且是一名优秀的 Google 代码库工程师。
 
 In addition to teaching courses that aim to get someone completely unfamiliar with our setup up and running quickly, we also cultivate ready references for engineers deep in the codebase to find the information that could help them on the go. These references vary in form and span the languages that we use. Some of the useful references that we maintain internally include the following:
-
-除了教授旨在让完全不熟悉我们的人快速运行的课程外，我们还为深入代码库的工程师培养现成的参考资料，以便在旅途中找到可以帮助他们的信息。这些参考资料的形式各不相同，并且跨越了我们使用的语言。我们内部维护的一些有用的参考资料包括：
-
 - Language-specific advice for the areas that are generally more difficult to get correct (such as concurrency and hashing).
 - Detailed breakdowns of new features that are introduced with a language update and advice on how to use them within the codebase.
 - Listings of key abstractions and data structures provided by our libraries. This keeps us from reinventing structures that already exist and provides a response to, “I need a thing, but I don’t know what it’s called in our libraries.”
 
+除了教授旨在让完全不熟悉我们的人快速运行的课程外，我们还为深入代码库的工程师培养现成的参考资料，以便在学习途中找到可以帮助他们的信息。这些参考资料的形式各不相同，并且跨越了我们使用的语言。我们内部维护的一些有用的参考资料包括：  
 - 针对通常很难正确处理的领域(如并发性和散列)提供特定语言的建议。
 - 语言更新中引入的新特性的详细分解，以及如何在代码库中使用它们的建议。
-- 我们库提供的关键抽象和数据结构列表。这阻止了我们重新创建已经存在的结构，并提供了对“我需要一个东西，但我不知道它在我们的库中被称为什么”的响应。
+- 我们库提供的关键抽象和数据结构列表。这阻止了我们重新创建已经存在的结构，并提供了对“我需要一个东西，但我不知道它在我们的库中叫什么”的回应。
 
 ## Applying the Rules  应用规则
 
 Rules, by their nature, lend greater value when they are enforceable. Rules can be enforced socially, through teaching and training, or technically, with tooling. We have various formal training courses at Google that cover many of the best practices that our rules require. We also invest resources in keeping our documentation up to date to ensure that reference material remains accurate and current. A key part of our overall training approach when it comes to awareness and understanding of our rules is the role that code reviews play. The readability process that we run here at Google —where engineers new to Google’s development environment for a given language are mentored through code reviews—is, to a great extent, about cultivating the habits and patterns required by our style guides (see details on the readability process in
 Chapter 3). The process is an important piece of how we ensure that these practices are learned and applied across project boundaries.
 
-就其本质而言，规则在可执行的情况下会带来更大的价值。规则可以通过教学和培训在社会上执行，也可以通过工具在技术上执行。我们在谷歌提供了各种正式的培训课程，涵盖了我们的规则所要求的许多最佳实践。我们还投入资源使我们的文档保持最新，以确保参考材料保持准确和不会过时。当涉及到对规则的了解和理解时，我们整体培训方法的一个关键部分是代码评审所扮演的角色。我们在谷歌运行的可读性过程——在这里，针对特定语言的谷歌开发环境的新工程师会通过代码审查来指导——在很大程度上是为了培养我们的风格指南所要求的习惯和模式(详见第3章可读性过程) 。这个过程是我们如何确保这些实践是跨项目边界学习和应用的重要部分。
+就其本质而言，规则在可执行的情况下会带来更大的价值。规则可以通过教学和培训在社会上执行，也可以在技术上通过工具来执行。我们在谷歌提供了各种正式的培训课程，涵盖了我们的规则所要求的许多最佳实践。我们还投入资源使我们的文档保持更新，以确保参考材料保持准确和最新。当涉及到对规则的了解和理解时，我们整体培训方法的一个关键部分是代码评审所扮演的角色。我们在谷歌运行的可读性过程——在这里，针对特定语言的谷歌开发环境的新工程师会通过代码审查来指导——在很大程度上是为了培养我们的风格指南所要求的习惯和模式(详见第3章可读性过程) 。这个过程是我们如何确保这些实践是跨项目边界学习和应用的重要部分。
 
- Although some level of training is always necessary—engineers must, after all, learn the rules so that they can write code that follows them—when it comes to checking for compliance, rather than exclusively depending on engineer-based verification, we strongly prefer to automate enforcement with tooling.
+Although some level of training is always necessary—engineers must, after all, learn the rules so that they can write code that follows them—when it comes to checking for compliance, rather than exclusively depending on engineer-based verification, we strongly prefer to automate enforcement with tooling.
 
-尽管一定程度的培训总是必要的——毕竟，工程师必须学习规则，这样他们才能编写遵循规则的代码——但在检查合规性时，我们强烈倾向于不完全依赖基于工程师的验证 使用工具自动执行。
+尽管一定程度的培训总是必要的——毕竟，工程师必须学习规则，这样他们才能编写遵循规则的代码——但在检查合规性时，我们强烈倾向于不完全依赖基于工程师的验证使用工具自动执行。
 
 Automated rule enforcement ensures that rules are not dropped or forgotten as time passes or as an organization scales up. New people join; they might not yet know all the rules. Rules change over time; even with good communication, not everyone will remember the current state of everything. Projects grow and add new features; rules that had previously not been relevant are suddenly applicable. An engineer checking for rule compliance depends on either memory or documentation, both of which can fail. As long as our tooling stays up to date, in sync with our rule changes, we know that our rules are being applied by all our engineers for all our projects.
 
-自动执行规则可确保随着时间的推移或组织规模的扩大，规则不会被丢弃或遗忘。新的人加入；他们可能还不知道所有的规则。规则会随着时间而改变;即使有良好的沟通，也不是每个人都能记住所有事情的当前状态。项目不断发展并添加新功能;以前不相关的规则突然适用了。检查规则合规性的工程师取决于内存或文档，这两者都可能失败。只要我们的工具保持最新，与我们的规则更改同步，我们就知道我们的规则被我们所有的工程师应用于我们所有的项目。
+自动执行规则可确保随着时间的推移或组织规模的扩大，规则不会被丢弃或遗忘。新的人加入；他们可能还不知道所有的规则。规则会随着时间而改变;即使有良好的沟通，也不是每个人都能记住所有事情的当前状态。项目不断发展并添加新功能;以前不相关的规则突然适用了。检查规则合规性的工程师取决于记忆或文档，这两者都可能失败。只要我们的工具保持更新，与我们的规则更改同步，我们就知道我们的规则被我们所有的工程师应用于我们所有的项目。
 
- Another advantage to automated enforcement is minimization of the variance in how a rule is interpreted and applied. When we write a script or use a tool to check for compliance, we validate all inputs against a single, unchanging definition of the rule. We aren’t leaving interpretation up to each individual engineer. Human engineers view everything with a perspective colored by their biases. Unconscious or not, potentially subtle, and even possibly harmless, biases still change the way people view things. Leaving enforcement up to engineers is likely to see inconsistent interpretation and application of the rules, potentially with inconsistent expectations of accountability. The more that we delegate to the tools, the fewer entry points we leave for human biases to enter.
+Another advantage to automated enforcement is minimization of the variance in how a rule is interpreted and applied. When we write a script or use a tool to check for compliance, we validate all inputs against a single, unchanging definition of the rule. We aren’t leaving interpretation up to each individual engineer. Human engineers view everything with a perspective colored by their biases. Unconscious or not, potentially subtle, and even possibly harmless, biases still change the way people view things. Leaving enforcement up to engineers is likely to see inconsistent interpretation and application of the rules, potentially with inconsistent expectations of accountability. The more that we delegate to the tools, the fewer entry points we leave for human biases to enter.
 
-自动化实施的另一个优点是将解释和应用规则的差异最小化。当我们编写脚本或使用工具检查合规性时，我们会根据一个单一的、不变的规则定义来验证所有输入。我们不会将解释留给每个单独的工程师。人类工程师以带有偏见色彩的视角看待一切。无论是否是无意识的，潜在的微妙的，甚至可能是无害的，偏见仍然会改变人们看待事物的方式。如果让工程师来执行这些规则，可能会导致对规则的解释和应用不一致，对责任的期望也可能不一致。我们授权给工具的越多，留给人类偏见进入的入口就越少。
+自动执行的另一个优点是最大限度地减少了规则解释和应用的差异性。当我们编写脚本或使用工具检查合规性时，我们会根据一个单一的、不变的规则定义来验证所有输入。我们不会将解释留给每个单独的工程师。人类工程师以带有偏见的视角看待一切。无论是否是无意识的，潜在的微妙的，甚至可能是无害的，偏见仍然会改变人们看待事物的方式。如果让工程师来执行这些规则，可能会导致对规则的解释和应用不一致，对责任的期望也可能不一致。我们授权给工具的越多，留给人类偏见进入的入口就越少。
 
 Tooling also makes enforcement scalable. As an organization grows, a single team of experts can write tools that the rest of the company can use. If the company doubles in size, the effort to enforce all rules across the entire organization doesn’t double, it costs about the same as it did before.
 
@@ -451,17 +449,17 @@ Even with the advantages we get by incorporating tooling, it might not be possib
 
 Other rules are social rather than technical, and it is often unwise to solve social problems with a technical solution. For many of the rules that fall under this category, the details tend to be a bit less well defined and tooling would become complex and expensive. It’s often better to leave enforcement of those rules to humans. For example, when it comes to the size of a given code change (i.e., the number of files affected and lines modified) we recommend that engineers favor smaller changes. Small changes are easier for engineers to review, so reviews tend to be faster and more thorough. They’re also less likely to introduce bugs because it’s easier to reason about the potential impact and effects of a smaller change. The definition of small, however, is somewhat nebulous. A change that propagates the identical one-line update across hundreds of files might actually be easy to review. By contrast, a smaller, 20-line change might introduce complex logic with side effects that are difficult to evaluate. We recognize that there are many different measurements of size, some of which may be subjective—particularly when taking the complexity of a change into account. This is why we do not have any tooling to autoreject a proposed change that exceeds an arbitrary line limit. Reviewers can (and do) push back if they judge a change to be too large. For this and similar rules, enforcement is up to the discretion of the engineers authoring and reviewing the code. When it comes to technical rules, however, whenever it is feasible, we favor technical enforcement.
 
-其他规则是社会性的而不是技术性的，用技术性的解决方案来解决社会性问题通常是不明智的。对于这个类别下的许多规则，细节往往不太明确，工具将变得复杂且昂贵。将这些规则的执行留给人类通常会更好。例如，当涉及到给定代码更改的大小（即受影响的文件数和修改的行数）时，我们建议工程师倾向于较小的更改。对于工程师来说，小的变更更容易审核，所以审核往往更快、更可靠。它们也不太可能引入bug，因为更容易推断出较小更改的潜在影响和效果。然而，“小”的定义有些模糊。将相同的单行更新传播到数百个文件的更改实际上可能很容易检查。相比之下，一个较小的20行修改可能会引入复杂的逻辑，并产生难以评估的副作用。我们认识到有许多不同的衡量尺度，其中一些可能是主观的——特别是当考虑到变化的复杂性时。这就是为什么我们没有任何工具来自动拒绝超过任意行限制的建议更改。如果审阅者认为更改过大，他们可以(而且确实会)推回。对于这种规则和类似的规则，执行由编写和审查代码的工程师自行决定。然而，当涉及到技术规则时，只要是可行的，我们倾向于技术执行。
+其他规则是社会性的而不是技术性的，用技术性的解决方案来解决社会性问题通常是不明智的。对于这个类别下的许多规则，细节往往不太明确，工具将变得复杂且昂贵。将这些规则的执行留给人类通常会更好。例如，当涉及到给定代码更改的大小（即受影响的文件数和修改的行数）时，我们建议工程师倾向于较小的更改。对于工程师来说，小的变更更容易审核，所以审核往往更快、更可靠。它们也不太可能引入bug，因为更容易推断出较小更改的潜在影响和效果。然而，“小”的定义有些模糊。一个在数百个文件中传播相同的单行更新的变化实际上可能很容易审查。相比之下，一个较小的20行修改可能会引入复杂的逻辑，并产生难以评估的副作用。我们认识到有许多不同的衡量尺度，其中一些可能是主观的——特别是当考虑到变化的复杂性时。这就是为什么我们没有任何工具来自动拒绝超过任意行限制的建议更改。如果审阅者认为更改过大，他们可以(而且确实会)推回。对于这种规则和类似的规则，执行由编写和审查代码的工程师自行决定。然而，当涉及到技术规则时，只要是可行的，我们倾向于技术执行。
 
 ### Error Checkers  错误检查器
 
 Many rules covering language usage can be enforced with static analysis tools. In fact, an informal survey of the C++ style guide by some of our C++ librarians in mid-2018 estimated that roughly 90% of its rules could be automatically verified. Error- checking tools take a set of rules or patterns and verify that a given code sample fully complies. Automated verification removes the burden of remembering all applicable rules from the code author. If an engineer only needs to look for violation warnings— many of which come with suggested fixes—surfaced during code review by an analyzer that has been tightly integrated into the development workflow, we minimize the effort that it takes to comply with the rules. When we began using tools to flag deprecated functions based on source tagging, surfacing both the warning and the suggested fix in-place, the problem of having new usages of deprecated APIs disappeared almost overnight. Keeping the cost of compliance down makes it more likely for engineers to happily follow through.
 
-许多涉及语言使用的规则可以通过静态分析工具强制执行。事实上，我们的一些C++图书管理员在2018年年中对C++风格指南进行的一项非正式调查估计，其中大约90%的规则可以自动验证。错误检查工具采用一组规则或模式，并验证给定的代码示例是否完全符合。自动验证消除了代码作者记住所有适用规则的负担。如果工程师只需要查找违规警告——其中许多都带有建议的修复——在代码审查期间由已紧密集成到开发工作流中的分析器发现的，我们将尽可能减少遵守规则所需要的工作量。当我们开始使用工具基于源标签来标记已弃用的函数时，警告和建议的就都会同时给出，新使用已弃用 API 的问题几乎在一夜之间消失了。降低合规成本使工程师更有可能愉快地贯彻执行。
+许多涉及语言使用的规则可以通过静态分析工具强制执行。事实上，我们的一些C++类库管理员在2018年年中对C++风格指南进行的一项非正式调查估计，其中大约90%的规则可以自动验证。错误检查工具采用一组规则或模式，并验证给定的代码示例是否完全符合。自动验证消除了代码作者记住所有适用规则的负担。如果工程师只需要查找违规警告——其中许多都带有建议的修复——在代码审查期间由已紧密集成到开发工作流中的分析器发现的，我们将尽可能减少遵守规则所需要的工作量。当我们开始使用工具基于源标签来标记已弃用的函数时，警告和建议的就都会同时给出，新使用已弃用 API 的问题几乎在一夜之间消失了。降低合规成本使工程师更有可能愉快地贯彻执行。
 
 We use tools like clang-tidy (for C++) and Error Prone (for Java) to automate the process of enforcing rules. See Chapter 20 for an in-depth discussion of our approach.
 
-我们使用像clang-tidy(用于c++)和Error Prone(用于Java)这样的工具来自动化执行规则的过程。有关我们方法的深入讨论，请参见第 20 章。
+我们使用像clang-tidy(用于C++)和Error Prone(用于Java)这样的工具来自动化执行规则的过程。有关我们方法的深入讨论，请参见第 20 章。
 
 The tools we use are designed and tailored to support the rules that we define. Most tools in support of rules are absolutes; everybody must comply with the rules, so everybody uses the tools that check them. Sometimes, when tools support best practi‐ces where there’s a bit more flexibility in conforming to the conventions, there are opt-out mechanisms to allow projects to adjust for their needs.
 
@@ -475,11 +473,11 @@ At Google, we generally use automated style checkers and formatters to enforce c
 
 In managing the largest codebase ever, we’ve had the opportunity to observe the results of formatting done by humans versus formatting done by automated tooling. The robots are better on average than the humans by a significant amount. There are some places where domain expertise matters—formatting a matrix, for example, is something a human can usually do better than a general-purpose formatter. Failing that, formatting code with an automated style checker rarely goes wrong.
 
-在管理有史以来最大的代码库时，我们有机会观察人工格式化和自动化工具格式化的结果。平均而言，机器人比人类好很多。在某些地方，领域专业知识很重要——例如，格式化矩阵，人类通常可以比通用格式化程序做得更好。如果做不到这一点，用自动样式检查器格式化代码很少出错。
+在管理有史以来最大的代码库时，我们有机会观察人工格式化和自动化工具格式化的结果。平均而言，机器人比人类好很多。在某些地方，领域专业知识很重要——例如，格式化矩阵，人工通常可以比通用格式化程序做得更好。如果做不到这一点，用自动样式检查器格式化代码很少出错。
 
 We enforce use of these formatters with presubmit checks: before code can be submitted, a service checks whether running the formatter on the code produces any diffs. If it does, the submit is rejected with instructions on how to run the formatter to fix the code. Most code at Google is subject to such a presubmit check. For our code, we use clang-format for C++; an in-house wrapper around yapf for Python; gofmt for Go; dartfmt for Dart; and buildifier for our BUILD files.
 
-我们通过提交前检查强制使用这些格式化程序:在提交代码之前，服务会检查在代码上运行格式化器是否会产生任何差异。如果是，提交将被拒绝，并提供有关如何运行格式化程序以修复代码的说明。谷歌上的大多数代码都要接受这种预提交检查。在我们的代码中，C++使用了clang-format;Python使用yapf内部包装器;Go使用gofmt; Dart 使用 dartfmt;以及我们的 BUILD 文件使用buildifier。
+我们通过预提交检查强制使用这些格式化程序:在提交代码之前，服务会检查在代码上运行格式化器是否会产生任何差异。如果是，提交将被拒绝，并提供有关如何运行格式化程序以修复代码的说明。谷歌上的大多数代码都要接受这种预提交检查。在我们的代码中，C++使用了clang-format;Python使用yapf内部包装器;Go使用gofmt; Dart 使用 dartfmt;以及我们的 BUILD 文件使用buildifier。
 
 ---
 
@@ -497,9 +495,7 @@ We knew that we needed a standard format for Go code from day one. We also knew 
 
 我们从一开始就知道我们需要一个Go代码的标准格式。我们也知道，在开源版本发布后，几乎不可能改造标准格式。因此，最初的Go版本包括gofmt，这是Go的标准格式工具。
 
-**Motivations**
-
-**动机**
+**Motivations**  **动机**
 
 Code reviews are a software engineering best practice, yet too much time was spent in review arguing over formatting. Although a standard format wouldn’t be everyone’s favorite, it would be good enough to eliminate this wasted time.
 
@@ -513,9 +509,7 @@ For example, in the months leading up to Go 1.0 in 2012, the Go team used a tool
 
 例如，在2012年Go 1.0的前几个月，Go 团队使用了一个名为 gofix 的工具来自动将 1.0 之前的 Go 代码更新到语言和库的稳定版本。多亏了gofmt, gofix 产生的差异只包括重要的部分：语言和 API 使用的更改。 这使程序员可以更轻松地查看更改并从工具所做的更改中学习。
 
-**Impact**
-
-**影响**
+**Impact**   **影响**
 
 Go programmers expect that all Go code is formatted with gofmt. gofmt has no configuration knobs, and its behavior rarely changes. All major editors and IDEs use gofmt or emulate its behavior, so nearly all Go code in existence is formatted identically. At first, Go users complained about the enforced standard; now, users often cite gofmt as one of the many reasons they like Go. Even when reading unfamiliar Go code, the format is familiar.
 
@@ -551,7 +545,7 @@ For any organization, but especially for an organization as large as Google’s 
 - Consistency is key.
 - Automate enforcement when possible.
 
-- 规则和指导应旨在支持对时间和规模的弹性。
+- 规则和指导应旨在支持对时间和规模的扩展性。
 - 了解数据，以便调整规则。
 - 并非所有事情都应该成为规则。
 - 一致性是关键。
