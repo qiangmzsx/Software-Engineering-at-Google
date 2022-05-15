@@ -33,7 +33,7 @@ Some of the benefits of code review, such as detecting bugs in code before they 
 
 Code reviews can happen at many stages of software development. At Google, code reviews take place before a change can be committed to the codebase; this stage is also known as a *precommit review*. The primary end goal of a code review is to get another engineer to consent to the change, which we denote by tagging the change as “looks good to me” (LGTM). We use this LGTM as a necessary permissions “bit” (combined with other bits noted below) to allow the change to be committed.
 
-代码评审可以发生在软件开发的许多阶段。在谷歌，代码评审是在更改提交到代码库之前进行的；这一阶段也称为委员会前审查。代码评审的主要最终目标是让另一位工程师同意变更，我们通过将变更标记为“我觉得不错”（LGTM）来表示。我们将此LGTM用作必要的权限“标识”（与下面提到的其他标识结合使用），以允许提交更改。
+代码评审可以发生在软件开发的多个阶段。在谷歌，代码评审是在更改提交到代码库之前进行的；这个阶段也被称为*预提交审查*。代码评审的主要最终目标是让另一位工程师同意变更，我们通过将变更标记为“我觉得不错”（LGTM）来表示。我们将此LGTM用作必要的权限“标识”（与下面提到的其他标识结合使用），以允许提交更改。
 
 A typical code review at Google goes through the following steps:
 1. A user writes a change to the codebase in their workspace. This *author* then creates a snapshot of the change: a patch and corresponding description that are uploaded to the code review tool. This change produces a *diff* against the codebase, which is used to evaluate what code has changed.
@@ -41,13 +41,13 @@ A typical code review at Google goes through the following steps:
 3. *Reviewers* open the change in the code review tool and post comments on the diff. Some comments request explicit resolution. Some are merely informational.
 4. The author modifies the change and uploads new snapshots based on the feedback and then replies back to the reviewers. Steps 3 and 4 may be repeated multiple times.
 5. After the reviewers are happy with the latest state of the change, they agree to the change and accept it by marking it as “looks good to me” (LGTM). Only one LGTM is required by default, although convention might request that all reviewers agree to the change.
-6. After a change is marked LGTM, the author is allowed to commit the change to the codebase, provided they *resolve* *all* *comments* and that the change is *approved*. We’ll cover approval in the next section.
+6. After a change is marked LGTM, the author is allowed to commit the change to the codebase, provided they *resolve all comments* and that the change is *approved*. We’ll cover approval in the next section.
 
 谷歌的典型代码审查过程如下：
-1. 用户在其工作区的代码库中写入一个改动。然后作者创建变更的快照：一个补丁和相应的描述，上传到代码审查工具。此更改会产生与代码库的*差异*，用于评估已更改的代码。
-2. 作者可以使用此初始补丁应用自动审查注释或进行自我审查。当作者对变更的差异感到满意时，他们会将变更邮寄给一个或多个审查者。此过程通知这些审查者，要求他们查看快照并对其进行评论。
-3. *审查者*在代码审阅工具中打开更改，并在一些评论要求明确的解决方案。有些仅仅信息性的。
-4. 作者修改更改并根据反馈上传新快照，然后回复给审查者。步骤3和4可重复多次。
+1. 用户在其工作区的代码库中写入一个变更。然后作者创建变更的快照：一个补丁和相应的描述，上传到代码审查工具。此更改会产生与代码库的*差异*，用于评估已更改的代码。
+2. 作者可以使用此初始补丁应用自动审查评论或进行自我审查。当作者对变更的差异感到满意时，他们会将变更邮寄给一个或多个审查者。此过程通知这些审查者，要求他们查看快照并对其进行评论。
+3. *审查者*在代码审阅工具中打开更改，并在差异上发表评论。有些评论要求明确的解决。有些仅仅是信息性的。
+4. 作者根据反馈意见修改修改，并上传新的快照，然后回复给审查者。步骤3和4可重复多次。
 5. 在审查员对变更的最新状态感到满意后，他们同意变更，并通过将其标记为“我觉得不错”（LGTM）来接受变更。默认情况下，只需要一个LGTM，尽管惯例可能要求所有审核人同意变更。
 6. 在更改被标记为LGTM之后，作者可以将更改提交到代码库，前提是他们*解决*所有*评论*，并且该变更被*批准*。我们将在下一节中讨论批准问题。
 
@@ -65,11 +65,11 @@ It’s important to remember (and accept) that code itself is a liability. It mi
 
 New features are often necessary, of course, but care should be taken before developing code in the first place to ensure that any new feature is warranted. Duplicated code not only is a wasted effort, it can actually cost more in time than not having the code at all; changes that could be easily performed under one code pattern often require more effort when there is duplication in the codebase. Writing entirely new code is so frowned upon that some of us have a saying: “If you’re writing it from scratch, you’re doing it wrong!”
 
-当然，新特性通常是必要的，但在开发代码之前，首先要注意确保任何新特性都是有必要的。重复的代码不仅是一种浪费，而且实际上比根本没有代码要花费更多的时间；当代码库中存在重复时，可以在一个代码模式下轻松执行的更改通常需要更多的工作。编写全新的代码是如此令人不快，以至于我们中的一些人都有这样一句话：“如果你是从头开始写的，那你就是做错了！”
+当然，新特性通常是必需的，但在开发代码之前，首先要注意确保任何新特性都是有必要的。重复的代码不仅是一种浪费，而且实际上比根本没有代码要花费更多的时间；当代码库中存在重复时，可以在一个代码模式下轻松执行的更改通常需要更多的工作。编写全新的代码是如此令人不快，以至于我们中的一些人都有这样一句话：“如果你是从头开始写的，那你就是做错了！”
 
 This is especially true of library or utility code. Chances are, if you are writing a utility, someone else somewhere in a codebase the size of Google’s has probably done something similar. Tools such as those discussed in [Chapter 17 ](#_bookmark1485)are therefore critical for both finding such utility code and preventing the introduction of duplicate code. Ideally, this research is done beforehand, and a design for anything new has been communicated to the proper groups before any new code is written.
 
-这对于库或实用程序代码来说尤其如此。有可能，如果你正在写一个实用程序，那么在像Google那样大的代码库中，其他人可能已经做了类似的事情。因此，像那些在第17章中讨论的工具对于找到这些实用程序代码和防止引入重复的代码都是至关重要的。理想情况下，这种研究是事先完成的，在编写任何新的代码之前，任何新的设计都已经传达给适当的小组。
+这对于类库或实用程序代码来说尤其如此。有可能，如果你正在写一个实用程序，那么在像Google那样大的代码库中，其他人可能已经做了类似的事情。因此，像那些在第17章中讨论的工具对于找到这些实用程序代码和防止引入重复的代码都是至关重要的。理想情况下，这种研究是事先完成的，在编写任何新的代码之前，任何新的设计都已经传达给合适的小组。
 
 Of course, new projects happen, new techniques are introduced, new components are needed, and so on. All that said, a code review is not an occasion to rehash or debate previous design decisions. Design decisions often take time, requiring the circulation of design proposals, debate on the design in API reviews or similar meetings, and perhaps the development of prototypes. As much as a code review of entirely new code should not come out of the blue, the code review process itself should also not be viewed as an opportunity to revisit previous decisions.
 
