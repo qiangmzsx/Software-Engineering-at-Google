@@ -10,16 +10,23 @@
 
 Code review is a process in which code is reviewed by someone other than the author, often before the introduction of that code into a codebase. Although that is a simple definition, implementations of the process of code review vary widely throughout the software industry. Some organizations have a select group of “gatekeepers” across the codebase that review changes. Others delegate code review processes to smaller teams, allowing different teams to require different levels of code review. At Google, essentially every change is reviewed before being committed, and every engineer is responsible for initiating reviews and reviewing changes.
 
-
+代码审查是一个由作者以外的人对代码进行审查的过程，通常在将该代码引入代码库之前。尽管这是一个简单的定义，但在整个软件行业中，代码审查过程的实施有很大不同。一些组织在代码库中拥有一组挑选出来的 "守门人 "来审查修改。其他人将代码审查过程委托给这个小团队，允许不同的团队要求不同级别的代码审查。在谷歌，基本上每一个改动在提交之前都会被审查，每个工程师都负责启动审查和审查变更。
 
 Code reviews generally require a combination of a process and a tool supporting that process. At Google, we use a custom code review tool, Critique, to support our process.1 Critique is an important enough tool at Google to warrant its own chapter in this book. This chapter focuses on the process of code review as it is practiced at Google rather than the specific tool, both because these foundations are older than the tool and because most of these insights can be adapted to whatever tool you might use for code review.
 
+代码审查通常需要一个流程和一个支持该流程的工具的组合。在Google，我们使用一个定制的代码审查工具Critique来支持我们的流程。 Critique在Google是一个非常重要的工具，足以让它在本书中占有一章。本章重点介绍Google实施的代码审查流程，而不是具体的工具，这是因为这些基础比工具更古老，而且这些见解大多可以适应你可能用于代码审查的任何工具。
+
 Some of the benefits of code review, such as detecting bugs in code before they enter a codebase, are well established[2](#_bookmark672) and somewhat obvious (if imprecisely measured). Other benefits, however, are more subtle. Because the code review process at Google is so ubiquitous and extensive, we’ve noticed many of these more subtle effects, including psychological ones, which provide many benefits to an organization over time and scale.
+
+代码审查的一些好处，例如在代码进入代码库之前检测到代码中的错误，已经得到了很好的证实，而且有点明显（如果测量不精确的话）。然而，其他的好处则更为微妙。由于谷歌的代码审查过程是如此的普遍和广泛，我们已经注意到了许多这些更微妙的影响，包括心理上的影响，随着时间的推移和规模的扩大，会给一个组织带来许多好处。
 
 ```
 1	We also use Gerrit to review Git code, primarily for our open source projects. However, Critique is the primary tool of a typical software engineer at Google.
 2 Steve McConnell, Code Complete (Redmond: Microsoft Press, 2004).
 
+
+1 我们也使用Gerrit来审查Git代码，主要用于我们的开源项目。然而，Critique是谷歌公司典型的软件工程师的主要工具。
+2 史蒂夫·麦康奈尔, Code Complete (雷蒙德：微软出版社，2004年).
 ```
 
 ## Code Review Flow  代码审查流程
@@ -29,32 +36,20 @@ Code reviews can happen at many stages of software development. At Google, code 
 代码评审可以发生在软件开发的许多阶段。在谷歌，代码评审是在更改提交到代码库之前进行的；这一阶段也称为委员会前审查。代码评审的主要最终目标是让另一位工程师同意变更，我们通过将变更标记为“我觉得不错”（LGTM）来表示。我们将此LGTM用作必要的权限“标识”（与下面提到的其他标识结合使用），以允许提交更改。
 
 A typical code review at Google goes through the following steps:
-
-1.   A user writes a change to the codebase in their workspace. This *author* then creates a snapshot of the change: a patch and corresponding description that are uploaded to the code review tool. This change produces a *diff* against the codebase, which is used to evaluate what code has changed.
-
-2.   The author can use this initial patch to apply automated review comments or do self-review. When the author is satisfied with the diff of the change, they mail the change to one or more reviewers. This process notifies those reviewers, asking them to view and comment on the snapshot.
-
-3.   *Reviewers* open the change in the code review tool and post comments on the diff. Some comments request explicit resolution. Some are merely informational.
-
-4.   The author modifies the change and uploads new snapshots based on the feedback and then replies back to the reviewers. Steps 3 and 4 may be repeated multiple times.
-
-5.   After the reviewers are happy with the latest state of the change, they agree to the change and accept it by marking it as “looks good to me” (LGTM). Only one LGTM is required by default, although convention might request that all reviewers agree to the change.
-
-6.   After a change is marked LGTM, the author is allowed to commit the change to the codebase, provided they *resolve* *all* *comments* and that the change is *approved*. We’ll cover approval in the next section.
+1. A user writes a change to the codebase in their workspace. This *author* then creates a snapshot of the change: a patch and corresponding description that are uploaded to the code review tool. This change produces a *diff* against the codebase, which is used to evaluate what code has changed.
+2. The author can use this initial patch to apply automated review comments or do self-review. When the author is satisfied with the diff of the change, they mail the change to one or more reviewers. This process notifies those reviewers, asking them to view and comment on the snapshot.
+3. *Reviewers* open the change in the code review tool and post comments on the diff. Some comments request explicit resolution. Some are merely informational.
+4. The author modifies the change and uploads new snapshots based on the feedback and then replies back to the reviewers. Steps 3 and 4 may be repeated multiple times.
+5. After the reviewers are happy with the latest state of the change, they agree to the change and accept it by marking it as “looks good to me” (LGTM). Only one LGTM is required by default, although convention might request that all reviewers agree to the change.
+6. After a change is marked LGTM, the author is allowed to commit the change to the codebase, provided they *resolve* *all* *comments* and that the change is *approved*. We’ll cover approval in the next section.
 
 谷歌的典型代码审查过程如下：
-
-1.   用户在其工作区的代码库中写入一个改动。然后作者创建变更的快照：一个补丁和相应的描述，上传到代码审查工具。此更改会产生与代码库的*差异*，用于评估已更改的代码。
-
-2.   作者可以使用此初始补丁应用自动审查注释或进行自我审查。当作者对变更的差异感到满意时，他们会将变更邮寄给一个或多个审查者。此过程通知这些审查者，要求他们查看快照并对其进行评论。
-
-3.   *审查者*在代码审阅工具中打开更改，并在一些评论要求明确的解决方案。有些仅仅信息性的。
-
-4.   作者修改更改并根据反馈上传新快照，然后回复给审查者。步骤3和4可重复多次。
-
-5.   在审查员对变更的最新状态感到满意后，他们同意变更，并通过将其标记为“我觉得不错”（LGTM）来接受变更。默认情况下，只需要一个LGTM，尽管惯例可能要求所有审核人同意变更。
-
-6.   在更改被标记为LGTM之后，作者可以将更改提交到代码库，前提是他们*解决*所有*评论*，并且该变更被*批准*。我们将在下一节中讨论批准问题。
+1. 用户在其工作区的代码库中写入一个改动。然后作者创建变更的快照：一个补丁和相应的描述，上传到代码审查工具。此更改会产生与代码库的*差异*，用于评估已更改的代码。
+2. 作者可以使用此初始补丁应用自动审查注释或进行自我审查。当作者对变更的差异感到满意时，他们会将变更邮寄给一个或多个审查者。此过程通知这些审查者，要求他们查看快照并对其进行评论。
+3. *审查者*在代码审阅工具中打开更改，并在一些评论要求明确的解决方案。有些仅仅信息性的。
+4. 作者修改更改并根据反馈上传新快照，然后回复给审查者。步骤3和4可重复多次。
+5. 在审查员对变更的最新状态感到满意后，他们同意变更，并通过将其标记为“我觉得不错”（LGTM）来接受变更。默认情况下，只需要一个LGTM，尽管惯例可能要求所有审核人同意变更。
+6. 在更改被标记为LGTM之后，作者可以将更改提交到代码库，前提是他们*解决*所有*评论*，并且该变更被*批准*。我们将在下一节中讨论批准问题。
 
 We’ll go over this process in more detail later in this chapter.
 
