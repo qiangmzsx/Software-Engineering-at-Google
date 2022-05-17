@@ -406,7 +406,8 @@ All code reviews are not alike! Different types of code review require different
 - Bug fixes and rollbacks
 - Refactorings and large-scale changes
 
- 所有的代码审查都是不一样的! 不同类型的代码审查需要对审查过程中的各个环节进行不同程度的关注。在谷歌，代码变更一般都属于以下几种情况（尽管有时会有重叠）。
+所有的代码审查都是不一样的! 不同类型的代码审查需要对审查过程中的各个环节进行不同程度的关注。在谷歌，代码变更一般都属于以下几种情况（尽管有时会有重叠）：
+
 - 绿地审查和新功能开发
 - 行为更改、改进和优化
 - bug修复和回滚
@@ -426,7 +427,7 @@ To ensure that code is sustainable, a greenfield review should ensure that an AP
 
 Most changes at Google generally fall into the broad category of modifications to existing code within the codebase. These additions may include modifications to API endpoints, improvements to existing implementations, or optimizations for other factors such as performance. Such changes are the bread and butter of most software engineers.
 
-谷歌的大多数更改一般都属于对代码库内现有代码进行更改的大类。这些新增内容可能包括对API端点的更改，对现有实现的改进，或对其他因素的优化，如性能。这类更改是大多数软件工程师的生计。
+谷歌的大多数更改一般都属于对代码库内现有代码进行更改的类型。这些新增内容可能包括对API端点的更改，对现有实现的改进，或对其他因素的优化，如性能。这类更改是大多数软件工程师的日常。
 
 In each of these cases, the guidelines that apply to a greenfield review also apply: is this change necessary, and does this change improve the codebase? Some of the best modifications to a codebase are actually deletions! Getting rid of dead or obsolete code is one of the best ways to improve the overall code health of a codebase.
 
@@ -444,7 +445,7 @@ Inevitably, you will need to submit a change for a bug fix to your codebase. *Wh
 
 Addressing the bug with a revised test is often necessary. The bug surfaced because existing tests were either inadequate, or the code had certain assumptions that were not met. As a reviewer of a bug fix, it is important to ask for updates to unit tests if applicable.
 
-用修改后的测试来解决这个bug往往是必要的。这个bug的出现是因为现有的测试不充分，或者代码中的某些假设没有被满足。作为一个bug修复的审查者，如果适用的话，要求更新单元测试是很重要的。
+用修改后的测试来解决这个bug往往是必要的。这个bug的出现是因为现有的测试不充分，或者代码中的某些假设没有被满足。作为一个bug修复的审查员，如果适用的话，要求更新单元测试是很重要的。
 
 Sometimes, a code change in a codebase as large as Google’s causes some dependency to fail that was either not detected properly by tests or that unearths an untested part of the codebase. In those cases, Google allows such changes to be “rolled back,” usually by the affected downstream customers. A rollback consists of a change that essentially undoes the previous change. Such rollbacks can be created in seconds because they just revert the previous change to a known state, but they still require a code review.
 
@@ -477,15 +478,10 @@ Code review is one of the most important and critical processes at Google. Code 
 ## TL;DRs  内容提要
 
 - Code review has many benefits, including ensuring code correctness, comprehension, and consistency across a codebase.
-
 - Always check your assumptions through someone else; optimize for the reader.
-
 - Provide the opportunity for critical feedback while remaining professional.
-
 - Code review is important for knowledge sharing throughout an organization.
-
 - Automation is critical for scaling the process.
-
 - The code review itself provides a historical record.
 
 - 代码审查有很多好处，包括确保代码的正确性、理解性和整个代码库的一致性。
