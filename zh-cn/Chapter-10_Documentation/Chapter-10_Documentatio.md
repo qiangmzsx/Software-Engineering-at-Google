@@ -185,11 +185,13 @@ Good documentation need not be polished or “perfect.” One mistake engineers 
 
 ### Types of Audiences 受众类型
 We’ve pointed out that you should write at the skill level and domain knowledge appropriate for your audience. But who precisely is your audience? Chances are, you have multiple audiences based on one or more of the following criteria:
-•	Experience level (expert programmers, or junior engineers who might not even be familiar—gulp!—with the language).
-•	Domain knowledge (team members, or other engineers in your organization who are familiar only with API endpoints).
-•	Purpose (end users who might need your API to do a specific task and need to find that information quickly, or software gurus who are responsible for the guts of a particularly hairy implementation that you hope no one else needs to maintain).
 
-我们已经指出，你应该按照适合你的受众的技能水平和领域知识来写作。但究竟谁是你的听众？根据以下一个或多个标准，你可能拥有多个受众：
+- Experience level (expert programmers, or junior engineers who might not even be familiar—gulp!—with the language).
+- Domain knowledge (team members, or other engineers in your organization who are familiar only with API endpoints).
+- Purpose (end users who might need your API to do a specific task and need to find that information quickly, or software gurus who are responsible for the guts of a particularly hairy implementation that you hope no one else needs to maintain).
+
+我们已经指出，你应该按照适合你的受众的技能水平和领域知识来写作。但究竟谁是你的受众？根据以下一个或多个标准，你可能拥有多个受众：
+
 - 经验水平（专家级程序员，或者甚至可能不熟悉语言的初级工程师）。
 - 领域知识（团队成员或组织中只熟悉API端点的其他工程师）。
 - 目的（可能需要你的API来完成特定任务并需要快速找到该信息的最终用户，或负责你希望没有其他人需要维护的特别复杂的实现的核心的软件专家）。
@@ -203,16 +205,18 @@ Obviously, writing such documents is a balancing act and there’s no silver bul
 显然，编写这样的文档是一种平衡行为，没有什么灵丹妙药，但我们发现，它有助于保持文档的简短。写下足够的描述，向不熟悉该主题的人解释复杂的主题，但不要失去或惹恼专家。编写一个简短的文档通常需要你编写一个较长的文档（将所有信息记录下来），然后进行编辑，尽可能删除重复的信息。这听起来可能很乏味，但请记住，这项费用会分摊到文档的所有读者身上。正如布莱斯·帕斯卡（Blaise Pascal）曾经说过的那样，“如果我有更多的时间，我会给你写一封更短的信。”通过保持文档的简短和清晰，你将确保它能让专家和新手都满意。
 
 Another important audience distinction is based on how a user encounters a document:
-•	Seekers are engineers who know what they want and want to know if what they are looking at fits the bill. A key pedagogical device for this audience is consistency. If you are writing reference documentation for this group—within a code file, for example—you will want to have your comments follow a similar format so that readers can quickly scan a reference and see whether they find what they are looking for.
-•	Stumblers might not know exactly what they want. They might have only a vague idea of how to implement what they are working with. The key for this audience is clarity. Provide overviews or introductions (at the top of a file, for example) that explain the purpose of the code they are looking at. It’s also useful to identify when a doc is not appropriate for an audience. A lot of documents at Google begin with a “TL;DR statement” such as “TL;DR: if you are not interested in C++ compilers at Google, you can stop reading now.”
 
-另一个重要的受众区分是基于用户如何使用文档。
-- 寻求者，工程师知道他们想要什么，并且想知道他们所看到的是否符合要求。对于这些听众来说，一个关键的教学手段是一致性。如果你为这一群体写参考文献—例如，你希望注释遵循类似的格式，以便受众可以快速扫描引用并查看是否找到所需内容。
+- Seekers are engineers who know what they want and want to know if what they are looking at fits the bill. A key pedagogical device for this audience is consistency. If you are writing reference documentation for this group—within a code file, for example—you will want to have your comments follow a similar format so that readers can quickly scan a reference and see whether they find what they are looking for.
+- Stumblers might not know exactly what they want. They might have only a vague idea of how to implement what they are working with. The key for this audience is clarity. Provide overviews or introductions (at the top of a file, for example) that explain the purpose of the code they are looking at. It’s also useful to identify when a doc is not appropriate for an audience. A lot of documents at Google begin with a “TL;DR statement” such as “TL;DR: if you are not interested in C++ compilers at Google, you can stop reading now.”
+
+另一个重要的受众区分是基于用户如何使用文档：
+
+- 寻求者，工程师知道他们想要什么，并且想知道他们所看到的是否符合要求。对于这些听众来说，一个关键的教学手段是一致性。如果你为这一群体写参考文献——在一个代码文件内，例如——你希望注释遵循类似的格式，以便受众可以快速扫描引用并查看是否找到所需内容。
 - 浏览者，可能不知道他们到底想要什么。他们可能对如何实施他们正在使用的东西只有一个模糊的概念。这类读者的关键是清晰。提供概述或介绍（例如，在文件的顶部），解释他们正在查看的代码的用途。确定文档何时不适合受众也很有用。谷歌的很多文件都以 "TL;DR声明 "开始，如 "TL;DR：如果你对谷歌的C++编译器不感兴趣，你现在可以停止阅读。"
 
 Finally, one important audience distinction is between that of a customer (e.g., a user of an API) and that of a provider (e.g., a member of the project team). As much as possible, documents intended for one should be kept apart from documents intended for the other. Implementation details are important to a team member for maintenance purposes; end users should not need to read such information. Often, engineers denote design decisions within the reference API of a library they publish. Such reasonings belong more appropriately in specific documents (design documents) or, at best, within the implementation details of code hidden behind an interface.
 
-最后，一个重要的受众区分是客户（例如，API的用户）和提供者（例如，项目组的成员）。为一方准备的文件应尽可能与为另一方准备的文件分开保存。实施细节对于团队成员的维护非常重要；最终用户不需要阅读此类信息。通常，工程师在他们发布的库的参考API中表示设计决策。这种推理更适合于特定文档（设计文档）中，或者充其量是隐藏在接口后面的代码的实现细节中。
+最后，一个重要的受众区分是客户（例如，API的用户）和供应方（例如，项目组的成员）。为一方准备的文件应尽可能与为另一方准备的文件分开保存。实施细节对于团队成员的维护非常重要；最终用户不需要阅读此类信息。通常，工程师在他们发布的库的参考API中表示设计决策。这种推理更适合于特定文档（设计文档）中，或者充其量是隐藏在接口后面的代码的实现细节中。
 
 ## Documentation Types 文档类型
 Engineers write various different types of documentation as part of their work: design documents, code comments, how-to documents, project pages, and more. These all count as “documentation.” But it is important to know the different types, and to not mix types. A document should have, in general, a singular purpose, and stick to it. Just as an API should do one thing and do it well, avoid trying to do several things within one document. Instead, break out those pieces more logically.
@@ -220,39 +224,40 @@ Engineers write various different types of documentation as part of their work: 
 工程师编写各种不同类型的文档作为他们工作的一部分：设计文档、代码注释、操作文档、项目页面等等。这些都算作 "文档"。但重要的是，要了解不同的类型，不要混合类型。一般来说，一个文档应该有一个单一的用途，并坚持这个职责。就像一个API应该做一件事并且做得很好一样，避免试图在一个文档中做几件事。相反，更逻辑合理地分解这些部分。
 
 There are several main types of documents that software engineers often need to write:
-•	Reference documentation, including code comments
-•	Design documents
-•	Tutorials
-•	Conceptual documentation
-•	Landing pages
+
+- Reference documentation, including code comments
+- Design documents
+- Tutorials
+- Conceptual documentation
+- Landing pages
 
 软件工程师经常需要写的文档主要有几种类型：
 - 参考文档，包括代码注释
 - 设计文档
 - 教程
 - 概念文档
-- 登录页
+- 着陆页
 
 It was common in the early days of Google for teams to have monolithic wiki pages with bunches of links (many broken or obsolete), some conceptual information about how the system worked, an API reference, and so on, all sprinkled together. Such documents fail because they don’t serve a single purpose (and they also get so long that no one will read them; some notorious wiki pages scrolled through several dozens of screens). Instead, make sure your document has a singular purpose, and if adding something to that page doesn’t make sense, you probably want to find, or even create, another document for that purpose.
 
-在谷歌的早期，团队拥有单页的维基页面是很常见的，其中有成堆的链接（许多链接已断开或过时），一些关于系统如何工作的概念信息，一个API参考等等，这些都散落在一起。这些文档之所以失败，是因为它们没有一个单一的职责（而且它们也会变得如此之长，以至于没有人会阅读它们；一些臭名昭著的wiki页面滚动了几十个屏幕）。相反，要确保你的文档有一个单一的职责，如果向该页面添加内容没有意义，可能希望找到或甚至创建另一个用于该用途的文档。
+在谷歌的早期，团队拥有单页的维基页面是很常见的，其中有成堆的链接（许多链接已死链或过时），一些关于系统如何工作的概念信息，一个API参考等等，这些都散落在一起。这些文档之所以失败，是因为它们没有一个单一的职责（而且它们也会变得如此之长，以至于没有人会阅读它们；一些臭名昭著的wiki页面滚动了几十个屏幕）。相反，要确保你的文档有一个单一的职责，如果向该页面添加内容没有意义，可能希望找到或甚至创建另一个用于该用途的文档。
 
 ### Reference Documentation 参考文献
 Reference documentation is the most common type that engineers need to write; indeed, they often need to write some form of reference documents every day. By reference documentation, we mean anything that documents the usage of code within the codebase. Code comments are the most common form of reference documentation that an engineer must maintain. Such comments can be divided into two basic camps: API comments versus implementation comments. Remember the audience differences between these two: API comments don’t need to discuss implementation details or design decisions and can’t assume a user is as versed in the API as the author. Implementation comments, on the other hand, can assume a lot more domain knowledge of the reader, though be careful in assuming too much: people leave projects, and sometimes it’s safer to be methodical about exactly why you wrote this code the way you did.
 
-参考文献是工程师最常需要写的类型；事实上，他们经常每天都需要写某种形式的参考文档。所谓参考文档，我们指的是记录代码库中的代码使用情况的任何东西。代码注释是工程师必须维护的最常见的参考文档形式。这种注释可以分为两个基本阵营。API注释和实现注释。记住这两者之间的受众差异。API注释不需要讨论实现细节或设计决策，也不能假设用户像作者一样精通API。另一方面，实现注释可以假定读者有更多的领域知识，但要小心假设太多：人们离开了项目，有时更安全的做法是有条不紊地说明你为什么这样写代码。
+参考文献是工程师最常需要写的类型；事实上，他们经常每天都需要写某种形式的参考文献。所谓参考文献，我们指的是记录代码库中的代码使用情况的任何东西。代码注释是工程师必须维护的最常见的参考文献形式。这种注释可以分为两个基本阵营。API注释和实现注释。记住这两者之间的受众差异。API注释不需要讨论实现细节或设计决策，也不能假设用户像作者一样精通API。另一方面，实现注释可以假定读者有更多的领域知识，但要小心假设太多：人们离开了项目，有时更安全的做法是有条不紊地说明你为什么这样写代码。
 
 Most reference documentation, even when provided as separate documentation from the code, is generated from comments within the codebase itself. (As it should; reference documentation should be single-sourced as much as possible.) Some languages such as Java or Python have specific commenting frameworks (Javadoc, PyDoc, GoDoc) meant to make generation of this reference documentation easier. Other languages, such as C++, have no standard “reference documentation” implementation, but because C++ separates out its API surface (in header or .h files) from the implementation (.cc files), header files are often a natural place to document a C++ API.
 
-大多数参考文档，即使是作为独立于代码的文档提供，也是由代码库本身的注释生成的。(这是应该的；参考文档应该尽可能的单一来源。) 一些语言，如Java或Python有特定的注释框架（Javadoc、PyDoc、GoDoc）旨在简化参考文档的生成。其他语言，如C++，没有标准的 "参考文档 "实现，但由于C++将其API表面（头文件或.h文件）与实现（.cc文件）分开，头文件通常是记录C++ API的自然场所。
+大多数参考文献，即使是作为独立于代码的文档提供，也是由代码库本身的注释生成的。(这是应该的；参考文献应该尽可能的单一来源。) 一些语言，如Java或Python有特定的注释框架（Javadoc、PyDoc、GoDoc）旨在简化参考文档的生成。其他语言，如C++，没有标准的 "参考文献 "实现，但由于C++将其API表面（头文件或.h文件）与实现（.cc文件）分开，头文件通常是记录C++ API的自然场所。
 
 Google takes this approach: a C++ API deserves to have its reference documentation live within the header file. Other reference documentation is embedded directly in the Java, Python, and Go source code as well. Because Google’s Code Search browser (see Chapter 17) is so robust, we’ve found little benefit to providing separate generated reference documentation. Users in Code Search not only search code easily, they can usually find the original definition of that code as the top result. Having the documentation alongside the code’s definitions also makes the documentation easier to discover and maintain.
 
-谷歌采取了这种方法：一个C++ API应该有它的参考文件存在头文件中。其他参考文档也直接嵌入到Java、Python和Go源代码中。因为Google的Code Search浏览器（见第17章）非常强大，我们发现提供单独的通用参考文档没有什么好处。用户在代码搜索中不仅可以很容易地搜索到代码，而且通常可以找到该代码的原始定义作为最重要的结果。将文档与代码的定义放在一起，也使文档更容易被发现和维护。
+谷歌采取了这种方法：一个C++ API应该有它的参考文件存在头文件中。其他参考文献也直接嵌入到Java、Python和Go源代码中。因为Google的Code Search浏览器（见第17章）非常强大，我们发现提供单独的通用参考文献没有什么好处。用户在代码搜索中不仅可以很容易地搜索到代码，而且通常可以找到该代码的原始定义作为最重要的结果。将文档与代码的定义放在一起，也使文档更容易被发现和维护。
 
 We all know that code comments are essential to a well-documented API. But what precisely is a “good” comment? Earlier in this chapter, we identified two major audiences for reference documentation: seekers and stumblers. Seekers know what they want; stumblers don’t. The key win for seekers is a consistently commented codebase so that they can quickly scan an API and find what they are looking for. The key win for stumblers is clearly identifying the purpose of an API, often at the top of a file header. We’ll walk through some code comments in the subsections that follow. The code commenting guidelines that follow apply to C++, but similar rules are in place at Google for other languages.
 
-我们都知道，代码注释对于一个良好的文档化的API来说是必不可少的。但是什么才是 "好的 "注释呢？在本章的前面，我们确定了参考文档的两个主要受众：寻求者和浏览者。寻求者知道他们想要什么，而浏览者不知道。寻求者的关键点是一个一致的注释代码库，这样他们就可以快速扫描API并找到他们正在寻找的东西。对于浏览者来说，关键的胜利是明确识别API的用途，通常是在文件头的顶部。我们将在下面的小节中介绍一些代码注释。下面的代码注释指南适用于C++，但在谷歌，其他语言也有类似的规则。
+我们都知道，代码注释对于一个良好的文档化的API来说是必不可少的。但是什么才是 "好的 "注释呢？在本章的前面，我们确定了参考文献的两个主要受众：寻求者和浏览者。寻求者知道他们想要什么，而浏览者不知道。寻求者的关键点是一个一致的注释代码库，这样他们就可以快速扫描API并找到他们正在寻找的东西。对于浏览者来说，关键的胜利是明确识别API的用途，通常是在文件头的顶部。我们将在下面的小节中介绍一些代码注释。下面的代码注释指南适用于C++，但在谷歌，其他语言也有类似的规则。
 
 **File comments** **文件注释**
 Almost all code files at Google must contain a file comment. (Some header files that contain only one utility function, etc., might deviate from this standard.) File comments should begin with a header of the following form:
@@ -298,7 +303,7 @@ Class comments should generally begin with a comment of the following form:
 
 All free functions, or public methods of a class, at Google must also contain a function comment describing what the function *does*. Function comments should stress the *active* nature of their use, beginning with an indicative verb describing what the function does and what is returned.
 
-在Google的所有自由函数或类的公共方法也必须包含一个函数注释，说明函数的功能。函数注释应该强调其使用的主动性，以一个指示性动词开始，描述函数的作用和返回的内容。
+在谷歌的所有公开函数或类的公共方法也必须包含一个函数注释，说明函数的功能。函数注释应该强调其使用的主动性，以一个指示性动词开始，描述函数的作用和返回的内容。
 
 Function comments should generally begin with a comment of the following form:
 
@@ -318,7 +323,7 @@ Note that starting a function comment with a declarative verb introduces consist
 
 Some documentation styles (and some documentation generators) require various forms of boilerplate on function comments, like “Returns:”, “Throws:”, and so forth, but at Google we haven’t found them to be necessary. It is often clearer to present such information in a single prose comment that’s not broken up into artificial section boundaries:
 
-一些文档样式（和一些文档生成器）要求在函数注释中加入各种形式的模板，如 "返回："、"抛出："等等，但在Google，我们发现它们并不是必须的。在一个松散的注释中呈现这样的信息通常更清晰，而不是将其分解为人为的段落边界：
+一些文档样式（和一些文档生成器）要求在函数注释中加入各种形式的模板，如 "Returns:"，"Throws:"等等，但在谷歌，我们发现它们并不是必须的。在一个松散的注释中呈现这样的信息通常更清晰，而不是将其分解为人为的段落边界：
 
 ```
 // Creates a new record for a customer with the given name and address,
@@ -329,25 +334,25 @@ int AddCustomer(string name, string address);
 
 Notice how the postcondition, parameters, return value, and exceptional cases are naturally documented together (in this case, in a single sentence), because they are not independent of one another. Adding explicit boilerplate sections would make the comment more verbose and repetitive, but no clearer (and arguably less clear).
 
-请注意后置条件、参数、返回值和异常情况是如何自然地记录在一起的（在本例中，在一句话中），因为它们不是相互独立的。添加明确的样板部分会使评论更加冗长和重复，但不会更清晰（也可能不那么清晰）。
+请注意后置条件、参数、返回值和异常情况是如何自然地记录在一起的（在本例中，在一句话中），因为它们不是相互独立的。添加明确的样板部分会使注释更加冗长和重复，但不会更清晰（也可能不那么清晰）。
 
 ### Design Docs 设计文档
 
 Most teams at Google require an approved design document before starting work on any major project. A software engineer typically writes the proposed design document using a specific design doc template approved by the team. Such documents are designed to be collaborative, so they are often shared in Google Docs, which has good collaboration tools. Some teams require such design documents to be discussed and debated at specific team meetings, where the finer points of the design can be discussed or critiqued by experts. In some respects, these design discussions act as a form of code review before any code is written.
 
-谷歌的大多数团队在开始任何重大项目之前都需要获得批准的设计文档。软件工程师通常使用团队批准的特定设计文件模板编写拟定设计文件。这些文档是为了协作而设计的，所以它们通常在谷歌文档中共享，谷歌文档有很好的协作工具。一些团队要求在特定的团队会议上讨论和辩论此类设计文件，专家可以讨论或评论设计的细节。在某些方面，这些设计讨论就像是在编写任何代码之前的一种代码审查形式。
+谷歌的大多数团队在开始任何重大项目之前都需要获得批准的设计文档。软件工程师通常使用团队批准的特定设计文档模板编写拟定设计文件。这些文档是为了协作而设计的，所以它们通常在谷歌文档中共享，谷歌文档有很好的协作工具。一些团队要求在特定的团队会议上讨论和辩论此类设计文件，专家可以讨论或评论设计的细节。在某些方面，这些设计讨论就像是在编写任何代码之前的一种代码审查形式。
 
 Because the development of a design document is one of the first processes an engineer undertakes before deploying a new system, it is also a convenient place to ensure that various concerns are covered. The canonical design document templates at Google require engineers to consider aspects of their design such as security implications, internationalization, storage requirements and privacy concerns, and so on. In most cases, such parts of those design documents are reviewed by experts in those domains.
 
-由于设计文件的开发是工程师在部署新系统之前首先进行的过程之一，因此也是确保涵盖了各种关切。谷歌的典型设计文档模板要求工程师考虑其设计的各个方面，如安全影响、国际化、存储要求和隐私问题等等。在大多数情况下，这些设计文档的这类部分都是由这些领域的专家来审查的。
+由于设计文档的开发是工程师在部署新系统之前首先进行的过程之一，因此也是确保涵盖了各种关切。谷歌的典型设计文档模板要求工程师考虑其设计的各个方面，如安全影响、国际化、存储要求和隐私问题等等。在大多数情况下，这些设计文档的这类部分都是由这些领域的专家来审查的。
 
 A good design document should cover the goals of the design, its implementation strategy, and propose key design decisions with an emphasis on their individual trade-offs. The best design documents suggest design goals and cover alternative designs, denoting their strong and weak points.
 
-一个好的设计文档应该包括设计目标、实施策略，并提出关键的设计决策，重点放在它们各自的权衡上。最好的设计文件建议设计目标，涵盖替代设计，指出其优缺点。
+一个好的设计文档应该包括设计目标、实施策略，并提出关键的设计决策，重点放在它们各自的权衡上。最好的设计文档建议设计目标，涵盖替代设计，指出其优缺点。
 
 A good design document, once approved, also acts not only as a historical record, but as a measure of whether the project successfully achieved its goals. Most teams archive their design documents in an appropriate location within their team documents so that they can review them at a later time. It’s often useful to review a design document before a product is launched to ensure that the stated goals when the design document was written remain the stated goals at launch (and if they do not, either the document or the product can be adjusted accordingly).
 
-一份好的设计文件一旦获得批准，不仅可以作为历史记录，还可以作为衡量项目是否成功实现其目标的指标。大多数团队将其设计文档归档在团队文档中的适当位置，以便日后进行审查。在产品发布之前审查设计文档通常很有用，以确保在编写设计文档时所述的目标保持在发布时所述的目标（如果没有，则可以相应地调整文档或产品）。
+一份好的设计文档一旦获得批准，不仅可以作为历史记录，还可以作为衡量项目是否成功实现其目标的指标。大多数团队将其设计文档归档在团队文档中的适当位置，以便日后进行审查。在产品发布之前审查设计文档通常很有用，以确保在编写设计文档时所述的目标保持在发布时所述的目标（如果没有，则可以相应地调整文档或产品）。
 
 ### Tutorials 教程
 Every software engineer, when they join a new team, will want to get up to speed as quickly as possible. Having a tutorial that walks someone through the setup of a new project is invaluable; “Hello World” has established itself is one of the best ways to ensure that all team members start off on the right foot. This goes for documents as well as code. Most projects deserve a “Hello World” document that assumes nothing and gets the engineer to make something “real” happen.
@@ -356,7 +361,7 @@ Every software engineer, when they join a new team, will want to get up to speed
 
 Often, the best time to write a tutorial, if one does not yet exist, is when you first join a team. (It’s also the best time to find bugs in any existing tutorial you are following.) Get a notepad or other way to take notes, and write down everything you need to do along the way, assuming no domain knowledge or special setup constraints; after you’re done, you’ll likely know what mistakes you made during the process—and why —and can then edit down your steps to get a more streamlined tutorial. Importantly, write everything you need to do along the way; try not to assume any particular setup, permissions, or domain knowledge. If you do need to assume some other setup, state that clearly in the beginning of the tutorial as a set of prerequisites.
 
-通常，如果还没有教程，编写教程的最佳时间是你第一次加入团队时。（这也是在你正在学习的任何现有教程中查找bug的最佳时机。）使用记事本或其他方式记笔记，并在没有领域知识或特殊设置限制的情况下，写下你需要做的所有事情；完成后，你可能会知道在这个过程中犯了哪些错误--原因--然后可以编辑你的步骤，以获得更精简的教程。重要的是，写下你需要做的一切；尽量不要假设任何特定的设置、权限或领域知识。如果你确实需要采用其他设置，请在本教程的开头明确说明这是一组先决条件。
+通常，如果还没有教程，编写教程的最佳时间是你第一次加入团队时。（这也是在你正在学习的任何现有教程中查找bug的最佳时机。）使用记事本或其他方式记笔记，并在没有领域知识或特殊设置限制的情况下，写下你需要做的所有事情；完成后，你可能会知道在这个过程中犯了哪些错误——原因——然后可以编辑你的步骤，以获得更精简的教程。重要的是，写下你需要做的一切；尽量不要假设任何特定的设置、权限或领域知识。如果你确实需要采用其他设置，请在本教程的开头明确说明这是一组先决条件。
 
 Most tutorials require you to perform a number of steps, in order. In those cases, number those steps explicitly. If the focus of the tutorial is on the user (say, for external developer documentation), then number each action that a user needs to undertake. Don’t number actions that the system may take in response to such user actions. It is critical and important to number explicitly every step when doing this. Nothing is more annoying than an error on step 4 because you forget to tell someone to properly authorize their username, for example.
 
@@ -372,7 +377,8 @@ Most tutorials require you to perform a number of steps, in order. In those case
 6.	Test “baz” by executing a SQL command on the command line
 7.	Type: CREATE DATABASE my_foobar_db;
 
-示例：糟糕的教程
+**示例：糟糕的教程**
+
 1. 从我们的服务器下载软件包，网址为http://example.com
 2. 将shell脚本复制到主目录
 3. 执行shell脚本
@@ -387,31 +393,41 @@ In the preceding procedure, steps 4 and 5 happen on the server end. It’s uncle
 
 **Example: A bad tutorial made better**
 1.	Download the package from our server at http://example.com:
+```
 $ curl -I http://example.com
+```
 2.	Copy the shell script to your home directory:
+```
 $ cp foobar.sh ~
+```
 3.	Execute the shell script in your home directory:
+```
 $ cd ~; foobar.sh
+```
 The foobar system will first communicate with the authentication system. Once authenticated, foobar will bootstrap a new database named “baz” and open an input shell.
 4.	Test “baz” by executing a SQL command on the command line:
+```
 baz:$ CREATE DATABASE my_foobar_db;
-
+```
 例子：一个不好的教程会变得更好
 1.  从我们的服务器下载软件包，网址为http://example.com:
-$curl-Ihttp://example.com
+```
+$curl -I http://example.com
+```
 2.  将shell脚本复制到主目录：
-
-**$cp foobar.sh~**
-
+```
+$cp foobar.sh ~
+```
 3.  在主目录中执行shell脚本：
-
-**$cd~**;**foobar.sh**
-
+```
+$cd ~; foobar.sh
+```
 foobar系统将首先与身份验证系统通信。经过身份验证后，foobar将引导一个名为“baz”的新数据库并打开一个输入shell。
 
 4.  通过在命令行上执行SQL命令来测试“baz”：
-
-**baz:$CREATE DATABASE my_foobar_db;**
+```
+baz:$CREATE DATABASE my_foobar_db;
+```
 
 Note how each step requires specific user intervention. If, instead, the tutorial had a focus on some other aspect (e.g., a document about the “life of a server”), number those steps from the perspective of that focus (what the server does).
 
@@ -434,18 +450,18 @@ A concept document needs to be useful to a broad audience: both experts and novi
 
 概念文档需要对广大受众有用：包括专家和新手。此外，它还需要强调清晰性，因此通常需要牺牲完整性（最好留作参考）和（有时）严格的准确性。这并不是说概念性文件应该故意不准确；这只是意味着它应该关注常见用法，并将罕见用法或副作用留给参考文档。
 
-### Landing Pages 登录页
+### Landing Pages 着陆页
 Most engineers are members of a team, and most teams have a “team page” somewhere on their company’s intranet. Often, these sites are a bit of a mess: a typical landing page might contain some interesting links, sometimes several documents titled “read this first!”, and some information both for the team and for its customers. Such documents start out useful but rapidly turn into disasters; because they become so cumbersome to maintain, they will eventually get so obsolete that they will be fixed by only the brave or the desperate.
 
 大多数工程师都是一个团队的成员，而大多数团队在其公司内部网的某个地方都有一个 "团队页面"。通常情况下，这些网站有点混乱：一个典型的登陆页面可能包含一些有趣的链接，有时是几个标题为 "先阅读此文！"的文件，以及一些既为团队又为客户的信息。这些的文档一开始很有用，但很快就变成了灾难；因为它们的维护变得非常麻烦，最终会变得非常陈旧，只有勇敢的人或绝望的人才会去修复它们。
 
 Luckily, such documents look intimidating, but are actually straightforward to fix: ensure that a landing page clearly identifies its purpose, and then include only links to other pages for more information. If something on a landing page is doing more than being a traffic cop, it is not doing its job. If you have a separate setup document, link to that from the landing page as a separate document. If you have too many links on the landing page (your page should not scroll multiple screens), consider breaking up the pages by taxonomy, under different sections.
 
-幸运的是，这些文档看起来很吓人，但实际上很容易修复：确保登录页清楚地标识其用途，然后只包含指向其他页面的链接以获取更多信息。如果登录页面上的某件事不仅仅是做一名交通警察，那它就没有做好自己的工作。如果你有单独的设置文档，请从登录页作为单独的文档链接到该文档。如果你在着陆页面上有太多链接（你的页面不应该滚动多个屏幕），考虑按分类法将页面分成不同部分。
+幸运的是，这些文档看起来很吓人，但实际上很容易修复：确保着陆页清楚地标识其用途，然后只包含指向其他页面的链接以获取更多信息。如果着陆页面上的某件事不仅仅是做一名交通警察，那它就没有做好自己的工作。如果你有单独的设置文档，请从着陆页作为单独的文档链接到该文档。如果你在着陆页面上有太多链接（你的页面不应该滚动多个屏幕），考虑按分类法将页面分成不同部分。
 
 Most poorly configured landing pages serve two different purposes: they are the “goto” page for someone who is a user of your product or API, or they are the home page for a team. Don’t have the page serve both masters—it will become confusing. Create a separate “team page” as an internal page apart from the main landing page. What the team needs to know is often quite different than what a customer of your API needs to know.
 
-大多数配置不好的登录页有两个不同的用途：它们是产品或API用户的“入门”页面，或者是团队的主页。不要让页面同时为两个主体服务--这将变得混乱。创建一个独立的“团队页面”，作为主登录页面之外的内部页面。团队内部需要知道的东西往往与你的API的客户需要知道的东西完全不同。
+大多数配置不好的着陆页有两个不同的用途：它们是产品或API用户的“入门”页面，或者是团队的主页。不要让页面同时为两个主体服务--这将变得混乱。创建一个独立的“团队页面”，作为主着陆页面之外的内部页面。团队内部需要知道的东西往往与你的API的客户需要知道的东西完全不同。
 
 ## Documentation Reviews 文档评审
 At Google, all code needs to be reviewed, and our code review process is well understood and accepted. In general, documentation also needs review (though this is less universally accepted). If you want to “test” whether your documentation works, you should generally have someone else review it.
@@ -535,7 +551,7 @@ There are usually three aspects of good documentation: completeness, accuracy, a
 
 In each case, a “good document” is defined as the document that is doing its intended job. As a result, you rarely want a document doing more than one job. For each document (and for each document type), decide on its focus and adjust the writing appropriately. Writing a conceptual document? You probably don’t need to cover every part of the API. Writing a reference? You probably want this complete, but perhaps must sacrifice some clarity. Writing a landing page? Focus on organization and keep discussion to a minimum. All of this adds up to quality, which, admittedly, is stubbornly difficult to accurately measure.
 
-在每种情况下，“良好的文档”都被定义为有效的文档。因此，你很少希望文档执行多个任务。对于每个文档（以及每种文档类型），确定其重点并适当调整写作。写概念文档？你可能不需要涵盖API的每个部分。写参考文档？你可能希望这是完整的，但可能必须牺牲一些清晰度。写登录页？专注于组织，并尽量减少讨论。所有这些都是为了提高质量，诚然，这是很难准确衡量的。
+在每种情况下，“良好的文档”都被定义为有效的文档。因此，你很少希望文档执行多个任务。对于每个文档（以及每种文档类型），确定其重点并适当调整写作。写概念文档？你可能不需要涵盖API的每个部分。写参考文档？你可能希望这是完整的，但可能必须牺牲一些清晰度。写着陆页？专注于组织，并尽量减少讨论。所有这些都是为了提高质量，诚然，这是很难准确衡量的。
 
 How can you quickly improve the quality of a document? Focus on the needs of the audience. Often, less is more. For example, one mistake engineers often make is adding design decisions or implementation details to an API document. Much like you should ideally separate the interface from an implementation within a welldesigned API, you should avoid discussing design decisions in an API document. Users don’t need to know this information. Instead, put those decisions in a specialized document for that purpose (usually a design doc).
 
