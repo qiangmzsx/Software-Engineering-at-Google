@@ -31,48 +31,54 @@ Quality documentation has tremendous benefits for an engineering organization. C
 高质量的文档对一个工程组织有巨大的好处。代码和API变得更容易理解，减少了错误。当项目团队的设计目标和团队目标明确时，他们会更加专注。当步骤被清楚地列出时，手动流程更容易被遵循。如果流程有明确的文档记录，那么将新成员加入团队或代码库所需的工作量要小得多。
 
 But because documentation’s benefits are all necessarily downstream, they generally don’t reap immediate benefits to the author. Unlike testing, which (as we’ll see) quickly provides benefits to a programmer, documentation generally requires more effort up front and doesn’t provide clear benefits to an author until later. But, like investments in testing, the investment made in documentation will pay for itself over time. After all, you might write a document only once,1 but it will be read hundreds, perhaps thousands of times afterward; its initial cost is amortized across all the future readers. Not only does documentation scale over time, but it is critical for the rest of the organization to scale as well. It helps answer questions like these:
-•    Why were these design decisions made?
-•    Why did we implement this code in this manner?
-•    Why did I implement this code in this manner, if you’re looking at your own code two years later?
 
-但是，由于文档的好处都必然是延后的，它们通常不会给作者带来直接的好处。与测试不同，测试（正如我们将看到的）很快就能给程序员带来好处，而文档编写通常需要更多的前期工作，直到后来才会给作者带来明确的好处。但是，就像对测试的投入一样，对文档的投入会随着时间的推移而得到回报。毕竟，你可能只写了一次文档，但之后会被阅读数百次，甚至数千次；其最初的成本会在所有未来的读者中摊销。文档不仅可以随着时间的推移而扩展，而且对于组织的其他部分也是至关重要的。它有助于回答这样的问题。
+- Why were these design decisions made?
+- Why did we implement this code in this manner?
+- Why did I implement this code in this manner, if you’re looking at your own code two years later?
+
+但是，由于文档的好处都必然是延后的，它们通常不会给作者带来直接的好处。与测试不同，测试（正如我们将看到的）很快就能给程序员带来好处，而文档编写通常需要更多的前期工作，直到后来才会给作者带来明确的好处。但是，就像对测试的投入一样，对文档的投入会随着时间的推移而得到回报。毕竟，你可能只写了一次文档，但之后会被阅读数百次，甚至数千次；其最初的成本会在所有未来的读者中摊销。文档不仅可以随着时间的推移而扩展，而且对于组织的其他部分也是至关重要的。它有助于回答这样的问题：
+
 - 为什么做出这些设计决策？
 - 为什么我们要以这种方式实现这段代码？
 - 如果你两年后再看自己的代码，我为什么要以这种方式实现这些代码？
 
 If documentation conveys all these benefits, why is it generally considered “poor” by engineers? One reason, as we’ve mentioned, is that the benefits aren’t immediate, especially to the writer. But there are several other reasons:
-•    Engineers often view writing as a separate skill than that of programming. (We’ll try to illustrate that this isn’t quite the case, and even where it is, it isn’t necessarily a separate skill from that of software engineering.)
-•    Some engineers don’t feel like they are capable writers. But you don’t need a robust command of English2 to produce workable documentation. You just need to step outside yourself a bit and see things from the audience’s perspective.
-•    Writing documentation is often more difficult because of limited tools support or integration into the developer workflow.
-•    Documentation is viewed as an extra burden—something else to maintain— rather than something that will make maintenance of their existing code easier.
 
-如果文档能传达这么多的好处，为什么工程师们普遍认为它 "很差"？正如我们所提到的，其中一个原因是，这些好处并不直接，尤其是对作者而言。但还有其他几个原因。
+- Engineers often view writing as a separate skill than that of programming. (We’ll try to illustrate that this isn’t quite the case, and even where it is, it isn’t necessarily a separate skill from that of software engineering.)
+- Some engineers don’t feel like they are capable writers. But you don’t need a robust command of English2 to produce workable documentation. You just need to step outside yourself a bit and see things from the audience’s perspective.
+- Writing documentation is often more difficult because of limited tools support or integration into the developer workflow.
+- Documentation is viewed as an extra burden—something else to maintain— rather than something that will make maintenance of their existing code easier.
+
+如果文档能传达这么多的好处，为什么工程师们普遍认为它 "很糟糕"？正如我们所提到的，其中一个原因是，这些好处并不直接，尤其是对作者而言。但还有其他几个原因：
+
 - 工程师们通常认为写作是一种独立于编程的技能。(我们将试图说明，事实并非如此，即使是这样，它也不一定是与软件工程不同的技能。)
-- 有些工程师觉得他们不是有写作能力的人。但是，您不需要精通英语，就能写出可行的文档。你只需要跳出自己视角，从听众的角度看问题。
+- 有些工程师觉得他们不是有写作能力的人。但是，你不需要精通英语，就能写出可行的文档。你只需要跳出自己视角，从听众的角度看问题。
 - 由于有限的工具支持或集成到开发人员的工作流程中，编写文档往往更加困难。
-- 文档被看作是一个额外的负担--需要维护的其他东西--而不是能使他们现有的代码维护更容易的东西。
+- 文档被看作是一个额外的负担——需要维护的其他东西——而不是能使他们现有的代码维护更容易的东西。
 
 ```
 1    OK, you will need to maintain it and revise it occasionally.
 2    English is still the primary language for most programmers, and most technical documentation for programmers relies on an understanding of English.
-1   好的，您将需要维护它并偶尔修改它。
+1   好的，你将需要维护它并偶尔修改它。
 2   英语仍然是大多数程序员的主要语言，大多数程序员的技术文档都依赖于对英语的理解。
 ```
 
 Not every engineering team needs a technical writer (and even if that were the case, there aren’t enough of them). This means that engineers will, by and large, write most of the documentation themselves. So, instead of forcing engineers to become technical writers, we should instead think about how to make writing documentation easier for engineers. Deciding how much effort to devote to documentation is a decision your organization will need to make at some point.
 
-不是每个工程团队都需要技术作家（即使是需要，也没有足够的技术作家）。这意味着，工程师基本上会自己写大部分的文档。因此，我们不应该强迫工程师成为技术作家，而应该考虑如何让工程师更容易编写文档。决定在文档上投入多少精力是你的组织在某个时候需要做出的决定。
+不是每个工程团队都需要技术撰稿人（即使是需要，也没有足够的技术撰稿人）。这意味着，工程师基本上会自己写大部分的文档。因此，我们不应该强迫工程师成为技术撰稿人，而应该考虑如何让工程师更容易编写文档。决定在文档上投入多少精力是你的组织在某个时候需要做出的决定。
 
 Documentation benefits several different groups. Even to the writer, documentation provides the following benefits:
-•    It helps formulate an API. Writing documentation is one of the surest ways to figure out if your API makes sense. Often, the writing of the documentation itself leads engineers to reevaluate design decisions that otherwise wouldn’t be questioned. If you can’t explain it and can’t define it, you probably haven’t designed it well enough.
-•    It provides a road map for maintenance and a historical record. Tricks in code should be avoided, in any case, but good comments help out a great deal when you’re staring at code you wrote two years ago, trying to figure out what’s wrong.
-•    It makes your code look more professional and drive traffic. Developers will naturally assume that a well-documented API is a better-designed API. That’s not always the case, but they are often highly correlated. Although this benefit sounds cosmetic, it’s not quite so: whether a product has good documentation is usually a pretty good indicator of how well a product will be maintained.
-•    It will prompt fewer questions from other users. This is probably the biggest benefit over time to someone writing the documentation. If you have to explain something to someone more than once, it usually makes sense to document that process.
 
-文档对几个不同的群体都有好处。即使对作者来说，文档也有以下好处。
-- 它有助于制定API。编写文档是确定API是否合理的最可靠方法之一。通常情况下，文件的编写本身会导致工程师重新评估设计决策，否则这些决策将不会被质疑。如果你不能解释它，也不能定义它，那么你可能设计得不够好。
-- 它提供了维护路线图和历史记录。无论如何，应该避免代码中的技巧，但是当您盯着两年前编写的代码，试图找出错误的地方时，好的注释会有很大帮助。
-- 它使你的代码看起来更专业，并带来流量。开发人员通常认为，一个有良好文档的API是一个设计更好的API。情况并非总是如此，但它们往往是高度相关的。虽然这个好处听起来很表现，但也不尽然：一个产品是否有良好的文档记录通常是一个很好的指标，表明一个产品的维护情况如何。
+- It helps formulate an API. Writing documentation is one of the surest ways to figure out if your API makes sense. Often, the writing of the documentation itself leads engineers to reevaluate design decisions that otherwise wouldn’t be questioned. If you can’t explain it and can’t define it, you probably haven’t designed it well enough.
+- It provides a road map for maintenance and a historical record. Tricks in code should be avoided, in any case, but good comments help out a great deal when you’re staring at code you wrote two years ago, trying to figure out what’s wrong.
+- It makes your code look more professional and drive traffic. Developers will naturally assume that a well-documented API is a better-designed API. That’s not always the case, but they are often highly correlated. Although this benefit sounds cosmetic, it’s not quite so: whether a product has good documentation is usually a pretty good indicator of how well a product will be maintained.
+- It will prompt fewer questions from other users. This is probably the biggest benefit over time to someone writing the documentation. If you have to explain something to someone more than once, it usually makes sense to document that process.
+
+文档对几个不同的群体都有好处。即使对作者来说，文档也有以下好处：
+
+- 它有助于制定API。编写文档是确定API是否合理的最可靠方法之一。通常情况下，文档的编写本身会导致工程师重新评估设计决策，否则这些决策将会被质疑。如果你不能解释它，也不能定义它，那么你可能设计得不够好。
+- 它提供了维护路线图和历史记录。无论如何，应该避免代码中的技巧，但是当你盯着两年前编写的代码，试图找出错误的地方时，好的注释会有很大帮助。
+- 它使你的代码看起来更专业，并带来流量。开发人员通常认为，一个有良好文档的API是一个设计更好的API。情况并非总是如此，但它们往往是高度相关的。虽然这个好处听起来很表象，但也不尽然：一个产品是否有良好的文档记录通常是一个很好的指标，表明一个产品的维护情况如何。
 - 它将减少其他用户提出的问题。随着时间的推移，这可能是编写文档的人最大的收获。如果你必须向别人解释不止一次，通常记录这个过程是有意义的。
 
 As great as these benefits are to the writer of documentation, the lion’s share of documentation’s benefits will naturally accrue to the reader. Google’s C++ Style Guide notes the maxim “optimize for the reader.” This maxim applies not just to code, but to the comments around code, or the documentation set attached to an API. Much like testing, the effort you put into writing good documents will reap benefits many times over its lifetime. Documentation is critical over time, and reaps tremendous benefits for especially critical code as an organization scales.
@@ -87,7 +93,7 @@ Software engineers who write in a single, primary programming language still oft
 
 Documentation should be no different: it’s a tool, written in a different language (usually English) to accomplish a particular task. Writing documentation is not much different than writing code. Like a programming language, it has rules, a particular syntax, and style decisions, often to accomplish a similar purpose as that within code: enforce consistency, improve clarity, and avoid (comprehension) errors. Within technical documentation, grammar is important not because one needs rules, but to standardize the voice and avoid confusing or distracting the reader. Google requires a certain comment style for many of its languages for this reason.
 
-文档应该没有什么不同：它是一种工具，用不同的语言（通常是英语）编写，用于完成特定任务。编写文档与编写代码没有太大区别。与编程语言一样，它有规则、特定语法和样式决策，通常用于实现与代码中类似的目的：加强一致性、提高清晰度和避免（理解）错误。在技术文档中，语法很重要，不是因为需要规则，而是为了使声音标准化，避免混淆或分散读者的注意力。出于这个原因，谷歌对其许多语言都要求有一定的注释风格。
+文档应该没有什么不同：它是一种工具，用不同的语言（通常是英语）编写，用于完成特定任务。编写文档与编写代码没有太大区别。与编程语言一样，它有规则、特定语法和样式规范，通常用于实现与代码中类似的目的：加强一致性、提高清晰度和避免（理解）错误。在技术文档中，语法很重要，不是因为需要规则，而是为了使声音标准化，避免混淆或分散读者的注意力。出于这个原因，谷歌对其许多语言都要求有一定的注释风格。
 
 Like code, documents should also have owners. Documents without owners become stale and difficult to maintain. Clear ownership also makes it easier to handle documentation through existing developer workflows: bug tracking systems, code review tooling, and so forth. Of course, documents with different owners can still conflict with one another. In those cases, it is important to designate canonical documentation: determine the primary source and consolidate other associated documents into that primary source (or deprecate the duplicates).
 
@@ -98,22 +104,24 @@ The prevalent usage of “go/links” at Google (see Chapter 3) makes this proce
 在谷歌，"go/links "的普遍使用（见第三章）使这一过程更加容易。有直接的 "go/links "的文件往往成为权威的标准来源。促进规范化文档的另一种方法是，通过将它们直接置于源代码控制之下并与源代码本身一起，将它们与它们所记录的代码直接关联。
 
 Documentation is often so tightly coupled to code that it should, as much as possible, be treated as code. That is, your documentation should:
-•    Have internal policies or rules to be followed
-•    Be placed under source control
-•    Have clear ownership responsible for maintaining the docs
-•    Undergo reviews for changes (and change with the code it documents)
-•    Have issues tracked, as bugs are tracked in code
-•    Be periodically evaluated (tested, in some respect)
-•    If possible, be measured for aspects such as accuracy, freshness, etc. (tools have still not caught up here)
+
+- Have internal policies or rules to be followed
+- Be placed under source control
+- Have clear ownership responsible for maintaining the docs
+- Undergo reviews for changes (and change with the code it documents)
+- Have issues tracked, as bugs are tracked in code
+- Be periodically evaluated (tested, in some respect)
+- If possible, be measured for aspects such as accuracy, freshness, etc. (tools have still not caught up here)
 
 文档通常与代码紧密相连，所以应该尽可能地把它当作代码来对待。也就是说，你的文档应该：
+
 - 有需要遵循的内部策略或规则
 - 被置于源代码控制之下
 - 有明确的所有权，负责维护文档
 - 对修改进行审查（并与它所记录的代码一起改变）。
 - 追踪问题，就像追踪代码中的bug一样
 - 定期评估（在某种程度上测试）。
-- 如有可能，对准确度、新鲜度等方面进行测量（这里还没有工具）
+- 如有可能，对准确度、新鲜度等方面进行衡量（这里还没有工具）
 
 The more engineers treat documentation as “one of” the necessary tasks of software development, the less they will resent the upfront costs of writing, and the more they will reap the long-term benefits. In addition, making the task of documentation easier reduces those upfront costs.
 
@@ -129,7 +137,7 @@ When Google was much smaller and leaner, it had few technical writers. The easie
 
 But as Google scaled, problems with a wiki-style approach became apparent. Because there were no true owners for documents, many became obsolete.[3](#_bookmark765) Because no process was put in place for adding new documents, duplicate documents and document sets began appearing. GooWiki had a flat namespace, and people were not good at applying any hierarchy to the documentation sets. At one point, there were 7 to 10 documents (depending on how you counted them) on setting up Borg, our production compute environment, only a few of which seemed to be maintained, and most were specific to certain teams with certain permissions and assumptions.
 
-但随着谷歌规模的扩大，维基风格方法的问题变得明显。因为没有真正的文档所有者，许多文档变得过时了。[3]因为没有建立添加新文档的流程，重复的文档和文档集开始出现了。GooWiki有一个扁平的命名空间，人们不擅长将任何层次结构应用于文档集。在某些点上，有7到10个文档（取决于您如何计算）用于设置我们的生产计算环境Borg，其中只有少数文档似乎得到了维护，大多数文档都是特定于具有特定权限和假设的特定团队的
+但随着谷歌规模的扩大，维基风格方法的问题变得明显。因为没有真正的文档所有者，许多文档变得过时了。因为没有建立添加新文档的流程，重复的文档和文档集开始出现了。GooWiki有一个扁平的命名空间，人们不擅长将任何层次结构应用于文档集。在某些点上，有7到10个文档（取决于你如何计算）用于设置我们的生产计算环境Borg，其中只有少数文档似乎得到了维护，大多数文档都是特定于具有特定权限和设定的特指定团队的。
 
 Another problem with GooWiki became apparent over time: the people who could fix the documents were not the people who used them. New users discovering bad documents either couldn’t confirm that the documents were wrong or didn’t have an easy way to report errors. They knew something was wrong (because the document didn’t work), but they couldn’t “fix” it. Conversely, the people best able to fix the documents often didn’t need to consult them after they were written. The documentation became so poor as Google grew that the quality of documentation became Google’s number one developer complaint on our annual developer surveys.
 
@@ -181,10 +189,10 @@ We’ve pointed out that you should write at the skill level and domain knowledg
 •	Domain knowledge (team members, or other engineers in your organization who are familiar only with API endpoints).
 •	Purpose (end users who might need your API to do a specific task and need to find that information quickly, or software gurus who are responsible for the guts of a particularly hairy implementation that you hope no one else needs to maintain).
 
-我们已经指出，你应该按照适合你的受众的技能水平和领域知识来写作。但究竟谁是你的听众？根据以下一个或多个标准，您可能拥有多个受众：
+我们已经指出，你应该按照适合你的受众的技能水平和领域知识来写作。但究竟谁是你的听众？根据以下一个或多个标准，你可能拥有多个受众：
 - 经验水平（专家级程序员，或者甚至可能不熟悉语言的初级工程师）。
 - 领域知识（团队成员或组织中只熟悉API端点的其他工程师）。
-- 目的（可能需要您的API来完成特定任务并需要快速找到该信息的最终用户，或负责您希望没有其他人需要维护的特别复杂的实现的核心的软件专家）。
+- 目的（可能需要你的API来完成特定任务并需要快速找到该信息的最终用户，或负责你希望没有其他人需要维护的特别复杂的实现的核心的软件专家）。
 
 In some cases, different audiences require different writing styles, but in most cases, the trick is to write in a way that applies as broadly to your different audience groups as possible. Often, you will need to explain a complex topic to both an expert and a novice. Writing for the expert with domain knowledge may allow you to cut corners, but you’ll confuse the novice; conversely, explaining everything in detail to the novice will doubtless annoy the expert.
 
@@ -192,7 +200,7 @@ In some cases, different audiences require different writing styles, but in most
 
 Obviously, writing such documents is a balancing act and there’s no silver bullet, but one thing we’ve found is that it helps to keep your documents short. Write descriptively enough to explain complex topics to people unfamiliar with the topic, but don’t lose or annoy experts. Writing a short document often requires you to write a longer one (getting all the information down) and then doing an edit pass, removing duplicate information where you can. This might sound tedious, but keep in mind that this expense is spread across all the readers of the documentation. As Blaise Pascal once said, “If I had more time, I would have written you a shorter letter.” By keeping a document short and clear, you will ensure that it will satisfy both an expert and a novice.
 
-显然，编写这样的文档是一种平衡行为，没有什么灵丹妙药，但我们发现，它有助于保持文档的简短。写下足够的描述，向不熟悉该主题的人解释复杂的主题，但不要失去或惹恼专家。编写一个简短的文档通常需要您编写一个较长的文档（将所有信息记录下来），然后进行编辑，尽可能删除重复的信息。这听起来可能很乏味，但请记住，这项费用会分摊到文档的所有读者身上。正如布莱斯·帕斯卡（Blaise Pascal）曾经说过的那样，“如果我有更多的时间，我会给你写一封更短的信。”通过保持文档的简短和清晰，你将确保它能让专家和新手都满意。
+显然，编写这样的文档是一种平衡行为，没有什么灵丹妙药，但我们发现，它有助于保持文档的简短。写下足够的描述，向不熟悉该主题的人解释复杂的主题，但不要失去或惹恼专家。编写一个简短的文档通常需要你编写一个较长的文档（将所有信息记录下来），然后进行编辑，尽可能删除重复的信息。这听起来可能很乏味，但请记住，这项费用会分摊到文档的所有读者身上。正如布莱斯·帕斯卡（Blaise Pascal）曾经说过的那样，“如果我有更多的时间，我会给你写一封更短的信。”通过保持文档的简短和清晰，你将确保它能让专家和新手都满意。
 
 Another important audience distinction is based on how a user encounters a document:
 •	Seekers are engineers who know what they want and want to know if what they are looking at fits the bill. A key pedagogical device for this audience is consistency. If you are writing reference documentation for this group—within a code file, for example—you will want to have your comments follow a similar format so that readers can quickly scan a reference and see whether they find what they are looking for.
@@ -352,7 +360,7 @@ Often, the best time to write a tutorial, if one does not yet exist, is when you
 
 Most tutorials require you to perform a number of steps, in order. In those cases, number those steps explicitly. If the focus of the tutorial is on the user (say, for external developer documentation), then number each action that a user needs to undertake. Don’t number actions that the system may take in response to such user actions. It is critical and important to number explicitly every step when doing this. Nothing is more annoying than an error on step 4 because you forget to tell someone to properly authorize their username, for example.
 
-大多数教程要求您按顺序执行许多步骤。在这些情况下，请明确为这些步骤编号。如果本教程的重点是用户（例如，对于外部开发人员文档），则对用户需要执行的每个操作进行编号。不要对系统响应此类用户操作可能采取的操作进行编号。在执行此操作时，对每个步骤进行明确编号是至关重要的。没有什么比步骤4中的错误更令人恼火的了，例如，您忘记告诉某人对其用户名进行授权。
+大多数教程要求你按顺序执行许多步骤。在这些情况下，请明确为这些步骤编号。如果本教程的重点是用户（例如，对于外部开发人员文档），则对用户需要执行的每个操作进行编号。不要对系统响应此类用户操作可能采取的操作进行编号。在执行此操作时，对每个步骤进行明确编号是至关重要的。没有什么比步骤4中的错误更令人恼火的了，例如，你忘记告诉某人对其用户名进行授权。
 
 **Example: A bad tutorial**
 
@@ -433,7 +441,7 @@ Most engineers are members of a team, and most teams have a “team page” some
 
 Luckily, such documents look intimidating, but are actually straightforward to fix: ensure that a landing page clearly identifies its purpose, and then include only links to other pages for more information. If something on a landing page is doing more than being a traffic cop, it is not doing its job. If you have a separate setup document, link to that from the landing page as a separate document. If you have too many links on the landing page (your page should not scroll multiple screens), consider breaking up the pages by taxonomy, under different sections.
 
-幸运的是，这些文档看起来很吓人，但实际上很容易修复：确保登录页清楚地标识其用途，然后只包含指向其他页面的链接以获取更多信息。如果登录页面上的某件事不仅仅是做一名交通警察，那它就没有做好自己的工作。如果您有单独的设置文档，请从登录页作为单独的文档链接到该文档。如果你在着陆页面上有太多链接（你的页面不应该滚动多个屏幕），考虑按分类法将页面分成不同部分。
+幸运的是，这些文档看起来很吓人，但实际上很容易修复：确保登录页清楚地标识其用途，然后只包含指向其他页面的链接以获取更多信息。如果登录页面上的某件事不仅仅是做一名交通警察，那它就没有做好自己的工作。如果你有单独的设置文档，请从登录页作为单独的文档链接到该文档。如果你在着陆页面上有太多链接（你的页面不应该滚动多个屏幕），考虑按分类法将页面分成不同部分。
 
 Most poorly configured landing pages serve two different purposes: they are the “goto” page for someone who is a user of your product or API, or they are the home page for a team. Don’t have the page serve both masters—it will become confusing. Create a separate “team page” as an internal page apart from the main landing page. What the team needs to know is often quite different than what a customer of your API needs to know.
 
@@ -456,7 +464,7 @@ A technical document benefits from three different types of reviews, each emphas
 
 Of course, some of these lines are sometimes blurred, but if your document is high profile or might end up being externally published, you probably want to ensure that it receives more types of reviews. (We’ve used a similar review process for this book.) Any document tends to benefit from the aforementioned reviews, even if some of those reviews are ad hoc. That said, even getting one reviewer to review your text is preferable to having no one review it.
 
-当然，其中一些界限有时是模糊的，但如果您的文档引人注目或最终可能会在外部发布，您可能希望确保它收到更多类型的评审。(我们对这本书采用了类似的评审程序。)任何文档都倾向于从上述评审中受益，即使其中一些评审是临时性的。也就是说，即使让一个评审员评审你的文本也比没有人评审要好。
+当然，其中一些界限有时是模糊的，但如果你的文档引人注目或最终可能会在外部发布，你可能希望确保它收到更多类型的评审。(我们对这本书采用了类似的评审程序。)任何文档都倾向于从上述评审中受益，即使其中一些评审是临时性的。也就是说，即使让一个评审员评审你的文本也比没有人评审要好。
 
 Importantly, if documentation is tied into the engineering workflow, it will often improve over time. Most documents at Google now implicitly go through an audience review because at some point, their audience will be using them, and hopefully letting you know when they aren’t working (via bugs or other forms of feedback).
 
@@ -502,7 +510,7 @@ Most technical documentation answers a “HOW” question. How does this work? H
 
 大多数技术文档回答的是 "如何 "的问题。它是如何工作的？我如何对这个API进行编程？我如何设置这个服务器？因此，软件工程师有一种倾向，就是在任何给定的文件中直接跳到 "如何"，而忽略了与之相关的其他问题：谁、什么、什么时候、什么地方和为什么。诚然，这些问题通常都不如 "如何 "重要--设计文件是个例外，因为与之相当的方面往往是 "为什么"--但如果没有适当的技术文档框架，文档最终会变得混乱。试着在任何文档的前两段解决其他问题。
 - 之前讨论的是WHO：这就是受众。但有时你也需要在文件中明确地叫出并解决受众的问题。例如。"本文档适用于秘密向导项目的新工程师。"
-- WHAT是确定本文档用途的内容：“本文档是一个旨在在测试环境中启动Frobber服务器的教程。”有时，只需编写帮助您正确构建文档的内容即可。如果开始添加不适用于WHAT的信息，则可能需要将该信息移动到单独的文档中。
+- WHAT是确定本文档用途的内容：“本文档是一个旨在在测试环境中启动Frobber服务器的教程。”有时，只需编写帮助你正确构建文档的内容即可。如果开始添加不适用于WHAT的信息，则可能需要将该信息移动到单独的文档中。
 - WHEN是何时确定本文件的创建、审查或更新时间。源代码中的文档隐式记录了该日期，其他一些发布方案也会自动记录该日期。但是，如果没有，请确保在文档本身上注明文档的编写日期（或最后一次修订日期）。
 - WHERE通常也是隐含的，但要决定该文档应该放在哪里。通常情况下，偏好应该在某种版本控制之下，最好是与它所记录的源代码一起。但其他格式也适用于不同的目的。在Google，我们经常使用Google Docs以方便协作，特别是在设计问题上。然而，在某些时候，任何共享的文件都不再是一种讨论，而更像是一种稳定的历史记录。在这一点上，把它移到一个更永久的地方，有明确的所有权、版本控制和责任。
 - WHY设定文件的目的。总结一下你希望别人在阅读后能从文件中得到什么。一个好的经验法则是在文件的引言中确立 "为什么"。当你写总结的时候，验证你是否达到了你最初的期望（并进行相应的修改）。
@@ -523,11 +531,11 @@ Most engineers loathe redundancy, and with good reason. But in documentation, re
 ### The Parameters of Good Documentation 良好文档的衡量标准
 There are usually three aspects of good documentation: completeness, accuracy, and clarity. You rarely get all three within the same document; as you try to make a document more “complete,” for example, clarity can begin to suffer. If you try to document every possible use case of an API, you might end up with an incomprehensible mess. For programming languages, being completely accurate in all cases (and documenting all possible side effects) can also affect clarity. For other documents, trying to be clear about a complicated topic can subtly affect the accuracy of the document; you might decide to ignore some rare side effects in a conceptual document, for example,because the point of the document is to familiarize someone with the usage of an API, not provide a dogmatic overview of all intended behavior.
 
-好的文档通常有三个方面：完整性、准确性和清晰性。你很少在同一文档中得到这三点；例如，当您试图使文档更加“完整”时，清晰度可能开始受到影响。如果你试图记录一个API的每一个可能的用例，你最终可能会得到一个难以理解的混乱。对于编程语言来说，在所有情况下完全准确（以及记录所有可能的副作用）也会影响清晰度。对于其他文档，试图弄清楚一个复杂的主题可能会微妙地影响文档的准确性；您可能会决定忽略概念文档中一些罕见的副作用，例如，因为本文档的目的是让某人熟悉API的使用，而不是提供所有预期行为的教条式概述。
+好的文档通常有三个方面：完整性、准确性和清晰性。你很少在同一文档中得到这三点；例如，当你试图使文档更加“完整”时，清晰度可能开始受到影响。如果你试图记录一个API的每一个可能的用例，你最终可能会得到一个难以理解的混乱。对于编程语言来说，在所有情况下完全准确（以及记录所有可能的副作用）也会影响清晰度。对于其他文档，试图弄清楚一个复杂的主题可能会微妙地影响文档的准确性；你可能会决定忽略概念文档中一些罕见的副作用，例如，因为本文档的目的是让某人熟悉API的使用，而不是提供所有预期行为的教条式概述。
 
 In each case, a “good document” is defined as the document that is doing its intended job. As a result, you rarely want a document doing more than one job. For each document (and for each document type), decide on its focus and adjust the writing appropriately. Writing a conceptual document? You probably don’t need to cover every part of the API. Writing a reference? You probably want this complete, but perhaps must sacrifice some clarity. Writing a landing page? Focus on organization and keep discussion to a minimum. All of this adds up to quality, which, admittedly, is stubbornly difficult to accurately measure.
 
-在每种情况下，“良好的文档”都被定义为有效的文档。因此，您很少希望文档执行多个任务。对于每个文档（以及每种文档类型），确定其重点并适当调整写作。写概念文档？你可能不需要涵盖API的每个部分。写参考文档？您可能希望这是完整的，但可能必须牺牲一些清晰度。写登录页？专注于组织，并尽量减少讨论。所有这些都是为了提高质量，诚然，这是很难准确衡量的。
+在每种情况下，“良好的文档”都被定义为有效的文档。因此，你很少希望文档执行多个任务。对于每个文档（以及每种文档类型），确定其重点并适当调整写作。写概念文档？你可能不需要涵盖API的每个部分。写参考文档？你可能希望这是完整的，但可能必须牺牲一些清晰度。写登录页？专注于组织，并尽量减少讨论。所有这些都是为了提高质量，诚然，这是很难准确衡量的。
 
 How can you quickly improve the quality of a document? Focus on the needs of the audience. Often, less is more. For example, one mistake engineers often make is adding design decisions or implementation details to an API document. Much like you should ideally separate the interface from an implementation within a welldesigned API, you should avoid discussing design decisions in an API document. Users don’t need to know this information. Instead, put those decisions in a specialized document for that purpose (usually a design doc).
 
