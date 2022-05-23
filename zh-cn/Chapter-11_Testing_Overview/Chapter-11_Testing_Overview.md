@@ -10,7 +10,7 @@
 
 Testing has always been a part of programming. In fact, the first time you wrote a computer program you almost certainly threw some sample data at it to see whether it performed as you expected. For a long time, the state of the art in software testing resembled a very similar process, largely manual and error prone. However, since the early 2000s, the software industry’s approach to testing has evolved dramatically to cope with the size and complexity of modern software systems. Central to that evolution has been the practice of developer-driven, automated testing.
 
-测试一直是编程的一部分。事实上，当你第一次编写计算机程序时，你几乎肯定向它抛出一些样本数据，看看它是否按照你的预期运行。在很长一段时间里，软件测试的技术水平类似于一个非常相近的过程，主要是手动和容易出错的。然而，自21世纪初以来，软件行业的测试方法已经发生了巨大的变化，以应对现代软件系统的规模和复杂性。这种演进的核心是开发人员驱动的自动化测试实践。
+测试一直是编程的一部分。事实上，当你第一次编写计算机程序时，你几乎肯定向它抛出一些样本数据，看看它是否按照你的预期运行。在很长一段时间里，软件测试的技术水平类似于一个非常相近的过程，主要是手动且容易出错的。然而，自21世纪初以来，软件行业的测试方法已经发生了巨大的变化，以应对现代软件系统的规模和复杂性。这种演进的核心是开发人员驱动的自动化测试实践。
 
 Automated testing can prevent bugs from escaping into the wild and affecting your users. The later in the development cycle a bug is caught, the more expensive it is; exponentially so in many cases.[1](#_bookmark841) However, “catching bugs” is only part of the motivation. An equally important reason why you want to test your software is to support the ability to change. Whether you’re adding new features, doing a refactoring focused on code health, or undertaking a larger redesign, automated testing can quickly catch mistakes, and this makes it possible to change software with confidence.
 
@@ -22,7 +22,7 @@ Companies that can iterate faster can adapt more rapidly to changing technologie
 
 The act of writing tests also improves the design of your systems. As the first clients of your code, a test can tell you much about your design choices. Is your system too tightly coupled to a database? Does the API support the required use cases? Does your system handle all of the edge cases? Writing automated tests forces you to confront these issues early on in the development cycle. Doing so generally leads to more modular software that enables greater flexibility later on.
 
-编写测试的行为也改善了你的系统设计。作为你的代码的第一个客户，测试可以告诉你很多关于设计选择的信息。你的系统是否与数据库结合得太紧密了？API是否支持所需的用例？你的系统是否能处理所有的边缘情况？编写自动化测试迫使你在开发周期的早期就面对这些问题。这样做通常会导致更多的模块化软件，使以后有更大的灵活性。
+编写测试的行为也改善了你的系统设计。作为你的代码的第一个客户，测试可以告诉你很多关于设计选择的信息。你的系统是否与数据库结合得太紧密了？API是否支持所需的用例？你的系统是否能处理所有的边界情况？编写自动化测试迫使你在开发周期的早期就面对这些问题。这样做通常会导致更多的模块化软件，使以后有更大的灵活性。
 
 Much ink has been spilled about the subject of testing software, and for good reason: for such an important practice, doing it well still seems to be a mysterious craft to many. At Google, while we have come a long way, we still face difficult problems getting our processes to scale reliably across the company. In this chapter, we’ll share what we have learned to help further the conversation.
 
@@ -40,15 +40,14 @@ To better understand how to get the most out of testing, let’s start from the 
 为了更好地理解如何最大限度地利用测试，让我们从头开始。当我们谈论自动化测试时，我们真正谈论的是什么？
 
 The simplest test is defined by:
+
 - A single behavior you are testing, usually a method or API that you are calling
-
 - A specific input, some value that you pass to the API
-
 - An observable output or behavior
-
 - A controlled environment such as a single isolated process
 
-最简单的测试定义如下
+最简单的测试定义如下：
+
 - 你要测试的单一行为，通常是你要调用的一个方法或API
 - 一个特定的输入，你传递给API的一些值
 - 可观察的输出或行为
@@ -60,7 +59,7 @@ When you execute a test like this, passing the input to the system and verifying
 
 Creating and maintaining a healthy test suite takes real effort. As a codebase grows, so too will the test suite. It will begin to face challenges like instability and slowness. A failure to address these problems will cripple a test suite. Keep in mind that tests derive their value from the trust engineers place in them. If testing becomes a productivity sink, constantly inducing toil and uncertainty, engineers will lose trust and begin to find workarounds. A bad test suite can be worse than no test suite at all.
 
-创建和维护一个健康的测试套件需要付出真正的努力。随着代码库的增长，测试套件也会增长。它将开始面临诸如不稳定和缓慢的挑战。如果不能解决这些问题，测试套件将被削弱。请记住，测试的价值来自工程师对测试的信任。如果测试成为生产力的短板，不断地带来辛劳和不确定性，工程师将失去信任并开始寻找解决办法。一个糟糕的测试套件可能比根本没有测试套件更糟糕。
+创建和维护一个健康的测试套件需要付出艰辛的努力。随着代码库的增长，测试套件也会增长。它将开始面临诸如不稳定和运行缓慢的挑战。如果不能解决这些问题，测试套件将被削弱。请记住，测试的价值来自工程师对测试的信任。如果测试成为生产力的短板，不断地带来辛劳和不确定性，工程师将失去信任并开始寻找解决办法。一个糟糕的测试套件可能比根本没有测试套件更糟糕。
 
 In addition to empowering companies to build great products quickly, testing is becoming critical to ensuring the safety of important products and services in our lives. Software is more involved in our lives than ever before, and defects can cause  more than a little annoyance: they can cost massive amounts of money, loss of property, or, worst of all, loss of life.[2](#_bookmark848)
 
@@ -630,7 +629,7 @@ The adoption of developer-driven automated testing has been one of the most tran
 
 This chapter has been written to help orient you to how Google thinks about testing. In the next few chapters, we are going to dive even deeper into some key topics that have helped shape our understanding of what it means to write good, stable, and reliable tests. We will discuss the what, why, and how of unit tests, the most common kind of test at Google. We will wade into the debate on how to effectively use test doubles in tests through techniques such as faking, stubbing, and interaction testing. Finally, we will discuss the challenges with testing larger and more complex systems, like many of those we have at Google.
 
-本章旨在帮助您了解谷歌如何看待测试。在接下来的几章中，我们将深入探讨一些关键主题，这些主题有助于我们理解编写好的、稳定的、可靠的测试意味着什么。我们将讨论单元测试的内容、原因和方式，这是谷歌最常见的测试类型。我们将深入讨论如何通过模拟、打桩和交互测试等技术在测试中有效地使用测试替代。最后，我们将讨论测试更大、更复杂的系统所面临的挑战，就像我们在谷歌遇到的许多系统一样。
+本章旨在帮助你了解谷歌如何看待测试。在接下来的几章中，我们将深入探讨一些关键主题，这些主题有助于我们理解编写好的、稳定的、可靠的测试意味着什么。我们将讨论单元测试的内容、原因和方式，这是谷歌最常见的测试类型。我们将深入讨论如何通过模拟、打桩和交互测试等技术在测试中有效地使用测试替代。最后，我们将讨论测试更大、更复杂的系统所面临的挑战，就像我们在谷歌遇到的许多系统一样。
 
 At the conclusion of these three chapters, you should have a much deeper and clearer picture of the testing strategies we use and, more important, why we use them.
 
