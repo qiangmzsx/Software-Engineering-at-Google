@@ -9,7 +9,7 @@
 
 Google is a data-driven company. We back up most of our products and design decisions with hard data. The culture of data-driven decision making, using appropriate metrics, has some drawbacks, but overall, relying on data tends to make most decisions objective rather than subjective, which is often a good thing. Collecting and analyzing data on the human side of things, however, has its own challenges. Specifically, within software engineering, Google has found that having a team of specialists focus on engineering productivity itself to be very valuable and important as the company scales and can leverage insights from such a team.
 
-谷歌是一家数据驱动型公司。我们的大部分产品和设计决策都有可靠的数据支持。数据驱动的决策文化，使用适当的指标，有一些缺点，但总的来说，依靠数据往往使大多数决策变得客观而不是主观，这往往是一件好事。然而，收集和分析人类方面的数据，有其自身的挑战。具体来说，在软件工程领域，谷歌发现，随着公司规模的扩大，拥有一支专注于工程生产力的专家团队本身是非常有价值和重要的，可以利用这样一支团队的洞察力。
+谷歌是一家数据驱动型公司。我们的大部分产品和设计决策都有可靠的数据支持。数据驱动的决策文化，使用适当的指标，有一些缺点，但总的来说，依靠数据往往使大多数决策变得客观而不是主观，这往往是一件好事。然而，收集和分析人类方面的数据，有其自身的挑战。具体来说，在软件工程领域，谷歌发现，随着公司规模的扩大，拥有一支专注于工程生产效率的专家团队本身是非常有价值和重要的，可以利用这样一支团队的洞察力。
 
 ## Why Should We Measure Engineering Productivity? 我们为什么要测量工程效率
 
@@ -111,7 +111,7 @@ By asking these questions, we find that in many cases, measurement is simply not
 	Examples here might include measuring the software process of an organization just before a planned reorganization. Or measuring the amount of technical debt for a deprecated system.
 
 	The decision maker has strong opinions, and you are unlikely to be able to provide a large enough body of evidence, of the right type, to change their beliefs.
-
+	
 	This comes down to knowing your audience. Even at Google, we sometimes find people who have unwavering beliefs on a topic due to their past experiences. We have found stakeholders who never trust survey data because they do not believe self-reports. We’ve also found stakeholders who are swayed best by a compelling narrative that was informed by a small number of interviews. And, of course, there are stakeholders who are swayed only by logs analysis. In all cases, we attempt to triangulate on the truth using mixed methods, but if a stakeholder is limited to believing only in methods that are not appropriate for the problem, there is no point in doing the work.
 
 *The results will be used only as vanity metrics to support something you were going to do anyway*
@@ -129,7 +129,7 @@ By asking these questions, we find that in many cases, measurement is simply not
 	这里的例子可能包括在计划重组之前测量一个组织的软件流程。或者测量一个被废弃的系统的技术债务的数量。
 
 	决策者有强烈的意见，而你不太可能提供足够多的正确类型的证据，来改变他们的信念。
-
+	
 	这就需要了解你的受众。即使在谷歌，我们有时也会发现一些人由于他们过去的经验而对某一主题有坚定的信念。我们曾发现一些利益相关者从不相信调查数据，因为他们不相信自我观念。我们也发现一些利益相关者，他们最容易被由少量访谈得出的令人信服的叙述所动摇。当然，也有一些利益相关者只被日志分析所动摇。在所有情况下，我们都试图用混合方法对真相进行三角分析，但如果利益相关者只限于相信不适合问题的方法，那么做这项工作就没有意义。
 
 *结果只能作为虚荣的指标，以来支持你一定要做的事情*
@@ -152,37 +152,63 @@ When you are successful at measuring your software process, you aren’t setting
 3 Java和C++拥有最大量的工具支持。两者都有成熟的格式化工具和静态分析工具，可以捕捉常见的错误。两者也都有大量的内部资金。即使其他语言团队，如Python，对结果感兴趣，但显然，如果我们连Java或C++都不能显示出同样的好处，那么Python就不会有删除可读性的好处。
 ```
 
-## Selecting Meaningful Metrics with Goals and Signals
+## Selecting Meaningful Metrics with Goals and Signals  用目标和信号来选择有意义的衡量标准
 
 After we decide to measure a software process, we need to determine what metrics to use. Clearly, lines of code (LOC) won’t do,[4](#_bookmark542) but how do we actually measure engineering productivity?
 
+在我们决定测量一个软件过程之后，我们需要确定使用什么指标。显然，代码行（LOC）是不行的，但我们究竟该如何测量工程生产效率呢？
+
 At Google, we use the Goals/Signals/Metrics (GSM) framework to guide metrics creation.
+
+在谷歌，我们使用目标/信号/指标（GSM）框架来指导指标创建。
 
 - A *goal* is a desired end result. It’s phrased in terms of what you want to understand at a high level and should not contain references to specific ways to measure it.
 - A signal is how you might know that you’ve achieved the end result. Signals are things we would *like* to measure, but they might not be measurable themselves.
 - A *metric* is proxy for a signal. It is the thing we actually can measure. It might not be the ideal measurement, but it is something that we believe is close enough.
 
+- *目标*是一个期望的最终结果。它是根据你希望在高层次上理解的内容来表述的，不应包含对具体测量方法的引用。。
+- *信号*是你如何知道你已经实现了最终结果。信号是我们*想要*衡量的东西，但它们本身可能是不可测量的。
+- *指标*是信号的代表。它是我们实际上可以测量的东西。它可能不是理想的测量，但它是我们认为足够接近的东西。
+
 The GSM framework encourages several desirable properties when creating metrics. First, by creating goals first, then signals, and finally metrics, it prevents the *streetlight* *effect*. The term comes from the full phrase “looking for your keys under the streetlight”: if you look only where you can see, you might not be looking in the right place. With metrics, this occurs when we use the metrics that we have easily accessible and that are easy to measure, regardless of whether those metrics suit our needs. Instead, GSM forces us to think about which metrics will actually help us achieve our goals, rather than simply what we have readily available.
+
+GSM框架在创建指标时鼓励几个理想的属性。首先，通过首先创建目标，然后是信号，最后是指标，它可以防止*路灯*效应。这个词来自于 "在路灯下找你的钥匙 "这个完整的短语：如果你只看你能看到的地方，你可能没有找对地方。对于指标来说，当我们使用我们容易获得的、容易测量的指标时，就会出现这种情况，不管这些指标是否适合我们的需求。相反，GSM迫使我们思考哪些指标能真正帮助我们实现目标，而不是简单地考虑我们有哪些现成的指标。
 
 Second, GSM helps prevent both metrics creep and metrics bias by encouraging us to come up with the appropriate set of metrics, using a principled approach, *in advance* of actually measuring the result. Consider the case in which we select metrics without a principled approach and then the results do not meet our stakeholders’ expectations. At that point, we run the risk that stakeholders will propose that we use different metrics that they believe will produce the desired result. And because we didn’t select based on a principled approach at the start, there’s no reason to say that they’re wrong! Instead, GSM encourages us to select metrics based on their ability to measure the original goals. Stakeholders can easily see that these metrics map to their original goals and agree, in advance, that this is the best set of metrics for measuring the outcomes.
 
+第二，GSM通过鼓励我们使用原则性的方法提出适当的指标集，从而有助于防止指标蠕变和指标偏差，从而有助于实际测量结果。考虑这样一种情况，我们在没有原则性方法的情况下选择指标，然后结果不符合我们的利益相关者的期望。在这一点上，我们面临着利益相关者建议我们使用他们认为会产生预期结果的不同指标的风险。而且因为我们一开始并没有基于原则性的方法进行选择，所以没有理由说他们错了！相反，GSM鼓励我们根据衡量原始目标的能力选择指标。利益相关者可以很容易地看到这些指标映射到他们的 最初的目标，并提前同意这是衡量结果的最佳指标集。
+
 Finally, GSM can show us where we have measurement coverage and where we do not. When we run through the GSM process, we list all our goals and create signals for each one. As we will see in the examples, not all signals are going to be measurable and that’s OK! With GSM, at least we have identified what is not measurable. By identifying these missing metrics, we can assess whether it is worth creating new metrics or even worth measuring at all.
+
+最后，GSM可以告诉我们哪里有测量覆盖，哪里没有。当我们运行GSM流程时，我们列出所有的目标，并为每个目标创建信号。正如我们在例子中所看到的，并不是所有的信号都是可测量的，这没关系！通过GSM，至少我们已经确定了什么是可测量的。通过GSM，至少我们已经确定了哪些是不可测量的。通过识别这些缺失的指标，我们可以评估是否值得创建新的指标，甚至是否值得测量。
 
 The important thing is to maintain *traceability*. For each metric, we should be able to trace back to the signal that it is meant to be a proxy for and to the goal it is trying to measure. This ensures that we know which metrics we are measuring and why we are measuring them.
 
+重要的是要保持*可追溯性*。对于每个指标，我们应该能够追溯到它所要代表的信号，以及它所要测量的目标。这可以确保我们知道我们正在测量哪些指标，以及为什么我们要测量它们。
+
 ```
 4	“From there it is only a small step to measuring ‘programmer productivity’ in terms of ‘number of lines of code produced per month.’ This is a very costly measuring unit because it encourages the writing of insipid code, but today I am less interested in how foolish a unit it is from even a pure business point of view. My point today is that, if we wish to count lines of code, we should not regard them as ‘lines produced’ but as ‘lines spent’: the current conventional wisdom is so foolish as to book that count on the wrong side of the ledger.” Edsger Dijkstra, on the cruelty of really teaching computing science, EWD Manuscript 1036.
+
+4   “从那时起，用‘每月产生的代码行数’来衡量‘程序员生产效率’只需一小步。这是一个非常昂贵的测量单位，因为它鼓励编写平淡的代码，但今天我对这个单位的愚蠢程度不感兴趣，甚至从纯商业的角度来看也是如此。我今天的观点是，如果我们希望计算代码的行数，我们不应该将它们视为“生产的行数”，而应该视为“花费的行数”：当前的传统智慧愚蠢到将这些行数记在账本的错误一侧。”Edsger Dijkstra，关于真正教给计算机科学的残酷性，EWD手稿1036。
 ```
 
-## Goals
+## Goals  目标
 
 A goal should be written in terms of a desired property, without reference to any metric. By themselves, these goals are not measurable, but a good set of goals is something that everyone can agree on before proceeding onto signals and then metrics.
 
+目标应该根据所需的属性来编写，而不需要参考任何指标。就其本身而言，这些目标是无法衡量的，但一组好的目标是每个人都可以在继续进行信号和衡量指标之前达成一致的。
+
 To make this work, we need to have identified the correct set of goals to measure in the first place. This would seem straightforward: surely the team knows the goals of their work! However, our research team has found that in many cases, people forget to include all the possible *trade-offs within productivity*, which could lead to mismeasurement.
+
+为了使其发挥作用，我们首先需要确定一套正确的目标来测量。这看起来很简单：团队肯定知道他们工作的目标！但是，我们的研究团队发现，在许多情况下，人们忘记了将所有可能的*权衡因素包括在生产效率中*。然而，我们的研究团队发现，在许多情况下，人们忘记了将所有可能的*生产力内的权衡因素包括在内*，这可能导致错误的衡量。
 
 Taking the readability example, let’s assume that the team was so focused on making the readability process fast and easy that it had forgotten the goal about code quality. The team set up tracking measurements for how long it takes to get through the review process and how happy engineers are with the process. One of our teammates proposes the following:
 
-I can make your review velocity very fast: just remove code reviews entirely.
+	I can make your review velocity very fast: just remove code reviews entirely.
+
+以可读性为例，我们假设团队太专注于使可读性过程快速和简单，以至于忘记了关于代码质量的目标。团队设置了跟踪测量，以了解通过审查过程需要多长时间，以及工程师对该过程的满意程度。我们的一个队友提出以下建议：
+
+	我可以让你的审查速度变得非常快：只要完全取消代码审查。
 
 Although this is obviously an extreme example, teams forget core trade-offs all the time when measuring: they become so focused on improving velocity that they forget to measure quality (or vice versa). To combat this, our research team divides productivity into five core components. These five components are in trade-off with one another, and we encourage teams to consider goals in each of these components to ensure that they are not inadvertently improving one while driving others downward. To help people remember all five components, we use the mnemonic “QUANTS”:
 
@@ -201,28 +227,66 @@ Although this is obviously an extreme example, teams forget core trade-offs all 
 *Satisfaction*
 	How happy are engineers with their tools? How well does a tool meet engineers’ needs? How satisfied are they with their work and their end product? Are engineers feeling burned out?
 
-	Going back to the readability example, our research team worked with the readability team to identify several productivity goals of the readability process:
+虽然这显然是一个极端的例子，但团队在测量时总是忘记了核心的权衡：他们太专注于提高速度而忘记了测量质量（或者反过来）。为了解决这个问题，我们的研究团队将生产效率分为五个核心部分。这五个部分是相互权衡的，我们鼓励团队考虑每一个部分的目标，以确保他们不会在无意中提高一个部分而使其他部分下降。为了帮助人们记住所有五个组成部分，我们使用了 "QUANTS "的记忆法：
+
+代码的***质量***
+	产生的代码的质量如何？测试用例是否足以预防回归？架构在减轻风险和变化方面的能力如何？
+
+工程师的***关注度***
+	工程师达到流动状态的频率如何？他们在多大程度上被通知分散了注意力？工具是否鼓励工程师进行状态切换？
+
+*逻辑的复杂性*
+	完成一项任务需要多大的认知负荷？正在解决的问题的内在复杂性是什么？工程师是否需要处理不必要的复杂性？
+
+*节奏和速度*
+	工程师能多快地完成他们的任务？他们能以多快的速度把他们的版本推出去？他们在给定的时间范围内能完成多少任务？
+
+*满意程度*
+	工程师对他们的工具有多满意？工具能在多大程度上满足工程师的需求？他们对自己的工作和最终产品的满意度如何？工程师是否感到筋疲力尽？
+
+
+Going back to the readability example, our research team worked with the readability team to identify several productivity goals of the readability process:
 
 *Quality of the code*
 	Engineers write higher-quality code as a result of the readability process; they write more consistent code as a result of the readability process; and they contribute to a culture of code health as a result of the readability process.
 
-*Attention* *from* *engineers*
+*Attention from engineers*
 	We did not have any attention goal for readability. This is OK! Not all questions about engineering productivity involve trade-offs in all five areas.
 
-*Intellectual* *complexity*
+*Intellectual complexity*
 	Engineers learn about the Google codebase and best coding practices as a result of the readability process, and they receive mentoring during the readability process.
 
-*Tempo* *and* *velocity*
+*Tempo and velocity*
 	Engineers complete work tasks faster and more efficiently as a result of the readability process.
 
 *Satisfaction*
 	Engineers see the benefit of the readability process and have positive feelings about participating in it.
 
-## Signals
+回到可读性的例子，我们的研究团队与可读性团队合作，确定了可读性过程中的几个生产力目标。
+
+*代码的质量*
+	由于可读性过程，工程师们写出了更高质量的代码；由于可读性过程，他们写出了更一致的代码；由于可读性过程，他们为代码的健康文化做出了贡献。
+
+*来自工程师的关注
+	我们没有为可读性制定任何关注目标。这是可以的! 并非所有关于工程生产力的问题都涉及所有五个领域的权衡。
+
+*知识复杂性*
+	工程师们通过可读性过程了解谷歌代码库和最佳编码实践，他们在可读性过程中接受指导。
+
+*节奏和速度*
+	由于可读性过程，工程师更快、更有效地完成工作任务。
+
+*满意度
+	工程师们看到了可读性过程的好处，对参与该过程有积极的感受。
+
+
+## Signals  信号
 
 A signal is the way in which we will know we’ve achieved our goal. Not all signals are measurable, but that’s acceptable at this stage. There is not a 1:1 relationship between signals and goals. Every goal should have at least one signal, but they might have more. Some goals might also share a signal. [Table 7-1 ](#_bookmark557)shows some example signals for the goals of the readability process measurement.
 
-*Table 7-1. Signals and goals*
+信号是我们将知道我们已经实现了目标的方式。并非所有的信号都是可衡量的，但这在现阶段是可以接受的。信号和目标之间不是1:1的关系。每个目标应该至少有一个信号，但它们可能有更多的信号。有些目标也可能共享一个信号。表7-1显示了可读性过程测量的目标的一些信号示例。
+
+*Table 7-1. Signals and goals*  *表7-1. 信号和目标 *
 
 | Goals                                                        | Signals                                                      |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
@@ -231,15 +295,32 @@ A signal is the way in which we will know we’ve achieved our goal. Not all sig
 | Engineers receive mentoring during the readability process.  | Engineers report positive interactions with experienced Google engineers who serve as reviewers during the readability process. |
 | Engineers receive mentoring during the readability process.<br/>Engineers complete work tasks faster and more efficiently as a result of the readability process.<br/><br/><br/>Engineers see the benefit of the readability process and have positive feelings about participating in it. | Engineers who have been granted readability judge themselves to be more productive than engineers who have not been granted readability. Changes written by engineers who have been granted readability are faster to review than changes written by engineers who have not been granted readability.<br/>Engineers view the readability process as being worthwhile. |
 
-## Metrics
+| 目标                                                         | 信号                                                         |
+| ------------------------------------------------------------ | ------------------------------------------------------------ |
+| 由于可读性过程，工程师们会写出更高质量的代码。               | 被授予可读性的工程师判断他们的代码比没有被授予可读性的工程师的质量更高。可读性过程对代码质量有积极影响。 |
+| 工程师们通过可读性过程了解谷歌的代码库和最佳编码实践。       | 工程师们报告了从可读性过程中的学习情况。                     |
+| 工程师在可读性过程中接受指导。                               | 工程师们报告了与经验丰富的谷歌工程师的积极互动，他们在可读性过程中担任审查员。 |
+| 工程师在可读性过程中得到指导。<br/><br/>由于可读性过程，工程师们更快、更有效地完成工作任务。<br/><br/>工程师们看到了可读性过程的好处，并对参与这一过程有积极的感受。 | 被授予可读性的工程师判断自己比没有被授予可读性的工程师更有生产效率。被授予可读性的工程师所写的修改比未被授予可读性的工程师所写的修改审查得更快。<br/><br/>工程师认为可读性过程是值得的。 |
+
+
+
+## Metrics  指标
 
 Metrics are where we finally determine how we will measure the signal. Metrics are not the signal themselves; they are the measurable proxy of the signal. Because they are a proxy, they might not be a perfect measurement. For this reason, some signals might have multiple metrics as we try to triangulate on the underlying signal.
 
+指标是我们最终确定如何测量信号的标准。指标不是信号本身；它们是信号的可测量的代表。因为它们是一个代表，所以它们可能不是一个完美的测量。出于这个原因，一些信号可能有多个指标，因为我们试图对基本信号进行三角测量分析。
+
 For example, to measure whether engineers’ code is reviewed faster after readability, we might use a combination of both survey data and logs data. Neither of these metrics really provide the underlying truth. (Human perceptions are fallible, and logs metrics might not be measuring the entire picture of the time an engineer spends reviewing a piece of code or can be confounded by factors unknown at the time, like the size or difficulty of a code change.) However, if these metrics show different results, it signals that possibly one of them is incorrect and we need to explore further. If they are the same, we have more confidence that we have reached some kind of truth.
+
+例如，为了测量工程师的代码在可读性之后是否审查得更快，我们可能会同时使用调查数据和日志数据。这两个指标都没有真正提供基本的事实。(人类的感知是易变的，而日志指标可能没有测量出工程师审查一段代码所花时间的全貌，或者可能被当时未知的因素所混淆，比如代码修改的大小或难度)。然而，如果这些指标显示出不同的结果，就表明可能其中一个指标是不正确的，我们需要进一步探索。如果它们是一样的，我们就更有信心，我们已经达到了某种真相。
 
 Additionally, some signals might not have any associated metric because the signal might simply be unmeasurable at this time. Consider, for example, measuring code quality. Although academic literature has proposed many proxies for code quality, none of them have truly captured it. For readability, we had a decision of either using a poor proxy and possibly making a decision based on it, or simply acknowledging that this is a point that cannot currently be measured. Ultimately, we decided not to capture this as a quantitative measure, though we did ask engineers to self-rate their code quality.
 
+此外，一些信号可能没有任何相关的指标，因为信号可能在这个时候根本无法测量。例如，考虑测量代码质量。尽管学术文献已经提出了许多代码质量的代用指标，但没有一个能真正抓住它。对于可读性，我们必须做出决定，要么使用一个糟糕的代表，并可能根据它做出决定，要么干脆承认这是一个目前无法测量的点。最终，我们决定不把它作为一个量化的指标，尽管我们确实要求工程师对他们的代码质量进行自我评价。
+
 Following the GSM framework is a great way to clarify the goals for why you are measuring your software process and how it will actually be measured. However, it’s still possible that the metrics selected are not telling the complete story because they are not capturing the desired signal. At Google, we use qualitative data to validate our metrics and ensure that they are capturing the intended signal.
+
+遵循GSM框架是一个很好的方法，可以明确你为什么要测量你的软件过程的目标，以及它将如何被实际测量。然而，仍然有可能选择的指标没有说明全部情况，因为它们没有捕获所需的信号。在谷歌，我们使用定性数据来验证我们的指标，并确保它们捕捉到了预期的信号。
 
 ## Using Data to Validate Metrics
 
@@ -311,5 +392,4 @@ At Google, we’ve found that staffing a team of engineering productivity specia
 - Select metrics that cover all parts of productivity (QUANTS). By doing this, you ensure that you aren’t improving one aspect of productivity (like developer velocity) at the cost of another (like code quality).
 - Qualitative metrics are metrics, too! Consider having a survey mechanism for tracking longitudinal metrics about engineers’ beliefs. Qualitative metrics should also align with the quantitative metrics; if they do not, it is likely the quantitative metrics that are incorrect.
 - Aim to create recommendations that are built into the developer workflow and incentive structures. Even though it is sometimes necessary to recommend additional training or documentation, change is more likely to occur if it is built into the developer’s daily habits.
-
 
