@@ -125,7 +125,7 @@ By asking these questions, we find that in many cases, measurement is simply not
 *你现在没有能力改变这个过程/工具*。
 	可能有时间上的限制或资金上的制约，使之无法进行。例如，你可能确定，只要你切换到一个更快的构建工具，每周就能节省几个小时的时间。然而，转换意味着在每个人都转换的时候暂停开发，而且有一个重要的资金期限即将到来，这样你就无法承受这种中断。工程权衡不是在真空中评估的——在这样的情况下，重要的是要意识到，更广泛的背景完全可以证明推迟对结果采取行动是合理的。
 
-*任何结果很快就会因其他因素而失效*。
+*任何结果很快就会因其他因素而失效*
 	这里的例子可能包括在计划重组之前测量一个组织的软件流程。或者测量一个被废弃的系统的技术债务的数量。
 
 	决策者有强烈的意见，而你不太可能提供足够多的正确类型的证据，来改变他们的信念。
@@ -235,7 +235,7 @@ Although this is obviously an extreme example, teams forget core trade-offs all 
 工程师的***关注度***
 	工程师达到流动状态的频率如何？他们在多大程度上被通知分散了注意力？工具是否鼓励工程师进行状态切换？
 
-*逻辑的复杂性*
+*知识的复杂性*
 	完成一项任务需要多大的认知负荷？正在解决的问题的内在复杂性是什么？工程师是否需要处理不必要的复杂性？
 
 *节奏和速度*
@@ -322,25 +322,35 @@ Following the GSM framework is a great way to clarify the goals for why you are 
 
 遵循GSM框架是一个很好的方法，可以明确你为什么要测量你的软件过程的目标，以及它将如何被实际测量。然而，仍然有可能选择的指标没有说明全部情况，因为它们没有捕获所需的信号。在谷歌，我们使用定性数据来验证我们的指标，并确保它们捕捉到了预期的信号。
 
-## Using Data to Validate Metrics
+## Using Data to Validate Metrics  使用数据验证指标
 
 As an example, we once created a metric for measuring each engineer’s median build latency; the goal was to capture the “typical experience” of engineers’ build latencies. We then ran an *experience sampling study*. In this style of study, engineers are interrupted in context of doing a task of interest to answer a few questions. After an engineer started a build, we automatically sent them a small survey about their experiences and expectations of build latency. However, in a few cases, the engineers responded that they had not started a build! It turned out that automated tools were starting up builds, but the engineers were not blocked on these results and so it didn’t “count” toward their “typical experience.” We then adjusted the metric to exclude such builds.[5](#_bookmark564)
 
+举个例子，我们曾经创建了一个衡量每个工程师平均构建延迟中位数的指标；目的是为了捕捉工程师构建延迟的 "典型经验"。然后我们进行了一个*经验抽样研究*。在这种研究方式中，工程师在做一项感兴趣的任务时被打断，以回答一些问题。在工程师开始构建后，我们自动向他们发送了一份小型调查，了解他们对构建延迟的经验和期望。然而，在少数情况下，工程师们回答说他们没有开始构建！结果发现，自动化工具正在启动。事实证明，自动化工具正在启动构建，但工程师们并没有被这些结果所阻碍，因此它并没有“计入”他们的“典型经验”。然后我们调整了指标，排除了这种构建。
+
 Quantitative metrics are useful because they give you power and scale. You can measure the experience of engineers across the entire company over a large period of time and have confidence in the results. However, they don’t provide any context or narrative. Quantitative metrics don’t explain why an engineer chose to use an antiquated tool to accomplish their task, or why they took an unusual workflow, or why they circumvented a standard process. Only qualitative studies can provide this information, and only qualitative studies can then provide insight on the next steps to improve a process.
+
+定量指标是有用的，因为它们给你能力和规模。你可以在很长一段时间内测量整个公司的工程师的经验，并对结果有信心。然而，它们并不提供任何背景或叙述。定量指标不能解释为什么一个工程师选择使用一个过时的工具来完成他们的任务，或者为什么他们采取了一个不寻常的工作流程，或者为什么他们绕过了一个标准流程。只有定性研究才能提供这些信息，也只有定性研究才能为改进流程的下一步提供洞察力。
 
 ```
 5	It has routinely been our experience at Google that when the quantitative and qualitative metrics disagree, it was because the quantitative metrics were not capturing the expected result.
+
+5 我们在谷歌的常规经验是，当定量指标和定性指标不一致时，是因为定量指标没有捕捉到预期的结果。
 ```
 
 Consider now the signals presented in [Table 7-2](#_bookmark567). What metrics might you create to measure each of those? Some of these signals might be measurable by analyzing tool and code logs. Others are measurable only by directly asking engineers. Still others might not be perfectly measurable—how do we truly measure code quality, for example?
 
+现在考虑一下表7-2中提出的信号。你可以创建什么指标来测量其中的每一个？其中一些信号可能是可以通过分析工具和代码日志来衡量的。其他的只能通过直接询问工程师来衡量。还有一些可能不是完全可衡量的——例如，我们如何真正测量代码质量？
+
 Ultimately, when evaluating the impact of readability on productivity, we ended up with a combination of metrics from three sources. First, we had a survey that was specifically about the readability process. This survey was given to people after they completed the process; this allowed us to get their immediate feedback about the process. This hopefully avoids recall bias,[6](#_bookmark568) but it does introduce both recency bias[7](#_bookmark569) and sampling bias.[8](#_bookmark570) Second, we used a large-scale quarterly survey to track items that were not specifically about readability; instead, they were purely about metrics that we expected readability should affect. Finally, we used fine-grained logs metrics from our developer tools to determine how much time the logs claimed it took engineers to complete specific tasks.[9](#_bookmark571) [Table 7-2 ](#_bookmark567)presents the complete list of metrics with their corresponding signals and goals.
 
-*Table 7-2. Goals, signals, and metrics*
+最终，在评估可读性对生产力的影响时，我们最终综合了三个方面的指标。首先，我们有一个专门针对可读性过程的调查。这个调查是在人们完成了这个过程之后进行的；这使我们能够得到他们对这个过程的即时反馈。这有望避免回忆偏差，但它确实引入了近期偏差和抽样偏差。其次，我们使用大规模的季度调查来追踪那些不是专门关于可读性的项目；相反，它们纯粹是关于我们预期可读性应该影响的指标。最后，我们使用了来自我们的开发者工具的细粒度的日志指标来确定日志中声称的工程师完成特定任务所需的时间。表7-2列出了完整的指标清单及其相应的信号和目标。
+
+*Table 7-2. Goals, signals, and metrics*  *表7-2. 目标、信号和指标*
 
 | QUANTS                       | Goal                                                         | Signal                                                       | Metric                                                       |
 | ---------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
-| **Qu**ality of the code      | Engineers write higherquality code as a result of the readability process. | Engineers who have been<br/>granted readability judge their code to be of higher quality than engineers who have not been granted readability.<br/>The readability process has a positive impact on code quality. | Quarterly Survey: Proportion ofengineers who report being satisfied with the quality of their own code<br/><br/>Readability Survey: Proportion of engineers reporting that readability reviews have no impact or negative impact on code quality |
+| **Qu**ality of the code      | Engineers write higherquality code as a result of the readability process. | Engineers who have been granted readability judge their code to be of higher quality than engineers who have not been granted readability.<br/>The readability process has a positive impact on code quality. | Quarterly Survey: Proportion ofengineers who report being satisfied with the quality of their own code<br/><br/>Readability Survey: Proportion of engineers reporting that readability reviews have no impact or negative impact on code quality |
 |                              |                                                              |                                                              | Readability Survey: Proportionof engineers reporting thatparticipating in the readability process has improved codequality for their team |
 |                              | Engineers write more consistent code as a result of the readability process. | Engineers are given consistent feedback and direction in code reviews by readability reviewers as a part of the readability process. | Readability Survey: Proportion of engineers reporting inconsistency in readability reviewers’ comments and readability criteria. |
 |                              | Engineers contribute to a culture of code health as a result of the readability process. | Engineers who have been granted readability regularly comment on style and/or readability issues in code reviews. | Readability Survey: Proportion of engineers reporting that they regularly comment on style and/or readability issues in code reviews |
@@ -363,29 +373,65 @@ Ultimately, when evaluating the impact of readability on productivity, we ended 
 |                              |                                                              | Engineers do not view the readability process as frustrating. | Readability Survey: Proportion of engineers reporting that the readability process is uncertain, unclear, slow, or frustrating |
 |                              |                                                              |                                                              | Quarterly Survey: Proportion of engineers reporting that they’re satisfied with their own engineering velocity |
 
+
+
+| QUANTS         | 目标                                                         | 信号                                                         | 指标                                                         |
+| -------------- | ------------------------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| **代码**的质量 | 由于可读性过程，工程师们会写出更高质量的代码。               | 被授予可读性的工程师判断他们的代码比没有被授予可读性的工程师的质量更高。<br/><br/>可读性过程对代码质量有积极影响。 | 季度调查。对自己的代码质量表示满意的工程师的比例<br/><br/>可读性调查。报告可读性审查对代码质量没有影响或有负面影响的工程师的比例 |
+|                |                                                              |                                                              | 可读性调查。报告说参与可读性过程改善了他们团队的代码质量的工程师的比例 |
+|                | 作为可读性过程的结果，工程师们写出的代码更加一致。           | 工程师在代码审查中由可读性审查员提供一致的反馈和指导，这是可读性过程的一部分。 | 可读性调查。报告可读性审查员的意见和可读性标准不一致的工程师比例。 |
+|                | 工程师对代码健康文化的贡献是可读性过程的结果。               | 被授予可读性的工程师经常在代码审查中评论风格和/或可读性问题。 | 可读性调查：报告他们经常在代码审查中评论风格和/或可读性问题的工程师的比例 |
+| 工程师的关注   | 不适用                                                       | 不适用                                                       | 不适用                                                       |
+| 知识           | 工程师们通过可读性过程了解谷歌的代码库和最佳编码实践。       | 工程师们报告了从可读性过程中的学习情况。                     | 可读性调查。报告说他们了解了四个相关主题的工程师比例         |
+|                |                                                              |                                                              | 可读性调查：报告学习或获得专业知识是可读性过程的优势的工程师比例 |
+|                | 工程师在可读性过程中接受指导。                               | 工程师们报告说，在可读性过程中，他们与作为审查员的经验丰富的谷歌工程师进行了积极的互动。 | 可读性调查：报告说与可读性审查员一起工作是可读性过程的优势的工程师的比例 |
+| 节奏/速度      | 由于可读性过程，工程师们的工作效率更高。                     | 被授予可读性的工程师判断自己比没有被授予可读性的工程师更有生产力。 | 季度调查：报告他们具有高生产力的工程师的比例                 |
+|                |                                                              | 工程师们报告说，完成可读性过程对他们的工程速度有积极的影响。 | 可读性调查：报告不具备可读性会降低团队工程速度的工程师比例   |
+|                |                                                              | 由被授予可读性的工程师编写的变更列表（CLs）比由未被授予可读性的工程师编写的变更列表审查得更快。 | 日志数据：有可读性和无可读性的作者所写的CL的审查时间中位数   |
+|                |                                                              | 由被授予可读性的工程师编写的CL比由未被授予可读性的工程师编写的CL更容易通过代码审查。 | Logs数据：具备可读性和不具备可读性的作者编写的CL的指导时间的中位数 |
+|                |                                                              | 由被授予可读性的工程师编写的CL比由未被授予可读性的工程师编写的CL更快地通过代码审查。 | 日志数据：具有可读性和不具有可读性的作者的CL提交时间的中位数 |
+|                |                                                              | 可读性过程不会对工程速度产生负面影响。                       | 可读性调查：报告可读性过程对其速度有负面影响的工程师比例     |
+|                |                                                              |                                                              | 可读性调查：报告可读性审查员及时回复的工程师比例             |
+|                |                                                              |                                                              | 可读性调查：可读性调查：报告审查的及时性是可读性过程的优势的工程师比例 |
+| 满意度         | 工程师们看到了可读性过程的好处，并对参与这一过程有积极的感受。 | 工程师们认为可读性过程是一个总体上积极的经历。               | 可读性调查：报告说他们在可读性过程中的经验总体上是积极的工程师的比例 |
+|                |                                                              | 工程师认为可读性过程是值得的                                 | 可读性调查：报告说可读性过程是值得的工程师比例               |
+|                |                                                              |                                                              | 可读性调查：报告称可读性审查质量是流程优势的工程师比例       |
+|                |                                                              |                                                              | 可读性调查：报道称彻底性是流程的优势的工程师比例             |
+|                |                                                              | 工程师不认为可读性过程是令人沮丧的。                         | 可读性调查：报告说可读性过程不确定、不清楚、缓慢或令人沮丧的工程师的比例 |
+|                |                                                              |                                                              | 季度调查：报告他们对自己的工程速度感到满意的工程师的比例     |
+
+
+
 ```
 6	Recall bias is the bias from memory. People are more likely to recall events that are particularly interesting or frustrating.
 7	Recency bias is another form of bias from memory in which people are biased toward their most recent experience. In this case, as they just successfully completed the process, they might be feeling particularly good about it.
 8	Because we asked only those people who completed the process, we aren’t capturing the opinions of those who did not complete the process.
 9	There is a temptation to use such metrics to evaluate individual engineers, or perhaps even to identify high and low performers. Doing so would be counterproductive, though. If productivity metrics are used for performance reviews, engineers will be quick to game the metrics, and they will no longer be useful for measuring and improving productivity across the organization. The only way to make these measurements work is to let go of the idea of measuring individuals and embrace measuring the aggregate effect.
 
+6 回忆偏差是来自记忆的偏差。人们更愿意回忆那些特别有趣或令人沮丧的事件。
+7 近期偏见是另一种形式的来自记忆的偏见，即人们偏向于最近的经历。在这种情况下，由于他们刚刚成功地完成了这个过程，他们可能会感觉特别好。
+8 因为我们只问了那些完成过程的人，所以我们没有捕捉到那些没有完成过程的人的意见。
+9 有一种诱惑，就是用这样的指标来评价个别的工程师，甚至可能用来识别高绩效和低绩效的人。不过，这样做会适得其反。如果生产效率指标被用于绩效评估，工程师们就会很快玩弄这些指标，它们将不再对测量和提高整个组织的生产效率有用。让这些指标发挥作用的唯一方法是，放下衡量个人的想法，接受测量总体效果。
+
 ```
 
-
-
-
-
-## Taking Action and Tracking Results
+## Taking Action and Tracking Results  采取行动并跟踪结果
 
 Recall our original goal in this chapter: we want to take action and improve productivity. After performing research on a topic, the team at Google always prepares a list of recommendations for how we can continue to improve. We might suggest new features to a tool, improving latency of a tool, improving documentation, removing obsolete processes, or even changing the incentive structures for the engineers. Ideally, these recommendations are “tool driven”: it does no good to tell engineers to change their process or way of thinking if the tools do not support them in doing so. We instead always assume that engineers will make the appropriate trade-offs if they have the proper data available and the suitable tools at their disposal.
 
+回顾我们在本章中的最初目标：我们希望采取行动，提高生产效率。在对某个主题进行研究之后，谷歌的团队总是准备一份建议清单，说明我们可以如何继续改进。我们可能会建议给一个工具增加新的功能，改善工具的延迟，改善文档，删除过时的流程，甚至改变工程师的激励结构。理想情况下，这些建议是 "工具驱动 "的：如果工具不支持工程师改变他们的流程或思维方式，那么告诉他们这样做是没有用的。相反，我们总是假设，如果工程师有适当的数据和合适的工具可以使用，他们会做出适当的权衡。
+
 For readability, our study showed that it was overall worthwhile: engineers who had achieved readability were satisfied with the process and felt they learned from it. Our logs showed that they also had their code reviewed faster and submitted it faster, even accounting for no longer needing as many reviewers. Our study also showed places for improvement with the process: engineers identified pain points that would have made the process faster or more pleasant. The language teams took these recommendations and improved the tooling and process to make it faster and to be more transparent so that engineers would have a more pleasant experience.
 
-## Conclusion
+就可读性而言，我们的研究表明，总体上是值得的：实现了可读性的工程师对这一过程感到满意，并认为他们从中学到了东西。我们的记录显示，他们的代码审查得更快，提交得也更快，甚至不再需要那么多的审查员。我们的研究还显示了过程中需要改进的地方：工程师们发现了可以使过程更快、更愉快的痛点。语言团队采纳了这些建议，并改进了工具和流程，使其更快、更透明，从而使工程师有一个更愉快的体验。
+
+## Conclusion  总结
 
 At Google, we’ve found that staffing a team of engineering productivity specialists has widespread benefits to software engineering; rather than relying on each team to chart its own course to increase productivity, a centralized team can focus on broad- based solutions to complex problems. Such “human-based” factors are notoriously difficult to measure, and it is important for experts to understand the data being analyzed given that many of the trade-offs involved in changing engineering processes are difficult to measure accurately and often have unintended consequences. Such a team must remain data driven and aim to eliminate subjective bias.
 
-## TL;DRs
+在谷歌，我们发现配备一个工程生产效率专家团队对软件工程有广泛的好处；与其依靠每个团队制定自己的路线来提高生产效率，一个集中的团队可以专注于复杂问题的广泛解决方案。这种 "以人为本 "的因素是出了名的难以测量，而且鉴于改变工程流程所涉及的许多权衡都难以准确测量，而且往往会产生意想不到的后果，因此专家们必须了解正在分析的数据。这样的团队必须保持数据驱动，旨在消除主观偏见。
+
+## TL;DRs  内容提要
 
 - Before measuring productivity, ask whether the result is actionable, regardless of whether the result is positive or negative. If you can’t do anything with the result, it is likely not worth measuring.
 - Select meaningful metrics using the GSM framework. A good metric is a reasonable proxy to the signal you’re trying to measure, and it is traceable back to your original goals.
@@ -393,3 +439,8 @@ At Google, we’ve found that staffing a team of engineering productivity specia
 - Qualitative metrics are metrics, too! Consider having a survey mechanism for tracking longitudinal metrics about engineers’ beliefs. Qualitative metrics should also align with the quantitative metrics; if they do not, it is likely the quantitative metrics that are incorrect.
 - Aim to create recommendations that are built into the developer workflow and incentive structures. Even though it is sometimes necessary to recommend additional training or documentation, change is more likely to occur if it is built into the developer’s daily habits.
 
+- 在测量生产效率之前，要问结果是否可操作，无论结果是积极还是消极。如果你对这个结果无能为力，它很可能不值得测量。
+- 使用GSM框架选择有意义的衡量标准。一个好的指标是你试图测量的信号的合理代理，而且它可以追溯到你的原始目标。
+- 选择涵盖生产效率所有部分的测量标准（QUANTS）。通过这样做，你可以确保你不会以牺牲另一个方面（如代码质量）为代价来改善生产力的一个方面（如开发人员的速度）。
+- 定性指标也是指标。考虑有一个调查机制来跟踪关于工程师信念的纵向指标。定性指标也应该与定量指标一致；如果它们不一致，很可能是定量指标不正确。
+- 争取创建内置于开发人员工作流程和激励结构的建议。即使有时有必要推荐额外的培训或文档，但如果将其纳入开发人员的日常习惯，则更有可能发生变化。
