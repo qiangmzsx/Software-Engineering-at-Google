@@ -2,39 +2,61 @@
 
 # Measuring Engineering Productivity 
 
-# 第七章  度量工程产出
+# 第七章  测量工程效率
 
 ​																			**Written by  Ciera Jaspan Edited by Riona Macnamara**
 
 
-
 Google is a data-driven company. We back up most of our products and design decisions with hard data. The culture of data-driven decision making, using appropriate metrics, has some drawbacks, but overall, relying on data tends to make most decisions objective rather than subjective, which is often a good thing. Collecting and analyzing data on the human side of things, however, has its own challenges. Specifically, within software engineering, Google has found that having a team of specialists focus on engineering productivity itself to be very valuable and important as the company scales and can leverage insights from such a team.
 
-## Why Should We Measure Engineering Productivity?
+谷歌是一家数据驱动型公司。我们的大部分产品和设计决策都有可靠的数据支持。数据驱动的决策文化，使用适当的指标，有一些缺点，但总的来说，依靠数据往往使大多数决策变得客观而不是主观，这往往是一件好事。然而，收集和分析人类方面的数据，有其自身的挑战。具体来说，在软件工程领域，谷歌发现，随着公司规模的扩大，拥有一支专注于工程生产力的专家团队本身是非常有价值和重要的，可以利用这样一支团队的洞察力。
+
+## Why Should We Measure Engineering Productivity? 我们为什么要测量工程效率
 
 Let’s presume that you have a thriving business (e.g., you run an online search engine), and you want to increase your business’s scope (enter into the enterprise application market, or the cloud market, or the mobile market). Presumably, to increase the scope of your business, you’ll need to also increase the size of your engineering organization. However, as organizations grow in size linearly, communication costs grow quadratically.[1](#_bookmark526) Adding more people will be necessary to increase the scope of your business, but the communication overhead costs will not scale linearly as you add additional personnel. As a result, you won’t be able to scale the scope of your business linearly to the size of your engineering organization.
 
-There is another way to address our scaling problem, though: *we could make each* *individual more productive*. If we can increase the productivity of individual engineers in the organization, we can increase the scope of our business without the commensurate increase in communication overhead.
+让我们假设你有一个蓬勃发展的业务（例如，你经营一个在线搜索引擎），并且你想扩大你的业务范围（进入企业应用市场，或云市场，或移动市场）。据推测，为了增加你的业务范围，你也需要增加你的工程组织的规模。然而，随着组织规模的线性增长，沟通成本也呈二次曲线增长。增加人员对扩大业务范围是必要的，但沟通成本不会随着你增加人员而线性扩展。因此，你将无法根据你的工程组织的规模线性地扩大你的业务范围。
+
+
+There is another way to address our scaling problem, though: *we could make each individual more productive*. If we can increase the productivity of individual engineers in the organization, we can increase the scope of our business without the commensurate increase in communication overhead.
+
+不过，还有一种方法可以解决我们的规模问题：*我们可以使每个人的生产效率提高*。如果我们能提高组织中单个工程师的生产效率，我们就能增加我们的业务范围，而不会相应地增加沟通成本。
 
 Google has had to grow quickly into new businesses, which has meant learning how to make our engineers more productive. To do this, we needed to understand what makes them productive, identify inefficiencies in our engineering processes, and fix the identified problems. Then, we would repeat the cycle as needed in a continuous improvement loop. By doing this, we would be able to scale our engineering organization with the increased demand on it.
 
-However, this improvement cycle *also* takes human resources. It would not be worthwhile to improve the productivity of your engineering organization by the equivalent of 10 engineers per year if it took 50 engineers per year to understand and fix productivity blockers. *Therefore, our goal is to not only improve software engineering produc‐* *tivity, but to do so efficiently.*
+谷歌不得不迅速发展新业务，这意味着要学习如何让我们的工程师更有效率。要做到这一点，我们需要了解是什么让他们富有成效，找出我们工程流程中的低效之处，并解决所发现的问题。然后，我们将根据需要在一个持续改进的循环中重复这个循环。通过这样做，我们将能够在需求增加的情况下扩大我们的工程组织。
+
+However, this improvement cycle *also* takes human resources. It would not be worthwhile to improve the productivity of your engineering organization by the equivalent of 10 engineers per year if it took 50 engineers per year to understand and fix productivity blockers. *Therefore, our goal is to not only improve software engineering productivity, but to do so efficiently.*
+
+然而，这个改进周期*也*需要人力资源。如果每年需要50个工程师来了解和解决生产力的障碍，那么以每年10名工程师的数量来提高工程组织的生产率是不值得的。*因此，我们的目标是不仅要提高软件工程的生产效率，而且要有效地做到这一点。*
 
 At Google, we addressed these trade-offs by creating a team of researchers dedicated to understanding engineering productivity. Our research team includes people from the software engineering research field and generalist software engineers, but we also include social scientists from a variety of fields, including cognitive psychology and behavioral economics. The addition of people from the social sciences allows us to not only study the software artifacts that engineers produce, but to also understand the human side of software development, including personal motivations, incentive structures, and strategies for managing complex tasks. The goal of the team is to take a data-driven approach to measuring and improving engineering productivity.
 
+在谷歌，我们通过创建一个致力于了解工程生产效率的研究团队来解决这些权衡问题。我们的研究团队包括来自软件工程研究领域的人员和普通的软件工程师，但我们也包括来自不同领域的社会科学家，包括认知心理学和行为经济学。来自社会科学的人员的加入使我们不仅可以研究工程师生产的软件工件，还可以了解软件开发中人的一面，包括个人动机、激励结构和管理复杂任务的策略。该团队的目标是采用数据驱动的方法来衡量和提高工程生产效率。
+
 In this chapter, we walk through how our research team achieves this goal. This begins with the triage process: there are many parts of software development that we *can* measure, but what *should* we measure? After a project is selected, we walk through how the research team identifies meaningful metrics that will identify the problematic parts of the process. Finally, we look at how Google uses these metrics to track improvements to productivity.
+
+在本章中，我们将介绍我们的研究团队是如何实现这一目标的。这从分类过程开始：我们对软件开发的许多部分*可以*进行测量，但是我们应该测量什么呢？在一个项目被选中后，我们将介绍研究团队如何确定有意义的指标，以确定该过程中存在问题的部分。最后，我们看一下谷歌是如何使用这些指标来跟踪生产效率的改进。
 
 For this chapter, we follow one concrete example posed by the C++ and Java language teams at Google: readability. For most of Google’s existence, these teams have managed the readability process at Google. (For more on readability, see [Chapter 3](#_bookmark182).) The readability process was put in place in the early days of Google, before automatic formatters ([Chapter 8](#_bookmark580)) and linters that block submission were commonplace ([Chap‐](#_bookmark664) [ter 9](#_bookmark664)). The process itself is expensive to run because it requires hundreds of engineers performing readability reviews for other engineers in order to grant readability to them. Some engineers viewed it as an archaic hazing process that no longer held utility, and it was a favorite topic to argue about around the lunch table. The concrete question from the language teams was this: is the time spent on the readability process worthwhile?
 
+在本章中，我们遵循谷歌的C++和Java语言团队提出的一个具体例子：可读性。在谷歌存在的大部分时间里，这些团队一直在管理谷歌的可读性过程。(关于可读性的更多信息，请参见第三章）。可读性过程是在谷歌的早期建立的，当时自动格式化工具（第8章）和阻止提交的锁定还没有普及（第9章）。这个过程本身运行成本很高，因为它需要数以百计的工程师为其他工程师进行可读性审查，以便授予他们可读性。一些工程师认为这是一个古老的自欺欺人过程，不再具有实用性，这也是午餐桌上最喜欢争论的话题。来自语言团队的具体问题是：花在可读性过程上的时间是值得的吗？
+
 ```
 1	Frederick P. Brooks, The Mythical Man-Month: Essays on Software Engineering (New York: Addison-Wesley, 1995).
+
+1   Frederick P.Brooks，《人月深化：软件工程随笔》（纽约：Addison Wesley，1995）。
 ```
 
-## Triage: Is It Even Worth Measuring?
+## Triage: Is It Even Worth Measuring? 分类：是否值得测量？
 
 Before we decide how to measure the productivity of engineers, we need to know when a metric is even worth measuring. The measurement itself is expensive: it takes people to measure the process, analyze the results, and disseminate them to the rest of the company. Furthermore, the measurement process itself might be onerous and slow down the rest of the engineering organization. Even if it is not slow, tracking progress might change engineers’ behavior, possibly in ways that mask the underlying issues. We need to measure and estimate smartly; although we don’t want to guess, we shouldn’t waste time and resources measuring unnecessarily.
 
+在我们决定如何测量工程师的生产效率之前，我们需要知道什么时候使用哪个指标甚至值得测量。测量本身是昂贵的：它需要人去测量过程，分析结果，并将其传播给公司的其他部门。此外，测量过程本身可能是繁琐的，会拖累工程组织的其他部门。即使它不慢，跟踪进度也可能改变工程师的行为，可能会掩盖潜在的问题。我们需要聪明地测量和估计；虽然我们不想猜测，但我们不应该浪费时间和资源进行不必要的测量。
+
 At Google, we’ve come up with a series of questions to help teams determine whether it’s even worth measuring productivity in the first place. We first ask people to describe what they want to measure in the form of a concrete question; we find that the more concrete people can make this question, the more likely they are to derive benefit from the process. When the readability team approached us, its question was simple: are the costs of an engineer going through the readability process worth the benefits they might be deriving for the company?
+
+在谷歌，我们想出了一系列的问题来帮助团队确定是否值得优先测量生产效率。我们首先要求人们以具体问题的形式描述他们想要测量的东西；我们发现，人们提出这个问题越具体，他们就越有可能从这个过程中获益。当可读性团队与我们接触时，其问题很简单：工程师在可读性过程中的成本是否值得他们为公司带来的好处？
 
 We then ask them to consider the following aspects of their question:
 
@@ -58,7 +80,29 @@ We then ask them to consider the following aspects of their question:
 
 	In the case of readability, we had a clear decision maker for each programming language. Two language teams, Java and C++, actively reached out to us for assistance, and the others were waiting to see what happened with those languages first.[3](#_bookmark532) The decision makers trusted engineers’ self-reported experiences for understanding happiness and learning, but the decision makers wanted to see “hard numbers” based on logs data for velocity and code quality. This meant that we needed to include both qualitative and quantitative analysis for these metrics. There was not a hard deadline for this work, but there was an internal conference that would make for a useful time for an announcement if there was going to be a change. That deadline gave us several months in which to complete the work.
 
-	By asking these questions, we find that in many cases, measurement is simply not worthwhile…and that’s OK! There are many good reasons to not measure the impact of a tool or process on productivity. Here are some examples that we’ve seen:
+然后我们要求他们考虑以下问题：
+
+*你期望的结果是什么？为什么？*
+	尽管我们可能想假装我们是中立的调查人员，但事实并非如此。我们确实对应该发生什么有先入为主的观念。通过一开始就承认这一点，我们可以尝试解决这些偏见，防止对结果进行事后解释。
+
+	当这个问题被提给可读性小组时，该小组指出，它并不确定。人们确信在某个时间点上的成本是值得的，但是随着自动格式化和静态分析工具的出现，没有人完全确定。越来越多的人认为，这个过程现在成了一种自欺欺人的仪式。虽然它可能仍然为工程师提供了好处（他们有调查数据显示人们确实声称有这些好处），但不清楚它是否值得作者或代码审查员投入时间。
+
+*如果数据支持你的预期结果，将采取什么行动？
+	我们这样问是因为如果不采取任何行动，那么测量就没有意义了。请注意，如果没有这一结果，就会发生计划变更，那么行动实际上可能是“维持现状”。
+
+	当被问及这个问题时，可读性团队的回答很直截了当：如果好处足以证明这个过程的成本是合理的，他们会链接到关于可读性的FAQ上的研究和数据，并进行宣传以设定期望。
+
+*如果我们得到一个负面的结果，是否会采取适当的行动？*
+	我们问这个问题是因为在许多情况下，我们发现负面结果不会改变决策。决策中可能会有其他的投入，而这些投入将取代任何负面的结果。如果是这样的话，可能一开始就不值得测量。这也是阻止我们研究团队所做的大多数项目的问题；我们了解到决策者对了解结果感兴趣，但由于其他原因，他们不会选择改变方向。
+
+	然而，在可读性的案例中，我们有一个来自团队的强有力的行动声明。它承诺，如果我们的分析显示成本大于收益，或者收益可以忽略不计，团队将放弃这个项目。由于不同的编程语言在格式化和静态分析方面有不同的成熟度，因此该评估将基于每种语言进行。
+
+*谁将决定对结果采取行动，以及他们何时采取行动？*
+	我们这样问是为了确保要求测量的人是被授权采取行动的人（或直接代表他们采取行动）。归根结底，测量我们的软件流程的目的是帮助人们做出业务决策。了解这个人是谁很重要，包括什么形式的数据能说服他们。尽管最好的研究包括各种方法（从结构化访谈到日志的统计分析等各种方法），但为决策者提供他们需要的数据的时间可能有限。在这些情况下，最好的办法是迎合决策者的要求。他们是否倾向于通过访谈中可以获取到的故事来做出决策？他们是否信任调查结果或日志数据？他们对复杂的统计分析感到满意吗？如果决策者压根就不相信结果的形式，那么测量过程又没有意义。
+
+	在可读性方面，我们对每种编程语言都有一个明确的决策者。有两个语言团队，即Java和C++，积极向我们寻求帮助，而其他团队则在等待，看这些语言先发生什么。决策者相信工程师自我报告的经验，以了解快乐和学习，但决策者希望看到基于日志数据的速度和代码质量的 "硬数字"。这意味着，我们需要对这些指标进行定性和定量分析。这项工作没有一个硬性的截止日期，但有一个内部会议，如果有变化的话，这个会议将宣布一个新的时间点。这个期限给了我们几个月的时间来完成这项工作。
+
+By asking these questions, we find that in many cases, measurement is simply not worthwhile…and that’s OK! There are many good reasons to not measure the impact of a tool or process on productivity. Here are some examples that we’ve seen:
 
 *You can’t afford to change the process/tools right now*
 	There might be time constraints or financial constraints that prevent this. For example, you might determine that if only you switched to a faster build tool, it would save hours of time every week. However, the switchover will mean pausing development while everyone converts over, and there’s a major funding deadline approaching such that you cannot afford the interruption. Engineering trade-offs are not evaluated in a vacuum—in a case like this, it’s important to realize that the broader context completely justifies delaying action on a result.
@@ -76,12 +120,36 @@ We then ask them to consider the following aspects of their question:
 *The only metrics available are not precise enough to measure the problem and can be confounded by other factors*
 	In some cases, the metrics needed (see the upcoming section on how to identify metrics) are simply unavailable. In these cases, it can be tempting to measure using other metrics that are less precise (lines of code written, for example). However, any results from these metrics will be uninterpretable. If the metric confirms the stakeholders’ preexisting beliefs, they might end up proceeding with their plan without consideration that the metric is not an accurate measure. If it does not confirm their beliefs, the imprecision of the metric itself provides an easy explanation, and the stakeholder might, again, proceed with their plan.
 
+通过问这些问题，我们发现在许多情况下，测量根本不值得……这没有关系！有许多很好的理由不测量一个工具或过程对生产效率的影响。以下是我们看到的一些例子：
+
+*你现在没有能力改变这个过程/工具*。
+	可能有时间上的限制或资金上的制约，使之无法进行。例如，你可能确定，只要你切换到一个更快的构建工具，每周就能节省几个小时的时间。然而，转换意味着在每个人都转换的时候暂停开发，而且有一个重要的资金期限即将到来，这样你就无法承受这种中断。工程权衡不是在真空中评估的——在这样的情况下，重要的是要意识到，更广泛的背景完全可以证明推迟对结果采取行动是合理的。
+
+*任何结果很快就会因其他因素而失效*。
+	这里的例子可能包括在计划重组之前测量一个组织的软件流程。或者测量一个被废弃的系统的技术债务的数量。
+
+	决策者有强烈的意见，而你不太可能提供足够多的正确类型的证据，来改变他们的信念。
+
+	这就需要了解你的受众。即使在谷歌，我们有时也会发现一些人由于他们过去的经验而对某一主题有坚定的信念。我们曾发现一些利益相关者从不相信调查数据，因为他们不相信自我观念。我们也发现一些利益相关者，他们最容易被由少量访谈得出的令人信服的叙述所动摇。当然，也有一些利益相关者只被日志分析所动摇。在所有情况下，我们都试图用混合方法对真相进行三角分析，但如果利益相关者只限于相信不适合问题的方法，那么做这项工作就没有意义。
+
+*结果只能作为虚荣的指标，以来支持你一定要做的事情*
+	这也许是我们在谷歌告诉人们不要测量软件过程的最常见的原因。很多时候，人们已经为多个原因规划了一个决策，而改进软件开发过程只是这些决策的一个好处。例如，谷歌的发布工具团队曾经要求对发布工作流程系统的计划变更进行测量。由于变化的性质，很明显，这个变化不会比目前的状态差，但他们不知道这是一个小的改进还是一个大的改进。我们问团队：如果结果只是一个小的改进，无论如何你会花资源来实现这个功能，即使它看起来不值得投资？答案是肯定的! 这个功能碰巧提高了生产效率，但这是一个副作用：它也更具有性能，降低了发布工具团队的维护负担。
+
+*唯一可用的指标不够精确，无法衡量问题，而且会被其他因素所干扰*
+	在某些情况下，所需的指标（见即将到来的关于如何识别指标的章节）根本无法获得。在这些情况下，使用其他不那么精确的指标（例如，编写的代码行）进行测量是很诱人的。然而，这些指标的任何结果都是无法解释的。如果这个指标证实了利益相关者预先存在的观念，他们最终可能会继续执行他们的计划，而不考虑这个指标不是一个准确的衡量标准。如果它没有证实他们的观念，那么指标本身的不精确性就提供了一个简单的解释，利益相关者可能再次继续他们的计划。
+
 When you are successful at measuring your software process, you aren’t setting out to prove a hypothesis correct or incorrect; *success means giving a stakeholder the data they need to make a decision*. If that stakeholder won’t use the data, the project is always a failure. We should only measure a software process when a concrete decision will be made based on the outcome. For the readability team, there was a clear decision to be made. If the metrics showed the process to be beneficial, they would publicize the result. If not, the process would be abolished. Most important, the readability team had the authority to make this decision.
+
+当你成功地测量你的软件过程时，你并不是为了证明一个假设的正确与否；*成功意味着给利益相关者提供他们做出决定所需的数据*。如果这个利益相关者不使用这些数据，那么这个项目就是失败的。我们只应该在根据结果做出具体决定的时候才去衡量一个软件过程。对于可读性团队来说，有一个明确的决定要做。如果衡量标准显示这个过程是有益的，他们将公布这个结果。如果没有，这个过程就会被废除。最重要的是，可读性小组有权力做出这个决定。
 
 ```
 2	It’s worth pointing out here that our industry currently disparages “anecdata,” and everyone has a goal of being “data driven.” Yet anecdotes continue to exist because they are powerful. An anecdote can provide context and narrative that raw numbers cannot; it can provide a deep explanation that resonates with others because it mirrors personal experience. Although our researchers do not make decisions on anecdotes, we do use and encourage techniques such as structured interviews and case studies to deeply understand phenomena and provide context to quantitative data.
 
 3	Java and C++ have the greatest amount of tooling support. Both have mature formatters and static analysis tools that catch common mistakes. Both are also heavily funded internally. Even though other language teams, like Python, were interested in the results, clearly there was not going to be a benefit for Python to remove readability if we couldn’t even show the same benefit for Java or C++.
+
+2 在此值得指出的是，我们的行业目前贬低 "轶事数据"，而每个人都有一个 "数据驱动 "的目标。然而，轶事仍然存在，因为它们是强大的。轶事可以提供原始数字无法提供的背景和叙述；它可以提供一个深刻的解释，因为它反映了个人的经验，所以能引起别人的共鸣。虽然我们的研究人员不会根据轶事做出决定，但我们确实使用并鼓励结构化访谈和案例研究等技术，以深入理解现象，并为定量数据提供背景。
+
+3 Java和C++拥有最大量的工具支持。两者都有成熟的格式化工具和静态分析工具，可以捕捉常见的错误。两者也都有大量的内部资金。即使其他语言团队，如Python，对结果感兴趣，但显然，如果我们连Java或C++都不能显示出同样的好处，那么Python就不会有删除可读性的好处。
 ```
 
 ## Selecting Meaningful Metrics with Goals and Signals
