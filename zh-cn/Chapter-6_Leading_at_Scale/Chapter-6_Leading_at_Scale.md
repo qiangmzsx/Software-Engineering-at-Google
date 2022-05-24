@@ -1,3 +1,4 @@
+
 **CHAPTER 6**
 
 # Leading at Scale
