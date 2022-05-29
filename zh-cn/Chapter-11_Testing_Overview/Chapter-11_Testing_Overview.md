@@ -73,11 +73,11 @@ At Google, we have determined that testing cannot be an afterthought. Focusing o
 
 In Google’s early days, engineer-driven testing was often assumed to be of little importance. Teams regularly relied on smart people to get the software right. A few systems ran large integration tests, but mostly it was the Wild West. One product in particular seemed to suffer the worst: it was called the Google Web Server, also known as GWS.
 
-在谷歌的早期，工程师驱动的测试往往被认为是不重要的。团队经常依靠牛人来使软件正常。有几个系统进行了大规模的集成测试，但大多数情况下，这是一个狂野的西部。有一个产品似乎受到了最严重的影响：它被称为谷歌网络服务器，也被称为GWS。
+在谷歌的早期，工程师驱动的测试往往被认为是不重要的。团队经常依靠牛人来使软件正常。有几个系统进行了大规模的集成测试，但大多数情况下，这是一个狂野的美国西部。有一个产品似乎受到了最严重的影响：它被称为谷歌网络服务器，也被称为GWS。
 
 GWS is the web server responsible for serving Google Search queries and is as important to Google Search as air traffic control is to an airport. Back in 2005, as the project swelled in size and complexity, productivity had slowed dramatically. Releases were becoming buggier, and it was taking longer and longer to push them out. Team members had little confidence when making changes to the service, and often found out something was wrong only when features stopped working in production. (At one point, more than 80% of production pushes contained user-affecting bugs that had to be rolled back.)
 
-GWS是负责为谷歌搜索查询提供服务的网络服务器，它对谷歌搜索的重要性就像空中交通管制对机场的重要性一样。早在2005年，随着项目规模和复杂性的增加，生产力急剧下降。发布的版本越来越多的错误，推送的时间也越来越长。团队成员在对服务进行修改时信心不足，往往是在功能停止工作时才发现有问题。(有一次，超过80％的生产推送包含了影响用户的bug，不得不回滚）。
+GWS是负责为谷歌搜索查询提供服务的网络服务器，它对谷歌搜索的重要性就像空中交通管制对机场的重要性一样。早在2005年，随着项目规模和复杂性的增加，生产效率急剧下降。发布的版本越来越多的错误，推送的时间也越来越长。团队成员在对服务进行修改时信心不足，往往是在功能停止工作时才发现有问题。(有一次，超过80％的生产推送包含了影响用户的bug，不得不回滚）。
 
 To address these problems, the tech lead (TL) of GWS decided to institute a policy of engineer-driven, automated testing. As part of this policy, all new code changes were required to include tests, and those tests would be run continuously. Within a year of instituting this policy, the number of emergency pushes *dropped by half*. This drop occurred despite the fact that the project was seeing a record number of new changes every quarter. Even in the face of unprecedented growth and change, testing brought renewed productivity and confidence to one of the most critical projects at Google. Today, GWS has tens of thousands of tests, and releases almost every day with relatively few customer-visible failures.
 
@@ -89,7 +89,7 @@ GWS的变化标志着谷歌测试文化的一个分水岭，因为公司其他�
 
 One of the key insights the GWS experience taught us was that you can’t rely on programmer ability alone to avoid product defects. Even if each engineer writes only the occasional bug, after you have enough people working on the same project, you will be swamped by the ever-growing list of defects. Imagine a hypothetical 100-person team whose engineers are so good that they each write only a single bug a month. Collectively, this group of amazing engineers still produces five new bugs every workday. Worse yet, in a complex system, fixing one bug can often cause another, as engineers adapt to known bugs and code around them.
 
-GWS的经验告诉我们的一个重要启示是，你不能仅仅依靠程序员的能力来避免产品缺陷。即使每个工程师只是偶尔写一些bug，当你有足够多的人在同一个项目上工作时，你也会被不断增长的缺陷清单所淹没。想象一下，一个假设的100人的团队，其工程师非常优秀，他们每个人每月只写一个bug。而这群了不起的工程师在每个工作日仍然会产生5个新的bug。更糟糕的是，在一个复杂的系统中，修复一个错误往往会导致另一个错误，因为工程师们会适配已知的bug并围绕它们编写代码。
+GWS的经验告诉我们的一个重要启示是，你不能仅仅依靠程序员的能力来避免产品缺陷。即使每个工程师只是偶尔写一些bug，当你有足够多的人在同一个项目上工作时，你也会被不断增长的缺陷列表所淹没。想象一下，一个假设的100人的团队，其工程师非常优秀，他们每个人每月只写一个bug。而这群了不起的工程师在每个工作日仍然会产生5个新的bug。更糟糕的是，在一个复杂的系统中，修复一个错误往往会导致另一个错误，因为工程师们会适配已知的bug并围绕它们编写代码。
 
 The best teams find ways to turn the collective wisdom of its members into a benefit for the entire team. That is exactly what automated testing does. After an engineer on the team writes a test, it is added to the pool of common resources available to others. Everyone else on the team can now run the test and will benefit when it detects an issue. Contrast this with an approach based on debugging, wherein each time a bug occurs, an engineer must pay the cost of digging into it with a debugger. The cost in engineering resources is night and day and was the fundamental reason GWS was able to turn its fortunes around.
 
@@ -131,10 +131,10 @@ In its purest form, automating testing consists of three activities: writing tes
 ```java
 // Verifies a Calculator class can handle negative results.
 public void main(String[] args) {
-Calculator calculator = new Calculator();
-int expectedResult = -3;
-int actualResult = calculator.subtract(2, 5); // Given 2, Subtracts 5.
-assert(expectedResult == actualResult);
+	Calculator calculator = new Calculator();
+	int expectedResult = -3;
+	int actualResult = calculator.subtract(2, 5); // Given 2, Subtracts 5.
+	assert(expectedResult == actualResult);
 }
 ```
 
@@ -148,7 +148,7 @@ Of course, writing tests is different from writing *good tests*. It can be quite
 
 Writing tests is only the first step in the process of automated testing. After you have written tests, you need to run them. Frequently. At its core, automated testing consists of repeating the same action over and over, only requiring human attention when something breaks. We will discuss this Continuous Integration (CI) and testing in [Chapter 23](#_bookmark2022). By expressing tests as code instead of a manual series of steps, we can run them every time the code changes—easily thousands of times per day. Unlike human testers, machines never grow tired or bored.
 
-编写测试只是自动化测试过程中的第一步。编写测试后，需要运行它们。频繁地自动化测试的核心是一遍又一遍地重复相同的操作，只有在出现故障时才需要人的注意。我们将在第23章讨论这种持续集成（CI）和测试。通过将测试表达为代码，而不是手动的一系列步骤，我们可以在每次代码改变时运行它们--每天很容易地运行数千次。与人工测试人员不同，机器从不感到疲劳或无聊。
+编写测试只是自动化测试过程中的第一步。编写测试后，需要运行它们。频繁地自动化测试的核心是一遍又一遍地重复相同的操作，只有在出现故障时才需要人的注意。我们将在第23章讨论这种持续集成（CI）和测试。通过将测试表达为代码，而不是手动的一系列步骤，我们可以在每次代码改变时运行它们——每天很容易地运行数千次。与人工测试人员不同，机器从不感到疲劳或无聊。
 
 Another benefit of having tests expressed as code is that it is easy to modularize them for execution in various environments. Testing the behavior of Gmail in Firefox requires no more effort than doing so in Chrome, provided you have configurations for both of these systems.[3](#_bookmark864) Running tests for a user interface (UI) in Japanese or German can be done using the same test code as for English.
 
@@ -166,7 +166,7 @@ In summary, a healthy automated testing culture encourages everyone to share the
 
 To developers coming from organizations that don’t have a strong testing culture, the idea of writing tests as a means of improving productivity and velocity might seem antithetical. After all, the act of writing tests can take just as long (if not longer!) than implementing a feature would take in the first place. On the contrary, at Google, we’ve found that investing in software tests provides several key benefits to developer productivity:
 
-*Less* *debugging*
+*Less debugging*
 	As you would expect, tested code has fewer defects when it is submitted. Critically, it also has fewer defects throughout its existence; most of them will be caught before the code is submitted. A piece of code at Google is expected to be modified dozens of times in its lifetime. It will be changed by other teams and even automated code maintenance systems. A test written once continues to pay dividends and prevent costly defects and annoying debugging sessions through the lifetime of the project. Changes to a project, or the dependencies of a project, that break a test can be quickly detected by test infrastructure and rolled back before the problem is ever released to production.
 
 *Increased* *confidence* *in* *changes*
@@ -189,7 +189,7 @@ To developers coming from organizations that don’t have a strong testing cultu
 *更少的调试*
 	正如你所期望的那样，经过测试的代码在提交时有更少的缺陷。重要的是，它在整个存在过程中也有较少的缺陷；大多数缺陷在代码提交之前就会被发现。在谷歌，一段代码在其生命周期内预计会被修改几十次。它将被其他团队甚至是自动代码维护系统所改变。一次写好的测试会继续带来红利，并在项目的生命周期中防止昂贵的缺陷和恼人的调试过程。对项目或项目的依赖关系的改变，如果破坏了测试，可以被测试基础设施迅速发现，并在问题被发布到生产中之前回滚。
 
-*增加了信心在变更中*
+*在变更中增加了信心*
 	所有的软件变更。具有良好测试的团队可以满怀信心地审查和接受项目的变更，因为他们的项目的所有重要行为都得到了持续验证。这样的项目鼓励重构。在保留现有行为的情况下，重构代码的变化应该（最好）不需要改变现有的测试。
 
 *改进文档*
@@ -203,7 +203,6 @@ To developers coming from organizations that don’t have a strong testing cultu
 
 *快速、高质量的发布*
 	有了健康的自动化测试套件，团队可以放心地发布新版本的应用程序。谷歌的许多项目每天都会向生产部门发布一个新的版本--即使是有数百名工程师的大型项目，每天都会提交成千上万的代码修改。如果没有自动化测试，这是不可能的。
-
 
 ```
 3	Getting the behavior right across different browsers and languages is a different story! But, ideally, the end- user experience should be the same for everyone.
@@ -229,7 +228,7 @@ At Google, we classify every one of our tests into a size and encourage engineer
 
 在谷歌，我们把每一个测试都归为一个规模，并鼓励工程师总是为一个给定的功能编写尽可能小的测试。一个测试的规模大小不是由它的代码行数决定的，而是由它的运行方式、它被允许做什么以及它消耗多少资源决定的。事实上，在某些情况下，我们对小、中、大的定义实际上被编码为测试基础设施可以在测试上执行的约束。我们稍后会讨论细节，但简单地说，*小型测试*在一个进程中运行，*中型测试*在一台机器上运行，而*大型测试*在任何地方运行，如图11-2所展示。
 
-![image-20220407200232089](./images/image-20220407200232089.png)
+![Figure 11-2](./images/image-20220407200232089.png)
 
 *Figure 11-2. Test sizes*  *Figure 11-2. 测试规模*
 
