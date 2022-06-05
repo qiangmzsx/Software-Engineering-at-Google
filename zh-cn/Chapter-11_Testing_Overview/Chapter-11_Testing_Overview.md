@@ -276,11 +276,11 @@ The constraints placed on small tests can be too restrictive for many interestin
 
 The ability to run multiple processes opens up a lot of possibilities. For example, you could run a database instance to validate that the code you’re testing integrates correctly in a more realistic setting. Or you could test a combination of web UI and server code. Tests of web applications often involve tools like [WebDriver ](https://oreil.ly/W27Uf)that start a real browser and control it remotely via the test process.
 
-运行多个进程的能力提供了很多可能性。例如，你可以运行一个数据库实例来验证你正在测试的代码是否正确地集成在更现实的设置中。或者你可以测试网络用户界面和服务器代码的组合。网络应用程序的测试经常涉及到像[WebDriver](https://oreil.ly/W27Uf)这样的工具，它可以启动一个真正的浏览器，并通过测试过程远程控制它。
+运行多个进程的能力提供了很多可能性。例如，你可以运行一个数据库实例来验证你正在测试的代码是否正确地集成在更现实的设置中。或者你可以测试网络用户界面和服务器代码的组合。网络应用程序的测试经常涉及到像WebDriver这样的工具，它可以启动一个真正的浏览器，并通过测试过程远程控制它。
 
 Unfortunately, with increased flexibility comes increased potential for tests to become slow and nondeterministic. Tests that span processes or are allowed to make blocking calls are dependent on the operating system and third-party processes to be fast and deterministic, which isn’t something we can guarantee in general. Medium tests still provide a bit of protection by preventing access to remote machines via the network, which is far and away the biggest source of slowness and nondeterminism in most systems. Still, when writing medium tests, the “safety” is off, and engineers need to be much more careful.
 
-不幸的是，随着灵活性的增加，测试变得缓慢和不确定的可能性也在增加。跨进程的测试或被允许进行阻塞性调用的测试依赖于操作系统和第三方进程的快速和确定性，这在一般情况下我们是无法保证的。中型测试仍然通过防止通过网络访问远程机器来提供一些保护，而网络是大多数系统中速度慢和非确定性的最大来源。尽管如此，在编写中型测试时，"安全 "是关闭的，工程师需要更加小心。
+不幸的是，随着灵活性的增加，测试变得缓慢和不确定性也在增加。跨进程的测试或被允许进行阻塞性调用的测试依赖于操作系统和第三方进程的快速和决定，这在一般情况下我们是无法保证的。中型测试仍然通过防止通过网络访问远程机器来提供一些保护，而网络是大多数系统中速度慢和非确定性的最大来源。尽管如此，在编写中型测试时，"安全 "是关闭的，工程师需要更加小心。
 
 #### Large tests  大型测试
 
@@ -290,7 +290,7 @@ Finally, we have large tests. Large tests remove the localhost restriction impos
 
 As before, increased flexibility comes with increased risk. Having to deal with a system that spans multiple machines and the network connecting them increases the chance of slowness and nondeterminism significantly compared to running on a single machine. We mostly reserve large tests for full-system end-to-end tests that are more about validating configuration than pieces of code, and for tests of legacy components for which it is impossible to use test doubles. We’ll talk more about use cases for large tests in [Chapter 14](#_bookmark1181). Teams at Google will frequently isolate their large tests from their small or medium tests, running them only during the build and release process so as not to impact developer workflow.
 
-和以前一样，灵活性的提高伴随着风险的增加。与在单一机器上运行相比，必须处理跨多台机器的系统以及连接这些机器的网络会显著增加速度慢和不确定性的可能性。我们主要为全系统端到端测试保留大型测试，这些测试更多的是验证配置，而不是代码片段，并且为不可能使用测试替代的遗留组件的测试保留大型测试。我们将在第14章中更多地讨论大型测试的用例。谷歌的团队经常将大型测试与小型或中型测试隔离开来，只在构建和发布过程中运行它们，以免影响开发人员的工作流程。
+和以前一样，灵活性的提高伴随着风险的增加。与在单一机器上运行相比，必须处理跨多台机器的系统以及连接这些机器的网络会显著增加速度慢和不确定性的概率。我们主要为全系统端到端测试保留大型测试，这些测试更多的是验证配置，而不是代码片段，并且为不可能使用测试替代的遗留组件的测试保留大型测试。我们将在第14章中更多地讨论大型测试的用例。谷歌的团队经常将大型测试与小型或中型测试隔离开来，只在构建和发布过程中运行它们，以免影响开发人员的工作流程。
 
 -----
 
@@ -298,7 +298,7 @@ As before, increased flexibility comes with increased risk. Having to deal with 
 
 If you have a few thousand tests, each with a very tiny bit of nondeterminism, running all day, occasionally one will probably fail (flake). As the number of tests grows, statistically so will the number of flakes. If each test has even a 0.1% of failing when it should not, and you run 10,000 tests per day, you will be investigating 10 flakes per day. Each investigation takes time away from something more productive that your team could be doing.
 
-如果你有几千个测试，每个测试都有非常小的非确定性，整天运行，偶尔会有一个可能会失败（松散）。随着测试数量的增加，从统计学上看，松散的数量也会增加。如果每个测试都有0.1%的失败率，而你每天运行10,000个测试，你每天将调查10个松散。每次调查都会从团队可能会做的更有效率的事情中抽出时间。
+如果你有几千个测试，每个测试都有非常小的不确定性，整天运行，偶尔会有一个可能会失败（松散）。随着测试数量的增加，从统计学上看，松散的数量也会增加。如果每个测试都有0.1%的失败率，而你每天运行10,000个测试，你每天将调查10个松散。每次调查都会从团队可能会做的更有效率的事情中抽出时间。
 
 In some cases, you can limit the impact of flaky tests by automatically rerunning them when they fail. This is effectively trading CPU cycles for engineering time. At low levels of flakiness, this trade-off makes sense. Just keep in mind that rerunning a test is only delaying the need to address the root cause of flakiness.
 
@@ -306,11 +306,11 @@ In some cases, you can limit the impact of flaky tests by automatically rerunnin
 
 If test flakiness continues to grow, you will experience something much worse than lost productivity: a loss of confidence in the tests. It doesn’t take needing to investigate many flakes before a team loses trust in the test suite. After that happens, engineers will stop reacting to test failures, eliminating any value the test suite provided. Our experience suggests that as you approach 1% flakiness, the tests begin to lose value. At Google, our flaky rate hovers around 0.15%, which implies thousands of flakes every day. We fight hard to keep flakes in check, including actively investing engineering hours to fix them.
 
-如果测试失误继续增长，你将经历比生产力损失更糟糕的事情：对测试的信心丧失。在团队失去对测试套件的信任之前，不需要投入太多的精力。发生这种情况后，工程师将停止对测试失败的反应，消除测试套件提供的任何价值。我们的经验表明，当你接近1%的松散率时，测试开始失去价值。在谷歌，我们的松散率徘徊在0.15%左右，这意味着每天有成千上万的不稳定。我们努力地控制故障率，包括积极地投入工程时间来修复它们。
+如果测试失误继续增长，你将经历比生产效率损失更糟糕的事情：对测试的信心丧失。在团队失去对测试套件的信任之前，不需要投入太多的精力。发生这种情况后，工程师将停止对测试失败的反应，消除测试套件提供的任何价值。我们的经验表明，当你接近1%的松散率时，测试开始失去价值。在谷歌，我们的松散率徘徊在0.15%左右，这意味着每天有成千上万的不稳定。我们努力地控制故障率，包括积极地投入工程时间来修复它们。
 
 In most cases, flakes appear because of nondeterministic behavior in the tests themselves. Software provides many sources of nondeterminism: clock time, thread scheduling, network latency, and more. Learning how to isolate and stabilize the effects of randomness is not easy. Sometimes, effects are tied to low-level concerns like hardware interrupts or browser rendering engines. A good automated test infrastructure should help engineers identify and mitigate any nondeterministic behavior.
 
-在大多数情况下，松散出现是因为测试本身的非确定性行为。软件提供了许多非确定性的来源：时钟时间、线程调度、网络延迟，等等。学习如何隔离和稳定随机性的影响并不容易。有时，影响与硬件中断或浏览器渲染引擎等低层的问题联系在一起。一个好的自动化测试基础设施应该帮助工程师识别和缓解任何不确定性行为。
+在大多数情况下，松散出现是因为测试本身的不确定性行为。软件提供了许多不确定性的来源：时钟时间、线程调度、网络延迟，等等。学习如何隔离和稳定随机性的影响并不容易。有时，影响与硬件中断或浏览器渲染引擎等低层的问题联系在一起。一个好的自动化测试基础设施应该帮助工程师识别和缓解任何不确定性行为。
 
 -----
 
@@ -336,7 +336,7 @@ Remember that tests are often revisited only when something breaks. When you are
 
 Though we at Google put a lot of emphasis on test size, another important property to consider is test scope. Test scope refers to how much code is being validated by a given test. Narrow-scoped tests (commonly called “unit tests”) are designed to validate the logic in a small, focused part of the codebase, like an individual class or method. Medium-scoped tests (commonly called *integration tests*) are designed to verify interactions between a small number of components; for example, between a server and its database. Large-scoped tests (commonly referred to by names like *functional tests*, *end-to-end* tests, or *system tests*) are designed to validate the interaction of several distinct parts of the system, or emergent behaviors that aren’t expressed in a single class or method.
 
-尽管我们在谷歌非常强调测试规模，但另一个需要考虑的重要属性是测试范围。测试范围是指给定的测试要验证多少代码。狭窄范围的测试（通常称为 "单元测试"）被设计用来验证代码库中一小部分的逻辑，比如单独的类或方法。中等范围的测试（通常称为*集成测试*）被设计用来验证少量组件之间的相互作用；例如，在服务器和它的数据库之间。大范围测试（通常被称为*功能测试*，*端到端*测试，或*系统测试*）被设计用来验证系统的几个不同部分的相互作用，或不在单个类或方法中表达的出现的行为。
+尽管我们在谷歌非常强调测试规模，但另一个需要考虑的重要属性是测试范围。测试范围是指给定的测试要验证多少代码。狭小范围的测试（通常称为 "单元测试"）被设计用来验证代码库中一小部分的逻辑，比如单独的类或方法。中等范围的测试（通常称为*集成测试*）被设计用来验证少量组件之间的相互作用；例如，在服务器和它的数据库之间。大范围测试（通常被称为*功能测试*，*端到端*测试，或*系统测试*）被设计用来验证系统的几个不同部分的相互作用，或不在单个类或方法中表达的出现的行为。
 
 It’s important to note that when we talk about unit tests as being narrowly scoped, we’re referring to the code that is being *validated*, not the code that is being *executed*. It’s quite common for a class to have many dependencies or other classes it refers to, and these dependencies will naturally be invoked while testing the target class. Though some [other testing strategies ](https://oreil.ly/Lj-t3)make heavy use of test doubles (fakes or mocks) to avoid executing code outside of the system under test, at Google, we prefer to keep the real dependencies in place when it is feasible to do so. [Chapter 13 ](#_bookmark1056)discusses this issue in more detail.
 
@@ -344,11 +344,11 @@ It’s important to note that when we talk about unit tests as being narrowly sc
 
 Narrow-scoped tests tend to be small, and broad-scoped tests tend to be medium or large, but this isn’t always the case. For example, it’s possible to write a broad-scoped test of a server endpoint that covers all of its normal parsing, request validation, and business logic, which is nevertheless small because it uses doubles to stand in for all out-of-process dependencies like a database or filesystem. Similarly, it’s possible to write a narrow-scoped test of a single method that must be medium sized. For example, modern web frameworks often bundle HTML and JavaScript together, and testing a UI component like a date picker often requires running an entire browser, even to validate a single code path.
 
-狭窄范围的测试往往较小，而广泛范围的测试往往是中等或较大的，但这并不总是如此。例如，有可能对一个服务器端点写一个大范围的测试，包括所有正常的解析、请求验证和业务逻辑，但这是小范围的，因为它用替代来代替所有进程外的依赖，如数据库或文件系统。同样，也可以对一个单一的方法写一个范围较窄的测试，但必须是中等大小。例如，现代网络框架经常将HTML和JavaScript捆绑在一起，测试像日期选择器这样的UI组件经常需要运行整个浏览器，即使是验证单个的代码路径。
+狭小范围的测试往往较小，而广泛范围的测试往往是中等或较大的，但这并不总是如此。例如，有可能对一个服务器端点写一个大范围的测试，包括所有正常的解析、请求验证和业务逻辑，但这是小范围的，因为它用替代来代替所有进程外的依赖，如数据库或文件系统。同样，也可以对一个单一的方法写一个范围较窄的测试，但必须是中等大小。例如，现代网络框架经常将HTML和JavaScript捆绑在一起，测试像日期选择器这样的UI组件经常需要运行整个浏览器，即使是验证单个的代码路径。
 
 Just as we encourage tests of smaller size, at Google, we also encourage engineers to write tests of narrower scope. As a very rough guideline, we tend to aim to have a mix of around 80% of our tests being narrow-scoped unit tests that validate the majority of our business logic; 15% medium-scoped integration tests that validate the interactions between two or more components; and 5% end-to-end tests that validate the entire system. [Figure 11-3 ](#_bookmark893)depicts how we can visualize this as a pyramid.
 
-正如我们鼓励在谷歌进行更小规模的测试一样，我们也鼓励工程师编写范围更狭窄的测试。作为一个非常粗略的指导方针，我们倾向于将大约80%的测试混合在一起，这些测试是验证大多数业务逻辑的狭窄范围单元测试；15%的中型集成测试，用于验证两个或多个组件之间的相互作用；以及验证整个系统的5%端到端测试。图11-3描述了我们如何将其视为金字塔。
+正如我们鼓励在谷歌进行更小规模的测试一样，我们也鼓励工程师编写范围更狭小的测试。作为一个非常粗略的指导方针，我们倾向于将大约80%的测试混合在一起，这些测试是验证大多数业务逻辑的狭小范围单元测试；15%的中型集成测试，用于验证两个或多个组件之间的相互作用；以及验证整个系统的5%端到端测试。图11-3描述了我们如何将其视为金字塔。
 
 ![image-20220407200917862](./images/image-20220407200917862.png)
 
@@ -368,11 +368,11 @@ The hourglass involves many end-to-end tests and many unit tests but few integra
 
 ![image-20220407201117705](./images/image-20220407201117705.png)
 
-*Figure* *11-4.* *Test* *suite* *antipatterns*  *图11-4. 测试套件的反模式*
+*Figure 11-4. Test suite antipatterns*  *图11-4. 测试套件的反模式*
 
 Our recommended mix of tests is determined by our two primary goals: engineering productivity and product confidence. Favoring unit tests gives us high confidence quickly, and early in the development process. Larger tests act as sanity checks as the product develops; they should not be viewed as a primary method for catching bugs.
 
-我们推荐的测试组合是由我们的两个主要目标决定的：工程生产力和产品信心。在开发过程的早期，倾向于单元测试可以让我们迅速获得高的信心。在产品的开发过程中，大型测试可以作为健康检查；它们不应被视为捕获bug的主要方法
+我们推荐的测试组合是由我们的两个主要目标决定的：工程生产效率和产品信心。在开发过程的早期，倾向于单元测试可以让我们迅速获得高的信心。在产品的开发过程中，大型测试可以作为健康检查；它们不应被视为捕获bug的主要方法
 
 When considering your own mix, you might want a different balance. If you emphasize integration testing, you might discover that your test suites take longer to run but catch more issues between components. When you emphasize unit tests, your test suites can complete very quickly, and you will catch many common logic bugs. But, unit tests cannot verify the interactions between components, like [a contract between two systems developed by different teams](https://oreil.ly/mALqH). A good test suite contains a blend of different test sizes and scopes that are appropriate to the local architectural and organizational realities.
 
@@ -450,7 +450,7 @@ Whether you are considering our size, our monorepo, or the number of products we
 
 As a codebase grows, you will inevitably need to make changes to existing code. When poorly written, automated tests can make it more difficult to make those changes. Brittle tests—those that over-specify expected outcomes or rely on extensive and complicated boilerplate—can actually resist change. These poorly written tests can fail even when unrelated changes are made.
 
-随着代码库的增长，不可避免地需要对现有代码进行更改。如果编写得不好，自动化测试会使进行这些更改变得更加困难。脆性测试--那些过度指定预期结果或依赖广泛而复杂的模板的测试，实际上可以抵制变化。这些写得不好的测试可能会失败，即使是在进行不相关的更改时。
+随着代码库的增长，不可避免地需要对现有代码进行更改。如果编写得不好，自动化测试会使进行这些更改变得更加困难。脆性测试——那些过度指定预期结果或依赖广泛而复杂的模板的测试，实际上可以抵制变化。这些写得不好的测试可能会失败，即使是在进行不相关的更改时。
 
 If you have ever made a five-line change to a feature only to find dozens of unrelated, broken tests, you have felt the friction of brittle tests. Over time, this friction can make a team reticent to perform necessary refactoring to keep a codebase healthy. The subsequent chapters will cover strategies that you can use to improve the robustness and quality of your tests.
 
@@ -470,11 +470,11 @@ Tests can become slow for many reasons, like booting significant portions of a s
 
 Tests can also become slow due to unnecessary speed limits introduced by functions like sleep() and setTimeout(). Calls to these functions are often used as naive heuristics before checking the result of nondeterministic behavior. Sleeping for half a second here or there doesn’t seem too dangerous at first; however, if a “wait-and-check” is embedded in a widely used utility, pretty soon you have added minutes of idle time to every run of your test suite. A better solution is to actively poll for a state transition with a frequency closer to microseconds. You can combine this with a timeout value in case a test fails to reach a stable state.
 
-由于sleep()和setTimeout()等函数引入的不必要的速度限制，测试也会变得缓慢。在检查不确定性行为的结果之前，对这些函数的调用通常被用作简单的启发式。在这里或那里休眠半秒钟，起初看起来并不太危险；然而，如果 "等待和检查 "被嵌入到一个广泛使用的工具中，很快你就会在你的测试套件的每次运行中增加几分钟的等待时间。更好的解决方案是以接近微秒的频率主动轮询状态转换。你可以把它和一个超时值结合起来，以防测试无法达到稳定状态。
+由于`sleep()`和`setTimeout()`等函数引入的不必要的速度限制，测试也会变得缓慢。在检查不确定性行为的结果之前，对这些函数的调用通常被用作简单的启发式。在这里或那里休眠半秒钟，起初看起来并不太危险；然而，如果 "等待和检查 "被嵌入到一个广泛使用的工具中，很快你就会在你的测试套件的每次运行中增加几分钟的等待时间。更好的解决方案是以接近微秒的频率主动轮询状态转换。你可以把它和一个超时值结合起来，以防测试无法达到稳定状态。
 
 Failing to keep a test suite deterministic and fast ensures it will become roadblock to productivity. At Google, engineers who encounter these tests have found ways to work around slowdowns, with some going as far as to skip the tests entirely when submitting changes. Obviously, this is a risky practice and should be discouraged, but if a test suite is causing more harm than good, eventually engineers will find a way to get their job done, tests or no tests.
 
-如果不能保持测试套件的确定性和快速，那么它将成为生产力的障碍。在谷歌，遇到这些测试的工程师们已经找到了解决速度慢的方法，有些人甚至在提交更改时完全跳过测试。显然，这是一种危险的做法，应该被阻止，但如果测试套件利大于弊，最终工程师会找到一种方法来完成他们的工作，不管有没有测试。
+如果不能保持测试套件的确定性和速度，那么它将成为生产力的障碍。在谷歌，遇到这些测试的工程师们已经找到了解决速度慢的方法，有些人甚至在提交更改时完全跳过测试。显然，这是一种危险的做法，应该被阻止，但如果测试套件利大于弊，最终工程师会找到一种方法来完成他们的工作，不管有没有测试。
 
 The secret to living with a large test suite is to treat it with respect. Incentivize engineers to care about their tests; reward them as much for having rock-solid tests as you would for having a great feature launch. Set appropriate performance goals and refactor slow or marginal tests. Basically, treat your tests like production code. When simple changes begin taking nontrivial time, spend effort making your tests less brittle.
 
@@ -540,7 +540,7 @@ The program was organized into five levels, and each level required some concret
 
 Test Certified Level 1 covered the basics: set up a continuous build; start tracking code coverage; classify all your tests as small, medium, or large; identify (but don’t necessarily fix) flaky tests; and create a set of fast (not necessarily comprehensive) tests that can be run quickly. Each subsequent level added more challenges like “no releases with broken tests” or “remove all nondeterministic tests.” By Level 5, all tests were automated, fast tests were running before every commit, all nondeterminism had been removed, and every behavior was covered. An internal dashboard applied social pressure by showing the level of every team. It wasn’t long before teams were competing with one another to climb the ladder.
 
-测试认证的第一级涵盖了基础知识：建立持续构建；开始跟踪代码覆盖率；将你的所有测试分类为小型、中型或大型；识别（但不一定要修复）松散测试；创建一套可以快速运行的快速（不一定全面）测试。随后的每一级都增加了更多的挑战，如 "不发布有问题的测试 "或 "删除所有非确定性的测试"。到了第五级，所有的测试都是自动化的，快速测试在每次提交前都在运行，所有的非确定性都被移除，每一个行为都被覆盖。一个内部仪表板通过显示每个团队的水平来施加竞争压力。没过多久，各团队就开始互相竞争，争先恐后。
+测试认证的第一级涵盖了基础知识：建立持续构建；开始跟踪代码覆盖率；将你的所有测试分类为小型、中型或大型；识别（但不一定要修复）松散（不稳定）测试；创建一套可以快速运行的快速（不一定全面）测试。随后的每一级都增加了更多的挑战，如 "不发布有问题的测试 "或 "删除所有不确定性的测试"。到了第五级，所有的测试都是自动化的，快速测试在每次提交前都在运行，所有的不确定性都被移除，每一个行为都被覆盖。一个内部仪表板通过显示每个团队的水平来施加竞争压力。没过多久，各团队就开始互相竞争，争先恐后。
 
 By the time the Test Certified program was replaced by an automated approach in 2015 (more on pH later), it had helped more than 1,500 projects improve their testing culture.
 
@@ -572,7 +572,7 @@ Despite starting as a joke, TotT has had the longest run and the most profound i
 
 尽管开始时只是一个玩笑，但TotT在测试小组发起的所有测试活动中，运行时间最长，影响最深远。
 
-### Testing Culture Today  当前的测试文化
+### Testing Culture Today  当今的测试文化
 
 Testing culture at Google today has come a long way from 2005. Nooglers still attend orientation classes on testing, and TotT continues to be distributed almost weekly. However, the expectations of testing have more deeply embedded themselves in the daily developer workflow.
 
@@ -600,7 +600,7 @@ The Testing Grouplet had considered asking for a testing mandate from senior lea
 
 If engineers were deciding to write tests on their own, it meant that they had fully accepted the idea and were likely to keep doing the right thing—even if no one was compelling them to.
 
-如果工程师们决定自己写测试，这意味着他们已经完全接受了这个想法，并有可能继续做正确的事情--即使没有人强求他们这样做。
+如果工程师们决定自己写测试，这意味着他们已经完全接受了这个想法，并有可能继续做正确的事情——即使没有人强求他们这样做。
 
 ## The Limits of Automated Testing  自动化测试的局限
 
