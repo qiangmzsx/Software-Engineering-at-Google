@@ -44,21 +44,21 @@ In this chapter, we’ll look at the particular challenges of dependency managem
 
 Even defining the dependency-management problem presents some unusual challenges. Many half-baked solutions in this space focus on a too-narrow problem formulation: “How do we import a package that our locally developed code can depend upon?” This is a necessary-but-not-sufficient formulation. The trick isn’t just finding a way to manage one dependency—the trick is how to manage a *network* of dependencies and their changes over time. Some subset of this network is directly necessary for your first-party code, some of it is only pulled in by transitive dependencies. Over a long enough period, all of the nodes in that dependency network will have new versions, and some of those updates will be important.[^2] How do we manage the resulting cascade of upgrades for the rest of the dependency network? Or, specifically, how do we make it easy to find mutually compatible versions of all of our dependencies given that we do not control those dependencies? How do we analyze our dependency network? How do we manage that network, especially in the face of an ever-growing graph of dependencies?
 
-即使是定义依赖管理问题也会带来一些不寻常的挑战。这个领域的许多半生不熟的解决方案都集中在一个过于狭窄的问题上。"我们如何导入一个我们本地开发的代码可以依赖的包？" 这是一个必要但并不充分的表述。诀窍不只是找到一种方法来管理一个依赖关系--诀窍是如何管理一个依赖关系的网络以及它们随时间的变化。这个网络中的一些子集对于你的第一方代码来说是直接必要的，其中一些只是由横向的依赖关系拉进来。在一个足够长的时期内，这个依赖网络中的所有节点都会有新的版本，其中一些更新会很重要。或者，具体来说，鉴于我们并不控制这些依赖关系，我们如何使其容易找到所有依赖关系的相互兼容的版本？我们如何分析我们的依赖网络？我们如何管理这个网络，尤其是在面对不断增长的依赖关系的时候？
+即使是定义依赖管理问题也会带来一些不寻常的挑战。这个领域的许多半生不熟的解决方案都集中在一个过于狭窄的问题上。"我们如何导入一个我们本地开发的代码可以依赖的包？" 这是一个必要但并不充分的表述。诀窍不只是找到一种方法来管理一个依赖关系--诀窍是如何管理一个依赖关系的网络以及它们随时间的变化。这个网络中的一些子集对于你的第一方代码来说是直接必要的，其中一些只是由传递依赖拉进来的。在一个足够长的时期内，这个依赖网络中的所有节点都会有新的版本，其中一些更新会很重要。或者，具体来说，鉴于我们并不控制这些依赖关系，我们如何使其容易找到所有依赖关系的相互兼容的版本？我们如何分析我们的依赖网络？我们如何管理这个网络，尤其是在面对不断增长的依赖关系的时候？
 
-### Conflicting Requirements and Diamond Dependencies  冲突的需求和钻石依赖
+### Conflicting Requirements and Diamond Dependencies  冲突的需求和菱形依赖
 
 The central problem in dependency management highlights the importance of thinking in terms of dependency networks, not individual dependencies. Much of the difficulty stems from one problem: what happens when two nodes in the dependency network have conflicting requirements, and your organization depends on them both? This can arise for many reasons, ranging from platform considerations (operating system [OS], language version, compiler version, etc.) to the much more mundane issue of version incompatibility. The canonical example of version incompatibility as an unsatisfiable version requirement is the *diamond dependency* problem. Although we don’t generally include things like “what version of the compiler” are you using in a dependency graph, most of these conflicting requirements problems are isomorphic to “add a (hidden) node to the dependency graph representing this requirement.” As such, we’ll primarily discuss conflicting requirements in terms of diamond dependencies, but keep in mind that libbase might actually be absolutely any piece of software involved in the construction of two or more nodes in your dependency network.
 
-依赖管理的核心问题突出了从依赖关系网络而不是单个依赖关系角度思考的重要性。大部分困难源于一个问题：当依赖网络中的两个节点有冲突的要求，而你的组织同时依赖它们时，会发生什么？这可能有很多原因，从平台考虑（操作系统[OS]、语言版本、编译器版本等）到更常见的版本不兼容问题。作为一个不可满足的版本要求，版本不兼容的典型例子是钻石依赖问题。虽然我们通常不包括像 "你使用的是什么版本的编译器 "这样的东西，但大多数这些冲突的需求问题都与 "在代表这个需求的依赖图中添加一个（隐藏的）节点 "同构。因此，我们将主要讨论钻石依赖关系方面的冲突需求，但请记住，libbase 实际上绝对可能是参与构建你的依赖关系网络中的两个或多个节点的任何软件。
+依赖管理的核心问题强调从依赖关系网络而不是单个依赖关系角度思考的重要性。大部分困难源于一个问题：当依赖网络中的两个节点有冲突的要求，而你的组织同时依赖它们时，会发生什么？这可能有很多原因，从平台考虑（操作系统[OS]、语言版本、编译器版本等）到更常见的版本不兼容问题。作为一个不可满足的版本要求，版本不兼容的典型例子是菱形依赖问题。虽然我们通常不包括像 "你使用的是什么版本的编译器 "这样的东西，但大多数这些冲突的需求问题都与 "在代表这个需求的依赖图中添加一个（隐藏的）节点 "同构。因此，我们将主要讨论菱形依赖关系方面的冲突需求，但请记住，libbase 实际上绝对可能是参与构建你的依赖关系网络中的两个或多个节点的任何软件。
 
 The diamond dependency problem, and other forms of conflicting requirements, require at least three layers of dependency, as demonstrated in [Figure 21-1](#_bookmark1857).
 
-钻石依赖问题，以及其他形式的冲突需求，需要至少三层的依赖关系，如图21-1所示。
+菱形依赖问题，以及其他形式的冲突需求，需要至少三层的依赖关系，如图21-1所示。
 
 ![Figure 21-1](./images/Figure%2021-1.png)
 
-*Figure* *21-1.* *The* *diamond* *dependency* *problem*  *钻石依赖问题*
+*Figure* *21-1.* *The* *diamond* *dependency* *problem*  *菱形依赖问题*
 
 In this simplified model, libbase is used by both liba and libb, and liba and libb are both used by a higher-level component libuser. If libbase ever introduces an incompatible change, there is a chance that liba and libb, as products of separate organizations, don’t update simultaneously. If liba depends on the new libbase version and libb depends on the old version, there’s no general way for libuser (aka your code) to put everything together. This diamond can form at any scale: in the entire network of your dependencies, if there is ever a low-level node that is required to be in two incompatible versions at the same time (by virtue of there being two paths from some higher level node to those two versions), there will be a problem.
 
@@ -66,7 +66,7 @@ In this simplified model, libbase is used by both liba and libb, and liba and li
 
 Different programming languages tolerate the diamond dependency problem to different degrees. For some languages, it is possible to embed multiple (isolated) versions of a dependency within a build: a call into libbase from liba might call a different version of the same API as a call into libbase from libb. For example, Java provides fairly well-established mechanisms to rename the symbols provided by such a dependency.[^3] Meanwhile, C++ has nearly zero tolerance for diamond dependencies in a normal build, and they are very likely to trigger arbitrary bugs and undefined behavior (UB) as a result of a clear violation of C++’s [One Definition Rule](https://oreil.ly/VTZe5). You can at best use a similar idea as Java’s shading to hide some symbols in a dynamic-link library (DLL) or in cases in which you’re building and linking separately. However, in all programming languages that we’re aware of, these workarounds are partial solutions at best: embedding multiple versions can be made to work by tweaking the names of *functions*, but if there are *types* that are passed around between dependencies, all bets are off. For example, there is simply no way for a map defined in libbase v1 to be passed through some libraries to an API provided by libbase v2 in a semantically consistent fashion. Language-specific hacks to hide or rename entities in separately compiled libraries can provide some cushion for diamond dependency problems, but are not a solution in the general case.
 
-不同的编程语言对钻石依赖问题的容忍程度不同。对于某些语言来说，可以在构建过程中嵌入一个依赖关系的多个（孤立的）版本：从 liba 调入 libbase 可能会调用同一个 API 的不同版本，而从 libb 调入 libbase 则是如此。例如，Java 提供了相当完善的机制来重命名这种依赖关系所提供的符号。 同时，C++ 对正常构建中的钻石依赖关系的容忍度几乎为零，由于明显违反了 C++ 的 [One Definition Rule](https://oreil.ly/VTZe5) ，它们非常可能引发任意的 bug 和未定义行为（UB）。在动态链接库（DLL）中或者在单独构建和链接的情况下，您最多可以使用与Java着色类似的想法来隐藏一些符号。然而，在我们所知道的所有编程语言中，这些变通方法充其量只是部分解决方案：通过调整*函数*的名称，可以使嵌入的多个版本发挥作用，但如果有*类型*在依赖关系之间传递，所有的下注都会无效。例如，libbase v1中定义的映射根本不可能以语义一致的方式通过一些库传递给libbase v2提供的API。在单独编译的库中隐藏或重命名实体的特定语言黑科技可以为钻石依赖问题提供一些缓冲，但在一般情况下并不是一个解决方案。
+不同的编程语言对菱形依赖问题的容忍程度不同。对于某些语言来说，可以在构建过程中嵌入一个依赖关系的多个（孤立的）版本：从liba调用libbase可能与从libb调用libbase调用相同API的不同版本。例如，Java 提供了相当完善的机制来重命名这种依赖关系所提供的符号。 同时，C++ 对正常构建中的菱形依赖关系的容忍度几乎为零，由于明显违反了 C++ 的 [One Definition Rule](https://oreil.ly/VTZe5) ，它们非常可能引发任意的 bug 和未定义行为（UB）。在动态链接库（DLL）中或者在单独构建和链接的情况下，您最多可以使用与Java着色类似的想法来隐藏一些符号。然而，在我们所知道的所有编程语言中，这些变通方法充其量只是部分解决方案：通过调整*函数*的名称，可以使嵌入的多个版本发挥作用，但如果有*类型*在依赖关系之间传递，所有的下注都会无效。例如，libbase v1中定义的`map`类型根本不可能以语义一致的方式通过一些库传递给libbase v2提供的API。在单独编译的库中隐藏或重命名实体的特定语言黑科技可以为菱形依赖问题提供一些缓冲，但在一般情况下并不是一个解决方案。
 
 If you encounter a conflicting requirement problem, the only easy answer is to skip forward or backward in versions for those dependencies to find something compatible. When that isn’t possible, we must resort to locally patching the dependencies in question, which is particularly challenging because the cause of the incompatibility in both provider and consumer is probably not known to the engineer that first discovers the incompatibility. This is inherent: liba developers are still working in a compatible fashion with libbase v1, and libb devs have already upgraded to v2. Only a dev who is pulling in both of those projects has the chance to discover the issue, and it’s certainly not guaranteed that they are familiar enough with libbase and liba to work through the upgrade. The easier answer is to downgrade libbase and libb, although that is not an option if the upgrade was originally forced because of security issues.
 
@@ -74,7 +74,7 @@ If you encounter a conflicting requirement problem, the only easy answer is to s
 
 Systems of policy and technology for dependency management largely boil down to the question, “How do we avoid conflicting requirements while still allowing change among noncoordinating groups?” If you have a solution for the general form of the diamond dependency problem that allows for the reality of continuously changing requirements (both dependencies and platform requirements) at all levels of the network, you’ve described the interesting part of a dependency-management solution.
 
-依赖管理的策略和技术体系在很大程度上归结为一个问题："我们如何避免冲突的需求，同时仍然允许非协调组之间的变化？" 如果你有一个钻石依赖问题的一般形式的解决方案，允许在网络的各个层面不断变化的需求（包括依赖和平台需求）的现实，你已经描述了依赖管理解决方案的有趣部分。
+依赖管理的策略和技术体系在很大程度上归结为一个问题："我们如何避免冲突的需求，同时仍然允许非协调组之间的变化？" 如果你有一个菱形依赖问题的一般形式的解决方案，允许在网络的各个层面不断变化的需求（包括依赖和平台需求）的现实，你已经描述了依赖管理解决方案的有趣部分。
 
 
 [^2]: For instance, security bugs, deprecations, being in the dependency set of a higher-level dependency that has a security bug, and so on.（例如，安全缺陷、弃用、处于具有安全缺陷的更高级别依赖项的依赖项集中，等等。）
@@ -84,7 +84,7 @@ Systems of policy and technology for dependency management largely boil down to 
 
 In programming terms, it’s clearly better to reuse some existing infrastructure rather than build it yourself. This is obvious, and part of the fundamental march of technology: if every novice had to reimplement their own JSON parser and regular expression engine, we’d never get anywhere. Reuse is healthy, especially compared to the cost of redeveloping quality software from scratch. So long as you aren’t downloading trojaned software, if your external dependency satisfies the requirements for your programming task, you should use it.
 
-在编程方面，重用一些现有的基础设施显然比自己创建它更好。这是显而易见的，也是技术发展的一部分：如果每个新手都必须重新实现他们自己的JSON分析器和正则表达式引擎，我们就永远不会有任何进展。重用是健康的，特别是与从头开始重新开发高质量软件的成本相比。只要你下载的不是木马软件，如果你的外部依赖满足了你的编程任务的要求，你就应该使用它。
+在编程方面，重用一些现有的基础设施显然比自己创建它更好。这是显而易见的，也是技术发展的一部分：如果每个新手都必须重新实现他们自己的JSON语法分析器和正则表达式引擎，我们就永远不会有任何进展。重用是健康的，特别是与从头开始重新开发高质量软件的成本相比。只要你下载的不是木马软件，如果你的外部依赖满足了你的编程任务的要求，你就应该使用它。
 
 ### Compatibility Promises  承诺兼容性
 
@@ -136,33 +136,33 @@ Put more broadly: it is important to realize that dependency management has a wh
 
 Importing a dependency for use in a programming project is nearly free: assuming that you’ve taken the time to ensure that it does what you need and isn’t secretly a security hole, it is almost always cheaper to reuse than to reimplement functionality. Even if that dependency has taken the step of clarifying what compatibility promise it will make, so long as we aren’t ever upgrading, anything you build on top of that snapshot of your dependency is fine, no matter how many rules you violate in consuming that API. But when we move from programming to software engineering, those dependencies become subtly more expensive, and there are a host of hidden costs and questions that need to be answered. Hopefully, you consider these costs before importing, and, hopefully, you know when you’re working on a programming project versus working on a software engineering project.
 
-导入一个依赖关系用于编程项目几乎是免费的：假设你已经花了时间来确保它做了你需要的事情，并且没有隐蔽的安全漏洞，那么重用几乎总是比重新实现功能要划算。即使该依赖关系已经采取了澄清它将作出什么兼容性承诺的步骤，只要我们不曾升级，你在该依赖关系的快照之上建立的任何东西都是好的，无论你在消费该API时违反了多少规则。但是，当我们从编程转向软件工程时，这些依赖关系的成本会变得微妙地更高，而且有一系列的隐藏成本和问题需要回答。希望你在导入之前考虑到这些成本，而且，希望你知道你什么时候是在做一个编程项目，而不是在做一个软件工程项目。
+导入一个依赖关系用于编程项目几乎是免费的：假设你已经花了时间来确保它做了你需要的事情，并且没有隐蔽的安全漏洞，那么重用几乎总是比重新实现功能要划算。即使该依赖关系已经采取了澄清它将作出什么兼容性承诺的步骤，只要我们不曾升级，你在该依赖关系的快照之上建立的任何东西都是好的，无论你在使用该API时违反了多少规则。但是，当我们从编程转向软件工程时，这些依赖关系的成本会变得微妙地更高，而且有一系列的隐藏成本和问题需要回答。希望你在导入之前考虑到这些成本，而且，希望你知道你什么时候是在做一个编程项目，而不是在做一个软件工程项目。
 
 When engineers at Google try to import dependencies, we encourage them to ask this (incomplete) list of questions first:
 
-•   Does the project have tests that you can run?
+- Does the project have tests that you can run?
 
-•   Do those tests pass?
+-   Do those tests pass?
 
-•   Who is providing that dependency? Even among “No warranty implied” OSS projects, there is a significant range of experience and skill set—it’s a very different thing to depend on compatibility from the C++ standard library or Java’s Guava library than it is to select a random project from GitHub or npm. Reputation isn’t everything, but it is worth investigating.
+-   Who is providing that dependency? Even among “No warranty implied” OSS projects, there is a significant range of experience and skill set—it’s a very different thing to depend on compatibility from the C++ standard library or Java’s Guava library than it is to select a random project from GitHub or npm. Reputation isn’t everything, but it is worth investigating.
 
-•   What sort of compatibility is the project aspiring to?
+-   What sort of compatibility is the project aspiring to?
 
-•   Does the project detail what sort of usage is expected to be supported?
+-   Does the project detail what sort of usage is expected to be supported?
 
-•   How popular is the project?
+-   How popular is the project?
 
-•   How long will we be depending on this project?
+-   How long will we be depending on this project?
 
-•   How often does the project make breaking changes? Add to this a short selection of internally focused questions:
+-   How often does the project make breaking changes? Add to this a short selection of internally focused questions:
 
-•   How complicated would it be to implement that functionality within Google?
+-   How complicated would it be to implement that functionality within Google?
 
-•   What incentives will we have to keep this dependency up to date?
+-   What incentives will we have to keep this dependency up to date?
 
-•   Who will perform an upgrade?
+-   Who will perform an upgrade?
 
-•   How difficult do we expect it to be to perform an upgrade?
+-   How difficult do we expect it to be to perform an upgrade?
 
 当谷歌的工程师试图导入依赖关系时，我们鼓励他们先问这个（不完整）的问题清单：
 
@@ -180,14 +180,17 @@ When engineers at Google try to import dependencies, we encourage them to ask th
 
 - 我们将在多长时间内依赖这个项目？
 
-- 该项目多长时间做一次突破性的改变？项目多久进行一次突破性的变更？在此基础上，添加一些简短的内部重点问题：
-    - 在谷歌内部实现该功能会有多复杂？
+- 该项目多长时间做一次突破性的改变？项目多久进行一次突破性的变更？
 
-    - 我们有什么激励措施来保持这个依赖性的最新状态？
+在此基础上，添加一些简短的内部重点问题：
+    
+- 在谷歌内部实现该功能会有多复杂？
 
-    - 谁来执行升级？
+- 我们有什么激励措施来保持这个依赖性的最新状态？
 
-    - 我们预计进行升级会有多大难度？
+- 谁来执行升级？
+
+- 我们预计进行升级会有多大难度？
 
 
 Our own Russ Cox has [written about this more extensively](https://research.swtch.com/deps). We can’t give a perfect formula for deciding when it’s cheaper in the long term to import versus reimplement; we fail at this ourselves, more often than not.
@@ -202,7 +205,7 @@ In short: we could do better.
 
 The overwhelming majority of dependencies in any given Google project are internally developed. This means that the vast majority of our internal dependency- management story isn’t really dependency management, it’s just source control—by design. As we have mentioned, it is a far easier thing to manage and control the complexities and risks involved in adding dependencies when the providers and consumers are part of the same organization and have proper visibility and Continuous Integration (CI; see [Chapter 23](#_bookmark2022)) available. Most problems in dependency management stop being problems when you can see exactly how your code is being used and know exactly the impact of any given change. Source control (when you control the projects in question) is far easier than dependency management (when you don’t).
 
-在任何特定的Google项目中，绝大多数的依赖都是内部开发的。这意味着，我们的内部依赖管理故事中的绝大部分并不是真正的依赖管理，它只是设计上的源头控制。正如我们所提到的，当提供者和消费者是同一组织的一部分，并且有适当的可见性和持续集成（CI；见第23章）时，管理和控制增加依赖关系所涉及的复杂性和风险是一件容易得多的事情。当你能准确地看到你的代码是如何被使用的，并准确地知道任何给定变化的影响时，依赖管理中的大多数问题就不再是问题了。源头控制（当你控制有关项目时）要比依赖管理（当你不控制时）容易得多。
+在任何特定的Google项目中，绝大多数的依赖都是内部开发的。这意味着，我们的内部依赖管理故事中的绝大部分并不是真正的依赖管理，它只是设计上的源码控制。正如我们所提到的，当提供者和消费者是同一组织的一部分，并且有适当的可见性和持续集成（CI；见第23章）时，管理和控制增加依赖关系所涉及的复杂性和风险是一件容易得多的事情。当你能准确地看到你的代码是如何被使用的，并准确地知道任何给定变化的影响时，依赖管理中的大多数问题就不再是问题了。源码控制（当你控制有关项目时）要比依赖管理（当你不控制时）容易得多。
 
 That ease of use begins failing when it comes to our handling of external projects. For projects that we are importing from the OSS ecosystem or commercial partners, those dependencies are added into a separate directory of our monorepo, labeled *third_party*. Let’s examine how a new OSS project is added to *third_party*.
 
@@ -240,11 +243,11 @@ Our *third_party* policies don’t work for these unfortunately common scenarios
 
 Having looked at the ways that dependency management is difficult and how it can go wrong, let’s discuss more specifically the problems we’re trying to solve and how we might go about solving them. Throughout this chapter, we call back to the formulation, “How do we manage code that comes from outside our organization (or that we don’t perfectly control): how do we update it, how do we manage the things it depends upon over time?” We need to be clear that any good solution here avoids conflicting requirements of any form, including diamond dependency version conflicts, even in a dynamic ecosystem in which new dependencies or other requirements might be added (at any point in the network). We also need to be aware of the impact of time: all software has bugs, some of those will be security critical, and some fraction of our dependencies will therefore be *critical* to update over a long enough period of time.
 
-在了解了依赖管理的困难以及它如何出错之后，让我们更具体地讨论我们要解决的问题以及我们如何去解决它们。在本章中，我们一直在呼吁："我们如何管理来自我们组织之外（或我们不能完全控制）的代码：我们如何更新它，如何管理它所依赖的东西？我们需要清楚，这里的任何好的解决方案都会避免任何形式的需求冲突，包括钻石依赖版本冲突，甚至在一个动态的生态系统中，可能会增加新的依赖或其他需求（在网络中的任何一点）。我们还需要意识到时间的影响：所有的软件都有bug，其中一些将是安全上的关键，因此我们的依赖中的一些部分将在足够长的时间内可更新。
+在了解了依赖管理的困难以及它如何出错之后，让我们更具体地讨论我们要解决的问题以及我们如何去解决它们。在本章中，我们一直在呼吁："我们如何管理来自我们组织之外（或我们不能完全控制）的代码：我们如何更新它，如何管理它所依赖的东西？我们需要清楚，这里的任何好的解决方案都会避免任何形式的需求冲突，包括菱形依赖版本冲突，甚至在一个动态的生态系统中，可能会增加新的依赖或其他需求（在网络中的任何一点）。我们还需要意识到时间的影响：所有的软件都有bug，其中一些将是安全上的关键，因此我们的依赖中的一些部分将在足够长的时间内可更新。
 
 A stable dependency-management scheme must therefore be flexible with time and scale: we can’t assume indefinite stability of any particular node in the dependency graph, nor can we assume that no new dependencies are added (either in code we control or in code we depend upon). If a solution to dependency management prevents conflicting requirement problems among your dependencies, it’s a good solution. If it does so without assuming stability in dependency version or dependency fan-out, coordination or visibility between organizations, or significant compute resources, it’s a great solution.
 
-因此，一个稳定的依赖管理方案必须在时间和规模上具有灵活性：我们不能假设依赖关系中任何特定节点的无限稳定，也不能假设没有新的依赖被添加（无论是在我们控制的代码中还是在我们依赖的代码中）。如果一个依赖管理的解决方案能够防止你的依赖关系中出现冲突的需求问题，那么它就是一个好的解决方案。如果它不需要假设依赖版本或依赖关系的稳定性，不需要组织间的协调或可见性，也不需要大量的计算资源，那么它就是一个很好的解决方案。
+因此，一个稳定的依赖管理方案必须在时间和规模上具有灵活性：我们不能假设依赖关系中任何特定节点的无限稳定，也不能假设没有新的依赖被添加（无论是在我们控制的代码中还是在我们依赖的代码中）。如果一个依赖管理的解决方案能够防止你的依赖关系中出现冲突的需求问题，那么它就是一个好的解决方案。如果它不需要假设依赖版本或依赖扇出的稳定性，不需要组织间的协调或可见性，也不需要大量的计算资源，那么它就是一个很好的解决方案。
 
 When proposing solutions to dependency management, there are four common options that we know of that exhibit at least some of the appropriate properties: nothing ever changes, semantic versioning, bundle everything that you need (coordinating not per project, but per distribution), or Live at Head.
 
@@ -284,7 +287,7 @@ If we formalize these requirements, we can conceptualize a dependency network as
 
 SemVer and its SAT-solvers aren’t in any way promising that there *exists* a solution to a given set of dependency constraints. Situations in which dependency constraints cannot be satisfied are created constantly, as we’ve already seen: if a lower-level component (libbase) makes a major-number bump, and some (but not all) of the libraries that depend on it (libb but not liba) have upgraded, we will encounter the diamond dependency issue.
 
-SemVer和它的SAT求解器并不保证对一组给定的依赖性约束*存在*的解决方案。正如我们已经看到的，无法满足依赖性约束的情况不断出现：如果一个较低级别的组件（libbase）进行了重大的数字升级，而一些（但不是全部）依赖它的库（libb但不是liba）已经升级，我们就会遇到钻石依赖问题。
+SemVer和它的SAT求解器并不保证对一组给定的依赖性约束*存在*的解决方案。正如我们已经看到的，无法满足依赖性约束的情况不断出现：如果一个较低级别的组件（libbase）进行了重大的数字升级，而一些（但不是全部）依赖它的库（libb但不是liba）已经升级，我们就会遇到菱形依赖问题。
 
 SemVer solutions to dependency management are usually SAT-solver based. Version selection is a matter of running some algorithm to find an assignment of versions for dependencies in the network that satisfies all of the version-requirement constraints. When no such satisfying assignment of versions exists, we colloquially call it “dependency hell.”
 
@@ -338,11 +341,11 @@ Live at Head模型中的变化不会被简化为SemVer "我认为这很安全或
 
 The incentive structures and technological assumptions here are materially different than other scenarios: we assume that there exist unit tests and CI, we assume that API providers will be bound by whether downstream dependencies will be broken, and we assume that API consumers are keeping their tests passing and relying on their dependency in supported ways. This works significantly better in an open source ecosystem (in which fixes can be distributed ahead of time) than it does in the face of hidden/closed-source dependencies. API providers are incentivized when making changes to do so in a way that can be smoothly migrated to. API consumers are incentivized to keep their tests working so as not to be labeled as a low-signal test and potentially skipped, reducing the protection provided by that test.
 
-这里的激励结构和技术假设与其他场景有实质性的不同：我们假设存在单元测试和CI，我们假设API提供者将受到下游依赖关系是否会被破坏的约束，我们假设API使用者保持他们的测试通过并以支持的方式依赖他们的依赖关系。这在一个开源的生态系统中（可以提前发布修复程序）比在面对隐藏/闭源的依赖关系时效果要好得多。API提供者在进行修改时，会被激励以一种可以顺利迁移的方式进行修改。API使用者被激励保持他们的测试工作，以避免被标记为低信号测试并可能被跳过，从而减少该测试所提供的保护。
+这里的激励结构和技术假设与其他场景有实质性的不同：我们假设存在单元测试和CI，我们假设API提供者将受到下游依赖关系是否会被破坏的约束，我们假设API使用者保持他们的测试通过并以支持的方式依赖他们的依赖关系。这在一个开源的生态系统中（可以提前发布修复程序）比在面对隐藏/闭源的依赖关系时效果要好得多。API提供者在以一种可以顺利迁移的方式进行更改时，会受到激励。API使用者被激励保持他们的测试工作，以避免被标记为低信号测试并可能被跳过，从而减少该测试所提供的保护。
 
 In the Live at Head approach, version selection is handled by asking “What is the most recent stable version of everything?” If providers have made changes responsibly, it will all work together smoothly.
 
-在现场指导方法中，通过询问“哪个是最新的稳定版本？”来处理版本选择。如果提供者做出了相应的更改，则所有更改都将顺利进行。
+在Live at Head方法中，通过询问“哪个是最新的稳定版本？”来处理版本选择。如果提供者能够负责任地做出更改，则所有更改都将顺利进行。
 
 [^8]: Especially the author and others in the Google C++ community.（特别是作者和其他在谷歌C++社区。）
 
@@ -373,7 +376,7 @@ Consider what happens when libbase is recognized to be more than a single monoli
 
 If SemVer overconstrains, either because of an unnecessarily severe version bump or insufficiently fine-grained application of SemVer numbers, automated package managers and SAT-solvers will report that your dependencies cannot be updated or installed, even if everything would work together flawlessly by ignoring the SemVer checks. Anyone who has ever been exposed to dependency hell during an upgrade might find this particularly infuriating: some large fraction of that effort was a complete waste of time.
 
-如果SemVer过度约束，无论是由于不必要的严重的版本升级，还是由于对SemVer数字的应用不够精细，自动软件包管理器和SAT解算器将报告你的依赖关系不能被更新或安装，即使忽略SemVer检查，一切都能完美地协同工作。任何曾经在升级过程中被暴露在依赖地狱中的人都会发现这一点特别令人生气：其中很大一部分工作完全是浪费时间。
+如果SemVer过度约束，无论是由于不必要的严重的版本升级，还是由于对SemVer数字的应用不够精细，自动软件包管理器和SAT求解器将报告你的依赖关系不能被更新或安装，即使忽略SemVer检查，一切都能完美地协同工作。任何曾经在升级过程中被暴露在依赖地狱中的人都会发现这一点特别令人生气：其中很大一部分工作完全是浪费时间。
 
 
 [^9]: For example: a poorly implemented polyfill that adds the new libbase API ahead of time, causing a conflicting definition. Or, use of language reflection APIs to depend upon the precise number of APIs provided by libbase, introducing crashes if that number changes. These shouldn’t happen and are certainly rare even if they do happen by accident—the point is that the libbase providers can’t prove compatibility.（例如：一个实现不佳的 polyfill，提前添加了新的 libbase API，导致定义冲突。或者，使用语言反射 API 来依赖 libbase 提供的精确数量的 API，如果这个数量发生变化，就会引入崩溃。这些都不应该发生，而且即使是意外发生，也肯定很罕见--关键是 libbase 提供者无法证明兼容性。）
@@ -467,7 +470,7 @@ When you have only a few carefully chosen and well-maintained dependencies in yo
 
 However, our experience at Google suggests that it is unlikely that you can have *any* of those three properties at scale and keep them working constantly over time. Scale tends to be the thing that shows the weaknesses in SemVer. As your dependency network scales up, both in the size of each dependency and the number of dependencies (as well as any monorepo effects from having multiple projects depending on the same network of external dependencies), the compounded fidelity loss in SemVer will begin to dominate. These failures manifest as both false positives (practically incompatible versions that theoretically should have worked) and false negatives (compatible versions disallowed by SAT-solvers and resulting dependency hell).
 
-然而，我们在谷歌的经验表明，你不太可能在规模上拥有这三个属性中的任何一个，并且随着时间的推移保持它们持续工作。规模往往是显示SemVer弱点的东西。随着你的依赖网络规模的扩大，无论是每个依赖的规模还是依赖的数量（以及由多个项目依赖于同一外部依赖网络而产生的任何单一效应），SemVer的复合仿真度损失将开始占据主导地位。这些故障表现为误报（理论上应该有效的实际不兼容版本）和误报（SAT求解器不允许的兼容版本以及由此产生的依赖地狱）。
+然而，我们在谷歌的经验表明，你不太可能在规模上拥有这三个属性中的任何一个，并且随着时间的推移保持它们持续工作。规模往往是显示SemVer弱点的东西。随着你的依赖网络规模的扩大，无论是每个依赖的规模还是依赖的数量（以及由多个项目依赖于同一外部依赖网络而产生的任何单一效应），SemVer的复合仿真度损失将开始占据主导地位。这些故障表现为误报（理论上应该有效的实际不兼容版本）和漏报（SAT求解器不允许的兼容版本以及由此产生的依赖地狱）。
 
 ## Dependency Management with Infinite Resources  无限资源下的依赖管理
 
@@ -495,7 +498,7 @@ Here’s a useful thought experiment when considering dependency-management solu
 
 In either of those cases, significant information about downstream usage is *available*, even if it isn’t being readily exposed or acted upon today. That is, part of SemVer’s effective dominance is that we’re choosing to ignore information that is theoretically available to us. If we had access to more compute resources and that dependency information was surfaced readily, the community would probably find a use for it.
 
-在这两种情况下，关于下游使用情况的重要信息是*可用的*，目前还没有暴漏或采取行动。也就是说，SemVer的有效主导地位的部分原因是我们选择忽略了理论上我们可以获得的信息。如果我们能够获得更多的计算资源，并且依赖性信息能够很容易地浮出水面，社区可能会发现它的用途。
+在这两种情况下，关于下游使用情况的重要信息是*可用的*，目前还没有暴露或采取行动。也就是说，SemVer的有效主导地位的部分原因是我们选择忽略了理论上我们可以获得的信息。如果我们能够获得更多的计算资源，并且依赖性信息能够很容易地浮出水面，社区可能会发现它的用途。
 
 Although an OSS package can have innumerable closed-source dependents, the common case is that popular OSS packages are popular both publicly and privately. Dependency networks don’t (can’t) aggressively mix public and private dependencies: generally, there is a public subset and a separate private subgraph.[^16]
 
@@ -529,7 +532,7 @@ What changes would we need to the OSS ecosystem to apply such a model? Unfortuna
 
 -   We might want to explicitly include history and reputation in CI calculations. A proposed change that breaks a project that has a longstanding history of tests continuing to pass gives us a different form of evidence than a breakage in a project that was only added recently and has a history of breaking for unrelated reasons.
 
-为了应用这样的模式，我们需要对开放源码软件的生态系统进行哪些改变？不幸的是，有不多:
+为了应用这样的模式，我们需要对开放源码软件的生态系统进行哪些改变？不幸的是，相当多:
 
 - 所有的依赖关系必须提供单元测试。尽管我们正不可阻挡地走向一个单元测试被广泛接受和无处不在的世界，但我们还没有到那一步。
 
@@ -656,7 +659,7 @@ It is possible, however, that we move toward a world in which maintainer-provide
 
 - 依赖关系是一个合同：有付出就有收获，提供者和消费者在该合同中都有一些权利和责任。供应商应该清楚地了解他们在一段时间内试图承诺什么。
 
-- SemVer是对 "人类认为这一变化的风险有多大 "的一种有损压缩的速记估计。SemVer与软件包管理器中的SAT解算器一起，将这些估计值升级为绝对值。这可能会导致过度约束（依赖性地狱）或不足约束（应该一起工作的版本却没有）。
+- SemVer是对 "人类认为这一变化的风险有多大 "的一种有损压缩的速记估计。SemVer与软件包管理器中的SAT求解器一起，将这些估计值升级为绝对值。这可能会导致过度约束（依赖性地狱）或不足约束（应该一起工作的版本却没有）。
 
 - 相比之下，测试和CI提供了一组新版本是否能一起工作的实际证据。
 
