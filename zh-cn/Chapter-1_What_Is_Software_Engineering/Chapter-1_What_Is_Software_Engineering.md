@@ -20,7 +20,7 @@ Within Google, we sometimes say, “Software engineering is programming integrat
 
 One way to see the impact of time on a program is to think about the question, “What is the expected life span1 of your code?” Reasonable answers to this question vary by roughly a factor of 100,000. It is just as reasonable to think of code that needs to last for a few minutes as it is to imagine code that will live for decades. Generally, code on the short end of that spectrum is unaffected by time. It is unlikely that you need to adapt to a new version of your underlying libraries, operating system (OS), hardware, or language version for a program whose utility spans only an hour. These short-lived systems are effectively “just” a programming problem, in the same way that a cube compressed far enough in one dimension is a square. As we expand that time to allow for longer life spans, change becomes more important. Over a span of a decade or more, most program dependencies, whether implicit or explicit, will likely change. This recognition is at the root of our distinction between software engineering and programming.
 
-了解时间对程序的影响的一种方法是思考“代码的预期生命周期是多少？”这个问题的合理答案大约相差100000倍。想到生命周期几分钟的代码和想象将持续执行几十年的代码是一样合理。通常，周期短的代码不受时间的影响。对于一个只需要存活一个小时的程序，你不太可能考虑其适应基础库、操作系统（OS）、硬件或语言版本的新版本。这些短期系统实际上“只是”一个编程问题，就像在一个维度中压缩得足够扁的立方体是正方形一样。随着我们扩大时间维度，允许更长的生命周期，改变显得更加重要。在十年或更长的时间里，大多数程序依赖关系，无论是隐式的还是显式的，都可能发生变化。这一认识是我们区分软件工程和编程的根本原因。
+了解时间对程序的影响的一种方法是思考“代码的预期生命周期是多少？”这个问题的合理答案大约相差100,000倍。想到生命周期几分钟的代码和想象将持续执行几十年的代码是一样合理。通常，周期短的代码不受时间的影响。对于一个只需要存活一个小时的程序，你不太可能考虑其适应基础库、操作系统（OS）、硬件或语言版本的新版本。这些短期系统实际上“只是”一个编程问题，就像在一个维度中压缩得足够扁的立方体是正方形一样。随着我们扩大时间维度，允许更长的生命周期，改变显得更加重要。在十年或更长的时间里，大多数程序依赖关系，无论是隐式的还是显式的，都可能发生变化。这一认识是我们区分软件工程和编程的根本原因。
 
 
 > 1.We don’t mean “execution lifetime,” we mean “maintenance lifetime”—how long will the code continue to be built, executed, and maintained? How long will this software provide value?
@@ -57,7 +57,7 @@ We can also say that software engineering is different from programming in terms
 
 Rarely is there a one-size-fits-all solution in software engineering, and the same applies to this book. Given a factor of 100,000 for reasonable answers on “How long will this software live,” a range of perhaps a factor of 10,000 for “How many engineers are in your organization,” and who-knows-how-much for “How many compute resources are available for your project,” Google’s experience will probably not match yours. In this book, we aim to present what we’ve found that works for us in the construction and maintenance of software that we expect to last for decades, with tens of thousands of engineers, and world-spanning compute resources. Most of the practices that we find are necessary at that scale will also work well for smaller endeavors: consider this a report on one engineering ecosystem that we think could be good as you scale up. In a few places, super-large scale comes with its own costs, and we’d be happier to not be paying extra overhead. We call those out as a warning. Hopefully if your organization grows large enough to be worried about those costs, you can find a better answer.
 
-在软件工程中很少有一刀切的解决方案，这本书也是如此。考虑到“这个软件能使用多久”的合理答案是100000倍，而“你的组织中有多少工程师”的范围可能是10000，谁知道“你的项目有多少计算资源可用”的范围是多少，谷歌的经验可能与你的经验不一致。在本书中，我们的目标是介绍我们在构建和维护软件方面的发现，这些软件预计将持续数十年，拥有数万计的工程师和遍布世界的计算资源。我们发现在这种规模下所需要的大多数做法也能很好地适用于复杂度较小的系统：考虑一下这是一个我们认为在你们扩大的时候可以做的很好的工程生态系统的报告。在一些地方，超大规模有其自身的成本，我们更倾向于不付出额外的管理成本。我们发出警告。希望如果你的组织发展到足以担心这些成本，你可以找到更好的答案。
+在软件工程中很少有一刀切的解决方案，这本书也是如此。考虑到“这个软件能使用多久”的合理答案是100,000倍，而“你的组织中有多少工程师”的范围可能是10,000，谁知道“你的项目有多少计算资源可用”的范围是多少，谷歌的经验可能与你的经验不一致。在本书中，我们的目标是介绍我们在构建和维护软件方面的发现，这些软件预计将持续数十年，拥有数万计的工程师和遍布世界的计算资源。我们发现在这种规模下所需要的大多数做法也能很好地适用于复杂度较小的系统：考虑一下这是一个我们认为在你们扩大的时候可以做的很好的工程生态系统的报告。在一些地方，超大规模有其自身的成本，我们更倾向于不付出额外的管理成本。我们发出警告。希望如果你的组织发展到足以担心这些成本，你可以找到更好的答案。
 
 Before we get to specifics about teamwork, culture, policies, and tools, let’s first elaborate on these primary themes of time, scale, and trade-offs.
 
@@ -73,7 +73,7 @@ When a novice is learning to program, the life span of the resulting code is usu
 
 We also find developers of short-lived code in common industry settings. Mobile apps often have a fairly short life span,[6](#_bookmark19) and for better or worse, full rewrites are relatively common. Engineers at an early-stage startup might rightly choose to focus on immediate goals over long-term investments: the company might not live long enough to reap the benefits of an infrastructure investment that pays off slowly. A serial startup developer could very reasonably have 10 years of development experience and little or no experience maintaining any piece of software expected to exist for longer than a year or two.
 
-我们还在常见的行业环境中找到短期代码的开发人员。移动应用程序的生命周期通常很短，而且无论好坏，完全重写都是相对常见的。初创初期的工程师可能会正确地选择关注眼前目标而不是长期投资：公司可能活得不够长，无法从回报缓慢的基础设施投资中获益。一个连续工作多年的开发人员可能有10年的开发经验，并且几乎有或根本没有维护任何预期存在超过一年或两年的软件的经验。
+我们还在常见的行业环境中找到短期代码的开发人员。移动应用程序的生命周期通常很短，而且无论好坏，完全重写都是相对常见的。初创初期的工程师可能会正确地选择关注眼前目标而不是长期投资：公司可能活得不够长，无法从回报缓慢的基础设施投资中获益。一个连续工作多年的开发人员可能有10年的开发经验，并且鲜少或根本没有维护任何预期存在超过一年或两年的软件的经验。
 
 On the other end of the spectrum, some successful projects have an effectively unbounded life span: we can’t reasonably predict an endpoint for Google Search, the Linux kernel, or the Apache HTTP Server project. For most Google projects, we must assume that they will live indefinitely—we cannot predict when we won’t need to upgrade our dependencies, language versions, and so on. As their lifetimes grow, these long-lived projects *eventually* have a different feel to them than programming assignments or startup development.
 
@@ -130,7 +130,7 @@ In our experience, this axiom is a dominant factor in any discussion of changing
 
 Hyrum’s Law represents the practical knowledge that—even with the best of intentions, the best engineers, and solid practices for code review—. As an API owner, you will gain some flexibility and freedom by being clear about interface promises, but in practice, the complexity and difficulty of a given change also depends on how useful a user finds some observable behavior of your API. If users cannot depend on such things, your API will be easy to change. Given enough time and enough users, even the most innocuous change will break something;9 your analysis of the value of that change must incorporate the difficulty in investigating, identifying, and resolving those breakages.
 
-海勒姆定律代表了一种实践知识，即即使有最好的规划、最好的工程师和可靠的代码评审实践，我们也不能假设完全遵守已发布的契约或最佳实践。作为API所有者，通过明确地接口约定，你将获得一定的灵活性和自由度，但在实践中，给定更改的复杂性和难度还取决于用户对你的API的一些可观察行为的有用程度。如果用户不能依赖这些东西，那么你的API将很容易更改。如果有足够的时间和足够的用户，即使是最无害的变更也会破坏某些东西；你对变更价值的分析必须包含调查、识别和解决这些缺陷的难度。
+海勒姆定律代表了一种实践知识，即使有最好的规划、最好的工程师和可靠的代码评审实践，我们也不能假设完全遵守已发布的契约或最佳实践。作为API所有者，通过明确地接口约定，你将获得一定的灵活性和自由度，但在实践中，给定更改的复杂性和难度还取决于用户对你的API的一些可观察行为的有用程度。如果用户不能依赖这些东西，那么你的API将很容易更改。如果有足够的时间和足够的用户，即使是最无害的变更也会破坏某些东西；你对变更价值的分析必须包含调查、识别和解决这些缺陷的难度。
 
 > 8	To his credit, Hyrum tried really hard to humbly call this “The Law of Implicit Dependencies,” but “Hyrum’s Law” is the shorthand that most people at Google have settled on.
 > 8 值得称道的是，海勒姆非常努力地将其称为 "隐性依赖定律"，但 "海勒姆定律 "是谷歌公司大多数人都认可的速记方法。
@@ -519,7 +519,7 @@ This book discusses all of these topics: policies for an organization and for a 
 - Being data driven over time implies the need to change directions when the data changes (or when assumptions are dispelled). Mistakes or revised plans are inevitable.
 
 - “软件工程”与“编程”在维度上不同：编程是关于编写代码的。软件工程扩展了这一点，包括在代码的生命周期内对其进行维护。
-- 短期代码和长期代码的生命周期之间至少有100000倍的系数。假设相同的最佳实践普遍适用于这一范围的两端是愚蠢的。
+- 短期代码和长期代码的生命周期之间至少有100,000倍的系数。假设相同的最佳实践普遍适用于这一范围的两端是愚蠢的。
 - 在预期的代码生命周期内，当我们能够响应依赖关系、技术或产品需求的变化时，软件是可持续的。我们可能选择不改变事情，但我们需要有能力。
 - 海勒姆定律：当一个 API 有足够的用户的时候，在约定中你承诺的什么都无所谓，所有在你系统里面被观察到的行为都会被一些用户直接依赖。
 - 你的组织重复执行的每项任务都应在人力投入方面具有可扩展性（线性或更好）。策略是使流程可伸缩的好工具。

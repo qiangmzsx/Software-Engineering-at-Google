@@ -496,7 +496,7 @@ Following are other miscellaneous tips and tricks that we at Google recommend wh
 *Let your team know when they’re doing well*
     ​Many new team leads can get so caught up in dealing with the shortcomings of their team members that they neglect to provide positive feedback often enough. Just as you let someone know when they screw up, be sure to let them know when they do well, and be sure to let them (and the rest of the team) know when they knock one out of the park.
 
-下是谷歌在你担任领导职务时推荐的其他提示和窍门： 
+下面是谷歌在你担任领导职务时推荐的其他提示和窍门： 
 *委托，但要弄脏自己的手*
     当从个人贡献者的角色转变为领导角色时，实现平衡是最难做到的事情之一。起初，你会倾向于自己做所有的工作，而在领导岗位上呆久了，很容易养成自己不做任何工作的习惯。如果你刚开始担任领导职务，你可能需要努力工作，把工作委托给团队中的其他工程师，即使他们完成这项工作所需的时间比你长很多。这不仅是你保持理智的一种方式，而且也是你的团队其他成员学习的方式。如果你已经领导了一段时间的团队，或者你接了一个新的团队，获得团队的尊重和了解他们的工作的最简单的方法之一就是弄脏你的手——通常是承担一个别人不愿意做的肮脏的任务。你可以有一份简历和一份一英里长的成就清单，但没有任何东西能让团队知道你有多熟练、有多谦逊（和谦逊），你喜欢跳进去做一些艰苦的工作。
 
