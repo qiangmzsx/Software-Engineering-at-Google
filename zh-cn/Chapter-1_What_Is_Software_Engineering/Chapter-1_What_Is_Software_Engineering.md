@@ -20,7 +20,7 @@ Within Google, we sometimes say, “Software engineering is programming integrat
 
 One way to see the impact of time on a program is to think about the question, “What is the expected life span1 of your code?” Reasonable answers to this question vary by roughly a factor of 100,000. It is just as reasonable to think of code that needs to last for a few minutes as it is to imagine code that will live for decades. Generally, code on the short end of that spectrum is unaffected by time. It is unlikely that you need to adapt to a new version of your underlying libraries, operating system (OS), hardware, or language version for a program whose utility spans only an hour. These short-lived systems are effectively “just” a programming problem, in the same way that a cube compressed far enough in one dimension is a square. As we expand that time to allow for longer life spans, change becomes more important. Over a span of a decade or more, most program dependencies, whether implicit or explicit, will likely change. This recognition is at the root of our distinction between software engineering and programming.
 
-了解时间对程序的影响的一种方法是思考“代码的预期生命周期是多少？”这个问题的合理答案大约相差100000倍。想到生命周期几分钟的代码和想象将持续执行几十年的代码是一样合理。通常，周期短的代码不受时间的影响。对于一个只需要存活一个小时的程序，你不太可能考虑其适应基础库、操作系统（OS）、硬件或语言版本的新版本。这些短期系统实际上“只是”一个编程问题，就像在一个维度中压缩得足够扁的立方体是正方形一样。随着我们扩大时间维度，允许更长的生命周期，改变显得更加重要。在十年或更长的时间里，大多数程序依赖关系，无论是隐式的还是显式的，都可能发生变化。这一认识是我们区分软件工程和编程的根本原因。
+了解时间对程序的影响的一种方法是思考“代码的预期生命周期是多少？”这个问题的合理答案大约相差100,000倍。想到生命周期几分钟的代码和想象将持续执行几十年的代码是一样合理。通常，周期短的代码不受时间的影响。对于一个只需要存活一个小时的程序，你不太可能考虑其适应基础库、操作系统（OS）、硬件或语言版本的新版本。这些短期系统实际上“只是”一个编程问题，就像在一个维度中压缩得足够扁的立方体是正方形一样。随着我们扩大时间维度，允许更长的生命周期，改变显得更加重要。在十年或更长的时间里，大多数程序依赖关系，无论是隐式的还是显式的，都可能发生变化。这一认识是我们区分软件工程和编程的根本原因。
 
 ```
 1:	We don’t mean “execution lifetime,” we mean “maintenance lifetime”—how long will the code continue to be built, executed, and maintained? How long will this software provide value?
@@ -513,7 +513,7 @@ This book discusses all of these topics: policies for an organization and for a 
 
 
 - “软件工程”与“编程”在维度上不同：编程是关于编写代码的。软件工程扩展了这一点，包括在代码的生命周期内对其进行维护。
-- 短期代码和长期代码的生命周期之间至少有100000倍的系数。假设相同的最佳实践普遍适用于这一范围的两端是愚蠢的。
+- 短期代码和长期代码的生命周期之间至少有100,000倍的系数。假设相同的最佳实践普遍适用于这一范围的两端是愚蠢的。
 - 在预期的代码生命周期内，当我们能够响应依赖关系、技术或产品需求的变化时，软件是可持续的。我们可能选择不改变事情，但我们需要有能力。
 - 海勒姆定律：当一个 API 有足够的用户的时候，在约定中你承诺的什么都无所谓，所有在你系统里面被观察到的行为都会被一些用户直接依赖。
 - 你的组织重复执行的每项任务都应在人力投入方面具有可扩展性（线性或更好）。策略是使流程可伸缩的好工具。

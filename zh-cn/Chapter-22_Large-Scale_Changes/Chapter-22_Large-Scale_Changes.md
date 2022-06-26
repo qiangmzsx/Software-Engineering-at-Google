@@ -189,7 +189,7 @@ Every change should be tested (a process we’ll talk about more in just a momen
 
 Small, independent changes are easier to validate, because each of them affects a smaller set of tests, but also because test failures are easier to diagnose and fix. Finding the root cause of a test failure in a change of 25 files is pretty straightforward; finding 1 in a 10,000-file change is like the proverbial needle in a haystack.
 
-小的、独立的更改更容易验证，因为每个更改都会影响较小的测试集，但也因为测试失败更容易诊断和修复。在25个文件的更改中找到测试失败的根本原因非常简单；在10000个文件更改中找到1个，就像谚语中大海捞针一样。
+小的、独立的更改更容易验证，因为每个更改都会影响较小的测试集，但也因为测试失败更容易诊断和修复。在25个文件的更改中找到测试失败的根本原因非常简单；在10,000个文件更改中找到1个，就像谚语中大海捞针一样。
 
 The trade-off in this decision is that smaller changes will cause the same tests to be run multiple times, particularly tests that depend on large parts of the codebase. Because engineer time spent tracking down test failures is much more expensive than the compute time required to run these extra tests, we’ve made the conscious decision that this is a trade-off we’re willing to make. That same trade-off might not hold for all organizations, but it is worth examining what the proper balance is for yours.
 
