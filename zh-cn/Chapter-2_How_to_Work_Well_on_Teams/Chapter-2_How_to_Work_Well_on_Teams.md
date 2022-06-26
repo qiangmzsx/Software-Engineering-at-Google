@@ -45,6 +45,10 @@ The answer is insecurity. People are afraid of others seeing and judging their w
 
 答案是缺乏安全感。人们害怕别人看到和评价他们正在进行的工作。从某种意义上说，缺乏安全感是人性的一部分——没有人喜欢被批评，尤其是那些没有完成的事情。认识到这个主题让我们看到了软件开发中一个更普遍的趋势：缺乏安全实际上是一个更大问题的征兆。
 
+> 1 Ben Collins-Sussman, also an author within this book.  
+> 1 Ben Collins-Sussman，也是本书的作者之一。
+> 
+
 ## The Genius Myth  天才的神话
 
 Many humans have the instinct to find and worship idols. For software engineers, those might be Linus Torvalds, Guido Van Rossum, Bill Gates—all heroes who changed the world with heroic feats. Linus wrote Linux by himself, right?
@@ -112,7 +116,7 @@ To quote a friend:
     *I know I get SERIOUSLY insecure about people looking before something is done. Like they are going to seriously judge me and think I’m an idiot.*
 
 引用一位朋友的话：  
-	​*我知道，别人在我完成某事之前就来看，会让我感到非常不安全。好像他们会认真地评判我，认为我是个白痴。*
+		*我知道，别人在我完成某事之前就来看，会让我感到非常不安全。好像他们会认真地评判我，认为我是个白痴。*
 
 This is an extremely common feeling among programmers, and the natural reaction is to hide in a cave, work, work, work, and then polish, polish, polish, sure that no one will see your goof-ups and that you’ll still have a chance to unveil your masterpiece when you’re done. Hide away until your code is perfect.
 
@@ -171,12 +175,12 @@ Beyond the bus factor, there’s the issue of overall pace of progress. It’s e
 
 除了巴士因子，还有整体进度的问题。人们很容易忘记，独自工作往往是一项艰苦的工作，比人们自认为的慢得多。你独自工作能学到多少？你推进地有多快？Google和Stack Overflow是观点和信息的重要来源，但它们不能替代人的真实体验。与他人一起工作会直接增加工作背后的集体智慧。当你陷入误区时，你需要浪费多少时间才能从困境中解脱？想想如果你有几个同龄人看着你并立即告知你是如何犯错以及如何解决问题，体验会有多么不同。这正是软件工程公司中团队坐在一起（或进行配对编程）的原因。编程很难。软件工程更难。你需要另一双眼睛。
 
-```
-2    Literally, if you are, in fact, a bike designer.
-2  实际上，如果你是一个自行车设计师。
-3    I should note that sometimes it’s dangerous to get too much feedback too early in the process if you’re still unsure of your general direction or goal.
-3  我应该注意到，如果你仍然不确定自己的总体方向或目标，那么在过程中过早地获得太多反馈是很危险的。
-```
+> 2    Literally, if you are, in fact, a bike designer.  
+> 2  实际上，如果你是一个自行车设计师。
+>
+> 3    I should note that sometimes it’s dangerous to get too much feedback too early in the process if you’re still unsure of your general direction or goal.  
+> 3  我应该注意到，如果你仍然不确定自己的总体方向或目标，那么在过程中过早地获得太多反馈是很危险的。
+
 
 ### Pace of Progress 进展速度
 
@@ -221,10 +225,9 @@ Don’t misunderstand us—we still think engineers need uninterrupted time to f
 
 ------
 
-```
-4    I do, however, acknowledge that serious introverts likely need more peace, quiet, and alone time than most people and might benefit from a quieter environment, if not their own office.
-然而，我承认，严肃内向的人可能比大多数人需要更多的平静、安静和独处的时间，如果不是他们自己的办公室，他们可能会从一个更安静的环境中受益。
-```
+
+> 4    I do, however, acknowledge that serious introverts likely need more peace, quiet, and alone time than most people and might benefit from a quieter environment, if not their own office.  
+> 4  然而，我承认，严肃内向的人可能比大多数人需要更多的平静、安静和独处的时间，如果不是他们自己的办公室，他们可能会从一个更安静的环境中受益。
 
 ### In Short, Don’t Hide 总之，不要隐藏
 
@@ -311,10 +314,10 @@ The moral is this: do not underestimate the power of playing the social game. It
 
 寓意是：不要低估社交游戏的力量。这不是欺骗或操纵人们；这是关于建立关系来完成事情。关系总是比项目更长久。当你和你的同事关系更融洽时，他们会更愿意在你需要他们的时候帮助你。
 
-```
-5    This is incredibly difficult if you’ve been burned in the past by delegating to incompetent people.
-如果你过去曾被委派给不称职的人，这将是非常困难的。
-```
+
+> 5    This is incredibly difficult if you’ve been burned in the past by delegating to incompetent people.  
+> 5  如果你过去曾被委派给不称职的人，这将是非常困难的。
+
 
 ### Humility, Respect, and Trust in Practice 谦逊、尊重和信任的实践
 
@@ -384,12 +387,12 @@ Over in Google X—the division that works on “moonshots” like self-driving 
 
 在谷歌X部门——该部门负责研究自动驾驶汽车和通过热气球提供互联网接入等 "登月计划"——故意将失败次数纳入其激励系统。人们会想出一些稀奇古怪的想法，同事们也会受到积极的鼓励尽快实现它们。每个人都会得到奖励（甚至是竞争），看看他们能在一段固定的时间内反驳或否定多少观点。只有当一个概念真的不能在白板上被所有同行揭穿时，它才能进入早期原型。
 
-```
-6    You can find a dozen variants of this legend on the web, attributed to different famous managers.
-你可以在网上找到这一传说的十几种变体，它们都是由不同的著名经理人创造的。
-7    By the same token, if you do the same thing over and over and keep failing, it’s not failure, it’s incompetence.
-同样的道理，如果你一次又一次地做同样的事情，却不断失败，那不是失败，而是无能。
-```
+> 6    You can find a dozen variants of this legend on the web, attributed to different famous managers.  
+> 6  你可以在网上找到这一传说的十几种变体，它们都是由不同的著名经理人创造的。
+> 
+> 7    By the same token, if you do the same thing over and over and keep failing, it’s not failure, it’s incompetence.  
+> 7  同样的道理，如果你一次又一次地做同样的事情，却不断失败，那不是失败，而是无能。
+
 
 ### Blameless Post-Mortem Culture 无责的事后文化
 
