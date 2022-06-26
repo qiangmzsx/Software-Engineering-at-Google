@@ -22,10 +22,12 @@ One way to see the impact of time on a program is to think about the question, �
 
 了解时间对程序的影响的一种方法是思考“代码的预期生命周期是多少？”这个问题的合理答案大约相差100000倍。想到生命周期几分钟的代码和想象将持续执行几十年的代码是一样合理。通常，周期短的代码不受时间的影响。对于一个只需要存活一个小时的程序，你不太可能考虑其适应基础库、操作系统（OS）、硬件或语言版本的新版本。这些短期系统实际上“只是”一个编程问题，就像在一个维度中压缩得足够扁的立方体是正方形一样。随着我们扩大时间维度，允许更长的生命周期，改变显得更加重要。在十年或更长的时间里，大多数程序依赖关系，无论是隐式的还是显式的，都可能发生变化。这一认识是我们区分软件工程和编程的根本原因。
 
-```
-1:	We don’t mean “execution lifetime,” we mean “maintenance lifetime”—how long will the code continue to be built, executed, and maintained? How long will this software provide value?
-我们不是指“开发生命周期”，而是指“维护生命周期”——代码将持续构建、执行和维护多长时间？这个软件能提供多长时间的价值？
-```
+
+> 1.We don’t mean “execution lifetime,” we mean “maintenance lifetime”—how long will the code continue to be built, executed, and maintained? How long will this software provide value?
+>
+> 1.我们不是指“开发生命周期”，而是指“维护生命周期”——代码将持续构建、执行和维护多长时间？这个软件能提供多长时间的价值？
+
+
 This distinction is at the core of what we call sustainability for software. Your project is sustainable if, for the expected life span of your software, you are capable of reacting to whatever valuable change comes along, for either technical or business reasons. Importantly, we are looking only for capability—you might choose not to perform a given upgrade, either for lack of value or other priorities.2 When you are fundamentally incapable of reacting to a change in underlying technology or product direction, you’re placing a high-risk bet on the hope that such a change never becomes critical. For short-term projects, that might be a safe bet. Over multiple decades, it probably isn’t.3
 
 这种区别是我们所说的软件可持续性的核心。如果在软件的预期生命周期内，你能够对任何有价值的变化做出反应，无论是技术还是商业原因，那么你的项目是可持续的。重要的是，我们只关注能力——你可能因为缺乏价值或其他优先事项而选择不进行特定的升级。当你基本上无法对基础技术或产品方向的变化做出反应时，你就把高风险赌注押在希望这种变化永远不会变得至关重要。对于短期项目，这可能是一个安全的赌注。几十年后，情况可能并非如此。
@@ -34,12 +36,16 @@ Another way to look at software engineering is to consider scale. How many peopl
 
 另一种看待软件工程的方法是考虑规模。有多少人参与？随着时间的推移，他们在开发和维护中扮演什么角色？编程任务通常是个人创建的行为，但软件工程任务是团队的工作。早期定义软件工程的尝试为这一观点提供了一个很好的定义：“多人开发的多版本程序”。这表明软件工程和程序设计之间的区别是时间和人的区别。团队协作带来了新的问题，但也提供了比任任何单个程序员更多的潜力来产生有价值的系统。
 
-```
-2:This is perhaps a reasonable hand-wavy definition of technical debt: things that “should” be done, but aren’t yet—the delta between our code and what we wish it was.
-2： 这也许是一个合理的技术债务定义：那些“应该”做的事情，但还不是我们的代码和我们希望它是什么之间的增量。
-3:Also consider the issue of whether we know ahead of time that a project is going to be long lived.
-3：也要考虑我们是否提前知道项目将长期存在的问题。
-```
+> 2  This is perhaps a reasonable hand-wavy definition of technical debt: things that “should” be done, but aren’t yet—the delta between our code and what we wish it was.
+> 2  这也许是一个合理的技术债务定义：那些“应该”做的事情，但还不是我们的代码和我们希望它是什么之间的增量。
+>
+> 3  Also consider the issue of whether we know ahead of time that a project is going to be long lived.
+> 3  也要考虑我们是否提前知道项目将长期存在的问题。  
+>
+> 4 There is some question as to the original attribution of this quote; consensus seems to be that it was originally phrased by Brian Randell or Margaret Hamilton, but it might have been wholly made up by Dave Parnas. The common citation for it is “Software Engineering Techniques: Report of a conference sponsored by the NATO Science Committee,” Rome, Italy, 27–31 Oct. 1969, Brussels, Scientific Affairs Division, NATO.
+> 4 关于这句话的原始出处有一些疑问；人们似乎一致认为它最初是由Brian Randell或Margaret Hamilton提出的，但它可能完全是由Dave Parnas编造的。这句话的常见引文是 "软件工程技术。由北约科学委员会主办的会议报告1969年10月27日至31日，意大利罗马，布鲁塞尔，北约科学事务司。
+>
+
 
 Team organization, project composition, and the policies and practices of a software project all dominate this aspect of software engineering complexity. These problems are inherent to scale: as the organization grows and its projects expand, does it become more efficient at producing software? Does our development workflow become more efficient as we grow, or do our version control policies and testing strategies cost us proportionally more? Scale issues around communication and human scaling have been discussed since the early days of software engineering, going all the way back to the Mythical Man Month. 5 Such scale issues are often matters of policy and are fundamental to the question of software sustainability: how much will it cost to do the things that we need to do repeatedly?
 
@@ -57,6 +63,9 @@ Before we get to specifics about teamwork, culture, policies, and tools, let’s
 
 在我们讨论团队合作、文化、策略和工具的细节之前，让我们首先阐述一下时间、规模和权衡这些主要主题。
 
+> 5 Frederick P. Brooks Jr. The Mythical Man-Month: Essays on Software Engineering (Boston: Addison-Wesley, 1995)
+> 5 Frederick P. Brooks Jr. The Mythical Man-Month: 关于软件工程的论文（波士顿：Addison-Wesley，1995）。
+
 ## Time and Change 时间与变化
 When a novice is learning to program, the life span of the resulting code is usually measured in hours or days. Programming assignments and exercises tend to be write- once, with little to no refactoring and certainly no long-term maintenance. These programs are often not rebuilt or executed ever again after their initial production. This isn’t surprising in a pedagogical setting. Perhaps in secondary or post-secondary education, we may find a team project course or hands-on thesis. If so, such projects are likely the only time student code will live longer than a month or so. Those developers might need to refactor some code, perhaps as a response to changing requirements, but it is unlikely they are being asked to deal with broader changes to their environment.
 
@@ -73,11 +82,10 @@ On the other end of the spectrum, some successful projects have an effectively u
 Consider [Figure 1-1](#_bookmark20), which demonstrates two software projects on opposite ends of this “expected life span” spectrum. For a programmer working on a task with an expected life span of hours, what types of maintenance are reasonable to expect? That is, if a new version of your OS comes out while you’re working on a Python script that will be executed one time, should you drop what you’re doing and upgrade? Of course not: the upgrade is not critical. But on the opposite end of the spectrum, Google Search being stuck on a version of our OS from the 1990s would be a clear problem.
 
 考虑图1-1，它演示了两个软件项目的“预期生命周期”的范围。对于从事预期生命周期为小时的任务的程序来说，什么类型的维护是合理的？也就是说，如果在编写一个Python脚本时出现了一个新版本的操作系统，该脚本将执行一次，你应该放弃你正在做的事情并升级吗？当然不是：升级并不重要。但与此相反，谷歌搜索停留在20世纪90年代的操作系统版本上显然是一个问题。
-```
-6:Appcelerator, “[Nothing is Certain Except Death, Taxes and a Short Mobile App Lifespan](https://oreil.ly/pnT2_),” Axway Developer blog, December 6, 2012.
 
-6  除了死亡、税收和短暂的移动应用生命，没有什么是确定的
-```
+> 6  Appcelerator, “[Nothing is Certain Except Death, Taxes and a Short Mobile App Lifespan](https://oreil.ly/pnT2_),” Axway Developer blog, December 6, 2012.
+> 6  除了死亡、税收和短暂的移动应用生命，没有什么是确定的
+
 
 ![Figure 1-1. Life span and the importance of upgrades](./images/figure%201-1.png)
 
@@ -96,10 +104,9 @@ And thus, after actually going through such an upgrade once (or giving up part w
 
 因此，在经历过一次升级（或中途放弃）之后，高估后续升级的成本并决定“永不再升级”是非常合理的。得出这个结论的公司最终承诺放弃并重写代码，或决定不再升级。有时，更负责任的答案不是采取常规的方法避免痛苦的任务，而是投入资源用于减轻痛苦。这一切都取决于升级的成本、提供的价值以及相关项目的预期生命周期。
 
-```
-7:Your own priorities and tastes will inform where exactly that transition happens. We’ve found that most projects seem to be willing to upgrade within five years. Somewhere between 5 and 10 years seems like a conservative estimate for this transition in general.
-7  你自己的优先次序和品味会告诉你这种转变到底发生在哪里。我们发现，大多数项目似乎愿意在五年内升级。一般来说，5到10年似乎是这一转变的保守估计。
-```
+
+> 7Your own priorities and tastes will inform where exactly that transition happens. We’ve found that most projects seem to be willing to upgrade within five years. Somewhere between 5 and 10 years seems like a conservative estimate for this transition in general.
+> 7  你自己的优先次序和品味会告诉你这种转变到底发生在哪里。我们发现，大多数项目似乎愿意在五年内升级。一般来说，5到10年似乎是这一转变的保守估计。
 
 Getting through not only that first big upgrade, but getting to the point at which you can reliably stay current going forward, is the essence of long-term sustainability for your project. Sustainability requires planning and managing the impact of required change. For many projects at Google, we believe we have achieved this sort of sustainability, largely through trial and error.
 
@@ -125,13 +132,11 @@ Hyrum’s Law represents the practical knowledge that—even with the best of in
 
 海勒姆定律代表了一种实践知识，即即使有最好的规划、最好的工程师和可靠的代码评审实践，我们也不能假设完全遵守已发布的契约或最佳实践。作为API所有者，通过明确地接口约定，你将获得一定的灵活性和自由度，但在实践中，给定更改的复杂性和难度还取决于用户对你的API的一些可观察行为的有用程度。如果用户不能依赖这些东西，那么你的API将很容易更改。如果有足够的时间和足够的用户，即使是最无害的变更也会破坏某些东西；你对变更价值的分析必须包含调查、识别和解决这些缺陷的难度。
 
-```
-8	To his credit, Hyrum tried really hard to humbly call this “The Law of Implicit Dependencies,” but “Hyrum’s Law” is the shorthand that most people at Google have settled on.
-9	See “Workflow,” an xkcd comic.
-
-8 值得称道的是，海勒姆非常努力地将其称为 "隐性依赖定律"，但 "海勒姆定律 "是谷歌公司大多数人都认可的速记方法。
-9 见 "工作流程"，一幅xkcd漫画。
-```
+> 8	To his credit, Hyrum tried really hard to humbly call this “The Law of Implicit Dependencies,” but “Hyrum’s Law” is the shorthand that most people at Google have settled on.
+> 8 值得称道的是，海勒姆非常努力地将其称为 "隐性依赖定律"，但 "海勒姆定律 "是谷歌公司大多数人都认可的速记方法。
+>
+> 9	See “Workflow,” an xkcd comic.
+> 9 见 "工作流程"，一幅xkcd漫画。
 
 ### Example: Hash Ordering 哈希排序
 
@@ -167,10 +172,10 @@ This is a very basic example of the difference between “it works” and “it 
 
 这是“有效”和“正确”之间区别的一个非常基本的例子。对于一个短期的程序，取决于容器的迭代顺序不会导致任何技术问题。另一方面，对于一个软件工程项目来说，如果有足够的时间，这种对已定义顺序的依赖是一种风险使更改迭代顺序变得有价值。这种价值可以通过多种方式体现出来，无论是效率、安全性，还是仅仅是数据结构的未来验证，以允许将来的更改。当这一价值变得清晰时，你需要权衡这一价值与破坏开发人员或客户的痛苦之间的平衡。
 
-```
-10：A type of Denial-of-Service (DoS) attack in which an untrusted user knows the structure of a hash table and the hash function and provides data in such a way as to degrade the algorithmic performance of operations on the table.
- 一种拒绝服务（DoS）攻击，其中不受信任的用户知道哈希表和哈希函数的结构，并以降低表上操作的算法性能的方式提供数据。
-```
+
+> 10  A type of Denial-of-Service (DoS) attack in which an untrusted user knows the structure of a hash table and the hash function and provides data in such a way as to degrade the algorithmic performance of operations on the table.
+> 10  一种拒绝服务（DoS）攻击，其中不受信任的用户知道哈希表和哈希函数的结构，并以降低表上操作的算法性能的方式提供数据。
+
 
 Some languages specifically randomize hash ordering between library versions or even between execution of the same program in an attempt to prevent dependencies. But even this still allows for some Hyrum’s Law surprises: there is code that uses hash iteration ordering as an inefficient random-number generator. Removing such randomness now would break those users. Just as entropy increases in every thermodynamic system, Hyrum’s Law applies to every observable behavior.  
 
@@ -223,10 +228,11 @@ Everything your organization relies upon to produce and maintain code should be 
 
 你的组织生产和维护代码所依赖的一切都应该在总体成本和资源消耗方面具有可扩展性。特别是，你的组织必须重复做的每件事都应该在人力方面具有可扩展性。从这个意义上讲，许多通用策略似乎不具有可扩展性。
 
-```
-12	Whenever we use “scalable” in an informal context in this chapter, we mean “sublinear scaling with regard to human interactions.”
-在本章中，当我们在非正式语境中使用“可扩展性”时，我们的意思是“在人类交互的次线性伸缩性”
-```
+> 11 Beyer, B. et al. Site Reliability Engineering: How Google Runs Production Systems. (Boston: O’Reilly Media,2016).
+> 11 Beyer, B. et al. Site Reliability Engineering: 谷歌如何运行生产系统。(Boston: O'Reilly Media, 2016).
+> 
+> 12	Whenever we use “scalable” in an informal context in this chapter, we mean “sublinear scaling with regard to human interactions.”
+> 12  在本章中，当我们在非正式语境中使用“可扩展性”时，我们的意思是“在人类交互的次线性伸缩性”
 
 ### Policies That Don’t Scale 不可扩展的策略
 With a little practice, it becomes easier to spot policies with bad scaling properties. Most commonly, these can be identified by considering the work imposed on a single engineer and imagining the organization scaling up by 10 or 100 times. When we are 10 times larger, will we add 10 times more work with which our sample engineer needs to keep up? Does the amount of work our engineer must perform grow as a function of the size of the organization? Does the work scale up with the size of the codebase? If either of these are true, do we have any mechanisms in place to automate or optimize that work? If not, we have scaling problems.
@@ -262,10 +268,10 @@ We’ve found that expertise and shared communication forums offer great value a
 
 我们发现，随着组织规模的扩大，专业知识和共享交流论坛提供了巨大的价值。随着工程师在共享论坛中讨论和回答问题，知识往往会传播。新的专家人数不断增加。如果你有100名工程师编写Java，那么一位愿意回答问题的友好且乐于助人的Java专家很快就会产生一个数百名工程师编写更好的Java代码。知识是病毒，专家是载体，扫除工程师常见的绊脚石是非常有价值的。我们将在第3章更详细地介绍这一点。
 
-```
-13	This is a reference to the popular song “Single Ladies,” which includes the refrain “If you liked it then you shoulda put a ring on it.”
-这是指流行歌曲《单身女士》，其中包括 "如果你喜欢它，你就应该给它戴上戒指。
-```
+
+> 13	This is a reference to the popular song “Single Ladies,” which includes the refrain “If you liked it then you shoulda put a ring on it.”
+> 13  这是指流行歌曲《单身女士》，其中包括 "如果你喜欢它，你就应该给它戴上戒指。
+
 
 ### Example: Compiler Upgrade 示例：编译器升级
 Consider the daunting task of upgrading your compiler. Theoretically, a compiler upgrade should be cheap given how much effort languages take to be backward compatible, but how cheap of an operation is it in practice? If you’ve never done such an upgrade before, how would you evaluate whether your codebase is compatible with that change?
@@ -288,10 +294,11 @@ The more frequently you change your infrastructure, the easier it becomes to do 
 
 你更改基础设施的频率越高，更改就越容易。我们发现，在大多数情况下，当代码作为编译器升级的一部分进行更新时，它会变得没那么脆弱，将来更容易升级。大多数代码都经历了几次升级的一个系统中，它的停止取决于底层实现的细微差别。相反，它取决于语言或操作系统所保证的抽象。无论你升级的是什么，代码库的第一次升级都比以后的升级要复杂得多，甚至可以控制其他因素。
 
-```
-14	Specifically, interfaces from the C++ standard library needed to be referred to in namespace std, and an optimization change for std::string turned out to be a significant pessimization for our usage, thus requiring some additional workarounds.
-具体来说，来自C++标准库的接口需要在命名空间std中被引用，而针对std::string的优化改变对我们的使用来说是一个重大的减值，因此需要一些额外的解决方法。
-```
+
+> 14	Specifically, interfaces from the C++ standard library needed to be referred to in namespace std, and an optimization change for std::string turned out to be a significant pessimization for our usage, thus requiring some additional workarounds.
+> 14  具体来说，来自C++标准库的接口需要在命名空间std中被引用，而针对std::string的优化改变对我们的使用来说是一个重大的减值，因此需要一些额外的解决方法。
+
+
 Through this and other experiences, we’ve discovered many factors that affect the flexibility of a codebase:
 *Expertise*
 	We know how to do this; for some languages, we’ve now done hundreds of compiler upgrades across many platforms.
@@ -306,25 +313,27 @@ Through this and other experiences, we’ve discovered many factors that affect 
 
 通过这些和其他经验，我们发现了许多影响代码库灵活性的因素：
 *专业知识*
-	​	我们知道如何做到这一点；对于某些语言，我们现在已经在许多平台上进行了数百次编译器升级。
+		我们知道如何做到这一点；对于某些语言，我们现在已经在许多平台上进行了数百次编译器升级。
 *稳定性*
-	​	版本之间的更改更少，因为我们更有规律的采用版本；对于某些语言，我们现在每一到两周进行一次编译器升级部署。
+		版本之间的更改更少，因为我们更有规律的采用版本；对于某些语言，我们现在每一到两周进行一次编译器升级部署。
 *一致性*
-	​	没有经过升级的代码更少了，这也是因为我们正在定期升级。
+		没有经过升级的代码更少了，这也是因为我们正在定期升级。
 *熟悉*
-	​	因为我们经常这样做，所以我们可以在执行升级的过程中发现冗余并尝试自动化。这是与SRE观点一致的地方。
+		因为我们经常这样做，所以我们可以在执行升级的过程中发现冗余并尝试自动化。这是与SRE观点一致的地方。
 *策略*
-	​	我们有类似碧昂斯规则的流程和策略。这些程序的净效果是，升级仍然是可行的，因为基础设施团队不需要担心每一个未知的使用，只需要担心我们的CI系统中常规的使用。
+		我们有类似碧昂斯规则的流程和策略。这些程序的净效果是，升级仍然是可行的，因为基础设施团队不需要担心每一个未知的使用，只需要担心我们的CI系统中常规的使用。
 
 The underlying lesson is not about the frequency or difficulty of compiler upgrades, but that as soon as we became aware that compiler upgrade tasks were necessary, we found ways to make sure to perform those tasks with a constant number of engineers, even as the codebase grew.16 If we had instead decided that the task was too expensive and should be avoided in the future, we might still be using a decade-old compiler version. We would be paying perhaps 25% extra for computational resources as a result of missed optimization opportunities. Our central infrastructure could be vulnerable to significant security risks given that a 2006-era compiler is certainly not helping to mitigate speculative execution vulnerabilities. Stagnation is an option, but often not a wise one.
 
 潜在的教训不是关于编译器升级的频率或难度，而是一旦我们意识到编译器升级任务是必要的，我们就找到了方法，确保在代码库增长的情况下，由固定数量的工程师执行这些任务。如果我们认为任务成本太高，应该学会避免，我们可以仍然使用十年前的编译器版本。由于错过了优化机会，我们需要额外支付25%的计算资源。考虑到2006年的编译器对缓解推测性执行漏洞没有效果，我们的中央基础设施可能会面临重大的安全风险风险，这不是一个明智的选择。
 
-```
-15	Beyer et al. Site Reliability Engineering: How Google Runs Production Systems, Chapter 5, “Eliminating Toil.”
-16	In our experience, an average software engineer (SWE) produces a pretty constant number of lines of code per unit time. For a fixed SWE population, a codebase grows linearly—proportional to the count of SWE- months over time. If your tasks require effort that scales with lines of code, that’s concerning.
- 根据我们的经验，平均软件工程师（SWE）每单位时间产生相当恒定的代码行数。对于固定的SWE总体，随着时间的推移，代码库的增长与SWE月数成线性比例。如果你的任务需要与代码行数成比例的工作，这是值得关注的。
-```
+> 15	Beyer et al. Site Reliability Engineering: How Google Runs Production Systems, Chapter 5, “Eliminating Toil.”
+> 15 Beyer等人，《SRE：Google运维解密》,第五章 减少琐事。
+>
+> 16	In our experience, an average software engineer (SWE) produces a pretty constant number of lines of code per unit time. For a fixed SWE population, a codebase grows linearly—proportional to the count of SWE- months over time. If your tasks require effort that scales with lines of code, that’s concerning.
+> 16  根据我们的经验，平均软件工程师（SWE）每单位时间产生相当恒定的代码行数。对于固定的SWE总体，随着时间的推移，代码库的增长与SWE月数成线性比例。如果你的任务需要与代码行数成比例的工作，这是值得关注的。
+
+
 ### Shifting Left  左移
 One of the broad truths we’ve seen to be true is the idea that finding problems earlier in the developer workflow usually reduces costs. Consider a timeline of the developer workflow for a feature that progresses from left to right, starting from conception and design, progressing through implementation, review, testing, commit, canary, and eventual production deployment. Shifting problem detection to the “left” earlier on this timeline makes it cheaper to fix than waiting longer, as shown in Figure 1-2.
 
@@ -396,10 +405,9 @@ Decisions should not be “We are doing this because I said so.”17
 
 决策不应该是“我们这样做是因为我这么说。”17
 
-```
-17	This is not to say that decisions need to be made unanimously, or even with broad consensus; in the end, someone must be the decider. This is primarily a statement of how the decision-making process should flow for whoever is actually responsible for the decision.
-这并不是说决策需要一致做出，甚至需要有广泛的共识；最终，必须有人成为决策者。这主要是说明决策过程应该如何为实际负责决策的人进行。
-```
+>  17	This is not to say that decisions need to be made unanimously, or even with broad consensus; in the end, someone must be the decider. This is primarily a statement of how the decision-making process should flow for whoever is actually responsible for the decision.
+> 17  这并不是说决策需要一致做出，甚至需要有广泛的共识；最终，必须有人成为决策者。这主要是说明决策过程应该如何为实际负责决策的人进行。
+
 ### Inputs to Decision Making 对决策的投入
 When we are weighing data, we find two common scenarios:
 - All of the quantities involved are measurable or can at least be estimated. This usually means that we’re evaluating trade-offs between CPU and network, or dollars and RAM, or considering whether to spend two weeks of engineer-time in order to save N CPUs across our datacenters.
@@ -509,8 +517,6 @@ This book discusses all of these topics: policies for an organization and for a 
 - "Because I said so"” is a terrible reason to do things.
 - Being data driven is a good start, but in reality, most decisions are based on a mix of data, assumption, precedent, and argument. It’s best when objective data makes up the majority of those inputs, but it can rarely be all of them.
 - Being data driven over time implies the need to change directions when the data changes (or when assumptions are dispelled). Mistakes or revised plans are inevitable.
-
-
 
 - “软件工程”与“编程”在维度上不同：编程是关于编写代码的。软件工程扩展了这一点，包括在代码的生命周期内对其进行维护。
 - 短期代码和长期代码的生命周期之间至少有100000倍的系数。假设相同的最佳实践普遍适用于这一范围的两端是愚蠢的。
