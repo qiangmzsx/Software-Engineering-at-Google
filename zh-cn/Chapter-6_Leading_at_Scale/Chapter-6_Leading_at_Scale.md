@@ -288,9 +288,8 @@ The spiral of success is a conundrum—it’s something that’s difficult to ma
 
 成功的螺旋确实是个难题--这是难以管理的，而且这是扩充团队的团队的核心范式。压缩问题的行为不只是关于找出使团队效率最大化的方法，而且是关于如何扩充你自己的时间和注意力来应对新的责任。
 
-> 3 It’s easy for imposter syndrome to kick in at this point. One technique for fighting the feeling that you don’t know what you’re doing is to simply pretend that some expert out there knows exactly what to do, and that they’re simply on vacation and you’re temporarily subbing in for them. It’s a great way to remove the personal stakes and give yourself permission to fail and learn./
+> [^3]: It’s easy for imposter syndrome to kick in at this point. One technique for fighting the feeling that you don’t know what you’re doing is to simply pretend that some expert out there knows exactly what to do, and that they’re simply on vacation and you’re temporarily subbing in for them. It’s a great way to remove the personal stakes and give yourself permission to fail and learn./
 >3  在这一点上，冒名顶替综合症很容易发作。克服这种感觉的一种技巧是，你不知道自己在做什么，只需假装某位专家确切知道该做什么，他们只是在度假，而你只是暂时代替他们。这是一个很好的方法，可以消除个人利害关系，允许自己失败和学习。
-> 
 
 ### Important Versus Urgent   重要和紧急
 
@@ -401,10 +400,10 @@ In the end, managing your energy is just as important as managing your time. If 
 
 最后，管理你的精力和管理你的时间一样重要。如果你学会掌握这些东西，你就会准备好应对扩大责任范围和建立一个自给自足的团队这一更广泛的循环。
 
-> 4 You need to plan ahead and build around the assumption that your work simply won’t get done during vacation. Working hard (or smart) just before and after your vacation mitigates this issue./
+> [^4]: You need to plan ahead and build around the assumption that your work simply won’t get done during vacation. Working hard (or smart) just before and after your vacation mitigates this issue./
 > 4 你需要提前计划，并在假设你的工作在休假期间根本无法完成的情况下进行建设。在休假前后努力工作（或聪明地工作）可以缓解这一问题。
 > 
-> 5 You can read more about BRAC at https://en.wikipedia.org/wiki/Basic_rest-activity_cycle./
+> [^5]: You can read more about BRAC at https://en.wikipedia.org/wiki/Basic_rest-activity_cycle./
 > 5 你可以在 https://en.wikipedia.org/wiki/Basic_rest-activity_cycle，了解更多关于BRAC的信息。
 
 ## Conclusion  总结
