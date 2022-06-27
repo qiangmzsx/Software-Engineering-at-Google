@@ -44,7 +44,7 @@ For this chapter, we follow one concrete example posed by the C++ and Java langu
 在本章中，我们遵循谷歌的C++和Java语言团队提出的一个具体例子：可读性。在谷歌存在的大部分时间里，这些团队一直在管理谷歌的可读性过程。(关于可读性的更多信息，请参见第三章）。可读性过程是在谷歌的早期建立的，当时自动格式化工具（第8章）和阻止提交的锁定还没有普及（第9章）。这个过程本身运行成本很高，因为它需要数以百计的工程师为其他工程师进行可读性审查，以便授予他们可读性。一些工程师认为这是一个古老的自欺欺人过程，不再具有实用性，这也是午餐桌上最喜欢争论的话题。来自语言团队的具体问题是：花在可读性过程上的时间是值得的吗？
 
 
-> [^1]:	Frederick P. Brooks, The Mythical Man-Month: Essays on Software Engineering (New York: Addison-Wesley, 1995).   
+> [^1]:	Frederick P. Brooks, The Mythical Man-Month: Essays on Software Engineering (New York: Addison-Wesley, 1995)./
 > 1   Frederick P.Brooks，《人月神话：软件工程随笔》（纽约：Addison Wesley，1995）。
 
 
@@ -158,10 +158,10 @@ When you are successful at measuring your software process, you aren’t setting
 
 当你成功地测量你的软件过程时，你并不是为了证明一个假设的正确与否；*成功意味着给利益相关者提供他们做出决定所需的数据*。如果这个利益相关者不使用这些数据，那么这个项目就是失败的。我们只应该在根据结果做出具体决定的时候才去衡量一个软件过程。对于可读性团队来说，有一个明确的决定要做。如果衡量标准显示这个过程是有益的，他们将公布这个结果。如果没有，这个过程就会被废除。最重要的是，可读性小组有权力做出这个决定。
 
-> [^2]:	It’s worth pointing out here that our industry currently disparages “anecdata,” and everyone has a goal of being “data driven.” Yet anecdotes continue to exist because they are powerful. An anecdote can provide context and narrative that raw numbers cannot; it can provide a deep explanation that resonates with others because it mirrors personal experience. Although our researchers do not make decisions on anecdotes, we do use and encourage techniques such as structured interviews and case studies to deeply understand phenomena and provide context to quantitative data.  
+> [^2]:	It’s worth pointing out here that our industry currently disparages “anecdata,” and everyone has a goal of being “data driven.” Yet anecdotes continue to exist because they are powerful. An anecdote can provide context and narrative that raw numbers cannot; it can provide a deep explanation that resonates with others because it mirrors personal experience. Although our researchers do not make decisions on anecdotes, we do use and encourage techniques such as structured interviews and case studies to deeply understand phenomena and provide context to quantitative data./
 > 2 在此值得指出的是，我们的行业目前贬低 "轶事数据"，而每个人都有一个 "数据驱动 "的目标。然而，轶事仍然存在，因为它们是强大的。轶事可以提供原始数字无法提供的背景和叙述；它可以提供一个深刻的解释，因为它反映了个人的经验，所以能引起别人的共鸣。虽然我们的研究人员不会根据轶事做出决定，但我们确实使用并鼓励结构化访谈和案例研究等技术，以深入理解现象，并为定量数据提供背景。 
 > 
-> [^3]:	Java and C++ have the greatest amount of tooling support. Both have mature formatters and static analysis tools that catch common mistakes. Both are also heavily funded internally. Even though other language teams, like Python, were interested in the results, clearly there was not going to be a benefit for Python to remove readability if we couldn’t even show the same benefit for Java or C++.  
+> [^3]:	Java and C++ have the greatest amount of tooling support. Both have mature formatters and static analysis tools that catch common mistakes. Both are also heavily funded internally. Even though other language teams, like Python, were interested in the results, clearly there was not going to be a benefit for Python to remove readability if we couldn’t even show the same benefit for Java or C++./  
 > 3 Java和C++拥有最大量的工具支持。两者都有成熟的格式化工具和静态分析工具，可以捕捉常见的错误。两者也都有大量的内部资金。即使其他语言团队，如Python，对结果感兴趣，但显然，如果我们连Java或C++都不能显示出同样的好处，那么Python就不会有删除可读性的好处。
 
 
@@ -199,8 +199,8 @@ The important thing is to maintain *traceability*. For each metric, we should be
 
 重要的是要保持*可追溯性*。对于每个指标，我们应该能够追溯到它所要代表的信号，以及它所要测量的目标。这可以确保我们知道我们正在测量哪些指标，以及为什么我们要测量它们。
 
-> [^4]:		“From there it is only a small step to measuring ‘programmer productivity’ in terms of ‘number of lines of code produced per month.’ This is a very costly measuring unit because it encourages the writing of insipid code, but today I am less interested in how foolish a unit it is from even a pure business point of view. My point today is that, if we wish to count lines of code, we should not regard them as ‘lines produced’ but as ‘lines spent’: the current conventional wisdom is so foolish as to book that count on the wrong side of the ledger.” Edsger Dijkstra, on the cruelty of really teaching computing science, EWD Manuscript 1036.  
-> 4   “从那时起，用‘每月产生的代码行数’来衡量‘程序员生产效率’只需一小步。这是一个非常昂贵的测量单位，因为它鼓励编写平淡的代码，但今天我对这个单位的愚蠢程度不感兴趣，甚至从纯商业的角度来看也是如此。我今天的观点是，如果我们希望计算代码的行数，我们不应该将它们视为“生产的行数”，而应该视为“花费的行数”：当前的传统智慧愚蠢到将这些行数记在账本的错误一侧。”Edsger Dijkstra，关于真正教给计算机科学的残酷性，EWD手稿1036。
+> [^4]: “From there it is only a small step to measuring ‘programmer productivity’ in terms of ‘number of lines of code produced per month.’ This is a very costly measuring unit because it encourages the writing of insipid code, but today I am less interested in how foolish a unit it is from even a pure business point of view. My point today is that, if we wish to count lines of code, we should not regard them as ‘lines produced’ but as ‘lines spent’: the current conventional wisdom is so foolish as to book that count on the wrong side of the ledger.” Edsger Dijkstra, on the cruelty of really teaching computing science, EWD Manuscript 1036./
+> 4  “从那时起，用‘每月产生的代码行数’来衡量‘程序员生产效率’只需一小步。这是一个非常昂贵的测量单位，因为它鼓励编写平淡的代码，但今天我对这个单位的愚蠢程度不感兴趣，甚至从纯商业的角度来看也是如此。我今天的观点是，如果我们希望计算代码的行数，我们不应该将它们视为“生产的行数”，而应该视为“花费的行数”：当前的传统智慧愚蠢到将这些行数记在账本的错误一侧。”Edsger Dijkstra，关于真正教给计算机科学的残酷性，EWD手稿1036。
 
 ## Goals  目标
 
@@ -361,7 +361,7 @@ Quantitative metrics are useful because they give you power and scale. You can m
 
 定量指标是有用的，因为它们给你能力和规模。你可以在很长一段时间内测量整个公司的工程师的经验，并对结果有信心。然而，它们并不提供任何背景或叙述。定量指标不能解释为什么一个工程师选择使用一个过时的工具来完成他们的任务，或者为什么他们采取了一个不寻常的工作流程，或者为什么他们绕过了一个标准流程。只有定性研究才能提供这些信息，也只有定性研究才能为改进流程的下一步提供洞察力。
 
-> [^5]:	It has routinely been our experience at Google that when the quantitative and qualitative metrics disagree, it was because the quantitative metrics were not capturing the expected result.  
+> [^5]:	It has routinely been our experience at Google that when the quantitative and qualitative metrics disagree, it was because the quantitative metrics were not capturing the expected result./
 > 5 我们在谷歌的常规经验是，当定量指标和定性指标不一致时，是因为定量指标没有捕捉到预期的结果。
 
 Consider now the signals presented in Table 7-2. What metrics might you create to measure each of those? Some of these signals might be measurable by analyzing tool and code logs. Others are measurable only by directly asking engineers. Still others might not be perfectly measurable—how do we truly measure code quality, for example?
@@ -428,18 +428,17 @@ Ultimately, when evaluating the impact of readability on productivity, we ended 
 
 
 
-> [^6]:	Recall bias is the bias from memory. People are more likely to recall events that are particularly interesting or frustrating.  
+> [^6]:	Recall bias is the bias from memory. People are more likely to recall events that are particularly interesting or frustrating./
 > 6 回忆偏差是来自记忆的偏差。人们更愿意回忆那些特别有趣或令人沮丧的事件。
 >
-> [^7]:	Recency bias is another form of bias from memory in which people are biased toward their most recent experience. In this case, as they just successfully completed the process, they might be feeling particularly good about it.  
+> [^7]:	Recency bias is another form of bias from memory in which people are biased toward their most recent experience. In this case, as they just successfully completed the process, they might be feeling particularly good about it./
 > 7 近期偏见是另一种形式的来自记忆的偏见，即人们偏向于最近的经历。在这种情况下，由于他们刚刚成功地完成了这个过程，他们可能会感觉特别好。
 >
-> [^8]:	Because we asked only those people who completed the process, we aren’t capturing the opinions of those who did not complete the process.  
+> [^8]:	Because we asked only those people who completed the process, we aren’t capturing the opinions of those who did not complete the process./
 > 8 因为我们只问了那些完成过程的人，所以我们没有捕捉到那些没有完成过程的人的意见。
 >
-> [^9]:	There is a temptation to use such metrics to evaluate individual engineers, or perhaps even to identify high and low performers. Doing so would be counterproductive, though. If productivity metrics are used for performance reviews, engineers will be quick to game the metrics, and they will no longer be useful for measuring and improving productivity across the organization. The only way to make these measurements work is to let go of the idea of measuring individuals and embrace measuring the aggregate effect.  
+> [^9]:	There is a temptation to use such metrics to evaluate individual engineers, or perhaps even to identify high and low performers. Doing so would be counterproductive, though. If productivity metrics are used for performance reviews, engineers will be quick to game the metrics, and they will no longer be useful for measuring and improving productivity across the organization. The only way to make these measurements work is to let go of the idea of measuring individuals and embrace measuring the aggregate effect./
 > 9 有一种诱惑，就是用这样的指标来评价个别的工程师，甚至可能用来识别高绩效和低绩效的人。不过，这样做会适得其反。如果生产效率指标被用于绩效评估，工程师们就会很快玩弄这些指标，它们将不再对测量和提高整个组织的生产效率有用。让这些指标发挥作用的唯一方法是，放下衡量个人的想法，接受测量总体效果。
-
 
 
 ## Taking Action and Tracking Results  采取行动并跟踪结果
