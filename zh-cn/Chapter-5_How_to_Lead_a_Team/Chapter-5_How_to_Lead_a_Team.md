@@ -187,7 +187,7 @@ Individual successes and failures are a bit different. It’s one thing to laud 
 
 ------
 
-> ]^5]:	Public criticism of an individual is not only ineffective (it puts people on the defense), but rarely necessary, and most often is just mean or cruel. You can be sure the rest of the team already knows when an individual has failed, so there’s no need to rub it in.  
+> [^5]:	Public criticism of an individual is not only ineffective (it puts people on the defense), but rarely necessary, and most often is just mean or cruel. You can be sure the rest of the team already knows when an individual has failed, so there’s no need to rub it in.  
 > 5 对一个人的公开批评不仅没有效果（它使人们处于防御状态），而且很少有必要，大多数时候只是刻薄或残酷。你可以肯定，团队的其他成员已经知道一个人什么时候失败了，所以没有必要重复。
 
 
