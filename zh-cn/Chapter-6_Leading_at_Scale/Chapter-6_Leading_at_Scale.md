@@ -152,7 +152,7 @@ The main point here is that this insight—a better understanding of all the tra
 
 At face value, Always Be Leaving sounds like terrible advice. Why would a good leader be trying to leave? In fact, this is a famous quote from Bharat Mediratta, a former Google engineering director. What he meant was that it’s not just your job to solve an ambiguous problem, but to get your organization to solve it by itself, without you present. If you can do that, it frees you up to move to a new problem (or new organization), leaving a trail of self-sufficient success in your wake.
 
-从字面自私上看，"始终保持离开" 听上去是一个可怕的建议。为什么一个好的领导者要尝试离开他的团队呢？事实上这是引用的前谷歌工程主管 Bharat Mediratta 的话。他的意思是你的任务不仅仅是解决边界不清晰的问题，而是还要引导你的组织在没有你在场的情况下自己解决问题。如果你能做到这点，将释放你一部分精力去解决新的问题（或去管理新的组织），在你身后留下一个个能自给自足的团队。
+从字面意思上看，"始终保持离开" 听上去是一个可怕的建议。为什么一个好的领导者要尝试离开他的团队呢？事实上这是引用的前谷歌工程主管 Bharat Mediratta 的话。他的意思是你的任务不仅仅是解决边界不清晰的问题，而是还要引导你的组织在没有你在场的情况下自己解决问题。如果你能做到这点，将释放你一部分精力去解决新的问题（或去管理新的组织），在你身后留下一个个能自给自足的团队。
 
 The antipattern here, of course, is a situation in which you’ve set yourself up to be a single point of failure (SPOF). As we noted earlier in this book, Googlers have a term for that, the bus factor: the number of people that need to get hit by a bus before your project is completely doomed.
 
