@@ -113,11 +113,10 @@ There are, however, great reasons to consider becoming a TL or manager. First, i
 
 然而，有很好的理由考虑成为一名TL或经理。首先，这是一种扩展自己的方式。即使你很擅长写代码，你能写的代码量还是有上限的。想象一下，在你的领导下，一个由优秀工程师组成的团队可以写多少代码？第二，你可能真的很擅长写代码——许多人发现自己被吸进了项目的领导真空中，发现自己在提供团队或公司所需的指导、帮助和故障处理方面非常熟练。总得有人来领导，那么为什么不是你呢？
 
-```
-1	Another difference that takes getting used to is that the things we do as managers typically pay off over a longer timeline.
 
-1 另一个需要适应的差异是，我们作为管理者所做的事情通常会在更长的时间后才得到回报。
-```
+> 1	Another difference that takes getting used to is that the things we do as managers typically pay off over a longer timeline.  
+> 1 另一个需要适应的差异是，我们作为管理者所做的事情通常会在更长的时间后才得到回报。
+
 
 ### Servant Leadership  服务型领导
 
@@ -129,11 +128,10 @@ The cure for the “management” disease is a liberal application of “servant
 
 “管理”疾病的治疗方法是“服务型领导”的自由运用这是一个很好的做法，作为一个领导者，你能做的最重要的事情就是为你的团队服务，就像一个管家或大管家关心一个家庭的健康和福祉一样。作为一个服务型领导者，你应该努力营造一种谦逊、尊重和信任的氛围。这可能意味着消除团队成员自己无法消除的官僚主义障碍，帮助团队达成共识，甚至在团队在办公室工作到很晚的时候为他们买晚餐。服务型领导会填补缝隙，为他们的团队铺平道路，必要时为他们提供建议，但仍然不怕弄脏自己的手。服务型领导所做的唯一管理就是管理团队的技术和社会健康；尽管单纯关注团队的技术健康可能很诱人，但团队的氛围健康也同样重要（但往往更难管理）。
 
-```
-2	Yet another reason companies shouldn’t force people into management as part of a career path: if an engineer is able to write reams of great code and has no desire at all to manage people or lead a team, by forcing them into a management or TL role, you’re losing a great engineer and gaining a crappy manager. This is not only a bad idea, but it’s actively harmful.
 
-2 然而，另一个原因是，公司不应该强迫人们把管理作为职业道路的一部分：如果一个工程师能够写出大量的优秀代码，却完全没有管理人或领导团队的愿望，强迫他们进入管理层或TL的角色，你就会失去一个伟大的工程师，得到一个糟糕的经理。这不仅是一个糟糕的主意，而且是积极有害的方式。
-```
+> 2	Yet another reason companies shouldn’t force people into management as part of a career path: if an engineer is able to write reams of great code and has no desire at all to manage people or lead a team, by forcing them into a management or TL role, you’re losing a great engineer and gaining a crappy manager. This is not only a bad idea, but it’s actively harmful.  
+> 2 然而，另一个原因是，公司不应该强迫人们把管理作为职业道路的一部分：如果一个工程师能够写出大量的优秀代码，却完全没有管理人或领导团队的愿望，强迫他们进入管理层或TL的角色，你就会失去一个伟大的工程师，得到一个糟糕的经理。这不仅是一个糟糕的主意，而且是积极有害的方式。
+
 
 ## The Engineering Manager  工程经理
 
@@ -155,11 +153,10 @@ This continues today in some industries—even in industries that require creati
 
 尽管许多研究表明，不合时宜的胡萝卜和大棒是无效的，而且对有创造力的人的生产效率有害，但这种情况今天在一些行业仍然存在——甚至在那些需要创造力思维和解决问题的行业。过去几年的装配线工人可以在几天内接受培训并被随意替换，而从事大型代码库工作的软件工程师可能需要几个月的时间才能在一个新的团队中适应。与可替换的装配线工人不同，这些人需要培养、时间和空间来思考和创造。
 
-```
-3	For more fascinating information on optimizing the movements of factory workers, read up on Scientific Management or Taylorism, especially its effects on worker morale.
 
-3   有关优化工厂工人流动的更多有趣信息，请阅读科学管理或泰勒主义，尤其是其对工人士气的影响。
-```
+> 3	For more fascinating information on optimizing the movements of factory workers, read up on Scientific Management or Taylorism, especially its effects on worker morale.  
+> 3   有关优化工厂工人流动的更多有趣信息，请阅读科学管理或泰勒主义，尤其是其对工人士气的影响。
+
 
 ### Today’s Engineering Manager  当今的工程经理
 
@@ -191,14 +188,13 @@ Individual successes and failures are a bit different. It’s one thing to laud 
 
 ------
 
-```
-4	If you have kids, the odds are good that you can remember with startling clarity the first time you said something to your child that made you stop and exclaim (perhaps even aloud), “Holy crap, I’ve become my mother.”
-5	Public criticism of an individual is not only ineffective (it puts people on the defense), but rarely necessary, and most often is just mean or cruel. You can be sure the rest of the team already knows when an individual has failed, so there’s no need to rub it in.
+> 4	If you have kids, the odds are good that you can remember with startling clarity the first time you said something to your child that made you stop and exclaim (perhaps even aloud), “Holy crap, I’ve become my mother.”  
+> 4 如果你有孩子，你很有可能清楚地记得你第一次对你的孩子说了什么，让你停下来并感叹（也许甚至是大声地感叹）："我的妈呀，我已经变成我的母亲了。"
+>
+> 5	Public criticism of an individual is not only ineffective (it puts people on the defense), but rarely necessary, and most often is just mean or cruel. You can be sure the rest of the team already knows when an individual has failed, so there’s no need to rub it in.  
+> 5 对一个人的公开批评不仅没有效果（它使人们处于防御状态），而且很少有必要，大多数时候只是刻薄或残酷。你可以肯定，团队的其他成员已经知道一个人什么时候失败了，所以没有必要重复。
+>
 
-4 如果你有孩子，你很有可能清楚地记得你第一次对你的孩子说了什么，让你停下来并感叹（也许甚至是大声地感叹）："我的妈呀，我已经变成我的母亲了。"
-5 对一个人的公开批评不仅没有效果（它使人们处于防御状态），而且很少有必要，大多数时候只是刻薄或残酷。你可以肯定，团队的其他成员已经知道一个人什么时候失败了，所以没有必要重复。
-
-```
 
 ## Antipatterns  反模式
 
@@ -349,11 +345,10 @@ This brings us to another Zen management trick: asking questions. When a team me
 
 这给我们带来了另一个管理自我技巧：问问题。当一个团队成员向你征求意见时，这通常是非常令人兴奋的，因为你终于有机会解决一些问题了。这正是你在进入领导岗位之前多年所做的事情，所以你通常会立即进入解决方案模式，但这是你最不应该做的。寻求建议的人通常不希望*你*解决他们的问题，而是希望你能帮助他们解决问题，而最简单的方法就是向这个人提问。这并不是说你应该用 "魔力8球 "来代替你自己，那样做会让人发疯，而且没有帮助。相反，你可以运用一些谦逊、尊重和信任，通过尝试完善和探索问题，尝试帮助这个人自己解决这个问题。这通常会引导员工找到答案，而且这将是这个人的答案，这又回到了我们在本章前面所讲的所有权和责任。无论你是否有答案，使用这种技巧几乎总是会给员工留下你有答案的印象。很狡猾，是吗？苏格拉底会为你感到骄傲的。
 
-```
-6	See also “Rubber duck debugging.”
- 
-6   另请参见“橡皮鸭调试”
-```
+
+> 6	See also “Rubber duck debugging.”
+> 6   另请参见“橡皮鸭调试”
+
 
 ### Be a Catalyst  成为催化剂
 
@@ -375,11 +370,9 @@ One time, a team spent several weeks trying to work past an obstacle with Google
 
 有一次，一个团队花了几个星期的时间试图克服谷歌法律部门的一个障碍。当该团队最终一筹莫展，向其经理提出这个问题时，经理在不到两个小时内就解决了这个问题，只因为他知道讨论这个问题的正确关联人。还有一次，一个团队需要一些服务器资源，却无法将其分配。幸运的是，团队经理与公司其他团队进行了沟通，并设法在当天下午让团队完全满足其需求。还有一次，一位工程师在处理一段神秘的Java代码时遇到了麻烦。虽然该团队的经理不是Java专家，但她还是为该工程师联系到了另一位工程师，而这位工程师正是知道问题出在哪里。你不需要知道所有的答案来帮助消除障碍，但是了解那些知道的人通常是有帮助的。在许多情况下，了解正确的人比知道正确的答案更有价值。
 
-```
-7	Attempting to achieve 100% consensus can also be harmful. You need to be able to decide to proceed even if not everyone is on the same page or there is still some uncertainty.
+> 7	Attempting to achieve 100% consensus can also be harmful. You need to be able to decide to proceed even if not everyone is on the same page or there is still some uncertainty.  
+> 7 试图达成100%的共识也可能是有害的。你需要能够决定继续进行，即使不是每个人都在同一起跑线上，或者仍有一些不确定性。
 
-7 试图达成100%的共识也可能是有害的。你需要能够决定继续进行，即使不是每个人都在同一起跑线上，或者仍有一些不确定性。
-```
 
 ### Be a Teacher and a Mentor  成为一名教师和导师
 
@@ -412,7 +405,7 @@ If a team member approaches you about something you can’t share, it’s OK to 
 如果一个团队成员找你谈一些你不能分享的事情，你可以告诉他们你知道答案，但不能随意说话。更常见的是，当一个团队成员问你一些你不知道的答案时：你可以告诉那个人你不知道。当你读到它时，这是另一件看起来非常明显的事情，但许多担任经理角色的人觉得，如果他们不知道某事的答案，就证明他们软弱或不合群。实际上，它唯一证明的是他们是人类。
 
 Giving hard feedback is…well, hard. The first time you need to tell one of your reports that they made a mistake or didn’t do their job as well as expected can be incredibly stressful. Most management texts advise that you use the “compliment sandwich” to soften the blow when delivering hard feedback. A compliment sandwich looks something like this:
-    ​You’re a solid member of the team and one of our smartest engineers. That being said, your code is convoluted and almost impossible for anyone else on the team to understand. But you’ve got great potential and a wicked cool T-shirt collection.
+		You’re a solid member of the team and one of our smartest engineers. That being said, your code is convoluted and almost impossible for anyone else on the team to understand. But you’ve got great potential and a wicked cool T-shirt collection.
 
 给予严厉的反馈是......嗯，很难。当你第一次需要告诉你的下属他们犯了一个错误或没有把工作做得像预期的那样好时，可能会有难以置信的压力。大多数管理学书籍建议你在提供硬反馈时使用 "赞美三明治 "来缓和打击。赞美的三明治看起来像这样：
     你是团队中一个可靠的成员，是我们最聪明的工程师之一。虽然如此，你的代码很复杂，团队中的其他人几乎不可能理解。但是，你有很大的潜力，而且有一件很酷的T恤衫收藏。
@@ -451,11 +444,10 @@ A good simple way to track your team’s happiness[8](#_bookmark441) is to ask t
 
 跟踪你的团队幸福感的一个好的简单方法是在每次一对一的会议结束时问团队成员："你需要什么？" 这个简单的问题是一个很好的总结方式，确保每个团队成员都有他们需要的东西，以提高工作效率和幸福感，尽管你可能需要仔细探究一下以获得细节。如果你在每次一对一会谈时都这样问，你会发现最终你的团队会记住这一点，有时甚至会带着一长串需要的东西来找你，以使每个人的工作变得更好。
 
-```
-8	Google also runs an annual employee survey called “Googlegeist” that rates employee happiness across many dimensions. This provides good feedback but isn’t what we would call “simple.”
 
-8 谷歌还开展了一项名为 "Googlegeist "的年度员工调查，从多个方面对员工的幸福感进行评价。这提供了良好的反馈，但并不是我们所说的 "简单"。
-```
+> 8	Google also runs an annual employee survey called “Googlegeist” that rates employee happiness across many dimensions. This provides good feedback but isn’t what we would call “simple.”  
+> 8 谷歌还开展了一项名为 "Googlegeist "的年度员工调查，从多个方面对员工的幸福感进行评价。这提供了良好的反馈，但并不是我们所说的 "简单"。
+
 
 ## The Unexpected Question  意想不到的问题
 
@@ -479,22 +471,22 @@ Tracking happiness comes down to not just monitoring careers, but also giving yo
 
 Following are other miscellaneous tips and tricks that we at Google recommend when you’re in a leadership position:  
 *Delegate, but get your hands dirty*
-    ​When moving from an individual contributor role to a leadership role, achieving a balance is one of the most difficult things to do. Initially, you’re inclined to do all of the work yourself, and after being in a leadership role for a long time, it’s easy to get into the habit of doing none of the work yourself. If you’re new to a leadership role, you probably need to work hard to delegate work to other engineers on your team, even if it will take them a lot longer than you to accomplish that work. Not only is this one way for you to maintain your sanity, but also it’s how the rest of your team will learn. If you’ve been leading teams for a while or if you pick up a new team, one of the easiest ways to gain the team’s respect and get up to speed on what they’re doing is to get your hands dirty—usually by taking on a grungy task that no one else wants to do. You can have a resume and a list of achievements a mile long, but nothing lets a team know how skillful and dedicated (and humble) you are like jumping in and actually doing some hard work.
+		When moving from an individual contributor role to a leadership role, achieving a balance is one of the most difficult things to do. Initially, you’re inclined to do all of the work yourself, and after being in a leadership role for a long time, it’s easy to get into the habit of doing none of the work yourself. If you’re new to a leadership role, you probably need to work hard to delegate work to other engineers on your team, even if it will take them a lot longer than you to accomplish that work. Not only is this one way for you to maintain your sanity, but also it’s how the rest of your team will learn. If you’ve been leading teams for a while or if you pick up a new team, one of the easiest ways to gain the team’s respect and get up to speed on what they’re doing is to get your hands dirty—usually by taking on a grungy task that no one else wants to do. You can have a resume and a list of achievements a mile long, but nothing lets a team know how skillful and dedicated (and humble) you are like jumping in and actually doing some hard work.
 
 *Seek to replace yourself*
-    ​Unless you want to keep doing the exact same job for the rest of your career, seek to replace yourself. This starts, as we mentioned earlier, with the hiring process: if you want a member of your team to replace you, you need to hire people capable of replacing you, which we usually sum up by saying that you need to “hire people smarter than you.” After you have team members capable of doing your job, you need to give them opportunities to take on more responsibilities or occasionally lead the team. If you do this, you’ll quickly see who has the most aptitude to lead as well as who wants to lead the team. Remember that some people prefer to just be high-performing individual contributors, and that’s OK. We’ve always been amazed at companies that take their best engineers and—against their wishes—throw these engineers into management roles. This usually subtracts a great engineer from your team and adds a subpar manager.
+		Unless you want to keep doing the exact same job for the rest of your career, seek to replace yourself. This starts, as we mentioned earlier, with the hiring process: if you want a member of your team to replace you, you need to hire people capable of replacing you, which we usually sum up by saying that you need to “hire people smarter than you.” After you have team members capable of doing your job, you need to give them opportunities to take on more responsibilities or occasionally lead the team. If you do this, you’ll quickly see who has the most aptitude to lead as well as who wants to lead the team. Remember that some people prefer to just be high-performing individual contributors, and that’s OK. We’ve always been amazed at companies that take their best engineers and—against their wishes—throw these engineers into management roles. This usually subtracts a great engineer from your team and adds a subpar manager.
 
 *Know when to make waves*
-    ​You will (inevitably and frequently) have difficult situations crop up in which every cell in your body is screaming at you to do nothing about it. It might be the engineer on your team whose technical chops aren’t up to par. It might be the person who jumps in front of every train. It might be the unmotivated employee who is working 30 hours a week. “Just wait a bit and it will get better,” you’ll tell yourself. “It will work itself out,” you’ll rationalize. Don’t fall into this trap—these are the situations for which you need to make the biggest waves and you need to make them now. Rarely will these problems work themselves out, and the longer you wait to address them, the more they’ll adversely affect the rest of the team and the more they’ll keep you up at night thinking about them. By waiting, you’re only delaying the inevitable and causing untold damage in the process. So act, and act quickly.
+		You will (inevitably and frequently) have difficult situations crop up in which every cell in your body is screaming at you to do nothing about it. It might be the engineer on your team whose technical chops aren’t up to par. It might be the person who jumps in front of every train. It might be the unmotivated employee who is working 30 hours a week. “Just wait a bit and it will get better,” you’ll tell yourself. “It will work itself out,” you’ll rationalize. Don’t fall into this trap—these are the situations for which you need to make the biggest waves and you need to make them now. Rarely will these problems work themselves out, and the longer you wait to address them, the more they’ll adversely affect the rest of the team and the more they’ll keep you up at night thinking about them. By waiting, you’re only delaying the inevitable and causing untold damage in the process. So act, and act quickly.
 
 *Shield* *your team from chaos*
-    ​When you step into a leadership role, the first thing you’ll usually discover is that outside your team is a world of chaos and uncertainty (or even insanity) that you never saw when you were an individual contributor. When I first became a manager back in the 1990s (before going back to being an individual contributor), I was taken aback by the sheer volume of uncertainty and organizational chaos that was happening in my company. I asked another manager what had caused this sudden rockiness in the otherwise calm company, and the other manager laughed hysterically at my naivete: the chaos had always been present, but my previous manager had shielded me and the rest of my team from it.
+		When you step into a leadership role, the first thing you’ll usually discover is that outside your team is a world of chaos and uncertainty (or even insanity) that you never saw when you were an individual contributor. When I first became a manager back in the 1990s (before going back to being an individual contributor), I was taken aback by the sheer volume of uncertainty and organizational chaos that was happening in my company. I asked another manager what had caused this sudden rockiness in the otherwise calm company, and the other manager laughed hysterically at my naivete: the chaos had always been present, but my previous manager had shielded me and the rest of my team from it.
 
 *Give your team air cover*
-    ​Whereas it’s important that you keep your team informed about what’s going on “above” them in the company, it’s just as important that you defend them from a lot of the uncertainty and frivolous demands that can be imposed upon you from outside your team. Share as much information as you can with your team, but don’t distract them with organizational craziness that is extremely unlikely to ever actually affect them.
+		Whereas it’s important that you keep your team informed about what’s going on “above” them in the company, it’s just as important that you defend them from a lot of the uncertainty and frivolous demands that can be imposed upon you from outside your team. Share as much information as you can with your team, but don’t distract them with organizational craziness that is extremely unlikely to ever actually affect them.
 
 *Let your team know when they’re doing well*
-    ​Many new team leads can get so caught up in dealing with the shortcomings of their team members that they neglect to provide positive feedback often enough. Just as you let someone know when they screw up, be sure to let them know when they do well, and be sure to let them (and the rest of the team) know when they knock one out of the park.
+		Many new team leads can get so caught up in dealing with the shortcomings of their team members that they neglect to provide positive feedback often enough. Just as you let someone know when they screw up, be sure to let them know when they do well, and be sure to let them (and the rest of the team) know when they knock one out of the park.
 
 下面是谷歌在你担任领导职务时推荐的其他提示和窍门： 
 *委托，但要弄脏自己的手*
@@ -518,17 +510,15 @@ Following are other miscellaneous tips and tricks that we at Google recommend wh
 
 Lastly, here’s something the best leaders know and use often when they have adventurous team members who want to try new things:
 *It’s easy to say “yes” to something that’s easy to undo*
-    ​If you have a team member who wants to take a day or two to try using a new tool or library[9](#_bookmark449) that could speed up your product (and you’re not on a tight deadline), it’s easy to say, “Sure, give it a shot.” If, on the other hand, they want to do something like launch a product that you’re going to have to support for the next 10 years, you’ll likely want to give it a bit more thought. Really good leaders have a good sense for when something can be undone, but more things are undoable than you think (and this applies to both technical and nontechnical decisions).
+		If you have a team member who wants to take a day or two to try using a new tool or library[9](#_bookmark449) that could speed up your product (and you’re not on a tight deadline), it’s easy to say, “Sure, give it a shot.” If, on the other hand, they want to do something like launch a product that you’re going to have to support for the next 10 years, you’ll likely want to give it a bit more thought. Really good leaders have a good sense for when something can be undone, but more things are undoable than you think (and this applies to both technical and nontechnical decisions).
 
 最后，这里有一些最好的领导者知道的东西，当他们有想尝试新事物的富有冒险精神的团队成员时，他们经常使用：
 *很容易对容易撤销的事情说 "是 "*。
     如果你有一个团队成员想花一两天时间尝试使用一个新的工具或库，可以加速你的产品（而且你没有紧迫的期限），你很容易说："当然，给它一个机会。" 另一方面，如果他们想做一些事情，比如推出一个你必须在未来10年内支持的产品，你可能会想多考虑一下。真正好的领导对什么时候可以撤销的事情有很好的感觉，但更多的事情是可以撤销的，而不是你想象的那样（这适用于技术和非技术的决定）。
 
-```
-9	To gain a better understanding of just how “undoable” technical changes can be, see Chapter 22.
+> 9	To gain a better understanding of just how “undoable” technical changes can be, see Chapter 22.  
+> 9 要想更好地了解技术变革是如何 "不可逆转 "的，见第22章。
 
-9 要想更好地了解技术变革是如何 "不可逆转 "的，见第22章。
-```
 
 ## People Are Like Plants  人如植物
 
@@ -566,20 +556,20 @@ Of course, all the autonomy and mastery in the world isn’t going to help motiv
 
 当然，如果某人无缘无故地工作，那么世界上所有的自主性和掌握性都无助于激励他们，这就是为什么你需要给他们工作的目的。许多人从事具有重大意义的产品，但他们与产品可能对公司、客户甚至世界产生的积极影响保持一定距离。即使在产品的影响可能小得多的情况下，你也可以通过寻找他们努力的原因并向他们说明原因来激励团队。如果你能帮助他们在工作中看到这一目标，你会看到他们的积极性和生产效率有了巨大的提高。我们认识的一位经理密切关注谷歌为其产品（一种“影响较小”的产品）收到的电子邮件反馈，每当她看到客户在谈论公司的产品如何帮助他们个人或帮助他们的业务时，她会立即将其转发给工程团队。这不仅激励了团队，也经常激励团队成员思考如何让他们的产品变得更好。
 
-```
-10	See Dan’s fantastic TED talk on this subject.
-11	This assumes that the people in question are being paid well enough that income is not a source of stress.
-12	This assumes that you have people on your team who don’t need micromanagement.
-13	Of course, it also means they’re more valuable and marketable employees, so it’s easier for them to pick up and leave you if they’re not enjoying their work. See the pattern in “Track Happiness” on page 99.
-14	Adam M. Grant, “The Significance of Task Significance: Job Performance Effects, Relational Mechanisms, and Boundary Conditions,” Journal of Applied Psychology, 93, No. 1 (2018), http://bit.ly/task_significance.
-
-10  看丹关于这个话题的精彩TED演讲。
-11  这是假设相关人员的薪酬足够高，收入不是压力来源。
-12  这假设您的团队中有不需要微观管理的人员。
-13  当然，这也意味着他们是更有价值、更有市场价值的员工，因此，如果他们不喜欢自己的工作，他们会更容易接你离开。请参见第99页“追踪幸福感”中的模式。
-14  Adam M.Grant，“任务重要性的重要性：工作绩效影响、关系机制和边界条件”，《应用心理学杂志》，第93期，第1期（2018年），http://bit.ly/task_significance.
-
-```
+> 10	See Dan’s fantastic TED talk on this subject.  
+> 10  看丹关于这个话题的精彩TED演讲。
+>
+> 11	This assumes that the people in question are being paid well enough that income is not a source of stress.  
+> 11  这是假设相关人员的薪酬足够高，收入不是压力来源。
+>
+> 12	This assumes that you have people on your team who don’t need micromanagement.  
+> 12  这假设您的团队中有不需要微观管理的人员。
+>
+> 13	Of course, it also means they’re more valuable and marketable employees, so it’s easier for them to pick up and leave you if they’re not enjoying their work. See the pattern in “Track Happiness” on page 99.  
+> 13  当然，这也意味着他们是更有价值、更有市场价值的员工，因此，如果他们不喜欢自己的工作，他们会更容易接你离开。请参见第99页“追踪幸福感”中的模式。
+>
+> 14	Adam M. Grant, “The Significance of Task Significance: Job Performance Effects, Relational Mechanisms, and Boundary Conditions,” Journal of Applied Psychology, 93, No. 1 (2018), http://bit.ly/task_significance.  
+> 14  Adam M.Grant，“任务重要性的重要性：工作绩效影响、关系机制和边界条件”，《应用心理学杂志》，第93期，第1期（2018年），http://bit.ly/task_significance.
 
 ## Conclusion  总结
 
@@ -590,10 +580,15 @@ Leading a team is a different task than that of being a software engineer. As a 
 ## TL;DRs  内容提要
 
 - Don’t “manage” in the traditional sense; focus on leadership, influence, and serving your team.
+
 - Delegate where possible; don’t DIY (Do It Yourself).
+
 - Pay particular attention to the focus, direction, and velocity of your team.
 
+
 - 不要进行传统意义上的 "管理"；重点是领导力、影响力和为你的团队服务。
+
 - 尽可能地授权；不要DIY（自己动手）。
+
 - 特别注意你的团队的重点、方向和效率。
 

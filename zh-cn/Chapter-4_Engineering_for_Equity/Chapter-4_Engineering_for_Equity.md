@@ -69,15 +69,17 @@ How could this happen? After all, Google hires technologists with impeccable edu
 
 这怎么会发生呢？毕竟，谷歌雇用的技术专家拥有无可挑剔的教育和/或专业经验——卓越的程序员，他们编写最好的代码并测试他们的功能。"为每个人而建 "是谷歌的品牌宣言，但事实是，在宣称我们做到这一点之前，我们仍有很长的路要走。解决这些问题的方法之一是帮助软件工程组织本身变得像我们为其建造产品的人群。
 
-```
-1    Google’s 2019 Diversity Report.
-2    @jackyalcine. 2015. “Google Photos, Y’all Fucked up. My Friend’s Not a Gorilla.” Twitter, June 29, 2015.
-https://twitter.com/jackyalcine/status/615329515909156865.
-
-3    Many reports in 2018–2019 pointed to a lack of diversity across tech. Some notables include the National Center for Women & Information Technology, and Diversity in Tech.
-3  2018-2019年的许多报告指出，整个科技界缺乏多样性。一些著名的报告包括国家妇女和信息技术中心，以及科技领域的多样性。
-4    Tom Simonite, “When It Comes to Gorillas, Google Photos Remains Blind,” Wired, January 11, 2018.
-```
+> 1    Google’s 2019 Diversity Report.  
+> 1 谷歌的2019年多样性报告。
+>
+> 2    @jackyalcine. 2015. “Google Photos, Y’all Fucked up. My Friend’s Not a Gorilla.” Twitter, June 29, 2015.https://twitter.com/jackyalcine/status/615329515909156865.  
+> 2 @jackyalcine. 2015. "谷歌照片，你们都搞砸了。我的朋友不是大猩猩"。Twitter，2015年6月29日。https://twitter.com/jackyalcine/status/615329515909156865
+>
+> 3    Many reports in 2018–2019 pointed to a lack of diversity across tech. Some notables include the National Center for Women & Information Technology, and Diversity in Tech.  
+> 3  2018-2019年的许多报告指出，整个科技界缺乏多样性。一些著名的报告包括国家妇女和信息技术中心，以及科技领域的多样性。
+>
+> 4    Tom Simonite, “When It Comes to Gorillas, Google Photos Remains Blind,” Wired, January 11, 2018.  
+> 4    Tom Simonite，"当涉及到大猩猩时，谷歌照片仍然是盲目的，"《连线》，2018年1月11日。
 
 ## Understanding the Need for Diversity 了解多样性的必要性
 
@@ -127,12 +129,10 @@ Therefore, shifting the focus of your industry experience to include more compre
 
 因此，将你的行业经验的重点转移到更全面的、多文化的、种族和性别研究的教育，不仅是你的责任，也是你雇主的责任。科技公司必须确保他们的员工不断接受专业发展，而且这种发展是全面和多学科的。要求不是个体独自承担起学习其他文化或其他人口统计学的任务。变革要求我们每个人，无论是个人还是团队的领导者，都要投资于持续的专业发展，不仅要培养我们的软件开发和领导技能，还要培养我们理解全人类不同经验的能力。
 
-```
-5    Stephen Gaines and Sara Williams. “The Perpetual Lineup: Unregulated Police Face Recognition in America.”
-
-5    斯蒂芬·盖恩斯和莎拉·威廉姆斯。“永远的阵容：美国不受监管的警察面孔识别。”
+> 5    Stephen Gaines and Sara Williams. “The Perpetual Lineup: Unregulated Police Face Recognition in America.”  
+> 5    斯蒂芬·盖恩斯和莎拉·威廉姆斯。“永远的阵容：美国不受监管的警察面孔识别。”
 乔治敦法律学院隐私与技术中心，2016年10月18日。
-```
+
 
 ## Making Diversity Actionable 让多样性成为现实
 
