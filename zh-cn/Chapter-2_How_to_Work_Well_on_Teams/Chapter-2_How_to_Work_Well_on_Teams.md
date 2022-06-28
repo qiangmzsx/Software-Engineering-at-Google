@@ -466,31 +466,31 @@ Of course, we eventually realized that the term “Googley” was being overload
 当然，我们最终意识到“Googley”这个词的含义太多了；更糟糕的是，它可能成为招聘或评估中无意识偏见的来源。如果“Googley”对每个员工都有不同的含义，那么我们就有可能把“Googley”这个词的意思改成“和我一样”。显然，这不是一个好的招聘模式——我们不希望招聘 "和我一样 "的人，而是来自不同背景、有不同意见和经验的人。面试官想和候选人（或同事）一起喝啤酒的愿望，绝不应该被认为是关于其他人的表现或在谷歌发展的能力的有效信号。
 
 Google eventually fixed the problem by explicitly defining a rubric for what we mean by “Googleyness”—a set of attributes and behaviors that we look for that represent strong leadership and exemplify “humility, respect, and trust”:
-*Thrives in ambiguity*
+- *Thrives in ambiguity*  
     Can deal with conflicting messages or directions, build consensus, and make progress against a problem, even when the environment is constantly shifting.
-*Values feedback*
+- *Values feedback*  
     Has humility to both receive and give feedback gracefully and understands how valuable feedback is for personal (and team) development.
-*Challenges status quo*
+- *Challenges status quo*  
     Is able to set ambitious goals and pursue them even when there might be resistance or inertia from others.
-*Puts the user first*
+- *Puts the user first*  
     Has empathy and respect for users of Google’s products and pursues actions that are in their best interests.
-*Cares about the team*
+- *Cares about the team*  
     Has empathy and respect for coworkers and actively works to help them without being asked, improving team cohesion.
-*Does the right thing*
+- *Does the right thing*  
     Has a strong sense of ethics about everything they do; willing to make difficult or inconvenient decisions to protect the integrity of the team and product.
 
 谷歌最终解决了这个问题，明确定义了我们所说的“谷歌特质”（Googleyness）——我们所寻找的一套属性和行为，代表了强大的领导力，体现了 "谦逊、尊重和信任"：
-*在模棱两可中茁壮成长*
+- *在模棱两可中茁壮成长*  
 	即使在环境不断变化的情况下，也能处理相互冲突的信息或方向，建立共识，并对问题做出改进。
-*重视反馈*
+- *重视反馈*  
 	谦虚优雅地接受和给出反馈，理解反馈对个人（和团队）发展的价值。
-*走出舒适区*
+- *走出舒适区*  
 	能够设定宏伟的目标并去追求，即使有来自他人的抵制或惰性。
-*客户第一*
+- *客户第一*  
 	对谷歌产品的用户抱有同情和尊重，并追求符合其最佳利益的行动。
-*关心团队*
+- *关心团队*  
 	对同事抱有同情心和尊重，并积极主动地帮助他们，提高团队凝聚力。
-*做正确的事*
+- *做正确的事*  
 	对自己所做的一切有强烈的主人感；愿意做出困难或不易的决定以保护团队和产品的完整。
 
 Now that we have these best-practice behaviors better defined, we’ve begun to shy away from using the term “Googley.” It’s always better to be specific about expectations!

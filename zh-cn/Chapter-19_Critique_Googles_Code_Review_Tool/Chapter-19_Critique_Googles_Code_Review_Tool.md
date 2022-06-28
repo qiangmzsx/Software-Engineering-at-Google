@@ -17,23 +17,23 @@ In this chapter, we’ll look at what makes successful code review tooling via G
 ## Code Review Tooling Principles 代码审查工具原则
 
 We mentioned above that Critique provides functionality to support the goals of code review (we look at this functionality in more detail later in this chapter), but why is it so successful? Critique has been shaped by Google’s development culture, which includes code review as a core part of the workflow. This cultural influence translates into a set of guiding principles that Critique was designed to emphasize:
-*Simplicity*
+- *Simplicity*  
 	Critique’s user interface (UI) is based around making it easy to do code review without a lot of unnecessary choices, and with a smooth interface. The UI loads fast, navigation is easy and hotkey supported, and there are clear visual markers for the overall state of whether a change has been reviewed.
-*Foundation of trust*
+- *Foundation of trust*  
 	Code review is not for slowing others down; instead, it is for empowering others. Trusting colleagues as much as possible makes it work. This might mean, for example, trusting authors to make changes and not requiring an additional review phase to double check that minor comments are actually addressed. Trust also plays out by making changes openly accessible (for viewing and reviewing) across Google.
-*Generic communication*
+- *Generic communication*  
 	Communication problems are rarely solved through tooling. Critique prioritizes generic ways for users to comment on the code changes, instead of complicated protocols. Critique encourages users to spell out what they want in their comments or even suggests some edits instead of making the data model and process more complex. Communication can go wrong even with the best code review tool because the users are humans.
-*Workflow integration*
+- *Workflow integration*  
 	Critique has a number of integration points with other core software development tools. Developers can easily navigate to view the code under review in our code search and browsing tool, edit code in our web-based code editing tool, or view test results associated with a code change.
 
 我们在前面提到，Critique提供了支持代码审查目标的功能（我们在本章后面会详细介绍这种功能），但为什么它如此成功？Critique是基于Google的开发文化塑造的，其中包括代码审查作为工作流程的核心部分。这种文化影响转化为一套指导原则，Critique的设计就是为了强调这些原则：
-*简洁性
+- *简洁性*  
 	Critique的用户界面（UI）基于使代码审查变得容易而不需要很多不必要的选择，并且具有流畅界面。用户界面加载速度快，导航简单，支持热键，而且有清晰的视觉标记，可以显示更改是否已审核的总体状态。
-*信任的基础*
+- *信任的基础*  
 	代码审查不是为了拖慢别人，相反，它是为了授权他人。尽可能地信任同事使其发挥作用。这可能意味着，例如，信任作者进行修改，而不需要额外的审查阶段来再次检查是否确实解决了次要评论。信任还体现在使修改在整个谷歌上公开进行（供查看和审查）。
-*通用的沟通*
+- *通用的沟通*  
 	沟通问题很难通过工具来解决。Critique优先考虑让用户对代码修改进行评论的通用方法，而不是复杂的协定。评论鼓励用户详细说明他们想要的内容，甚至建议进行一些编辑，而不是使数据模型和过程更加复杂。即使是最好的代码审查工具，沟通也会出错，因为用户是人。
-*工作流程的集成*。
+- *工作流程的集成*  
 	Critique有很多与其他核心软件开发工具的集成点。开发人员可以在我们的代码搜索和浏览工具中轻松浏览正在审查的代码，在我们基于网络的代码编辑工具中编辑代码，或者查看与代码修改相关的测试结果。
 
 Across these guiding principles, simplicity has probably had the most impact on the tool. There were many interesting features we considered adding, but we decided not to make the model more complicated to support a small set of users.

@@ -298,27 +298,27 @@ The more frequently you change your infrastructure, the easier it becomes to do 
 
 
 Through this and other experiences, we’ve discovered many factors that affect the flexibility of a codebase:
-*Expertise*
+- *Expertise*  
 	We know how to do this; for some languages, we’ve now done hundreds of compiler upgrades across many platforms.
-*Stability*
+- *Stability*  
 	There is less change between releases because we adopt releases more regularly; for some languages, we’re now deploying compiler upgrades every week or two.
-*Conformity*
+- *Conformity*  
 	There is less code that hasn’t been through an upgrade already, again because we are upgrading regularly.
-*Familiarity*
+- *Familiarity*  
 	Because we do this regularly enough, we can spot redundancies in the process of performing an upgrade and attempt to automate. This overlaps significantly with SRE views on toil.15
-*Policy*
+- *Policy*  
 	We have processes and policies like the Beyoncé Rule. The net effect of these processes is that upgrades remain feasible because infrastructure teams do not need to worry about every unknown usage, only the ones that are visible in our CI systems.
 
 通过这些和其他经验，我们发现了许多影响代码库灵活性的因素：
-*专业知识*
+- *专业知识*  
 		我们知道如何做到这一点；对于某些语言，我们现在已经在许多平台上进行了数百次编译器升级。
-*稳定性*
+- *稳定性*  
 		版本之间的更改更少，因为我们更有规律的采用版本；对于某些语言，我们现在每一到两周进行一次编译器升级部署。
-*一致性*
+- *一致性*  
 		没有经过升级的代码更少了，这也是因为我们正在定期升级。
-*熟悉*
+- *熟悉*  
 		因为我们经常这样做，所以我们可以在执行升级的过程中发现冗余并尝试自动化。这是与SRE观点一致的地方。
-*策略*
+- *策略*  
 		我们有类似碧昂斯规则的流程和策略。这些程序的净效果是，升级仍然是可行的，因为基础设施团队不需要担心每一个未知的使用，只需要担心我们的CI系统中常规的使用。
 
 The underlying lesson is not about the frequency or difficulty of compiler upgrades, but that as soon as we became aware that compiler upgrade tasks were necessary, we found ways to make sure to perform those tasks with a constant number of engineers, even as the codebase grew.16 If we had instead decided that the task was too expensive and should be avoided in the future, we might still be using a decade-old compiler version. We would be paying perhaps 25% extra for computational resources as a result of missed optimization opportunities. Our central infrastructure could be vulnerable to significant security risks given that a 2006-era compiler is certainly not helping to mitigate speculative execution vulnerabilities. Stagnation is an option, but often not a wise one.

@@ -293,37 +293,30 @@ As CD builds RCs, it will run larger tests against the entire candidate. We test
 
 There are several reasons why it’s important to run a comprehensive, automated test suite against an RC, even if it is the same suite that CB just ran against the code on post-submit (assuming the CD cuts at green):
 
-*As a sanity check*
-
+- *As a sanity check*  
 ​	We double check that nothing strange happened when the code was cut and recompiled in the RC.
 
-*For* *auditability*
-
+- *For* *auditability*  
 ​	If an engineer wants to check an RC’s test results, they are readily available and associated with the RC, so they don’t need to dig through CB logs to find them.
 
-*To allow for cherry picks*
-
+- *To allow for cherry picks*  
 ​	If you apply a cherry-pick fix to an RC, your source code has now diverged from the latest cut tested by the CB.
 
-*For emergency pushes*
-
+- *For emergency pushes*  
 ​	In that case, CD can cut from true head and run the minimal set of tests necessary to feel confident about an emergency push, without waiting for the full CB to pass.
 
 有几个原因可以说明为什么对RC运行一个全面的、自动化的测试套件很重要，即使它是CB在提交后对代码运行的同一个套件（假设CD是绿色的）:
 
-*作为理性的检查*
+- *作为理性的检查*  
 ​	我们仔细检查，当代码在RC中被切割和重新编译时，确保没有任何奇怪的事情发生。
 
-*为了便于审计*
-
+- *为了便于审计*  
 ​	如果工程师想检查RC的测试结果，他们很容易得到，并与RC相关联，所以他们不需要在CB日志中寻找它们。
 
-*允许偷梁换柱*
-
+- *允许偷梁换柱*  
 ​	如果你对一个RC应用了偷梁换柱式的修复，你的源代码现在已经与CB测试的最新版本相去甚远。
 
-*用于紧急推送*
-
+- *用于紧急推送*  
 ​	在这种情况下，CD可以从真正的head切分，并运行必要的最小的测试集，对紧急推送感到有信心，而不等待完整的CB通过。
 
 #### Production testing 生产测试
@@ -399,19 +392,25 @@ This “CI is alerting” insight is new, and we’re still figuring out how to 
 
 We’ve discussed some of the established best practices in CI and have introduced some of the challenges involved, such as the potential disruption to engineer productivity of unstable, slow, conflicting, or simply too many tests at presubmit. Some common additional challenges when implementing CI include the following:
 
-• - *Presubmit optimization*, including *which* tests to run at presubmit time given the potential issues we’ve already described, and *how* to run them.
+- *Presubmit optimization*  
+    Including *which* tests to run at presubmit time given the potential issues we’ve already described, and *how* to run them.
 
-• - *Culprit finding* and *failure isolation*: Which code or other change caused the problem, and which system did it happen in? “Integrating upstream microservices” is one approach to failure isolation in a distributed architecture, when you want to figure out whether a problem originated in your own servers or a backend. In this approach, you stage combinations of your stable servers along with upstream microservices’ new servers. (Thus, you are integrating the microservices’ latest changes into your testing.) This approach can be particularly challenging due to version skew: not only are these environments often incompatible, but you’re also likely to encounter false positives—problems that occur in a particular staged combination that wouldn’t actually be spotted in production.
+- *Culprit finding* and *failure isolation*  
+    Which code or other change caused the problem, and which system did it happen in? “Integrating upstream microservices” is one approach to failure isolation in a distributed architecture, when you want to figure out whether a problem originated in your own servers or a backend. In this approach, you stage combinations of your stable servers along with upstream microservices’ new servers. (Thus, you are integrating the microservices’ latest changes into your testing.) This approach can be particularly challenging due to version skew: not only are these environments often incompatible, but you’re also likely to encounter false positives—problems that occur in a particular staged combination that wouldn’t actually be spotted in production.
 
--   *Resource constraints*: Tests need resources to run, and large tests can be very expensive. In addition, the cost for the infrastructure for inserting automated testing throughout the process can be considerable.
+- *Resource constraints*  
+    Tests need resources to run, and large tests can be very expensive. In addition, the cost for the infrastructure for inserting automated testing throughout the process can be considerable.
 
 我们已经讨论了CI的一些已确认的最佳实践，并介绍了其中的一些挑战，例如不稳定的、缓慢的、冲突的或仅仅是在预提交时太多的测试对工程师生产力的潜在干扰。实施CI时，一些常见的额外挑战包括以下内容：
 
-- *提交前优化*，包括考虑到我们已经描述过的潜在问题，在提交前运行哪些测试，以及如何运行它们。
+- *提交前优化*  
+    包括考虑到我们已经描述过的潜在问题，在提交前运行哪些测试，以及如何运行它们。
 
-- *找出罪魁祸首*和*故障隔离*。哪段代码或其他变化导致了问题，它发生在哪个系统中？"整合上游微服务 "是分布式架构中故障隔离的一种方法，当你想弄清楚问题是源于你自己的服务器还是后端。在这种方法中，你把你的稳定服务器与上游微服务的新服务器组合在一起。(因此，你将微服务的最新变化整合到你的测试中）。由于版本偏差，这种方法可能特别具有挑战性：不仅这些环境经常不兼容，而且你还可能遇到假阳性--在某个特定的阶段性组合中出现的问题，实际上在生产中不会被发现。
+- *找出罪魁祸首*和*故障隔离*  
+    哪段代码或其他变化导致了问题，它发生在哪个系统中？"整合上游微服务 "是分布式架构中故障隔离的一种方法，当你想弄清楚问题是源于你自己的服务器还是后端。在这种方法中，你把你的稳定服务器与上游微服务的新服务器组合在一起。(因此，你将微服务的最新变化整合到你的测试中）。由于版本偏差，这种方法可能特别具有挑战性：不仅这些环境经常不兼容，而且你还可能遇到假阳性--在某个特定的阶段性组合中出现的问题，实际上在生产中不会被发现。
 
-- *资源限制*。测试需要资源来运行，而大型测试可能非常昂贵。此外，在整个过程中插入自动化测试的基础设施的成本可能是相当大的。
+- *资源限制*  
+    测试需要资源来运行，而大型测试可能非常昂贵。此外，在整个过程中插入自动化测试的基础设施的成本可能是相当大的。
 
 There’s also the challenge of *failure management—*what to do when tests fail. Although smaller problems can usually be fixed quickly, many of our teams find that it’s extremely difficult to have a consistently green test suite when large end-to-end tests are involved. They inherently become broken or flaky and are difficult to debug; there needs to be a mechanism to temporarily disable and keep track of them so that the release can go on. A common technique at Google is to use bug “hotlists” filed by an on-call or release engineer and triaged to the appropriate team. Even better is when these bugs can be automatically generated and filed—some of our larger products, like Google Web Server (GWS) and Google Assistant, do this. These hotlists should be curated to make sure any release-blocking bugs are fixed immediately. Nonrelease blockers should be fixed, too; they are less urgent, but should also be prioritized so the test suite remains useful and is not simply a growing pile of disabled, old tests. Often, the problems caught by end-to-end test failures are actually with tests rather than code.
 
