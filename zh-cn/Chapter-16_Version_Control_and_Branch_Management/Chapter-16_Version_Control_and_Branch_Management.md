@@ -12,19 +12,17 @@ Perhaps no software engineering tool is quite as universally adopted throughout 
 
 也许没有一种软件工程工具像版本控制那样在整个行业中被广泛采用。你很难想象有哪个软件组织比不依赖正式版本控制系统（VCS）来管理其源代码和协调工程师之间的活动。
 
-In this chapter, we’re going to look at why the use of version control has become such an unambiguous norm in software engineering, and we describe the various possible approaches to version control and branch management, including how we do it at scale across all of Google. We’ll also examine the pros and cons of various approaches; although we believe everyone should use version control, some version control policies and processes might work better for your organization (or in general) than others. In particular, we find “trunk-based development” as popularized by DevOps[1](#_bookmark1369) (one repository, no dev branches) to be a particularly scalable policy approach, and we’ll provide some suggestions as to why that is.
+In this chapter, we’re going to look at why the use of version control has become such an unambiguous norm in software engineering, and we describe the various possible approaches to version control and branch management, including how we do it at scale across all of Google. We’ll also examine the pros and cons of various approaches; although we believe everyone should use version control, some version control policies and processes might work better for your organization (or in general) than others. In particular, we find “trunk-based development” as popularized by DevOps[^1] (one repository, no dev branches) to be a particularly scalable policy approach, and we’ll provide some suggestions as to why that is.
 
 在本章中，我们将了解为什么版本控制的使用在软件工程中已成为如此明确的规范，我们将描述版本控制和分支管理的各种可能方法，包括我们如何在整个谷歌范围内大规模地进行。我们还将研究各种方法的优缺点；尽管我们认为每个人都应该使用版本控制，但某些版本控制策略和流程可能比其他策略和流程更适合你的组织（或总体而言）。特别是，我们发现由DevOps[1]推广的 "基于主干的开发"（一个版本库，没有开发分支）是一种特别可扩展的策略方法，我们将提供一些建议来解释为什么会这样。
 
-```
-1	The DevOps Research Association, which was acquired by Google between the first draft of this chapter and publication, has published extensively on this in the annual “State of DevOps Report” and the book Accelerate. As near as we can tell, it popularized the terminology trunk-based development.
+> [^1]:	The DevOps Research Association, which was acquired by Google between the first draft of this chapter and publication, has published extensively on this in the annual “State of DevOps Report” and the book Accelerate. As near as we can tell, it popularized the terminology trunk-based development./
+> 1 DevOps研究协会，在本章初稿和出版之间被谷歌收购，在年度 "DevOps状况报告 "和《加速》一书中广泛发表了这方面的内容。据我们所知，它推广了基于主干的开发这一术语。
 
-1 DevOps研究协会，在本章初稿和出版之间被谷歌收购，在年度 "DevOps状况报告 "和《加速》一书中广泛发表了这方面的内容。据我们所知，它推广了基于主干的开发这一术语。
-```
 
 ## What Is Version Control?  什么是版本控制？
 
-A VCS is a system that tracks revisions (versions) of files over time. A VCS maintains some metadata about the set of files being managed, and collectively a copy of the files and metadata is called a repository[2](#_bookmark1374) (repo for short). A VCS helps coordinate the activities of teams by allowing multiple developers to work on the same set of files simultaneously. Early VCSs did this by granting one person at a time the right to edit a file—that style of locking is enough to establish sequencing (an agreed-upon “which is newer,” an important feature of VCS). More advanced systems ensure that changes to a *collection* of files submitted at once are treated as a single unit (*atomicity* when a logical change touches multiple files). Systems like CVS (a popular VCS from the 90s) that didn’t have this atomicity for a commit were subject to corruption and lost changes. Ensuring atomicity removes the chance of previous changes being overwritten unintentionally, but requires tracking which version was last synced to—at commit time, the commit is rejected if any file in the commit has been modified at head since the last time the local developer synced. Especially in such a change-tracking VCS, a developer’s working copy of the managed files will therefore need metadata of its own. Depending on the design of the VCS, this copy of the repository can be a repository itself, or might contain a reduced amount of metadata—such a reduced copy is usually a “client” or “workspace.”
+A VCS is a system that tracks revisions (versions) of files over time. A VCS maintains some metadata about the set of files being managed, and collectively a copy of the files and metadata is called a repository[^2] (repo for short). A VCS helps coordinate the activities of teams by allowing multiple developers to work on the same set of files simultaneously. Early VCSs did this by granting one person at a time the right to edit a file—that style of locking is enough to establish sequencing (an agreed-upon “which is newer,” an important feature of VCS). More advanced systems ensure that changes to a *collection* of files submitted at once are treated as a single unit (*atomicity* when a logical change touches multiple files). Systems like CVS (a popular VCS from the 90s) that didn’t have this atomicity for a commit were subject to corruption and lost changes. Ensuring atomicity removes the chance of previous changes being overwritten unintentionally, but requires tracking which version was last synced to—at commit time, the commit is rejected if any file in the commit has been modified at head since the last time the local developer synced. Especially in such a change-tracking VCS, a developer’s working copy of the managed files will therefore need metadata of its own. Depending on the design of the VCS, this copy of the repository can be a repository itself, or might contain a reduced amount of metadata—such a reduced copy is usually a “client” or “workspace.”
 
 VCS是一个跟踪文件随时间变化的修订（版本）的系统。VCS维护一些关于被管理的文件集的元数据，文件和元数据的副本统称为版本库（简称repo）。VCS通过允许多个开发者同时在同一组文件上工作来帮助协调团队的活动。早期的VCS是通过每次授予一个人编辑文件的权利来实现的--这种锁定方式足以建立顺序（一种约定的“更新的”，VCS的一个重要特性）。更高级的系统确保对一次提交的*文件集合*的更改被视为单个单元（当逻辑更改涉及多个文件时，原子性）。像CVS（90年代流行的VCS）这样的系统，如果没有这种提交的原子性，就会出现损坏和丢失更改。确保原子性消除了以前的更改被无意覆盖的可能性，但需要跟踪最后同步的版本--在提交时，如果提交中的任何文件在本地开发者最后一次同步后被修改过，则提交将被拒绝。特别是在这样一个变化跟踪的VCS中，开发者管理文件的工作副本因此需要有自己的元数据。根据VCS的设计，这个版本库的副本可以是一个版本库本身，也可以包含一个减少的元数据--这样一个减少的副本通常是一个 "客户端 "或 "工作区"。
 
@@ -44,14 +42,12 @@ In practice, lack of file locking and lack of merge tracking will inevitably lea
 
 在实践中，缺乏文件锁和缺乏合并跟踪将不可避免地导致冲突和工作被覆盖。这样一个系统很有可能引入带外协调，以决定谁在任何给定的文件上工作。如果这种文件锁定被编码在软件中，我们就开始重新发明像RCS（包括其他）这样的早期版本控制。当你意识到一次授予一个文件的写入权限过于粗放，而你开始需要行级跟踪时，我们肯定在重新发明版本控制。似乎不可避免的是，我们将需要一些结构化的机制来管理这些合作。因为在这个假设中，我们似乎只是在重新发明车轮，我们不妨使用一个现成的工具。
 
-```
-2	Although the formal idea of what is and is not a repository changes a bit depending on your choice of VCS, and the terminology will vary.
-2 虽然什么是和什么不是版本库的正式概念会因你选择的VCS而有些变化，术语也会有所不同。
-```
+> [^2]:	Although the formal idea of what is and is not a repository changes a bit depending on your choice of VCS, and the terminology will vary./
+> 2 虽然什么是和什么不是版本库的正式概念会因你选择的VCS而有些变化，术语也会有所不同。
 
 ### Why Is Version Control Important?  为什么版本控制很重要？
 
-While version control is practically ubiquitous now, this was not always the case. The very first VCSs date back to the 1970s (SCCS) and 1980s (RCS)—many years later than the first references to software engineering as a distinct discipline. Teams participated in “the [multiperson development of multiversion software](https://arxiv.org/pdf/1805.02742.pdf)” before the industry had any formal notion of version control. Version control evolved as a response to the novel challenges of digital collaboration. It took decades of evolution and dissemination for reliable, consistent use of version control to evolve into the norm that it is today.[3](#_bookmark1382) So how did it become so important, and, given that it seems like a self-evident solution, why might anyone resist the idea of VCS?
+While version control is practically ubiquitous now, this was not always the case. The very first VCSs date back to the 1970s (SCCS) and 1980s (RCS)—many years later than the first references to software engineering as a distinct discipline. Teams participated in “the [multiperson development of multiversion software](https://arxiv.org/pdf/1805.02742.pdf)” before the industry had any formal notion of version control. Version control evolved as a response to the novel challenges of digital collaboration. It took decades of evolution and dissemination for reliable, consistent use of version control to evolve into the norm that it is today.[^3] So how did it become so important, and, given that it seems like a self-evident solution, why might anyone resist the idea of VCS?
 
 虽然现在版本控制几乎无处不在，但情况并非总是如此。最早的VCS可以追溯到20世纪70年代（SCCS）和80年代（RCS）--比首次将软件工程作为一门独立学科的时间晚了许多年。在业界有任何正式的版本控制概念之前，团队就参与了"[多版本软件的多人开发](https://arxiv.org/pdf/1805.02742.pdf)"。版本控制是为了应对数字协作的新挑战而发展起来的。经过几十年的演变和传播，版本控制的可靠、一致的使用才演变成今天的规范。 那么，它是如何变得如此重要的呢？鉴于它似乎是一个不言而喻的解决方案，为什么会有人抵制VCS的想法呢？
 
@@ -95,12 +91,8 @@ In truth, it’s difficult to envision any task that can be considered modern so
 
 事实上，很难设想任何可以被认为是现代软件工程的任务不立即采用VCS。鉴于你了解版本控制的价值和需要，你现在可能会问你需要什么类型的版本控制。
 
-```
-3	Indeed, I’ve given several public talks that use “adoption of version control” as the canonical example of how the norms of software engineering can and do evolve over time. In my experience, in the 1990s, version control was pretty well understood as a best practice but not universally followed. In the early 2000s, it was still common to encounter professional groups that didn’t use it. Today, the use of tools like Git seems ubiquitous even among college students working on personal projects. Some of this rise in adoption is likely due to better user experience in the tools (nobody wants to go back to RCS), but the role of experience and changing norms is significant.
-
-3 事实上，我曾多次公开演讲，以 "版本控制的采用 "为例，说明软件工程的规范是如何随着时间的推移而演变的。根据我的经验，在20世纪90年代，版本控制被理解为一种最佳实践，但没有得到普遍遵守。在21世纪初，不使用版本控制的专业团体仍然很常见。今天，即使在从事个人项目的大学生中，像Git这样的工具的使用似乎也是无处不在的。这种采用率的上升可能是由于在工具中更好的用户体验（没有人愿意回到RCS），但经验和不断变化的规范的作用也很重要。
-```
-
+> [^3]:	Indeed, I’ve given several public talks that use “adoption of version control” as the canonical example of how the norms of software engineering can and do evolve over time. In my experience, in the 1990s, version control was pretty well understood as a best practice but not universally followed. In the early 2000s, it was still common to encounter professional groups that didn’t use it. Today, the use of tools like Git seems ubiquitous even among college students working on personal projects. Some of this rise in adoption is likely due to better user experience in the tools (nobody wants to go back to RCS), but the role of experience and changing norms is significant/.
+> 3 事实上，我曾多次公开演讲，以 "版本控制的采用 "为例，说明软件工程的规范是如何随着时间的推移而演变的。根据我的经验，在20世纪90年代，版本控制被理解为一种最佳实践，但没有得到普遍遵守。在21世纪初，不使用版本控制的专业团体仍然很常见。今天，即使在从事个人项目的大学生中，像Git这样的工具的使用似乎也是无处不在的。这种采用率的上升可能是由于在工具中更好的用户体验（没有人愿意回到RCS），但经验和不断变化的规范的作用也很重要。
 
 
 ### Centralized VCS Versus Distributed VCS  集中式VCS与分布式VCS
@@ -115,7 +107,7 @@ In centralized VCS implementations, the model is one of a single central reposit
 
 在集中式的VCS实现中，模型是一个单一的中央存储库（可能存储在你的组织的一些共享计算资源上）。尽管开发者可以在他们的本地工作站上签出和访问文件，但与这些文件的版本控制状态交互的操作需要与中央服务器通信（添加文件、同步、更新现有文件，等等）。任何由开发者提交的代码都会被提交到中央存储库。第一批VCS的实现都是集中式VCS。
 
-Going back to the 1970s and early 1980s, we see that the earliest of these VCSs, such as RCS, focused on locking and preventing multiple simultaneous edits. You could copy the contents of a repository, but if you wanted to edit a file, you might need to acquire a lock, enforced by the VCS, to ensure that only you are making edits. When you’ve completed an edit, you release the lock. The model worked fine when any given change was a quick thing, or if there was rarely more than one person that wanted the lock for a file at any given time. Small edits like tweaking config files worked OK, as did working on a small team that either kept disjointed working hours or that rarely worked on overlapping files for extended periods. This sort of simplistic locking has inherent problems with scale: it can work fine for a few people, but has the potential to fall apart with larger groups if any of those locks become contended.[4](#_bookmark1395)
+Going back to the 1970s and early 1980s, we see that the earliest of these VCSs, such as RCS, focused on locking and preventing multiple simultaneous edits. You could copy the contents of a repository, but if you wanted to edit a file, you might need to acquire a lock, enforced by the VCS, to ensure that only you are making edits. When you’ve completed an edit, you release the lock. The model worked fine when any given change was a quick thing, or if there was rarely more than one person that wanted the lock for a file at any given time. Small edits like tweaking config files worked OK, as did working on a small team that either kept disjointed working hours or that rarely worked on overlapping files for extended periods. This sort of simplistic locking has inherent problems with scale: it can work fine for a few people, but has the potential to fall apart with larger groups if any of those locks become contended.[^4]
 
 回溯到20世纪70年代和80年代初，我们看到最早的这些VCS，如RCS，侧重于锁定和防止多个同时编辑。你可以复制版本库的内容，但如果你想编辑一个文件，你可能需要获得一个锁，由VCS强制执行的锁，以确保只有你在进行编辑。当你完成了一个编辑，你就可以释放锁。当任何给定的变化是一个快速的事情，或者在任何给定的时间内很少有超过一个人想要锁定一个文件时，这种模式工作得很好。像调整配置文件这样的小的编辑工作是可以的，就像在一个小团队中工作一样，这个团队要么保持不连贯的工作时间，要么很少长时间处理重叠的文件。这种简单化的锁定在规模上有固有的问题：对几个人来说，它可以很好地工作，但如果这些锁中的任何一个被争夺，就有可能在较大的群体中崩溃。
 
@@ -123,11 +115,10 @@ As a response to this scaling problem, the VCSs that were popular through the 90
 
 作为对这一规模问题的回应，在90年代和21世纪初流行的VCS在更高水平上运行。这些更现代化的集中式VCS避免了独占锁定，但会跟踪你已同步的更改，要求你的编辑基于提交中每个文件的最新版本。CVS通过（主要是）一次操作一批文件并允许多个开发人员同时签出一个文件来包装和细化RCS：只要你的基础版本包含存储库中的所有更改，你就可以提交。Subversion通过提供真正的提交原子性、版本跟踪和对不寻常操作（重命名、使用符号链接等）的更好跟踪而进一步发展。集中式版本库/检出客户端的模式在Subversion以及大多数商业VCS中延续至今。
 
-```
-4	Anecdote: To illustrate this, I looked for information on what pending/unsubmitted edits Googlers had outstanding for a semipopular file in my most recent project. At the time of this writing, 27 changes are pending, 12 from people on my team, 5 from people on related teams, and 10 from engineers I’ve never met. This is basically working as expected. Technical systems or policies that require out-of-band coordination certainly don’t scale to 24/7 software engineering in distributed locations.
 
-4   轶事：为了说明这一点，我寻找了谷歌在我最近的项目中对一个半流行的文件所做的未提交/未提交编辑的信息。在撰写本文时，有27项变更尚未完成，其中12项来自我的团队，5项来自相关团队，10项来自我从未见过的工程师。这基本上按照预期工作。需要带外协调的技术系统或策略当然不能扩展到分布式位置的全天候软件工程。
-```
+> [^4]:	Anecdote: To illustrate this, I looked for information on what pending/unsubmitted edits Googlers had outstanding for a semipopular file in my most recent project. At the time of this writing, 27 changes are pending, 12 from people on my team, 5 from people on related teams, and 10 from engineers I’ve never met. This is basically working as expected. Technical systems or policies that require out-of-band coordination certainly don’t scale to 24/7 software engineering in distributed locations./
+> 4   轶事：为了说明这一点，我寻找了谷歌在我最近的项目中对一个半流行的文件所做的未提交/未提交编辑的信息。在撰写本文时，有27项变更尚未完成，其中12项来自我的团队，5项来自相关团队，10项来自我从未见过的工程师。这基本上按照预期工作。需要带外协调的技术系统或策略当然不能扩展到分布式位置的全天候软件工程。
+
 
 #### Distributed VCS 分布式VCS
 
@@ -143,11 +134,11 @@ The DVCS model allows for better offline operation and collaboration without inh
 
 DVCS模型允许更好的离线操作和协作，而无需预先声明某个特定存储库是真相的来源。一个存储库不必“领先”或“落后”，因为更改不会固有地投射到线性时间线中。然而，考虑到通用性，集中式和DVCS模型在很大程度上是可互换的：集中式VCS通过技术提供了一个明确定义的中央存储库，而大多数DVCS生态系统将项目的中央存储库定义为一个策略问题。也就是说，大多数DVCS项目都是围绕一个信息源的概念（例如GitHub上的特定存储库）构建的。DVCS模型倾向于假设一个更分布式的用例，并且在开源世界中得到了特别强烈的采用。
 
-Generally speaking, the dominant source control system today is Git, which implements DVCS.[5](#_bookmark1398) When in doubt, use that—there’s some value in doing what everyone else does. If your use cases are expected to be unusual, gather some data and evaluate the trade-offs.
+Generally speaking, the dominant source control system today is Git, which implements DVCS.[^5] When in doubt, use that—there’s some value in doing what everyone else does. If your use cases are expected to be unusual, gather some data and evaluate the trade-offs.
 
 一般来说，今天占主导地位的源码控制系统是Git，它实现了DVCS。当有疑问时，使用它--做别人做的事是有价值的。如果您的用例预期不寻常，请收集一些数据并评估权衡。
 
-Google has a complex relationship with DVCS: our main repository is based on a (massive) custom in-house centralized VCS. There are periodic attempts to integrate more standard external options and to match the workflow that our engineers (especially Nooglers) have come to expect from external development. Unfortunately, those attempts to move toward more common tools like Git have been stymied by the sheer size of the codebase and userbase, to say nothing of Hyrum’s Law effects tying us to a particular VCS and interface for that VCS.[6](#_bookmark1399) This is perhaps not surprising: most existing tools don’t scale well with 50,000 engineers and tens of millions of commits.[7](#_bookmark1405) The DVCS model, which often (but not always) includes transmission of history and metadata, requires a lot of data to spin up a repository to work out of.
+Google has a complex relationship with DVCS: our main repository is based on a (massive) custom in-house centralized VCS. There are periodic attempts to integrate more standard external options and to match the workflow that our engineers (especially Nooglers) have come to expect from external development. Unfortunately, those attempts to move toward more common tools like Git have been stymied by the sheer size of the codebase and userbase, to say nothing of Hyrum’s Law effects tying us to a particular VCS and interface for that VCS.[^6] This is perhaps not surprising: most existing tools don’t scale well with 50,000 engineers and tens of millions of commits.[^7] The DVCS model, which often (but not always) includes transmission of history and metadata, requires a lot of data to spin up a repository to work out of.
 
 谷歌与DVCS有着复杂的关系：我们的主要资源库是基于一个（巨大的）自定义的内部集中式VCS。我们定期尝试整合更多标准的外部选项，并与我们的工程师（尤其是Nooglers）所期望的外部开发的工作流程相匹配。不幸的是，由于代码库和用户群的巨大规模，以及海勒姆定律的影响，这些向Git这样的通用工具发展的尝试受到了阻碍，更不用说将我们束缚在一个特定的VCS和VCS的界面上了。这也许并不奇怪：大多数现有的工具在面对5万名工程师和数千万的提交时都不能很好地扩展。DVCS模型，通常（但不总是）包括历史和元数据的传输，需要大量数据来加速存储库的运行。
 
@@ -155,13 +146,15 @@ In our workflow, centrality and in-the-cloud storage for the codebase seem to be
 
 在我们的工作流程中，代码库的中心化和云存储似乎对扩展至关重要。DVCS模型是围绕下载整个代码库并在本地访问它的思想构建的。在实践中，随着时间的推移和组织规模的扩大，任何给定的开发人员都会在相对较小比例的文件库中进行操作，而且这些文件的版本也只占一小部分。随着我们的增长（在文件数和工程师数方面），这种传输几乎完全变成了浪费。大多数文件在构建时只需要局部性，但分布式（和可复制的）构建系统似乎也能更好地扩展该任务（参见第18章）。
 
-```
-5	Stack Overflow Developer Survey Results, 2018.
-6	Monotonically increasing version numbers, rather than commit hashes, are particularly troublesome. Many systems and scripts have grown up in the Google developer ecosystem that assume that the numeric ordering of commits is the same as the temporal order—undoing those hidden dependencies is difficult.
+> 5	Stack Overflow Developer Survey Results, 2018./
+> 5 Stack Overflow开发者调查结果，2018年。
+>
+> 6	Monotonically increasing version numbers, rather than commit hashes, are particularly troublesome. Many systems and scripts have grown up in the Google developer ecosystem that assume that the numeric ordering of commits is the same as the temporal order—undoing those hidden dependencies is difficult./
+> 6 单调增加的版本号，而不是提交哈希值，是特别麻烦的。许多系统和脚本已经在谷歌开发者生态系统中成长起来，它们假定提交的数字顺序与时间顺序相同--消除这些隐藏的依赖关系是很困难的。
+>
+> 7	For that matter, as of the publication of the Monorepo paper, the repository itself had something like 86 TB of data and metadata, ignoring release branches. Fitting that onto a developer workstation directly would be… challenging./
+> 7 就这一点而言，截至Monorepo论文发表时，仓库本身有大约86TB的数据和元数据，不包括发布分支。将其直接装入开发者的工作站将是......挑战。
 
-5 Stack Overflow开发者调查结果，2018年。
-6 单调增加的版本号，而不是提交哈希值，是特别麻烦的。许多系统和脚本已经在谷歌开发者生态系统中成长起来，它们假定提交的数字顺序与时间顺序相同--消除这些隐藏的依赖关系是很困难的。
-```
 
 ### Source of Truth 信息源
 
@@ -181,10 +174,6 @@ It isn’t an accident that centralization and Source of Truth has crept back in
 
 即使在DVCS的世界里，集中化和信息源已经悄悄地回到了人们的使用中，这并不是一个偶然。为了说明 "信息源 "这个概念有多重要，让我们想象一下，当我们没有明确的信息源时会发生什么。
 
-```
-7	For that matter, as of the publication of the Monorepo paper, the repository itself had something like 86 TB of data and metadata, ignoring release branches. Fitting that onto a developer workstation directly would be… challenging.
-7 就这一点而言，截至Monorepo论文发表时，仓库本身有大约86TB的数据和元数据，不包括发布分支。将其直接装入开发者的工作站将是......挑战。
-```
 
 #### Scenario: no clear source of truth  情景：没有明确的信息源
 
@@ -276,7 +265,7 @@ Beyond the lack of expertise and inherent problems in merging a single branch, t
 
 #### How did we become addicted to dev branches?  我们是如何沉迷于开发分支的？
 
-It’s easy to see how organizations fall into this trap: they see, “Merging this long-lived development branch reduced stability” and conclude, “Branch merges are risky.” Rather than solve that with “Better testing” and “Don’t use branch-based development strategies,” they focus on slowing down and coordinating the symptom: the branch merges. Teams begin developing new branches based on other in-flight branches. Teams working on a long-lived dev branch might or might not regularly have that branch synched with the main development branch. As the organization scales up, the number of development branches grows as well, and the more effort is placed on coordinating that branch merge strategy. Increasing effort is thrown at coordination of branch merges—a task that inherently doesn’t scale. Some unlucky engineer becomes the Build Master/Merge Coordinator/Content Management Engineer, focused on acting as the single point coordinator to merge all the disparate branches in the organization. Regularly scheduled meetings attempt to ensure that the organization has “worked out the merge strategy for the week.”[8](#_bookmark1427) The teams that aren’t chosen to merge often need to re-sync and retest after each of these large merges.
+It’s easy to see how organizations fall into this trap: they see, “Merging this long-lived development branch reduced stability” and conclude, “Branch merges are risky.” Rather than solve that with “Better testing” and “Don’t use branch-based development strategies,” they focus on slowing down and coordinating the symptom: the branch merges. Teams begin developing new branches based on other in-flight branches. Teams working on a long-lived dev branch might or might not regularly have that branch synched with the main development branch. As the organization scales up, the number of development branches grows as well, and the more effort is placed on coordinating that branch merge strategy. Increasing effort is thrown at coordination of branch merges—a task that inherently doesn’t scale. Some unlucky engineer becomes the Build Master/Merge Coordinator/Content Management Engineer, focused on acting as the single point coordinator to merge all the disparate branches in the organization. Regularly scheduled meetings attempt to ensure that the organization has “worked out the merge strategy for the week.”[^8] The teams that aren’t chosen to merge often need to re-sync and retest after each of these large merges.
 
 很容易看出组织是如何落入这个陷阱的：他们看到，“合并这个长期存在的开发分支会降低稳定性”，并得出结论，“分支合并是有风险的。”而不是通过“更好的测试”和“不要使用基于分支的开发策略”来解决这个问题，只是专注于减缓和协调症状：分支合并。团队开始在其他正在运行的分支的基础上开发新的分支。在一个长期存在的开发分支上工作的团队可能会也可能不会定期让该分支与主开发分支同步。随着组织规模的扩大，开发分支的数量也在增加，在协调该分支合并策略上的努力也就越多。越来越多的精力投入到分支合并的协调上--这是一项本质上无法扩展的任务。一些不走运的工程师成为构建主管/合并协调人/内容管理工程师，专注于充当单点协调人，以合并组织中所有不同的分支。定期安排的会议试图确保组织“制定了本周的合并策略”。未被选择合并的团队通常需要在每次大型合并后重新同步和测试。
 
@@ -284,10 +273,9 @@ All of that effort in merging and retesting is *pure overhead*. The alternative 
 
 所有这些合并和重新测试的努力都是*纯粹的开销*。替代方案需要一个不同的范式：基于主干的开发，严重依赖测试和CI，保持绿色构建，并在运行时禁用不完整/未经测试的功能。每个人都有责任同步到主干和提交；没有 "合并策略 "会议，没有大型/高成本的合并。而且，没有关于应该使用哪个版本的库的激烈讨论--只能有一个。必须有一个单一的信息源。最终，一个版本将使用一个单一的修订版：缩小到一个单信息源，这只是确定哪些是和哪些没有被包括在内的“左移”方法。
 
-```
- 8	Recent informal Twitter polling suggests about 25% of software engineers have been subjected to “regularly scheduled” merge strategy meetings.
- 8   最近的非正式推特民意调查显示，大约25%的软件工程师参加了“定期”的合并策略会议。
-```
+> [^8]:	Recent informal Twitter polling suggests about 25% of software engineers have been subjected to “regularly scheduled” merge strategy meetings./
+> 8   最近的非正式推特民意调查显示，大约25%的软件工程师参加了“定期”的合并策略会议。
+
 
 ### Release Branches  发布分支
 
@@ -323,13 +311,19 @@ By virtue of Piper being an in-house product, we have the ability to customize i
 
 ### One Version  一个版本
 
-The incredible scaling powers of Piper alone wouldn’t allow the sort of collaboration that we rely upon. As we said earlier: version control is also about policy. In addition to our VCS, one key feature of Google’s version control policy is what we’ve come to refer to as “One Version.” This extends the “Single Source of Truth” concept we looked at earlier—ensuring that a developer knows which branch and repository is their source of truth—to something like “For every dependency in our repository, there must be only one version of that dependency to choose.”[9](#_bookmark1445) For third-party packages, this means that there can be only a single version of that package checked into our repository, in the steady state.[10](#_bookmark1446) For internal packages, this means no forking without repackaging/renaming: it must be technologically safe to mix both the original and the fork into the same project with no special effort. This is a powerful feature for our ecosystem: there are very few packages with restrictions like “If you include this package (A), you cannot include other package (B).”
+The incredible scaling powers of Piper alone wouldn’t allow the sort of collaboration that we rely upon. As we said earlier: version control is also about policy. In addition to our VCS, one key feature of Google’s version control policy is what we’ve come to refer to as “One Version.” This extends the “Single Source of Truth” concept we looked at earlier—ensuring that a developer knows which branch and repository is their source of truth—to something like “For every dependency in our repository, there must be only one version of that dependency to choose.”[^9] For third-party packages, this means that there can be only a single version of that package checked into our repository, in the steady state.[^10] For internal packages, this means no forking without repackaging/renaming: it must be technologically safe to mix both the original and the fork into the same project with no special effort. This is a powerful feature for our ecosystem: there are very few packages with restrictions like “If you include this package (A), you cannot include other package (B).”
 
 单凭Piper令人难以置信的扩展能力，是无法实现我们所依赖的那种协作的。正如我们之前所说：版本控制也是关于策略的。除了我们的VCS之外，谷歌版本控制策略的一个关键特征就是我们所说的 "一个版本"。这扩展了我们前面提到的 "单信息源 "的概念--确保开发者知道哪个分支和版本库是他们的信息源--到类似于 "对于我们版本库中的每个依赖，必须只有一个版本的依赖可以选择。 "对于第三方软件包，这意味着在稳定状态下，该软件包只能有一个版本被检入我们的仓库。对于内部软件包，这意味着没有重新打包/重命名的分支：在技术上必须是安全的，无需特别努力就可以将原始和分支混合到同一个项目中。这对我们的生态系统来说是一个强大的功能：很少有包有类似 "如果你包括这个软件包（A），你就不能包括其他软件包（B）"的限制。
 
 This notion of having a single copy on a single branch in a single repository as our Source of Truth is intuitive but also has some subtle depth in application. Let’s investigate a scenario in which we have a monorepo (and thus arguably have fulfilled the letter of the law on Single Source of Truth), but have allowed forks of our libraries to propagate on trunk.
 
 将单个副本放在单个版本库中的单个分支上作为信息源的概念是直观的，但在应用中也有一些微妙的深度。让我们研究一下这样的场景：我们有一个monorepo（因此可以说已经履行了关于单信息源的法律条文），但允许我们的库的分支在主干上传播。
+
+> [^9]:	For example, during an upgrade operation, there might be two versions checked in, but if a developer is adding a new dependency on an existing package, there should be no choice in which version to depend upon./
+> 9  例如，在升级操作期间，可能签入了两个版本，但如果开发人员正在现有软件包上添加新的依赖，则应该没有选择依赖哪个版本。
+> 
+> [^10]:	That said, we fail at this in many cases because external packages sometimes have pinned copies of their own dependencies bundled in their source release. You can read more on how all of this goes wrong in Chapter 21./
+> 10 也就是说，我们在很多情况下都会失败，因为外部软件包有时会在它们的源版本中捆绑有它们自己的依赖性的钉子副本。你可以在第21章中阅读更多关于这一切是如何出错的。
 
 ### Scenario: Multiple Available Versions  场景：多个可用版本
 
@@ -349,13 +343,6 @@ Any policy system that allows for multiple versions in the same codebase is allo
 
 任何允许在同一代码库中使用多个版本的策略系统都可能会出现这些代价高昂的不兼容。你有可能暂时逃过一劫（我们当然有一些小的违反这一策略的行为），但一般来说，任何多版本的情况都有导致大问题的非常现实的可能性。
 
-```
-9	For example, during an upgrade operation, there might be two versions checked in, but if a developer is adding a new dependency on an existing package, there should be no choice in which version to depend upon.
-10	That said, we fail at this in many cases because external packages sometimes have pinned copies of their own dependencies bundled in their source release. You can read more on how all of this goes wrong in Chapter 21.
-
-9  例如，在升级操作期间，可能签入了两个版本，但如果开发人员正在现有软件包上添加新的依赖，则应该没有选择依赖哪个版本。
-10 也就是说，我们在很多情况下都会失败，因为外部软件包有时会在它们的源版本中捆绑有它们自己的依赖性的钉子副本。你可以在第21章中阅读更多关于这一切是如何出错的。
-```
 
 ### The “One-Version” Rule  “一个版本”规则
 
@@ -366,7 +353,7 @@ With that example in mind, on top of the Single Source of Truth model, we can ho
 	Developers must never have a choice of “What version of this component should I depend upon?”
 	开发人员决不能有 "我应该依赖这个组件的哪个版本 "的选择？
 
-Colloquially, this becomes something like a “One-Version Rule.” In practice, “One- Version” is not hard and fast,[11](#_bookmark1451) but phrasing this around limiting the versions that can be *chosen* when adding a new dependency conveys a very powerful understanding.
+Colloquially, this becomes something like a “One-Version Rule.” In practice, “One- Version” is not hard and fast,[^11] but phrasing this around limiting the versions that can be *chosen* when adding a new dependency conveys a very powerful understanding.
 
 俗话说，这就变成了类似于 "一个版本规则 "的东西。在实践中，"一个版本 "并不是硬性规定，但在添加新依赖项时限制可以选择的版本这一措辞传达了一种非常有力的理解。
 
@@ -374,14 +361,14 @@ For an individual developer, lack of choice can seem like an arbitrary impedimen
 
 对于个人开发者来说，缺乏选择似乎是一个大障碍。然而，我们一再看到，对于一个组织来说，它是高效扩展的一个关键组成部分。一致性在一个组织的各个层面都有深远的意义。从一个角度来看，这是讨论一致性和确保利用一致 "瓶颈 "的能力的直接副作用。
 
-```
-11	For instance, if there are external/third-party libraries that are periodically updated, it might be infeasible to update that library and update all use of it in a single atomic change. As such, it is often necessary to add a new version of that library, prevent new users from adding dependencies on the old one, and incrementally switch usage from old to new.
-11 例如，如果有定期更新的外部/第三方库，更新该库并在一次原子变化中更新对它的所有使用可能是不可行的。因此，通常有必要添加该库的新版本，防止新用户添加对旧版本的依赖，并逐步将使用从旧版本切换到新版本。
-```
+
+> [^11]:	For instance, if there are external/third-party libraries that are periodically updated, it might be infeasible to update that library and update all use of it in a single atomic change. As such, it is often necessary to add a new version of that library, prevent new users from adding dependencies on the old one, and incrementally switch usage from old to new./
+> 11 例如，如果有定期更新的外部/第三方库，更新该库并在一次原子变化中更新对它的所有使用可能是不可行的。因此，通常有必要添加该库的新版本，防止新用户添加对旧版本的依赖，并逐步将使用从旧版本切换到新版本。
+
 
 ### (Nearly) No Long-Lived Branches  (几乎)没有长期存在的分支
 
-There are several deeper ideas and policies implicit in our One-Version Rule; foremost among them: development branches should be minimal, or at best be very short lived. This follows from a lot of published work over the past 20 years, from Agile processes to DORA research results on trunk-based development and even Phoenix Project[12](#_bookmark1459) lessons on “reducing work-in-progress.” When we include the idea of pending work as akin to a dev branch, this further reinforces that work should be done in small increments against trunk, committed regularly.
+There are several deeper ideas and policies implicit in our One-Version Rule; foremost among them: development branches should be minimal, or at best be very short lived. This follows from a lot of published work over the past 20 years, from Agile processes to DORA research results on trunk-based development and even Phoenix Project[^12] lessons on “reducing work-in-progress.” When we include the idea of pending work as akin to a dev branch, this further reinforces that work should be done in small increments against trunk, committed regularly.
 
 在我们的 "一个版本规则 "中隐含着几个更深层次的想法和策略；其中最重要的是：开发分支应该是最小的，或者最多只能是很短的时间。这来自于过去20年里发表的大量工作，从敏捷过程到基于主干的开发的DORA研究成果，甚至凤凰计划关于 "减少进行中的工作"的教训。当我们把待完成的工作看作是类似于开发分支的想法时，这就进一步强化了工作应该针对主干，定期提交，以小的增量完成。
 
@@ -405,7 +392,7 @@ Of course, our experience is not universal. You might find yourself in unusual s
 
 当然，我们的经验并不是万能的。你可能会发现自己处于不寻常的情况下，需要更长的开发分支与主干并行（并定期合并）。
 
-Those scenarios should be rare, and should be understood to be expensive. Across the roughly 1,000 teams that work in the Google monorepo, there are only a couple that have such a dev branch.[13](#_bookmark1462) Usually these exist for a very specific (and very unusual) reason. Most of those reasons boil down to some variation of “We have an unusual requirement for compatibility over time.” Oftentimes this is a matter of ensuring compatibility for data at rest across versions: readers and writers of some file format need to agree on that format over time even if the reader or writer implementations are modified. Other times, long-lived dev branches might come from promising API compatibility over time—when One Version isn’t enough and we need to promise that an older version of a microservice client still works with a newer server (or vice versa). That can be a very challenging requirement, something that you should not promise lightly for an actively evolving API, and something you should treat carefully to ensure that period of time doesn’t accidentally begin to grow. Dependency across time in any form is far more costly and complicated than code that is time invariant. Internally, Google production services make relatively few promises of that form.[14](#_bookmark1463) We also benefit greatly from a cap on potential version skew imposed by our “build horizon”: every job in production needs to be rebuilt and redeployed every six months, maximum. (Usually it is far more frequent than that.)
+Those scenarios should be rare, and should be understood to be expensive. Across the roughly 1,000 teams that work in the Google monorepo, there are only a couple that have such a dev branch.[^13] Usually these exist for a very specific (and very unusual) reason. Most of those reasons boil down to some variation of “We have an unusual requirement for compatibility over time.” Oftentimes this is a matter of ensuring compatibility for data at rest across versions: readers and writers of some file format need to agree on that format over time even if the reader or writer implementations are modified. Other times, long-lived dev branches might come from promising API compatibility over time—when One Version isn’t enough and we need to promise that an older version of a microservice client still works with a newer server (or vice versa). That can be a very challenging requirement, something that you should not promise lightly for an actively evolving API, and something you should treat carefully to ensure that period of time doesn’t accidentally begin to grow. Dependency across time in any form is far more costly and complicated than code that is time invariant. Internally, Google production services make relatively few promises of that form.[^14] We also benefit greatly from a cap on potential version skew imposed by our “build horizon”: every job in production needs to be rebuilt and redeployed every six months, maximum. (Usually it is far more frequent than that.)
 
 这些场景应该是罕见的，并且应该理解为代价高昂。在谷歌monorepo的大约1000个团队中，只有少数团队有这样一个开发分支。这些场景的存在通常有一个非常具体（非常不寻常）的原因。大多数原因归结为“随着时间的推移，我们对兼容性有着苛刻的要求。”通常，这是一个确保跨版本的静态数据的兼容性的问题：某些文件格式的读写器需要随着时间的推移对该格式达成一致意见，即使读写器实现被修改。其他时候，长期的开发分支可能来自于对API兼容性的承诺--当一个版本还不够时，我们需要承诺旧版本的微服务客户端仍能与新版本的服务器兼容（反之亦然）。这可能是一个非常具有挑战性的要求，对于一个积极发展的API，你不应该轻易承诺，而且你应该谨慎对待，以确保这段时间不会意外地开始增长。任何形式的跨时间的依赖都比时间不变的代码要昂贵和复杂得多。在内部，谷歌生产服务相对来说很少做出这种形式的承诺。我们也从我们的 "构建范围 "所施加的潜在版本偏差上限中获益匪浅：生产中的每项工作最多每六个月就需要重建和重新部署。(通常要比这频繁得多）。
 
@@ -413,11 +400,15 @@ We’re sure there are other situations that might necessitate long-lived dev br
 
 我们确信还有其他情况可能需要长期的开发分支。只需确保它们很少。如果你采用了本书所讨论的其他工具和实践，很多人都会倾向于对长期的开发分支施加压力。自动化和工具在主干分支上运行良好，而在开发分支上则失败（或花费更多精力），这有助于鼓励开发人员保持更新。
 
-```
-12	Kevin Behr, Gene Kim, and George Spafford, The Phoenix Project (Portland: IT Revolution Press, 2018).
+> [^12]:	Kevin Behr, Gene Kim, and George Spafford, The Phoenix Project (Portland: IT Revolution Press, 2018).
+> 12  Kevin Behr、Gene Kim和George Spafford，《凤凰城项目》（波特兰：IT革命出版社，2018年）。
+>
+> [^13]:	It’s difficult to get a precise count, but the number of such teams is almost certainly fewer than 10./
+> 13  很难准确统计，但这样的队伍几乎肯定少于10支。
+>
+> [^14]:	Cloud interfaces are a different story.
+> 14  云接口是另一回事。
 
-12  Kevin Behr、Gene Kim和George Spafford，《凤凰城项目》（波特兰：IT革命出版社，2018年）。
-```
 
 #### What About Release Branches?  发布分支呢？
 
@@ -425,17 +416,10 @@ Many Google teams use release branches, with limited cherry picks. If you’re g
 
 许多谷歌团队使用发布分支，但选择的版本有限。如果你打算每月发布一个版本，并继续为下一个版本工作，那么创建一个发布分支是完全合理的。同样，如果你打算将设备交付给客户，准确地知道什么版本“在当前”是很有价值的。谨慎和理智，尽量减少偷梁换柱的行为，并且不要计划与主干分支重新合并。鉴于很少有团队达到CD承诺的快速发布节奏，我们的各个团队对发布分支有各种各样的策略（见第24章）这样就不需要或不需要发布分支。一般来说，根据我们的经验，发布分支不会导致任何广泛的成本。或者说，至少在VCS的额外固有成本之外，没有明显的成本。
 
-```
-13	It’s difficult to get a precise count, but the number of such teams is almost certainly fewer than 10.
-14	Cloud interfaces are a different story.
-
-13  很难准确统计，但这样的队伍几乎肯定少于10支。
-14  云接口是另一回事。
-```
 
 ## Monorepos    单一版本库（单库）
 
-In 2016, we published a (highly cited, much discussed) paper on Google’s monorepo approach.[15](#_bookmark1469) The monorepo approach has some inherent benefits, and chief among them is that adhering to One Version is trivial: it’s usually more difficult to violate One Version than it would be to do the right thing. There’s no process of deciding which versions of anything are official, or discovering which repositories are important. Building tools to understand the state of the build (see [Chapter 23](#_bookmark2022)) doesn’t also require discovering where important repositories exist. Consistency helps scale up the impact of introducing new tools and optimizations. By and large, engineers can see what everyone else is doing and use that to inform their own choices in code and system design. These are all very good things.
+In 2016, we published a (highly cited, much discussed) paper on Google’s monorepo approach.[^15] The monorepo approach has some inherent benefits, and chief among them is that adhering to One Version is trivial: it’s usually more difficult to violate One Version than it would be to do the right thing. There’s no process of deciding which versions of anything are official, or discovering which repositories are important. Building tools to understand the state of the build (see [Chapter 23](#_bookmark2022)) doesn’t also require discovering where important repositories exist. Consistency helps scale up the impact of introducing new tools and optimizations. By and large, engineers can see what everyone else is doing and use that to inform their own choices in code and system design. These are all very good things.
 
 2016年，我们发表了一篇关于Google的monorepo方法的论文（引用率很高，讨论很多）。monorepo方法有一些固有的好处，其中最主要的是遵守一个版本是微不足道的：通常违反一个版本比做正确的事情更难。没有过程来决定任何东西的哪个版本是官方的，也没有发现哪个版本库是重要的。构建工具来了解构建的状态（见第23章）也不需要发现哪里有重要的软件库。一致性有助于扩大引入新工具和优化的影响。总的来说，工程师们可以看到其他人在做什么，并利用这些来告知他们自己在代码和系统设计中的选择。这些都是非常好的事情。
 
@@ -455,11 +439,11 @@ What is important is not whether we focus on monorepo; it’s to adhere to the O
 
 重要的不是我们是否关注单一版本库；而是最大限度地坚持一个版本的原则：开发人员在向组织中已经使用的某个库添加依赖时，不能有*选择*。违反一个版本原则的选择会导致合并策略的讨论、钻石依赖、工作损失和工作消耗。
 
-Software engineering tools including both VCS and build systems are increasingly providing mechanisms to smartly blend between fine-grained repositories and monorepos to provide an experience akin to the monorepo—an agreed-upon ordering of commits and understanding of the dependency graph. Git submodules, Bazel with external dependencies, and CMake subprojects all allow modern developers to synthesize something weakly approximating monorepo behavior without the costs and downsides of a monorepo.[16](#_bookmark1477) For instance, fine-grained repositories are easier to deal with in terms of scale (Git often has performance issues after a few million commits and tends to be slow to clone when repositories include large binary artifacts) and storage (VCS metadata can add up, especially if you have binary artifacts in your version control system). Fine-grained repositories in a federated/virtual-monorepo (VMR)–style repository can make it easier to isolate experimental or top-secret projects while still holding to One Version and allowing access to common utilities.
+Software engineering tools including both VCS and build systems are increasingly providing mechanisms to smartly blend between fine-grained repositories and monorepos to provide an experience akin to the monorepo—an agreed-upon ordering of commits and understanding of the dependency graph. Git submodules, Bazel with external dependencies, and CMake subprojects all allow modern developers to synthesize something weakly approximating monorepo behavior without the costs and downsides of a monorepo.[^16] For instance, fine-grained repositories are easier to deal with in terms of scale (Git often has performance issues after a few million commits and tends to be slow to clone when repositories include large binary artifacts) and storage (VCS metadata can add up, especially if you have binary artifacts in your version control system). Fine-grained repositories in a federated/virtual-monorepo (VMR)–style repository can make it easier to isolate experimental or top-secret projects while still holding to One Version and allowing access to common utilities.
 
 包括VCS和构建系统在内的软件工程工具越来越多地提供了在细粒度版本库和单一版本库之间巧妙融合的机制，以提供类似于单一版本库的体验--一种约定的提交顺序和对依赖关系图的理解。Git子模块、带有外部依赖关系的Bazel和CMake子项目都允许现代开发者合成一些弱的近似于单一版本库的行为，而没有单一版本库的成本和弊端。例如，细粒度的版本库在规模上更容易处理（Git在几百万次提交后经常出现性能问题，而且当仓库包括大型二进制构件时，克隆速度往往很慢）和存储（VCS元数据会增加，特别是如果你的版本控制系统中有二进制构件）。联合/虚拟单一版本库（VMR）风格的细粒度版本库可以更容易地隔离实验性或最高机密的项目，同时同时仍保留一个版本并允许访问通用工具。
 
-To put it another way: if every project in your organization has the same secrecy, legal, privacy, and security requirements,[17](#_bookmark1478) a true monorepo is a fine way to go. Otherwise, *aim* for the functionality of a monorepo, but allow yourself the flexibility of implementing that experience in a different fashion. If you can manage with disjoint repositories and adhere to One Version or your workload is all disconnected enough to allow truly separate repositories, great. Otherwise, synthesizing something like a VMR in some fashion may represent the best of both worlds.
+To put it another way: if every project in your organization has the same secrecy, legal, privacy, and security requirements,[^17] a true monorepo is a fine way to go. Otherwise, *aim* for the functionality of a monorepo, but allow yourself the flexibility of implementing that experience in a different fashion. If you can manage with disjoint repositories and adhere to One Version or your workload is all disconnected enough to allow truly separate repositories, great. Otherwise, synthesizing something like a VMR in some fashion may represent the best of both worlds.
 
 换言之：如果你组织中的每个项目都有相同的保密、法律、隐私和安全要求，真正的单一版本库是一个不错的选择。否则，以单一版本库的功能为目标，但允许自己以不同的方式灵活实施该体验。如果你可以用不相干的软件库来管理，并且坚持一个版本，或者你的工作量都是不相干的，足以允许真正的独立软件库，那就太好了。否则，以某种方式合成类似于VMR的东西可能代表了两个世界的最佳状态。
 
@@ -467,11 +451,15 @@ After all, your choice of filesystem format really doesn’t matter as much as w
 
 毕竟，你对文件系统格式的选择与你向其写入的内容相比，真的并不重要。
 
-```
-15	Rachel Potvin and Josh Levenberg, “Why Google stores billions of lines of code in a single repository,” Communications of the ACM, 59 No. 7 (2016): 78-87.
+> 15	Rachel Potvin and Josh Levenberg, “Why Google stores billions of lines of code in a single repository,” Communications of the ACM, 59 No. 7 (2016): 78-87./
+> 15 Rachel Potvin和Josh Levenberg，"为什么谷歌将数十亿行代码存储在一个库中，"《ACM通讯》，59 No.7（2016）：78-87。
+>
+> 16 We don’t think we’ve seen anything do this particularly smoothly, but the interrepository dependencies/virtual monorepo idea is clearly in the air./
+> 16 我们认为我们还没有看到任何系统能特别顺利地做到这一点，但版本库间的依赖关系/虚拟单库的想法显然是在空想中。
+>
+> 17 Or you have the willingness and capability to customize your VCS—and maintain that customization for the lifetime of your codebase/organization. Then again, maybe don’t plan on that as an option; that is a lot of overhead./
+> 17 或者你有意愿和能力来定制你的VCS--并且在你的代码库/组织的生命周期内保持这种定制。然后，也许不要把它作为一个选项，那是一个很大的开销。
 
-15 Rachel Potvin和Josh Levenberg，"为什么谷歌将数十亿行代码存储在一个库中，"《ACM通讯》，59 No.7（2016）：78-87。
-```
 
 ## Future of Version Control  版本控制的未来
 
@@ -540,12 +528,10 @@ Choice leads to costs here. We highly endorse the One-Version Rule presented her
 - Use whatever version control system makes sense for you. If your organization wants to prioritize separate repositories for separate projects, it’s still probably wise for interrepository dependencies to be unpinned/“at head”/“trunk based.” There are an increasing number of VCS and build system facilities that allow you to have both small, fine-grained repositories as well as a consistent “virtual” head/trunk notion for the whole organization.
 
 
-
 - 对任何大于“只有一名开发人员且永远不会更新的玩具项目”的软件开发项目都要使用版本控制。
 - 当存在 "我应该依赖哪个版本 "的选择时，就会存在内在的扩展问题。
 - 单一版本规则对组织效率的重要性出人意料。删除提交地点或依赖内容的选择可能会导致显著的简化。。
 - 在某些语言中，你可能会花一些精力来躲避这个问题，比如着色、单独编译、链接器隐藏等等技术方法。使这些方法正常工作的工作完全是徒劳的--你的软件工程师并没有生产任何东西，他们只是在解决技术债务。
 - 以前的研究（DORA/State of DevOps/Accelerate）表明，基于干线的开发是高绩效开发组织的一个预测因素。长周期的开发分支不是一个好的默认计划。
 - 使用任何对你有意义的版本控制体系。如果你的组织想优先考虑为不同的项目建立独立的仓库，那么取消存储库间的依赖关系/“基于头部”/“基于主干”可能仍然是明智的越来越多的VCS和构建系统设施允许您拥有小型、细粒度的存储库以及整个组织一致的“虚拟”头/主干概念。
-
 
