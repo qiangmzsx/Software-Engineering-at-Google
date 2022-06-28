@@ -29,7 +29,7 @@ When engineers do not focus on users of different nationalities, ethnicities, ra
 
 当工程师不关注不同国籍、民族、种族、性别、年龄、社会经济地位、能力和信仰体系的用户时，即使是最优秀的工程师也会在不经意间让用户失望。这种失败往往是无意的；所有的人都存在一定的偏见，社会科学家在过去几十年中已经认识到，大多数人都表现出无意识的偏见，强迫和传播存在的刻板印象。无意识的偏见是隐藏的，往往比有意的排斥行为更难改正。即使我们想做正确的事，我们也可能意识不到自己的偏见。同样，我们的组织也必须认识到这种偏见的存在，并努力在员工队伍、产品开发和用户推广中解决这一问题。
 
-Because of bias, Google has at times failed to represent users equitably within their products, with launches over the past several years that did not focus enough on underrepresented groups. Many users attribute our lack of awareness in these cases to the fact that our engineering population is mostly male, mostly White or Asian, and certainly not representative of all the communities that use our products. The lack of representation of such users in our workforce1 means that we often do not have the requisite diversity to understand how the use of our products can affect underrepresented or vulnerable users.
+Because of bias, Google has at times failed to represent users equitably within their products, with launches over the past several years that did not focus enough on underrepresented groups. Many users attribute our lack of awareness in these cases to the fact that our engineering population is mostly male, mostly White or Asian, and certainly not representative of all the communities that use our products. The lack of representation of such users in our workforce[^1] means that we often do not have the requisite diversity to understand how the use of our products can affect underrepresented or vulnerable users.
 
 由于偏见，谷歌有时未能在其产品中公平地代表用户，在过去几年中推出的产品没有足够关注代表性不足的群体。许多用户将我们在这些情况下缺乏意识归咎于这样一个事实，即我们的工程人员大多数是男性，大多数是白人或亚洲人，当然不能代表所有使用我们产品的人群。这类用户在我们的员工队伍中缺乏代表性，这意味着我们往往不具备必要的多样性，无法理解使用我们的产品会如何影响代表性不足或弱势的用户。
 
@@ -37,13 +37,13 @@ Because of bias, Google has at times failed to represent users equitably within 
 
 #### Case Study: Google Misses the Mark on Racial Inclusion  案例研究：谷歌在种族包容方面的失误
 
-In 2015, software engineer Jacky Alciné pointed out[2](#_bookmark316) that the image recognition algorithms in Google Photos were classifying his black friends as “gorillas.” Google was slow to respond to these mistakes and incomplete in addressing them.
+In 2015, software engineer Jacky Alciné pointed out[^2] that the image recognition algorithms in Google Photos were classifying his black friends as “gorillas.” Google was slow to respond to these mistakes and incomplete in addressing them.
 
 2015年，软件工程师Jacky Alciné指出，谷歌照片中的图像识别算法将他的黑人朋友归为 "大猩猩"。谷歌对这些错误的反应很慢，解决起来也不彻底。
 
 What caused such a monumental failure? Several things:
 - Image recognition algorithms depend on being supplied a “proper” (often meaning “complete”) dataset. The photo data fed into Google’s image recognition algorithm was clearly incomplete. In short, the data did not represent the population.
-- Google itself (and the tech industry in general) did not (and does not) have much black representation,[3](#_bookmark317) and that affects decisions subjective in the design of such algorithms and the collection of such datasets. The unconscious bias of the organization itself likely led to a more representative product being left on the table.
+- Google itself (and the tech industry in general) did not (and does not) have much black representation,[^3] and that affects decisions subjective in the design of such algorithms and the collection of such datasets. The unconscious bias of the organization itself likely led to a more representative product being left on the table.
 - Google’s target market for image recognition did not adequately include such underrepresented groups. Google’s tests did not catch these mistakes; as a result, our users did, which both embarrassed Google and harmed our users.
 
 是什么导致了这样一个巨大的失误？有几件事：
@@ -51,7 +51,7 @@ What caused such a monumental failure? Several things:
 - 谷歌本身（以及整个科技行业）没有（也没有）很多黑人代表，这影响了设计这种算法和收集这种数据集的主观决定。组织本身无意识的偏见很可能导致更具代表性的产品被搁置。
 - 谷歌的图像识别目标市场并没有充分包括这种代表性不足的群体。谷歌的测试没有发现这些错误；结果是我们的用户发现了，这既让谷歌感到尴尬，也伤害了我们的用户。
 
-As late as 2018, Google still had not adequately addressed the underlying problem.[4](#_bookmark318)
+As late as 2018, Google still had not adequately addressed the underlying problem.[^4]
 
 直到2018年，谷歌仍然没有彻底地解决这些潜在的问题。
 
@@ -69,15 +69,17 @@ How could this happen? After all, Google hires technologists with impeccable edu
 
 这怎么会发生呢？毕竟，谷歌雇用的技术专家拥有无可挑剔的教育和/或专业经验——卓越的程序员，他们编写最好的代码并测试他们的功能。"为每个人而建 "是谷歌的品牌宣言，但事实是，在宣称我们做到这一点之前，我们仍有很长的路要走。解决这些问题的方法之一是帮助软件工程组织本身变得像我们为其建造产品的人群。
 
-```
-1    Google’s 2019 Diversity Report.
-2    @jackyalcine. 2015. “Google Photos, Y’all Fucked up. My Friend’s Not a Gorilla.” Twitter, June 29, 2015.
-https://twitter.com/jackyalcine/status/615329515909156865.
-
-3    Many reports in 2018–2019 pointed to a lack of diversity across tech. Some notables include the National Center for Women & Information Technology, and Diversity in Tech.
-3  2018-2019年的许多报告指出，整个科技界缺乏多样性。一些著名的报告包括国家妇女和信息技术中心，以及科技领域的多样性。
-4    Tom Simonite, “When It Comes to Gorillas, Google Photos Remains Blind,” Wired, January 11, 2018.
-```
+> [^1]:    Google’s 2019 Diversity Report./
+> 1 谷歌的2019年多样性报告。
+>
+> [^2]:    @jackyalcine. 2015. “Google Photos, Y’all Fucked up. My Friend’s Not a Gorilla.” Twitter, June 29, 2015.https://twitter.com/jackyalcine/status/615329515909156865./
+> 2 @jackyalcine. 2015. "谷歌照片，你们都搞砸了。我的朋友不是大猩猩"。Twitter，2015年6月29日。https://twitter.com/jackyalcine/status/615329515909156865
+>
+> [^3]:    Many reports in 2018–2019 pointed to a lack of diversity across tech. Some notables include the National Center for Women & Information Technology, and Diversity in Tech./
+> 3  2018-2019年的许多报告指出，整个科技界缺乏多样性。一些著名的报告包括国家妇女和信息技术中心，以及科技领域的多样性。
+>
+> [^4]:    Tom Simonite, “When It Comes to Gorillas, Google Photos Remains Blind,” Wired, January 11, 2018./
+> 4    Tom Simonite，"当涉及到大猩猩时，谷歌照片仍然是盲目的，"《连线》，2018年1月11日。
 
 ## Understanding the Need for Diversity 了解多样性的必要性
 
@@ -119,7 +121,7 @@ Currently, AI-driven facial-recognition software continues to disadvantage peopl
 
 目前，人工智能驱动的面部识别软件仍然对有色人种或少数族裔不利。我们的研究还不够全面，没有包括足够多的肤色。如果训练数据和创建软件的人都只代表一小部分人，我们就不能指望输出是有效的。在这种情况下，我们应该愿意推迟开发，以获得更完整、更准确的数据，以及更全面、更包容的产品。
 
-Data science itself is challenging for humans to evaluate, however. Even when we do have representation, a training set can still be biased and produce invalid results. A study completed in 2016 found that more than 117 million American adults are in a law enforcement facial recognition database.5 Due to the disproportionate policing of Black communities and disparate outcomes in arrests, there could be racially biased error rates in utilizing such a database in facial recognition. Although the software is being developed and deployed at ever-increasing rates, the independent testing is not. To correct for this egregious misstep, we need to have the integrity to slow down and ensure that our inputs contain as little bias as possible. Google now offers statistical training within the context of AI to help ensure that datasets are not intrinsically biased.
+Data science itself is challenging for humans to evaluate, however. Even when we do have representation, a training set can still be biased and produce invalid results. A study completed in 2016 found that more than 117 million American adults are in a law enforcement facial recognition database.[^5] Due to the disproportionate policing of Black communities and disparate outcomes in arrests, there could be racially biased error rates in utilizing such a database in facial recognition. Although the software is being developed and deployed at ever-increasing rates, the independent testing is not. To correct for this egregious misstep, we need to have the integrity to slow down and ensure that our inputs contain as little bias as possible. Google now offers statistical training within the context of AI to help ensure that datasets are not intrinsically biased.
 
 然而，数据科学本身对人类的评估是具有挑战性的。即使我们有表示，训练集仍然可能有偏见，产生无效的结果。2016年完成的一项研究发现，执法部门的面部识别数据库中有1.17亿以上的美国成年人。由于黑人社区的警察比例过高，逮捕的结果也不尽相同，因此在面部识别中使用该数据库可能存在种族偏见错误率。尽管该软件的开发和部署速度不断提高，但独立测试却并非如此。为了纠正这一令人震惊的错误，我们需要有诚信，放慢脚步，确保我们的输入尽可能不包含偏见。谷歌现在在人工智能的范围内提供统计培训，以帮助确保数据集没有内在的偏见。
 
@@ -127,12 +129,10 @@ Therefore, shifting the focus of your industry experience to include more compre
 
 因此，将你的行业经验的重点转移到更全面的、多文化的、种族和性别研究的教育，不仅是你的责任，也是你雇主的责任。科技公司必须确保他们的员工不断接受专业发展，而且这种发展是全面和多学科的。要求不是个体独自承担起学习其他文化或其他人口统计学的任务。变革要求我们每个人，无论是个人还是团队的领导者，都要投资于持续的专业发展，不仅要培养我们的软件开发和领导技能，还要培养我们理解全人类不同经验的能力。
 
-```
-5    Stephen Gaines and Sara Williams. “The Perpetual Lineup: Unregulated Police Face Recognition in America.”
-
-5    斯蒂芬·盖恩斯和莎拉·威廉姆斯。“永远的阵容：美国不受监管的警察面孔识别。”
+> [^5]:    Stephen Gaines and Sara Williams. “The Perpetual Lineup: Unregulated Police Face Recognition in America.”/  
+> 5    斯蒂芬·盖恩斯和莎拉·威廉姆斯。“永远的阵容：美国不受监管的警察面孔识别。”
 乔治敦法律学院隐私与技术中心，2016年10月18日。
-```
+
 
 ## Making Diversity Actionable 让多样性成为现实
 

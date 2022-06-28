@@ -88,7 +88,7 @@ Unit tests cover code within a given binary. But that binary is typically not co
 
 单元测试涵盖了给定二进制中的代码。但该二进制文件在如何执行方面通常不是完全自足的。通常情况下，二进制文件有某种部署配置或启动脚本。此外，真正为终端用户服务的生产实例有他们自己的配置文件或配置数据库。
 
-If there are issues with these files or the compatibility between the state defined by these stores and the binary in question, these can lead to major user issues. Unit tests alone cannot verify this compatibility.[1](#_bookmark1199) Incidentally, this is a good reason to ensure that your configuration is in version control as well as your code, because then, changes to configuration can be identified as the source of bugs as opposed to introducing random external flakiness and can be built in to large tests.
+If there are issues with these files or the compatibility between the state defined by these stores and the binary in question, these can lead to major user issues. Unit tests alone cannot verify this compatibility.[^1] Incidentally, this is a good reason to ensure that your configuration is in version control as well as your code, because then, changes to configuration can be identified as the source of bugs as opposed to introducing random external flakiness and can be built in to large tests.
 
 如果这些文件存在问题，或者这些存储定义的状态与有问题的二进制文件之间存在兼容性问题，则可能会导致重大的用户故障。单元测试不能验证这种兼容性。顺便说一下，这是一个很好的理由，确保你的配置和你的代码一样在版本控制中，因为这样，配置的变更可以被识别为bug的来源，而不是引入随机的外部碎片，并且可以在大型测试中构建。
 
@@ -96,10 +96,8 @@ At Google, configuration changes are the number one reason for our major outages
 
 在谷歌，配置变更是我们重大故障的头号原因。这是一个我们表现不佳的领域，并导致了我们一些最尴尬的错误。例如，2013年，由于一次从未测试过的糟糕网络配置推送，谷歌出现了一次全球停机。它们通常也比二进制文件具有更快的生产部署周期，而且它们可能更难测试。所有这些都会导致更高的失败可能性。但至少在这种情况下（和其他情况下），配置是由版本控制的，我们可以快速识别故障并缓解问题。
 
-```
-1	See “Continuous Delivery” on page 483 and Chapter 25 for more information.
-1   有关更多信息，请参见第483页和第25章的“连续交付”。
-```
+>[^1]:	See “Continuous Delivery” on page 483 and Chapter 25 for more information.
+> 1   有关更多信息，请参见第483页和第25章的“连续交付”。
 
 #### Issues that arise under load 高负载导致的问题
 
@@ -250,8 +248,6 @@ One way to achieve this test ratio when presented with a user journey that can r
 
 Figure 14-4. Chained tests
 
-
-
 ## Structure of a Large Test 大型测试组成
 
 Although large tests are not bound by small test constraints and could conceivably consist of anything, most large tests exhibit common patterns. Large tests usually consist of a workflow with the following phases:
@@ -307,7 +303,7 @@ Often these two factors are in direct conflict. Following are some examples of S
 	被测系统由一个或多个独立的二进制文件组成（与生产相同），测试是自身的二进制文件。但一切都在一台机器上运行。这用于 "中等 "测试。理想情况下，在本地运行这些二进制文件时，我们使用每个二进制文件的生产启动配置，以提高仿真度。
 - *多机SUT*  
 	被测系统分布在多台机器上（很像生产云部署）。这比单机SUT的仿真度还要高，但它的使用使得测试的规模 "很大"，而且这种组合很容易受到网络和机器脆弱程度的影响。
-- *共享环境（临时和生产）*。  
+- *共享环境（临时和生产）*  
 	测试只使用共享环境，而不是运行独立的SUT。这具有最低的成本，因为这些共享环境通常已经存在，但是测试可能会与其他同时使用冲突，并且必须等待代码被推送到这些环境中。生产也增加了最终用户受到影响的风险。
 - *混合模式*  
 	一些SUT代表了一种混合：可以运行一些SUT，但可以让它与共享环境交互。通常被测试的东西是显式运行的，但是它的后端是共享的。对于像谷歌这样扩张的公司来说，实际上不可能运行所有谷歌互联服务的多个副本，因此需要一些混合。
@@ -449,6 +445,7 @@ Note that manual regression testing does not scale sublinearly: the larger a sys
 ```java 
 assertThat(response.Contains("Colossal Cave"))
 ```
+
 *A/B* *comparison* *(differential)*
 	Instead of defining explicit assertions, A/B testing involves running two copies of the SUT, sending the same data, and comparing the output. The intended behavior is not explicitly defined: a human must manually go through the differences to ensure any changes are intended.
 
@@ -581,13 +578,16 @@ Tests of these type have the following characteristics:
 • 数据：生产或已知测试范围
 • 核查：手动
 
-Exploratory testing[2](#_bookmark1281) is a form of manual testing that focuses not on looking for behavioral regressions by repeating known test flows, but on looking for questionable behavior by trying out new user scenarios. Trained users/testers interact with a product through its public APIs, looking for new paths through the system and for which behavior deviates from either expected or intuitive behavior, or if there are security vulnerabilities.
+Exploratory testing[^2] is a form of manual testing that focuses not on looking for behavioral regressions by repeating known test flows, but on looking for questionable behavior by trying out new user scenarios. Trained users/testers interact with a product through its public APIs, looking for new paths through the system and for which behavior deviates from either expected or intuitive behavior, or if there are security vulnerabilities.
 
 探索性测试是一种手动测试，它的重点不是通过重复已知的测试流来寻找行为回归，而是通过尝试新的用户场景来寻找有问题的行为。训练有素的用户/测试人员通过产品的公共API与产品交互，在系统中寻找新的路径，寻找行为偏离预期或直观行为的路径，或者是否存在安全漏洞。
 
 Exploratory testing is useful for both new and launched systems to uncover unanticipated behaviors and side effects. By having testers follow different reachable paths through the system, we can increase the system coverage and, when these testers identify bugs, capture new automated functional tests. In a sense, this is a bit like a manual “fuzz testing” version of functional integration testing.
 
 探索性测试对于新系统和已发布系统都很有用，可以发现意外行为和副作用。通过让测试人员在系统中遵循不同的可到达路径，我们可以增加系统覆盖率，并且当这些测试人员发现bug时，可以捕获新的自动化功能测试。在某种意义上，这有点像功能集成测试的手动“模糊测试”版本。
+
+>[^2]:	James A. Whittaker, Exploratory Software Testing: Tips, Tricks, Tours, and Techniques to Guide Test Design(New York: Addison-Wesley Professional, 2009)./
+> 2     詹姆斯·惠塔克，探索性软件测试： 提示， 诡计， 旅行，和技巧到指导测验设计（纽约：Addison-Wesley Professional，2009年）。
 
 #### Limitations 局限性
 
@@ -626,13 +626,6 @@ There are other variants. We use A-A testing (comparing a system to itself) to i
 A/B diff tests are a cheap but automatable way to detect unanticipated side effects for any launched system.
 
 A/B差异测试是一种低成本但可自动检测任何已启动系统意外副作用的方法。
-
-```
-2	James A. Whittaker, Exploratory Software Testing: Tips, Tricks, Tours, and Techniques to Guide Test Design
-(New York: Addison-Wesley Professional, 2009).
-2     詹姆斯·惠塔克，探索性软件测试： 提示， 诡计， 旅行，和技巧到指导测验设计（纽约：Addison-Wesley Professional，2009年）。
-
-```
 
 #### Limitations  局限性
 
@@ -692,7 +685,6 @@ Tests of these type have the following characteristics:
 • 数据：生产
 • 验证：断言和A/B差异（度量）
 
-
 Probers and canary analysis are ways to ensure that the production environment itself is healthy. In these respects, they are a form of production monitoring, but they are structurally very similar to other large tests.
 
 探针和金丝雀分析是确保生产环境本身健康的方法。在这些方面，它们是生产监控的一种形式，但在结构上与其他大型测试非常相似。
@@ -735,7 +727,7 @@ These test how well your systems will react to unexpected changes or failures.
 
 这些测试将测试系统对意外更改或故障的反应。
 
-For years, Google has run an annual war game called [DiRT ](https://oreil.ly/17ffL)(Disaster Recovery Testing) during which faults are injected into our infrastructure at a nearly planetary scale. We simulate everything from datacenter fires to malicious attacks. In one memorable case, we simulated an earthquake that completely isolated our headquarters in Mountain View, California, from the rest of the company. Doing so exposed not only technical shortcomings but also revealed the challenge of running a company when all the key decision makers were unreachable.[3](#_bookmark1293)
+For years, Google has run an annual war game called [DiRT ](https://oreil.ly/17ffL)(Disaster Recovery Testing) during which faults are injected into our infrastructure at a nearly planetary scale. We simulate everything from datacenter fires to malicious attacks. In one memorable case, we simulated an earthquake that completely isolated our headquarters in Mountain View, California, from the rest of the company. Doing so exposed not only technical shortcomings but also revealed the challenge of running a company when all the key decision makers were unreachable.[^3]
 
 多年来，谷歌每年都会举办一场名为“灾难恢复测试”[DiRT](https://oreil.ly/17ffL)(Disaster Recovery Testing)的演练，在这场演练中，故障几乎以全球规模注入我们的基础设施。我们模拟了从数据中心火灾到恶意攻击的一切。在一个令人难忘的案例中，我们模拟了一场地震，将我们位于加州山景城的总部与公司其他部门完全隔离。这样做不仅暴露了技术上的缺陷，也揭示了在所有关键决策者都无法联系到的情况下，管理公司的挑战。
 
@@ -747,10 +739,9 @@ These kinds of fault and negative tests make sense for live production systems t
 
 这些类型的故障和负面测试对于具有足够理论容错能力的实时生产系统是有意义的，并且测试本身的成本和风险是可以承受的。
 
-```
-3	During this test, almost no one could get anything done, so many people gave up on work and went to one of our many cafes, and in doing so, we ended up creating a DDoS attack on our cafe teams!
-3   在这次测试中，几乎没有人能完成任何事情，所以很多人放弃了工作，去了我们众多咖啡馆中的一家，在这样做的过程中，我们最终对我们的咖啡馆团队发起了DDoS攻击！
-```
+> [^3]:	During this test, almost no one could get anything done, so many people gave up on work and went to one of our many cafes, and in doing so, we ended up creating a DDoS attack on our cafe teams!/
+> 3   在这次测试中，几乎没有人能完成任何事情，所以很多人放弃了工作，去了我们众多咖啡馆中的一家，在这样做的过程中，我们最终对我们的咖啡馆团队发起了DDoS攻击！
+
 
 #### Limitations 局限性
 
@@ -919,8 +910,8 @@ How does this work in practice? A good large test that fails should do the follo
 
 #### Owning Large Tests  拥有大型测试 
 Larger tests must have documented owners—engineers who can adequately review changes to the test and who can be counted on to provide support in the case of test failures. Without proper ownership, a test can fall victim to the following:
-•   It becomes more difficult for contributors to modify and update the test
-•   It takes longer to resolve test failures
+- It becomes more difficult for contributors to modify and update the test
+- It takes longer to resolve test failures
 
 大型测试必须有记录的所有者--他们可以充分审查测试的变更，并且在测试失败的情况下，可以依靠他们提供支持。没有适当的所有权，测试可能成为以下情况的受害者：
 - 参与者修改和更新测试变得更加困难
@@ -942,22 +933,20 @@ It is possible to build automation around test owners if this information is rec
 如果以结构化的方式记录此信息，则可以围绕测试所有者构建自动化。我们使用的一些方法包括：
 - *常规代码所有权*  
 	在许多情况下，大型测试是一个独立的代码构件，它位于代码库中的特定位置。在这种情况下，我们可以使用monorepo中已经存在的所有者（第9章）信息来提示自动化，特定测试的所有者是测试代码的所有者。
+
 - *每个测试注释*  
 	在某些情况下，可以将多个测试方法添加到单个测试类或模块中，并且这些测试方法中的每一个都可以有不同的特性所有者。我们使用每种语言的结构化注释，用于记录每种情况下的测试所有者，以便在特定测试方法失败时，我们可以确定要联系的所有者。
 
-
 ## Conclusion 总结
-
 A comprehensive test suite requires larger tests, both to ensure that tests match the fidelity of the system under test and to address issues that unit tests cannot adequately cover. Because such tests are necessarily more complex and slower to run, care must be taken to ensure such larger tests are properly owned, well maintained, and run when necessary (such as before deployments to production). Overall, such larger tests must still be made as small as possible (while still retaining fidelity) to avoid developer friction. A comprehensive test strategy that identifies the risks of a system, and the larger tests that address them, is necessary for most software projects.
 
 一个全面的测试套件需要大型测试，既要确保测试与被测系统的仿真度相匹配，又要解决单元测试不能充分覆盖的问题。因为这样的测试必然更复杂，运行速度更慢，所以必须注意确保这样的大型测试是正确的，良好的维护，并在必要时运行（例如在部署到生产之前）。总的来说，这种大型测试仍然必须尽可能的小（同时仍然保留仿真度），以避免开发人员的阻力。一个全面的测试策略，确定系统的风险，以及解决这些风险的大型测试，对大多数软件项目来说是必要的。
 
 ## TL;DRs  内容提要
-
-•   Larger tests cover things unit tests cannot.
-•   Large tests are composed of a System Under Test, Data, Action, and Verification.
-•   A good design includes a test strategy that identifies risks and larger tests that mitigate them.
-•   Extra effort must be made with larger tests to keep them from creating friction in the developer workflow.
+-  Larger tests cover things unit tests cannot.
+- Large tests are composed of a System Under Test, Data, Action, and Verification.
+- A good design includes a test strategy that identifies risks and larger tests that mitigate them.
+- Extra effort must be made with larger tests to keep them from creating friction in the developer workflow.
 
 - 大型测试涵盖了单元测试不能涵盖的内容。
 - 大型测试是由被测系统、数据、操作和验证组成。
