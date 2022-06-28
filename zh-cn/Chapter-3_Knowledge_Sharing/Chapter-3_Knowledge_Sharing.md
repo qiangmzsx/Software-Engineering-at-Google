@@ -644,10 +644,10 @@ Google has a very strong culture of code review, and readability is a natural ex
 
 谷歌有着非常浓厚的代码审查文化，可读性是这种文化的延伸。可读性从一个工程师的热情发展到一个由专家组指导所有谷歌工程师的正式项目。它随着谷歌的成长而不断发展变化，并将随着谷歌需求的变化而继续发展。
 
-> 21  For this reason, code that is known to have a short time span is exempt from readability requirements. Examples include the experimental/ directory (explicitly designated for experimental code and cannot push to production) and the Area 120 program, a workshop for Google’s experimental products./
+> [^21]:  For this reason, code that is known to have a short time span is exempt from readability requirements. Examples include the experimental/ directory (explicitly designated for experimental code and cannot push to production) and the Area 120 program, a workshop for Google’s experimental products./
 > 21  因此，已知时间跨度较短的代码不受可读性要求的约束。考试示例包括实验/目录（明确指定为实验代码，不能推动生产）和Area 120计划，这是谷歌实验产品的研讨会。
 > 
-> 22  This includes controlling for a variety of factors, including tenure at Google and the fact that CLs for authors who do not have readability typically need additional rounds of review compared to authors who already have readability./
+> [^22]:  This includes controlling for a variety of factors, including tenure at Google and the fact that CLs for authors who do not have readability typically need additional rounds of review compared to authors who already have readability./
 > 22  这包括控制各种因素，包括在谷歌的任职期限，以及与已经具备可读性的作者相比，没有可读性的作者的CLs通常需要额外的审查。
 
 ## Conclusion 结论

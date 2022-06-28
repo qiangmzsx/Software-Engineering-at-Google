@@ -25,7 +25,7 @@ Before we get ahead of ourselves, let’s begin by observing how software engine
 
 ## Help Me Hide My Code  帮我隐藏我的代码
 
-For the past 20 years, my colleague Ben1 and I have spoken at many programming conferences. In 2006, we launched Google’s (now deprecated) open source Project Hosting service, and at first, we used to get lots of questions and requests about the product. But around mid-2008, we began to notice a trend in the sort of requests we were getting:
+For the past 20 years, my colleague Ben[^1] and I have spoken at many programming conferences. In 2006, we launched Google’s (now deprecated) open source Project Hosting service, and at first, we used to get lots of questions and requests about the product. But around mid-2008, we began to notice a trend in the sort of requests we were getting:
     “Can you please give Subversion on Google Code the ability to hide specific branches?”
     “Can you make it possible to create open source projects that start out hidden to the world and then are revealed when they’re ready?”
     “Hi, I want to rewrite all my code from scratch, can you please wipe all the history?”
@@ -45,9 +45,8 @@ The answer is insecurity. People are afraid of others seeing and judging their w
 
 答案是缺乏安全感。人们害怕别人看到和评价他们正在进行的工作。从某种意义上说，缺乏安全感是人性的一部分——没有人喜欢被批评，尤其是那些没有完成的事情。认识到这个主题让我们看到了软件开发中一个更普遍的趋势：缺乏安全实际上是一个更大问题的征兆。
 
-> 1 Ben Collins-Sussman, also an author within this book.  
+> [^1]: Ben Collins-Sussman, also an author within this book.
 > 1 Ben Collins-Sussman，也是本书的作者之一。
-> 
 
 ## The Genius Myth  天才的神话
 
@@ -155,11 +154,17 @@ Then, one day your neighbor pulls his bike out of his garage with a radical new 
 
 If you keep your great idea hidden from the world and refuse to show anyone anything until the implementation is polished, you’re taking a huge gamble. It’s easy to make fundamental design mistakes early on. You risk reinventing wheels.2 And you forfeit the benefits of collaboration, too: notice how much faster your neighbor moved by working with others? This is why people dip their toes in the water before jumping in the deep end: you need to make sure that you’re working on the right thing, you’re doing it correctly, and it hasn’t been done before. The chances of an early misstep are high. The more feedback you solicit early on, the more you lower this risk.3 Remember the tried-and-true mantra of “Fail early, fail fast, fail often.”
 
-如果你对世界隐瞒你的牛逼想法，并在未完美之前拒绝向任何人展示，那么你就是在进行一场下注巨大的赌博。早期很容易犯基本的设计错误。你冒着重新发明轮子的风险。2而且你也失去了协作的好处：注意到你的邻居通过与他人合作而效率有多高？这就是人们在跳入深水区之前将脚趾浸入水中的原因：你需要确保你在做正确的事情，你在做正确的事情，而且以前从未做过。早期失误的可能性很高。你越早征求反馈，这种风险就越低。3记住“早失败、快失败、经常失败”这句经得起考验的至理名言。
+如果你对世界隐瞒你的牛逼想法，并在未完美之前拒绝向任何人展示，那么你就是在进行一场下注巨大的赌博。早期很容易犯基本的设计错误。你冒着重新发明轮子的风险。[^2]而且你也失去了协作的好处：注意到你的邻居通过与他人合作而效率有多高？这就是人们在跳入深水区之前将脚趾浸入水中的原因：你需要确保你在做正确的事情，你在做正确的事情，而且以前从未做过。早期失误的可能性很高。你越早征求反馈，这种风险就越低。[^3]记住“早失败、快失败、经常失败”这句经得起考验的至理名言。
 
 Early sharing isn’t just about preventing personal missteps and getting your ideas vetted. It’s also important to strengthen what we call the bus factor of your project.
 
 早期分享不仅仅是为了防止个人失误和检验你的想法。加强我们称之为项目的巴士因子。
+
+> [^2]:    Literally, if you are, in fact, a bike designer.
+> 2  实际上，如果你是一个自行车设计师。
+>
+> [^3]:    I should note that sometimes it’s dangerous to get too much feedback too early in the process if you’re still unsure of your general direction or goal.
+> 3  我应该注意到，如果你仍然不确定自己的总体方向或目标，那么在过程中过早地获得太多反馈是很危险的。
 
 ### The Bus Factor 巴士因子
 
@@ -174,13 +179,6 @@ How dispersed is the knowledge and know-how in your project? If you’re the onl
 Beyond the bus factor, there’s the issue of overall pace of progress. It’s easy to forget that working alone is often a tough slog, much slower than people want to admit. How much do you learn when working alone? How fast do you move? Google and Stack Overflow are great sources of opinions and information, but they’re no substitute for actual human experience. Working with other people directly increases the collective wisdom behind the effort. When you become stuck on something absurd, how much time do you waste pulling yourself out of the hole? Think about how different the experience would be if you had a couple of peers to look over your shoulder and tell you—instantly—how you goofed and how to get past the problem. This is exactly why teams sit together (or do pair programming) in software engineering companies. Programming is hard. Software engineering is even harder. You need that second pair of eyes.
 
 除了巴士因子，还有整体进度的问题。人们很容易忘记，独自工作往往是一项艰苦的工作，比人们自认为的慢得多。你独自工作能学到多少？你推进地有多快？Google和Stack Overflow是观点和信息的重要来源，但它们不能替代人的真实体验。与他人一起工作会直接增加工作背后的集体智慧。当你陷入误区时，你需要浪费多少时间才能从困境中解脱？想想如果你有几个同龄人看着你并立即告知你是如何犯错以及如何解决问题，体验会有多么不同。这正是软件工程公司中团队坐在一起（或进行配对编程）的原因。编程很难。软件工程更难。你需要另一双眼睛。
-
-> 2    Literally, if you are, in fact, a bike designer.  
-> 2  实际上，如果你是一个自行车设计师。
->
-> 3    I should note that sometimes it’s dangerous to get too much feedback too early in the process if you’re still unsure of your general direction or goal.  
-> 3  我应该注意到，如果你仍然不确定自己的总体方向或目标，那么在过程中过早地获得太多反馈是很危险的。
-
 
 ### Pace of Progress 进展速度
 
@@ -199,7 +197,7 @@ Twenty-five years ago, conventional wisdom stated that for an engineer to be pro
 
 25年前，传统观念认为，工程师要想提高工作效率，就需要有一间自己的办公室，还要有一扇关着的门。据说，只有这样，他们才能有充足的时间、不受干扰的编写代码。
 
-I think that it’s not only unnecessary for most engineers4 to be in a private office, it’s downright dangerous. Software today is written by teams, not individuals, and a high- bandwidth, readily available connection to the rest of your team is even more valuable than your internet connection. You can have all the uninterrupted time in the world, but if you’re using it to work on the wrong thing, you’re wasting your time.
+I think that it’s not only unnecessary for most engineers[^4] to be in a private office, it’s downright dangerous. Software today is written by teams, not individuals, and a high- bandwidth, readily available connection to the rest of your team is even more valuable than your internet connection. You can have all the uninterrupted time in the world, but if you’re using it to work on the wrong thing, you’re wasting your time.
 
 我认为，对大多数工程师来说，在私人办公室里不仅没有必要，而且是完全错误的。今天的软件是由团队而不是个人编写的，与团队其他成员的高带宽、随时可用的连接甚至比你使用互联网更有价值。你可以拥有不受打扰的时间，但如果你用它来做错误的事情，你这是在浪费时间。
 
@@ -226,7 +224,7 @@ Don’t misunderstand us—we still think engineers need uninterrupted time to f
 ------
 
 
-> 4    I do, however, acknowledge that serious introverts likely need more peace, quiet, and alone time than most people and might benefit from a quieter environment, if not their own office.  
+> [^4]:    I do, however, acknowledge that serious introverts likely need more peace, quiet, and alone time than most people and might benefit from a quieter environment, if not their own office.  
 > 4  然而，我承认，严肃内向的人可能比大多数人需要更多的平静、安静和独处的时间，如果不是他们自己的办公室，他们可能会从一个更安静的环境中受益。
 
 ### In Short, Don’t Hide 总之，不要隐藏
@@ -276,12 +274,12 @@ So, if teamwork is the best route to producing great software, how does one buil
 那么，如果团队合作是生产优秀软件的最佳路径，那么如何建立（或找到）一个优秀的团队呢？
 
 To reach collaborative nirvana, you first need to learn and embrace what I call the “three pillars” of social skills. These three principles aren’t just about greasing the wheels of relationships; they’re the foundation on which all healthy interaction and collaboration are based:
-*Pillar 1: Humility*
-    You are not the center of the universe (nor is your code!). You’re neither omniscient nor infallible. You’re open to self-improvement.
-*Pillar 2: Respect*
+*Pillar 1: Humility*  
+	You are not the center of the universe (nor is your code!). You’re neither omniscient nor infallible. You’re open to self-improvement.
+*Pillar 2: Respect*  
     You genuinely care about others you work with. You treat them kindly and appreciate their abilities and accomplishments.
-*Pillar 3: Trust*
-    You believe others are competent and will do the right thing, and you’re OK with letting them drive when appropriate.5
+*Pillar 3: Trust*  
+    You believe others are competent and will do the right thing, and you’re OK with letting them drive when appropriate.[^5]
 
 要达到协作的最佳效果，你首先需要学习并接受我所说的社交的“三大支柱”。这三个原则不仅仅是人际关系的润滑剂，更是一切健康互动和协作的基础：
 
@@ -295,6 +293,9 @@ To reach collaborative nirvana, you first need to learn and embrace what I call 
 If you perform a root-cause analysis on almost any social conflict, you can ultimately trace it back to a lack of humility, respect, and/or trust. That might sound implausible at first, but give it a try. Think about some nasty or uncomfortable social situation currently in your life. At the basest level, is everyone being appropriately humble? Are people really respecting one another? Is there mutual trust?
 
 如果你对所有社会冲突进行根本原因分析，你最终可以追溯到缺乏谦逊、尊重和信任。一开始听起来似乎不太可信，但不妨试一试。想想你生活中的一些令人尴尬或不舒服的社交场合。在最基本的层面上，每个人都适当地谦虚吗？人们真的互相尊重吗？有相互信任吗？
+
+> [^5]:    This is incredibly difficult if you’ve been burned in the past by delegating to incompetent people./
+> 5  如果你过去曾被委派给不称职的人，这将是非常困难的。
 
 ### Why Do These Pillars Matter?为什么这些支柱很重要？
 
@@ -313,11 +314,6 @@ Here’s a quote from a famous lecture by Richard Hamming:
 The moral is this: do not underestimate the power of playing the social game. It’s not about tricking or manipulating people; it’s about creating relationships to get things done. Relationships always outlast projects. When you’ve got richer relationships with your coworkers, they’ll be more willing to go the extra mile when you need them.
 
 寓意是：不要低估社交游戏的力量。这不是欺骗或操纵人们；这是关于建立关系来完成事情。关系总是比项目更长久。当你和你的同事关系更融洽时，他们会更愿意在你需要他们的时候帮助你。
-
-
-> 5    This is incredibly difficult if you’ve been burned in the past by delegating to incompetent people.  
-> 5  如果你过去曾被委派给不称职的人，这将是非常困难的。
-
 
 ### Humility, Respect, and Trust in Practice 谦逊、尊重和信任的实践
 
@@ -368,7 +364,7 @@ A better way to say the same thing might be, “Hey, I’m confused by the contr
 There’s a well-known urban legend in the business world about a manager who makes a mistake and loses an impressive $10 million. He dejectedly goes into the office the next day and starts packing up his desk, and when he gets the inevitable “the CEO wants to see you in his office” call, he trudges into the CEO’s office and quietly slides a piece of paper across the desk.  
 “What’s this?” asks the CEO.  
 “My resignation,” says the executive. “I assume you called me in here to fire me.”  
-“Fire you?” responds the CEO, incredulously. “Why would I fire you? I just spent $10 million training you!”6  
+“Fire you?” responds the CEO, incredulously. “Why would I fire you? I just spent $10 million training you!”[^6]  
 
 商界有一个著名的城市传奇，说的是一位经理犯了一个错误，损失了令人印象深刻的1000万美元。第二天，他沮丧地走进办公室，开始收拾桌子。当他接到不可抗拒的“CEO想见你在办公室”电话时，他蹒跚地走进CEO办公室，悄悄地把一张纸递上桌子。  
 "这是什么？"CEO问道。  
@@ -379,7 +375,7 @@ It’s an extreme story, to be sure, but the CEO in this story understands that 
 
 的确，这是一个极端的故事，但在这个故事中，首席执行官明白解雇这名高管并不能挽回这1000万美元的损失，而且会因为失去一位有价值的高管，让事情变得更糟糕，他非常确定，这位高管不会再犯类似错误。
 
-At Google, one of our favorite mottos is that “Failure is an option.” It’s widely recognized that if you’re not failing now and then, you’re not being innovative enough or taking enough risks. Failure is viewed as a golden opportunity to learn and improve for the next go-around.7 In fact, Thomas Edison is often quoted as saying, “If I find 10,000 ways something won’t work, I haven’t failed. I am not discouraged, because every wrong attempt discarded is another step forward.”
+At Google, one of our favorite mottos is that “Failure is an option.” It’s widely recognized that if you’re not failing now and then, you’re not being innovative enough or taking enough risks. Failure is viewed as a golden opportunity to learn and improve for the next go-around.[^7] In fact, Thomas Edison is often quoted as saying, “If I find 10,000 ways something won’t work, I haven’t failed. I am not discouraged, because every wrong attempt discarded is another step forward.”
 
 在谷歌，我们最喜欢的格言之一是“失败也是一种选择”。我们普遍认为，如果你没有遭遇过失败，你就没有足够的创新或承担足够的风险的能力。失败被视为一个黄金机会，可以在下一次尝试中学习和改进。事实上，人们经常引用托马斯·爱迪生的话说：“如果我发现有一万种方法不能成功，我就没有失败。我并不气馁，因为每一个被抛弃的错误尝试都是向前迈出的另一步”
 
@@ -387,10 +383,10 @@ Over in Google X—the division that works on “moonshots” like self-driving 
 
 在谷歌X部门——该部门负责研究自动驾驶汽车和通过热气球提供互联网接入等 "登月计划"——故意将失败次数纳入其激励系统。人们会想出一些稀奇古怪的想法，同事们也会受到积极的鼓励尽快实现它们。每个人都会得到奖励（甚至是竞争），看看他们能在一段固定的时间内反驳或否定多少观点。只有当一个概念真的不能在白板上被所有同行揭穿时，它才能进入早期原型。
 
-> 6    You can find a dozen variants of this legend on the web, attributed to different famous managers.  
+> [^6]:    You can find a dozen variants of this legend on the web, attributed to different famous managers./
 > 6  你可以在网上找到这一传说的十几种变体，它们都是由不同的著名经理人创造的。
 > 
-> 7    By the same token, if you do the same thing over and over and keep failing, it’s not failure, it’s incompetence.  
+> [^7]:    By the same token, if you do the same thing over and over and keep failing, it’s not failure, it’s incompetence./
 > 7  同样的道理，如果你一次又一次地做同样的事情，却不断失败，那不是失败，而是无能。
 
 
