@@ -28,19 +28,19 @@ The previous two chapters introduced the concept of small tests and discussed wh
 
 ## The Impact of Test Doubles on Software Development  测试替代对软件开发的影响
 The use of test doubles introduces a few complications to software development that require some trade-offs to be made. The concepts introduced here are discussed in more depth throughout this chapter:
-*Testability*
+*Testability*  
 	To use test doubles, a codebase needs to be designed to be testable—it should be possible for tests to swap out real implementations with test doubles. For example, code that calls a database needs to be flexible enough to be able to use a test double in place of a real database. If the codebase isn’t designed with testing in mind and you later decide that tests are needed, it can require a major commitment to refactor the code to support the use of test doubles.
-*Applicability*
+*Applicability*  
 	Although proper application of test doubles can provide a powerful boost to engineering velocity, their improper use can lead to tests that are brittle, complex, and less effective. These downsides are magnified when test doubles are used improperly across a large codebase, potentially resulting in major losses in productivity for engineers. In many cases, test doubles are not suitable and engineers should prefer to use real implementations instead.
-*Fidelity*
+*Fidelity*  
 	Fidelity refers to how closely the behavior of a test double resembles the behavior of the real implementation that it’s replacing. If the behavior of a test double significantly differs from the real implementation, tests that use the test double likely wouldn’t provide much value—for example, imagine trying to write a test with a test double for a database that ignores any data added to the database and always returns empty results. But perfect fidelity might not be feasible; test doubles often need to be vastly simpler than the real implementation in order to be suitable for use in tests. In many situations, it is appropriate to use a test double even without perfect fidelity. Unit tests that use test doubles often need to be supplemented by larger-scope tests that exercise the real implementation.
 
 测试替代的使用给软件开发带来了一些复杂的问题，需要做出一些权衡。本章将更深入地讨论此处介绍的概念：
-*可测试性*
+*可测试性*  
 	为了使用测试替代，需要将代码库设计成可测试的--测试应该可以用测试替代替换实际实现。例如，调用数据库的代码需要足够灵活，以便能够使用测试替代来代替真正的数据库。如果代码库在设计时没有考虑到测试，而你后来决定需要测试，那么可能需要进行大量的提交来重构代码，以支持使用测试替代。
-*适用性*
+*适用性*  
 	尽管适当地应用测试替代可以极大地提高工程速度，但其使用不当会导致测试变得脆弱、复杂且低效。当测试替代在大型代码库中使用不当时，这些缺点就会被放大，这可能会导致工程师在生产效率方面的重大损失。在许多情况下，测试替代是不合适的，工程师应该倾向于使用真实的实现。
-*仿真度*
+*仿真度*  
 	仿真度是指测试替代的行为与它所替代的真实实现的行为有多大的相似性。如果测试替代的行为与真正的实现有很大的不同，那么使用测试替代的测试可能不会提供太多的价值--例如，想象一下，尝试用测试替代为一个数据库写一个测试，这个数据库忽略了添加到数据库的任何数据，总是返回空结果。但是完美的仿真可能是不可行的；测试替代通常需要比实际的实现简单得多，以便适合在测试中使用。在许多情况下，即使没有完美的仿真度，使用测试替代也是合适的。使用测试替代的单元测试通常需要由执行实际实现的更大范围的测试来支持。
 
 ## Test Doubles at Google 谷歌的测试替代
@@ -209,8 +209,6 @@ PaymentProcessor paymentProcessor;
   }
 }
 ```
-
-
 
 Mocking frameworks exist for most major programming languages. At Google, we use Mockito for Java, [the googlemock component of Googletest ](https://github.com/google/googletest)for C++, and [uni‐](https://oreil.ly/clzvH) [ttest.mock ](https://oreil.ly/clzvH)for Python.
 
