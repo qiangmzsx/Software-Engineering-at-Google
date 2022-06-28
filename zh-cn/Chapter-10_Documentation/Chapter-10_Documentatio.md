@@ -30,7 +30,7 @@ Quality documentation has tremendous benefits for an engineering organization. C
 
 高质量的文档对一个工程组织有巨大的好处。代码和API变得更容易理解，减少了错误。当项目团队的设计目标和团队目标明确时，他们会更加专注。当步骤被清楚地列出时，手动流程更容易被遵循。如果流程有明确的文档记录，那么将新成员加入团队或代码库所需的工作量要小得多。
 
-But because documentation’s benefits are all necessarily downstream, they generally don’t reap immediate benefits to the author. Unlike testing, which (as we’ll see) quickly provides benefits to a programmer, documentation generally requires more effort up front and doesn’t provide clear benefits to an author until later. But, like investments in testing, the investment made in documentation will pay for itself over time. After all, you might write a document only once,1 but it will be read hundreds, perhaps thousands of times afterward; its initial cost is amortized across all the future readers. Not only does documentation scale over time, but it is critical for the rest of the organization to scale as well. It helps answer questions like these:
+But because documentation’s benefits are all necessarily downstream, they generally don’t reap immediate benefits to the author. Unlike testing, which (as we’ll see) quickly provides benefits to a programmer, documentation generally requires more effort up front and doesn’t provide clear benefits to an author until later. But, like investments in testing, the investment made in documentation will pay for itself over time. After all, you might write a document only once,[^1] but it will be read hundreds, perhaps thousands of times afterward; its initial cost is amortized across all the future readers. Not only does documentation scale over time, but it is critical for the rest of the organization to scale as well. It helps answer questions like these:
 
 - Why were these design decisions made?
 - Why did we implement this code in this manner?
@@ -45,7 +45,7 @@ But because documentation’s benefits are all necessarily downstream, they gene
 If documentation conveys all these benefits, why is it generally considered “poor” by engineers? One reason, as we’ve mentioned, is that the benefits aren’t immediate, especially to the writer. But there are several other reasons:
 
 - Engineers often view writing as a separate skill than that of programming. (We’ll try to illustrate that this isn’t quite the case, and even where it is, it isn’t necessarily a separate skill from that of software engineering.)
-- Some engineers don’t feel like they are capable writers. But you don’t need a robust command of English2 to produce workable documentation. You just need to step outside yourself a bit and see things from the audience’s perspective.
+- Some engineers don’t feel like they are capable writers. But you don’t need a robust command of English[^2] to produce workable documentation. You just need to step outside yourself a bit and see things from the audience’s perspective.
 - Writing documentation is often more difficult because of limited tools support or integration into the developer workflow.
 - Documentation is viewed as an extra burden—something else to maintain— rather than something that will make maintenance of their existing code easier.
 
@@ -56,12 +56,11 @@ If documentation conveys all these benefits, why is it generally considered “p
 - 由于有限的工具支持或集成到开发人员的工作流程中，编写文档往往更加困难。
 - 文档被看作是一个额外的负担——需要维护的其他东西——而不是能使他们现有的代码维护更容易的东西。
 
-```
-1    OK, you will need to maintain it and revise it occasionally.
-2    English is still the primary language for most programmers, and most technical documentation for programmers relies on an understanding of English.
-1   好的，你将需要维护它并偶尔修改它。
-2   英语仍然是大多数程序员的主要语言，大多数程序员的技术文档都依赖于对英语的理解。
-```
+> [^1]:    OK, you will need to maintain it and revise it occasionally./
+> 1   好的，你将需要维护它并偶尔修改它。
+>
+> [^2]:    English is still the primary language for most programmers, and most technical documentation for programmers relies on an understanding of English.
+> 2   英语仍然是大多数程序员的主要语言，大多数程序员的技术文档都依赖于对英语的理解。
 
 Not every engineering team needs a technical writer (and even if that were the case, there aren’t enough of them). This means that engineers will, by and large, write most of the documentation themselves. So, instead of forcing engineers to become technical writers, we should instead think about how to make writing documentation easier for engineers. Deciding how much effort to devote to documentation is a decision your organization will need to make at some point.
 
@@ -135,7 +134,7 @@ When Google was much smaller and leaner, it had few technical writers. The easie
 
 当谷歌规模更小、更精简时，几乎没有技术作家。分享信息的最简单方法是通过我们自己的内部维基（GooWiki）。起初，这似乎是一个合理的方法；所有工程师共享一个文档集，可以根据需要进行更新。
 
-But as Google scaled, problems with a wiki-style approach became apparent. Because there were no true owners for documents, many became obsolete.[3](#_bookmark765) Because no process was put in place for adding new documents, duplicate documents and document sets began appearing. GooWiki had a flat namespace, and people were not good at applying any hierarchy to the documentation sets. At one point, there were 7 to 10 documents (depending on how you counted them) on setting up Borg, our production compute environment, only a few of which seemed to be maintained, and most were specific to certain teams with certain permissions and assumptions.
+But as Google scaled, problems with a wiki-style approach became apparent. Because there were no true owners for documents, many became obsolete.[^3] Because no process was put in place for adding new documents, duplicate documents and document sets began appearing. GooWiki had a flat namespace, and people were not good at applying any hierarchy to the documentation sets. At one point, there were 7 to 10 documents (depending on how you counted them) on setting up Borg, our production compute environment, only a few of which seemed to be maintained, and most were specific to certain teams with certain permissions and assumptions.
 
 但随着谷歌规模的扩大，维基风格方法的问题变得明显。因为没有真正的文档所有者，许多文档变得过时了。因为没有建立添加新文档的流程，重复的文档和文档集开始出现了。GooWiki有一个扁平的命名空间，人们不擅长将任何层次结构应用于文档集。在某些点上，有7到10个文档（取决于你如何计算）用于设置我们的生产计算环境Borg，其中只有少数文档似乎得到了维护，大多数文档都是特定于具有特定权限和设定的特指定团队的。
 
@@ -163,11 +162,9 @@ The key difference was that maintaining documentation became a similar experienc
 
 ------
 
+> [^3]:	When we deprecated GooWiki, we found that around 90% of the documents had no views or updates in the previous few months./
+> 3   当我们弃用GooWiki时，我们发现大约90%的文档在前几个月没有视图或更新。
 
-```
-3	When we deprecated GooWiki, we found that around 90% of the documents had no views or updates in the previous few months.  
-3   当我们弃用GooWiki时，我们发现大约90%的文档在前几个月没有视图或更新。
-```
 
 ## Know Your Audience 了解你的受众
 
@@ -259,7 +256,7 @@ We all know that code comments are essential to a well-documented API. But what 
 
 我们都知道，代码注释对于一个良好的文档化的API来说是必不可少的。但是什么才是 "好的 "注释呢？在本章的前面，我们确定了参考文档的两个主要受众：寻求者和浏览者。寻求者知道他们想要什么，而浏览者不知道。寻求者的关键点是一个一致的注释代码库，这样他们就可以快速扫描API并找到他们正在寻找的东西。对于浏览者来说，关键的胜利是明确识别API的用途，通常是在文件头的顶部。我们将在下面的小节中介绍一些代码注释。下面的代码注释指南适用于C++，但在谷歌，其他语言也有类似的规则。
 
-**File comments** **文件注释**
+**File comments 文件注释**
 Almost all code files at Google must contain a file comment. (Some header files that contain only one utility function, etc., might deviate from this standard.) File comments should begin with a header of the following form:
 
 在谷歌，几乎所有的代码文件都必须包含一个文件注释。(一些只包含一个实用函数的头文件等，可能会偏离这个标准)。文件注释应该以下列形式的头文件开始：
