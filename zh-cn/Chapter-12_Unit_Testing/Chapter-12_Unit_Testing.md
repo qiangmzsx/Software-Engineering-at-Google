@@ -78,30 +78,30 @@ Before talking about patterns for avoiding brittle tests, we need to answer a qu
 
 What does this look like in practice? We need to think about the kinds of changes that engineers make to production code and how we should expect tests to respond to those changes. Fundamentally, there are four kinds of changes:
 
-*Pure refactorings*  
+- *Pure refactorings*  
 	When an engineer refactors the internals of a system without modifying its interface, whether for performance, clarity, or any other reason, the system’s tests shouldn’t need to change. The role of tests in this case is to ensure that the refactoring didn’t change the system’s behavior. Tests that need to be changed during a refactoring indicate that either the change is affecting the system’s behavior and isn’t a pure refactoring, or that the tests were not written at an appropriate level of abstraction. Google’s reliance on large-scale changes (described in [Chapter 22](#_bookmark1935)) to do such refactorings makes this case particularly important for us.
 
-*New features*  
+- *New features*  
 	When an engineer adds new features or behaviors to an existing system, the system’s existing behaviors should remain unaffected. The engineer must write new tests to cover the new behaviors, but they shouldn’t need to change any existing tests. As with refactorings, a change to existing tests when adding new features suggest unintended consequences of that feature or inappropriate tests.
 
-*Bug fixes*  
+- *Bug fixes*  
 	Fixing a bug is much like adding a new feature: the presence of the bug suggests that a case was missing from the initial test suite, and the bug fix should include that missing test case. Again, bug fixes typically shouldn’t require updates to existing tests.
 
-*Behavior changes*  
+- *Behavior changes*  
 	Changing a system’s existing behavior is the one case when we expect to have to make updates to the system’s existing tests. Note that such changes tend to be significantly more expensive than the other three types. A system’s users are likely to rely on its current behavior, and changes to that behavior require coordination with those users to avoid confusion or breakages. Changing a test in this case indicates that we’re breaking an explicit contract of the system, whereas changes in the previous cases indicate that we’re breaking an unintended contract. Low- level libraries will often invest significant effort in avoiding the need to ever make a behavior change so as not to break their users.
 
 这在实践中是什么样子的呢？我们需要考虑工程师对生产代码所做的各种修改，以及我们应该如何期望测试对这些修改做出反应。从根本上说，有四种更改：
 
-*纯粹的重构*  
+- *纯粹的重构*  
   当工程师在不修改系统接口的情况下重构系统内部时，无论是出于性能、清晰度还是任何其他原因，系统的测试都不需要更改。在这种情况下，测试的作用是确保重构没有改变系统的行为。在重构过程中需要改变的测试表明，要么变化影响了系统的行为，不是纯粹的重构，要么测试没有写在适当的抽象水平上。Google依靠大规模的变化（在第22章中描述）来做这样的重构，使得这种情况对我们特别重要。
 
-*新功能*  
+- *新功能*  
   当工程师向现有系统添加新的功能或行为时，系统的现有行为应该不受影响。工程师必须编写新的测试来覆盖新的行为，但他们不应该需要改变任何现有的测试。与重构一样，在添加新功能时，对现有测试的改变表明该功能的非预期后果或不适当的测试。
 
-*Bug修复*  
+- *Bug修复*  
   修复bug与添加新功能很相似：bug的存在表明初始测试套件中缺少一个案例，bug修复应该包括缺少的测试案例。同样，错误修复通常不需要对现有的测试进行更新。
 
-*行为改变*  
+- *行为改变*  
   当我们期望必须对系统的现有测试进行更新时，更改系统的现有行为就是一种情况。请注意，这种变化往往比其他三种类型的测试代价要高得多。系统的用户可能依赖于其当前行为，而对该行为的更改需要与这些用户进行协调，以避免混淆或中断。在这种情况下改变测试表明我们正在破坏系统的一个明确的契约，而在前面的情况下改变则表明我们正在破坏一个非预期的契约。基础类库往往会投入大量的精力来避免需要进行行为的改变，以免破坏他们的用户。
 
 The takeaway is that after you write a test, you shouldn’t need to touch that test again as you refactor the system, fix bugs, or add new features. This understanding is what makes it possible to work with a system at scale: expanding it requires writing only a small number of new tests related to the change you’re making rather than potentially having to touch every test that has ever been written against the system. Only breaking changes in a system’s behavior should require going back to change its tests, and in such situations, the cost of updating those tests tends to be small relative to the cost of updating all of the system’s users.

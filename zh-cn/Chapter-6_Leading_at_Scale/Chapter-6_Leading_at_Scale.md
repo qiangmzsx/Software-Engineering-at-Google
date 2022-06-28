@@ -254,23 +254,23 @@ Instead, we’re going to discuss team scaling from a defensive and personal poi
 ### The Cycle of Success  成功的循环
 
 When a team tackles a difficult problem, there’s a standard pattern that emerges, a particular cycle. It looks like this:
-*Analysis*
+- *Analysis*  
 	First, you receive the problem and start to wrestle with it. You identify the blinders, find all the trade-offs, and build consensus about how to manage them.
-*Struggle*
+- *Struggle*  
 	You start moving on the work, whether or not your team thinks it’s ready. You prepare for failures, retries, and iteration. At this point, your job is mostly about herding cats. Encourage your leaders and experts on the ground to form opinions and then listen carefully and devise an overall strategy, even if you have to “fake it” at first.[^3]
-*Traction*
+- *Traction*  
 	Eventually your team begins to figure things out. You’re making smarter decisions, and real progress is made. Morale improves. You’re iterating on trade-offs, and the organization is beginning to drive itself around the problem. Nice job!
-*Reward*
+- *Reward*  
 	Something unexpected happens. Your manager takes you aside and congratulates you on your success. You discover your reward isn’t just a pat on the back, but a whole new problem to tackle. That’s right: the reward for success is more work... and more responsibility! Often, it’s a problem that is similar or adjacent to the first one, but equally difficult.
 
 当一个团队遇到困难的问题， 往往会显现出一个标准的解决模型--一个特殊的循环，正如下面这样：
-*分析*
+- *分析*  
 	首先，你收到一个问题，然后开始尝试解决它。你找出了相关的盲点，找到所有权衡点，然后为如何解决他们在团队内达成共识。
-*挣扎*
+- *挣扎*  
 	你开始着手工作，无论你的团队是否已经准备好。你准备好了迎接失败、重试和反复迭代。从这点上来讲，你的工作就像养猫。鼓励你手下的团队和专家们坐下来整理观点，然后仔细倾听，制定全局战略，哪怕最开始你不得不“编造一个战略”。
-*前进*
+- *前进*  
 	终于你的团队开始把事情搞清楚了，你做的决策越来越明智，问题也有了实质性的进展。士气得到了鼓舞。你开始反复迭代权衡，组织开始自驱地解决这个问题。干得漂亮！
-*奖励*
+- *奖励*  
 	一些意料之外的事情发生了。你的上级把你叫到一旁然后祝贺你的成功。你发现奖励不仅仅是领导在你后背轻轻拍了一下祝贺你，而是给了你一个新的问题去解决。是的：对于成功的奖励往往是更多的工作--和更多的责任！通常是一个类似的，或者关联的问题，但是同样困难。
 
 So now you’re in a pickle. You’ve been given a new problem, but (usually) not more people. Somehow you need to solve both problems now, which likely means that the original problem still needs to be managed with half as many people in half the time. You need the other half of your people to tackle the new work! We refer to this final step as the compression stage: you’re taking everything you’ve been doing and compressing it down to half the size.
@@ -313,19 +313,19 @@ This tension is one of the biggest dangers to your effectiveness as a leader. If
 这两者直接的关系是威胁你作为领导的工作效率的最大的危险之一。如果你放入自己变成纯被动响应式的工作模式（这往往会自然而然的发生），你将会花费你全部的时间和精力解决紧急的事，但是这些东西在宏观层面几乎都是不重要的。一定要记住你作为一个领导的工作是要做那些必须由你来做的事，比如规划穿越森林的路线。构建这些“元策略”是非常重要的，但几乎从不紧急。相比起来，回复下一封紧急的邮件永远更简单。
 
 So how can you force yourself to work mostly on important things, rather than urgent things? Here are a few key techniques:
-*Delegate*
+- *Delegate*  
 	Many of the urgent things you see can be delegated back to other leaders in your organization. You might feel guilty if it’s a trivial task; or you might worry that handing off an issue is inefficient because it might take those other leaders longer to fix. But it’s good training for them, and it frees up your time to work on important things that only you can do.
-*Schedule dedicated time*
+- *Schedule dedicated time*  
 	Regularly block out two hours or more to sit quietly and work only on important- but-not-urgent things—things like team strategy, career paths for your leaders, or how you plan to collaborate with neighboring teams.
-*Find a tracking system that works*
+- *Find a tracking system that works*  
 	There are dozens of systems for tracking and prioritizing work. Some are software based (e.g., specific “to-do” tools), some are pen-and-paper based (the “Bullet Journal” method), and some systems are agnostic to implementation. In this last category, David Allen’s book, Getting Things Done, is quite popular among engineering managers; it’s an abstract algorithm for working through tasks and maintaining a prized “inbox zero.” The point here is to try these different systems and determine what works for you. Some of them will click with you and some will not, but you definitely need to find something more effective than tiny Post- It notes decorating your computer screen.
 
 那么，怎么才能强迫你自己花更多精力在重要的事情上，而不是紧急的事情上呢？下面列举了几个关键技巧：  
-*委托*  
+- *委托*  
 	许多紧急的事件实际上可以委托给你组织里的其他领导者。如果是比较琐碎的任务你可能会感到有一点点罪恶；或者你可能会担心有点低效，如果其他的领导者将花较长时间来解决。但这对他们来说是很好的锻炼的机会，而且能够为你腾出时间来去解决重要的事情。
-*安排专注时间*  
+- *安排专注时间*  
 	定期安排占据2个小时或更长时间的整段时间来专注处理重要但不紧急的事，比如团队策略，团队中管理者的职业生涯规划，或者制定如何与其他团队协作的计划。
-*找到一个有效的进度跟踪系统*  
+- *找到一个有效的进度跟踪系统*  
 	市面上有很多关于进度跟踪和排优先级的系统。一些是有基于现成的软件的（比如“待办”管理工具），一些是基于纸笔的（“Bullet Journal”方法），以及另一些没有指明具体实现方法的系统。在这最后一类中，David Allen 的书《搞定Ⅰ : 无压工作的艺术》在工程师管理者们之间很流行；它是一套关于工完成任务和将收件箱清零的抽象的方法论。这里的关键点是要去尝试不同的系统，然后选择一个对你来说最有效的系统。他们其中一些会很合适，一些并不合适，但你绝对需要找到比在电脑上贴便签更有效率的方法--它更多是在装点你的电脑屏幕。
 
 ### Learn to Drop Balls  学会丢球
@@ -373,27 +373,27 @@ Part of the answer is that over time, as you grow older, your overall stamina bu
 这个答案的一部分是，随着时间的推移，你年龄增长，你的耐力会随着增长。在你职业生涯的早期，在办公室连续工作8个小时就会让你感到震惊；回到家后你会感觉疲劳和空虚。但是就像马拉松训练一样，你的大脑和身体会能够储备越来越多的耐力。
 
 The other key part of the answer is that leaders gradually learn to manage their energy more intelligently. It’s something they learn to pay constant attention to. Typically, this means being aware of how much energy you have at any given moment,and making deliberate choices to “recharge” yourself at specific moments, in specific ways. Here are some great examples of mindful energy management:  
-*Take real vacations*  
-		A weekend is not a vacation. It takes at least three days to “forget” about your work; it takes at least a week to actually feel refreshed. But if you check your work email or chats, you ruin the recharge. A flood of worry comes back into your mind, and all of the benefit of psychological distancing dissipates. The vacation recharges only if you are truly disciplined about disconnecting.[^4] And, of course, this is possible only if you’ve built a self-driving organization.
-*Make it trivial to disconnect*
-		When you disconnect, leave your work laptop at the office. If you have work communications on your phone, remove them. For example, if your company uses G Suite (Gmail, Google Calendar, etc.), a great trick is to install these apps in a “work profile” on your phone. This causes a second set of work-badged apps to appear on your phone. For example, you’ll now have two Gmail apps: one for personal email, one for work email. On an Android phone, you can then press a single button to disable the entire work profile at once. All the work apps gray out, as if they were uninstalled, and you can’t “accidentally” check work messages until you re-enable the work profile.
-*Take real weekends, too*
-		A weekend isn’t as effective as a vacation, but it still has some rejuvenating power. Again, this recharge works only if you disconnect from work communications. Try truly signing out on Friday night, spend the weekend doing things you love, and then sign in again on Monday morning when you’re back in the office.
-*Take breaks during the day*
-		Your brain operates in natural 90-minute cycles.[^5]Use the opportunity to get up and walk around the office, or spend 10 minutes walking outside. Tiny breaks like this are only tiny recharges, but they can make a tremendous difference in your stress levels and how you feel over the next two hours of work.
-*Give yourself permission to take a mental health day*
-		Sometimes, for no reason, you just have a bad day. You might have slept well, eaten well, exercised—and yet you are still in a terrible mood anyway. If you’re a leader, this is an awful thing. Your bad mood sets the tone for everyone around you, and it can lead to terrible decisions (emails you shouldn’t have sent, overly harsh judgements, etc.). If you find yourself in this situation, just turn around and go home, declaring a sick day. Better to get nothing done that day than to do active damage.
+- *Take real vacations*  
+	A weekend is not a vacation. It takes at least three days to “forget” about your work; it takes at least a week to actually feel refreshed. But if you check your work email or chats, you ruin the recharge. A flood of worry comes back into your mind, and all of the benefit of psychological distancing dissipates. The vacation recharges only if you are truly disciplined about disconnecting.[^4] And, of course, this is possible only if you’ve built a self-driving organization.
+- *Make it trivial to disconnect*  
+	When you disconnect, leave your work laptop at the office. If you have work communications on your phone, remove them. For example, if your company uses G Suite (Gmail, Google Calendar, etc.), a great trick is to install these apps in a “work profile” on your phone. This causes a second set of work-badged apps to appear on your phone. For example, you’ll now have two Gmail apps: one for personal email, one for work email. On an Android phone, you can then press a single button to disable the entire work profile at once. All the work apps gray out, as if they were uninstalled, and you can’t “accidentally” check work messages until you re-enable the work profile.
+- *Take real weekends, too*  
+	A weekend isn’t as effective as a vacation, but it still has some rejuvenating power. Again, this recharge works only if you disconnect from work communications. Try truly signing out on Friday night, spend the weekend doing things you love, and then sign in again on Monday morning when you’re back in the office.
+- *Take breaks during the day*  
+	Your brain operates in natural 90-minute cycles.[^5]Use the opportunity to get up and walk around the office, or spend 10 minutes walking outside. Tiny breaks like this are only tiny recharges, but they can make a tremendous difference in your stress levels and how you feel over the next two hours of work.
+- *Give yourself permission to take a mental health day*  
+	Sometimes, for no reason, you just have a bad day. You might have slept well, eaten well, exercised—and yet you are still in a terrible mood anyway. If you’re a leader, this is an awful thing. Your bad mood sets the tone for everyone around you, and it can lead to terrible decisions (emails you shouldn’t have sent, overly harsh judgements, etc.). If you find yourself in this situation, just turn around and go home, declaring a sick day. Better to get nothing done that day than to do active damage.
 
 这个答案的另一部分是领导者渐渐学会更智能的管理他们的精力。这是他们持续学习投入的结果。通常，这意味着他们能够意识到自己还剩多少精力，然后决定在某个特定的时刻通过自己的方式给自己“充能”。以下是一些很好的细心管理能量方式：
-*给自己真正放个假*
+- *给自己真正放个假*  
 	一个周末并不算一个真正的假期。你需要至少三天来“忘记”你的工作；至少需要一周来让你重新感觉充满能量。但是如果你检查你的邮箱或工作聊天，你就破坏了这个充电过程。洪水般的焦虑充满你的脑袋，物理上远离工作的好处消散殆尽。只有在你真的断开与工作的连接时，你的假期才能使你真正重新充能。当然，这一切建立在你已经建立了一个自我驱型组织的前提下。
-*让失联的代价微不足道(主要指消息模式切换)*
+- *让失联的代价微不足道(主要指消息模式切换)*  
 	当你失联时，将你的工作笔记本留在办公室。如果你有工作的通讯工具留在你的手机上，将它们移除掉。比如，如果你的公司用 Google 的 G 套件(Gmail, Google Calendar 等)，一个很方便的技巧是在手机上安装一个叫“工作资料” 的软件。这将花费你几秒钟的时间来把软件标记为是否是工作软件。例如，你将有两个 Gmail 应用：一个为个人邮件，一个为工作邮件。在安卓手机上，你能够一键切换工作模式。所有工作应用软件将变灰，就像它们未安装。你也不可能“不小心”查看了工作信息直到你重新激活工作资料。
-*也要享受真正的周末*
+- *也要享受真正的周末*  
 	一个周末并不像假期一样有效，但它仍有让你振奋起来的能力。再强调一次，这样的充能只有在你断开工作联系的时候才有用。试着在周五晚上彻底退出工作状态，把周末的时间花在你喜欢的事情上，然后在周一早晨回到办公室时再重新进入工作状态。
-*在一天之中偶尔小休一下*
+- *在一天之中偶尔小休一下*  
 	人的大脑每90分钟会有一个自然的循环。利用这个机会站起来在办公室走一走，或者花10分钟出去走一走。像这种微小的休息只能获得很小的充能，但是这能给你的紧张度和下一个小时的工作上带来巨大的影响。
-*给自己一个心理健康日的许可*
+- *给自己一个心理健康日的许可*  
 	有时候，没有任何理由，你度过了糟糕的一天。你睡的很好，吃的很好，也进行了运动，但还是在很糟糕的情绪里。如果你是个领导，那这将是很悲催的一件事。你的坏情绪影响了你周围所有人的情绪，而且这将会导致很糟糕的决定（发出去不该发的邮件，给别人下达了过于残酷的评价等）。如果你发现你在这个状态下，你应该请个病假，转身回家。什么都不干也比干破坏性的事强。
 
 In the end, managing your energy is just as important as managing your time. If you learn to master these things, you’ll be ready to tackle the broader cycle of scaling responsibility and building a self-sufficient team.

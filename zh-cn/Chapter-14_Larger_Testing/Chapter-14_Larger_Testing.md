@@ -124,19 +124,19 @@ Unit tests are limited to the scope that they cover (especially with the widespr
 ### Why Not Have Larger Tests? 为什么不进行大型测试？
 
 In earlier chapters, we discussed many of the properties of a developer-friendly test. In particular, it needs to be as follows:
-*Reliable*
+- *Reliable*  
 	It must not be flaky and it must provide a useful pass/fail signal.
-*Fast*
+- *Fast*  
 	It needs to be fast enough to not interrupt the developer workflow.
-*Scalable*
+- *Scalable*  
 	Google needs to be able to run all such useful affected tests efficiently for presubmits and for post-submits.
 
 在前面的章节中，我们讨论了对开发者友好的测试的许多特性。特别是，它需要做到以下几点：
-*可靠的*
+- *可靠的*  
 	它不能是不确定的，它必须提供一个有用的通过/失败信号。
-*快速*
+- *快速*  
 	它需要足够快，以避免中断开发人员的工作流程。
-*可扩展性*
+- *可扩展性*  
 	谷歌需要能够有效地运行所有这些有用的受影响的测试，用于预提交和后提交。
 
 Good unit tests exhibit all of these properties. Larger tests often violate all of these constraints. For example, larger tests are often flakier because they use more infrastructure than does a small unit test. They are also often much slower, both to set up as well as to run. And they have trouble scaling because of the resource and time requirements, but often also because they are not isolated—these tests can collide with one another.
@@ -273,39 +273,39 @@ One key component of large tests is the aforementioned SUT (see [Figure 14-5](#_
 *Figure 14-5. An example system under test (SUT)*
 
 At Google, we use many different forms of SUTs, and the scope of the SUT is one of the primary drivers of the scope of the large test itself (the larger the SUT, the larger the test). Each SUT form can be judged based on two primary factors:
-*Hermeticity*
+- *Hermeticity*  
 	This is the SUT’s isolation from usages and interactions from other components than the test in question. An SUT with high hermeticity will have the least exposure to sources of concurrency and infrastructure flakiness.
-*Fidelity*
+- *Fidelity*  
 	The SUT’s accuracy in reflecting the production system being tested. An SUT with high fidelity will consist of binaries that resemble the production versions (rely on similar configurations, use similar infrastructures, and have a similar overall topology).
 
 在谷歌，我们使用许多不同形式的SUT，而SUT的范围是大型测试本身范围的主要驱动因素之一（SUT越大，测试越大）。每种SUT形式都可以根据两个主要因素来判断。
-*封闭性性*
+- *封闭性性*  
 	这是SUT与相关测试之外的其他组件的使用和交互的隔离。具有高隔离性的SUT将具有最少的并发性和基础架构脆弱性来源。
-*仿真度*
+- *仿真度*  
 	SUT反映被测生产系统的准确性。具有高保真度的SUT将由与生产版本相似的二进制文件组成（依赖于类似的配置，使用类似的基础设施，并且具有类似的总体拓扑）。
 
 Often these two factors are in direct conflict. Following are some examples of SUTs:
-*Single-process* *SUT*
+- *Single-process* *SUT*  
 	The entire system under test is packaged into a single binary (even if in production these are multiple separate binaries). Additionally, the test code can be packaged into the same binary as the SUT. Such a test-SUT combination can be a “small” test if everything is single-threaded, but it is the least faithful to the production topology and configuration.
-*Single-machine SUT*
+- *Single-machine SUT*  
 	The system under test consists of one or more separate binaries (same as production) and the test is its own binary. But everything runs on one machine. This is used for “medium” tests. Ideally, we use the production launch configuration of each binary when running those binaries locally for increased fidelity.
-*Multimachine* *SUT*
+- *Multimachine* *SUT*  
 	The system under test is distributed across multiple machines (much like a production cloud deployment). This is even higher fidelity than the single-machine SUT, but its use makes tests “large” size and the combination is susceptible to increased network and machine flakiness.
-*Shared environments (staging and production)*
+- *Shared environments (staging and production)*  
 	Instead of running a standalone SUT, the test just uses a shared environment. This has the lowest cost because these shared environments usually already exist, but the test might conflict with other simultaneous uses and one must wait for the code to be pushed to those environments. Production also increases the risk of end-user impact.
-*Hybrids*
+- *Hybrids*  
 	Some SUTs represent a mix: it might be possible to run some of the SUT but have it interact with a shared environment. Usually the thing being tested is explicitly run but its backends are shared. For a company as expansive as Google, it is practically impossible to run multiple copies of all of Google’s interconnected services, so some hybridization is required.
 
 通常有这两个因素是直接冲突的。以下是一些SUT的例子。
-*单一进程SUT*
+- *单一进程SUT*  
 	整个被测系统被打包成一个二进制文件（即使在生产中这些是多个独立的二进制文件）。此外，测试代码可以被打包成与SUT相同的二进制文件。如果所有测试都是单线程的，那么这种测试SUT组合可能是一个“小”测试，但它对生产拓扑和配置仿真度最低。
-*单机SUT*
+- *单机SUT*  
 	被测系统由一个或多个独立的二进制文件组成（与生产相同），测试是自身的二进制文件。但一切都在一台机器上运行。这用于 "中等 "测试。理想情况下，在本地运行这些二进制文件时，我们使用每个二进制文件的生产启动配置，以提高仿真度。
-*多机SUT*
+- *多机SUT*  
 	被测系统分布在多台机器上（很像生产云部署）。这比单机SUT的仿真度还要高，但它的使用使得测试的规模 "很大"，而且这种组合很容易受到网络和机器脆弱程度的影响。
-*共享环境（临时和生产）*
+- *共享环境（临时和生产）*  
 	测试只使用共享环境，而不是运行独立的SUT。这具有最低的成本，因为这些共享环境通常已经存在，但是测试可能会与其他同时使用冲突，并且必须等待代码被推送到这些环境中。生产也增加了最终用户受到影响的风险。
-*混合模式*
+- *混合模式*  
 	一些SUT代表了一种混合：可以运行一些SUT，但可以让它与共享环境交互。通常被测试的东西是显式运行的，但是它的后端是共享的。对于像谷歌这样扩张的公司来说，实际上不可能运行所有谷歌互联服务的多个副本，因此需要一些混合。
 
 #### The benefits of hermetic SUTs 封闭式SUT的好处
@@ -390,56 +390,56 @@ What happens for new tests or tests where the client behavior changes significan
 ### Test Data 测试数据
 
 A test needs data, and a large test needs two different kinds of data:
-*Seeded* *data*
+- *Seeded* *data*  
 	Data preinitialized into the system under test reflecting the state of the SUT at the inception of the test
-*Test* *traffic*
+- *Test* *traffic*  
 	Data sent to the system under test by the test itself during its execution
 
 测试需要数据，大型测试需要两种不同的数据：
-*种子数据*
+- *种子数据*  
 	预先初始化到被测系统中的数据，反映测试开始时SUT的状态
-*测试流量*
+- *测试流量*  
 	在测试执行过程中，由测试本身发送至被测系统的数据。
 
 Because of the notion of the separate and larger SUT, the work to seed the SUT state is often orders of magnitude more complex than the setup work done in a unit test. For example:
-*Domain* *data*
+- *Domain* *data*  
 	Some databases contain data prepopulated into tables and used as configuration for the environment. Actual service binaries using such a database may fail on startup if domain data is not provided.
-*Realistic* *baseline*
+- *Realistic* *baseline*  
 	For an SUT to be perceived as realistic, it might require a realistic set of base data at startup, both in terms of quality and quantity. For example, large tests of a social network likely need a realistic social graph as the base state for tests: enough test users with realistic profiles as well as enough interconnections between those users must exist for the testing to be accepted.
-*Seeding* *APIs*
+- *Seeding* *APIs*  
 	The APIs by which data is seeded may be complex. It might be possible to directly write to a datastore, but doing so might bypass triggers and checks performed by the actual binaries that perform the writes.
 
 由于独立的和更大的SUT的概念，SUT状态的种子工作往往比单元测试中的设置工作要复杂得多。比如说：
-*领域数据*
+- *领域数据*  
 	一些数据库包含预先填充到表中的数据，并作为环境的配置使用。如果不提供领域数据，使用这种数据库的实际服务二进制文件可能在启动时失败。
-*现实的基线*
+- *现实的基线*  
 	要使SUT被认为是现实的，它可能需要在启动时提供一组现实的基础数据，包括质量和数量。例如，社交网络的大型测试可能需要一个真实的社交图作为测试的基本状态：必须有足够多的具有真实配置文件的测试用户以及这些用户之间的足够互联，才能接受测试。
-*种子APIs*
+- *种子APIs*  
 	数据种子的API可能很复杂。也许可以直接写入数据存储，但这样做可能会绕过由执行写入的实际二进制文件执行的触发器和检查。
 
 Data can be generated in different ways, such as the following:
-*Handcrafted* *data*
+- *Handcrafted* *data*  
 	Like for smaller tests, we can create test data for larger tests by hand. But it might require more work to set up data for multiple services in a large SUT, and we might need to create a lot of data for larger tests.
-*Copied* *data*
+- *Copied* *data*  
 	We can copy data, typically from production. For example, we might test a map of Earth by starting with a copy of our production map data to provide a baseline and then test our changes to it.
-*Sampled* *data*
+- *Sampled* *data*  
 	Copying data can provide too much data to reasonably work with. Sampling data can reduce the volume, thus reducing test time and making it easier to reason about. “Smart sampling” consists of techniques to copy the minimum data necessary to achieve maximum coverage.
 
 数据可以通过不同的方式产生，比如说以下几种：
-*手工制作数据*
+- *手工制作数据*  
 	与小型测试一样，我们可以手动创建大型测试的测试数据。但是在一个大型SUT中为多个服务设置数据可能需要更多的工作，并且我们可能需要为大型测试创建大量数据。
-*复制的数据*
+- *复制的数据*  
 	我们可以复制数据，通常来自生产。例如，我们可以通过从生产地图数据的副本开始测试地球地图，以提供基线，然后测试我们对它的更改。
-*抽样数据*
+- *抽样数据*  
 	复制数据可以提供太多的数据来进行合理的工作。采样数据可以减少数量，从而减少测试时间，使其更容易推理。"智能抽样 "包括复制最小的数据以达到最大覆盖率的技术。
 
 ### Verification 验证
 
 After an SUT is running and traffic is sent to it, we must still verify the behavior. There are a few different ways to do this:
-*Manual*
+- *Manual*  
 	Much like when you try out your binary locally, manual verification uses humans to interact with an SUT to determine whether it functions correctly. This verification can consist of testing for regressions by performing actions as defined on a consistent test plan or it can be exploratory, working a way through different interaction paths to identify possible new failures.
 Note that manual regression testing does not scale sublinearly: the larger a system grows and the more journeys through it there are, the more human time is needed to manually test.
-*Assertions*
+- *Assertions*  
 	Much like with unit tests, these are explicit checks about the intended behavior of the system. For example, for an integration test of Google search of xyzzy, an assertion might be as follows:
 
 ```java 
@@ -450,10 +450,10 @@ assertThat(response.Contains("Colossal Cave"))
 	Instead of defining explicit assertions, A/B testing involves running two copies of the SUT, sending the same data, and comparing the output. The intended behavior is not explicitly defined: a human must manually go through the differences to ensure any changes are intended.
 
 在SUT运行并向其发送流量后，我们仍然必须验证其行为。有几种不同的方法可以做到这一点。
-*手动*
+- *手动*  
 	就像你在本地尝试你的二进制文件一样，手动验证使用人工与SUT互动以确定它的功能是否正确。这种验证可以包括通过执行一致的测试计划中定义的操作来测试回归，也可以是探索性的，通过不同的交互路径来识别可能的新故障。
 需要注意的是，人工回归测试的规模不是线性的：系统越大，通过它的操作越多，需要人力测试的时间就越多。
-*断言*
+- *断言*  
 	与单元测试一样，这些是对系统预期行为的明确检查。例如，对于谷歌搜索xyzzy的集成测试，一个断言可能如下：
 
 ```
@@ -630,23 +630,23 @@ A/B差异测试是一种低成本但可自动检测任何已启动系统意外�
 #### Limitations  局限性
 
 Diff testing does introduce a few challenges to solve:
-*Approval*
+- *Approval*  
 	Someone must understand the results enough to know whether any differences are expected. Unlike a typical test, it is not clear whether diffs are a good or bad thing (or whether the baseline version is actually even valid), and so there is often a manual step in the process.
-*Noise*
+- *Noise*  
 	For a diff test, anything that introduces unanticipated noise into the results leads to more manual investigation of the results. It becomes necessary to remediate noise, and this is a large source of complexity in building a good diff test.
-*Coverage*
+- *Coverage*  
 	Generating enough useful traffic for a diff test can be a challenging problem. The test data must cover enough scenarios to identify corner-case differences, but it is difficult to manually curate such data.
-*Setup*
+- *Setup*  
 	Configuring and maintaining one SUT is fairly challenging. Creating two at a time can double the complexity, especially if these share interdependencies.
 
 对比测试确实带来了一些需要解决的挑战：
-*批准*
+- *批准*  
 	必须有人对结果有足够的了解，才能知道是否会出现任何差异。与典型的测试不同，不清楚差异是好是坏（或者基线版本实际上是否有效），因此在这个过程中通常需要手动步骤。
-*噪音*
+- *噪音*  
 	对于对比测试来说，任何在结果中引入意料之外的噪音都会导致对结果进行更多的手动查验。有必要对噪声进行补救，这也是建立一个好的对比测试的一个很大的复杂性来源。
-*覆盖率*
+- *覆盖率*  
 	为对比测试产生足够的有用流量是一个具有挑战性的问题。测试数据必须涵盖足够多的场景，以确定角落的差异，但很难手动管理这样的数据。
-*配置*
+- *配置*  
 	配置和维护一个SUT是相当具有挑战性的。一次创建两个可以使复杂性加倍，特别是如果这些共享相互依赖关系。
 
 ### UAT
@@ -770,21 +770,21 @@ Tests of these type have the following characteristics:
 • 验证：手动和A/B对比（度量）
 
 Production-based testing makes it possible to collect a lot of data about user behavior. We have a few different ways to collect metrics about the popularity of and issues with upcoming features, which provides us with an alternative to UAT:
-*Dogfooding*
+- *Dogfooding*  
 	It’s possible using limited rollouts and experiments to make features in production available to a subset of users. We do this with our own staff sometimes (eat our own dogfood), and they give us valuable feedback in the real deployment environment.
-*Experimentation*
+- *Experimentation*  
 	A new behavior is made available as an experiment to a subset of users without their knowing. Then, the experiment group is compared to the control group at an aggregate level in terms of some desired metric. For example, in YouTube, we had a limited experiment changing the way video upvotes worked (eliminating the downvote), and only a portion of the user base saw this change.
 	This is a [massively important approach for Google](https://oreil.ly/OAvqF). One of the first stories a Noogler hears upon joining the company is about the time Google launched an experiment changing the background shading color for AdWords ads in Google Search and noticed a significant increase in ad clicks for users in the experimental group versus the control group.
-*Rater* *evaluation*
+- *Rater* *evaluation*  
 	Human raters are presented with results for a given operation and choose which one is “better” and why. This feedback is then used to determine whether a given change is positive, neutral, or negative. For example, Google has historically used rater evaluation for search queries (we have published the guidelines we give our raters). In some cases, the feedback from this ratings data can help determine launch go/no-go for algorithm changes. Rater evaluation is critical for nondeterministic systems like machine learning systems for which there is no clear correct answer, only a notion of better or worse.
 	
 基于产品的测试可以收集大量关于用户行为的数据。我们有几种不同的方法来收集有关即将推出的功能的受欢迎程度和问题的指标，这为我们提供了UAT的替代方案：
-*狗粮*
+- *狗粮*  
 	我们可以利用有限的推广和实验，将生产中的功能提供给一部分用户使用。我们有时会和自己的员工一起这样做（吃自己的狗粮），他们会在真实的部署环境中给我们提供宝贵的反馈。
-*实验*
+- *实验*  
 	在用户不知情的情况下，将一个新的行为作为一个实验提供给一部分用户。然后，将实验组与控制组在某种期望的指标方面进行综合比较。例如，在YouTube，我们做了一个有限的实验，改变了视频加分的方式（取消了降分），只有一部分用户看到了这个变化。
 	这是一个[对谷歌来说非常重要的方法]（https://oreil.ly/OAvqF）。Noogler在加入公司后听到的第一个故事是关于谷歌推出了一个实验，改变了谷歌搜索中AdWords广告的背景阴影颜色，并注意到实验组的用户与对照组相比，广告点击量明显增加。
-*评分员评价*
+- *评分员评价*  
 	评分员会被告知某一特定操作的结果，并选择哪一个 "更好 "以及原因。然后，这种反馈被用来确定一个特定的变更是正面、中性还是负面的。例如，谷歌在历史上一直使用评分员对搜索查询进行评估（我们已经公布了我们给评员者的指导方针）。在某些情况下，来自该评级数据的反馈有助于确定算法更改的启动通过/不通过。评价员的评价对于像机器学习系统这样的非确定性系统至关重要，因为这些系统没有明确的正确答案，只有一个更好或更差的概念。
 
 ## Large Tests and the Developer Workflow  大型测试和开发人员工作流程
@@ -893,19 +893,19 @@ A specific case for which it can be difficult to integrate tests into the develo
 当这些测试产生的结果对运行测试的工程师来说是无法理解的时候，就很难将测试整合到开发者的工作流程中。即使是单元测试也会产生一些混乱--如果我的修改破坏了你的测试，如果我一般不熟悉你的代码，就很难理解为什么，但对于大型测试，这种混乱可能是无法克服的。坚定的测试必须提供一个明确的通过/失败信号，并且必须提供有意义的错误输出，以帮助分类失败的原因。需要人工调查的测试，如A/B对比测试，需要特殊处理才能有意义，否则在预提交期间有被跳过的风险。
 
 How does this work in practice? A good large test that fails should do the following:
-*Have a message that clearly identifies what the failure is*
+- *Have a message that clearly identifies what the failure is*  
 	The worst-case scenario is to have an error that just says “Assertion failed” and a stack trace. A good error anticipates the test runner’s unfamiliarity with the code and provides a message that gives context: “In test_ReturnsOneFullPageOfSearchResultsForAPopularQuery, expected 10 search results but got 1.” For a performance or A/B diff test that fails, there should be a clear explanation in the output of what is being measured and why the behavior is considered suspect.
-*Minimize the effort necessary to identify the root cause of  the discrepancy*
+- *Minimize the effort necessary to identify the root cause of  the discrepancy*  
 	A stack trace is not useful for larger tests because the call chain can span multiple process boundaries. Instead, it’s necessary to produce a trace across the call chain or to invest in automation that can narrow down the culprit. The test should produce some kind of artifact to this effect. For example, [Dapper](https://oreil.ly/FXzbv) is a framework used by Google to associate a single request ID with all the requests in an RPC call chain, and all of the associated logs for that request can be correlated by that ID to facilitate tracing.
-*Provide support and contact information.*
+- *Provide support and contact information.*  
 	It should be easy for the test runner to get help by making the owners and supporters of the test easy to contact.
 
 这在实践中是如何运作的？一个成功的大型测试应该从失败中获取到信息，要做到以下几点：
-*有一个明确指出失败原因的信息*。
+- *有一个明确指出失败原因的信息*  
 	最坏的情况是有一个错误，只是说 "断言失败 "和一个堆栈跟踪。一个好的错误能预见到测试运行者对代码的不熟悉，并提供一个信息来说明背景。”in test_ReturnsOneFullPageOfSearchResultsForAPopularQuery中，预期有10个搜索结果，但得到了1个。" 对于失败的性能或A/B对比测试，在输出中应该有一个明确的解释，说明什么是被测量的，为什么该行为被认为是可疑的。
-*尽量减少识别差异的根本原因所需的努力*。
+- *尽量减少识别差异的根本原因所需的努力*  
 	堆栈跟踪对较大的测试没有用，因为调用链可能跨越多个进程边界。相反，有必要在整个调用链中产生一个跟踪，或者投资于能够缩小罪魁祸首的自动化。测试应该产生某种工具来达到这个效果。例如，[Dapper](https://oreil.ly/FXzbv)是谷歌使用的一个框架，将一个单一的请求ID与RPC调用链中的所有请求相关联，该请求的所有相关日志都可以通过该ID进行关联，以方便追踪。
-*提供支持和联系信息*。
+- *提供支持和联系信息*  
 	通过使测试的所有者和支持者易于联系，测试运行者应该很容易获得帮助。
 
 #### Owning Large Tests  拥有大型测试 
@@ -925,16 +925,16 @@ Integration tests of components within a particular project should be owned by t
 特定项目中组件的集成测试应由项目负责人负责。以功能为中心的测试（覆盖一组服务中特定业务功能的测试）应由“功能所有者”负责；在某些情况下，该所有者可能是负责端到端功能实现的软件工程师；在其他情况下，可能是负责业务场景描述的产品经理或“测试工程师”。无论谁拥有该测试，都必须有权确保其整体健康，并且必须具备支持其维护的能力和这样做的激励。
 
 It is possible to build automation around test owners if this information is recorded in a structured way. Some approaches that we use include the following:
-*Regular code ownership*
+- *Regular code ownership*  
 	In many cases, a larger test is a standalone code artifact that lives in a particular location in our codebase. In that case, we can use the OWNERS ([Chapter 9](#_bookmark664)) information already present in the monorepo to hint to automation that the owner(s) of a particular test are the owners of the test code.
-*Per-test* *annotations*
+- *Per-test* *annotations*  
 	In some cases, multiple test methods can be added to a single test class or module, and each of these test methods can have a different feature owner. We use  per-language structured annotations to document the test owner in each of these cases so that if a particular test method fails, we can identify the owner to contact.
 
 如果以结构化的方式记录此信息，则可以围绕测试所有者构建自动化。我们使用的一些方法包括：
-*常规代码所有权*
+- *常规代码所有权*  
 	在许多情况下，大型测试是一个独立的代码构件，它位于代码库中的特定位置。在这种情况下，我们可以使用monorepo中已经存在的所有者（第9章）信息来提示自动化，特定测试的所有者是测试代码的所有者。
 
-*每个测试注释*
+- *每个测试注释*  
 	在某些情况下，可以将多个测试方法添加到单个测试类或模块中，并且这些测试方法中的每一个都可以有不同的特性所有者。我们使用每种语言的结构化注释，用于记录每种情况下的测试所有者，以便在特定测试方法失败时，我们可以确定要联系的所有者。
 
 ## Conclusion 总结

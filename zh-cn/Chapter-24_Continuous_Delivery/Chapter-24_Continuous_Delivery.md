@@ -34,50 +34,44 @@ At Google, the practices we describe in this book allow hundreds (or in some cas
 
 A core tenet of Continuous Delivery (CD) as well as of Agile methodology is that over time, smaller batches of changes result in higher quality; in other words, *faster is safer*. This can seem deeply controversial to teams at first glance, especially if the prerequisites for setting up CD—for example, Continuous Integration (CI) and testing— are not yet in place. Because it might take a while for all teams to realize the ideal of CD, we focus on developing various aspects that deliver value independently en route to the end goal. Here are some of these:
 
-*Agility*
-
+- *Agility*  
 ​	Release frequently and in small batches
 
-*Automation*
-
+- *Automation*  
 ​	Reduce or remove repetitive overhead of frequent releases
 
-*Isolation*
-
+- *Isolation*  
 ​	Strive for modular architecture to isolate changes and make troubleshooting easier
 
-*Reliability*
-
+- *Reliability*  
 ​	Measure key health indicators like crashes or latency and keep improving them
 
-*Data-driven* *decision* *making*
-
+- *Data-driven* *decision* *making*  
 ​	Use A/B testing on health metrics to ensure quality
 
-*Phased* *rollout*
-
+- *Phased* *rollout*  
 ​	Roll out changes to a few users before shipping to everyone
 
 持续交付（CD）以及敏捷方法论的一个核心原则是，随着时间的推移，小批量的变更会带来更高的质量；换句话说，越快越安全。乍一看，这似乎对团队有很大的争议，尤其是当建立CD的前提条件--例如，持续集成（CI）和测试--还没有到位的时候。因为所有团队可能需要一段时间才能实现CD的理想，所以我们将重点放在开发能够在实现最终目标的过程中独立交付价值的各个方面。下面是其中的一些：
 
-*敏捷性*
-
+- *敏捷性*  
 ​	频繁地、小批量地发布。
-*自动化*
 
+- *自动化*  
 ​	减少或消除频繁发布的重复性开销。
-*隔离性*
 
+- *隔离性*  
 ​	努力实现模块化体系结构，以隔离更改并使故障排除更加容易。
-*可靠性*
 
+- *可靠性*  
 ​	衡量关键的健康指标，如崩溃或延迟，并不断改善它们。
-*数据驱动的决策*
 
+- *数据驱动的决策*  
 ​	在健康指标上使用A/B测试以确保质量。
-*分阶段推出*
 
+- *分阶段推出*  
 ​	在向所有人发送之前，先在少数用户中推广变更。
+
 
 At first, releasing new versions of software frequently might seem risky. As your userbase grows, you might fear the backlash from angry users if there are any bugs that you didn’t catch in testing, and you might quite simply have too much new code in your product to test exhaustively. But this is precisely where CD can help. Ideally, there are so few changes between one release and the next that troubleshooting issues is trivial. In the limit, with CD, every change goes through the QA pipeline and is automatically deployed into production. This is often not a practical reality for many teams, and so there is often work of culture change toward CD as an intermediate step, during which teams can build their readiness to deploy at any time without actually doing so, building up their confidence to release more frequently in the future.
 

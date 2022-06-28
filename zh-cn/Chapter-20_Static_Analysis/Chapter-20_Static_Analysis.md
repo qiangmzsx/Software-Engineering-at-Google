@@ -118,28 +118,23 @@ To scale, Tricorder uses a microservices architecture. The Tricorder system send
 
 Developers throughout Google write Tricorder analyses (called “analyzers”) or con‐ tribute individual “checks” to existing analyses. There are four criteria for new Tricor‐ der checks:
 
-*Be understandable*
+- *Be understandable*  
 	Be easy for any engineer to understand the output.
-*Be* *actionable* *and* *easy* *to* *fix*
+- *Be* *actionable* *and* *easy* *to* *fix*  
 	The fix might require more time, thought, or effort than a compiler check, and the result should include guidance as to how the issue might indeed be fixed.
-*Produce less than 10% effective false positives*
+- *Produce less than 10% effective false positives*  
 	Developers should feel the check is pointing out an actual issue [at least 90% of](https://oreil.ly/ARSzt) [the time](https://oreil.ly/ARSzt).
-*Have* *the potential for significant impact on code quality*
+- *Have* *the potential for significant impact on code quality*  
 	The issues might not affect correctness, but developers should take them seri‐ ously and deliberately choose to fix them.
 
-Tricorder检查有四个标准：
-*易于理解*
-
+Tricorder 检查有四个标准：
+- *易于理解*  
 ​	任何工程师都可以轻松理解输出。
-*可操作且易于修复*
-
+- *可操作且易于修复*  
 ​	与编译器检查相比，修复可能需要更多的时间、思考或尝试，结果应包括有关如何真正修复问题的指导。
-*少于10%的有效误报*
-
+- *少于10%的有效误报*  
 ​	开发人员应该觉得检查至少在90%的时间里指出了实际问题。
-
-*有可能对代码质量产生重大影响*
-
+- *有可能对代码质量产生重大影响*  
 ​	这些问题可能不会影响正确性，但开发人员应该认真对待它们并有意识地选择修复它们。
 
 Tricorder analyzers report results for more than 30 languages and support a variety of analysis types. Tricorder includes more than 100 analyzers, with most being contrib‐ uted from outside the Tricorder team. Seven of these analyzers are themselves plug-in systems that have hundreds of additional checks, again contributed from developers across Google. The overall effective false-positive rate is just below 5%.
