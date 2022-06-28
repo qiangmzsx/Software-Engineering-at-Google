@@ -59,7 +59,7 @@ If documentation conveys all these benefits, why is it generally considered “p
 > [^1]:    OK, you will need to maintain it and revise it occasionally./
 > 1   好的，你将需要维护它并偶尔修改它。
 >
-> [^2]:    English is still the primary language for most programmers, and most technical documentation for programmers relies on an understanding of English.
+> [^2]:    English is still the primary language for most programmers, and most technical documentation for programmers relies on an understanding of English./
 > 2   英语仍然是大多数程序员的主要语言，大多数程序员的技术文档都依赖于对英语的理解。
 
 Not every engineering team needs a technical writer (and even if that were the case, there aren’t enough of them). This means that engineers will, by and large, write most of the documentation themselves. So, instead of forcing engineers to become technical writers, we should instead think about how to make writing documentation easier for engineers. Deciding how much effort to devote to documentation is a decision your organization will need to make at some point.
