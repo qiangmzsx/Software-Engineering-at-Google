@@ -6,7 +6,7 @@
 
 ​                                         																									Written by Alexander Neubeck and Ben St. John Edited by Lisa Carey
 
-Code Search is a tool for browsing and searching code at Google that consists of a frontend UI and various backend elements. Like many of the development tools at Google, it arose directly out of a need to scale to the size of the codebase. Code Search began as a combination of a grep-type toolfor internal code with the ranking and UI of external Code Search. Its place as a key tool for Google developers was cemented by the integration of Kythe/Grok, which added cross-references and the ability to jump to symbol definitions.
+Code Search is a tool for browsing and searching code at Google that consists of a frontend UI and various backend elements. Like many of the development tools at Google, it arose directly out of a need to scale to the size of the codebase. Code Search began as a combination of a grep-type tool[^1] for internal code with the ranking and UI of external Code Search[^2]. Its place as a key tool for Google developers was cemented by the integration of Kythe/Grok[^3], which added cross-references and the ability to jump to symbol definitions.
 
 代码搜索是用于在 Google 内部浏览和搜索代码的工具，它由一个前端 UI页面和各种后端元素组成。就像Google的许多开发工具一样，它直接源于代码库扩展的需求。代码搜索开始是类似于 grep 类型工具的组合，用于带有排名和 UI 的内部代码外部代码搜索。通过 Kythe/Grok 的整合，它作为 Google 开发人员的关键工具的地位得到巩固，他们增加了交叉引用和跳转到符号定义的能力。
 
@@ -21,6 +21,16 @@ In contrast to integrated development environments (IDEs) or code editors, Code 
 In this chapter, we’ll look at Code Search in more detail, including how Googlers use it as part of their developer workflows, why we chose to develop a separate web tool for code searching, and examine how it addresses the challenges of searching and browsing code at Google repository scale. 
 
 在本章中，我们将更详细地了解代码搜索，包括 Google 员工如何将其作为开发人员工作流程的一部分，为什么我们选择开发一个单独的网络工具来进行代码搜索，并研究它如何在 Google 存储库规模下解决搜索和浏览代码问题。
+
+> [^1]: GSearch originally ran on Jeff Dean’s personal computer, which once caused company-wide distress when he went on vacation and it was shut down!/
+> 1 GSearch最初在Jeff Dean的个人电脑上运行，当他去度假时，曾经引起全公司的困扰。
+他去度假时，这台电脑就被关闭了！这曾经造成了整个公司的困扰。
+> 
+> [^2]: Shut down in 2013; see https://en.wikipedia.org/wiki/Google_Code_Search./
+> 2 在2013年关闭；见https://en.wikipedia.org/wiki/Google_Code_Search。
+>
+> [^3]: Now known as Kythe, a service that provides cross-references (among other things): the uses of a particular code symbol—for example, a function—using the full build information to disambiguate it from other ones with the same name./
+> 3 现在被称为Kythe，一个提供交叉引用的服务（除其他外）：一个特定的代码符号的用途--例如，一个函数--使用完整的构建信息，将其与其他同名的符号区分开来。
 
 ## The Code Search UI 
 
@@ -44,9 +54,15 @@ Code Search also shows the history of a file, via its integration with Piper (se
 
 ## Google 员工如何使用代码搜索？
 
-Although similar functionality is available in other tools, Googlers still make heavy use of the Code Search UI for searching and file viewing and ultimately for understanding code. The tasks engineers try to complete with Code Search can be thought of answering questions about code, and recurring intents become visible.
+Although similar functionality is available in other tools, Googlers still make heavy use of the Code Search UI for searching and file viewing and ultimately for understanding code.[^4] The tasks engineers try to complete with Code Search can be thought of answering questions about code, and recurring intents become visible.[^5]
 
 尽管其他工具中也有类似的功能，但 Google 员工仍然大量使用代码搜索 UI 进行搜索和文件查看，并最终用于理解代码。工程师尝试使用代码搜索完成任务被认为是回答有关代码的问题，以及重复的意图变得可见。
+
+> [^4]: There is an interesting virtuous cycle that a ubiquitous code browser encourages: writing code that is easy to browse. This can mean things like not nesting hierarchies too deep, which requires many clicks to move from call sites to actual implementation, and using named types rather than generic things like strings or integers, because it’s then easy to find all usages./
+> 4 无处不在的代码浏览器鼓励一个有趣的良性循环：编写易于浏览的代码。这可能意味着不要把层次嵌套得太深，因为这需要多次点击才能从调用站点转移到实际的实现；使用命名的类型而不是像字符串或整数这样的通用类型，因为这样就很容易找到所有的用法。
+> 
+> [^5]: Sadowski, Caitlin, Kathryn T. Stolee, and Sebastian Elbaum. “How Developers Search for Code: A Case Study” In Proceedings of the 2015 10th Joint Meeting on Foundations of Software Engineering (ESEC/FSE 2015). https://doi.org/10.1145/2786805.2786855./
+>  5 Sadowski, Caitlin, Kathryn T. Stolee, and Sebastian Elbaum. "开发者如何搜索代码。A Case Study" In Proceedings of the 2015 10th Joint Meeting on Foundations of Software Engineering (ESEC/FSE 2015). https://doi.org/10.1145/2786805.2786855./
 
 ### Where?
 
@@ -100,9 +116,12 @@ An important capability here is being able to search and explore the exact state
 
 ### 谁？什么时候？
 
-About 8% of Code Searches try to answer questions around who or when someone introduced a certain piece of code, interacting with the version control system. For example, it’s possible to see when a particular line was introduced (like Git’s “blame”) and jump to the relevant code review. This history panel can also be very useful in finding the best person to ask about the code, or to review a change to it.
+About 8% of Code Searches try to answer questions around who or when someone introduced a certain piece of code, interacting with the version control system. For example, it’s possible to see when a particular line was introduced (like Git’s “blame”) and jump to the relevant code review. This history panel can also be very useful in finding the best person to ask about the code, or to review a change to it.[^6]
 
 大约 8% 的代码搜索试图回答有关谁或何时引入某段代码的问题，并与版本控制系统进行交互。例如，可以查看何时引入了特定行（如 Git 的“blame”）并跳转到相关的代码审查。这个历史面板对于寻找最好的人来询问代码或审查对它的更改也非常有用。
+
+> 6 That said, given the rate of commits for machine-generated changes, naive “blame” tracking has less value than it does in more change-averse ecosystems./
+> 6也就是说，考虑到机器生成的更改的提交率，天真的“指责”跟踪比在更厌恶更改的生态系统中的价值要小。
 
 ## Why a Separate Web Tool? 
 
@@ -116,7 +135,7 @@ Outside Google, most of the aforementioned investigations are done within a loca
 
 ### 规模
 
-The first answer is that the Google codebase is so large that a local copy of the full codebase—a prerequisite for most IDEs—simply doesn’t fit on a single machine. Even before this fundamental barrier is hit, there is a cost to building local search and cross-reference indices for each developer, a cost often paid at IDE startup, slowing developer velocity. Or, without an index, one-off searches (e.g., with grep) can become painfully slow. A centralized search index means doing this work once,  upfront, and means investments in the process benefit everyone. For example, the Code Search index is incrementally updated with every submitted change, enabling index construction with linear cost.
+The first answer is that the Google codebase is so large that a local copy of the full codebase—a prerequisite for most IDEs—simply doesn’t fit on a single machine. Even before this fundamental barrier is hit, there is a cost to building local search and cross-reference indices for each developer, a cost often paid at IDE startup, slowing developer velocity. Or, without an index, one-off searches (e.g., with grep) can become painfully slow. A centralized search index means doing this work once,  upfront, and means investments in the process benefit everyone. For example, the Code Search index is incrementally updated with every submitted change, enabling index construction with linear cost.[^7]
 
 第一个答案是 Google 代码库规模太大，以至于完整代码库的本地副本（大多数 IDE 的先决条件）根本不适合单台机器。即使在这个基本障碍之前，为每个开发人员构建本地搜索和交叉引用索引也是有成本的，这通常在 IDE 启动时减慢了开发人员的速度。如果没有索引，一次性搜索（例如，使用 grep）可能会变得非常缓慢。集中式搜索索引意味着一次性完成这项工作，并且意味着对流程的投资使每个人都受益。例如，代码搜索索引会随着每次提交的更改而增量更新，从而能够以线性成本构建索引。
 
@@ -124,9 +143,15 @@ In normal web search, fast-changing current events are mixed with more slowly ch
 
 在正常的网络搜索中，快速变化的当前事件与变化较慢的项目混合在一起，例如稳定的维基百科页面。同样的技术可以扩展到搜索代码，使索引增加，从而降低成本，并允许对代码库的更改立即对所有人可见。提交代码更改时，只需要对实际触及的文件进行重新索引，这允许对全局索引进行并行和独立的更新。
 
-Unfortunately, the cross-reference index cannot be instantly updated in the same way. Incrementality isn’t possible for it, as any code change can potentially influence the entire codebase, and in practice often does affect thousands of files. Many (nearly all of Google’s) full binaries need to be built (or at least analyzed) to determine the full semantic structure. It uses a ton of compute resources to produce the index daily (the current frequency). The discrepancy between the instant search index and the daily  cross-reference index is a source of rare but recurring issues for users. 
+Unfortunately, the cross-reference index cannot be instantly updated in the same way. Incrementality isn’t possible for it, as any code change can potentially influence the entire codebase, and in practice often does affect thousands of files. Many (nearly all of Google’s) full binaries need to be built[^8] (or at least analyzed) to determine the full semantic structure. It uses a ton of compute resources to produce the index daily (the current frequency). The discrepancy between the instant search index and the daily  cross-reference index is a source of rare but recurring issues for users. 
 
 不幸的是，交叉引用索引不能以相同的方式立即更新。增量是不可能的，因为任何代码更改都可能影响整个代码库，实际上经常会影响数千个文件。需要构建（或至少分析）许多（几乎所有 Google 的）完整二进制文件以确定完整的语义结构。它每天使用大量计算资源（当前频率）生成索引。即时搜索索引和每日交叉引用索引之间的差异是用户罕见但反复出现的问题的根源。
+
+> [^7]: For comparison, the model of “every developer has their own IDE on their own workspace do the indexing calculation” scales roughly quadratically: developers produce a roughly constant amount of code per unit time, so the codebase scales linearly (even with a fixed number of developers). A linear number of IDEs do linearly more work each time—this is not a recipe for good scaling./
+> 7相比之下，“每个开发人员在自己的工作空间中都有自己的IDE，并进行索引计算”的模型大致按二次方进行扩展：开发人员每单位时间生成的代码量大致恒定，因此代码库可以线性扩展（即使有固定数量的开发人员）。线性数量的IDE每次都会做线性更多的工作，但这并不是实现良好扩展的秘诀。
+> 
+> [^8]: Kythe instruments the build workflow to extract semantic nodes and edges from source code. This extraction process collects partial cross-reference graphs for each individual build rule. In a subsequent phase, these partial graphs are merged into one global graph and its representation is optimized for the most common queries (go-to-definition, find all usages, fetch all decorations for a file). Each phase—extraction and post processing—is roughly as expensive as a full build; for example, in case of Chromium, the construction of the Kythe index is done in about six hours in a distributed setup and therefore too costly to be constructed by every developer on their own workstation. This computational cost is the why the Kythe index is computed only once per day./
+> 8 Kyth使用构建工作流从源代码中提取语义节点和边缘。这个提取过程为每个单独的生成规则收集部分交叉引用图。在随后的阶段中，这些局部图合并为一个全局图，并针对最常见的查询对其表示进行优化（转到定义，查找所有用法，获取文件的所有修饰）。每个阶段的提取和后处理成本大致与完整构建一样高；例如，对于Chromium，Kythe索引的构建在分布式设置中大约需要六个小时，因此每个开发人员都无法在自己的工作站上构建，成本太高。这就是为什么Kythe指数每天只计算一次的原因。
 
 ### Zero Setup Global Code View 
 
@@ -190,10 +215,13 @@ In the previous section, we looked at various aspects of the Code Search UI and 
 
 在上一节中，我们研究了代码搜索 UI 的各个方面，以及为什么需要拥有一个单独的工具来浏览代码。在接下来的部分中，我们会稍微了解一下代码搜索实现的幕后情况。我们首先讨论了主要挑战—扩展—然后讨论了几种大规模复杂化构建搜索和浏览代码好产品的方式。之后，我们详细介绍了我们如何应对其中的一些挑战，以及在构建代码搜索时做出了哪些权衡。
 
-The biggest scaling challenge for searching code is the corpus size. For a small repository of a couple megabytes, a brute-force search with grep search will do. When hundreds of megabytes need to be searched, a simple local index can speed up search by an order of magnitude or more. When gigabytes or terabytes of source code need to be searched, a cloud-hosted solution with multiple machines can keep search times reasonable. The utility of a central solution increases with the number of developers using it and the size of the code space.
+The biggest[^9] scaling challenge for searching code is the corpus size. For a small repository of a couple megabytes, a brute-force search with grep search will do. When hundreds of megabytes need to be searched, a simple local index can speed up search by an order of magnitude or more. When gigabytes or terabytes of source code need to be searched, a cloud-hosted solution with multiple machines can keep search times reasonable. The utility of a central solution increases with the number of developers using it and the size of the code space.
 
 搜索代码的最大挑战是语料库大小。对于几兆字节的小型存储库，使用 grep 搜索的蛮力搜索就可以了。当需要搜索数百兆字节时，一个简单的本地索引可以将搜索速度提高一个数量级或更多。当需要搜索千兆字节或千兆字节的源代码时，具有多台机器的云托管解决方案可以使搜索时间保持合理。中央解决方案的实用性随着使用它的开发人员的数量和代码空间的大小而增加。
 
+> [^9]: Because queries are independent, more users can be addressed by having more servers./
+>  9 因为查询是独立的，所以可以通过拥有更多的服务器来解决更多的用户。
+> 
 ### Search Query Latency
 
 ### 搜索查询延迟
@@ -210,14 +238,16 @@ A large number of Code Search queries are performed in order to navigate the cod
 
 执行大量代码搜索查询来导航代码库。理想情况下，“下一个”文件只需单击一下即可（例如，对于包含的文件或符号定义），但对于一般导航，不需要使用经典文件树，简单地搜索所需的文件或符号会快得多，理想情况下不需要完全指定它，会为部分文本提供联想查询。随着代码库（和文件树）的增长，这变得越来越正确。
 
-Normal navigation to a specific file in another folder or project requires several user interactions. With search, just a couple of keystrokes can be sufficient to get to the relevant file. To make search this effective, additional information about the search context (e.g., the currently viewed file) can be provided to the search backend. The context can restrict the search to files of a specific project, or influence ranking by preferring files that are in proximity to other files or directories. In the Code Search UI,10 the user can predefine multiple contexts and quickly switch between them as needed. In editors, the open or edited files are implicitly used as context to prioritize search results in their proximity.
+Normal navigation to a specific file in another folder or project requires several user interactions. With search, just a couple of keystrokes can be sufficient to get to the relevant file. To make search this effective, additional information about the search context (e.g., the currently viewed file) can be provided to the search backend. The context can restrict the search to files of a specific project, or influence ranking by preferring files that are in proximity to other files or directories. In the Code Search UI,[^10] the user can predefine multiple contexts and quickly switch between them as needed. In editors, the open or edited files are implicitly used as context to prioritize search results in their proximity.
 
-正常导航到另一个文件夹或项目中的特定文件需要多次用户交互。使用搜索，只需几次点击即可访问相关文件。为了使搜索有效，可以将有关搜索上下文的附加信息（例如，当前查看的文件）提供给搜索后端。上下文可以将搜索限制为特定项目的文件，或者通过优先选择靠近其他文件或目录的文件来影响排名。在代码搜索 UI 中，10 用户可以预定义多个上下文并根据需要在它们之间快速切换。在编辑器中，打开或编辑的文件被隐式用作上下文，以优先考虑搜索结果的接近程度。
+正常导航到另一个文件夹或项目中的特定文件需要多次用户交互。使用搜索，只需几次点击即可访问相关文件。为了使搜索有效，可以将有关搜索上下文的附加信息（例如，当前查看的文件）提供给搜索后端。上下文可以将搜索限制为特定项目的文件，或者通过优先选择靠近其他文件或目录的文件来影响排名。在代码搜索 UI 中， 用户可以预定义多个上下文并根据需要在它们之间快速切换。在编辑器中，打开或编辑的文件被隐式用作上下文，以优先考虑搜索结果的接近程度。
 
 One could consider the power of the search query language (e.g., specifying files,using regular expressions) as another criteria; we discuss this in the trade-offs section a little later in the chapter.
 
 可以将搜索查询语言的功能（例如，指定文件、使用正则表达式）视为另一个标准；我们将在本章稍后的权衡部分讨论这个问题。
 
+> 10 The Code Search UI does also have a classical file tree, so navigating this way is also possible./
+> 10 代码搜索用户界面也有一个经典的文件树，所以用这种方式导航也是可以的。
 ### Index Latency
 
 ### 索引延迟
@@ -250,7 +280,7 @@ Google’s codebase is a special challenge for Code Search due to its sheer size
 
 由于其庞大的规模，Google 的代码库对代码搜索来说是一个特殊的挑战。在早期，采用了基于三元组的方法。 Russ Cox 随后开源了一个简化版本。目前，代码搜索索引大约有1.5 TB 的内容，每秒处理大约 200 个查询，服务器端搜索延迟的中位数小于 50 毫秒，索引延迟的中位数（代码提交和索引可见性之间的时间）小于 10秒。
 
-Let’s roughly estimate the resource requirements to achieve this performance with a grep-based bruteforce solution. The RE2 library we use for regular expression matching processes about 100 MB/sec for data in RAM. Given a time window of 50 ms, 300,000 cores would be needed to crunch through the 1.5 TB of data. Because in most cases simple substring searches are sufficient, one could replace the regular expression matching with a special substring search that can process about 1 GB/sec under certain conditions, reducing the number of cores by 10 times. So far, we have looked at just the resource requirements for processing a single query within 50 ms. If we’re getting 200 requests per second, 10 of those will be simultaneously active in that 50 ms window, bringing us back to 300,000 cores just for substring search.
+Let’s roughly estimate the resource requirements to achieve this performance with a grep-based bruteforce solution. The RE2 library we use for regular expression matching processes about 100 MB/sec for data in RAM. Given a time window of 50 ms, 300,000 cores would be needed to crunch through the 1.5 TB of data. Because in most cases simple substring searches are sufficient, one could replace the regular expression matching with a special substring search that can process about 1 GB/sec[^11] under certain conditions, reducing the number of cores by 10 times. So far, we have looked at just the resource requirements for processing a single query within 50 ms. If we’re getting 200 requests per second, 10 of those will be simultaneously active in that 50 ms window, bringing us back to 300,000 cores just for substring search.
 
 让我们粗略估计一下使用基于 grep 的蛮力解决方案实现此性能所需的资源。我们用于正则表达式匹配的 RE2 库以大约 100 MB/秒的速度处理 RAM 中的数据。给定 50 毫秒的时间窗口，需要 300,000 个内核来处理 1.5 TB 的数据。因为在大多数情况下，简单的子字符串搜索就足够了，可以将正则表达式匹配替换为特殊的子字符串搜索，在某些条件下可以处理大约 1 GB/秒，从而将核心数减少 10 倍。到目前为止，我们只研究了在 50 毫秒内处理单个查询的资源需求。如果我们每秒收到 200 个请求，其中 10 个将在 50 毫秒的窗口中同时处于活动状态，这使我们回到 300,000 个内核仅用于子字符串搜索。
 
@@ -274,11 +304,14 @@ To support local workspaces (which have a small delta from the global repository
 
 为了支持本地工作空间（与全局存储库有一个小的增量），我们有多台机器进行简单的暴力搜索。工作区数据在第一次请求时加载，然后通过侦听文件更改来保持同步。当内存不足时，我们会从机器中删除最近的工作区。使用我们的历史索引搜索未更改的文档。因此，搜索被隐式限制为工作空间同步到的存储库状态。
 
+> 11 See https://blog.scalyr.com/2014/05/searching-20-gbsec-systems-engineering-before-algorithms and http://volnitsky.com/project/str_search./
+> 11 查阅blog.scalyr.com/2014/05/searching-20-gbsec-systems-engineering-before-algorithms 和tp://volnitsky.com/project/str_search.
+
 ### Ranking
 
 ### 排行
 
-For a very small codebase, ranking doesn’t provide much benefit, because there aren’t many results anyway. But the larger the codebase becomes, the more results will be found and the more important ranking becomes. In Google’s codebase, any short substring will occur thousands, if not millions, of times. Without ranking, the user either must check all of those results in order to find the correct one, or must refine the query further until the result set is reduced to just a handful of files. Both options waste the developer’s time.
+For a very small codebase, ranking doesn’t provide much benefit, because there aren’t many results anyway. But the larger the codebase becomes, the more results will be found and the more important ranking becomes. In Google’s codebase, any short substring will occur thousands, if not millions, of times. Without ranking, the user either must check all of those results in order to find the correct one, or must refine the query[^12] er until the result set is reduced to just a handful of files. Both options waste the developer’s time.
 
 对于非常小的代码库，排名并没有带来太多好处，因为无论如何也没有很多结果。但是代码库越大，找到的结果就越多，排名也就越重要。在 Google 的代码库中，任何短子字符串都会出现数千次，甚至数百万次。如果没有排名，用户要么必须检查所有这些结果才能找到正确的结果，要么必须进一步细化查询，直到结果集减少到几个文件。这两种选择都浪费了开发人员的时间。
 
@@ -286,11 +319,14 @@ Ranking typically starts with a scoring function, which maps a set of features o
 
 排名通常从评分函数开始，它将每个文件的一组特征（“信号”）映射到某个数字：分数越高，结果越好。搜索的目标是尽可能高效地找到前 N 个结果。通常，人们区分两种类型的信号：仅依赖于文档的信号（“查询无关”）和依赖于搜索查询以及它如何匹配文档的信号（“查询依赖”）。文件名长度或文件的编程语言将是查询独立信号的示例，而匹配是函数定义还是字符串文字是查询相关信号。
 
+> [^12]: ontrast to web search, adding more characters to a Code Search query always reduces the result set (apart rom a few rare exceptions via regular expression terms).
+> 12 与网络搜索相比，在代码搜索查询中添加更多的字符总是会减少结果集（除了少数通过正则表达式术语的罕见例外）。
+
 #### Query independent signals
 
 #### 查询独立信号
 
-Some of the most important query independent signals are the number of file views and the amount of references to a file. File views are important because they indicate which files developers consider important and are therefore more likely to want to find. For instance, utility functions in base libraries have a high view count. It doesn’t matter whether the library is already stable and isn’t changed anymore or whether the library is being actively developed. The biggest downside of this signal is the feedback loop it creates. By scoring frequently viewed documents higher, the chance increases that developers will look at them and decreases the chance of other documents to make it into the top N. This problem is known as exploitation versus exploration, for which various solutions exist (e.g., advanced A/B search experiments or curation of training data). In practice, it doesn’t seem harmful to somewhat over-show highscoring items: they are simply ignored when irrelevant and taken if a generic example is needed. However, it is a problem for new files, which don’t yet have enough information for a good signal.
+Some of the most important query independent signals are the number of file views and the amount of references to a file. File views are important because they indicate which files developers consider important and are therefore more likely to want to find. For instance, utility functions in base libraries have a high view count. It doesn’t matter whether the library is already stable and isn’t changed anymore or whether the library is being actively developed. The biggest downside of this signal is the feedback loop it creates. By scoring frequently viewed documents higher, the chance increases that developers will look at them and decreases the chance of other documents to make it into the top N. This problem is known as exploitation versus exploration, for which various solutions exist (e.g., advanced A/B search experiments or curation of training data). In practice, it doesn’t seem harmful to somewhat over-show highscoring items: they are simply ignored when irrelevant and taken if a generic example is needed. However, it is a problem for new files, which don’t yet have enough information for a good signal.[^13]
 
 一些最重要的独立于查询的信号是文件视图的数量和对文件的引用量。文件视图很重要，因为它们表明开发人员认为哪些文件很重要，因此更有可能想要找到。例如，基础库中的实用程序函数具有很高的查看次数。库是否已经稳定并且不再更改或者库是否正在积极开发都无关紧要。该信号的最大缺点是它创建的反馈回路。通过对经常查看的文档进行更高的评分，开发人员查看它们的机会增加，并降低了其他文档进入前 N 的机会。这个问题被称为利用与探索，存在各种解决方案（例如，高级 A /B 搜索实验或训练数据管理）。在实践中，过度展示高分项目似乎并没有什么害处：它们在不相关时被忽略，如果需要通用示例则采用。但是，对于新文件来说，这是一个问题，它们还没有足够的信息来获得良好的信号。
 
@@ -306,6 +342,9 @@ Large-scale refactorings, such as open sourcing core libraries, present a second
 
 大规模重构，例如开源核心库，是第二个挑战。此类更改不会在单个代码更新中自动发生；相反，它们需要分多个阶段推出。通常，引入间接方式，例如隐藏文件的使用移动。这些类型间接降低了移动文件的页面排名，并使开发人员更难发现新位置。此外，移动文件时文件视图通常会丢失，从而使情况变得更糟。因为代码库的这种全局重组比较少见（大多数接口很少移动），最简单的解决方案是在这种过渡期间手动提升文件。 （或者等到迁移完成并等待自然过程在其新位置对文件进行升级。）
 
+> 13 This could likely be somewhat corrected by using recency in some form as a signal, perhaps doing something imilar to web search dealing with new pages, but we don’t yet do so.
+>  13 这很可能通过使用某种形式的事件作为信号而得到一定程度的修正，也许可以做一些类似于网络搜索处理新页面的事情，但我们还没有这样做。
+
 #### Query dependent signals
 
 #### 查询相关信号
@@ -318,9 +357,12 @@ Unlike web search, we don’t just match on tokens. However, if there are clean 
 
 与网络搜索不同，我们不仅仅匹配令牌。但是，如果存在干净的标记匹配（即，搜索词与带有某种形式的中断（例如空格）的内容匹配），则会应用进一步的提升并考虑区分大小写。这意味着，例如，搜索“Point”将针对“Point *p”的得分高于针对“被任命为理事会成员”的得分。
 
-For convenience, a default search matches filename and qualified symbols in addition to the actual file content. A user can specify the particular kind of match, but they don’t need to. The scoring boosts symbol and filename matches over normal content matches to reflect the inferred intent of the developer. Just as with web searches, developers can add more terms to the search to make queries more specific.It’s very common for a query to be “qualified” with hints about the filename (e.g.,“base” or “myproject”). Scoring leverages this by boosting results where much of the query occurs in the full path of the potential result, putting such results ahead of those that contain only the words in random places in their content.
+For convenience, a default search matches filename and qualified symbols[^14] ion to the actual file content. A user can specify the particular kind of match, but they don’t need to. The scoring boosts symbol and filename matches over normal content matches to reflect the inferred intent of the developer. Just as with web searches, developers can add more terms to the search to make queries more specific.It’s very common for a query to be “qualified” with hints about the filename (e.g.,“base” or “myproject”). Scoring leverages this by boosting results where much of the query occurs in the full path of the potential result, putting such results ahead of those that contain only the words in random places in their content.
 
 为方便起见，除了实际文件内容外，默认搜索还匹配文件名和限定符号。用户可以指定特定类型的匹配，但他们不需要。与正常的内容匹配相比，该评分提高了符号和文件名匹配，以反映开发人员的推断意图。与 Web 搜索一样，开发人员可以在搜索中添加更多术语以使查询更加具体。通过文件名提示“限定”查询是很常见的（例如，“基础”或“我的项目”）。评分通过提升大部分查询出现在潜在结果的完整路径中的结果来利用这一点，将此类结果置于仅包含其内容中随机位置的单词的结果之前。
+
+> 14 In programming languages, a symbol such as a function “Alert” often is defined in a particular scope, such as  class (“Monitor”) or namespace (“absl”). The qualified name might then be absl::Monitor::Alert, and this is indable, even if it doesn’t occur in the actual text.
+> 14 在编程语言中，像函数 "Alert "这样的符号经常被定义在一个特定的范围内，例如类（"Monitor"）或命名空间（"absl"）。因此，限定的名称可能是absl::Monitor::Alert，这是可以理解的，即使它没有出现在实际文本中。
 
 #### Retrieval
 
@@ -378,17 +420,23 @@ Normal search sacrifices completeness for speed, essentially gambling that ranki
 
 正常搜索会牺牲完整性来换取速度，本质上是在赌排名会确保靠前的结果包含所有所需的结果。事实上，对于代码搜索，排名搜索是更常见的情况，例如用户正在寻找一个特定的东西，函数定义，可能在数百万个匹配项中。但是，有时开发人员想要所有结果；例如，查找特定符号的所有地方以进行重构。分析、工具或重构（例如全局搜索和替换）通常需要所有结果。提供所有结果的需求是与 Web 搜索之间的根本区别，其中可以采用许多捷径，例如只考虑排名较高的项目。
 
-Being able to deliver all results for very large result sets has high cost, but we felt it was required for tooling, and for developers to trust the results. However, because for most queries only a few results are relevant (either there are only a few matches15 or only a few are interesting), we didn’t want to sacrifice average speed for potential completeness.
+Being able to deliver all results for very large result sets has high cost, but we felt it was required for tooling, and for developers to trust the results. However, because for most queries only a few results are relevant (either there are only a few matches[^15] or only a few are interesting), we didn’t want to sacrifice average speed for potential completeness.
 
 能够为非常大的结果集交付所有结果的成本很高，但我们认为这是工具所必需的，并且开发人员需要信任结果。然而，因为对于大多数查询，只有少数结果是相关的（或者只有少数匹配 15 或只有少数是有用的），我们不想为了潜在的完整性而牺牲平均速度。
 
-To achieve both goals with one architecture, we split the codebase into shards with files ordered by their priority. Then, we usually need to consider only the matches to high priority files from each chunk. This is similar to how web search works. However, if requested, Code Search can fetch all results from each chunk, to guarantee finding all results.16 This lets us address both use cases, without typical searches being slowed down by the less frequently used capability of returning large, complete results sets. Results can also then be delivered in alphabetical order, rather than ranked, which is useful for some tools.
+To achieve both goals with one architecture, we split the codebase into shards with files ordered by their priority. Then, we usually need to consider only the matches to high priority files from each chunk. This is similar to how web search works. However, if requested, Code Search can fetch all results from each chunk, to guarantee finding all results.[^16] This lets us address both use cases, without typical searches being slowed down by the less frequently used capability of returning large, complete results sets. Results can also then be delivered in alphabetical order, rather than ranked, which is useful for some tools.
 
 为了通过一种架构实现这两个目标，我们将代码库拆分为分片，文件按优先级排序。然后，我们通常只需要考虑每个块中与高优先级文件的匹配。这类似于网络搜索的工作方式。但是，如果需要，代码搜索可以从每个块中获取所有结果，以保证找到所有结果。这让我们能够解决这两个用例，而不会因为不常用的返回大型完整结果集的功能而减慢典型搜索速度。结果也可以按字母顺序而不是排名，这对某些工具很有用。
 
 So, here the trade-off was a more complex implementation and API versus greater capabilities, rather than the more obvious latency versus completeness.
 
 因此，这里权衡的是更复杂的实现和 API 与更强大的功能，而不是更明显的延迟与完整性。
+
+> 15 An analysis of queries showed that about one-third of user searches have fewer than 20 results./
+> 15 对查询的分析表明，大约三分之一的用户搜索结果少于20个。
+> 
+> 16 In practice, even more happens behind the scenes so that responses don’t become painfully huge and developers don’t bring down the whole system by making searches that match nearly everything (imagine searching for the letter “i” or a single space)./
+> 16在实践中，更多的事情发生在幕后，因此响应不会变得异常巨大，开发人员也不会通过搜索几乎所有内容来破坏整个系统（想象一下搜索字母“i”或单个空格）
 
 ### Completeness: Head Versus Branches Versus All History Versus Workspaces
 
@@ -450,13 +498,19 @@ Tokenization also typically doesn’t care about the case of letters (“r” ve
 
 标记化通常也不关心字母的大小写（“r”与“R”），并且经常会模糊单词；例如，将“searching”和“searched”简化为相同的词干标记搜索。在搜索代码时，缺乏精确性是一个严重的问题。最后，标记化使搜索空格或其他单词分隔符（逗号、括号）成为不可能，即使这在代码中可能非常重要。
 
-A next step up in searching power is full substring search in which any sequence of characters can be searched for. One fairly efficient way to provide this is via a trigram-based index. In its simplest form, the resulting index size is still much smaller than the original source code size. However, the small size comes at the cost of relatively low recall accuracy compared to other substring indices. This means slower queries because the nonmatches need to be filtered out of the result set. This is where a good compromise between index size, search latency, and resource consumption must be found that depends heavily on codebase size, resource availability, and searches per second.
+A next step up[^17] in searching power is full substring search in which any sequence of characters can be searched for. One fairly efficient way to provide this is via a trigram-based index. [^18] In its simplest form, the resulting index size is still much smaller than the original source code size. However, the small size comes at the cost of relatively low recall accuracy compared to other substring indices. This means slower queries because the nonmatches need to be filtered out of the result set. This is where a good compromise between index size, search latency, and resource consumption must be found that depends heavily on codebase size, resource availability, and searches per second.
 
 搜索能力的下一步是完整的子字符串搜索，其中可以搜索任何字符序列。提供此功能的一种相当有效的方法是通过基于三元组的索引。在最简单的形式中，生成的索引大小仍然比源代码大小小得多。然而，与其他子字符串索引相比，小尺寸的代价是召回准确率相对较低。这意味着查询速度较慢，因为不匹配项需要从结果集中过滤掉。这是必须在索引大小、搜索延迟和资源消耗之间找到良好折衷的地方，这在很大程度上取决于代码库大小、资源可用性和每秒搜索量。
 
 If a substring index is available, it’s easy to extend it to allow regular expression searches. The basic idea is to convert the regular expression automaton into a set of substring searches. This conversion is straightforward for a trigram index and can be generalized to other substring indices. Because there is no perfect regular expression index, it will always be possible to construct queries that result in a brute-force search. However, given that only a small fraction of user queries are complex regular expressions, in practice, the approximation via substring indices works very well.
 
 如果子字符串索引可用，很容易扩展它以允许正则表达式搜索。基本思想是将正则表达式自动机转换为一组子字符串搜索。这种转换对于三元索引很简单，并且可以推广到其他子字符串索引。因为没有完美的正则表达式索引，所以总是可以构建导致暴力搜索的查询。然而，鉴于只有一小部分用户查询是复杂的正则表达式，在实践中，通过子字符串索引的近似效果非常好。
+
+> 17 There are other intermediate varieties, such as building a prefix/suffix index, but generally they provide less expressiveness in search queries while still having high complexity and indexing costs./
+> 17 还有其他的类似方式，如建立前缀/后缀索引，但一般来说，它们在搜索查询中提供的表达能力较低，同时仍有较高的复杂性和索引成本。
+> 
+18 Russ Cox, “Regular Expression Matching with a Trigram Index or How Google Code Search Worked.”/
+> 18 Russ Cox，"用三元索引进行正则表达式匹配或谷歌代码搜索的工作原理"。
 
 ## Conclusion
 
