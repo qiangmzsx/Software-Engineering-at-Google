@@ -70,7 +70,7 @@ Brittle tests cause pain in codebases of any size, but they become particularly 
 > [^1]:	Note that this is slightly different from a flaky test, which fails nondeterministically without any change to production code./
 > 1  注意，这与不稳定测试略有不同，不稳定测试是在不改变生产代码的情况下非确定性地失败。
 
-### Strive for Unchanging Tests  力求不变的测试
+### Strive for Unchanging Tests  力求稳定的测试
 
 Before talking about patterns for avoiding brittle tests, we need to answer a question: just how often should we expect to need to change a test after writing it? Any time spent updating old tests is time that can’t be spent on more valuable work. Therefore, *the ideal test is unchanging*: after it’s written, it never needs to change unless the requirements of the system under test change.
 
@@ -378,7 +378,7 @@ transactionProcessor.displayTransactionResults(newUserWithBalance(LOW_BALANCE_TH
 
 With such tests, it’s likely that the test started out covering only the first method. Later, an engineer expanded the test when the second message was added (violating the idea of unchanging tests that we discussed earlier). This modification sets a bad precedent: as the method under test becomes more complex and implements more functionality, its unit test will become increasingly convoluted and grow more and more difficult to work with.
 
-对于这样的测试，很可能一开始测试只包括第一个方法。后来，当第二条信息被添加进来时，工程师扩展了测试（违反了我们前面讨论的不变的测试理念）。这种修改开创了一个不好的先例：随着被测方法变得越来越复杂，实现的功能越来越多，其单元测试也会变得越来越复杂，越来越难以使用。
+对于这样的测试，很可能一开始测试只包括第一个方法。后来，当第二条信息被添加进来时，工程师扩展了测试（违反了我们前面讨论的稳定的测试理念）。这种修改开创了一个不好的先例：随着被测方法变得越来越复杂，实现的功能越来越多，其单元测试也会变得越来越复杂，越来越难以使用。
 
 The problem is that framing tests around methods can naturally encourage unclear tests because a single method often does a few different things under the hood and might have several tricky edge and corner cases. There’s a better way: rather than writing a test for each method, write a test for each behavior.[^4] A behavior is any guarantee that a system makes about how it will respond to a series of inputs while in a particular state.[^5] Behaviors can often be expressed using the words “given,” “when,” and “then”: “Given that a bank account is empty, when attempting to withdraw money from it, then the transaction is rejected.” The mapping between methods and behaviors is many-to-many: most nontrivial methods implement multiple behaviors, and some behaviors rely on the interaction of multiple methods. The previous example can be rewritten using behavior-driven tests, as presented in Example 12-10.
 
@@ -954,7 +954,7 @@ Unit tests at Google are far from perfect, but we’ve found tests that follow t
 
 - Follow DAMP over DRY when sharing code for tests.
 
-- 努力实现不变的测试。
+- 努力实现稳定的测试。
 
 - 通过公共API进行测试。
 
