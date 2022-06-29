@@ -10,7 +10,7 @@
 
 Dependency management—the management of networks of libraries, packages, and dependencies that we don’t control—is one of the least understood and most challenging problems in software engineering. Dependency management focuses on questions like: how do we update between versions of external dependencies? How do we describe versions, for that matter? What types of changes are allowed or expected in our dependencies? How do we decide when it is wise to depend on code produced by other organizations?
 
-依赖管理--管理我们无法控制的库、包和依赖关系的网络--是软件工程中最不为人理解和最有挑战性的问题之一。依赖管理关注的问题包括：我们如何在外部依赖的版本之间进行更新？为此，我们如何描述版本？在我们的依赖关系中，哪些类型的变化是允许的或预期的？我们如何决定何时依赖其他组织生产的代码是明智的？
+依赖管理--管理我们无法控制的库、包和依赖关系的网络——是软件工程中最不为人理解和最有挑战性的问题之一。依赖管理关注的问题包括：我们如何在外部依赖的版本之间进行更新？为此，我们如何描述版本？在我们的依赖关系中，哪些类型的变化是允许的或预期的？我们如何决定何时依赖其他组织生产的代码是明智的？
 
 For comparison, the most closely related topic here is source control. Both areas describe how we work with source code. Source control covers the easier part: where do we check things in? How do we get things into the build? After we accept the value of trunk-based development, most of the day-to-day source control questions for an organization are fairly mundane: “I’ve got a new thing, what directory do I add it to?”
 
@@ -36,8 +36,8 @@ In this chapter, we’ll look at the particular challenges of dependency managem
 
 在本章中，我们将介绍依赖管理的特殊挑战，探索解决方案（常见的和新颖的）及其局限性，并介绍使用依赖关系的现实情况，包括我们在Google中处理事情的方式。在所有这些之前，我们必须承认：我们在这个问题上投入了大量的精力，并且在重构和维护问题上拥有丰富的经验这表明了现有方法的实际缺陷。我们没有第一手证据表明解决方案能够在大规模的组织中很好地工作。在某种程度上，本章总结了我们所知道的不起作用（或者至少在更大范围内可能不起作用）以及我们认为有可能产生更好结果的地方。我们绝对不能声称这里有所有的答案；如果可以，我们就不会把这称为软件工程中最重要的问题之一。
 
-
-[^1]: This could be any of language version, version of a lower-level library, hardware version, operating system, compiler flag, compiler version, and so on.（这可以是任何语言版本、较低级别库的版本、硬件版本、操作系统、编译器标志、编译器版本等。）
+> [^1]: This could be any of language version, version of a lower-level library, hardware version, operating system, compiler flag, compiler version, and so on./
+> 1 这可以是任何语言版本、较低级别库的版本、硬件版本、操作系统、编译器标志、编译器版本等。
 
 
 ## Why Is Dependency Management So Difficult?  为什么依赖管理如此困难？
@@ -76,9 +76,11 @@ Systems of policy and technology for dependency management largely boil down to 
 
 依赖管理的策略和技术体系在很大程度上归结为一个问题："我们如何避免冲突的需求，同时仍然允许非协调组之间的变化？" 如果你有一个菱形依赖问题的一般形式的解决方案，允许在网络的各个层面不断变化的需求（包括依赖和平台需求）的现实，你已经描述了依赖管理解决方案的有趣部分。
 
-
-[^2]: For instance, security bugs, deprecations, being in the dependency set of a higher-level dependency that has a security bug, and so on.（例如，安全缺陷、弃用、处于具有安全缺陷的更高级别依赖项的依赖项集中，等等。）
-[^3]: This is called shading or versioning.（这称为着色或版本控制。）
+> [^2]: For instance, security bugs, deprecations, being in the dependency set of a higher-level dependency that has a security bug, and so on./
+> 2 例如，安全缺陷、弃用、处于具有安全缺陷的更高级别依赖项的依赖项集中，等等。
+>
+> [^3]: This is called shading or versioning./
+> 3 这称为着色或版本控制。
 
 ## Importing Dependencies 导入依赖
 
@@ -129,7 +131,8 @@ Put more broadly: it is important to realize that dependency management has a wh
 更广泛地说：重要的是要意识到，依赖管理在编程任务和软件工程任务中具有完全不同的性质。如果你所处的问题空间与随时间的维护相关，则依赖关系管理很困难。如果你只是为今天开发一个解决方案，而不需要更新任何东西，那么你完全可以随心所欲地抓取许多现成的依赖关系，而不考虑如何负责任地使用它们或为升级做计划。通过违反SD-8中的所有规定，并依靠Boost和Abseil的二进制兼容性，使你的程序今天就能运行......只要你不升级标准库、Boost或Abseil，也不升级任何依赖你的东西，就可以了。
 
 
-[^4]: In many cases, there is significant overlap in those populations.（在许多情况下，这些人群中存在着明显的重叠。）
+> [^4]: In many cases, there is significant overlap in those populations./
+> 4 在许多情况下，这些人群中存在着明显的重叠。
 
 
 ### Considerations When Importing  导入依赖的注意事项
@@ -236,7 +239,8 @@ Our *third_party* policies don’t work for these unfortunately common scenarios
 我们的*第三方包*策略不适用于这些不幸的常见情况。我们大致明白，我们需要一个更高的所有权标准，我们需要让定期更新更容易（和更多的回报），让*第三方包*更难成为孤儿，同时也更重要。困难在于，代码库维护者和*第三方包*领导很难说："不，你不能使用这个能完美解决你的开发问题的东西，因为我们没有资源不断为大家更新新版本"。那些流行的、没有兼容性承诺的项目（比如Boost）尤其有风险：我们的开发者可能非常熟悉使用这种依赖关系来解决谷歌以外的编程问题，但允许它根植于我们的代码库结构中是一个很大的风险。在这一点上，我们的代码库有几十年的预期寿命：上游项目如果没有明确地优先考虑稳定性，就是一种风险。
 
 
-[^5]:	Common Vulnerabilities and Exposures（常见漏洞和暴露）
+> [^5]:	Common Vulnerabilities and Exposures./
+> 5  常见漏洞和暴露
 
 
 ## Dependency Management, In Theory  理论上的依赖管理
@@ -297,8 +301,12 @@ We’ll look at some of the limitations of SemVer in more detail later in this c
 
 我们将在本章后面详细介绍SemVer的一些限制。
 
-
-[^6]: Strictly speaking, SemVer refers only to the emerging practice of applying semantics to major/minor/patch version numbers, not the application of compatible version requirements among dependencies numbered in that fashion. There are numerous minor variations on those requirements among different ecosystems, but in general, the version-number-plus-constraints system described here as SemVer is representative of the practice at large.（严格来说，SemVer只是指对主要/次要/补丁版本号应用语义的新兴做法，而不是在以这种方式编号的依赖关系中应用兼容的版本要求。在不同的生态系统中，这些要求有许多细微的变化，但总的来说，这里描述的SemVer的版本号加约束系统是对整个实践的代表。）
+> [^6]: Strictly speaking, SemVer refers only to the emerging practice of applying semantics to major/minor/patch version numbers, not the application of compatible version requirements among dependencies numbered in that fashion. There are numerous minor variations on those requirements among different ecosystems, but in general, the version-number-plus-constraints system described here as SemVer is representative of the practice at large./
+>
+> 6 严格来说，SemVer只是指对主要/次要/补丁版本号应用语义的新兴做法，而不是在以这种方式编号的依赖关系中应用兼容的版本要求。在不同的生态系统中，这些要求有许多细微的变化，但总的来说，这里描述的SemVer的版本号加约束系统是对整个实践的代表。
+>
+> [^7]:  In fact, it has been proven that SemVer constraints applied to a dependency network are NP-complete./
+> 7 事实上，已经证明SemVer约束应用于依赖网络是NP-C(NP-完备)。
 
 
 ### Bundled Distribution Models  捆绑分销模式
@@ -318,12 +326,6 @@ For an outside user, this works great, so long as you can properly rely on only 
 In the bundled distribution approach, version selection is handled by dedicated distributors.
 
 在捆绑式分销方式中，版本选择由专门的分销商处理。
-
-
-[^7]: In fact, it has been proven that SemVer constraints applied to a dependency network are NP-complete.（事实上，已经证明了应用于依赖网络的SemVer约束是NP完全的。）
-
-
-
 
 ### Live at Head  活在当下
 
@@ -347,7 +349,8 @@ In the Live at Head approach, version selection is handled by asking “What is 
 
 在Live at Head方法中，通过询问“哪个是最新的稳定版本？”来处理版本选择。如果提供者能够负责任地做出更改，则所有更改都将顺利进行。
 
-[^8]: Especially the author and others in the Google C++ community.（特别是作者和其他在谷歌C++社区。）
+> [^8]: Especially the author and others in the Google C++ community./
+> 8 特别是作者和其他在谷歌C++社区。
 
 
 ## The Limitations of SemVer  SemVer （语义版本管理）的局限性
@@ -368,6 +371,9 @@ If we acknowledge that SemVer is a lossy estimate and represents only a subset o
 
 如果我们承认SemVer是一个有损失的预估，并且只代表可能的变化范围的一个子集，我们就可以开始把它看作是一个钝器。在理论上，它作为一种速记工具是很好的。在实践中，尤其是当我们在它上面构建SAT求解器时，SemVer可能（也确实）会因为过度约束和保护不足而让我们失败。
 
+> [^9]: For example: a poorly implemented polyfill that adds the new libbase API ahead of time, causing a conflicting definition. Or, use of language reflection APIs to depend upon the precise number of APIs provided by libbase, introducing crashes if that number changes. These shouldn’t happen and are certainly rare even if they do happen by accident—the point is that the libbase providers can’t prove compatibility./
+> 9  例如：一个实现不佳的 polyfill，提前添加了新的 libbase API，导致定义冲突。或者，使用语言反射 API 来依赖 libbase 提供的精确数量的 API，如果这个数量发生变化，就会引入崩溃。这些都不应该发生，而且即使是意外发生，也肯定很罕见--关键是 libbase 提供者无法证明兼容性。
+
 ### SemVer Might Overconstrain  SemVer可能会过度限制
 
 Consider what happens when libbase is recognized to be more than a single monolith: there are almost always independent interfaces within a library. Even if there are only two functions, we can see situations in which SemVer overconstrains us. Imagine that libbase is indeed composed of only two functions, Foo and Bar. Our mid- level dependencies liba and libb use only Foo. If the maintainer of libbase makes a breaking change to Bar, it is incumbent on them to bump the major version of lib base in a SemVer world. liba and libb are known to depend on libbase 1.x— SemVer dependency solvers won’t accept a 2.x version of that dependency. However, in reality these libraries would work together perfectly: only Bar changed, and that was unused. The compression inherent in “I made a breaking change; I must bump the major version number” is lossy when it doesn’t apply at the granularity of an individual atomic API unit. Although some dependencies might be fine grained enough for that to be accurate,[^10] that is not the norm for a SemVer ecosystem.
@@ -378,13 +384,12 @@ If SemVer overconstrains, either because of an unnecessarily severe version bump
 
 如果SemVer过度约束，无论是由于不必要的严重的版本升级，还是由于对SemVer数字的应用不够精细，自动软件包管理器和SAT求解器将报告你的依赖关系不能被更新或安装，即使忽略SemVer检查，一切都能完美地协同工作。任何曾经在升级过程中被暴露在依赖地狱中的人都会发现这一点特别令人生气：其中很大一部分工作完全是浪费时间。
 
-
-[^9]: For example: a poorly implemented polyfill that adds the new libbase API ahead of time, causing a conflicting definition. Or, use of language reflection APIs to depend upon the precise number of APIs provided by libbase, introducing crashes if that number changes. These shouldn’t happen and are certainly rare even if they do happen by accident—the point is that the libbase providers can’t prove compatibility.（例如：一个实现不佳的 polyfill，提前添加了新的 libbase API，导致定义冲突。或者，使用语言反射 API 来依赖 libbase 提供的精确数量的 API，如果这个数量发生变化，就会引入崩溃。这些都不应该发生，而且即使是意外发生，也肯定很罕见--关键是 libbase 提供者无法证明兼容性。）
-
+> [^10]:	The Node ecosystem has noteworthy examples of dependencies that provide exactly one API./
+> 10  节点生态系统有值得注意的依赖关系示例，这些依赖关系只提供一个API。
 
 ### SemVer Might Overpromise  SemVer可能过度承诺
 
-On the flip side, the application of SemVer makes the explicit assumption that an API provider’s estimate of compatibility can be fully predictive and that changes fall into three buckets: breaking (by modification or removal), strictly additive, or non-API- impacting. If SemVer is a perfectly faithful representation of the risk of a change by classifying syntactic and semantic changes, how do we characterize a change that adds a one-millisecond delay to a time-sensitive API? Or, more plausibly: how do we characterize a change that alters the format of our logging output? Or that alters the order that we import external dependencies? Or that alters the order that results are returned in an “unordered” stream? Is it reasonable to assume that those changes are “safe” merely because those aren’t part of the syntax or contract of the API in question? What if the documentation said “This may change in the future”? Or the API was named “ForInternalUseByLibBaseOnlyDoNotTouchThisIReallyMeanIt?”11
+On the flip side, the application of SemVer makes the explicit assumption that an API provider’s estimate of compatibility can be fully predictive and that changes fall into three buckets: breaking (by modification or removal), strictly additive, or non-API- impacting. If SemVer is a perfectly faithful representation of the risk of a change by classifying syntactic and semantic changes, how do we characterize a change that adds a one-millisecond delay to a time-sensitive API? Or, more plausibly: how do we characterize a change that alters the format of our logging output? Or that alters the order that we import external dependencies? Or that alters the order that results are returned in an “unordered” stream? Is it reasonable to assume that those changes are “safe” merely because those aren’t part of the syntax or contract of the API in question? What if the documentation said “This may change in the future”? Or the API was named “ForInternalUseByLibBaseOnlyDoNotTouchThisIReallyMeanIt?”[^11]
 
 另一方面，SemVer的应用做出了明确的假设，即API提供者对兼容性的预估可以完全预测，并且更改分为三个类：破坏（通过修改或删除）、严格的添加或不影响API。如果SemVer通过对语法和语义变化进行分类，完全忠实地表示了变化的风险，那么我们如何描述为时间敏感API增加一毫秒延迟的更改？或者，更合理的说法是：我们如何描述改变日志输出格式的更改？或者改变了我们导入外部依赖关系的顺序？或者改变了在 "无序 "流中返回结果的顺序？仅仅因为这些变更不属于问题中API的语法或契约的一部分，就认为这些变更是“安全的”是合理的吗？如果文档中说 "这在未来可能会发生变化 "呢？或者API被命名为 "ForInternalUseByLibBaseOnlyDoNotTouchThisIReallyMeanIt？"
 
@@ -394,15 +399,14 @@ SemVer补丁版本在理论上只是改变了实现细节，是 "安全 "的改�
 
 *A change in isolation isn’t breaking or nonbreaking—*that statement can be evaluated only in the context of how it is being used. There is no absolute truth in the notion of “This is a breaking change”; a change can been seen to be breaking for only a (known or unknown) set of existing users and use cases. The reality of how we evaluate a change inherently relies upon information that isn’t present in the SemVer formulation of dependency management: how are downstream users consuming this dependency?
 
-*孤立的变化不是破坏性的，也不是非破坏性的--*这种说法只能在它被使用的情况下进行评估。在 "这是一个破坏性的变化 "的概念中没有绝对的真理；一个变化只能被看作是对（已知或未知的）现有用户和用例的破坏。我们如何评估一个变化的现实，本质上依赖于SemVer制定的依赖管理中所没有的信息：下游用户是如何使用这个依赖的？
+*孤立的变化不是破坏性的，也不是非破坏性的*——这种说法只能在它被使用的情况下进行评估。在 "这是一个破坏性的变化 "的概念中没有绝对的真理；一个变化只能被看作是对（已知或未知的）现有用户和用例的破坏。我们如何评估一个变化的现实，本质上依赖于SemVer制定的依赖管理中所没有的信息：下游用户是如何使用这个依赖的？
 
 Because of this, a SemVer constraint solver might report that your dependencies work together when they don’t, either because a bump was applied incorrectly or because something in your dependency network had a Hyrum’s Law dependence on something that wasn’t considered part of the observable API surface. In these cases, you might have either build errors or runtime bugs, with no theoretical upper bound on their severity.
 
 正因为如此，SemVer约束求解器可能会报告说，你的依赖关系可以一起工作，但它们却不能一起工作，这可能是因为错误地应用了一个坑点，或者是因为你的依赖网络中的某些东西与不被认为是可观察API表面的一部分的东西存在Hyrum定律依赖。在这些情况下，您可能会有构建错误或运行时错误，其严重性在理论上没有上限。
 
-
-[^10]:	The Node ecosystem has noteworthy examples of dependencies that provide exactly one API.（节点生态系统有值得注意的依赖关系示例，这些依赖关系只提供一个API。）
-[^11]:	It’s worth noting: in our experience, naming like this doesn’t fully solve the problem of users reaching in to access private APIs. Prefer languages that have good control over public/private access to APIs of all forms.（值得注意的是：根据我们的经验，这样命名并不能完全解决用户访问私有API的问题。首选对所有形式的API的公共/私人访问有良好控制的语言。）
+> [^11]:	It’s worth noting: in our experience, naming like this doesn’t fully solve the problem of users reaching in to access private APIs. Prefer languages that have good control over public/private access to APIs of all forms./
+> 11  值得注意的是：根据我们的经验，这样命名并不能完全解决用户访问私有API的问题。首选对所有形式的API的公共/私人访问有良好控制的语言。
 
 
 ### Motivations  动机
@@ -423,6 +427,12 @@ Finally, there’s the human fallibility of the process. In general, SemVer vers
 
 最后，还有过程中的人为失误。一般来说，SemVer版本升级应该和语法变化一样适用于*语义*变化；改变API的行为和改变其结构一样重要。虽然开发工具来评估任何特定的版本是否涉及一组公共API的语法变化是可行的，但是要辨别是否存在有意义的、有意的语义变化在计算上是不可行的。实际上，即使是识别语法变化的潜在工具也是有限的。在几乎所有的情况下，对于任何给定的变化，是否要碰撞主要版本、次要版本或补丁版本，都取决于API提供者的人为判断。如果你只依赖少数几个专业维护的依赖关系，那么你对这种形式的SemVer文书错误的预期暴露可能很低。如果你的产品下面有成千上万的依赖关系网络，你应该准备好接受某种程度的混乱，仅仅是因为人为错误。
 
+> [^12]: In a world of ubiquitous unit tests, we could identify changes that required a change in test behavior, but it would still be difficult to algorithmically separate “This is a behavioral change” from “This is a bug fix to a behavior that wasn’t intended/promised.”
+> 12  在一个无处不在的单元测试的世界里，我们可以识别需要改变测试行为的变化，但仍然很难在算法上将 "这是一个行为上的变化 "与 "这是一个对不打算/承诺的行为的错误修复 "分开。
+>
+> [^13]: So, when it matters in the long term, choose well-maintained dependencies./
+> 13  所以，当长期重要时，选择维护良好的依赖关系。
+
 ### Minimum Version Selection  最小版本选择
 
 In 2018, as part of an essay series on building a package management system for the Go programming language, Google’s own Russ Cox described an interesting variation on SemVer dependency management: [Minimum Version Selection](https://research.swtch.com/vgo-mvs) (MVS). When updating the version for some node in the dependency network, it is possible that its dependencies need to be updated to newer versions to satisfy an updated SemVer requirement—this can then trigger further changes transitively. In most constraint- satisfaction/version-selection formulations, the newest possible versions of those downstream dependencies are chosen: after all, you’ll need to update to those new versions eventually, right?
@@ -441,10 +451,11 @@ Inherent in the idea of MVS is the admission that a newer version might introduc
 
 在MVS的理念中，承认较新的版本在实践中可能会带来不兼容，即使版本号在*理论上*说不兼容。这就是认识到SemVer的核心问题，无论是否使用MVS：在将软件更改压缩为版本号的过程中，仿真度有所损失。MVS提供了一些额外的实际仿真度，试图产生最接近那些可能已经被一起测试过的版本的选定版本。这可能是一个足够的推动力，使更大的依赖网络正常运作。不幸的是，我们还没有找到一个很好的方法来经验性地验证这个想法。MVS是否能在不解决该方法的基本理论和激励问题的情况下使SemVer“足够好”还没有定论，但我们仍然认为，它代表了SemVer约束应用的一个明显改进，正如今天所使用的那样。
 
-
-[^12]: In a world of ubiquitous unit tests, we could identify changes that required a change in test behavior, but it would still be difficult to algorithmically separate “This is a behavioral change” from “This is a bug fix to a behavior that wasn’t intended/promised.”（在一个无处不在的单元测试的世界里，我们可以识别需要改变测试行为的变化，但仍然很难在算法上将 "这是一个行为上的变化 "与 "这是一个对不打算/承诺的行为的错误修复 "分开。）
-[^13]: So, when it matters in the long term, choose well-maintained dependencies.（所以，当长期重要时，选择维护良好的依赖关系。）
-
+> 14 Russ Cox, “Minimal Version Selection,” February 21, 2018, https://research.swtch.com/vgo-mvs./
+> 14 Russ Cox，"最小的版本选择"，2018年2月21日，https://research.swtch.com/vgo-mvs。
+> 
+> 15 If that assumption doesn’t hold, you should really stop depending on liba./
+> 15 如果这个假设不成立，你真的应该停止对liba的依赖。
 
 ### So, Does SemVer Work? 那么，SemVer是否有效？
 
@@ -549,8 +560,11 @@ Inherent in this is a scale question: against which versions of each dependency 
 这里面有一个规模问题：你要针对网络中每个依赖关系的哪些版本来测试预提交的变化？如果我们针对所有历史版本的完整组合进行测试，我们将消耗大量的计算资源，即使按照谷歌的能力。这个版本选择策略最明显的简化似乎是 "测试当前的稳定版本"（毕竟，基于主干的开发是目标）。因此，在资源无限的情况下，依赖管理的模式实际上就是 "Live at Head"的模式。悬而未决的问题是，该模型是否可以有效地适用于更实际的资源可用性，以及API提供者是否愿意承担更大的责任来测试其变化的实际安全性。认识到我们现有的低成本设施是对我们正在寻找的难以计算的真相的过度简化，仍然是一项有益的工作。
 
 
-[^16]: Because the public OSS dependency network can’t generally depend on a bunch of private nodes, graphics firmware notwithstanding.（因为公共开放源码软件的依赖网络一般不能依赖一堆私人节点，尽管有图形固定。）
-[^17]: Or something very close to it.（或者是非常接近于此的东西。）
+> [^16]: Because the public OSS dependency network can’t generally depend on a bunch of private nodes, graphics firmware notwithstanding./
+> 16 因为公共开放源码软件的依赖网络一般不能依赖一堆私人节点，尽管有图形固定。
+
+> [^17]: Or something very close to it./
+> 17 或者是非常接近于此的东西。
 
 
 ### Exporting Dependencies  导出依赖
@@ -597,10 +611,6 @@ Other than the initial “Oh look, Google contributed something to the open sour
 
 除了最初的“哦，看，谷歌为开源世界做出了一些贡献”之外，没有任何一部分能让我们看起来很好，但考虑到我们工程组织的优先事项，它的每一个小部分都是有意义的。我们这些与它关系密切的人已经了解到，“在没有长期支持它的计划（和授权）的情况下，不要发布任何东西。”整个谷歌工程部门是否已经了解到这一点还有待观察。这是一个大组织。
 
-
-[^18]: That isn’t to say it’s right or wise, just that as an organization we let some things slip through the cracks.（这并不是说这是对的或明智的，只是作为一个组织，我们让一些事情从缝隙中溜走。）
-
-
 Above and beyond the nebulous “We look bad,” there are also parts of this story that illustrate how we can be subject to technical problems stemming from poorly released/poorly maintained external dependencies. Although the flags library was shared but ignored, there were still some Google-backed open source projects, or projects that needed to be shareable outside of our monorepo ecosystem. Unsurprisingly, the authors of those other projects were able to identify[^19] the common API subset between the internal and external forks of that library. Because that common subset stayed fairly stable between the two versions for a long period, it silently became “the way to do this” for the rare teams that had unusual portability requirements between roughly 2008 and 2017. Their code could build in both internal and external ecosystems, switching out forked versions of the flags library depending on environment.
 
 除了模糊的“我们看起来很糟糕”之外，这个故事中还有一些部分说明了我们如何受到由于发布/维护不当的外部依赖关系而产生的技术问题的影响。虽然flags库是共享的，但被忽略了，但仍然有一些由Google支持的开源项目，或者需要在monorepo生态系统之外共享的项目。毫不奇怪，这些其他项目的作者能够识别该库内部和外部分支之间的公共API子集。由于该通用子集在两个版本之间保持了相当长的一段时间的稳定，因此它悄悄地成为了在2008年到2017年间具有不同寻常的可移植性需求的少数团队的“实现方法”。他们的代码可以在内部和外部生态系统中构建，根据环境的不同，可以切换出flags库的分支版本。
@@ -608,6 +618,12 @@ Above and beyond the nebulous “We look bad,” there are also parts of this st
 Then, for unrelated reasons, C++ library teams began tweaking observable-but-not- documented pieces of the internal flag implementation. At that point, everyone who was depending on the stability and equivalence of an unsupported external fork started screaming that their builds and releases were suddenly broken. An optimization opportunity worth some thousands of aggregate CPUs across Google’s fleet was significantly delayed, not because it was difficult to update the API that 250 million lines of code depended upon, but because a tiny handful of projects were relying on unpromised and unexpected things. Once again, Hyrum’s Law affects software changes, in this case even for forked APIs maintained by separate organizations.
 
 然后，由于不相关的原因，C++库团队开始调整内部标志实现中可观察到但没有记录的部分。在这一点上，所有依赖于不支持的外部分支的稳定性和等效性的人都开始尖叫，他们的构建和发布突然被破坏。一个值得在谷歌集群中使用数千个CPU的优化机会被大大推迟了，不是因为难以更新2.5亿行代码所依赖的API，而是因为极少数项目依赖于未经预测和意外的东西。Hyrum定律再一次影响了软件的变化，在这种情况下，甚至是由不同组织维护的分叉API。
+
+> [^18]: That isn’t to say it’s right or wise, just that as an organization we let some things slip through the cracks./
+> 18  这并不是说这是对的或明智的，只是作为一个组织，我们让一些事情从缝隙中溜走。
+> 
+> 19 Often through trial and error./
+> 19 往往是通过试验和错误。
 
 ----
 
@@ -662,10 +678,4 @@ It is possible, however, that we move toward a world in which maintainer-provide
 - SemVer是对 "人类认为这一变化的风险有多大 "的一种有损压缩的速记估计。SemVer与软件包管理器中的SAT求解器一起，将这些估计值升级为绝对值。这可能会导致过度约束（依赖性地狱）或不足约束（应该一起工作的版本却没有）。
 
 - 相比之下，测试和CI提供了一组新版本是否能一起工作的实际证据。
-
-
-
-
-
-
 
