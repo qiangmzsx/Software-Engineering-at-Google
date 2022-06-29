@@ -6,17 +6,16 @@
 
             Written by  Erik Kuefler Edited by Lisa Carey
 
-If you ask Google engineers what they like most about working at Google (besides the free food and cool products), you might hear something surprising: engineers love the build system.1 Google has spent a tremendous amount of engineering effort over its lifetime in creating its own build system from the ground up, with the goal of ensuring that our engineers are able to quickly and reliably build code. The effort has been so successful that Blaze, the main component of the build system, has been reimplemented several different times by ex-Googlers who have left the company.2 In 2015, Google finally open sourced an implementation of Blaze named Bazel.
+If you ask Google engineers what they like most about working at Google (besides the free food and cool products), you might hear something surprising: engineers love the build system.[^1] Google has spent a tremendous amount of engineering effort over its lifetime in creating its own build system from the ground up, with the goal of ensuring that our engineers are able to quickly and reliably build code. The effort has been so successful that Blaze, the main component of the build system, has been reimplemented several different times by ex-Googlers who have left the company.[^2] In 2015, Google finally open sourced an implementation of Blaze named Bazel.
 
 如果你问谷歌的工程师，他们最喜欢在谷歌工作的什么（除了免费的食物和黑科技产品），你还会听到一些令人惊讶的事情：工程师们喜欢构建系统。谷歌一直在花费了巨大的努力，从零开始创建自己的构建系统，目的是确保工程师们能够快速、可靠地构建代码。这一努力是成功的，构建系统的主要组件Blaze，已经被已经离开公司的前谷歌员工重新实现了好几次。2015年，谷歌终于公开了Blaze的一个实现，名为Bazel。
 
-```
-1	In an internal survey, 83% of Googlers reported being satisfied with the build system, making it the fourth most satisfying tool of the 19 surveyed. The average tool had a satisfaction rating of 69%.
-2	See https://buck.build/ and https://www.pantsbuild.org/index.html.
+> [^1]:	In an internal survey, 83% of Googlers reported being satisfied with the build system, making it the fourth most satisfying tool of the 19 surveyed. The average tool had a satisfaction rating of 69%./
+> 1  在一项内部调查中，83%的谷歌用户表示对构建系统感到满意，这使它成为19项调查中第四个最令人满意的工具。平均工具的满意度为69%。
+> 
+> [^2]:	See https://buck.build/ and https://www.pantsbuild.org/index.html./
+> 2 查阅 https://buck.build/ and https://www.pantsbuild.org/index.html
 
-1  在一项内部调查中，83%的谷歌用户表示对构建系统感到满意，这使它成为19项调查中第四个最令人满意的工具。平均工具的满意度为69%。
-2 查阅 https://buck.build/ and https://www.pantsbuild.org/index.html
-```
 
 # Purpose of a Build System
 Fundamentally, all build systems have a straightforward purpose: they transform the source code written by engineers into executable binaries that can be read by machines. A good build system will generally try to optimize for two important properties:
@@ -37,11 +36,11 @@ Many older build systems attempt to make trade-offs between speed and correctnes
 许多较老的构建系统尝试在速度和正确性之间做出权衡，采取了一些可能导致不一致的构建的捷径。Bazel的主要目标是避免在速度和正确性之间做出选择，提供一个结构化的构建系统，以确保总是可以高效和一致地构建代码。
 
 Build systems aren’t just for humans; they also allow machines to create builds automatically, whether for testing or for releases to production. In fact, the large majority of builds at Google are triggered automatically rather than directly by engineers. Nearly all of our development tools tie into the build system in some way, giving huge amounts of value to everyone working on our codebase. Here’s a small sample of workflows that take advantage of our automated build system:
-•	Code is automatically built, tested, and pushed to production without any human intervention. Different teams do this at different rates: some teams push weekly, others daily, and others as fast as the system can create and validate new builds. (see Chapter 24).
-•	Developer changes are automatically tested when they’re sent for code review (see Chapter 19) so that both the author and reviewer can immediately see any build or test issues caused by the change.
-•	Changes are tested again immediately before merging them into the trunk, making it much more difficult to submit breaking changes.
-•	Authors of low-level libraries are able to test their changes across the entire codebase, ensuring that their changes are safe across millions of tests and binaries.
-•	Engineers are able to create large-scale changes (LSCs) that touch tens of thousands of source files at a time (e.g., renaming a common symbol) while still being able to safely submit and test those changes. We discuss LSCs in greater detail in Chapter 22.
+- Code is automatically built, tested, and pushed to production without any human intervention. Different teams do this at different rates: some teams push weekly, others daily, and others as fast as the system can create and validate new builds. (see Chapter 24).
+- Developer changes are automatically tested when they’re sent for code review (see Chapter 19) so that both the author and reviewer can immediately see any build or test issues caused by the change.
+- Changes are tested again immediately before merging them into the trunk, making it much more difficult to submit breaking changes.
+- Authors of low-level libraries are able to test their changes across the entire codebase, ensuring that their changes are safe across millions of tests and binaries.
+- Engineers are able to create large-scale changes (LSCs) that touch tens of thousands of source files at a time (e.g., renaming a common symbol) while still being able to safely submit and test those changes. We discuss LSCs in greater detail in Chapter 22.
 
 构建系统不仅仅是为人类服务的；它们也允许机器自动创建构建，无论是用于测试还是用于发布到生产环境。事实上，谷歌的大部分构建都是自动触发的，而不是由工程师点击触发的。我们几乎所有的开发工具都以某种方式与构建系统相结合，为每个在我们的代码库上工作的人提供了巨大的价值。以下是利用我们的自动构建系统的一小部分工作流示例：
 - 代码自动构建、测试并推送到生产环境，无需任何人工干预。不同的团队以不同的频率做这件事：有些团队每周推送一次，有些团队每天推送一次，有些团队则以系统能够创建和验证新构建的速度推送。(见第24章）。
@@ -90,13 +89,13 @@ The compiler also doesn’t know anything about how to handle external dependenc
 
 ## Shell Scripts to the Rescue? 来自shell脚本的拯救？
 Suppose that your hobby project starts out simple enough that you can build it using just a compiler, but you begin running into some of the problems described previously. Maybe you still don’t think you need a real build system and can automate away the tedious parts using some simple shell scripts that take care of building things in the correct order. This helps out for a while, but pretty soon you start running into even more problems:
-•	It becomes tedious. As your system grows more complex, you begin spending almost as much time working on your build scripts as on real code. Debugging shell scripts is painful, with more and more hacks being layered on top of one another.
-•	It’s slow. To make sure you weren’t accidentally relying on stale libraries, you have your build script build every dependency in order every time you run it. You think about adding some logic to detect which parts need to be rebuilt, but that sounds awfully complex and error prone for a script. Or you think about specifying which parts need to be rebuilt each time, but then you’re back to square one.
-•	Good news: it’s time for a release! Better go figure out all the arguments you need to pass to the jar command to make your final build. And remember how to upload it and push it out to the central repository. And build and push the documentation updates, and send out a notification to users. Hmm, maybe this calls for another script...
-•	Disaster! Your hard drive crashes, and now you need to recreate your entire system. You were smart enough to keep all of your source files in version control, but what about those libraries you downloaded? Can you find them all again and make sure they were the same version as when you first downloaded them? Your scripts probably depended on particular tools being installed in particular places — can you restore that same environment so that the scripts work again? What about all those environment variables you set a long time ago to get the compiler working just right and then forgot about?
-•	Despite the problems, your project is successful enough that you’re able to begin hiring more engineers. Now you realize that it doesn’t take a disaster for the previous problems to arise—you need to go through the same painful bootstrapping process every time a new developer joins your team. And despite your best efforts, there are still small differences in each person’s system. Frequently, what works on one person’s machine doesn’t work on another’s, and each time it takes a few hours of debugging tool paths or library versions to figure out where the difference is.
-•	You decide that you need to automate your build system. In theory, this is as simple as getting a new computer and setting it up to run your build script every night using cron. You still need to go through the painful setup process, but now you don’t have the benefit of a human brain being able to detect and resolve minor problems. Now, every morning when you get in, you see that last night’s build failed because yesterday a developer made a change that worked on their system but didn’t work on the automated build system. Each time it’s a simple fix, but it happens so often that you end up spending a lot of time each day discovering and applying these simple fixes.
-•   Builds become slower and slower as the project grows. One day, while waiting for a build to complete, you gaze mournfully at the idle desktop of your coworker, who is on vacation, and wish there were a way to take advantage of all that wasted computational power.
+- It becomes tedious. As your system grows more complex, you begin spending almost as much time working on your build scripts as on real code. Debugging shell scripts is painful, with more and more hacks being layered on top of one another.
+- It’s slow. To make sure you weren’t accidentally relying on stale libraries, you have your build script build every dependency in order every time you run it. You think about adding some logic to detect which parts need to be rebuilt, but that sounds awfully complex and error prone for a script. Or you think about specifying which parts need to be rebuilt each time, but then you’re back to square one.
+- Good news: it’s time for a release! Better go figure out all the arguments you need to pass to the jar command to make your final build. And remember how to upload it and push it out to the central repository. And build and push the documentation updates, and send out a notification to users. Hmm, maybe this calls for another script...
+-	Disaster! Your hard drive crashes, and now you need to recreate your entire system. You were smart enough to keep all of your source files in version control, but what about those libraries you downloaded? Can you find them all again and make sure they were the same version as when you first downloaded them? Your scripts probably depended on particular tools being installed in particular places — can you restore that same environment so that the scripts work again? What about all those environment variables you set a long time ago to get the compiler working just right and then forgot about?
+-	Despite the problems, your project is successful enough that you’re able to begin hiring more engineers. Now you realize that it doesn’t take a disaster for the previous problems to arise—you need to go through the same painful bootstrapping process every time a new developer joins your team. And despite your best efforts, there are still small differences in each person’s system. Frequently, what works on one person’s machine doesn’t work on another’s, and each time it takes a few hours of debugging tool paths or library versions to figure out where the difference is.
+-	You decide that you need to automate your build system. In theory, this is as simple as getting a new computer and setting it up to run your build script every night using cron. You still need to go through the painful setup process, but now you don’t have the benefit of a human brain being able to detect and resolve minor problems. Now, every morning when you get in, you see that last night’s build failed because yesterday a developer made a change that worked on their system but didn’t work on the automated build system. Each time it’s a simple fix, but it happens so often that you end up spending a lot of time each day discovering and applying these simple fixes.
+-   Builds become slower and slower as the project grows. One day, while waiting for a build to complete, you gaze mournfully at the idle desktop of your coworker, who is on vacation, and wish there were a way to take advantage of all that wasted computational power.
 
 假设你的业余项目开始时非常简单，你可以只用一个编译器来构建它，但你开始遇到前面描述的一些问题。也许你仍然认为你不需要一个真正的构建系统，可以使用一些简单的shell脚本来自动处理那些繁琐的部分，这些脚本负责按照正确的顺序构建东西。这会有一段时间的帮助，但很快你就会遇到更多的问题：
 - 它变得乏味了。随着你的系统越来越复杂，你开始花在构建脚本上的时间几乎和真正的代码一样多。调试shell脚本是很痛苦的，越来越多的"黑"操作操作被叠加在一起。
@@ -169,7 +168,7 @@ simple example build file
 </target>
 </project>
 ```
-The buildfile is written in XML and defines some simple metadata about the build along with a list of tasks (the <target> tags in the XML3). Each task executes a list of possible commands defined by Ant, which here include creating and deleting directories, running javac, and creating a JAR file. This set of commands can be extended by user-provided plug-ins to cover any sort of logic. Each task can also define the tasks it depends on via the depends attribute. These dependencies form an acyclic graph (see Figure 18-1).
+The buildfile is written in XML and defines some simple metadata about the build along with a list of tasks (the <target> tags in the XML[^3]). Each task executes a list of possible commands defined by Ant, which here include creating and deleting directories, running javac, and creating a JAR file. This set of commands can be extended by user-provided plug-ins to cover any sort of logic. Each task can also define the tasks it depends on via the depends attribute. These dependencies form an acyclic graph (see Figure 18-1).
 
 构建文件是用XML编写的，定义了一些关于构建的简单元数据以及任务列表（XML中的<target>标签）。每个任务都执行Ant定义的一系列可能的命令，其中包括创建和删除目录、运行javac和创建JAR文件。这组命令可以由用户提供的插件扩展，以涵盖任何类型的逻辑。每个任务还可以通过依赖属性定义它所依赖的任务。这些依赖关系形成一个无环图（见图18-1）。
 
@@ -234,6 +233,9 @@ Ant is a very old piece of software, originally released in 2000—not what many
 
 Ant是一个非常古老的软件，最初发布于2000年--而不是很多人今天会考虑的“现代”构建系统！其他工具，如Maven和Gradle，在这几年中对Ant进行了改进，基本上取代了它，添加诸如自动管理外部依赖项和不使用任何XML的更干净语法等功能。但这些新系统的本质仍然是一样的：它们允许工程师以有原则的模块化方式编写构建脚本作为任务，并提供工具来执行这些任务和管理它们之间的依赖关系。
 
+> [^3]:  Ant uses the word “target” to represent what we call a “task” in this chapter, and it uses the word “task” to refer to what we call “commands.”/
+> 3 ant用 "目标 "这个词来表示我们在本章中所说的 "任务"，它用 "任务 "这个词来指代我们所说的 "命令"/。
+
 ### The dark side of task-based build systems 基于任务的构建系统的缺陷
 
 Because these tools essentially let engineers define any script as a task, they are extremely powerful, allowing you to do pretty much anything you can imagine with them. But that power comes with drawbacks, and task-based build systems can become difficult to work with as their build scripts grow more complex. The problem with such systems is that they actually end up giving *too much power to engineers and not enough power to the system*. Because the system has no idea what the scripts are doing, performance suffers, as it must be very conservative in how it schedules and executes build steps. And there’s no way for the system to confirm that each script is doing what it should, so scripts tend to grow in complexity and end up being another thing that needs debugging.
@@ -253,11 +255,11 @@ Some build systems try to enable incremental builds by letting engineers specify
 一些构建系统试图通过让工程师指定需要重新运行任务的条件来启用增量构建。有时这是可行的，但通常这是一个比看起来更棘手的问题。例如，在像C++这样允许文件直接被其他文件包含的语言中，如果不解析输入源，就不可能确定必须关注的整个文件集的变化。工程师们最终往往会走捷径，而这些捷径会导致罕见的、令人沮丧的问题，即一个任务结果被重复使用，即使它不应该被使用。当这种情况经常发生时，工程师们就会养成习惯，在每次构建前运行clean，以获得一个全新的状态，这就完全违背了一开始就有增量构建的目的。弄清楚什么时候需要重新运行一个任务是非常微妙的，而且是一个最好由机器而不是人处理的工作。
 
 **Difficulty maintaining and debugging scripts**. Finally, the build scripts imposed by task- based build systems are often just difficult to work with. Though they often receive less scrutiny, build scripts are code just like the system being built, and are easy places for bugs to hide. Here are some examples of bugs that are very common when working with a task-based build system:
-•	Task A depends on task B to produce a particular file as output. The owner of task B doesn’t realize that other tasks rely on it, so they change it to produce output in a different location. This can’t be detected until someone tries to run task A and finds that it fails.
-•	Task A depends on task B, which depends on task C, which is producing a particular file as output that’s needed by task A. The owner of task B decides that it doesn’t need to depend on task C any more, which causes task A to fail even though task B doesn’t care about task C at all!
-•	The developer of a new task accidentally makes an assumption about the machine running the task, such as the location of a tool or the value of particular environment variables. The task works on their machine, but fails whenever another developer tries it.
-•	A task contains a nondeterministic component, such as downloading a file from the internet or adding a timestamp to a build. Now, people will get potentially different results each time they run the build, meaning that engineers won’t always be able to reproduce and fix one another’s failures or failures that occur on an automated build system.
-•	Tasks with multiple dependencies can create race conditions. If task A depends on both task B and task C, and task B and C both modify the same file, task A will get a different result depending on which one of tasks B and C finishes first.
+-	Task A depends on task B to produce a particular file as output. The owner of task B doesn’t realize that other tasks rely on it, so they change it to produce output in a different location. This can’t be detected until someone tries to run task A and finds that it fails.
+-	Task A depends on task B, which depends on task C, which is producing a particular file as output that’s needed by task A. The owner of task B decides that it doesn’t need to depend on task C any more, which causes task A to fail even though task B doesn’t care about task C at all!
+-	The developer of a new task accidentally makes an assumption about the machine running the task, such as the location of a tool or the value of particular environment variables. The task works on their machine, but fails whenever another developer tries it.
+-	A task contains a nondeterministic component, such as downloading a file from the internet or adding a timestamp to a build. Now, people will get potentially different results each time they run the build, meaning that engineers won’t always be able to reproduce and fix one another’s failures or failures that occur on an automated build system.
+-	Tasks with multiple dependencies can create race conditions. If task A depends on both task B and task C, and task B and C both modify the same file, task A will get a different result depending on which one of tasks B and C finishes first.
 
 **难以维护和调试脚本**。最后，基于任务的构建系统所强加的构建脚本往往就是难以使用。尽管构建脚本通常很少受到审查，但它们与正在构建的系统一样，都是代码，很容易隐藏bug。以下是使用基于任务的构建系统时常见的一些错误示例：
 - 任务A依赖于任务B来产生一个特定的文件作为输出。任务B的所有者没有意识到其他任务依赖于它，所以他们改变了它，在不同的位置产生输出。直到有人试图运行任务A，发现它失败了，这才被发现。
@@ -280,6 +282,7 @@ This is exactly the approach taken by Blaze and the other artifact-based build s
 这正是Blaze和它衍生的其他基于构件的构建系统（包括Bazel、Pants和Buck）所采用的方法。与基于任务的构建系统一样，我们仍然有构建文件，但这些构建文件的内容却非常不同。在Blaze中，构建文件不是图灵完备的脚本语言中描述如何产生输出的命令集，而是声明性的清单，描述一组要构建的构件、它们的依赖关系，以及影响它们如何构建的有限选项集。当工程师在命令行上运行blaze时，他们指定一组要构建的目标（"what"），而Blaze负责配置、运行和调度编译步骤（"how"）。由于构建系统现在可以完全控制什么工具在什么时候运行，它可以做出更有力的保证，使其在保证正确性的同时，效率也大大提高。
 
 ### A functional perspective 功能视角
+
 It’s easy to make an analogy between artifact-based build systems and functional programming. Traditional imperative programming languages (e.g., Java, C, and Python) specify lists of statements to be executed one after another, in the same way that task- based build systems let programmers define a series of steps to execute. Functional programming languages (e.g., Haskell and ML), in contrast, are structured more like a series of mathematical equations. In functional languages, the programmer describes a computation to perform, but leaves the details of when and exactly how that computation is executed to the compiler. This maps to the idea of declaring a manifest in an artifact-based build system and letting the system figure out how to execute the build.
 
 在基于构件的构建系统和函数式编程之间做个类比是很容易的。传统的命令式编程语言（如Java、C和Python）指定了一个又一个要执行的语句列表，就像基于任务的构建系统让程序员定义一系列的执行步骤一样。相比之下，函数式编程语言（如Haskell和ML）的结构更像是一系列的数学方程。在函数式语言中，程序员描述了一个要执行的计算，但把何时以及如何执行该计算的细节留给了编译器。这就相当于在基于构件的构建系统中声明一个清单，并让系统找出如何执行构建的思路。
@@ -312,18 +315,13 @@ In Bazel, BUILD files define targets—the two types of targets here are java_bi
 
 在Bazel中，BUILD文件定义了目标--这里的两类目标是java_binary和java_library。每个目标都对应于系统可以创建的构件：二进制目标产生可以直接执行的二进制文件，而库目标产生可以被二进制文件或其他库使用的库。每个目标都有一个名字（它定义了它在命令行和其他目标中的引用方式）、srcs（它定义了必须被编译以创建目标的组件的源文件）和deps（它定义了必须在这个目标之前构建并链接到它的其他目标）。依赖关系可以是在同一个包内（例如，MyBinary对":mylib "的依赖），也可以是在同一个源层次结构中的不同包上（例如，mylib对"//java/com/example/common "的依赖），或者是在源层次结构之外的第三方工件上（例如，mylib对"@com_google_common_guava_guava//jar "的依赖）。每个源层次结构被称为工作区，并通过在根部存在一个特殊的WORKSPACE文件来识别。
 
-Like with Ant, users perform builds using Bazel’s command-line tool. To build the MyBinary target, a user would run bazel build :MyBinary. Upon entering that command for the first time in a clean repository, Bazel would do the following:
-
+Like with Ant, users perform builds using Bazel’s command-line tool. To build the MyBinary target, a user would run bazel build :MyBinary. Upon entering that command for the first time in a clean repository, Bazel would do the following:  
 1. Parse every BUILD file in the workspace to create a graph of dependencies among artifacts.
-
-2. Use the graph to determine the transitive dependencies of MyBinary; that is, every target that MyBinary depends on and every target that those targets depend on, recursively.
-
+2. Use the graph to determine the transitive dependencies of MyBinary; that is, every target that MyBinary depends on and every target that those targets depend on, recursively.  
 3. Build (or download for external dependencies) each of those dependencies, in order. Bazel starts by building each target that has no other dependencies and keeps track of which dependencies still need to be built for each target. As soon as all of a target’s dependencies are built, Bazel starts building that target. This process continues until every one of MyBinary’s transitive dependencies have been built.
-
 4. Build MyBinary to produce a final executable binary that links in all of the dependencies that were built in step 3.
     Fundamentally, it might not seem like what’s happening here is that much different than what happened when using a task-based build system. Indeed, the end result is the same binary, and the process for producing it involved analyzing a bunch of steps to find dependencies among them, and then running those steps in order. But there are critical differences. The first one appears in step 3: because Bazel knows that each target will only produce a Java library, it knows that all it has to do is run the Java compiler rather than an arbitrary user-defined script, so it knows that it’s safe to run these steps in parallel. This can produce an order of magnitude performance improvement over building targets one at a time on a multicore machine, and is only possible because the artifact-based approach leaves the build system in charge of its own execution strategy so that it can make stronger guarantees about parallelism.
 
-  
 
   和Ant一样，用户使用Bazel的命令行工具进行构建。为了构建MyBinary目标，用户可以运行 bazel build :MyBinary。在一个干净的版本库中第一次输入该命令时，Bazel会做以下工作。
 
@@ -376,7 +374,7 @@ The system isn’t foolproof given that there’s no way to stop an action devel
 
 **使外部依赖性具有确定性**。还有一个问题：构建系统经常需要从外部下载依赖项（无论是工具还是库），而不是直接构建它们。这可以通过@com_google_common_guava_guava//jar依赖项在示例中看到，该依赖项从Maven下载jar文件。
 
-Depending on files outside of the current workspace is risky. Those files could change at any time, potentially requiring the build system to constantly check whether they’re fresh. If a remote file changes without a corresponding change in the workspace source code, it can also lead to unreproducible builds—a build might work one day and fail the next for no obvious reason due to an unnoticed dependency change. Finally, an external dependency can introduce a huge security risk when it is owned by a third party:4 if an attacker is able to infiltrate that third-party server, they can replace the dependency file with something of their own design, potentially giving them full control over your build environment and its output.
+Depending on files outside of the current workspace is risky. Those files could change at any time, potentially requiring the build system to constantly check whether they’re fresh. If a remote file changes without a corresponding change in the workspace source code, it can also lead to unreproducible builds—a build might work one day and fail the next for no obvious reason due to an unnoticed dependency change. Finally, an external dependency can introduce a huge security risk when it is owned by a third party:[^4]  if an attacker is able to infiltrate that third-party server, they can replace the dependency file with something of their own design, potentially giving them full control over your build environment and its output.
 
 依靠当前工作区以外的文件是有风险的。这些文件可能随时更改，这可能需要生成系统不断检查它们是否是最新的。如果一个远程文件发生了变化，而工作区的源代码却没有相应的变化，这也会导致构建的不可重复性--由于一个未被注意到的依赖性变化，构建可能在某一天成功，而在第二天却没有明显的原因而失败。最后，当外部依赖项属于第三方时，可能会带来巨大的安全风险：如果攻击者能够渗透到第三方服务器，他们可以用自己设计的内容替换依赖项文件，从而有可能让他们完全控制服务器构建环境及其输出。
 
@@ -384,16 +382,17 @@ The fundamental problem is that we want the build system to be aware of these fi
 
 根本的问题是，我们希望构建系统知道这些文件，而不必将它们放入源代码管理。更新一个依赖关系应该是一个有意识的选择，但这个选择应该在一个中心位置做出，而不是由个别工程师管理或由系统自动管理。这是因为即使是 "Live at Head "模式，我们仍然希望构建是确定性的，这意味着如果你检查出上周的提交，你应该看到你的依赖关系是当时的，而不是现在的。
 
-Bazel and some other build systems address this problem by requiring a workspace- wide manifest file that lists a cryptographic hash for every external dependency in the workspace.5 The hash is a concise way to uniquely represent the file without checking the entire file into source control. Whenever a new external dependency is referenced from a workspace, that dependency’s hash is added to the manifest, either manually or automatically. When Bazel runs a build, it checks the actual hash of its cached dependency against the expected hash defined in the manifest and redownloads the file only if the hash differs.
+Bazel and some other build systems address this problem by requiring a workspace- wide manifest file that lists a cryptographic hash for every external dependency in the workspace.[^5]  The hash is a concise way to uniquely represent the file without checking the entire file into source control. Whenever a new external dependency is referenced from a workspace, that dependency’s hash is added to the manifest, either manually or automatically. When Bazel runs a build, it checks the actual hash of its cached dependency against the expected hash defined in the manifest and redownloads the file only if the hash differs.
 
 Bazel和其他一些构建系统通过要求一个工作区范围的清单文件来解决这个问题，该文件列出了工作区中每个外部依赖项的加密哈希。每当从工作区引用一个新的外部依赖关系时，该依赖关系的哈希值就会被手动或自动添加到清单中。Bazel 运行构建时，会将其缓存的依赖关系的实际哈希值与清单中定义的预期哈希值进行对比，只有在哈希值不同时才会重新下载文件。
 
-```
-4	Such "software supply chain" attacks are becoming more common.
-5	Go recently added preliminary support for modules using the exact same system.
-4   这种“软件供应链”攻击越来越普遍。
-5   Go最近增加了对使用完全相同系统的模块的初步支持。
-```
+
+> [^4]:	Such "software supply chain" attacks are becoming more common./
+> 4   这种“软件供应链”攻击越来越普遍。
+> 
+> [^5]:	Go recently added preliminary support for modules using the exact same system.
+> 5   Go最近增加了对使用完全相同系统的模块的初步支持。
+
 If the artifact we download has a different hash than the one declared in the manifest, the build will fail unless the hash in the manifest is updated. This can be done automatically, but that change must be approved and checked into source control before the build will accept the new dependency. This means that there’s always a record of when a dependency was updated, and an external dependency can’t change without a corresponding change in the workspace source. It also means that, when checking out an older version of the source code, the build is guaranteed to use the same dependencies that it was using at the point when that version was checked in (or else it will fail if those dependencies are no longer available).
 
 如果我们下载的构件与清单中声明的哈希值不同，除非更新清单中的哈希值，否则构建将失败。这可以自动完成，但在构建接受新的依赖关系之前，这一变化必须得到批准并检查到源代码控制中。这意味着总是有依赖关系更新的记录，如果工作区源代码没有相应的变化，外部依赖关系就不会改变。这也意味着，当签出一个旧版本的源代码时，构建保证使用与签入该版本时相同的依赖关系（否则，如果这些依赖关系不再可用，它将失败）。
@@ -545,7 +544,7 @@ As far as the underlying tools are concerned, there’s no problem with this; bo
 
 就底层工具而言，这没有问题；B和C在构建目标A时都会链接到目标A中，因此C中定义的任何符号都会被A知道。Blaze允许这一点很多年了，但随着谷歌的发展，我们开始发现问题。假设B被重构，不再需要依赖C。如果B对C的依赖关系被删除，A和通过对B的依赖关系使用C的任何其他目标都将中断。实际上，一个目标的依赖关系成为其公共契约的一部分，永远无法安全地更改。这意味着依赖性会随着时间的推移而积累，谷歌的构建速度开始变慢。
 
-Google eventually solved this issue by introducing a “strict transitive dependency mode” in Blaze. In this mode, Blaze detects whether a target tries to reference a symbol without depending on it directly and, if so, fails with an error and a shell command that can be used to automatically insert the dependency. Rolling this change out across Google’s entire codebase and refactoring every one of our millions of build targets to explicitly list their dependencies was a multiyear effort, but it was well worth it. Our builds are now much faster given that targets have fewer unnecessary dependencies,[6](#_bookmark1703) and engineers are empowered to remove dependencies they don’t need without worrying about breaking targets that depend on them.
+Google eventually solved this issue by introducing a “strict transitive dependency mode” in Blaze. In this mode, Blaze detects whether a target tries to reference a symbol without depending on it directly and, if so, fails with an error and a shell command that can be used to automatically insert the dependency. Rolling this change out across Google’s entire codebase and refactoring every one of our millions of build targets to explicitly list their dependencies was a multiyear effort, but it was well worth it. Our builds are now much faster given that targets have fewer unnecessary dependencies,[^6] and engineers are empowered to remove dependencies they don’t need without worrying about breaking targets that depend on them.
 
 谷歌最终解决了这个问题，在Blaze中引入了一个 "严格传递依赖模式"。在这种模式下，Blaze检测目标是否尝试引用符号而不直接依赖它，如果是，则失败，并显示错误和可用于自动插入依赖项的shell命令。在谷歌的整个代码库中推广这一变化，并重构我们数百万个构建目标中的每一个，以以明确列出它们的依赖关系，这是一项多年的努力，但这是非常值得的。现在我们的构建速度快多了，因为目标的不必要的依赖性减少了，工程师有权删除他们不需要的依赖关系，而不用担心破坏依赖它们的目标。
 
@@ -553,16 +552,14 @@ As usual, enforcing strict transitive dependencies involved a trade-off. It made
 
 像往常一样，强制执行严格的可传递依赖关系需要权衡。它使构建文件更加冗长，因为现在需要在许多地方明确列出常用的库，而不是附带地将其拉入，而且工程师需要花更多的精力将依赖关系添加到*BUILD*文件中。我们后来开发了一些工具，通过自动检测许多缺失的依赖关系并将其添加到*BUILD*文件中，而不需要任何开发人员的干预，从而减少了这项工作。但即使没有这样的工具，我们也发现，随着代码库的扩展，这样的权衡是非常值得的：明确地在*BUILD*文件中添加一个依赖关系是一次性的成本，但是只要构建目标存在，处理隐式传递依赖项就可能导致持续的问题。Bazel对Java代码强制执行严格的可传递依赖项。
 
+> [^6]:	Of course, actually removing these dependencies was a whole separate process. But requiring each target to explicitly declare what it used was a critical first step. See Chapter 22 for more information about how Google makes large-scale changes like this./
+> 6   当然，实际上删除这些依赖项是一个完全独立的过程。但要求每个目标明确声明它使用了什么是关键的第一步。请参阅第22章，了解更多关于谷歌如何做出如此大规模改变的信息。
+
 ### External dependencies 外部依赖
 
 If a dependency isn’t internal, it must be external. External dependencies are those on artifacts that are built and stored outside of the build system. The dependency is imported directly from an *artifact repository* (typically accessed over the internet) and used as-is rather than being built from source. One of the biggest differences between external and internal dependencies is that external dependencies have *versions*, and those versions exist independently of the project’s source code.
 
 如果一个依赖性不是内部的，它一定是外部的。外部依赖关系是指在构建系统之外构建和存储的构件上的依赖关系。依赖关系直接从*构件库*（通常通过互联网访问）导入，并按原样使用，而不是从源代码构建。外部依赖和内部依赖的最大区别之一是，外部依赖有版本，这些版本独立于项目的源代码而存在。
-
-```
-6	Of course, actually removing these dependencies was a whole separate process. But requiring each target to explicitly declare what it used was a critical first step. See Chapter 22 for more information about how Google makes large-scale changes like this.
-6   当然，实际上删除这些依赖项是一个完全独立的过程。但要求每个目标明确声明它使用了什么是关键的第一步。请参阅第22章，了解更多关于谷歌如何做出如此大规模改变的信息。
-```
 
  **Automatic versus manual dependency management.** Build systems can allow the versions of external dependencies to be managed either manually or automatically. When managed manually, the buildfile explicitly lists the version it wants to download from the artifact repository, often using [a semantic version string ](https://semver.org/)such as “1.1.4”. When managed automatically, the source file specifies a range of acceptable versions, and the build system always downloads the latest one. For example, Gradle allows a dependency version to be declared as “1.+” to specify that any minor or patch version of a dependency is acceptable so long as the major version is 1.
 
@@ -647,6 +644,7 @@ The remainder of this chapter explored how to manage dependencies in an artifact
 本章的其余部分探讨了如何在一个基于工件的系统中管理依赖关系。我们得出的结论是：*细粒度的模块比粗粒度的模块更容易扩展。我们还讨论了管理依赖版本的困难，描述了* "一个版本规则 "*，以及所有的依赖都应该*手动和明确的版本*的观点。这样的做法可以避免像钻石依赖问题这样的常见陷阱，并允许代码库在一个具有统一构建系统的单一存储库中实现谷歌数万亿行代码的规模。
 
 # TL;DRs  内容提要
+
 •   A fully featured build system is necessary to keep developers productive as an organization scales.
 •   Power and flexibility come at a cost. Restricting the build system appropriately makes it easier on developers.
 
