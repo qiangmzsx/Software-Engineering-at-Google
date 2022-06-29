@@ -295,9 +295,12 @@ The dashboard page is powered by a search system called *Changelist Search*. Cha
 
 仪表板页面是由一个名为*Changelist Search*的搜索系统提供的。Changelist Search索引了谷歌所有用户的所有可用变化的最新状态（包括提交前和提交后），并允许其用户通过基于正则表达式的查询来查找相关变化。每个仪表板部分都由对Changelist Search的查询来定义。我们花了很多时间来确保Changelist Search搜索足够快；所有的东西都被快速索引，这样作者和审稿人就不会被拖慢，尽管事实上谷歌同时出现了大量的并发更改。
 
-To optimize the user experience (UX), Critique’s default dashboard setting is to have the first section display the changes that need a user’s attention, although this is customizable. There is also a search bar for making custom queries over all changes and browsing the results. As a reviewer, you mostly just need the attention set. As an author, you mostly just need to take a look at what is still waiting for review to see if you need to ping any changes. Although we have shied away from customizability in some other parts of the Critique UI, we found that users like to set up their dashboards differently without detracting from the fundamental experience, similar to the way everyone organizes their emails differently.[1](#_bookmark1770)
+To optimize the user experience (UX), Critique’s default dashboard setting is to have the first section display the changes that need a user’s attention, although this is customizable. There is also a search bar for making custom queries over all changes and browsing the results. As a reviewer, you mostly just need the attention set. As an author, you mostly just need to take a look at what is still waiting for review to see if you need to ping any changes. Although we have shied away from customizability in some other parts of the Critique UI, we found that users like to set up their dashboards differently without detracting from the fundamental experience, similar to the way everyone organizes their emails differently.[^1]
 
 为了优化用户体验（UX），Critique的默认仪表盘设置是在第一部分显示需要用户关注的变更，不过这也是可以定制的。还有一个搜索栏，可以对所有修改进行自定义查询，并浏览结果。作为一个审查员，你大多只需要关注集。作为一个作者，你大多数时候只需要看一下哪些东西还在等待审查，看看你是否需要修正。尽管我们在Critique用户界面的一些其他部分回避了可定制性，但我们发现用户喜欢以不同的方式设置他们的仪表板，而不影响基本的体验，就像每个人以不同的方式组织他们的电子邮件一样。
+
+> 1 Centralized “global” reviewers for large-scale changes (LSCs) are particularly prone to customizing this dashboard to avoid flooding it during an LSC (see Chapter 22)./
+>  1 大规模变更（LSCs）的集中式 "全球 "审查员特别容易定制这个仪表盘，以避免在LSC期间淹没它（见第22章）。
 
 ## Stage 5: Change Approvals (Scoring a Change) 阶段5：变更批准（对变更进行评分）
 
@@ -398,7 +401,7 @@ To minimize the time it takes for a change to be reviewed, the code review proce
 
 为了最大限度地减少评审更改所需的时间，代码评审过程应该无缝流动，简洁地告知用户需要关注的更改，并在人工评审员介入之前确定潜在问题（问题由分析人员和持续集成人员发现）。如果可能，在较长时间运行的分析完成之前，会显示快速分析结果。
 
-There are several ways in which Critique needs to support questions of scale. The Critique tool must scale to the large quantity of review requests produced without suffering a degradation in performance. Because Critique is on the critical path to getting changes committed, it must load efficiently and be usable for special situations such as unusually large changes.[2](#_bookmark1778) The interface must support managing user activities (such as finding relevant changes) over the large codebase and help reviewers and authors navigate the codebase. For example, Critique helps with finding appropriate reviewers for a change without having to figure out the ownership/maintainer landscape (a feature that is particularly important for large-scale changes such as API migrations that can affect many files).
+There are several ways in which Critique needs to support questions of scale. The Critique tool must scale to the large quantity of review requests produced without suffering a degradation in performance. Because Critique is on the critical path to getting changes committed, it must load efficiently and be usable for special situations such as unusually large changes.[^2](#_bookmark1778) The interface must support managing user activities (such as finding relevant changes) over the large codebase and help reviewers and authors navigate the codebase. For example, Critique helps with finding appropriate reviewers for a change without having to figure out the ownership/maintainer landscape (a feature that is particularly important for large-scale changes such as API migrations that can affect many files).
 
 Critique需要在几个方面支持规模问题。Critique工具必须在不降低性能的情况下，适应大量的审查请求。由于Critique是在提交修改的关键路径上，它必须有效地加载，并能在特殊情况下使用，如异常大的修改。界面必须支持在大型代码库中管理用户活动（如寻找相关修改），并帮助评审员和作者浏览代码库。例如，Critique有助于为某一变更找到合适的审查者，而不必弄清所有权/维护者的情况（这一功能对于大规模的变更，如可能影响许多文件的API迁移，尤为重要）。
 
@@ -406,10 +409,8 @@ Critique favors an opinionated process and a simple interface to improve the gen
 
 Critique倾向于采用意见一致的流程和简单的界面来改善一般的审查工作流程。然而，Critique确实允许一些自定义功能：自定义分析器和预提交提供了具体的修改内容，而且可以强制执行一些特定的团队策略（如要求多个审稿人提供LGTM）。
 
-```
-2	Although most changes are small (fewer than 100 lines), Critique is sometimes used to review large refactoring changes that can touch hundreds or thousands of files, especially for LSCs that must be executed atomically (see Chapter 22).
-2 尽管大多数改动都很小（少于100行），但Critique有时也被用来审查大型的重构改动，这些改动可能会触及成百上千个文件，特别是对于那些必须原子化执行的LSCs（见第22章）。
-```
+> [^2]:	Although most changes are small (fewer than 100 lines), Critique is sometimes used to review large refactoring changes that can touch hundreds or thousands of files, especially for LSCs that must be executed atomically (see Chapter 22)./
+> 2 尽管大多数改动都很小（少于100行），但Critique有时也被用来审查大型的重构改动，这些改动可能会触及成百上千个文件，特别是对于那些必须原子化执行的LSCs（见第22章）。
 
 Trust and communication are core to the code review process. A tool can enhance the experience, but can’t replace them. Tight integration with other tools has also been a key factor in Critique’s success.
 
