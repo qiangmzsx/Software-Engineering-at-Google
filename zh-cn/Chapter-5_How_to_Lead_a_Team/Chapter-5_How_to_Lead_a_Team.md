@@ -103,7 +103,7 @@ If you’ve spent the majority of your career writing code, you typically end a 
 
 Another big reason for not becoming a manager is often unspoken but rooted in the famous “Peter Principle,” which states that “In a hierarchy every employee tends to rise to his level of incompetence.” Google generally avoids this by requiring that a person perform the job *above* their current level for a period of time (i.e., to “exceeds expectations” at their current level) before being promoted to that level. Most people have had a manager who was incapable of doing their job or was just really bad at managing people,[^2] and we know some people who have worked only for bad managers. If you’ve been exposed only to crappy managers for your entire career, why would you *ever* want to be a manager? Why would you want to be promoted to a role that you don’t feel able to do?
 
-不成为经理的另一个重要原因往往是不言而喻的，但却源于著名的 "彼得原理"，即 "在等级制度中，每个职工趋向于上升到他所不能胜任的职位"。谷歌通常通过要求一个人在晋升到该级别之前，必须在其目前的级别上完成高于当前水平的工作一段时间（即达到 "超出预期 "的目前级别）来避免这种情况。大多数人都有过一个不能胜任工作的经理，或者只是非常不善于管理人，而我们知道有些人只为糟的糕经理工作。如果你在整个职业生涯中只接触过糟糕的经理，你为什么**想成为一名经理**？你为什么要被提拔到一个你觉得无法胜任的角色？
+不成为经理的另一个重要原因往往是不言而喻的，但却源于著名的 "彼得原理"，即 "在等级制度中，每个职工趋向于上升到他所不能胜任的职位"。谷歌通常通过要求一个人在晋升到该级别之前，必须在其目前的级别上完成高于当前水平的工作一段时间（即达到 "超出预期 "的目前级别）来避免这种情况。大多数人都有过一个不能胜任工作的经理，或者只是非常不善于管理人，而我们知道有些人只为糟糕的经理工作。如果你在整个职业生涯中只接触过糟糕的经理，你为什么**想成为一名经理**？你为什么要被提拔到一个你觉得无法胜任的角色？
 
 > 彼得原理推导：每一个职位最终都将被一个不能胜任其工作的职工所占据。层级组织的工作任务多半是由尚未达到胜任阶层的员工完成的。
 
