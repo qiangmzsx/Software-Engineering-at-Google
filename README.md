@@ -47,6 +47,9 @@ https://qiangmzsx.github.io/Software-Engineering-at-Google/#/
 |                   |               | chapter 25 : Compute as a Service                  | [第二十五章：计算即服务](./zh-cn/Chapter-25_Compute_as_a_Service/Chapter-25_Compute_as_a_Service.md) | 完成待校验 | @qiangmzsx                               | 2022-02-23     |                                                              |
 | PART 5 Conclusion | 第五部分 总结 | Afterword                                          | [后记](./zh-cn/Afterword.md)                                 | 完成待校验 | @qiangmzsx                               | 2022-01-26完成 |                                                              |
 
+## Star
+[![Stargazers over time](https://starchart.cc/qiangmzsx/Software-Engineering-at-Google.svg)](https://starchart.cc/qiangmzsx/Software-Engineering-at-Google)
+
 ## 授权许可
 
 除特别声明外，本书中的内容使用 [CC BY-SA 3.0 License](http://creativecommons.org/licenses/by-sa/3.0/)（创作共用 署名-相同方式共享3.0 许可协议）授权，代码遵循 [BSD 3-Clause License](https://github.com/astaxie/build-web-application-with-golang/blob/master/LICENSE.md)（3 项条款的 BSD 许可协议）。
