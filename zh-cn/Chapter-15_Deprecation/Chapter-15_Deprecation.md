@@ -1,26 +1,10 @@
-- [前言](#org256d2e9)
-- [为什么要“弃用” (Why Deprecate?)](#org5c84129)
-- [为什么“弃用”这么难(Why Is Deprecation So Hard?)](#org7622f5d)
-  - [设计之初便考虑“弃用” (Deprecation During Design)](#orgd940752)
-- [“弃用”的种类 (Types of Deprecation)](#org5f89150)
-  - [建议性“弃用” (Advisory Deprecation)](#org82746f5)
-  - [强制性“弃用” (Compulsory Deprecation)](#org520304c)
-  - [（弃用警告）Deprecation Warnings](#org3013548)
-- [管理“弃用”的流程 (Managing the Deprecation Process)](#org56fb66a)
-  - [确定“弃用”的负责人 (Process Owners)](#org0ceecca)
-  - [制定里程碑 (Milestones)](#orgc69d989)
-  - [工具加持 (Deprecation Tooling)](#org1b3cc5a)
-    - [发现使用者 (Discovery)](#orgf3f6ae7)
-    - [迁移 (Migration)](#orgf9e3715)
-    - [避免“弃用”项目被重新启用 (Preventing backsliding)](#org5348d0f)
-- [结论 (Conclusion)](#org2e5b0b9)
-- [TL;DRs](#org9c62368)
 
 
+**CHAPTER 15**
 
-<a id="org256d2e9"></a>
+# Deprecation
 
-# 前言
+# 第十五章 废弃
 
 本章由海鲁姆·赖特撰写，由汤姆·曼什雷克编辑
 
@@ -47,9 +31,8 @@ This chapter primarily deals with deprecating technical systems, not end-user pr
 本章主要从技术层面讲“弃用”，而不是从产品层面。 考虑到面向外部的 API 也算另一种产品，而内部 API 通常 是自产自销，因此这种区别有些武断。 尽管许多原则也适用于对外产品，但我们在这里关注的是“弃用”和删除过时 的内部系统的技术和策略方面的问题。
 
 
-<a id="org5c84129"></a>
 
-# 为什么要“弃用” (Why Deprecate?)
+## 为什么要“弃用” (Why Deprecate?)
 
 Our discussion of deprecation begins from the fundamental premise that code is a liability, not an asset. After all, if code were an asset, why should we even bother spending time trying to turn down and remove obsolete systems? Code has costs, some of which are borne in the process of creating a system, but many other costs are borne as a system is maintained across its lifetime. These ongoing costs, such as the operational resources required to keep a system running or the effort to continually update its codebase as surrounding ecosystems evolve, mean that it’s worth evaluating the trade-offs between keeping an aging system running or working to turn it down.
 
@@ -79,10 +62,7 @@ Even though deprecation is useful, we’ve learned at Google that organizations 
 
 尽管“弃用”很有用，但我们在 Google 了解到，从执行“弃用”的团队以及这些团队的客户的角度来看，对同时进行的 ““弃用””是有数量上的限制的。 例如，虽然每个人都喜欢新铺设的道路，但如果政府部门决定同时关闭所有道路并 进行铺设，那么将会导致大家无路可走。 通过集中精力，铺设人员可以更快地完成特定工作，但同时不应该影响 其他道路的通行。 故同样重要的是要谨慎选择“弃用”项目并付诸实施。
 
-
-<a id="org7622f5d"></a>
-
-# 为什么“弃用”这么难(Why Is Deprecation So Hard?)
+## 为什么“弃用”这么难(Why Is Deprecation So Hard?)
 
 We’ve mentioned Hyrum’s Law elsewhere in this book, but it’s worth repeating its applicability here: the more users of a system, the higher the probability that users are using it in unexpected and unforeseen ways, and the harder it will be to deprecate and remove such a system. Their usage just “happens to work” instead of being “guaranteed to work.” In this context, removing a system can be thought of as the ultimate change: we aren’t just changing behavior, we are removing that behavior completely! This kind of radical alteration will shake loose a number of unexpected dependents.
 
@@ -111,15 +91,13 @@ Given the difficulty in deprecating and removing obsolete software systems, it i
 鉴于“弃用”和删除过时软件系统的难度，用户通常更容易就地改进系统，而不是完全替换它。 增量并没有完全避免 “弃用”过程，但它确实将其分解为更小、更易于管理的块，这些块可以产生增量收益。 在 Google 内部，我们观察 到迁移到全新系统的成本非常高，而且成本经常被低估。 增量“弃用”工作通过就地重构实现的功能可以保持现有系 统运行，同时更容易向用户交付价值。
 
 
-<a id="orgd940752"></a>
-
-## 设计之初便考虑“弃用” (Deprecation During Design)
+### 设计之初便考虑“弃用” (Deprecation During Design)
 
 Like many engineering activities, deprecation of a software system can be planned as those systems are first built. Choices of programming language, software architecture, team composition, and even company policy and culture all impact how easy it will be to eventually remove a system after it has reached the end of its useful life.
 
 与许多工程活动一样，软件系统的“弃用”可以在这些系统首次设计时便进行规划。 编程语言、软件架构、团队组成， 甚至公司策略和文化的选择都会影响系统在使用寿命结束后最终将其“弃用”的难易程度。
 
-The concept of designing systems so that they can eventually be deprecated might be radical in software engineering, but it is common in other engineering disciplines. Consider the example of a nuclear power plant, which is an extremely complex piece of engineering. As part of the design of a nuclear power station, its eventual decommissioning after a lifetime of productive service must be taken into account, even going so far as to allocate funds for this purpose.1 Many of the design choices in building a nuclear power plant are affected when engineers know that it will eventually need to be decommissioned.
+The concept of designing systems so that they can eventually be deprecated might be radical in software engineering, but it is common in other engineering disciplines. Consider the example of a nuclear power plant, which is an extremely complex piece of engineering. As part of the design of a nuclear power station, its eventual decommissioning after a lifetime of productive service must be taken into account, even going so far as to allocate funds for this purpose.[^1] Many of the design choices in building a nuclear power plant are affected when engineers know that it will eventually need to be decommissioned.
 
 设计系统以使其最终可以被“弃用”的概念在软件工程中可能是激进的，但它在其他工程学科中很常见。 以核电站为 例，这是一项极其复杂的工程。 作为核电站设计的一部分，必须考虑到其在服务寿命到期后最终退役，甚至为此 分配资金。 当工程师知道它最终需要退役时，核电站建设中的许多设计,将会随之改变。
 
@@ -127,12 +105,17 @@ Unfortunately, software systems are rarely so thoughtfully designed. Many softwa
 
 不幸的是，软件系统很少经过精心设计。 许多软件工程师更热心于构建和启动新系统，而不是维护现有系统。 包 括 Google 在内的许多公司的企业文化都强调快速构建和交付新产品，这通常会阻碍从一开始就考虑“弃用”的设计。 尽管普遍认为软件工程师是数据驱动的自动机，但在心理上很难为我们辛勤工作的创造物的最终消亡做计划。
 
-So, what kinds of considerations should we think about when designing systems that we can more easily deprecate in the future? Here are a couple of the questions we encourage engineering teams at Google to ask: • How easy will it be for my consumers to migrate from my product to a potential replacement? • How can I replace parts of my system incrementally? Many of these questions relate to how a system provides and consumes dependencies. For a more thorough discussion of how we manage these dependencies, see Chapter 16.
+So, what kinds of considerations should we think about when designing systems that we can more easily deprecate in the future? Here are a couple of the questions we encourage engineering teams at Google to ask: 
+
+- How easy will it be for my consumers to migrate from my product to a potential replacement?
+- How can I replace parts of my system incrementally?
 
 那么，在设计我们将来更容易“弃用”的系统时，我们应该考虑哪些因素？ 以下是我们鼓励 Google 的工程团队提出的几个问题：
 
 -   我的使用者从我的产品迁移到潜在替代品的难易程度如何？
 -   如何逐步更换系统部件？
+
+Many of these questions relate to how a system provides and consumes dependencies. For a more thorough discussion of how we manage these dependencies, see Chapter 16.
 
 其中许多问题与系统如何提供和使用依赖项有关。 有关我们如何管理这些依赖项的更深入讨论，请参阅第 16 章。
 
@@ -144,19 +127,17 @@ In short, don’t start projects that your organization isn’t committed to sup
 
 简而言之，如果你的公司不打算长期支持某个项目，那么轻易不要启动这个项目。即使公司选择“弃用”项目，仍然会 有成本，但可以通过规划和投资工具和策略来降低成本。
 
+> [^1]: “Design and Construction of Nuclear Power Plants to Facilitate Decommissioning,” Technical Reports Series No. 382, IAEA, Vienna (1997)./
+> 1 "设计和建造核电站便捷退役"，技术报告系列第382号，IAEA，维也纳（1997年）。
 
-<a id="org5f89150"></a>
 
-# “弃用”的种类 (Types of Deprecation)
+## “弃用”的种类 (Types of Deprecation)
 
 Deprecation isn’t a single kind of process, but a continuum of them, ranging from “we’ll turn this off someday, we hope” to “this system is going away tomorrow, customers better be ready for that.” Broadly speaking, we divide this continuum into two separate areas: advisory and compulsory.
 
 “弃用”不是一种单一的过程，而是一个连续的过程，从“我们希望有一天会关闭它”到“这个系统明天就会消失，客户 最好为此做好准备。” 从广义上讲，我们将这个连续统一体分为两个独立的领域：建议和强制。
 
-
-<a id="org82746f5"></a>
-
-## 建议性“弃用” (Advisory Deprecation)
+### 建议性“弃用” (Advisory Deprecation)
 
 Advisory deprecations are those that don’t have a deadline and aren’t high priority for the organization (and for which the company isn’t willing to dedicate resources). These could also be labeled aspirational deprecations: the team knows the system has been replaced, and although they hope clients will eventually migrate to the new system, they don’t have imminent plans to either provide support to help move clients or delete the old system. This kind of deprecation often lacks enforcement: we hope that clients move, but can’t force them to. As our friends in SRE will readily tell you: “Hope is not a strategy.”
 
@@ -175,9 +156,7 @@ Advisory deprecation allows system authors to nudge users in the desired directi
 建议性“弃用”允许系统作者将用户推向所需的方向，但不应指望他们完成大部分迁移工作。通常只需要在旧系统上简 单地发出“弃用”警告，然后弃之不顾即可。我们在 Google 的经验是，这可能会导致（略微）减少对过时系统的使用， 但很少会导致团队积极迁移。旧系统的现有功能会有一种吸引力，吸引更多的系统使用它,无论我们说多少，​​“请使 用新的系统。”除非更积极地鼓励其用户迁移，否则旧系统将需要继续维护。
 
 
-<a id="org520304c"></a>
-
-## 强制性“弃用” (Compulsory Deprecation)
+### 强制性“弃用” (Compulsory Deprecation)
 
 This active encouragement comes in the form of compulsory deprecation. This kind of deprecation usually comes with a deadline for removal of the obsolete system: if users continue to depend on it beyond that date, they will find their own systems no longer work.
 
@@ -208,9 +187,7 @@ Frequently at Google, when a system is slated for deprecation and removal, the t
 在谷歌，当系统计划“弃用”时，团队经常会在关闭前的几个月和几周内宣布计划中断，持续时间会增加。与 Google 的灾难恢复测试 (DiRT) 类似，这些事件通常会发现正在运行的系统之间的未知依赖关系。这种渐进式方法允许那 些依赖的团队发现依赖，然后为系统的最终移除做计划，甚至与“弃用”团队合作调整他们的时间表。 （同样的原则 也适用于静态代码依赖，但静态分析工具提供的语义信息通常足以检测过时系统的所有依赖。）
 
 
-<a id="org3013548"></a>
-
-## （弃用警告）Deprecation Warnings
+### （弃用警告）Deprecation Warnings
 
 For both advisory and compulsory deprecations, it is often useful to have a programmatic way of marking systems as deprecated so that users are warned about their use and encouraged to move away. It’s often tempting to just mark something as deprecated and hope its uses eventually disappear, but remember: “hope is not a strategy.” Deprecation warnings can help prevent new uses, but rarely lead to migration of existing systems.
 
@@ -232,19 +209,18 @@ It’s important to resist the urge to put deprecation warnings on everything po
 
 警告不是越多越好。 警告本身并不坏，但不成熟的工具通常会产生大量警告消息，这些消息可能会让工程师不知 所措。 在 Google 内部，我们会将旧功能标记为已“弃用”，但会利用 ErrorProne 或 clang-tidy 等工具来确保以 有针对性的方式显示警告。 正如第 20 章中所讨论的，我们将这些警告限制在新更改的行中，以警告人们有关已 “弃用”符号的新用法。 更具侵入性的警告，例如依赖图中已“弃用”的警告，仅针对强制“弃用”添加，并且团队正在积极 地将用户移走。 在任何一种情况下，工具都在适当的时间向适当的人提供适当的信息方面发挥着重要作用，允许 添加更多警告而不会使用户感到疲倦。
 
+> 2 See https://abseil.io/docs/cpp/tools/api-upgrades for an example./
+> 2 查阅https://abseil.io/docs/cpp/tools/api-upgrades 例子。
 
-<a id="org56fb66a"></a>
 
-# 管理“弃用”的流程 (Managing the Deprecation Process)
+## 管理“弃用”的流程 (Managing the Deprecation Process)
 
 Although they can feel like different kinds of projects because we’re deconstructing a system rather than building it, deprecation projects are similar to other software engineering projects in the way they are managed and run. We won’t spend too much effort going over similarities between those management efforts, but it’s worth pointing out the ways in which they differ.
 
 “弃用”项目尽管与上线一个项目给你的感官不同，但它们的管理和运行方式却是类似的。 我们不会花太多精力去讨 论他们有何共同点，但有必要指出他们有何不同。
 
 
-<a id="org0ceecca"></a>
-
-## 确定“弃用”的负责人 (Process Owners)
+### 确定“弃用”的负责人 (Process Owners)
 
 We’ve learned at Google that without explicit owners, a deprecation process is unlikely to make meaningful progress, no matter how many warnings and alerts a system might generate. Having explicit project owners who are tasked with managing and running the deprecation process might seem like a poor use of resources, but the alternatives are even worse: don’t ever deprecate anything, or delegate deprecation efforts to the users of the system. The second case becomes simply an advisory deprecation, which will never organically finish, and the first is a commitment to maintain every old system ad infinitum. Centralizing deprecation efforts helps better assure that expertise actually reduces costs by making them more transparent.
 
@@ -259,9 +235,8 @@ Such projects are unlikely to fade away on their own. In spite of our best hopes
 但此类项目不太可能自行消失。 尽管我们对之抱有最大的期寄，但我们发现,“弃用”这些项目仍然需要专人负责,否 则恐怕会造成意外的损失。 负责人应该将废弃他们作为主要目标。 在排优先级时，“弃用”通常会有较低的优先级, 且少有人关注。 但实际上，这些重要但不紧急的清理工作,占用掉程序员20%的工作时间,应该是个合适的数字。
 
 
-<a id="orgc69d989"></a>
 
-## 制定里程碑 (Milestones)
+### 制定里程碑 (Milestones)
 
 When building a new system, project milestones are generally pretty clear: “Launch the frobnazzer features by next quarter.” Following incremental development practices, teams build and deliver functionality incrementally to users, who get a win whenever they take advantage of a new feature. The end goal might be to launch the entire system, but incremental milestones help give the team a sense of progress and ensure they don’t need to wait until the end of the process to generate value for the organization.
 
@@ -276,18 +251,14 @@ Similar to building a new system, managing a team working on deprecation should 
 与新建项目一样，“弃用”一个项目也该渐进的设置多个可量化的里程碑,用于评估“弃用”进度的指标会有差异，但阶段 性的庆祝有助提升士气。
 
 
-<a id="org1b3cc5a"></a>
-
-## 工具加持 (Deprecation Tooling)
+### 工具加持 (Deprecation Tooling)
 
 Much of the tooling used to manage the deprecation process is discussed in depth elsewhere in this book, such as the large-scale change (LSC) process (Chapter 22) or our code review tools (Chapter 19). Rather than talk about the specifics of the tools, we’ll briefly outline how those tools are useful when managing the deprecation of an obsolete system. These tools can be categorized as discovery, migration, and backsliding prevention tooling.
 
 许多用于管理“弃用”过程的工具在本书的其他地方进行了深入讨论，例如大规模变更 (LSC) 过程（第 22 章）或我 们的代码审查工具（第 19 章）。 我们不讨论这些工具的细节，而是简要概述如何让这些工具在管理废弃系统的 “弃用”时发辉作用。 这些工具可以归类为发现、迁移和倒回滚预防工具。
 
 
-<a id="orgf3f6ae7"></a>
-
-### 发现使用者 (Discovery)
+#### 发现使用者 (Discovery)
 
 During the early stages of a deprecation process, and in fact during the entire process, it is useful to know how and by whom an obsolete system is being used. Much of the initial work of deprecation is determining who is using the old system—and in which unanticipated ways. Depending on the kinds of use, this process may require revisiting the deprecation decision once new information is learned. We also use these tools throughout the deprecation process to understand how the effort is progressing.
 
@@ -302,18 +273,14 @@ Finally, we treat our global test suite as an oracle to determine whether all re
 最后，我们将集成测试套件视为预言机，以确定是否已删除对旧变量、函数的所有引用。 正如第 11 章所讨论的， 测试是一种防止系统随着生态系统发展而发生不必要的行为变化的机制。 “弃用”是这种演变的重要组成部分，客户 有责任进行足够的测试，以确保删除过时的系统不会对他们造成危害。
 
 
-<a id="orgf9e3715"></a>
-
-### 迁移 (Migration)
+#### 迁移 (Migration)
 
 Much of the work of doing deprecation efforts at Google is achieved by using the same set of code generation and review tooling we mentioned earlier. The LSC process and tooling are particularly useful in managing the large effort of actually updating the codebase to refer to new libraries or runtime services.
 
 在 Google “弃用”的大部分工作是通过使用我们之前提到的同一组代码生成和审查工具来完成的,即LSC工具集。 它 在代码仓库在引入新库或运行时服务时会很有用。
 
 
-<a id="org5348d0f"></a>
-
-### 避免“弃用”项目被重新启用 (Preventing backsliding)
+#### 避免“弃用”项目被重新启用 (Preventing backsliding)
 
 Finally, an often overlooked piece of deprecation infrastructure is tooling for preventing the addition of new uses of the very thing being actively removed. Even for advisory deprecations, it is useful to warn users to shy away from a deprecated system in favor of a new one when they are writing new code. Without backsliding prevention, deprecation can become a game of whack-a-mole in which users constantly add new uses of a system with which they are familiar (or find examples of elsewhere in the codebase), and the deprecation team constantly migrates these new uses. This process is both counterproductive and demoralizing.
 
@@ -328,9 +295,7 @@ On a macro level, we use visibility whitelists in our build system to ensure tha
 在宏观层面上，我们在构建系统中使用可见性白名单来确保不会将新的依赖项引入已“弃用”的系统。 自动化工具会 定期检查这些白名单，并在依赖系统从过时系统迁移时对其进行删剪。
 
 
-<a id="org2e5b0b9"></a>
-
-# 结论 (Conclusion)
+## 结论 (Conclusion)
 
 Deprecation can feel like the dirty work of cleaning up the street after the circus parade has just passed through town, yet these efforts improve the overall software ecosystem by reducing maintenance overhead and cognitive burden of engineers. Scalably maintaining complex software systems over time is more than just building and running software: we must also be able to remove systems that are obsolete or otherwise unused.
 
@@ -341,8 +306,7 @@ A complete deprecation process involves successfully managing social and technic
 完整的“弃用”过程涉及到管理和技术两个层面的挑战。 有效地管理“弃用”通常因不会带来盈利而被轻忽，但它对 其长期可持续性维护却至关重要。
 
 
-
-# TL;DRs  内容提要
+## TL;DRs  内容提要
 
 -   Software systems have continuing maintenance costs that should be weighed against the costs of removing them.
 -   Removing things is often more difficult than building them to begin with because existing users are often using the system beyond its original design.

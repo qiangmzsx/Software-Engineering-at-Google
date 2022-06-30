@@ -58,7 +58,7 @@ Mary遇到的问题不是她的错，而且她也没有办法避免这些问题�
 
 ## Preventing Brittle Tests  预防脆性测试
 
-As just defined, a brittle test is one that fails in the face of an unrelated change to production code that does not introduce any real bugs.[1](#_bookmark953) Such tests must be diagnosed and fixed by engineers as part of their work. In small codebases with only a few engineers, having to tweak a few tests for every change might not be a big problem. But if a team regularly writes brittle tests, test maintenance will inevitably consume a larger and larger proportion of the team’s time as they are forced to comb through an increasing number of failures in an ever-growing test suite. If a set of tests needs to be manually tweaked by engineers for each change, calling it an “automated test suite” is a bit of a stretch!
+As just defined, a brittle test is one that fails in the face of an unrelated change to production code that does not introduce any real bugs.[^1] Such tests must be diagnosed and fixed by engineers as part of their work. In small codebases with only a few engineers, having to tweak a few tests for every change might not be a big problem. But if a team regularly writes brittle tests, test maintenance will inevitably consume a larger and larger proportion of the team’s time as they are forced to comb through an increasing number of failures in an ever-growing test suite. If a set of tests needs to be manually tweaked by engineers for each change, calling it an “automated test suite” is a bit of a stretch!
 
 正如刚才所定义的，脆性测试是指在面对不相关的程序代码变化时失败的测试，这些变化不会引入任何真正的错误。在只有几个工程师的小型代码库中，每次修改都要调整一些测试，这可能不是一个大问题。但是，如果一个团队经常写脆弱测试，测试维护将不可避免地消耗团队越来越多的时间，因为他们不得不在不断增长的测试套件中梳理越来越多的失败。如果一套测试需要工程师为每一个变化进行手动调整，称其为 "自动化测试套件"就有点牵强了！
 
@@ -66,7 +66,11 @@ Brittle tests cause pain in codebases of any size, but they become particularly 
 
 脆弱测试在任何规模的代码库中都会造成痛苦，但在谷歌的规模中，它们变得尤为严重。一个单独的工程师在工作过程中，可能在一天内就会轻易地运行数千个测试，而一个大规模的变化（见第22章）可能会引发数十万个测试。在这种规模下，即使是影响一小部分测试的误报故障也会浪费大量的工程时间。谷歌的团队在测试套件的脆弱性方面存在很大差异，但我们已经确定了一些实践和模式，这些实践和模式倾向于使测试变得更健壮，更易于更改。
 
-### Strive for Unchanging Tests  力求不变的测试
+
+> [^1]:	Note that this is slightly different from a flaky test, which fails nondeterministically without any change to production code./
+> 1  注意，这与不稳定测试略有不同，不稳定测试是在不改变生产代码的情况下非确定性地失败。
+
+### Strive for Unchanging Tests  力求稳定的测试
 
 Before talking about patterns for avoiding brittle tests, we need to answer a question: just how often should we expect to need to change a test after writing it? Any time spent updating old tests is time that can’t be spent on more valuable work. Therefore, *the ideal test is unchanging*: after it’s written, it never needs to change unless the requirements of the system under test change.
 
@@ -74,49 +78,35 @@ Before talking about patterns for avoiding brittle tests, we need to answer a qu
 
 What does this look like in practice? We need to think about the kinds of changes that engineers make to production code and how we should expect tests to respond to those changes. Fundamentally, there are four kinds of changes:
 
-*Pure refactorings*
+- *Pure refactorings*  
+	When an engineer refactors the internals of a system without modifying its interface, whether for performance, clarity, or any other reason, the system’s tests shouldn’t need to change. The role of tests in this case is to ensure that the refactoring didn’t change the system’s behavior. Tests that need to be changed during a refactoring indicate that either the change is affecting the system’s behavior and isn’t a pure refactoring, or that the tests were not written at an appropriate level of abstraction. Google’s reliance on large-scale changes (described in [Chapter 22](#_bookmark1935)) to do such refactorings makes this case particularly important for us.
 
-​	When an engineer refactors the internals of a system without modifying its interface, whether for performance, clarity, or any other reason, the system’s tests shouldn’t need to change. The role of tests in this case is to ensure that the refactoring didn’t change the system’s behavior. Tests that need to be changed during a refactoring indicate that either the change is affecting the system’s behavior and isn’t a pure refactoring, or that the tests were not written at an appropriate level of abstraction. Google’s reliance on large-scale changes (described in [Chapter 22](#_bookmark1935)) to do such refactorings makes this case particularly important for us.
+- *New features*  
+	When an engineer adds new features or behaviors to an existing system, the system’s existing behaviors should remain unaffected. The engineer must write new tests to cover the new behaviors, but they shouldn’t need to change any existing tests. As with refactorings, a change to existing tests when adding new features suggest unintended consequences of that feature or inappropriate tests.
 
-*New features*
+- *Bug fixes*  
+	Fixing a bug is much like adding a new feature: the presence of the bug suggests that a case was missing from the initial test suite, and the bug fix should include that missing test case. Again, bug fixes typically shouldn’t require updates to existing tests.
 
-​	When an engineer adds new features or behaviors to an existing system, the system’s existing behaviors should remain unaffected. The engineer must write new tests to cover the new behaviors, but they shouldn’t need to change any existing tests. As with refactorings, a change to existing tests when adding new features suggest unintended consequences of that feature or inappropriate tests.
-
-*Bug fixes*
-
-​	Fixing a bug is much like adding a new feature: the presence of the bug suggests that a case was missing from the initial test suite, and the bug fix should include that missing test case. Again, bug fixes typically shouldn’t require updates to existing tests.
-
-*Behavior changes*
-
-​	Changing a system’s existing behavior is the one case when we expect to have to make updates to the system’s existing tests. Note that such changes tend to be significantly more expensive than the other three types. A system’s users are likely to rely on its current behavior, and changes to that behavior require coordination with those users to avoid confusion or breakages. Changing a test in this case indicates that we’re breaking an explicit contract of the system, whereas changes in the previous cases indicate that we’re breaking an unintended contract. Low- level libraries will often invest significant effort in avoiding the need to ever make a behavior change so as not to break their users.
+- *Behavior changes*  
+	Changing a system’s existing behavior is the one case when we expect to have to make updates to the system’s existing tests. Note that such changes tend to be significantly more expensive than the other three types. A system’s users are likely to rely on its current behavior, and changes to that behavior require coordination with those users to avoid confusion or breakages. Changing a test in this case indicates that we’re breaking an explicit contract of the system, whereas changes in the previous cases indicate that we’re breaking an unintended contract. Low- level libraries will often invest significant effort in avoiding the need to ever make a behavior change so as not to break their users.
 
 这在实践中是什么样子的呢？我们需要考虑工程师对生产代码所做的各种修改，以及我们应该如何期望测试对这些修改做出反应。从根本上说，有四种更改：
 
-*纯粹的重构*
-
+- *纯粹的重构*  
   当工程师在不修改系统接口的情况下重构系统内部时，无论是出于性能、清晰度还是任何其他原因，系统的测试都不需要更改。在这种情况下，测试的作用是确保重构没有改变系统的行为。在重构过程中需要改变的测试表明，要么变化影响了系统的行为，不是纯粹的重构，要么测试没有写在适当的抽象水平上。Google依靠大规模的变化（在第22章中描述）来做这样的重构，使得这种情况对我们特别重要。
 
-*新功能*
-
+- *新功能*  
   当工程师向现有系统添加新的功能或行为时，系统的现有行为应该不受影响。工程师必须编写新的测试来覆盖新的行为，但他们不应该需要改变任何现有的测试。与重构一样，在添加新功能时，对现有测试的改变表明该功能的非预期后果或不适当的测试。
 
-*Bug修复*
-
+- *Bug修复*  
   修复bug与添加新功能很相似：bug的存在表明初始测试套件中缺少一个案例，bug修复应该包括缺少的测试案例。同样，错误修复通常不需要对现有的测试进行更新。
 
-*行为改变*
-
+- *行为改变*  
   当我们期望必须对系统的现有测试进行更新时，更改系统的现有行为就是一种情况。请注意，这种变化往往比其他三种类型的测试代价要高得多。系统的用户可能依赖于其当前行为，而对该行为的更改需要与这些用户进行协调，以避免混淆或中断。在这种情况下改变测试表明我们正在破坏系统的一个明确的契约，而在前面的情况下改变则表明我们正在破坏一个非预期的契约。基础类库往往会投入大量的精力来避免需要进行行为的改变，以免破坏他们的用户。
 
 The takeaway is that after you write a test, you shouldn’t need to touch that test again as you refactor the system, fix bugs, or add new features. This understanding is what makes it possible to work with a system at scale: expanding it requires writing only a small number of new tests related to the change you’re making rather than potentially having to touch every test that has ever been written against the system. Only breaking changes in a system’s behavior should require going back to change its tests, and in such situations, the cost of updating those tests tends to be small relative to the cost of updating all of the system’s users.
 
 启示是，在编写测试之后，在重构系统、修复bug或添加新功能时，不需要再次接触该测试。这种理解使大规模使用系统成为可能：扩展系统只需要写少量的与你所做的改变有关的新测试，而不是可能要触动所有针对该系统写过的测试。只有对系统行为的破坏性更改才需要返回以更改其测试，在这种情况下，更新这些测试的成本相对于更新所有系统用户的成本往往很小。
-
-```
-1	Note that this is slightly different from a flaky test, which fails nondeterministically without any change to production code.
-
-1  注意，这与不稳定测试略有不同，不稳定测试是在不改变生产代码的情况下非确定性地失败。
-```
 
 ### Test via Public APIs  通过公共API进行测试
 
@@ -175,7 +165,7 @@ This test interacts with the transaction processor in a much different way than 
 
 此测试与事务处理器的交互方式与其实际用户的交互方式大不相同：它窥视系统的内部状态并调用系统API中未公开的方法。因此，测试是脆弱的，几乎任何对被测系统的重构（例如重命名其方法、将其分解为辅助类或更改序列化格式）都会导致测试中断，即使此类更改对类的实际用户是不可见的。
 
-Instead, the same test coverage can be achieved by testing only against the class’s public API, as shown in Example 12-3.2.
+Instead, the same test coverage can be achieved by testing only against the class’s public API, as shown in Example 12-3.[^2]
 
 相反，同样的测试覆盖率可以通过只测试类的公共 API 来实现，如例 12-3.2 所示。
 
@@ -206,11 +196,8 @@ Tests using only public APIs are, by definition, accessing the system under test
 
 根据定义，仅使用公共API的测试是以与用户相同的方式访问被测系统。这样的测试更现实，也不那么脆弱，因为它们形成了明确的契约：如果这样的测试失败，它意味着系统的现有用户也将失败。只测试这些契约意味着你可以自由地对系统进行任何内部重构，而不必担心对测试进行繁琐的更改。
 
-```
-2	This is sometimes called the "Use the front door first principle.”
-
-2   这有时被称为“使用前门优先原则”
-```
+> [^2]:	This is sometimes called the "Use the front door first principle.”/
+> 2   这有时被称为“使用前门优先原则”
 
 It’s not always clear what constitutes a “public API,” and the question really gets to the heart of what a “unit” is in unit testing. Units can be as small as an individual function or as broad as a set of several related packages/modules. When we say “public API” in this context, we’re really talking about the API exposed by that unit to third parties outside of the team that owns the code. This doesn’t always align with the notion of visibility provided by some programming languages; for example, classes in Java might define themselves as “public” to be accessible by other packages in the same unit but are not intended for use by other parties outside of the unit. Some languages like Python have no built-in notion of visibility (often relying on conventions like prefixing private method names with underscores), and build systems like Bazel can further restrict who is allowed to depend on APIs declared public by the programming language.
 
@@ -290,7 +277,7 @@ The most common reason for problematic interaction tests is an over reliance on 
 ## Writing Clear Tests  编写清晰的测试
 
 Sooner or later, even if we’ve completely avoided brittleness, our tests will fail. Failure is a good thing—test failures provide useful signals to engineers, and are one of the main ways that a unit test provides value.
-Test failures happen for one of two reasons:3
+Test failures happen for one of two reasons:[^3]
 
 - The system under test has a problem or is incomplete. This result is exactly what tests are designed for: alerting you to bugs so that you can fix them.
 - The test itself is flawed. In this case, nothing is wrong with the system under test, but the test was specified incorrectly. If this was an existing test rather than one that you just wrote, this means that the test is brittle. The previous section discussed how to avoid brittle tests, but it’s rarely possible to eliminate them entirely.
@@ -317,11 +304,8 @@ For a test suite to scale and be useful over time, it’s important that each in
 
 为了使测试套件能够随时间扩展并变得有用，套件中的每个测试都尽可能清晰是很重要的。本节探讨了为实现清晰性而考虑测试的技术和方法。
 
-```
-3	These are also the same two reasons that a test can be “flaky.” Either the system under test has a nondeterministic fault, or the test is flawed such that it sometimes fails when it should pass.
-
-3   这也是测试可能“不稳定”的两个原因。要么被测系统存在不确定性故障，要么测试存在缺陷，以至于在通过测试时有时会失败。
-```
+> [^3]:	These are also the same two reasons that a test can be “flaky.” Either the system under test has a nondeterministic fault, or the test is flawed such that it sometimes fails when it should pass./
+> 3   这也是测试可能“不稳定”的两个原因。要么被测系统存在不确定性故障，要么测试存在缺陷，以至于在通过测试时有时会失败。
 
 ### Make Your Tests Complete and Concise  确保你的测试完整和简明
 
@@ -394,9 +378,9 @@ transactionProcessor.displayTransactionResults(newUserWithBalance(LOW_BALANCE_TH
 
 With such tests, it’s likely that the test started out covering only the first method. Later, an engineer expanded the test when the second message was added (violating the idea of unchanging tests that we discussed earlier). This modification sets a bad precedent: as the method under test becomes more complex and implements more functionality, its unit test will become increasingly convoluted and grow more and more difficult to work with.
 
-对于这样的测试，很可能一开始测试只包括第一个方法。后来，当第二条信息被添加进来时，工程师扩展了测试（违反了我们前面讨论的不变的测试理念）。这种修改开创了一个不好的先例：随着被测方法变得越来越复杂，实现的功能越来越多，其单元测试也会变得越来越复杂，越来越难以使用。
+对于这样的测试，很可能一开始测试只包括第一个方法。后来，当第二条信息被添加进来时，工程师扩展了测试（违反了我们前面讨论的稳定的测试理念）。这种修改开创了一个不好的先例：随着被测方法变得越来越复杂，实现的功能越来越多，其单元测试也会变得越来越复杂，越来越难以使用。
 
-The problem is that framing tests around methods can naturally encourage unclear tests because a single method often does a few different things under the hood and might have several tricky edge and corner cases. There’s a better way: rather than writing a test for each method, write a test for each behavior.4 A behavior is any guarantee that a system makes about how it will respond to a series of inputs while in a particular state.5 Behaviors can often be expressed using the words “given,” “when,” and “then”: “Given that a bank account is empty, when attempting to withdraw money from it, then the transaction is rejected.” The mapping between methods and behaviors is many-to-many: most nontrivial methods implement multiple behaviors, and some behaviors rely on the interaction of multiple methods. The previous example can be rewritten using behavior-driven tests, as presented in Example 12-10.
+The problem is that framing tests around methods can naturally encourage unclear tests because a single method often does a few different things under the hood and might have several tricky edge and corner cases. There’s a better way: rather than writing a test for each method, write a test for each behavior.[^4] A behavior is any guarantee that a system makes about how it will respond to a series of inputs while in a particular state.[^5] Behaviors can often be expressed using the words “given,” “when,” and “then”: “Given that a bank account is empty, when attempting to withdraw money from it, then the transaction is rejected.” The mapping between methods and behaviors is many-to-many: most nontrivial methods implement multiple behaviors, and some behaviors rely on the interaction of multiple methods. The previous example can be rewritten using behavior-driven tests, as presented in Example 12-10.
 
 问题是，围绕方法测试框架自然会鼓励不清晰测试，因为单个方法经常在背后下做一些不同的事情，可能有几个棘手的边缘和角落的情况。有一个更好的方法：与其为每个方法写一个测试，不如为每个行为写一个测试。 行为是一个系统对它在特定状态下如何响应一系列输入的任何保证。"鉴于一个银行账户是空的，当试图从该账户中取钱时，该交易被拒绝。" 方法和行为之间的映射是多对多的：大多数不重要的方法实现了多个行为，一些行为依赖于多个方法的交互。前面的例子可以用行为驱动的测试来重写，如例12-10所介绍。
 
@@ -421,17 +405,16 @@ The extra boilerplate required to split apart the single test is more than worth
 
 拆分单个测试所需的额外模板文件非常值得，并且最终的测试比原来测试更清晰。行为驱动测试往往比面向方法的测试更清晰，原因有几个。首先，它们阅读起来更像自然语言，让人们自然地理解它们，而不需要语言繁琐的心理分析。其次，它们更清楚地表达了因果关系，因为每个测试的范围都更有限。最后，每个测试都很短且描述性强，这一事实使我们更容易看到已经测试了哪些功能，并鼓励工程师添加新的简洁测试方法，而不是堆积在现有方法上。
 
-```
-4	See https://testing.googleblog.com/2014/04/testing-on-toilet-test-behaviors-not.html and https://dannorth.net/ introducing-bdd.
-5	Furthermore, a feature (in the product sense of the word) can be expressed as a collection of behaviors.
+> 4	See https://testing.googleblog.com/2014/04/testing-on-toilet-test-behaviors-not.html and https://dannorth.net/ introducing-bdd./
+> 4 见https://testing.googleblog.com/2014/04/testing-on-toilet-test-behaviors-not.html 和 https://dannorth.net/ 介绍-bdd。
+>
+> 5	Furthermore, a feature (in the product sense of the word) can be expressed as a collection of behaviors./
+> 5 此外，一个特征（在这个词的产品意义上）可以被表达为一个行为的集合。
 
-4 见https://testing.googleblog.com/2014/04/testing-on-toilet-test-behaviors-not.html 和 https://dannorth.net/ 介绍-bdd。
-5 此外，一个特征（在这个词的产品意义上）可以被表达为一个行为的集合。
-```
 
 #### Structure tests to emphasize behaviors  强调行为的结构测试
 
-Thinking about tests as being coupled to behaviors instead of methods significantly affects how they should be structured. Remember that every behavior has three parts: a “given” component that defines how the system is set up, a “when” component that defines the action to be taken on the system, and a “then” component that validates the result.6 Tests are clearest when this structure is explicit. Some frameworks like Cucumber and Spock directly bake in given/when/then. Other languages can use whitespace and optional comments to make the structure stand out, such as that shown in Example 12-11.
+Thinking about tests as being coupled to behaviors instead of methods significantly affects how they should be structured. Remember that every behavior has three parts: a “given” component that defines how the system is set up, a “when” component that defines the action to be taken on the system, and a “then” component that validates the result.[^6] Tests are clearest when this structure is explicit. Some frameworks like Cucumber and Spock directly bake in given/when/then. Other languages can use whitespace and optional comments to make the structure stand out, such as that shown in Example 12-11.
 
 将测试视为与行为而非方法相耦合会显著影响测试的结构。请记住，每个行为都有三个部分：一个是定义系统如何设置的 "给定 "组件，一个是定义对系统采取的行动的 "何时 "组件，以及一个验证结果的 "何时 "组件。当此结构是显式的时，测试是最清晰的。一些框架（如Cucumber和Spock）直接在给定的/when/then中烘焙。其他语言可以使用空格和可选注释使结构突出，如示例12-11所示。
 
@@ -506,10 +489,8 @@ When writing such tests, be careful to ensure that you’re not inadvertently te
 
 在编写这种测试时，要注意确保你不会无意中同时测试多个行为。每个测试应该只覆盖一个行为，绝大多数的单元测试只需要一个 "when "和一个 "then "块。
 
-```
-6	These components are sometimes referred to as “arrange,” “act,” and “assert.”
-6 这些组成部分有时被称为 "安排"、"行动 "和 "断言"。
-```
+> [^6]:	These components are sometimes referred to as “arrange,” “act,” and “assert.”/
+> 6 这些组成部分有时被称为 "安排"、"行动 "和 "断言"。
 
 #### Name tests after the behavior being tested  以被测试的行为命名测试
 
@@ -658,7 +639,7 @@ Not all languages have such helpers available, but it should always be possible 
 
 *Example 12-18. A test assertion in Go*   *例12-18. Go中的测试断言*
 
-```go
+```golang
 result: = Add(2, 3)
 if result != 5 {
     t.Errorf("Add(2, 3) = %v, want %v", result, 5)
@@ -973,7 +954,7 @@ Unit tests at Google are far from perfect, but we’ve found tests that follow t
 
 - Follow DAMP over DRY when sharing code for tests.
 
-- 努力实现不变的测试。
+- 努力实现稳定的测试。
 
 - 通过公共API进行测试。
 
@@ -992,10 +973,4 @@ Unit tests at Google are far from perfect, but we’ve found tests that follow t
 - 编写清晰的失败信息。
 
 - 在分享测试的代码时，遵循DAMP而不是DRY。
-
-
-
-
-
-
 

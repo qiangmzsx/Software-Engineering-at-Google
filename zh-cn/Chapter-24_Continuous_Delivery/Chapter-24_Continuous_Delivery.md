@@ -34,50 +34,44 @@ At Google, the practices we describe in this book allow hundreds (or in some cas
 
 A core tenet of Continuous Delivery (CD) as well as of Agile methodology is that over time, smaller batches of changes result in higher quality; in other words, *faster is safer*. This can seem deeply controversial to teams at first glance, especially if the prerequisites for setting up CD—for example, Continuous Integration (CI) and testing— are not yet in place. Because it might take a while for all teams to realize the ideal of CD, we focus on developing various aspects that deliver value independently en route to the end goal. Here are some of these:
 
-*Agility*
-
+- *Agility*  
 ​	Release frequently and in small batches
 
-*Automation*
-
+- *Automation*  
 ​	Reduce or remove repetitive overhead of frequent releases
 
-*Isolation*
-
+- *Isolation*  
 ​	Strive for modular architecture to isolate changes and make troubleshooting easier
 
-*Reliability*
-
+- *Reliability*  
 ​	Measure key health indicators like crashes or latency and keep improving them
 
-*Data-driven* *decision* *making*
-
+- *Data-driven* *decision* *making*  
 ​	Use A/B testing on health metrics to ensure quality
 
-*Phased* *rollout*
-
+- *Phased* *rollout*  
 ​	Roll out changes to a few users before shipping to everyone
 
 持续交付（CD）以及敏捷方法论的一个核心原则是，随着时间的推移，小批量的变更会带来更高的质量；换句话说，越快越安全。乍一看，这似乎对团队有很大的争议，尤其是当建立CD的前提条件--例如，持续集成（CI）和测试--还没有到位的时候。因为所有团队可能需要一段时间才能实现CD的理想，所以我们将重点放在开发能够在实现最终目标的过程中独立交付价值的各个方面。下面是其中的一些：
 
-*敏捷性*
-
+- *敏捷性*  
 ​	频繁地、小批量地发布。
-*自动化*
 
+- *自动化*  
 ​	减少或消除频繁发布的重复性开销。
-*隔离性*
 
+- *隔离性*  
 ​	努力实现模块化体系结构，以隔离更改并使故障排除更加容易。
-*可靠性*
 
+- *可靠性*  
 ​	衡量关键的健康指标，如崩溃或延迟，并不断改善它们。
-*数据驱动的决策*
 
+- *数据驱动的决策*  
 ​	在健康指标上使用A/B测试以确保质量。
-*分阶段推出*
 
+- *分阶段推出*  
 ​	在向所有人发送之前，先在少数用户中推广变更。
+
 
 At first, releasing new versions of software frequently might seem risky. As your userbase grows, you might fear the backlash from angry users if there are any bugs that you didn’t catch in testing, and you might quite simply have too much new code in your product to test exhaustively. But this is precisely where CD can help. Ideally, there are so few changes between one release and the next that troubleshooting issues is trivial. In the limit, with CD, every change goes through the QA pipeline and is automatically deployed into production. This is often not a practical reality for many teams, and so there is often work of culture change toward CD as an intermediate step, during which teams can build their readiness to deploy at any time without actually doing so, building up their confidence to release more frequently in the future.
 
@@ -135,7 +129,7 @@ What were the trade-offs we made to get predictability in our release cycle? The
 
 ### No Binary Is Perfect 没有完美的二进制包
 
-The first is that *no binary is perfect*, especially for builds that are incorporating the work of tens or hundreds of developers independently developing dozens of major features. Even though it’s impossible to fix every bug, we constantly need to weigh questions such as: If a line has been moved two pixels to the left, will it affect an ad display and potential revenue? What if the shade of a box has been altered slightly? Will it make it difficult for visually impaired users to read the text? The rest of this book is arguably about minimizing the set of unintended outcomes for a release, but in the end we must admit that software is fundamentally complex. There is no perfect binary—decisions and trade-offs have to be made every time a new change is released into production. Key performance indicator metrics with clear thresholds allow features to launch even if they aren’t perfect[1](#_bookmark2117) and can also create clarity in otherwise contentious launch decisions.
+The first is that *no binary is perfect*, especially for builds that are incorporating the work of tens or hundreds of developers independently developing dozens of major features. Even though it’s impossible to fix every bug, we constantly need to weigh questions such as: If a line has been moved two pixels to the left, will it affect an ad display and potential revenue? What if the shade of a box has been altered slightly? Will it make it difficult for visually impaired users to read the text? The rest of this book is arguably about minimizing the set of unintended outcomes for a release, but in the end we must admit that software is fundamentally complex. There is no perfect binary—decisions and trade-offs have to be made every time a new change is released into production. Key performance indicator metrics with clear thresholds allow features to launch even if they aren’t perfect[^1] and can also create clarity in otherwise contentious launch decisions.
 
 首先，*没有一个二进制包是完美的*，，尤其是对于包含数十个或数百个独立开发几十个主要功能的开发人员的工作的构建。尽管不可能修复每个bug，但我们需要不断权衡这样的问题：如果一条线向左移动了两个像素，它会影响广告显示和潜在收入吗？如果盒子的颜色稍微改变了怎么办？这是否会让视障用户难以阅读文本？本书的其余部分可以说是关于最小化发布的一系列意外结果，但最终我们必须承认软件从根本上来说是复杂的。没有完美的二进制包--每当有新的变化发布到生产中时，就必须做出决定和权衡。具有明确阈值的关键性能指标允许功能在不完美的情况下推出，也可以在其他有争议的发布决策中创造清晰的思路。
 
@@ -146,6 +140,9 @@ One bug involved a rare dialect spoken on only one island in the Philippines. If
 We ran from office to office trying to determine how many people actually spoke this language, if it happened every time a user searched in this language, and whether these folks even used Google on a regular basis. Every quality engineer we spoke with deferred us to a more senior person. Finally, data in hand, we put the question to Search’s senior vice president. Should we delay a critical release to fix a bug that affected only a very small Philippine island? It turns out that no matter how small your island, you should get reliable and accurate search results: we delayed the release and fixed the bug.
 
 我们从一个办公室跑到另一个办公室，试图确定究竟有多少人讲这种语言，是否每次用户用这种语言搜索时都会出现这种情况，以及这些人是否经常使用谷歌。每个与我们交谈的质量工程师都把我们推给更高级别的人。最后，数据在手，我们把问题交给了搜索部的高级副总裁。我们是否应该推迟一个重要的版本来修复一个只影响到菲律宾一个很小的岛屿的错误？事实证明，无论你的岛有多小，你都应该得到可靠和准确的搜索结果：我们推迟了发布，并修复了这个错误。
+
+> [^1]:  Remember the SRE “error-budget” formulation: perfection is rarely the best goal. Understand how much room for error is acceptable and how much of that budget has been spent recently and use that to adjust the trade-off between velocity and stability./
+> 1 记住SRE的 "错误预算 "表述：完美很少是最佳目标。了解多少误差空间是可以接受的，以及该预算最近花了多少，并利用这一点来调整速度和稳定性之间的权衡。
 
 ### Meet Your Release Deadline 满足您的发布期限
 
@@ -161,10 +158,6 @@ A world of regular releases means that if a developer misses the release train, 
 
 定期发布的世界意味着，如果开发人员错过了发版班车，他们将能够在几个小时而不是几天内赶上下一班班车。这限制了开发人员的恐慌，并大大改善了发布工程师的工作-生活平衡。
 
-```
-1  Remember the SRE “error-budget” formulation: perfection is rarely the best goal. Understand how much room for error is acceptable and how much of that budget has been spent recently and use that to adjust the trade-off between velocity and stability.
-1 记住SRE的 "错误预算 "表述：完美很少是最佳目标。了解多少误差空间是可以接受的，以及该预算最近花了多少，并利用这一点来调整速度和稳定性之间的权衡。
-```
 
 ## Quality and User-Focus: Ship Only What Gets Used 质量和用户关注点：只提供使用的产品
 
@@ -218,7 +211,7 @@ One issue we noticed when doing deployments to Android was that we could expect 
 
 我们在Android部署时注意到的一个问题是，仅仅通过推送更新，我们就可以预期用户指标会发生统计上的显著变化。这意味着，即使我们没有对产品进行任何更改，推动更新也可能以难以预测的方式影响设备和用户行为。因此，尽管对一小部分用户流量进行更新可以为我们提供关于崩溃或稳定性问题的良好信息，但它几乎没有告诉我们更新版本的应用程序是否比旧版本更好。
 
-Dan Siroker and Pete Koomen have already discussed the value of A/B testing[2](#_bookmark2127) your features, but at Google, some of our larger apps also A/B test their *deployments*. This means sending out two versions of the product: one that is the desired update, with the baseline being a placebo (your old version just gets shipped again). As the two versions roll out simultaneously to a large enough base of similar users, you can compare one release against the other to see whether the latest version of your software is in fact an improvement over the previous one. With a large enough userbase, you should be able to get statistically significant results within days, or even hours. An automated metrics pipeline can enable the fastest possible release by pushing forward a release to more traffic as soon as there is enough data to know that the guardrail metrics will not be affected.
+Dan Siroker and Pete Koomen have already discussed the value of A/B testing[^2] your features, but at Google, some of our larger apps also A/B test their *deployments*. This means sending out two versions of the product: one that is the desired update, with the baseline being a placebo (your old version just gets shipped again). As the two versions roll out simultaneously to a large enough base of similar users, you can compare one release against the other to see whether the latest version of your software is in fact an improvement over the previous one. With a large enough userbase, you should be able to get statistically significant results within days, or even hours. An automated metrics pipeline can enable the fastest possible release by pushing forward a release to more traffic as soon as there is enough data to know that the guardrail metrics will not be affected.
 
 Dan Siroker和Pete Koomen已经讨论了A/B测试的价值，但在Google，我们的一些大型应用也对其*部署*进行A/B测试。这意味着发送两个版本的产品：一个是所需的更新，基线是一个安慰剂（你的旧版本只是被再次发送）。当这两个版本同时向足够多的类似用户推出时，你可以将一个版本与另一个版本进行比较，看看你的软件的最新版本是否真的比以前的版本有所改进。有了足够大的用户群，你应该能够在几天内，甚至几小时内得到统计学上的显著结果。一个自动化的指标管道可以实现最快的发布，只要有足够的数据知道护栏指标不会受到影响，就可以将一个版本推到更多的流量。
 
@@ -226,10 +219,8 @@ Obviously, this method does not apply to every app and can be a lot of overhead 
 
 显然，这种方法并不适用于每个应用程序，当你没有足够大的用户群时，可能会有很多开销。在这种情况下，推荐的最佳做法是以变化中立的发布为目标。所有的新功能都有标志保护，这样在发布过程中测试的唯一变化就是部署本身的稳定性。 
 
-```
-2  Dan Siroker and Pete Koomen, *A/B Testing: The Most Powerful Way to Turn Clicks Into Customers* (Hoboken: Wiley, 2013).
-2   Dan Siroker和Pete Koomen，《A/B测试：将点击转化为客户的最有效方式》（Hoboken:Wiley，2013）。
-```
+> [^2]:  Dan Siroker and Pete Koomen, *A/B Testing: The Most Powerful Way to Turn Clicks Into Customers* (Hoboken: Wiley, 2013)./
+> 2   Dan Siroker和Pete Koomen，《A/B测试：将点击转化为客户的最有效方式》（Hoboken:Wiley，2013）。
 
 ## Changing Team Culture: Building Discipline into Deployment 改变团队文化：在部署中建立规则
 

@@ -463,41 +463,41 @@ Tracking happiness comes down to not just monitoring careers, but also giving yo
 ## Other Tips and Tricks  其他提示和窍门
 
 Following are other miscellaneous tips and tricks that we at Google recommend when you’re in a leadership position:  
-*Delegate, but get your hands dirty*  
+- *Delegate, but get your hands dirty*  
 	When moving from an individual contributor role to a leadership role, achieving a balance is one of the most difficult things to do. Initially, you’re inclined to do all of the work yourself, and after being in a leadership role for a long time, it’s easy to get into the habit of doing none of the work yourself. If you’re new to a leadership role, you probably need to work hard to delegate work to other engineers on your team, even if it will take them a lot longer than you to accomplish that work. Not only is this one way for you to maintain your sanity, but also it’s how the rest of your team will learn. If you’ve been leading teams for a while or if you pick up a new team, one of the easiest ways to gain the team’s respect and get up to speed on what they’re doing is to get your hands dirty—usually by taking on a grungy task that no one else wants to do. You can have a resume and a list of achievements a mile long, but nothing lets a team know how skillful and dedicated (and humble) you are like jumping in and actually doing some hard work.
 
-*Seek to replace yourself*  
+- *Seek to replace yourself*  
 	Unless you want to keep doing the exact same job for the rest of your career, seek to replace yourself. This starts, as we mentioned earlier, with the hiring process: if you want a member of your team to replace you, you need to hire people capable of replacing you, which we usually sum up by saying that you need to “hire people smarter than you.” After you have team members capable of doing your job, you need to give them opportunities to take on more responsibilities or occasionally lead the team. If you do this, you’ll quickly see who has the most aptitude to lead as well as who wants to lead the team. Remember that some people prefer to just be high-performing individual contributors, and that’s OK. We’ve always been amazed at companies that take their best engineers and—against their wishes—throw these engineers into management roles. This usually subtracts a great engineer from your team and adds a subpar manager.
 
-*Know when to make waves*  
+- *Know when to make waves*  
 	You will (inevitably and frequently) have difficult situations crop up in which every cell in your body is screaming at you to do nothing about it. It might be the engineer on your team whose technical chops aren’t up to par. It might be the person who jumps in front of every train. It might be the unmotivated employee who is working 30 hours a week. “Just wait a bit and it will get better,” you’ll tell yourself. “It will work itself out,” you’ll rationalize. Don’t fall into this trap—these are the situations for which you need to make the biggest waves and you need to make them now. Rarely will these problems work themselves out, and the longer you wait to address them, the more they’ll adversely affect the rest of the team and the more they’ll keep you up at night thinking about them. By waiting, you’re only delaying the inevitable and causing untold damage in the process. So act, and act quickly.
 
-*Shield* *your team from chaos*  
+- *Shield* *your team from chaos*  
 	When you step into a leadership role, the first thing you’ll usually discover is that outside your team is a world of chaos and uncertainty (or even insanity) that you never saw when you were an individual contributor. When I first became a manager back in the 1990s (before going back to being an individual contributor), I was taken aback by the sheer volume of uncertainty and organizational chaos that was happening in my company. I asked another manager what had caused this sudden rockiness in the otherwise calm company, and the other manager laughed hysterically at my naivete: the chaos had always been present, but my previous manager had shielded me and the rest of my team from it.
 
-*Give your team air cover*  
+- *Give your team air cover*  
 	Whereas it’s important that you keep your team informed about what’s going on “above” them in the company, it’s just as important that you defend them from a lot of the uncertainty and frivolous demands that can be imposed upon you from outside your team. Share as much information as you can with your team, but don’t distract them with organizational craziness that is extremely unlikely to ever actually affect them.
 
-*Let your team know when they’re doing well*  
+- *Let your team know when they’re doing well*  
 	Many new team leads can get so caught up in dealing with the shortcomings of their team members that they neglect to provide positive feedback often enough. Just as you let someone know when they screw up, be sure to let them know when they do well, and be sure to let them (and the rest of the team) know when they knock one out of the park.
 
 下面是谷歌在你担任领导职务时推荐的其他提示和窍门： 
-*委托，但要弄脏自己的手*  
+- *委托，但要弄脏自己的手*  
 	当从个人贡献者的角色转变为领导角色时，实现平衡是最难做到的事情之一。起初，你会倾向于自己做所有的工作，而在领导岗位上呆久了，很容易养成自己不做任何工作的习惯。如果你刚开始担任领导职务，你可能需要努力工作，把工作委托给团队中的其他工程师，即使他们完成这项工作所需的时间比你长很多。这不仅是你保持理智的一种方式，而且也是你的团队其他成员学习的方式。如果你已经领导了一段时间的团队，或者你接了一个新的团队，获得团队的尊重和了解他们的工作的最简单的方法之一就是弄脏你的手——通常是承担一个别人不愿意做的肮脏的任务。你可以有一份简历和一份一英里长的成就清单，但没有任何东西能让团队知道你有多熟练、有多谦逊（和谦逊），你喜欢跳进去做一些艰苦的工作。
 
-*寻求继任者*  
+- *寻求继任者*  
 	除非你想在余下的职业生涯中一直做着完全相同的工作，否则要设法寻找继任者。正如我们前面提到的，这从招聘过程开始：如果你想让你的团队成员取代你，你需要雇佣有能力取代你的人，我们通常总结说，你需要 "雇佣比你更聪明的人"。在你拥有能够胜任工作的团队成员之后，你需要给他们机会承担更多的责任或偶尔领导团队。如果你这样做，你会很快看到谁最有领导才能，以及谁想领导团队。请记住，有些人更愿意只做高绩效的个人，这也是可以的。我们一直对一些公司感到惊讶，这些公司把他们最优秀的工程师，违背他们的意愿，把这些工程师扔到管理岗位上。这通常会从你的团队中减少一名优秀的工程师，而增加一名不合格的经理。
 
-*知道什么时候该掀起风波*  
+- *知道什么时候该掀起风波*  
 	你会（不可避免且经常地）遇到一些困难的情况，在这些情况下，你身体里的每一个细胞都在对你大喊大叫，要求你什么都不要做。这可能是你团队中的工程师，他的技术能力达不到要求。它可能是那个在每辆火车前跳来跳去的人。它可能是每周工作30小时的无心的员工。"只要等一等，就会好起来的，"你会告诉自己。"它会自己解决的，"你会合理地解释。不要落入这个陷阱——这些是你需要掀起最大波澜的情况，你需要现在就掀起。这些问题很少会自己解决，你等待解决的时间越长，它们对团队其他成员的不利影响就越大，它们会让你彻夜思考。通过等待，你只是拖延了不可避免的事情，并在这个过程中造成难以言喻的损失。因此，要采取行动，而且要迅速行动。
 
-*屏蔽团队免受混乱影响*  
+- *屏蔽团队免受混乱影响*  
 	当你步入领导岗位时，你通常会发现，在你的团队之外是一个混乱和不确定（甚至是疯狂）的世界，而你在做个人贡献者时从未见过。当我在20世纪90年代第一次成为一名经理时（在回到个人贡献者之前），我对公司里发生的大量不确定性和组织混乱感到吃惊。我问另一位经理，是什么原因导致原本平静的公司突然出现这种动荡，另一位经理歇斯底里地笑我太天真了：混乱一直存在，但我以前的经理把我和我的团队其他成员都挡在外面。
 
-*给你的团队提供空中掩护*  
+- *给你的团队提供空中掩护*  
 	尽管让你的团队了解公司 "上面 "发生的事情很重要，但同样重要的是，你要保护他们不受很多不确定因素和轻率要求的影响，这些要求可能来自你的团队之外。尽可能多地与你的团队分享信息，但不要用那些极不可能真正影响到他们的组织的疯狂行为来分散他们的注意力。
 
-*让你的团队知道他们什么时候做得好*  
+- *让你的团队知道他们什么时候做得好*  
 	许多新的团队领导可能会陷入处理团队成员的缺点中，以至于他们忽略了经常提供积极的反馈。就像你让某人知道他们搞砸了一样，一定要让他们知道他们做得很好，而且一定要让他们（和团队其他成员）知道他们在球场里踢出了一个好成绩。
 
 

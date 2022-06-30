@@ -16,15 +16,11 @@ After doing the hard work of writing code, you need some hardware to run it. Thu
 
 在完成了编写代码的艰苦工作之后，你需要一些硬件来运行它。因此，你可以购买或租用这些硬件。本质上，这就是“计算即服务”（Compute as a Service，CaaS），其中“计算”是实际运行程序所需的计算能力的简写。
 
-This chapter is about how this simple concept—just give me the hardware to run my stuff[1](#_bookmark2133)—maps into a system that will survive and scale as your organization evolves and grows. It is somewhat long because the topic is complex, and divided into four sections:
-
-•   [“Taming the Compute Environment” on page 518 ](#_bookmark2134)covers how Google arrived at its solution for this problem and explains some of the key concepts of CaaS.
-
-•   [“Writing Software for Managed Compute” on page 523 ](#_bookmark2156)shows how a managed compute solution affects how engineers write software. We believe that the “cattle, not pets”/flexible scheduling model has been fundamental to Google’s success in the past 15 years and is an important tool in a software engineer’s toolbox.
-
-•   [“CaaS Over Time and Scale” on page 530 ](#_bookmark2183)goes deeper into a few lessons Google learned about how various choices about a compute architecture play out as the organization grows and evolves.
-
-•   Finally, [“Choosing a Compute Service” on page 535](#_bookmark2202) is dedicated primarily to those engineers who will make a decision about what compute service to use in their organization.
+This chapter is about how this simple concept—just give me the hardware to run my stuff[^1]—maps into a system that will survive and scale as your organization evolves and grows. It is somewhat long because the topic is complex, and divided into four sections:
+- [“Taming the Compute Environment” on page 518 ](#_bookmark2134)covers how Google arrived at its solution for this problem and explains some of the key concepts of CaaS.
+-  [“Writing Software for Managed Compute” on page 523 ](#_bookmark2156)shows how a managed compute solution affects how engineers write software. We believe that the “cattle, not pets”/flexible scheduling model has been fundamental to Google’s success in the past 15 years and is an important tool in a software engineer’s toolbox.
+-  [“CaaS Over Time and Scale” on page 530 ](#_bookmark2183)goes deeper into a few lessons Google learned about how various choices about a compute architecture play out as the organization grows and evolves.
+-  Finally, [“Choosing a Compute Service” on page 535](#_bookmark2202) is dedicated primarily to those engineers who will make a decision about what compute service to use in their organization.
 
 本章讲述的是这个简单的概念--如何为我提供硬件--如何组成一个系统，随着你的组织的发展和壮大而生存和扩展。本章有点长，因为主题很复杂，分为四个部分：
 - 第518页的 "驯服计算环境"涵盖了谷歌是如何得出这个问题的解决方案的，并解释了CaaS的一些关键概念。
@@ -34,37 +30,31 @@ This chapter is about how this simple concept—just give me the hardware to run
 - 第530页的 "CaaS随时间和规模的变化"更深入地探讨了谷歌在组织成长和发展过程中对计算架构的各种选择是如何发挥的一些经验。
 - 最后，第535页的 "选择计算服务"主要是献给那些将决定在其组织中使用何种计算服务的工程师。
 
-```
-1	Disclaimer: for some applications, the “hardware to run it” is the hardware of your customers (think, for example, of a shrink-wrapped game you bought a decade ago). This presents very different challenges that we do not cover in this chapter.
-1   免责声明：对于某些应用程序，“运行它的硬件”是您客户的硬件（例如，想想您十年前购买的一款压缩包装的游戏）。这就提出了我们在本章中没有涉及的非常不同的挑战。
-```
-
+> [^1]:	Disclaimer: for some applications, the “hardware to run it” is the hardware of your customers (think, for example, of a shrink-wrapped game you bought a decade ago). This presents very different challenges that we do not cover in this chapter./
+> 1   免责声明：对于某些应用程序，“运行它的硬件”是您客户的硬件（例如，想想您十年前购买的一款压缩包装的游戏）。这就提出了我们在本章中没有涉及的非常不同的挑战。
 
 
 ## Taming the Compute Environment 驯服计算机环境
 
-Google’s internal Borg system[2](#_bookmark2138) was a precursor for many of today’s CaaS architectures (like Kubernetes or Mesos). To better understand how the particular aspects of such a service answer the needs of a growing and evolving organization, we’ll trace the evolution of Borg and the efforts of Google engineers to tame the compute environment.
+Google’s internal Borg system[^2] was a precursor for many of today’s CaaS architectures (like Kubernetes or Mesos). To better understand how the particular aspects of such a service answer the needs of a growing and evolving organization, we’ll trace the evolution of Borg and the efforts of Google engineers to tame the compute environment.
 
 谷歌的内部Borg系统是今天许多CaaS架构（如Kubernetes或Mesos）的前身。为了更好地理解这种服务的特定方面如何满足一个不断增长和发展的组织的需要，我们将追溯Borg的发展和谷歌工程师为驯服计算环境所做的努力。
 
 ### Automation of Toil 自动化操作
 
-Imagine being a student at the university around the turn of the century. If you wanted to deploy some new, beautiful code, you’d SFTP the code onto one of the machines in the university’s computer lab, SSH into the machine, compile and run the code. This is a tempting solution in its simplicity, but it runs into considerable issues over time and at scale. However, because that’s roughly what many projects begin with, multiple organizations end up with processes that are somewhat streamlined evolutions of this system, at least for some tasks—the number of machines grows (so you SFTP and SSH into many of them), but the underlying technology remains. For example, in 2002, Jeff Dean, one of Google’s most senior engineers, wrote the following about running an automated data-processing task as a part of the release process:
+Imagine being a student at the university around the turn of the century. If you wanted to deploy some new, beautiful code, you’d SFTP the code onto one of the machines in the university’s computer lab, SSH into the machine, compile and run the code. This is a tempting solution in its simplicity, but it runs into considerable issues over time and at scale. However, because that’s roughly what many projects begin with, multiple organizations end up with processes that are somewhat streamlined evolutions of this system, at least for some tasks—the number of machines grows (so you SFTP and SSH into many of them), but the underlying technology remains. For example, in 2002, Jeff Dean, one of Google’s most senior engineers, wrote the following about running an automated data-processing task as a part of the release process:  
+	[Running the task] is a logistical, time-consuming nightmare. It currently requires getting a list of 50+ machines, starting up a process on each of these 50+ machines, and monitoring its progress on each of the 50+ machines. There is no support for automatically migrating the computation to another machine if one of the machines dies, and monitoring the progress of the jobs is done in an ad hoc manner [...] Furthermore, since processes can interfere with each other, there is a complicated, human- implemented “sign up” file to throttle the use of machines, which results in less-than- optimal scheduling, and increased contention for the scarce machine resources
 
-​	[Running the task] is a logistical, time-consuming nightmare. It currently requires getting a list of 50+ machines, starting up a process on each of these 50+ machines, and monitoring its progress on each of the 50+ machines. There is no support for automatically migrating the computation to another machine if one of the machines dies, and monitoring the progress of the jobs is done in an ad hoc manner [...] Furthermore, since processes can interfere with each other, there is a complicated, human- implemented “sign up” file to throttle the use of machines, which results in less-than- optimal scheduling, and increased contention for the scarce machine resources
-
-想象一下，在世纪之交的时候，你是一个大学的学生。如果你想部署一些新的、牛逼的代码，你会把代码从SFTP复制到大学计算机实验室的一台机器上，SSH进入机器，编译并运行代码。这是一个简单而诱人的解决方案，但随着时间的推移和规模的扩大，它遇到了相当多的问题。然而，因为这大概是许多项目开始时的情况，多个组织最终采用的流程在某种程度上是这个系统的流程演变，至少对于某些任务来说是这样的--机器的数量增加了（所以你SFTP和SSH进入其中许多机器），但底层技术仍然存在。例如，2002年，谷歌最资深的工程师之一杰夫·迪恩（Jeff Dean）写了以下关于在发布过程中运行自动数据处理任务的文章：
-
-​		[运行任务]是一个组织管理的、耗时的噩梦。目前，它需要获得一个50多台机器的列表，在这50多台机器上各启动一个进程，并在这50多台机器上各监控其进度。如果其中一台机器宕机了，不支持自动将计算迁移到另一台机器上，而且监测工作的进展是以临时的方式进行的[......]此外，由于进程可以相互干扰，有一个复杂的、人工实现的 "注册 "文件来节制机器的使用，这导致了非最优调度，增加了对稀缺机器资源的争夺。	
+想象一下，在世纪之交的时候，你是一个大学的学生。如果你想部署一些新的、牛逼的代码，你会把代码从SFTP复制到大学计算机实验室的一台机器上，SSH进入机器，编译并运行代码。这是一个简单而诱人的解决方案，但随着时间的推移和规模的扩大，它遇到了相当多的问题。然而，因为这大概是许多项目开始时的情况，多个组织最终采用的流程在某种程度上是这个系统的流程演变，至少对于某些任务来说是这样的--机器的数量增加了（所以你SFTP和SSH进入其中许多机器），但底层技术仍然存在。例如，2002年，谷歌最资深的工程师之一杰夫·迪恩（Jeff Dean）写了以下关于在发布过程中运行自动数据处理任务的文章：  
+	[运行任务]是一个组织管理的、耗时的噩梦。目前，它需要获得一个50多台机器的列表，在这50多台机器上各启动一个进程，并在这50多台机器上各监控其进度。如果其中一台机器宕机了，不支持自动将计算迁移到另一台机器上，而且监测工作的进展是以临时的方式进行的[......]此外，由于进程可以相互干扰，有一个复杂的、人工实现的 "注册 "文件来节制机器的使用，这导致了非最优调度，增加了对稀缺机器资源的争夺。	
 
 This was an early trigger in Google’s efforts to tame the compute environment, which explains well how the naive solution becomes unmaintainable at larger scale.
 
 这是谷歌努力驯服计算环境的早期导火索，这很好地解释了这种幼稚的解决方案如何在更大范围内变得不可维护。
 
-```
-2	Abhishek Verma, Luis Pedrosa, Madhukar R Korupolu, David Oppenheimer, Eric Tune, and John Wilkes, “Large-scale cluster management at Google with Borg,” EuroSys, Article No.: 18 (April 2015): 1–17.
-2   Abhishek Verma、Luis Pedrosa、Madhukar R Korupolu、David Oppenheimer、Eric Tune和John Wilkes，“谷歌与Borg的大规模集群管理”，EuroSys，文章编号：18（2015年4月）：1-17。
-```
+> [^2]:	Abhishek Verma, Luis Pedrosa, Madhukar R Korupolu, David Oppenheimer, Eric Tune, and John Wilkes, “Large-scale cluster management at Google with Borg,” EuroSys, Article No.: 18 (April 2015): 1–17.
+>[^2]:   Abhishek Verma、Luis Pedrosa、Madhukar R Korupolu、David Oppenheimer、Eric Tune和John Wilkes，“谷歌与Borg的大规模集群管理”，EuroSys，文章编号：18（2015年4月）：1-17。
+
 
 #### Simple automations 简单自动化
 
@@ -77,14 +67,11 @@ More interestingly, the monitoring of each machine can also be automated. Initia
 更有趣的是，对每台机器的监控也可以自动化。最初，负责进程的人希望知道（并能够进行干预），如果其中一个副本出了问题。这意味着从进程中输出一些监控指标（如 "进程是活的 "和 "处理的文件数"）--让它写到一个共享存储中，或调用一个监控服务，在那里他们可以一眼看到异常情况。目前该领域的开源解决方案是，例如，在Graphana或Prometheus等监控工具中设置一个仪表盘。
 
 If an anomaly is detected, the usual mitigation strategy is to SSH into the machine, kill the process (if it’s still alive), and start it again. This is tedious, possibly error prone (be sure you connect to the right machine, and be sure to kill the right process), and could be automated:
-
-•   Instead of manually monitoring for failures, one can use an agent on the machine that detects anomalies (like “the process did not report it’s alive for the past five minutes” or “the process did not process any documents over the past 10 minutes”), and kills the process if an anomaly is detected.
-
-•   Instead of logging in to the machine to start the process again after death, it might be enough to wrap the whole execution in a “while true; do run && break; done” shell script.
+- Instead of manually monitoring for failures, one can use an agent on the machine that detects anomalies (like “the process did not report it’s alive for the past five minutes” or “the process did not process any documents over the past 10 minutes”), and kills the process if an anomaly is detected.
+- Instead of logging in to the machine to start the process again after death, it might be enough to wrap the whole execution in a “while true; do run && break; done” shell script.
 
 如果检测到异常，通常的缓解策略是通过SSH进入机器，杀死进程（如果它还活着），然后重新启动它。这很繁琐，可能容易出错（要确保你连接到正确的机器，并确保杀死正确的进程），并且可以自动化：
 - 与其手动监控故障，不如在机器上使用一个代理，检测异常情况（比如 "该进程在过去5分钟内没有报告它处于”活动状态"或 "该进程在过去10分钟内没有处理任何文件"），如果检测到异常情况，就杀死该进程。
-
 - 与其在宕掉后登录到机器上再次启动进程，不如将整个执行过程包裹在一个 "while true; do run && break; done "的shell脚本中。
 
 The cloud world equivalent is setting an autohealing policy (to kill and re-create a VM or container after it fails a health check).
@@ -116,12 +103,9 @@ All of these improvements systematically deal with the growing scale of the orga
 ### Containerization and Multitenancy 容器化和多租户
 
 So far, we implicitly assumed a one-to-one mapping between machines and the programs running on them. This is highly inefficient in terms of computing resource (RAM, CPU) consumption, in many ways:
-
-•   It’s very likely to have many more different types of jobs (with different resource requirements) than types of machines (with different resource availability), so many jobs will need to use the same machine type (which will need to be provisioned for the largest of them).
-
-•   Machines take a long time to deploy, whereas program resource needs grow over time. If obtaining new, larger machines takes your organization months, you need to also make them large enough to accommodate expected growth of resource needs over the time needed to provision new ones, which leads to waste, as new machines are not utilized to their full capacity.[3](#_bookmark2147)
-
-•   Even when the new machines arrive, you still have the old ones (and it’s likely wasteful to throw them away), and so you must manage a heterogeneous fleet that does not adapt itself to your needs.
+-  It’s very likely to have many more different types of jobs (with different resource requirements) than types of machines (with different resource availability), so many jobs will need to use the same machine type (which will need to be provisioned for the largest of them).
+- Machines take a long time to deploy, whereas program resource needs grow over time. If obtaining new, larger machines takes your organization months, you need to also make them large enough to accommodate expected growth of resource needs over the time needed to provision new ones, which leads to waste, as new machines are not utilized to their full capacity.[^3]
+- Even when the new machines arrive, you still have the old ones (and it’s likely wasteful to throw them away), and so you must manage a heterogeneous fleet that does not adapt itself to your needs.
 
 到目前为止，我们隐式地假设机器和运行在机器上的程序之间存在一对一的映射。在计算资源（RAM、CPU）消耗方面，这在许多方面都是非常低效的：
 
@@ -133,9 +117,12 @@ The natural solution is to specify, for each program, its resource requirements 
 
 最自然的解决方案是为每个程序指定其资源需求（CPU、RAM、磁盘空间），然后要求调度器将程序的副本打包到可用的机器资源池中。
 
+> [^3]:	Note that this and the next point apply less if your organization is renting machines from a public cloud provider./
+> 3 请注意，如果你的组织从公共云提供商那里租用机器，这一点和下一点就不适用。
+
 #### My neighbor’s dog barks in my RAM 邻居家的狗在我的内存中吠叫
 
-The aforementioned solution works perfectly if everybody plays nicely. However, if I specify in my configuration that each replica of my data-processing pipeline will consume one CPU and 200 MB of RAM, and then—due to a bug, or organic growth—it starts consuming more, the machines it gets scheduled onto will run out of resources. In the CPU case, this will cause neighboring serving jobs to experience latency blips; in the RAM case, it will either cause out-of-memory kills by the kernel or horrible latency due to disk swap.[4](#_bookmark2148)
+The aforementioned solution works perfectly if everybody plays nicely. However, if I specify in my configuration that each replica of my data-processing pipeline will consume one CPU and 200 MB of RAM, and then—due to a bug, or organic growth—it starts consuming more, the machines it gets scheduled onto will run out of resources. In the CPU case, this will cause neighboring serving jobs to experience latency blips; in the RAM case, it will either cause out-of-memory kills by the kernel or horrible latency due to disk swap.[^4]
 
 如果每个人都能很好地发挥，上述的解决方案就能完美地工作。然而，如果我在配置中指定我的数据处理管道的每个副本将占用一个CPU和200MB的内存，然后由于一个错误，或指数式增长，它开始消耗更多的资源，那么它调度到的机器将耗尽资源。在消耗CPU的情况下，这将导致相邻的服务工作出现延迟；在消耗RAM的情况下，它要么会导致内核内存不足，要么会由于磁盘交换而导致可怕的延迟。
 
@@ -147,7 +134,7 @@ Thus, a multitenant compute service must provide a degree of *isolation,* a guar
 
 因此，多租户计算服务必须提供一定程度的*隔离，*某种程度上保证一个进程能够安全进行而不被机器的其他租户干扰。
 
-A classical solution to isolation is the use of virtual machines (VMs). These, however, come with significant overhead[5](#_bookmark2149) in terms of resource usage (they need the resources to run a full operating system inside) and startup time (again, they need to boot up a full operating system). This makes them a less-than-perfect solution for batch job containerization for which small resource footprints and short runtimes are expected. This led Google’s engineers designing Borg in 2003 to look to different solutions, ending up with *containers—*a lightweight mechanism based on cgroups (contributed by Google engineers into the Linux kernel in 2007) and chroot jails, bind mounts and/or union/overlay filesystems for filesystem isolation. Open source container implementations include Docker and LMCTFY.
+A classical solution to isolation is the use of virtual machines (VMs). These, however, come with significant overhead[^5] in terms of resource usage (they need the resources to run a full operating system inside) and startup time (again, they need to boot up a full operating system). This makes them a less-than-perfect solution for batch job containerization for which small resource footprints and short runtimes are expected. This led Google’s engineers designing Borg in 2003 to look to different solutions, ending up with *containers—*a lightweight mechanism based on cgroups (contributed by Google engineers into the Linux kernel in 2007) and chroot jails, bind mounts and/or union/overlay filesystems for filesystem isolation. Open source container implementations include Docker and LMCTFY.
 
 隔离的一个经典解决方案是使用虚拟机（VM）。然而，这些虚拟机在资源使用（它们需要资源在里面运行一个完整的操作系统）和启动时间（同样，它们需要启动一个完整的操作系统）方面有很大的开销。这使得它们成为一个不太完美的解决方案，使用于资源占用少、运行时间短的批量作业容器化。这导致谷歌在2003年设计Borg的工程师们寻找不同的解决方案，最终找到了*容器*--一种基于cgroups（由谷歌工程师在2007年贡献给Linux内核）和chroot jails、bind mounts和/或union/overlay文件系统进行文件系统隔离的轻型机制。开源容器的实现包括Docker和LMCTFY。
 
@@ -155,15 +142,11 @@ Over time and with the evolution of the organization, more and more potential is
 
 随着时间的推移和组织的发展，发现了越来越多的潜在隔离故障。举个具体的例子，2011年，在Borg工作的工程师发现，进程ID空间（默认设置为32000个PID）的耗尽正在成为一个隔离故障，因此不得不引入对单个副本可产生的进程/线程总数的限制。我们将在本章后面更详细地讨论这个例子。
 
-```
-3	Note that this and the next point apply less if your organization is renting machines from a public cloud provider.
-4	Google has chosen, long ago, that the latency degradation due to disk swap is so horrible that an out-of- memory kill and a migration to a different machine is universally preferable—so in Google’s case, it’s always an out-of-memory kill.
-5	Although a considerable amount of research is going into decreasing this overhead, it will never be as low as a process running natively.
-
-3 请注意，如果你的组织从公共云提供商那里租用机器，这一点和下一点就不适用。
-4 谷歌很久以前就确认了，由于磁盘交换导致的延迟降低是如此可怕，以至于内存不足杀死和迁移到另一台机器是普遍可取的，因此在谷歌的情况下，总是内存不足杀死进程。
+> [^4]:	Google has chosen, long ago, that the latency degradation due to disk swap is so horrible that an out-of- memory kill and a migration to a different machine is universally preferable—so in Google’s case, it’s always an out-of-memory kill./
+> 4 谷歌很久以前就确认了，由于磁盘交换导致的延迟降低是如此可怕，以至于内存不足杀死和迁移到另一台机器是普遍可取的，因此在谷歌的情况下，总是内存不足杀死进程。
+> 
+> [^5]:	Although a considerable amount of research is going into decreasing this overhead, it will never be as low as a process running natively./
 5 尽管有大量的研究正在致力于减少这种开销，但它永远不会像一个本机运行的进程那么低。
-```
 
 #### Rightsizing and autoscaling 合理调整和自动缩放
 
@@ -182,12 +165,9 @@ The natural solution is to automate the setting of these parameters. Unfortunate
 ### Summary 总结
 
 As your organization grows and your products become more popular, you will grow in all of these axes:
-
-•   Number of different applications to be managed
-
-•   Number of copies of an application that needs to run
-
-•   The size of the largest application
+- Number of different applications to be managed
+- Number of copies of an application that needs to run
+- The size of the largest application
 
 随着你的组织的发展和产品的普及，你将在所有这些轴上成长：
 - 需要管理的不同应用程序的数量
@@ -214,11 +194,11 @@ Imagine an engineer is to process a batch of one million documents and validate 
 
 想象一下，一个工程师要处理一批100万份文件并验证其正确性。如果处理一个文件需要一秒钟，那么整个工作将需要一台机器大约12天--这可能太长了。因此，我们把工作分散到200台机器上，这将运行时间减少到更易于管理的100分钟。
 
-As discussed in [“Automated scheduling” on page 519](#_bookmark2140), in the Borg world, the scheduler can unilaterally kill one of the 200 workers and move it to a different machine.[6](#_bookmark2163) The “move it to a different machine” part implies that a new instance of your worker can be stamped out automatically, without the need for a human to SSH into the machine and tune some environment variables or install packages.
+As discussed in [“Automated scheduling” on page 519](#_bookmark2140), in the Borg world, the scheduler can unilaterally kill one of the 200 workers and move it to a different machine.[^6] The “move it to a different machine” part implies that a new instance of your worker can be stamped out automatically, without the need for a human to SSH into the machine and tune some environment variables or install packages.
 
 正如第519页 "自动调度 "中所讨论的，在博格世界中，调度中心可以单方面杀死200个worker中的一个，并把它移到不同的机器上。"把它移到不同的机器上 "这部分意味着你的workers的新实例可以自动被输出出来，不需要人手动去SSH进入机器，调整一些环境变量或安装软件包。
 
-The move from “the engineer has to manually monitor each of the 100 tasks and attend to them if broken” to “if something goes wrong with one of the tasks, the system is architected so that the load is picked up by others, while the automated scheduler kills it and reinstantiates it on a new machine” has been described many years later through the analogy of “pets versus cattle.”[7](#_bookmark2164)
+The move from “the engineer has to manually monitor each of the 100 tasks and attend to them if broken” to “if something goes wrong with one of the tasks, the system is architected so that the load is picked up by others, while the automated scheduler kills it and reinstantiates it on a new machine” has been described many years later through the analogy of “pets versus cattle.”[^7]
 
 从 "工程师必须手动监控100个任务中的每一个，并在出现问题时对其进行处理 "到 "如果其中一个任务出现问题，系统会被设计成由其他任务来承担，而自动化系统会将其杀死并在新的机器上重新执行"，这一转变在许多年后通过 "宠物与牛 "的比喻来描述。
 
@@ -242,14 +222,11 @@ To summarize: treating your containers or servers as cattle means that your serv
 
 总而言之：将容器或服务器视为“牛”意味着你的服务可以自动恢复到正常状态，但还需要付出额外的努力，以确保它能够在遇到中等故障率的情况下顺利运行。
 
- ```
- 6	The scheduler does not do this arbitrarily, but for concrete reasons (like the need to update the kernel, or a disk going bad on the machine, or a reshuffle to make the overall distribution of workloads in the datacenter bin-packed better). However, the point of having a compute service is that as a software author, I should neither know nor care why regarding the reasons this might happen.
- 7	The “pets versus cattle” metaphor is attributed to Bill Baker by Randy Bias and it’s become extremely popular as a way to describe the “replicated software unit” concept. As an analogy, it can also be used to describe concepts other than servers; for example, see Chapter 22.
- 6 调度器并不是随意这样做的，而是出于具体的原因（比如需要更新内核，或者机器上的磁盘坏了，或者为了更好地打包数据中心容器中的工作负载的总体分布而进行的改组）。然而，拥有计算服务的意义在于，作为软件作者，我不应该知道也不关心为什么会发生这种情况。
- 7 "宠物与牛 "的比喻是由Randy Bias归功于Bill Baker的，它作为描述 "复制的软件单元 "概念的一种方式，已经变得非常流行。作为一个比喻，它也可以用来描述服务器以外的概念；例如，见第22章。
- ```
-
-
+>  [^6]:	The scheduler does not do this arbitrarily, but for concrete reasons (like the need to update the kernel, or a disk going bad on the machine, or a reshuffle to make the overall distribution of workloads in the datacenter bin-packed better). However, the point of having a compute service is that as a software author, I should neither know nor care why regarding the reasons this might happen./
+>  6 调度器并不是随意这样做的，而是出于具体的原因（比如需要更新内核，或者机器上的磁盘坏了，或者为了更好地打包数据中心容器中的工作负载的总体分布而进行的改组）。然而，拥有计算服务的意义在于，作为软件作者，我不应该知道也不关心为什么会发生这种情况。
+>
+> [^7]:	The “pets versus cattle” metaphor is attributed to Bill Baker by Randy Bias and it’s become extremely popular as a way to describe the “replicated software unit” concept. As an analogy, it can also be used to describe concepts other than servers; for example, see Chapter 22./ 
+>  7 "宠物与牛 "的比喻是由Randy Bias归功于Bill Baker的，它作为描述 "复制的软件单元 "概念的一种方式，已经变得非常流行。作为一个比喻，它也可以用来描述服务器以外的概念；例如，见第22章。
 
 ### Batch Versus Serving 批量作业与服务作业
 
@@ -257,20 +234,17 @@ The Global WorkQueue (which we described in the first section of this chapter) a
 
 全局工作队列（Global WorkQueue）（我们在本章第一节中描述过）解决了谷歌工程师所说的 "批处理作业 "的问题--这些程序要完成一些特定的任务（如数据处理），并且要运行到完成。批量作业的典型例子是日志分析或机器学习模型学习。批量作业与 "服务作业 "形成鲜明对比--这些程序预计将无限期地运行并为传入的请求提供服务，典型的例子是为来自预构建索引的实际用户搜索查询提供服务的作业。
 
-These two types of jobs have (typically) different characteristics,[8](#_bookmark2167) in particular:
-
-•   Batch jobs are primarily interested in throughput of processing. Serving jobs care about latency of serving a single request.
-
-•   Batch jobs are short lived (minutes, or at most hours). Serving jobs are typically long lived (by default only restarted with new releases).
-
-•   Because they’re long lived, serving jobs are more likely to have longer startup times.
+These two types of jobs have (typically) different characteristics,[^8] in particular:
+- Batch jobs are primarily interested in throughput of processing. Serving jobs care about latency of serving a single request.
+- Batch jobs are short lived (minutes, or at most hours). Serving jobs are typically long lived (by default only restarted with new releases).
+- Because they’re long lived, serving jobs are more likely to have longer startup times.
 
 这两类作业（通常）具有不同的特点，特别是：
 - 批量作业主要关心的是处理的吞吐量。服务作业关心的是服务单个请求的延迟。
 - 批量作业的生命周期很短（几分钟，或最多几个小时）。服务工作通常是长期存在的（默认情况下，只有在新版本发布时才会重新启动）。
 - 因为它们是长期存在的，所以服务工作更有可能有较长的启动时间。
 
-So far, most of our examples were about batch jobs. As we have seen, to adapt a batch job to survive failures, we need to make sure that work is spread into small chunks and assigned dynamically to workers. The canonical framework for doing this at Google was MapReduce,[9](#_bookmark2169) later replaced by Flume.[10](#_bookmark2170)
+So far, most of our examples were about batch jobs. As we have seen, to adapt a batch job to survive failures, we need to make sure that work is spread into small chunks and assigned dynamically to workers. The canonical framework for doing this at Google was MapReduce,[^9] later replaced by Flume.[^10]
 
 到目前为止，我们大部分的例子都是关于批处理作业的。正如我们所看到的，为了使批处理作业适应失败，我们需要确保工作被分散成小块，并动态地分配给worker。在谷歌，这样做的典型框架是MapReduce，后来被Flume取代。
 
@@ -278,25 +252,27 @@ Serving jobs are, in many ways, more naturally suited to failure resistance than
 
 在许多方面，服务作业比批量作业更自然地适合于抗故障。他们的工作自然地分成小块（单个用户请求），动态地分配给worker。从互联网流量服务的早期开始，就采用了通过服务器集群负载平衡来处理大量请求的策略。
 
-However, there are also multiple serving applications that do not naturally fit that pattern. The canonical example would be any server that you intuitively describe as a “leader” of a particular system. Such a server will typically maintain the state of the system (in memory or on its local filesystem), and if the machine it is running on goes down, a newly created instance will typically be unable to re-create the system’s state. Another example is when you have large amounts of data to serve—more than fits on one machine—and so you decide to shard the data among, for instance, 100 servers, each holding 1% of the data, and handling requests for that part of the data. This is similar to statically assigning work to batch job workers; if one of the servers goes down, you (temporarily) lose the ability to serve a part of your data. A final example is if your server is known to other parts of your system by its hostname. In that case, regardless of how your server is structured, if this specific host loses network connectivity, other parts of your system will be unable to contact it.[11](#_bookmark2171)
+However, there are also multiple serving applications that do not naturally fit that pattern. The canonical example would be any server that you intuitively describe as a “leader” of a particular system. Such a server will typically maintain the state of the system (in memory or on its local filesystem), and if the machine it is running on goes down, a newly created instance will typically be unable to re-create the system’s state. Another example is when you have large amounts of data to serve—more than fits on one machine—and so you decide to shard the data among, for instance, 100 servers, each holding 1% of the data, and handling requests for that part of the data. This is similar to statically assigning work to batch job workers; if one of the servers goes down, you (temporarily) lose the ability to serve a part of your data. A final example is if your server is known to other parts of your system by its hostname. In that case, regardless of how your server is structured, if this specific host loses network connectivity, other parts of your system will be unable to contact it.[^11]
 
 然而，也有多个服务应用程序不适合这种模式。最典型的例子是你直观地描述为特定系统的“领导者”的任何服务器。这样的服务器通常会维护系统的状态（在内存中或在其本地文件系统中），如果它所运行的机器出现故障，新创建的实例通常无法重新创建系统的状态。另一个例子是，当你有大量的数据需要服务--超过一台机器所能容纳的--于是你决定将数据分片，比如说，100台服务器，每台都持有1%的数据，并处理这部分数据的请求。这类似于将工作静态地分配给批处理工作的worker；如果其中一个服务器发生故障，你就会（暂时）失去为部分数据服务的能力。最后一个示例是，系统的其他部分是否知道服务器的主机名。在这种情况下，无论服务器的结构如何，如果此特定主机失去网络连接，系统的其他部分将无法与之联系。
 
-```
-8	Like all categorizations, this one isn’t perfect; there are types of programs that don’t fit neatly into any of the categories, or that possess characteristics typical of both serving and batch jobs. However, like most useful categorizations, it still captures a distinction present in many real-life cases.
-9	See Jeffrey Dean and Sanjay Ghemawat, “MapReduce: Simplified Data Processing on Large Clusters,” 6th Symposium on Operating System Design and Implementation (OSDI), 2004.
-10	Craig Chambers, Ashish Raniwala, Frances Perry, Stephen Adams, Robert Henry, Robert Bradshaw, and Nathan Weizenbaum, “Flume‐Java: Easy, Efficient Data-Parallel Pipelines,” ACM SIGPLAN Conference on Programming Language Design and Implementation (PLDI), 2010.
-11	See also Atul Adya et al. “Auto-sharding for datacenter applications,” OSDI, 2019; and Atul Adya, Daniel Myers, Henry Qin, and Robert Grandl, “Fast key-value stores: An idea whose time has come and gone,” HotOS XVII, 2019.
 
-8 像所有的分类一样，这个分类并不完美；有些类型的程序不适合任何类别，或者具有服务作业和批处理作业的典型特征。然而，与最有用的分类一样，它仍然抓住了许多实际案例中存在的区别。
-9 见Jeffrey Dean和Sanjay Ghemawat，"MapReduce。简化大型集群上的数据处理，"第六届操作系统设计与实现研讨会（OSDI），2004。
-10 Craig Chambers, Ashish Raniwala, Frances Perry, Stephen Adams, Robert Henry, Robert Bradshaw, and Nathan Weizenbaum, "Flume-Java: Easy, Efficient Data-Parallel Pipelines," ACM SIGPLAN编程语言设计与实现会议（PLDI），2010。
-11 另见Atul Adya等人，"数据中心应用的自动分片"，OSDI，2019；以及Atul Adya、Daniel Myers、Henry Qin和Robert Grandl，"快速键值存储。一个时代已经到来的想法，" HotOS XVII，2019年。
-```
+> [^8]:	Like all categorizations, this one isn’t perfect; there are types of programs that don’t fit neatly into any of the categories, or that possess characteristics typical of both serving and batch jobs. However, like most useful categorizations, it still captures a distinction present in many real-life cases./
+> 8 像所有的分类一样，这个分类并不完美；有些类型的程序不适合任何类别，或者具有服务作业和批处理作业的典型特征。然而，与最有用的分类一样，它仍然抓住了许多实际案例中存在的区别。
+
+> [^9]:	See Jeffrey Dean and Sanjay Ghemawat, “MapReduce: Simplified Data Processing on Large Clusters,” 6th Symposium on Operating System Design and Implementation (OSDI), 2004./
+> 9 见Jeffrey Dean和Sanjay Ghemawat，"MapReduce。简化大型集群上的数据处理，"第六届操作系统设计与实现研讨会（OSDI），2004。
+>
+> [^10]:	Craig Chambers, Ashish Raniwala, Frances Perry, Stephen Adams, Robert Henry, Robert Bradshaw, and Nathan Weizenbaum, “Flume‐Java: Easy, Efficient Data-Parallel Pipelines,” ACM SIGPLAN Conference on Programming Language Design and Implementation (PLDI), 2010./
+> 10 Craig Chambers, Ashish Raniwala, Frances Perry, Stephen Adams, Robert Henry, Robert Bradshaw, and Nathan Weizenbaum, "Flume-Java: Easy, Efficient Data-Parallel Pipelines," ACM SIGPLAN编程语言设计与实现会议（PLDI），2010。
+>
+> [^11]:	See also Atul Adya et al. “Auto-sharding for datacenter applications,” OSDI, 2019; and Atul Adya, Daniel Myers, Henry Qin, and Robert Grandl, “Fast key-value stores: An idea whose time has come and gone,” HotOS XVII, 2019./
+> 11 另见Atul Adya等人，"数据中心应用的自动分片"，OSDI，2019；以及Atul Adya、Daniel Myers、Henry Qin和Robert Grandl，"快速键值存储。一个时代已经到来的想法，" HotOS XVII，2019年。
+
 
 ### Managing State 管理状态
 
-One common theme in the previous description focused on *state* as a source of issues when trying to treat jobs like cattle.[12](#_bookmark2173) Whenever you replace one of your cattle jobs, you lose all the in-process state (as well as everything that was on local storage, if the job is moved to a different machine). This means that the in-process state should be treated as transient, whereas “real storage” needs to occur elsewhere.
+One common theme in the previous description focused on *state* as a source of issues when trying to treat jobs like cattle.[^12] Whenever you replace one of your cattle jobs, you lose all the in-process state (as well as everything that was on local storage, if the job is moved to a different machine). This means that the in-process state should be treated as transient, whereas “real storage” needs to occur elsewhere.
 
 在前面的描述中，有一个共同的主题集中在*状态*上，当试图像对待牛一样对待作业时，*状态*是问题的来源。每当你替换你的一个牛的作业时，你会失去所有的进程中的状态（以及所有在本地存储的东西，如果作业被转移到不同的机器上）。这意味着进程内状态应被视为瞬态，而“真实存储”需要发生在其他地方。
 
@@ -304,7 +280,7 @@ The simplest way of dealing with this is extracting all storage to an external s
 
 处理这个问题的最简单方法是将所有的存储提取到外部存储系统。这意味着任何应该在服务单一请求（在服务工作的情况下）或处理一个数据块（在批处理的情况下）的范围内生存的东西都需要存储在机器外的持久性存储中。如果所有的本地状态都是不可变的，那么让应用程序具有抗故障能力应该是相对容易的。
 
-Unfortunately, most applications are not that simple. One natural question that might come to mind is, “How are these durable, persistent storage solutions implemented— are *they* cattle?” The answer should be “yes.” Persistent state can be managed by cattle through state replication. On a different level, RAID arrays are an analogous concept; we treat disks as transient (accept the fact one of them can be gone) while still maintaining state. In the servers world, this might be realized through multiple replicas holding a single piece of data and synchronizing to make sure every piece of data is replicated a sufficient number of times (usually 3 to 5). Note that setting this up correctly is difficult (some way of consensus handling is needed to deal with writes), and so Google developed a number of specialized storage solutions[13](#_bookmark2175) that were enablers for most applications adopting a model where all state is transient.
+Unfortunately, most applications are not that simple. One natural question that might come to mind is, “How are these durable, persistent storage solutions implemented— are *they* cattle?” The answer should be “yes.” Persistent state can be managed by cattle through state replication. On a different level, RAID arrays are an analogous concept; we treat disks as transient (accept the fact one of them can be gone) while still maintaining state. In the servers world, this might be realized through multiple replicas holding a single piece of data and synchronizing to make sure every piece of data is replicated a sufficient number of times (usually 3 to 5). Note that setting this up correctly is difficult (some way of consensus handling is needed to deal with writes), and so Google developed a number of specialized storage solutions[^13] that were enablers for most applications adopting a model where all state is transient.
 
 不幸的是，大多数应用并不那么简单。可能会想到的一个自然而然问题是："这些持久的存储解决方案是如何实现的—它们是*牛*吗？" 答案应该是 "是的"。牛可以通过状态复制来管理持久状态。在不同的层面上，RAID阵列是一个类似的概念；我们将磁盘视为暂时的（接受其中一个可以消失的事实），同时仍保持主要状态。在服务器世界中，这可以通过多个副本来实现，多个副本保存一个数据段并进行同步，以确保每个数据段都被复制足够的次数（通常为3到5次）。请注意，正确设置此选项很困难（需要某种一致性处理方式来处理写操作），因此Google开发了许多专门的存储解决方案13，这些解决方案是采用所有状态都是瞬态的模型的大多数应用程序的推动者。
 
@@ -320,14 +296,12 @@ One more case of using local storage—this time in case of data that’s writte
 
 还有一种使用本地存储的情况--这次是在数据写入多于读取的情况下--是批量写入。这是监控数据的常见策略（例如，考虑从机群中收集CPU利用率的统计数据，以指导自动伸缩系统），但它也可以用在任何可以接受部分数据丢失的地方，因为我们不需要100%的数据覆盖（这是监控的情况），或者因为丢失的数据可以重新创建（这是一个批处理作业的情况，它分块处理数据，并为每个分块写一些输出）。请注意，在很多情况下，即使一个特定的计算需要很长的时间，也可以通过定期检查状态到持久性存储的方式将其分割成更小的时间窗口。
 
-```
-12	Note that, besides distributed state, there are other requirements to setting up an effective “servers as cattle” solution, like discovery and load-balancing systems (so that your application, which moves around the datacenter, can be accessed effectively). Because this book is less about building a full CaaS infrastructure and more about how such an infrastructure relates to the art of software engineering, we won’t go into more detail here.
-13	See, for example, Sanjay Ghemawat, Howard Gobioff, and Shun-Tak Leung, “The Google File System,” Proceedings of the 19th ACM Symposium on Operating Systems, 2003; Fay Chang et al., “Bigtable: A Distributed Storage System for Structured Data,” 7th USENIX Symposium on Operating Systems Design and Implementation (OSDI); or James C. Corbett et al., “Spanner: Google’s Globally Distributed Database,” OSDI, 2012.
-12 请注意，除了分布式状态，建立一个有效的 "服务器即牛 "解决方案还有其他要求，比如发现和负载平衡系统（以便你的应用程序，在数据中心内移动，可以被有效访问）。因为这本书与其说是关于建立一个完整的CaaS基础设施，不如说是关于这样的基础设施与软件工程艺术的关系，所以我们在这里就不多说了。
-13 例如，见Sanjay Ghemawat, Howard Gobioff, and Shun-Tak Leung, "The Google File System," Pro- ceedings of the 19th ACM Symposium on Operating Systems, 2003; Fay Chang等人, "Bigtable: 一个结构化数据的分布式存储系统，"第七届USENIX操作系统设计和实施研讨会（OSDI）；或James C. Corbett等人，”Spanner:谷歌的全球分布式数据库"，OSDI，2012。
 
-```
-
+> [^12]:	Note that, besides distributed state, there are other requirements to setting up an effective “servers as cattle” solution, like discovery and load-balancing systems (so that your application, which moves around the datacenter, can be accessed effectively). Because this book is less about building a full CaaS infrastructure and more about how such an infrastructure relates to the art of software engineering, we won’t go into more detail here./
+> 12 请注意，除了分布式状态，建立一个有效的 "服务器即牛 "解决方案还有其他要求，比如发现和负载平衡系统（以便你的应用程序，在数据中心内移动，可以被有效访问）。因为这本书与其说是关于建立一个完整的CaaS基础设施，不如说是关于这样的基础设施与软件工程艺术的关系，所以我们在这里就不多说了。
+> 
+> [^13]:	See, for example, Sanjay Ghemawat, Howard Gobioff, and Shun-Tak Leung, “The Google File System,” Proceedings of the 19th ACM Symposium on Operating Systems, 2003; Fay Chang et al., “Bigtable: A Distributed Storage System for Structured Data,” 7th USENIX Symposium on Operating Systems Design and Implementation (OSDI); or James C. Corbett et al., “Spanner: Google’s Globally Distributed Database,” OSDI, 2012./
+> 13 例如，见Sanjay Ghemawat, Howard Gobioff, and Shun-Tak Leung, "The Google File System," Pro- ceedings of the 19th ACM Symposium on Operating Systems, 2003; Fay Chang等人, "Bigtable: 一个结构化数据的分布式存储系统，"第七届USENIX操作系统设计和实施研讨会（OSDI）；或James C. Corbett等人，”Spanner:谷歌的全球分布式数据库"，OSDI，2012。
 
 
 #### Connecting to a Service 连接到服务
@@ -340,7 +314,7 @@ The answer is to have an extra layer of indirection; that is, other applications
 
 答案是有一个额外的代理层；也就是说，其他应用程序通过某个标识符来引用你的应用程序，这些标识符在特定的 "后端 "实例的重启中是持久的。这个标识符可以由另一个系统来解决，当调度器把你的应用程序放在一个特定的机器上时，它就会写到这个系统。现在，为了避免在向你的应用程序发出请求的关键路径上进行分布式存储查询，客户可能会在启动时查询你的应用程序的地址，并建立一个连接，并在后台监控它。这通常被称为*服务发现*，许多计算产品有内置或模块化的解决方案。大多数这样的解决方案还包括某种形式的负载平衡，这就进一步减少了与特定后端的耦合。
 
-A repercussion of this model is that you will likely need to repeat your requests in some cases, because the server you are talking to might be taken down before it manages to answer.[14](#_bookmark2178) Retrying requests is standard practice for network communication (e.g., mobile app to a server) because of network issues, but it might be less intuitive for things like a server communicating with its database. This makes it important to design the API of your servers in a way that handles such failures gracefully. For mutating requests, dealing with repeated requests is tricky. The property you want to guarantee is some variant of *idempotency—*that the result of issuing a request twice is the same as issuing it once. One useful tool to help with idempotency is client- assigned identifiers: if you are creating something (e.g., an order to deliver a pizza to a specific address), the order is assigned some identifier by the client; and if an order with that identifier was already recorded, the server assumes it’s a repeated request and reports success (it might also validate that the parameters of the order match).
+A repercussion of this model is that you will likely need to repeat your requests in some cases, because the server you are talking to might be taken down before it manages to answer.[^14] Retrying requests is standard practice for network communication (e.g., mobile app to a server) because of network issues, but it might be less intuitive for things like a server communicating with its database. This makes it important to design the API of your servers in a way that handles such failures gracefully. For mutating requests, dealing with repeated requests is tricky. The property you want to guarantee is some variant of *idempotency—*that the result of issuing a request twice is the same as issuing it once. One useful tool to help with idempotency is client- assigned identifiers: if you are creating something (e.g., an order to deliver a pizza to a specific address), the order is assigned some identifier by the client; and if an order with that identifier was already recorded, the server assumes it’s a repeated request and reports success (it might also validate that the parameters of the order match).
 
 这种模式的影响是，在某些情况下，你可能需要重复你的请求，因为你对话的服务器可能在响应之前就被关闭了。由于网络问题，重试请求是网络通信的标准做法（例如，移动应用程序到服务器），但对于像服务器与数据库通信的事情来说，这可能不够直接。这使得在设计你的服务器的API时，必须能够优雅地处理这种故障。对于突变的请求，处理重复请求是很棘手的。你想保证的属性是*幂等性变体*--发出一个请求两次的结果与发出一次相同。帮助实现幂等性的一个有用工具是客户机指定的标识符：如果你正在创建一些东西（例如，将比萨饼送到一个特定的地址的订单），该订单由客户端分配一些标识符；如果一个具有该标识符的订单已经被记录下来，服务器会认为这是一个重复的请求并报告成功（它也可能验证该订单的参数是否匹配）。
 
@@ -348,11 +322,10 @@ One more surprising thing that we saw happen is that sometimes the scheduler los
 
 我们看到的另一件令人惊讶的事情是，有时调度器会因为一些网络问题而与某台机器失去联系。然后它认为那里的所有工作都丢失了，并将其重新安排到其他机器上--然后这台机器又回来了! 现在我们在两台不同的机器上有两个程序，都认为自己是 "replica072"。他们消除歧义的方法是检查他们中的哪一个被地址解析系统提及（而另一个应该终止自己或被终止）；但这也是幂等性的另一个案例：两个执行相同工作并担任相同角色的副本是请求重复的另一个潜在来源。
 
-```
-14	Note that retries need to be implemented correctly—with backoff, graceful degradation and tools to avoid cascading failures like jitter. Thus, this should likely be a part of Remote Procedure Call library, instead of implemented by hand by each developer. See, for example, Chapter 22: Addressing Cascading Failures in the SRE book.
-14 请注意，重试需要正确地实现--用后退、优雅降级和工具来避免像抖动那样的失败。因此，这可能应该是远程过程调用库的一部分，而不是由每个开发人员手工实现。例如，见SRE书中的第22章：解决级联故障。
 
-```
+> [^14]:	Note that retries need to be implemented correctly—with backoff, graceful degradation and tools to avoid cascading failures like jitter. Thus, this should likely be a part of Remote Procedure Call library, instead of implemented by hand by each developer. See, for example, Chapter 22: Addressing Cascading Failures in the SRE book./
+> 14 请注意，重试需要正确地实现--用后退、优雅降级和工具来避免像抖动那样的失败。因此，这可能应该是远程过程调用库的一部分，而不是由每个开发人员手工实现。例如，见SRE书中的第22章：解决级联故障。
+
 
 ### One-Off Code 一次性代码
 
@@ -372,9 +345,12 @@ One concern that arises at times with this approach is that allowing engineers t
 
 这种方法有时会引起一个问题，即允许工程师在分布式环境中运行一次性作业可能会浪费资源。当然，这是一种权衡，但应该有意识地进行权衡。工程师运行的处理成本很可能不会比工程师写处理代码的时间更贵。确切的权衡取决于一个组织的计算环境和它付给工程师的工资多少，但一千个核心小时的成本不太可能接近一天的工程工作。在这方面，计算资源类似于标记，我们在本书的开篇中讨论过；对于公司来说，建立一个获取更多计算资源的过程是一个很小的节约机会，但是这个过程在失去工程机会和时间方面的成本可能比它节省的成本高得多。
 
-That said, compute resources differ from markers in that it’s easy to take way too many by accident. Although it’s unlikely someone will carry off a thousand markers, it’s totally possible someone will accidentally write a program that occupies a thousand machines without noticing.[15](#_bookmark2187) The natural solution to this is instituting quotas for resource usage by individual engineers. An alternative used by Google is to observe that because we’re running low-priority batch workloads effectively for free (see the section on multitenancy later on), we can provide engineers with almost unlimited quota for low-priority batch, which is good enough for most one-off engineering tasks.
+That said, compute resources differ from markers in that it’s easy to take way too many by accident. Although it’s unlikely someone will carry off a thousand markers, it’s totally possible someone will accidentally write a program that occupies a thousand machines without noticing.[^15] The natural solution to this is instituting quotas for resource usage by individual engineers. An alternative used by Google is to observe that because we’re running low-priority batch workloads effectively for free (see the section on multitenancy later on), we can provide engineers with almost unlimited quota for low-priority batch, which is good enough for most one-off engineering tasks.
 
 这就是说，计算资源与标记的不同之处在于，很容易因意外而占用过多的资源。虽然不太可能有人会携带上千个标记，但完全有可能有人会无意中编写一个程序，在没有注意到的情况下占用了上千台机器。解决这一问题的自然方法是为每个工程师的资源使用设定配额。谷歌使用的一个替代方案是，由于我们正在有效地免费运行低优先级的批处理工作负载（见后面关于多租户的部分），我们可以为工程师提供几乎无限的低优先级批处理配额，这对于大多数一次性工程任务来说已经足够了。
+
+> [^15]:	This has happened multiple times at Google; for instance, because of someone leaving load-testing infrastructure occupying a thousand Google Compute Engine VMs running when they went on vacation, or because a new employee was debugging a master binary on their workstation without realizing it was spawning 8,000 full-machine workers in the background./
+> 15  这种情况在谷歌发生过多次；例如，因为有人在休假时留下了占用一千台谷歌计算引擎虚拟机的负载测试基础设施，或者因为一个新员工在他们的工作站上调试一个主二进制文件时，没有意识到它在后台催生了8000个全机器worker。
 
 ## CaaS Over Time and Scale CaaS随时间和规模的变化
 
@@ -420,12 +396,6 @@ These improvements are particularly important when dealing with software not des
 
 当处理不是为在特定计算机技术栈上运行而设计的软件时，这些改进尤其重要。尽管许多流行的开源程序都有使用哪个端口的配置参数，但它们之间对于如何配置并不一致。
 
-```
-15	This has happened multiple times at Google; for instance, because of someone leaving load-testing infrastructure occupying a thousand Google Compute Engine VMs running when they went on vacation, or because a new employee was debugging a master binary on their workstation without realizing it was spawning 8,000 full-machine workers in the background.
-15  这种情况在谷歌发生过多次；例如，因为有人在休假时留下了占用一千台谷歌计算引擎虚拟机的负载测试基础设施，或者因为一个新员工在他们的工作站上调试一个主二进制文件时，没有意识到它在后台催生了8000个全机器worker。
-```
-
-
 
 #### Containers and implicit dependencies 容器和隐性依赖
 
@@ -455,7 +425,7 @@ In 2003, the Borg project was started, aiming (and eventually succeeding at) bui
 
 2003年，Borg项目启动，旨在（并最终成功地）建立一个计算服务，将这些不同的机器资源池整合为一个大机器资源池。Borg的机器资源池涵盖了服务和批处理工作，并成为任何数据中心的唯一机器资源池（相当于为每个地理位置的所有工作负载运行一个大型Kubernetes集群）。这里有两个显著的效率提升值得讨论。
 
-The first one is that serving machines became cattle (the way the Borg design doc put it: “*Machines are anonymous:* programs don’t care which machine they run on as long as it has the right characteristics”). If every team managing a serving job must manage their own pool of machines (their own cluster), the same organizational overhead of maintaining and administering that pool is applied to every one of these teams. As time passes, the management practices of these pools will diverge over time, making company-wide changes (like moving to a new server architecture, or switching datacenters) more and more complex. A unified management infrastructure—that is, a *common* compute service for all the workloads in the organization—allows Google to avoid this linear scaling factor; there aren’t *n* different management practices for the physical machines in the fleet, there’s just Borg.[16](#_bookmark2197)
+The first one is that serving machines became cattle (the way the Borg design doc put it: “*Machines are anonymous:* programs don’t care which machine they run on as long as it has the right characteristics”). If every team managing a serving job must manage their own pool of machines (their own cluster), the same organizational overhead of maintaining and administering that pool is applied to every one of these teams. As time passes, the management practices of these pools will diverge over time, making company-wide changes (like moving to a new server architecture, or switching datacenters) more and more complex. A unified management infrastructure—that is, a *common* compute service for all the workloads in the organization—allows Google to avoid this linear scaling factor; there aren’t *n* different management practices for the physical machines in the fleet, there’s just Borg.[^16]
 
 第一个是，服务于机器的人变成了牛（Borg设计文档是这样说的。"*机器是透明的：*程序并不关心它们在哪台机器上运行，只要它有正确的特征"）。如果每个管理服务工作的团队都必须管理他们自己的机器资源池（他们自己的集群），那么维护和管理这个机器资源池的组织开销也同样适用于这些团队中的每个人。随着时间的推移，这些机器资源池的管理实践会随着时间的推移而产生分歧，使整个公司范围内的变化（如转移到一个新的服务器架构，或切换数据中心）变得越来越复杂。一个统一的管理基础设施--也就是一个适用于组织中所有工作负载的*通用*计算服务--允许谷歌避免这种线性扩展因素；对于机群中的物理机器没有*N*种不同的管理实践，只有Borg。
 
@@ -471,10 +441,9 @@ Depending on the shape of the workloads in a given pool of machines, this means 
 
 根据给定机器资源池池中工作负载的形状，这意味着要么所有批处理工作负载都有效地运行在空闲资源上（因为我们无论如何都是在空闲的服务作业中为它们付费）或者，所有的服务性工作负载实际上只为他们使用的东西付费，而不是为他们抵抗故障所需的闲置容量付费（因为批处理作业是在这种闲置状态下运行的）。在谷歌的案例中，大多数时候，事实证明我们免费有效地运行批处理。
 
-```
-16	As in any complex system, there are exceptions. Not all machines owned by Google are Borg-managed, and not every datacenter is covered by a single Borg cell. But the majority of engineers work in an environment in which they don’t touch non-Borg machines, or nonstandard cells.
-16 正如任何复杂的系统一样，也有例外。并非所有谷歌拥有的机器都由Borg管理，也不是每个数据中心都由一个Borg单元覆盖。但大多数工程师的工作环境是，他们不接触非Borg机，也不接触非标准的单元。
-```
+>[^16]:	As in any complex system, there are exceptions. Not all machines owned by Google are Borg-managed, and not every datacenter is covered by a single Borg cell. But the majority of engineers work in an environment in which they don’t touch non-Borg machines, or nonstandard cells./
+> 16 正如任何复杂的系统一样，也有例外。并非所有谷歌拥有的机器都由Borg管理，也不是每个数据中心都由一个Borg单元覆盖。但大多数工程师的工作环境是，他们不接触非Borg机，也不接触非标准的单元。
+
 
 #### Multitenancy for serving jobs 为工作提供服务的多租户
 
@@ -505,12 +474,9 @@ Depending on documentation and tribal knowledge over code submitted to a reposit
 在一般情况下，依靠文档和团队知识而不是提交给资源库的代码不会是个好主意，因为文档和团队知识都有随着时间推移而退化的趋势（见[第三章]）。然而，前进中的下一个自然步骤--将CLI的执行包裹在本地开发的脚本中--仍然不如使用专门的配置语言来指定服务的配置。
 
 Over time, the runtime presence of a logical service will typically grow beyond a single set of replicated containers in one datacenter across many axes:
-
-•   It will spread its presence across multiple datacenters (both for user affinity and failure resistance).
-
-•   It will fork into having staging and development environments in addition to the production environment/configuration.
-
-•   It will accrue additional replicated containers of different types in the form of attached services, like a memcached accompanying the service.
+- It will spread its presence across multiple datacenters (both for user affinity and failure resistance).
+- It will fork into having staging and development environments in addition to the production environment/configuration.
+- It will accrue additional replicated containers of different types in the form of attached services, like a memcached accompanying the service.
 
 随着时间的推移，逻辑服务的运行时存在通常会超过在一个数据中心的部署容器组，跨越多个区域：
 - 它将在多个数据中心分散其存在（既有用户亲和力，也有抗故障能力）。
@@ -535,7 +501,7 @@ However, most organizations will *choose* a compute service, just as Google did 
 
 然而，大多数组织会*选择一个计算服务*，就像谷歌内部那样。请注意，计算基础设施有一个很高的锁定因素。其中一个原因是，代码的编写方式将充分利用系统的所有特性（海勒姆定律）；因此，例如，如果你选择了一个基于虚拟机的产品，团队将调整他们特定的虚拟机镜像；如果你选择了一个特定的基于容器的解决方案，团队将调用集群管理器的API。如果您的架构允许代码将虚拟机（或容器）视为宠物，那么团队将这样做，然后转向一种解决方案，将它们视为牛（甚至不同形式的宠物）将是困难的。
 
-To show how even the smallest details of a compute solution can end up locked in, consider how Borg runs the command that the user provided in the configuration. In most cases, the command will be the execution of a binary (possibly followed by a number of arguments). However, for convenience, the authors of Borg also included the possibility of passing in a shell script; for example, while true; do ./ my_binary; done.[17](#_bookmark2204) However, whereas a binary execution can be done through a simple fork-and-exec (which is what Borg does), the shell script needs to be run by a shell like Bash. So, Borg actually executed /usr/bin/bash -c $USER_COMMAND, which works in the case of a simple binary execution as well.
+To show how even the smallest details of a compute solution can end up locked in, consider how Borg runs the command that the user provided in the configuration. In most cases, the command will be the execution of a binary (possibly followed by a number of arguments). However, for convenience, the authors of Borg also included the possibility of passing in a shell script; for example, while true; do ./ my_binary; done.[^17] However, whereas a binary execution can be done through a simple fork-and-exec (which is what Borg does), the shell script needs to be run by a shell like Bash. So, Borg actually executed /usr/bin/bash -c $USER_COMMAND, which works in the case of a simple binary execution as well.
 
 为了说明即使是计算解决方案中最小的细节也会最终被锁定，考虑一下Borg如何运行用户在配置中提供的命令。在大多数情况下，该命令将是执行一个二进制文件（后面可能有一些参数）。然而，为了方便起见，Borg的作者也包括了传入一个shell脚本的可能性；例如，`while true; do ./ my_binary; done`。 然而，二进制的执行可以通过一个简单的fork-and-exec来完成（这就是Borg的做法），shell脚本需要由一个像Bash这样的shell来运行。所以，Borg实际上是执行/usr/bin/bash -c $USER_COMMAND，该命令也适用于简单的二进制执行。
 
@@ -555,11 +521,9 @@ Thus, the choice of a compute architecture is important. As with most software e
 
 因此，计算架构的选择是很重要的。与大多数软件工程的选择一样，这个选择涉及到权衡。让我们来讨论一下。
 
-```
-17	This particular command is actively harmful under Borg because it prevents Borg’s mechanisms for dealing with failure from kicking in. However, more complex wrappers that echo parts of the environment to logging, for example, are still in use to help debug startup problems.  
+> [^17]:	This particular command is actively harmful under Borg because it prevents Borg’s mechanisms for dealing with failure from kicking in. However, more complex wrappers that echo parts of the environment to logging, for example, are still in use to help debug startup problems. /
+> 17  这个特殊的命令在Borg下是有害的，因为它阻止Borg处理故障的机制启动。但是，更复杂的包装器（例如，将环境的一部分回送到日志记录）仍然在使用，以帮助调试启动问题。
 
-17  这个特殊的命令在Borg下是有害的，因为它阻止Borg处理故障的机制启动。但是，更复杂的包装器（例如，将环境的一部分回送到日志记录）仍然在使用，以帮助调试启动问题。
-```
 
 ### Centralization Versus Customization 统一与定制
 
@@ -569,18 +533,22 @@ From the point of view of management overhead of the compute stack (and also fro
 
 #### Need for customization 定制化
 
-However, a growing organization will have increasingly diverse needs. For instance, when Google launched the Google Compute Engine (the “VM as a Service” public cloud offering) in 2012, the VMs, just as most everything else at Google, were managed by Borg. This means that each VM was running in a separate container controlled by Borg. However, the “cattle” approach to task management did not suit Cloud’s workloads, because each particular container was actually a VM that some particular user was running, and Cloud’s users did not, typically, treat the VMs as cattle.[18](#_bookmark2207)
+However, a growing organization will have increasingly diverse needs. For instance, when Google launched the Google Compute Engine (the “VM as a Service” public cloud offering) in 2012, the VMs, just as most everything else at Google, were managed by Borg. This means that each VM was running in a separate container controlled by Borg. However, the “cattle” approach to task management did not suit Cloud’s workloads, because each particular container was actually a VM that some particular user was running, and Cloud’s users did not, typically, treat the VMs as cattle.[^18]
 
 然而，一个不断发展的组织将有越来越多样化的需求。例如，当谷歌在2012年推出谷歌计算引擎（“虚拟机即服务”公共云产品）时，这些虚拟机与谷歌的大多数其他产品一样，都是Borg设计的。这意味着每个虚拟机都在博格控制的单独容器中运行。然而，任务管理的“牛”方法并不适合云的工作负载，因为每个特定容器实际上是某个特定用户正在运行的VM，而云的用户通常不会将VM视为牛。
 
-Reconciling this difference required considerable work on both sides. The Cloud organization made sure to support live migration of VMs; that is, the ability to take a VM running on one machine, spin up a copy of that VM on another machine, bring the copy to be a perfect image, and finally redirect all traffic to the copy, without causing a noticeable period when service is unavailable.[19](#_bookmark2209) Borg, on the other hand, had to be adapted to avoid at-will killing of containers containing VMs (to provide the time to migrate the VM’s contents to the new machine), and also, given that the whole migration process is more expensive, Borg’s scheduling algorithms were adapted to optimize for decreasing the risk of rescheduling being needed.[20](#_bookmark2210) Of course, these modifications were rolled out only for the machines running the cloud workloads, leading to a (small, but still noticeable) bifurcation of Google’s internal compute offering.
+Reconciling this difference required considerable work on both sides. The Cloud organization made sure to support live migration of VMs; that is, the ability to take a VM running on one machine, spin up a copy of that VM on another machine, bring the copy to be a perfect image, and finally redirect all traffic to the copy, without causing a noticeable period when service is unavailable.[^19] Borg, on the other hand, had to be adapted to avoid at-will killing of containers containing VMs (to provide the time to migrate the VM’s contents to the new machine), and also, given that the whole migration process is more expensive, Borg’s scheduling algorithms were adapted to optimize for decreasing the risk of rescheduling being needed.[^20] Of course, these modifications were rolled out only for the machines running the cloud workloads, leading to a (small, but still noticeable) bifurcation of Google’s internal compute offering.
 
 调和这种差异需要双方做大量的工作。云计算组织确保支持虚拟机的实时迁移；也就是说，能够在一台机器上运行一个虚拟机，在另一台机器上启动该虚拟机的副本，使该副本成为一个完美的镜像，并最终将所有流量重定向到该副本，而不会造成明显的服务不可用期。  另一方面，Borg必须进行调整，以避免随意杀死包含虚拟机的容器（以提供时间将虚拟机的内容迁移到新机器上），同时，鉴于整个迁移过程更加耗时，Borg的调度算法被调整为优化，以减少需要重新调度的风险。当然，这些修改只针对运行云工作负载的机器，导致了谷歌内部计算产品的分化（很小，但仍然很明显）。
 
-```
-18	My mail server is not interchangeable with your graphics rendering job, even if both of those tasks are running in the same form of VM.
-18  我的邮件服务器不能与图形渲染作业互换，即使这两个任务都以相同的VM形式运行。
-```
+> [^18]:	My mail server is not interchangeable with your graphics rendering job, even if both of those tasks are running in the same form of VM.
+> 18  我的邮件服务器不能与图形渲染作业互换，即使这两个任务都以相同的VM形式运行。
+>
+> [^19]:	This is not the only motivation for making user VMs possible to live migrate; it also offers considerable user- facing benefits because it means the host operating system can be patched and the host hardware updated without disrupting the VM. The alternative (used by other major cloud vendors) is to deliver “maintenance event notices,” which mean the VM can be, for example, rebooted or stopped and later started up by the cloud provider./
+> 19  这不是让用户虚拟机能够实时迁移的唯一动机；它还提供了大量面向用户的好处，因为这意味着可以修补主机操作系统并更新主机硬件，而不会中断VM。另一种选择（其他主要云供应商使用）是提供“维护事件通知”，这意味着云提供商可以重新启动或停止VM，然后再启动VM。
+>
+> [^20]: This is particularly relevant given that not all customer VMs are opted into live migration; for some workloads even the short period of degraded performance during the migration is unacceptable. These customers will receive maintenance event notices, and Borg will avoid evicting the containers with those VMs unless strictly necessary./
+> 20  考虑到并非所有客户虚拟机都选择实时迁移，这一点尤其重要；对于某些工作负载，即使在迁移过程中出现短期性能下降也是不可接受的。这些客户将收到维护事件通知，除非严格必要，否则Borg将避免驱逐带有这些VM的容器。
 
 A different example—but one that also leads to a bifurcation—comes from Search. Around 2011, one of the replicated containers serving Google Search web traffic had a giant index built up on local disks, storing the less-often-accessed part of the Google index of the web (the more common queries were served by in-memory caches from other containers). Building up this index on a particular machine required the capacity of multiple hard drives and took several hours to fill in the data. However, at the time, Borg assumed that if any of the disks that a particular container had data on had gone bad, the container will be unable to continue, and needs to be rescheduled to a different machine. This combination (along with the relatively high failure rate of spinning disks, compared to other hardware) caused severe availability problems; containers were taken down all the time and then took forever to start up again. To address this, Borg had to add the capability for a container to deal with disk failure by itself, opting out of Borg’s default treatment; while the Search team had to adapt the process to continue operation with partial data loss.
 
@@ -590,22 +558,20 @@ Multiple other bifurcations, covering areas like filesystem shape, filesystem ac
 
 其他多个分叉，涵盖了文件系统形状、文件系统访问、内存控制、分配和访问、CPU/内存定位、特殊硬件、特殊调度约束等领域，导致Borg的API体量变得庞大而笨重，各种行为的交叉点变得难以预测，甚至更难测试。没有人真正知道，如果一个容器同时请求特殊的云处理（用于驱逐）和自定义的磁盘故障搜索处理（在许多情况下，“预期”的含义甚至不明显），预期的事情是否会发生。
 
-```
-19	This is not the only motivation for making user VMs possible to live migrate; it also offers considerable user- facing benefits because it means the host operating system can be patched and the host hardware updated without disrupting the VM. The alternative (used by other major cloud vendors) is to deliver “maintenance event notices,” which mean the VM can be, for example, rebooted or stopped and later started up by the cloud provider.
-20	This is particularly relevant given that not all customer VMs are opted into live migration; for some workloads even the short period of degraded performance during the migration is unacceptable. These customers will receive maintenance event notices, and Borg will avoid evicting the containers with those VMs unless strictly necessary.
 
-19  这不是让用户虚拟机能够实时迁移的唯一动机；它还提供了大量面向用户的好处，因为这意味着可以修补主机操作系统并更新主机硬件，而不会中断VM。另一种选择（其他主要云供应商使用）是提供“维护事件通知”，这意味着云提供商可以重新启动或停止VM，然后再启动VM。
-20  考虑到并非所有客户虚拟机都选择实时迁移，这一点尤其重要；对于某些工作负载，即使在迁移过程中出现短期性能下降也是不可接受的。这些客户将收到维护事件通知，除非严格必要，否则Borg将避免驱逐带有这些VM的容器。
-
-```
-
-After 2012, the Borg team devoted significant time to cleaning up the API of Borg. It discovered some of the functionalities Borg offered were no longer used at all.[21](#_bookmark2214) The more concerning group of functionalities were those that were used by multiple containers, but it was unclear whether intentionally—the process of copying the configuration files between projects led to proliferation of usage of features that were originally intended for power users only. Whitelisting was introduced for certain features to limit their spread and clearly mark them as poweruser–only. However, the cleanup is still ongoing, and some changes (like using labels for identifying groups of containers) are still not fully done.[22](#_bookmark2215)
+After 2012, the Borg team devoted significant time to cleaning up the API of Borg. It discovered some of the functionalities Borg offered were no longer used at all.[^21] The more concerning group of functionalities were those that were used by multiple containers, but it was unclear whether intentionally—the process of copying the configuration files between projects led to proliferation of usage of features that were originally intended for power users only. Whitelisting was introduced for certain features to limit their spread and clearly mark them as poweruser–only. However, the cleanup is still ongoing, and some changes (like using labels for identifying groups of containers) are still not fully done.[^22]
 
 2012年后，Borg团队花了大量时间来清理Borg的API。它发现博格提供的一些功能已不再使用。令人关注的功能组是多个容器使用的功能组，但目前尚不清楚，在项目之间复制配置文件的过程是否有意导致原本只针对超级用户的功能的使用激增。某些功能被引入了白名单，以限制它们的传播，并明确地将它们标记为仅适用于特权用户。然而，清理工作仍在进行，一些变化（如使用标签来识别容器组）仍未完全完成。
 
 As usual with trade-offs, although there are ways to invest effort and get some of the benefits of customization while not suffering the worst downsides (like the aforementioned whitelisting for power functionality), in the end there are hard choices to be made. These choices usually take the form of multiple small questions: do we accept expanding the explicit (or worse, implicit) API surface to accommodate a particular user of our infrastructure, or do we significantly inconvenience that user, but maintain higher coherence?
 
 与通常的权衡方法一样，尽管有一些方法可以投入精力并从定制中获得一些好处，同时又不会遭受最坏的负面影响（如前面提到的特权白名单），但最终还是要做出艰难的选择。这些选择通常以多个小问题的形式出现：我们是否接受扩展显式（或更糟的是，隐式）API表面以适应我们基础设施的特定用户，或者我们是否显著地给该用户带来不便，但主要是保持更高的一致性？
+
+> [^21]:	A good reminder that monitoring and tracking the usage of your features is valuable over time./
+> 21  这是一个很好的提醒，随着时间的推移，监视和跟踪功能的使用是很有价值的。
+> 
+> [^22]:	This means that Kubernetes, which benefited from the experience of cleaning up Borg but was not hampered by a broad existing userbase to begin with, was significantly more modern in quite a few aspects (like its treatment of labels) from the beginning. That said, Kubernetes suffers some of the same issues now that it has broad adoption across a variety of types of applications./
+> 22  这意味着Kubernetes从清理Borg的经验中获益，但从一开始就没有受到广泛的现有用户基础的阻碍，从一开始就在很多方面（如标签的处理）明显更加现代化。也就是说，Kubernetes现在也遇到了一些相同的问题，因为它在各种类型的应用程序中得到了广泛的采用。
 
 ### Level of Abstraction: Serverless 抽象级别：无服务器
 
@@ -625,17 +591,10 @@ The advantage of VMs as cattle lies primarily in the ability to bring our own op
 
 虚拟机作为牛的优势主要在于能够带来我们自己的操作系统，如果你的工作环境需要一组不同的操作系统来运行，这一点很重要。多个组织在管理虚拟机、基于虚拟机的现有配置和工作负载方面也有经验，因此可能会选择使用虚拟机而不是容器来降低迁移成本。
 
-```
-21	A good reminder that monitoring and tracking the usage of your features is valuable over time.
-22	This means that Kubernetes, which benefited from the experience of cleaning up Borg but was not hampered by a broad existing userbase to begin with, was significantly more modern in quite a few aspects (like its treatment of labels) from the beginning. That said, Kubernetes suffers some of the same issues now that it has broad adoption across a variety of types of applications.
-
-21  这是一个很好的提醒，随着时间的推移，监视和跟踪功能的使用是很有价值的。
-22  这意味着Kubernetes从清理Borg的经验中获益，但从一开始就没有受到广泛的现有用户基础的阻碍，从一开始就在很多方面（如标签的处理）明显更加现代化。也就是说，Kubernetes现在也遇到了一些相同的问题，因为它在各种类型的应用程序中得到了广泛的采用。
-```
 
 #### What is serverless? 什么是无服务器？
 
-An even higher level of abstraction is *serverless* offerings.[23](#_bookmark2218) Assume that an organization is serving web content and is using (or willing to adopt) a common server framework for handling the HTTP requests and serving responses. The key defining trait of a framework is the inversion of control—so, the user will only be responsible for writing an “Action” or “Handler” of some sort—a function in the chosen language that takes the request parameters and returns the response.
+An even higher level of abstraction is *serverless* offerings.[^23] Assume that an organization is serving web content and is using (or willing to adopt) a common server framework for handling the HTTP requests and serving responses. The key defining trait of a framework is the inversion of control—so, the user will only be responsible for writing an “Action” or “Handler” of some sort—a function in the chosen language that takes the request parameters and returns the response.
 
 更高层次的抽象是无服务器产品。假设一个组织正在为网络内容提供服务，并且正在使用（或愿意采用）一个通用的服务器框架来处理HTTP请求和提供响应。框架的关键定义特征是控制权的倒置--因此，用户只负责编写某种 "行动 "或 "处理程序"--所选语言中的函数，接收请求参数并返回响应。
 
@@ -651,11 +610,10 @@ Most discussions of serverless frameworks compare them to the “VMs as pets” 
 
 大多数关于无服务器框架的讨论都将其与 "虚拟机作为宠物 "的模式相比较。在这种情况下，无服务器概念是一场真正的革命，因为它带来了牛群管理的所有好处--自动扩展、较低的开销、缺乏明确的服务器配置。然而，正如前文所述，对于计划扩展的组织来说，转向共享、多租户、基于牛的模式应该已经是一个目标；因此，无服务器架构的自然比较点应该是 "持久性容器 "架构，如Borg、Kubernetes或Mesosphere。
 
-```
-23	FaaS (Function as a Service) and PaaS (Platform as a Service) are related terms to serverless. There are differences between the three terms, but there are more similarities, and the boundaries are somewhat blurred.
 
-23 FaaS（功能即服务）和PaaS（平台即服务）是与无服务器相关的术语。这三个术语之间有区别，但更多的是相似之处，而且边界有些模糊不清。
-```
+> [^23]:	FaaS (Function as a Service) and PaaS (Platform as a Service) are related terms to serverless. There are differences between the three terms, but there are more similarities, and the boundaries are somewhat blurred./
+> 23 FaaS（功能即服务）和PaaS（平台即服务）是与无服务器相关的术语。这三个术语之间有区别，但更多的是相似之处，而且边界有些模糊不清。
+
 
 #### Pros and cons 利与弊
 
@@ -764,5 +722,4 @@ That said, although Google has, overall, been both satisfied and successful with
 - 一个计算解决方案可以为软件提供一个标准化的、稳定的抽象和环境。
 - 软件需要适应一个分布式的、可管理的计算环境。
 - 组织的计算解决方案应经过深思熟虑的选择，以提供适当的抽象级别。
-
 
