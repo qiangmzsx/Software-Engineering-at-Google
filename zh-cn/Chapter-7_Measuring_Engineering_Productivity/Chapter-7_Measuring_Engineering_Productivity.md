@@ -185,10 +185,12 @@ To make this work, we need to have identified the correct set of goals to measur
 为了使其发挥作用，我们首先需要确定一套正确的目标来测量。这看起来很简单：团队肯定知道他们工作的目标！但是，我们的研究团队发现，在许多情况下，人们忘记了将所有可能的*权衡因素包括在生产效率中*。然而，我们的研究团队发现，在许多情况下，人们忘记了将所有可能的*生产力内的权衡因素包括在内*，这可能导致错误的衡量。
 
 Taking the readability example, let’s assume that the team was so focused on making the readability process fast and easy that it had forgotten the goal about code quality. The team set up tracking measurements for how long it takes to get through the review process and how happy engineers are with the process. One of our teammates proposes the following:  
-	I can make your review velocity very fast: just remove code reviews entirely.
+
+> I can make your review velocity very fast: just remove code reviews entirely.
 
 以可读性为例，我们假设团队太专注于使可读性过程快速和简单，以至于忘记了关于代码质量的目标。团队设置了跟踪测量，以了解通过审查过程需要多长时间，以及工程师对该过程的满意程度。我们的一个队友提出以下建议：  
-	我可以让你的审查速度变得非常快：只要完全取消代码审查。
+
+> 我可以让你的审查速度变得非常快：只要完全取消代码审查。
 
 Although this is obviously an extreme example, teams forget core trade-offs all the time when measuring: they become so focused on improving velocity that they forget to measure quality (or vice versa). To combat this, our research team divides productivity into five core components. These five components are in trade-off with one another, and we encourage teams to consider goals in each of these components to ensure that they are not inadvertently improving one while driving others downward. To help people remember all five components, we use the mnemonic “QUANTS”:
 

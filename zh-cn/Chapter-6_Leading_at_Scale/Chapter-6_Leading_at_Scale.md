@@ -32,55 +32,56 @@ Managing a team of teams means making ever more decisions at ever-higher levels.
 Lindsay Jones is a friend of ours who is a professional theatrical sound designer and composer. He spends his life flying around the United States, hopping from production to production, and he’s full of crazy (and true) stories about air travel. Here’s one of our favorite stories:
 
 Lindsay Jones 是我们的一个专业的戏剧声音设计师和编曲朋友。他一生大部分时间都在美国各地飞来飞去，在不同的作品之间切换。他有很多疯狂（而且真实）的关于航空旅行的故事。下面是我们最喜欢的一个故事：
-	It’s 6 a.m., we’re all boarded on the plane and ready to go. The captain comes on the PA system and explains to us that, somehow, someone has overfilled the fuel tank by 10,000 gallons. Now, I’ve flown on planes for a long time, and I didn’t know that such a thing was possible. I mean, if I overfill my car by a gallon, I’m gonna have gas all over my shoes, right?
 
-	现在是早上6点，我们都登机了，飞机马上就要起飞。机长在广播中跟我们解释说，不知怎么的有人给飞机多加了 10,000 加仑汽油。我已经在飞过很久了，从没听说过怎么可能发生这种事。我是说，如果我给汽车多加1加仑的汽油，很可能我的鞋里都会灌满汽油，是吧？
-	
-	Well, so anyway, the captain then says that we have two options: we can either wait for the truck to come suck the fuel back out of the plane, which is going to take over an hour, or twenty people have to get off the plane right now to even out the weight.
-	No one moves.
-	
-	好吧，无论如何，机长说我们有两个选择：要么我们等1个多小时等卡车把多余的汽油吸走，要么请12名乘客下飞机来减轻飞机的重量。
-	没有人下飞机。
-	
-	Now, there’s this guy across the aisle from me in first class, and he is absolutely livid. He reminds me of Frank Burns on M*A*S*H; he’s just super indignant and sputtering everywhere, demanding to know who’s responsible. It’s an amazing showcase, it’s like he’s Margaret Dumont in the Marx Brothers movies.
-	
-	现在，在我头等舱的过道对面有一个人，是真的很生气了。他让给我想起了**MASH**里的Frank Burns；他现在是真的很生气，在到处嚷嚷，想知道到底谁该为此负责。这是个非常精彩的案例，简直就像电影 Marx Brothers 中的 Margaret Dumont 一样。
-	
-	So, he grabs his wallet and pulls out this massive wad of cash! And he’s like “I cannot be late for this meeting!! I will give $40 to any person who gets off this plane right now!”
-	
-	然后，他从钱包里拿出一大沓钞票！他说“我这个会不能迟到！现在谁下飞机我就给谁40美金！”
-	
-	Sure enough, people take him up on it. He gives out $40 to 20 people (which is $800 in cash, by the way!) and they all leave.
-	
-	当然人们很买他的帐，他给了20人每人40美金（总共800！），然后这些人都下飞机了。
-	
-	So, now we’re all set and we head out to the runway, and the captain comes back on the PA again. The plane’s computer has stopped working. No one knows why. Now we gotta get towed back to the gate.
-	
-	然后我们都坐下了，飞机出发准备到跑道了，结果机长又在广播上开始说话了。飞机的电脑宕机了。没人知道为什么。现在我们必须被拖回登机口。
-	
-	Frank Burns is apoplectic. I mean, seriously, I thought he was gonna have a stroke. He’s cursing and screaming. Everyone else is just looking at each other.
-	
-	Frank Burns 现在真的暴跳如雷了。真的，我感觉他快要气抽过去了。他开始咒骂和尖叫。其他人都开始面面相觑。
-	
-	We get back to the gate and this guy is demanding another flight. They offer to book him on the 9:30, which is too late. He’s like, “Isn’t there another flight before 9:30?”
-	
-	我们回到登机口，这个人要求另一个航班。他们提议给他订9:30的航班，但这已经太晚了。他说，“9点半前没有其他的航班吗？”
-	
-	The gate agent is like, “Well, there was another flight at 8, but it’s all full now. They’re closing the doors now.”
-	
-	登机口工作人员说："嗯，8点还有一个航班，但现在都满了。他们现在要关门了。"
-	
-	And he’s like, “Full?! Whaddya mean it’s full? There’s not one open seat on that plane?!?!?!”
-	
-	他就说，"满了？你说满了是什么意思？那架飞机上没有一个空位？
-	
-	The gate agent is like, “No sir, that plane was wide open until 20 passengers showed up out of nowhere and took all the seats. They were the happiest passengers I’ve ever seen, they were laughing all the way down the jet bridge.”
-	
-	空乘说，“不，这趟航班本来是有空余座位的，直到不知从哪冒出了20名乘客坐满了所有位置。他们是我见过的最高兴的乘客，他们一路有说有笑走下了廊桥。”
-	
-	It was a very quiet ride on the 9:30 flight.
-	
-	后来9点半的这趟航班一路上都很安静。
+> It’s 6 a.m., we’re all boarded on the plane and ready to go. The captain comes on the PA system and explains to us that, somehow, someone has overfilled the fuel tank by 10,000 gallons. Now, I’ve flown on planes for a long time, and I didn’t know that such a thing was possible. I mean, if I overfill my car by a gallon, I’m gonna have gas all over my shoes, right?
+>
+> 现在是早上6点，我们都登机了，飞机马上就要起飞。机长在广播中跟我们解释说，不知怎么的有人给飞机多加了 10,000 加仑汽油。我已经在飞过很久了，从没听说过怎么可能发生这种事。我是说，如果我给汽车多加1加仑的汽油，很可能我的鞋里都会灌满汽油，是吧？
+> 
+> Well, so anyway, the captain then says that we have two options: we can either wait for the truck to come suck the fuel back out of the plane, which is going to take over an hour, or twenty people have to get off the plane right now to even out the weight.
+> No one moves.
+> 
+> 好吧，无论如何，机长说我们有两个选择：要么我们等1个多小时等卡车把多余的汽油吸走，要么请12名乘客下飞机来减轻飞机的重量。
+> 没有人下飞机。
+> 
+> Now, there’s this guy across the aisle from me in first class, and he is absolutely livid. He reminds me of Frank Burns on M*A*S*H; he’s just super indignant and sputtering everywhere, demanding to know who’s responsible. It’s an amazing showcase, it’s like he’s Margaret Dumont in the Marx Brothers movies.
+> 
+> 现在，在我头等舱的过道对面有一个人，是真的很生气了。他让给我想起了**MASH**里的Frank Burns；他现在是真的很生气，在到处嚷嚷，想知道到底谁该为此负责。这是个非常精彩的案例，简直就像电影 Marx Brothers 中的 Margaret Dumont 一样。
+> 
+> So, he grabs his wallet and pulls out this massive wad of cash! And he’s like “I cannot be late for this meeting!! I will give $40 to any person who gets off this plane right now!”
+> 
+> 然后，他从钱包里拿出一大沓钞票！他说“我这个会不能迟到！现在谁下飞机我就给谁40美金！”
+> 
+> Sure enough, people take him up on it. He gives out $40 to 20 people (which is $800 in cash, by the way!) and they all leave.
+> 
+> 当然人们很买他的帐，他给了20人每人40美金（总共800！），然后这些人都下飞机了。
+> 
+> So, now we’re all set and we head out to the runway, and the captain comes back on the PA again. The plane’s computer has stopped working. No one knows why. Now we gotta get towed back to the gate.
+> 
+> 然后我们都坐下了，飞机出发准备到跑道了，结果机长又在广播上开始说话了。飞机的电脑宕机了。没人知道为什么。现在我们必须被拖回登机口。
+> 
+> Frank Burns is apoplectic. I mean, seriously, I thought he was gonna have a stroke. He’s cursing and screaming. Everyone else is just looking at each other.
+> 
+> Frank Burns 现在真的暴跳如雷了。真的，我感觉他快要气抽过去了。他开始咒骂和尖叫。其他人都开始面面相觑。
+> 
+> We get back to the gate and this guy is demanding another flight. They offer to book him on the 9:30, which is too late. He’s like, “Isn’t there another flight before 9:30?”
+> 
+> 我们回到登机口，这个人要求另一个航班。他们提议给他订9:30的航班，但这已经太晚了。他说，“9点半前没有其他的航班吗？”
+> 
+> The gate agent is like, “Well, there was another flight at 8, but it’s all full now. They’re closing the doors now.”
+> 
+> 登机口工作人员说："嗯，8点还有一个航班，但现在都满了。他们现在要关门了。"
+> 
+> And he’s like, “Full?! Whaddya mean it’s full? There’s not one open seat on that plane?!?!?!”
+> 
+> 他就说，"满了？你说满了是什么意思？那架飞机上没有一个空位？
+> 
+> The gate agent is like, “No sir, that plane was wide open until 20 passengers showed up out of nowhere and took all the seats. They were the happiest passengers I’ve ever seen, they were laughing all the way down the jet bridge.”
+> 
+> 空乘说，“不，这趟航班本来是有空余座位的，直到不知从哪冒出了20名乘客坐满了所有位置。他们是我见过的最高兴的乘客，他们一路有说有笑走下了廊桥。”
+> 
+> It was a very quiet ride on the 9:30 flight.
+> 
+> 后来9点半的这趟航班一路上都很安静。
 
 This story is, of course, about trade-offs. Although most of this book focuses on various technical trade-offs in engineering systems, it turns out that trade-offs also apply to human behaviors. As a leader, you need to make decisions about what your teams should do each week. Sometimes the trade-offs are obvious (“if we work on this project, it delays that other one...”); sometimes the trade-offs have unforeseeable consequences that can come back to bite you, as in the preceding story.
 
@@ -304,6 +305,7 @@ As you moved into leadership, though, you might have noticed that your main mode
 A lot of books have discussed this problem. The management author Stephen Covey is famous for talking about the idea of distinguishing between things that are important versus things that are urgent. In fact, it was US President Dwight D. Eisenhower who popularized this idea in a famous 1954 quote:
 
 很多书都讨论过这个问题。管理学作者 Stephen Covey 因讨论如何区分重要的事情和紧急的事情的想法而出名。事实上，是美国总统埃森豪威尔在 1954 年一次演进中引用而让其出名的：
+
 > I have two kinds of problems, the urgent and the important. The urgent are not important, and the important are never urgent.
 
 > 我有两类问题，紧急的问题和重要的问题。紧急的并不重要，重要的也从不紧急。
