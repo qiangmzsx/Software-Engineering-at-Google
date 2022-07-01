@@ -112,8 +112,8 @@ So, what kinds of considerations should we think about when designing systems th
 
 那么，在设计我们将来更容易“弃用”的系统时，我们应该考虑哪些因素？ 以下是我们鼓励 Google 的工程团队提出的几个问题：
 
--   我的使用者从我的产品迁移到潜在替代品的难易程度如何？
--   如何逐步更换系统部件？
+- 我的使用者从我的产品迁移到潜在替代品的难易程度如何？
+- 如何逐步更换系统部件？
 
 Many of these questions relate to how a system provides and consumes dependencies. For a more thorough discussion of how we manage these dependencies, see Chapter 16.
 
@@ -308,12 +308,12 @@ A complete deprecation process involves successfully managing social and technic
 
 ## TL;DRs  内容提要
 
--   Software systems have continuing maintenance costs that should be weighed against the costs of removing them.
--   Removing things is often more difficult than building them to begin with because existing users are often using the system beyond its original design.
--   Evolving a system in place is usually cheaper than replacing it with a new one, when turndown costs are included.
--   It is difficult to honestly evaluate the costs involved in deciding whether to deprecate: aside from the direct maintenance costs involved in keeping the old system around, there are ecosystem costs involved in having multiple similar systems to choose between and that might need to interoperate. The old system might implicitly be a drag on feature development for the new. These ecosystem costs are diffuse and difficult to measure. Deprecation and removal costs are often similarly diffuse.
+- Software systems have continuing maintenance costs that should be weighed against the costs of removing them.
+- Removing things is often more difficult than building them to begin with because existing users are often using the system beyond its original design.
+- Evolving a system in place is usually cheaper than replacing it with a new one, when turndown costs are included.
+- It is difficult to honestly evaluate the costs involved in deciding whether to deprecate: aside from the direct maintenance costs involved in keeping the old system around, there are ecosystem costs involved in having multiple similar systems to choose between and that might need to interoperate. The old system might implicitly be a drag on feature development for the new. These ecosystem costs are diffuse and difficult to measure. Deprecation and removal costs are often similarly diffuse.
 
--   软件系统具有持续的维护成本，应与删除它们的成本进行权衡。
--   删除东西通常比开始构建它们更困难，因为现有用户经常使用超出其原始设计意图的系统。
--   如果将停机成本包括在内，就地改进系统通常比更换新系统便宜。
--   很难如实地评估 “弃用”所涉及的成本：除了保留旧系统所涉及的直接维护成本外，还有多个相似系统可供选择 所涉及的生态成本，互有干涉。 旧系统可能会暗中拖累新系统的功能开发。 这些不同的生态所带来的成本则分 散且难以衡量。 “弃用”成本通常同样分散。
+- 软件系统具有持续的维护成本，应与删除它们的成本进行权衡。
+- 删除东西通常比开始构建它们更困难，因为现有用户经常使用超出其原始设计意图的系统。
+- 如果将停机成本包括在内，就地改进系统通常比更换新系统便宜。
+- 很难如实地评估 “弃用”所涉及的成本：除了保留旧系统所涉及的直接维护成本外，还有多个相似系统可供选择 所涉及的生态成本，互有干涉。 旧系统可能会暗中拖累新系统的功能开发。 这些不同的生态所带来的成本则分 散且难以衡量。 “弃用”成本通常同样分散。

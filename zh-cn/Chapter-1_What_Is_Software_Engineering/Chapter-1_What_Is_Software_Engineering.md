@@ -87,14 +87,14 @@ Consider [Figure 1-1](#_bookmark20), which demonstrates two software projects on
 
 The low and high points on the expected life span spectrum suggest that there’s a transition somewhere. Somewhere along the line between a one-off program and a project that lasts for decades, a transition happens: a project must begin to react to changing externalities.[^7] For any project that didn’t plan for upgrades from the start, that transition is likely very painful for three reasons, each of which compounds the others:
 
--   You’re performing a task that hasn’t yet been done for this project; more hidden assumptions have been baked-in.
--   The engineers trying to do the upgrade are less likely to have experience in this sort of task.
--   The size of the upgrade is often larger than usual, doing several years’ worth of upgrades at once instead of a more incremental upgrade.
+- You’re performing a task that hasn’t yet been done for this project; more hidden assumptions have been baked-in.
+- The engineers trying to do the upgrade are less likely to have experience in this sort of task.
+- The size of the upgrade is often larger than usual, doing several years’ worth of upgrades at once instead of a more incremental upgrade.
 
 预期生命周期范围的低点和高点表明某处有一个过渡。介于一次性计划和持续十年的项目，发生了转变：一个项目必须开始对不断变化的外部因素做出反应。对于任何一个从一开始就没有升级计划的项目，这种转变可能会非常痛苦，原因有三个，每一个都会使其他原因变得复杂：
--   你正在执行本项目尚未完成的任务；更多隐藏的假设已经成立。
--   尝试进行升级的工程师不太可能具有此类任务的经验。
--   升级的规模通常比平时大，一次完成几年的升级，而不是增量升级。
+- 你正在执行本项目尚未完成的任务；更多隐藏的假设已经成立。
+- 尝试进行升级的工程师不太可能具有此类任务的经验。
+- 升级的规模通常比平时大，一次完成几年的升级，而不是增量升级。
 
 And thus, after actually going through such an upgrade once (or giving up part way through), it’s pretty reasonable to overestimate the cost of doing a subsequent upgrade and decide “Never again.” Companies that come to this conclusion end up committing to just throwing things out and rewriting their code, or deciding to never upgrade again. Rather than take the natural approach by avoiding a painful task, sometimes the more responsible answer is to invest in making it less painful. It all depends on the cost of your upgrade, the value it provides, and the expected life span of the project in question.
 

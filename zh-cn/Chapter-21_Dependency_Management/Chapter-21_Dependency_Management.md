@@ -145,27 +145,27 @@ When engineers at Google try to import dependencies, we encourage them to ask th
 
 - Does the project have tests that you can run?
 
--   Do those tests pass?
+- Do those tests pass?
 
--   Who is providing that dependency? Even among “No warranty implied” OSS projects, there is a significant range of experience and skill set—it’s a very different thing to depend on compatibility from the C++ standard library or Java’s Guava library than it is to select a random project from GitHub or npm. Reputation isn’t everything, but it is worth investigating.
+- Who is providing that dependency? Even among “No warranty implied” OSS projects, there is a significant range of experience and skill set—it’s a very different thing to depend on compatibility from the C++ standard library or Java’s Guava library than it is to select a random project from GitHub or npm. Reputation isn’t everything, but it is worth investigating.
 
--   What sort of compatibility is the project aspiring to?
+- What sort of compatibility is the project aspiring to?
 
--   Does the project detail what sort of usage is expected to be supported?
+- Does the project detail what sort of usage is expected to be supported?
 
--   How popular is the project?
+- How popular is the project?
 
--   How long will we be depending on this project?
+- How long will we be depending on this project?
 
--   How often does the project make breaking changes? Add to this a short selection of internally focused questions:
+- How often does the project make breaking changes? Add to this a short selection of internally focused questions:
 
--   How complicated would it be to implement that functionality within Google?
+- How complicated would it be to implement that functionality within Google?
 
--   What incentives will we have to keep this dependency up to date?
+- What incentives will we have to keep this dependency up to date?
 
--   Who will perform an upgrade?
+- Who will perform an upgrade?
 
--   How difficult do we expect it to be to perform an upgrade?
+- How difficult do we expect it to be to perform an upgrade?
 
 当谷歌的工程师试图导入依赖关系时，我们鼓励他们先问这个（不完整）的问题清单：
 
@@ -461,11 +461,11 @@ Inherent in the idea of MVS is the admission that a newer version might introduc
 
 SemVer works well enough in limited scales. It’s deeply important, however, to recognize what it is actually saying and what it cannot. SemVer will work fine provided that:
 
--   Your dependency providers are accurate and responsible (to avoid human error in SemVer bumps)
+- Your dependency providers are accurate and responsible (to avoid human error in SemVer bumps)
 
--   Your dependencies are fine grained (to avoid falsely overconstraining when unused/unrelated APIs in your dependencies are updated, and the associated risk of unsatisfiable SemVer requirements)
+- Your dependencies are fine grained (to avoid falsely overconstraining when unused/unrelated APIs in your dependencies are updated, and the associated risk of unsatisfiable SemVer requirements)
 
--   All usage of all APIs is within the expected usage (to avoid being broken in surprising fashion by an assumed-compatible change, either directly or in code you depend upon transitively)
+- All usage of all APIs is within the expected usage (to avoid being broken in surprising fashion by an assumed-compatible change, either directly or in code you depend upon transitively)
 
 SemVer在有限的范围内运行良好。然而，认识到它实际上在做什么，以及它不能做什么，是非常重要的。SemVer将工作得很好，前提是:
 
@@ -487,11 +487,11 @@ However, our experience at Google suggests that it is unlikely that you can have
 
 Here’s a useful thought experiment when considering dependency-management solutions: what would dependency management look like if we all had access to infinite compute resources? That is, what’s the best we could hope for, if we aren’t resource constrained but are limited only by visibility and weak coordination among organizations? As we see it currently, the industry relies on SemVer for three reasons:
 
--   It requires only local information (an API provider doesn’t *need* to know the particulars of downstream users)
+- It requires only local information (an API provider doesn’t *need* to know the particulars of downstream users)
 
--   It doesn’t assume the availability of tests (not ubiquitous in the industry yet, but definitely moving that way in the next decade), compute resources to run the tests, or CI systems to monitor the test results
+- It doesn’t assume the availability of tests (not ubiquitous in the industry yet, but definitely moving that way in the next decade), compute resources to run the tests, or CI systems to monitor the test results
 
--   It’s the existing practice
+- It’s the existing practice
 
 在考虑依赖管理解决方案时，有一个有用的思想实验：如果我们都能获得无限的计算资源，依赖管理会是什么样子？也就是说，如果我们不受资源限制，而只受限于组织间的可见性和弱协调性，那么我们能希望的最好结果是什么？正如我们目前所看到的，该行业依赖SemVer的原因有三个。
 
@@ -533,15 +533,15 @@ In [Chapter 12](#_bookmark938), we identified four varieties of change, ranging 
 
 What changes would we need to the OSS ecosystem to apply such a model? Unfortunately, quite a few:
 
--   All dependencies must provide unit tests. Although we are moving inexorably toward a world in which unit testing is both well accepted and ubiquitous, we are not there yet.
+- All dependencies must provide unit tests. Although we are moving inexorably toward a world in which unit testing is both well accepted and ubiquitous, we are not there yet.
 
--   The dependency network for the majority of the OSS ecosystem is understood. It is unclear that any mechanism is currently available to perform graph algorithms on that network—the information is *public* and *available,* but not actually generally indexed or usable. Many package-management systems/dependency- management ecosystems allow you to see the dependencies of a project, but not the reverse edges, the dependents.
+- The dependency network for the majority of the OSS ecosystem is understood. It is unclear that any mechanism is currently available to perform graph algorithms on that network—the information is *public* and *available,* but not actually generally indexed or usable. Many package-management systems/dependency- management ecosystems allow you to see the dependencies of a project, but not the reverse edges, the dependents.
 
--   The availability of compute resources for executing CI is still very limited. Most developers don’t have access to build-and-test compute clusters.
+- The availability of compute resources for executing CI is still very limited. Most developers don’t have access to build-and-test compute clusters.
 
--   Dependencies are often expressed in a pinned fashion. As a maintainer of libbase, we can’t experimentally run a change through the tests for liba and libb if those dependencies are explicitly depending on a specific pinned version of libbase.
+- Dependencies are often expressed in a pinned fashion. As a maintainer of libbase, we can’t experimentally run a change through the tests for liba and libb if those dependencies are explicitly depending on a specific pinned version of libbase.
 
--   We might want to explicitly include history and reputation in CI calculations. A proposed change that breaks a project that has a longstanding history of tests continuing to pass gives us a different form of evidence than a breakage in a project that was only added recently and has a history of breaking for unrelated reasons.
+- We might want to explicitly include history and reputation in CI calculations. A proposed change that breaks a project that has a longstanding history of tests continuing to pass gives us a different form of evidence than a breakage in a project that was only added recently and has a history of breaking for unrelated reasons.
 
 为了应用这样的模式，我们需要对开放源码软件的生态系统进行哪些改变？不幸的是，相当多:
 
@@ -581,11 +581,11 @@ There are two major ways that an innocuous and hopefully charitable act like “
 
 For reputation loss, consider the case of something like Google’s experience circa 2006 open sourcing our C++ command-line flag libraries. Surely giving back to the open source community is a purely good act that won’t come back to haunt us, right? Sadly, no. A host of reasons conspired to make this good act into something that certainly hurt our reputation and possibly damaged the OSS community as well:
 
--   At the time, we didn’t have the ability to execute large-scale refactorings, so everything that used that library internally had to remain exactly the same—we couldn’t move the code to a new location in the codebase.
+- At the time, we didn’t have the ability to execute large-scale refactorings, so everything that used that library internally had to remain exactly the same—we couldn’t move the code to a new location in the codebase.
 
--   We segregated our repository into “code developed in-house” (which can be copied freely if it needs to be forked, so long as it is renamed properly) and “code that may have legal/licensing concerns” (which can have more nuanced usage requirements).
+- We segregated our repository into “code developed in-house” (which can be copied freely if it needs to be forked, so long as it is renamed properly) and “code that may have legal/licensing concerns” (which can have more nuanced usage requirements).
 
--   If an OSS project accepts code from outside developers, that’s generally a legal issue—the project originator doesn’t *own* that contribution, they only have rights to it.
+- If an OSS project accepts code from outside developers, that’s generally a legal issue—the project originator doesn’t *own* that contribution, they only have rights to it.
 
 对于信誉的损失，可以考虑像谷歌在2006年左右开放我们的C++命令行标志库的经验的情况。当然，回馈开源社区是一个纯粹的善举，不会回来困扰我们，对吗？遗憾的是，不是。有很多原因共同促使这一善举变成了肯定会伤害我们的声誉，也可能会损害开放源码社区:
 
