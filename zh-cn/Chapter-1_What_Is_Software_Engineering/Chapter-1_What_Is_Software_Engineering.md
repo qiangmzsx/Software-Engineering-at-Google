@@ -156,7 +156,7 @@ Most programmers know that hash tables are non-obviously ordered. Few know the s
 - Per Hyrum’s Law, programmers will write programs that depend on the order in which a hash table is traversed, if they have the ability to do so.
 
 大多数程序员都知道哈希表是无序的。很少有人知道他们使用的特定哈希表是否打算永远提供特定的排序。这似乎不起眼，但在过去的一二十年中，计算行业使用这类类型的经验不断发展：
-- 散列洪水10次攻击增加了非确定性哈希迭代的动力。
+- 哈希洪水攻击增加了非确定性哈希迭代的动力。
 - 研究改进的散列算法或散列容器的潜在效率收益需要更改散列迭代顺序。
 - 根据海勒姆定律，如有能力程序员可根据哈希表的遍历顺序编写程序。
 
@@ -166,7 +166,7 @@ As a result, if you ask any expert “Can I assume a particular output sequence 
 
 This is a very basic example of the difference between “it works” and “it is correct.” For a short-lived program, depending on the iteration order of your containers will not cause any technical problems. For a software engineering project, on the other hand, such reliance on a defined order is a risk—given enough time, something will make it valuable to change that iteration order. That value can manifest in a number of ways, be it efficiency, security, or merely future-proofing the data structure to allow for future changes. When that value becomes clear, you will need to weigh the trade- offs between that value and the pain of breaking your developers or customers.
 
-这是“有效”和“正确”之间区别的一个非常基本的例子。对于一个短期的程序，取决于容器的迭代顺序不会导致任何技术问题。另一方面，对于一个软件工程项目来说，如果有足够的时间，这种对已定义顺序的依赖是一种风险使更改迭代顺序变得有价值。这种价值可以通过多种方式体现出来，无论是效率、安全性，还是仅仅是数据结构的未来验证，以允许将来的更改。当这一价值变得清晰时，你需要权衡这一价值与破坏开发人员或客户的痛苦之间的平衡。
+这是“可用”和“正确”之间区别的一个非常基本的例子。对于一个短期的程序，依赖容器的迭代顺序不会导致任何技术问题。另一方面，对于一个软件工程项目来说，如果有足够的时间，这种对已定义顺序的依赖是一种风险使更改迭代顺序变得有价值。这种价值可以通过多种方式体现出来，无论是效率、安全性，还是仅仅是数据结构的未来验证，以允许将来的更改。当这一价值变得清晰时，你需要权衡这一价值与破坏开发人员或客户的痛苦之间的平衡。
 
 
 > [^10]: A type of Denial-of-Service (DoS) attack in which an untrusted user knows the structure of a hash table and the hash function and provides data in such a way as to degrade the algorithmic performance of operations on the table.\
@@ -179,7 +179,7 @@ Some languages specifically randomize hash ordering between library versions or 
 
 Thinking over the differences between code written with a “works now” and a “works indefinitely” mentality, we can extract some clear relationships. Looking at code as an artifact with a (highly) variable lifetime requirement, we can begin to categorize programming styles: code that depends on brittle and unpublished features of its dependencies is likely to be described as “hacky” or “clever,” whereas code that follows best practices and has planned for the future is more likely to be described as “clean” and “maintainable.” Both have their purposes, but which one you select depends crucially on the expected life span of the code in question. We’ve taken to saying, “It’s programming if ‘clever’ is a compliment, but it’s software engineering if ‘clever’ is an accusation.” 
 
-思考一下用“现在工作”和“不限期工作”心态编写的代码之间的差异，我们可以提取出一些明确的关系。将代码视为具有（高度）可变生命周期需求的构件，我们可以开始对编程风格进行分类：依赖其依赖性的脆弱和未发布特性的代码可能被描述为“黑客”或“聪明”而遵循最佳实践并为未来规划的代码更可能被描述为“干净”和“可维护”。两者都有其目的，但你选择哪一个关键取决于所讨论代码的预期生命周期。我们常说，“如果‘聪明’是一种恭维，那就是程序，如果‘聪明’是一种指责，那就是软件工程。”  
+思考一下用“当前可用”和“一直可用”心态编写的代码之间的差异，我们可以提取出一些明确的关系。将代码视为具有（高度）可变生命周期需求的构件，我们可以开始对编程风格进行分类：依赖其依赖性的脆弱和未发布特性的代码可能被描述为“黑客”或“聪明”而遵循最佳实践并为未来规划的代码更可能被描述为“干净”和“可维护”。两者都有其目的，但你选择哪一个关键取决于所讨论代码的预期生命周期。我们常说，“如果‘聪明’是一种恭维，那就是程序，如果‘聪明’是一种指责，那就是软件工程。”  
 
 ### Why Not Just Aim for “Nothing Changes”? 为什么不以“无变化”为目标？
 Implicit in all of this discussion of time and the need to react to change is the assumption that change might be necessary. Is it?
@@ -378,7 +378,7 @@ In addition to the aforementioned costs (or our estimate of them), there are bia
 
 In many organizations, whiteboard markers are treated as precious goods. They are tightly controlled and always in short supply. Invariably, half of the markers at any given whiteboard are dry and unusable. How often have you been in a meeting that was disrupted by lack of a working marker? How often have you had your train of thought derailed by a marker running out? How often have all the markers just gone missing, presumably because some other team ran out of markers and had to abscond with yours? All for a product that costs less than a dollar.
 
-在许多组织中，白板标记被视为贵重物品。它们受到严格的控制，而且总是供不应求。在任何的白板上，都有一半的记号笔是干的，无法使用。你参加会议的频次有多少，因为缺少记号笔而中断？你的思路因一个记号笔用完了？有多少次所有的记号笔都不见了，大概是因为其他团队的记号笔用完了，不得不拿走你的记号笔？所有这些都是为了一个价格不到一美元的产品。
+在许多组织中，白板记号笔被视为贵重物品。它们受到严格的控制，而且总是供不应求。在任何的白板上，都有一半的记号笔是干的，无法使用。你有多少次因为没有一个好用的记号笔而中断会议进程？多少次因为记号笔水用完而打断思考？多少次所有的记号笔都不见了，大概是因为其他团队的记号笔用完了，不得不拿走你的记号笔？所有这些都是因为一个价格不到一美元的产品。
 
 Google tends to have unlocked closets full of office supplies, including whiteboard markers, in most work areas. With a moment’s notice it is easy to grab dozens of markers in a variety of colors. Somewhere along the line we made an explicit trade- off: it is far more important to optimize for obstacle-free brainstorming than to protect against someone wandering off with a bunch of markers.
 
@@ -451,7 +451,7 @@ Much of the time, our major themes of time and scale overlap and work in conjunc
 
 Occasionally time and scale come into conflict, and nowhere so clearly as in the basic question: should we add a dependency or fork/reimplement it to better suit our local needs?
 
-有时时间和规模会发生冲突，最明显的是基本问：我们应该添加一个依赖性，还是分支/重新实现它，来更好地满足我们的需求？
+有时时间和规模会发生冲突，而且没有什么地方能像在基本问题中那么明显：我们应该添加一个依赖性，还是分支/重新实现它，来更好地满足我们的需求？
 
 This question can arise at many levels of the software stack because it is regularly the case that a bespoke solution customized for your narrow problem space may outperform the general utility solution that needs to handle all possibilities. By forking or reimplementing utility code and customizing it for your narrow domain, you can add new features with greater ease, or optimize with greater certainty, regardless of whether we are talking about a microservice, an in-memory cache, a compression routine, or anything else in our software ecosystem. Perhaps more important, the control you gain from such a fork isolates you from changes in your underlying dependencies: those changes aren’t dictated by another team or third-party provider. You are in control of how and when to react to the passage of time and necessity to change.
 
