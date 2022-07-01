@@ -793,7 +793,7 @@ There are some cases for which interaction testing is warranted:
 
 •   Differences in the number or order of calls to a function would cause undesired behavior. Interaction testing is useful because it could be difficult to validate this behavior with state testing. For example, if you expect a caching feature to reduce the number of calls to a database, you can verify that the database object is not accessed more times than expected. Using Mockito, the code might look similar to this:
 
--  对一个函数的调用数量或顺序的不同会导致不在预期内的行为。交互测试是有用的，因为用状态测试可能很难验证这种行为。例如，如果你期望一个缓存功能能减少对数据库的调用次数，你可以验证数据库对象的访问次数没有超过预期。使用Mockito，代码可能看起来类似于这样：
+- 对一个函数的调用数量或顺序的不同会导致不在预期内的行为。交互测试是有用的，因为用状态测试可能很难验证这种行为。例如，如果你期望一个缓存功能能减少对数据库的调用次数，你可以验证数据库对象的访问次数没有超过预期。使用Mockito，代码可能看起来类似于这样：
 
 ```java
 verify(databaseReader, atMostOnce()).selectRecords();

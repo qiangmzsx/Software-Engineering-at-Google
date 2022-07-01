@@ -54,7 +54,7 @@ Google has a unique perspective on the growth and evolution of a sustainable sof
 
 We’ve divided the topics in this book into three main aspects of Google’s software engineering landscape:
 - Culture
--  Processes
+- Processes
 - Tools
 
 我们将本书的主题分为谷歌软件工程领域的三个主要方面：
