@@ -32,10 +32,10 @@ This distinction is at the core of what we call sustainability for software. You
 
 Another way to look at software engineering is to consider scale. How many people are involved? What part do they play in the development and maintenance over time? A programming task is often an act of individual creation, but a software engineering task is a team effort. An early attempt to define software engineering produced a good definition for this viewpoint: “The multiperson development of multiversion programs.”[^4] This suggests the difference between software engineering and programming is one of both time and people. Team collaboration presents new problems, but also provides more potential to produce valuable systems than any single programmer could.
 
-另一种看待软件工程的方法是考虑规模。有多少人参与？随着时间的推移，他们在开发和维护中扮演什么角色？编程任务通常是个人创建的行为，但软件工程任务是团队的工作。早期定义软件工程的尝试为这一观点提供了一个很好的定义：“多人开发的多版本程序”。这表明软件工程和程序设计之间的区别是时间和人的区别。团队协作带来了新的问题，但也提供了比任任何单个程序员更多的潜力来产生有价值的系统。
+另一种看待软件工程的方法是考虑规模。有多少人参与？随着时间的推移，他们在开发和维护中扮演什么角色？编程任务通常是个人的创造行为，但软件工程任务是团队的工作。早期定义软件工程的尝试为这一观点提供了一个很好的定义：“多人开发的多版本程序”。这表明软件工程和程序设计之间的区别是时间和人的区别。团队协作带来了新的问题，但也提供了比任何单个程序员更多的潜力来产生有价值的系统。
 
 > [^2]: This is perhaps a reasonable hand-wavy definition of technical debt: things that “should” be done, but aren’t yet—the delta between our code and what we wish it was.\
-> 这也许是一个合理的技术债务定义：那些“应该”做的事情，但还不是我们的代码和我们希望它是什么之间的增量。
+> 这也许是一个合理且简单的技术债务定义：那些“应该”做却还未完成的事————我们代码的现状和理想代码之间的差距。
 >
 > [^3]: Also consider the issue of whether we know ahead of time that a project is going to be long lived.\
 > 也要考虑我们是否提前知道项目将长期存在的问题。  
