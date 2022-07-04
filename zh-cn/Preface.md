@@ -1,8 +1,9 @@
 ## Preface 序言
 
-This book is titled *Software Engineering at Google*. What precisely do we mean by software engineering? What distinguishes “software engineering” from “programming” or “computer science”? And why would Google have a unique perspective to add to the corpus of previous software engineering literature written over the past 50 years?
+This book is titled *Software Engineering at Google*. What precisely do we mean by software engineering? What distinguishes “software engineering” from “programming” or “computer science”? And why would Google have a unique perspective to **add to** the corpus of previous software engineering literature written over the past 50 years?
 
 本书的标题是*《谷歌的软件工程》*。我们对软件工程的确切定义是什么？软件工程 "与 "编程 "或 "计算机科学 "的区别是什么？为什么谷歌在过去50年的软件工程文献库中会有哪些独特的视角？
+为什么谷歌能够对过去50年中写下的软件工程文献库增加一些独特视角的内容.
 
 The terms “programming” and “software engineering” have been used interchangeably for quite some time in our industry, although each term has a different emphasis and different implications. University students tend to study computer science and get jobs writing code as “programmers.”
 
