@@ -359,7 +359,7 @@ Unit tests form an excellent base because they are fast, stable, and dramaticall
 
 With the ice cream cone, engineers write many end-to-end tests but few integration or unit tests. Such suites tend to be slow, unreliable, and difficult to work with. This pattern often appears in projects that start as prototypes and are quickly rushed to production, never stopping to address testing debt.
 
-在沙漏中，工程师们写了许多端到端的测试，但很少有集成或单元测试。这样的套件往往是速度慢、不可靠，而且难以使用。这种模式经常出现在以原型开始的项目中，并很快投入生产，从来没有停止过解决测试债务。
+在冰淇淋筒中，工程师们写了许多端到端的测试，但很少有集成或单元测试。这样的套件往往是速度慢、不可靠，而且难以使用。这种模式经常出现在以原型开始的项目中，并很快投入生产，从来没有停止过解决测试债务。
 
 The hourglass involves many end-to-end tests and many unit tests but few integration tests. It isn’t quite as bad as the ice cream cone, but it still results in many end-to- end test failures that could have been caught quicker and more easily with a suite of medium-scope tests. The hourglass pattern occurs when tight coupling makes it difficult to instantiate individual dependencies in isolation.
 
@@ -436,7 +436,7 @@ The openness of our codebase encourages a level of co-ownership that lets everyo
 
 Another thing that makes Google a little different is that almost no teams use repository branching. All changes are committed to the repository head and are immediately visible for everyone to see. Furthermore, all software builds are performed using the last committed change that our testing infrastructure has validated. When a product or service is built, almost every dependency required to run it is also built from source, also from the head of the repository. Google manages testing at this scale by use of a CI system. One of the key components of our CI system is our Test Automated Platform (TAP).
 
-另一件让谷歌有点不同的事情是，几乎没有团队使用版本库分支。所有的更改都提交到了版本库的负责人，并且每个人都可以立即看到。此外，所有的软件构建都是使用我们的测试基础设施验证过的最后一次提交的变更。当一个产品或服务被构建时，几乎所有运行该产品或服务所需的依赖也都是从源代码构建的，也是从资源库的head。谷歌通过使用CI系统来管理这种规模的测试。我们CI系统的关键组成部分之一是我们的测试自动化平台（TAP）。
+另一件让谷歌有点不同的事情是，几乎没有团队使用版本库分支。所有的更改都提交到了版本库的head，并且每个人都可以立即看到。此外，所有的软件构建都是使用我们的测试基础设施验证过的最后一次提交的变更。当一个产品或服务被构建时，几乎所有运行该产品或服务所需的依赖也都是从源代码构建的，也是从资源库的head。谷歌通过使用CI系统来管理这种规模的测试。我们CI系统的关键组成部分之一是我们的测试自动化平台（TAP）。
 
 Whether you are considering our size, our monorepo, or the number of products we offer, Google’s engineering environment is complex. Every week it experiences millions of changing lines, billions of test cases being run, tens of thousands of binaries being built, and hundreds of products being updated—talk about complicated!
 
@@ -553,7 +553,7 @@ In April 2006, a short writeup covering how to improve testing in Python appeare
 
 Ultimately, the uproar subsided and TotT quickly became a staple of Google culture. To date, engineers from across the company have produced several hundred episodes, covering almost every aspect of testing imaginable (in addition to a variety of other technical topics). New episodes are eagerly anticipated and some engineers even volunteer to post the episodes around their own buildings. We intentionally limit each episode to exactly one page, challenging authors to focus on the most important and actionable advice. A good episode contains something an engineer can take back to the desk immediately and try.
 
-最终，喧嚣平息下来，TotT迅速成为谷歌文化的主食。到目前为止，来自整个公司的工程师已经制作了数百集，涵盖了几乎所有可以想象的测试方面（除了各种其他技术主题）。人们热切期待着新的剧集，一些工程师甚至在自己的工位周围张贴剧集。我们有意将每一集的篇幅限制在一页以内，要求作者专注于最重要、最可行的建议。一集好的文章包含了工程师可以立即带回到办公桌上并进行尝试的内容。
+最终，喧嚣平息下来，TotT迅速成为谷歌文化的一个重要组成部分。到目前为止，来自整个公司的工程师已经制作了数百集，涵盖了几乎所有可以想象的测试方面（除了各种其他技术主题）。人们热切期待着新的剧集，一些工程师甚至在自己的工位周围张贴剧集。我们有意将每一集的篇幅限制在一页以内，要求作者专注于最重要、最可行的建议。一集好的文章包含了工程师可以立即带回到办公桌上并进行尝试的内容。
 
 Ironically for a publication that appears in one of the more private locations, TotT has had an outsized public impact. Most external visitors see an episode at some point in their visit, and such encounters often lead to funny conversations about how Googlers always seem to be thinking about code. Additionally, TotT episodes make great blog posts, something the original TotT authors recognized early on. They began publishing [lightly edited versions publicly](https://oreil.ly/86Nho), helping to share our experience with the industry at large.
 
