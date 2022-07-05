@@ -363,7 +363,7 @@ With the ice cream cone, engineers write many end-to-end tests but few integrati
 
 The hourglass involves many end-to-end tests and many unit tests but few integration tests. It isn’t quite as bad as the ice cream cone, but it still results in many end-to- end test failures that could have been caught quicker and more easily with a suite of medium-scope tests. The hourglass pattern occurs when tight coupling makes it difficult to instantiate individual dependencies in isolation.
 
-沙漏涉及许多端到端的测试和许多单元测试，但很少有集成测试。它不像冰激凌筒那样糟糕，但它仍然导致许多端到端的测试失败，而这些失败本可以通过一套中等范围的测试更快、更容易地发现。当紧密耦合使单独实例化单个依赖项变得困难时，就会出现沙漏模式。
+沙漏涉及许多端到端的测试和许多单元测试，但很少有集成测试。它不像冰淇淋筒那样糟糕，但它仍然导致许多端到端的测试失败，而这些失败本可以通过一套中等范围的测试更快、更容易地发现。当紧密耦合使单独实例化单个依赖项变得困难时，就会出现沙漏模式。
 
 ![image-20220407201117705](./images/image-20220407201117705.png)
 
