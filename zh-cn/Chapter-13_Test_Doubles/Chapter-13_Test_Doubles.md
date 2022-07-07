@@ -28,18 +28,24 @@ The previous two chapters introduced the concept of small tests and discussed wh
 
 ## The Impact of Test Doubles on Software Development  测试替代对软件开发的影响
 The use of test doubles introduces a few complications to software development that require some trade-offs to be made. The concepts introduced here are discussed in more depth throughout this chapter:
+
 *Testability*  
 	To use test doubles, a codebase needs to be designed to be testable—it should be possible for tests to swap out real implementations with test doubles. For example, code that calls a database needs to be flexible enough to be able to use a test double in place of a real database. If the codebase isn’t designed with testing in mind and you later decide that tests are needed, it can require a major commitment to refactor the code to support the use of test doubles.
+
 *Applicability*  
 	Although proper application of test doubles can provide a powerful boost to engineering velocity, their improper use can lead to tests that are brittle, complex, and less effective. These downsides are magnified when test doubles are used improperly across a large codebase, potentially resulting in major losses in productivity for engineers. In many cases, test doubles are not suitable and engineers should prefer to use real implementations instead.
+
 *Fidelity*  
 	Fidelity refers to how closely the behavior of a test double resembles the behavior of the real implementation that it’s replacing. If the behavior of a test double significantly differs from the real implementation, tests that use the test double likely wouldn’t provide much value—for example, imagine trying to write a test with a test double for a database that ignores any data added to the database and always returns empty results. But perfect fidelity might not be feasible; test doubles often need to be vastly simpler than the real implementation in order to be suitable for use in tests. In many situations, it is appropriate to use a test double even without perfect fidelity. Unit tests that use test doubles often need to be supplemented by larger-scope tests that exercise the real implementation.
 
 测试替代的使用给软件开发带来了一些复杂的问题，需要做出一些权衡。本章将更深入地讨论此处介绍的概念：
+
 *可测试性*  
 	为了使用测试替代，需要将代码库设计成可测试的--测试应该可以用测试替代替换实际实现。例如，调用数据库的代码需要足够灵活，以便能够使用测试替代来代替真正的数据库。如果代码库在设计时没有考虑到测试，而你后来决定需要测试，那么可能需要进行大量的提交来重构代码，以支持使用测试替代。
+
 *适用性*  
 	尽管适当地应用测试替代可以极大地提高工程速度，但其使用不当会导致测试变得脆弱、复杂且低效。当测试替代在大型代码库中使用不当时，这些缺点就会被放大，这可能会导致工程师在生产效率方面的重大损失。在许多情况下，测试替代是不合适的，工程师应该倾向于使用真实的实现。
+
 *仿真度*  
 	仿真度是指测试替代的行为与它所替代的真实实现的行为有多大的相似性。如果测试替代的行为与真正的实现有很大的不同，那么使用测试替代的测试可能不会提供太多的价值--例如，想象一下，尝试用测试替代为一个数据库写一个测试，这个数据库忽略了添加到数据库的任何数据，总是返回空结果。但是完美的仿真可能是不可行的；测试替代通常需要比实际的实现简单得多，以便适合在测试中使用。在许多情况下，即使没有完美的仿真度，使用测试替代也是合适的。使用测试替代的单元测试通常需要由执行实际实现的更大范围的测试来支持。
 
@@ -51,7 +57,7 @@ At Google, we’ve seen countless examples of the benefits to productivity and s
 
 One lesson we learned the hard way is the danger of overusing mocking frameworks, which allow you to easily create test doubles (we will discuss mocking frameworks in more detail later in this chapter). When mocking frameworks first came into use at Google, they seemed like a hammer fit for every nail—they made it very easy to write highly focused tests against isolated pieces of code without having to worry about how to construct the dependencies of that code. It wasn’t until several years and countless tests later that we began to realize the cost of such tests: though these tests were easy to write, we suffered greatly given that they required constant effort to maintain while rarely finding bugs. The pendulum at Google has now begun swinging in the other direction, with many engineers avoiding mocking frameworks in favor of writing more realistic tests.
 
-我们经过艰苦的历程学到的一个教训是过度使用模拟框架的危险，它允许你轻松创建测试替代（我们将在本章后面更详细地讨论模拟框架）。当mocking框架首次在Google使用时，它们就像一把锤子，适合每一根钉子。它们使得针对独立的代码段编写高度集中的测试变得非常容易，而不必担心如何构建代码的依赖关系。直到几年和无数次测试之后，我们才开始意识到这些测试的成本：尽管这些测试很容易编写，但由于它们需要不断的努力来维护，而很少发现bug，我们遭受了巨大的损失。谷歌的天平现在开始向另一个方向摆动，许多工程师避免模仿框架，转而编写更真实的测试。
+我们经过艰苦的历程学到的一个教训是过度使用模拟框架的危险，它允许你轻松创建测试替代（我们将在本章后面更详细地讨论模拟框架）。当mocking框架首次在Google使用时，它们就像一把锤子，适合每一根钉子。它们使得针对独立的代码段编写高度集中的测试变得非常容易，而不必担心如何构建代码的依赖关系。直到经过几年和无数次测试之后，我们才开始意识到这些测试的成本：尽管这些测试很容易编写，但由于它们需要不断的努力来维护，而很少发现bug，我们遭受了巨大的损失。谷歌的天平现在开始向另一个方向摆动，许多工程师避免模仿框架，转而编写更真实的测试。
 
 Even though the practices discussed in this chapter are generally agreed upon at Google, the actual application of them varies widely from team to team. This variance stems from engineers having inconsistent knowledge of these practices, inertia in an existing codebase that doesn’t conform to these practices, or teams doing what is easiest for the short term without thinking about the long-term implications.
 
@@ -91,9 +97,10 @@ It would be infeasible to use a real credit card service in a test (imagine all 
 *Example 13-2. A trivial test double*
 
 ```java
-class TestDoubleCreditCardService implements CreditCardService { @Override
+class TestDoubleCreditCardService implements CreditCardService {
+  @Override
   public boolean chargeCreditCard(CreditCard creditCard, Money amount) {
-  	return true;
+    return true;
   }
 }
 ```
@@ -139,7 +146,7 @@ class PaymentProcessor {
   private CreditCardService creditCardService;
 
   PaymentProcessor(CreditCardService creditCardService) {
- 	 	this.creditCardService = creditCardService;
+    this.creditCardService = creditCardService;
   }
   ...
 }
@@ -154,7 +161,7 @@ The code that calls this constructor is responsible for creating an appropriate 
 
 ```java
 class PaymentProcessor {
-	private CreditCardService creditCardService;
+  private CreditCardService creditCardService;
 
   PaymentProcessor(CreditCardService creditCardService) {
     this.creditCardService = creditCardService;
@@ -179,7 +186,7 @@ Writing testable code requires an upfront investment. It is especially critical 
 
 A *mocking framework* is a software library that makes it easier to create test doubles within tests; it allows you to replace an object with a *mock*, which is a test double whose behavior is specified inline in a test. The use of mocking frameworks reduces boilerplate because you don’t need to define a new class each time you need a test double.
 
-一个*mocking框架*是一个软件库，它使得在测试中创建测试替代更加容易；它允许您将对象替换为模拟对象，模拟对象是在测试中内联指定其行为的测试替代。模拟框架的使用减少了模板文件，因为你不需要在每次需要测试时定义一个新类。
+一个*mocking框架*是一个软件库，它使得在测试中创建测试替代更加容易；它允许您将对象替换为模拟对象，模拟对象是在测试中内联指定其行为的测试替代。模拟框架的使用减少了模板代码，因为你不需要在每次需要测试时定义一个新类。
 
 [Example 13-6](#_bookmark1081) demonstrates the use of [Mockito](https://site.mockito.org/), a mocking framework for Java. Mockito creates a test double for CreditCardService and instructs it to return a specific value.
 
@@ -222,7 +229,7 @@ Although mocking frameworks facilitate easier usage of test doubles, they come w
 
 There are three primary techniques for using test doubles. This section presents a brief introduction to these techniques to give you a quick overview of what they are and how they differ. Later sections in this chapter go into more details on how to effectively apply them.
 
-使用双重测试有三种主要技术。本节简要介绍这些技术，让您快速了解它们是什么以及它们之间的区别。本章后面几节将详细介绍如何有效地应用它们。
+使用测试替代有三种主要技术。本节简要介绍这些技术，让您快速了解它们是什么以及它们之间的区别。本章后面几节将详细介绍如何有效地应用它们。
 
 An engineer who is aware of the distinctions between these techniques is more likely to know the appropriate technique to use when faced with the need to use a test double.
 
@@ -263,7 +270,7 @@ Using a fake is often the ideal technique when you need to use a test double, bu
 
 [Example 13-8](#_bookmark1093) illustrates stubbing. The when(...).thenReturn(...) method calls from the Mockito mocking framework specify the behavior of the lookupUser() method.
 
-例13-8说明了打桩的问题。来自Mockito模拟框架的when(...).thenReturn(...)方法调用指定了lookupUser()方法的行为。
+例13-8演示了打桩的使用。来自Mockito模拟框架的when(...).thenReturn(...)方法调用指定了lookupUser()方法的行为。
 
 *Example* *13-8.* *Stubbing*
 
@@ -286,7 +293,7 @@ Although stubbing can be a quick and simple technique to apply, it has limitatio
 
 虽然打桩是一种快速而简单的应用技术，但它也有局限性，我们将在本章后面讨论。
 
-#### Interaction Testing 交互测试
+### Interaction Testing 交互测试
 
 [*Interaction testing* ](https://oreil.ly/zGfFn)is a way to validate *how* a function is called without actually calling the implementation of the function. A test should fail if a function isn’t called the correct way—for example, if the function isn’t called at all, it’s called too many times, or it’s called with the wrong arguments.
 
@@ -334,7 +341,7 @@ At Google, the preference for real implementations developed over time as we saw
 
 Preferring real implementations in tests is known as [*classical testing*](https://oreil.ly/OWw7h). There is also a style of testing known as *mockist testing*, in which the preference is to use mocking frameworks instead of real implementations. Even though some people in the software industry practice mockist testing (including the [creators of the first mocking](https://oreil.ly/_QWy7) [frameworks](https://oreil.ly/_QWy7)), at Google, we have found that this style of testing is difficult to scale. It requires engineers to follow [strict guidelines when designing the system under test](http://jmock.org/oopsla2004.pdf), and the default behavior of most engineers at Google has been to write code in a way that is more suitable for the classical testing style.
 
-在测试中更倾向于使用真实实现被称为[*经典测试*]（https://oreil.ly/OWw7h）。还有一种测试风格被称为*模拟测试*，其中倾向于使用模拟框架而不是真实实现。尽管软件行业的一些人在进行模拟测试（包括[第一个模拟框架](https://oreil.ly/_QWy7)的创造者），但在谷歌，我们发现这种测试风格很难扩展。它要求工程师遵循[设计被测系统时的严格准则](http://jmock.org/oopsla2004.pdf)，而谷歌大多数工程师的默认行为是以一种更适合经典测试风格的方式来编写代码。
+在测试中更倾向于使用真实实现被称为[*经典测试*](https://oreil.ly/OWw7h)。还有一种测试风格被称为*模拟测试*，其中倾向于使用模拟框架而不是真实实现。尽管软件行业的一些人在进行模拟测试（包括[第一个模拟框架](https://oreil.ly/_QWy7)的创造者），但在谷歌，我们发现这种测试风格很难扩展。它要求工程师遵循[设计被测系统时的严格准则](http://jmock.org/oopsla2004.pdf)，而谷歌大多数工程师的默认行为是以一种更适合经典测试风格的方式来编写代码。
 
 ### Prefer Realism Over Isolation 倾向于现实主义而不是孤立主义
 
@@ -371,7 +378,7 @@ If an engineer attempts to use a mocking framework to create an instance of a cl
 ```java
 @DoNotMock("Use SimpleQuery.create() instead of mocking.")
 public abstract class Query {
-	public abstract String getQueryValue();
+  public abstract String getQueryValue();
 }
 ```
 
@@ -490,7 +497,7 @@ public class FakeFileSystem implements FileSystem {
         files.add(fileName, contents);
     }
   
-  	@Override
+    @Override
     public String readFile(String fileName) {
         String contents = files.get(fileName);
         // The real implementation will throw this exception if the
@@ -531,7 +538,7 @@ If a team is considering writing a fake, a trade-off needs to be made on whether
 
 To reduce the number of fakes that need to be maintained, a fake should typically be created only at the root of the code that isn’t feasible for use in tests. For example, if a database can’t be used in tests, a fake should exist for the database API itself rather than for each class that calls the database API.
 
-为了减少需要维护的伪造测试代码的数量，伪造测试代码通常应该只在测试中不可行的代码根处创建。例如，如果一个数据库不能在测试中使用，那么应该为数据库API本身而不是为调用数据库API的每个类存在一个伪造数据库。
+为了减少需要维护的伪造测试代码的数量，伪造测试代码通常应该只在测试中不可行的代码根处创建。例如，如果一个数据库不能在测试中使用，那么应该为数据库API本身编写一个伪造测试，而不是为调用数据库API的每个类编写。
 
 Maintaining a fake can be burdensome if its implementation needs to be duplicated across programming languages, such as for a service that has client libraries that allow the service to be invoked from different languages. One solution for this case is to create a single fake service implementation and have tests configure the client libraries to send requests to this fake service. This approach is more heavyweight compared to having the fake written entirely in memory because it requires the test to communicate across processes. However, it can be a reasonable trade-off to make, as long as the tests can still execute quickly.
 
@@ -567,7 +574,7 @@ A fake might not need to have 100% of the functionality of its corresponding rea
 
 A fake must have its *own* tests to ensure that it conforms to the API of its corresponding real implementation. A fake without tests might initially provide realistic behavior, but without tests, this behavior can diverge over time as the real implementation evolves.
 
-伪造测试必须有自己的*测试，以确保它符合其相应的真实实现的API。没有测试的伪造最初可能会提供真实的行为，但如果没有测试，随着时间的推移，这种行为会随着真实实现的发展而发生变化。
+伪造测试必须有自己的*测试*，以确保它符合其相应的真实实现的API。没有测试的伪造最初可能会提供真实的行为，但如果没有测试，随着时间的推移，这种行为会随着真实实现的发展而发生变化。
 
 One approach to writing tests for fakes involves writing tests against the API’s public interface and running those tests against both the real implementation and the fake (these are known as [*contract tests*](https://oreil.ly/yuVlX)). The tests that run against the real implementation will likely be slower, but their downside is minimized because they need to be run only by the owners of the fake.
 
@@ -826,8 +833,10 @@ sendEmail(), saveRecord(), logAccess().
 ​	Functions that don’t have side effects; they return information about the world outside the system under test and don’t modify anything. Examples: getUser(), findResults(), readFile().
 
 当被测系统调用一个依赖关系上的函数时，该调用属于两类中的一类：
+
 *改变状态*
-	对被测系统以外的范围有副作用的函数。例子。
+
+	对被测系统以外的范围有副作用的函数。例子：
 
 ```java
 sendEmail(), saveRecord(), logAccess().
