@@ -321,7 +321,7 @@ Through this and other experiences, we’ve discovered many factors that affect 
 
 The underlying lesson is not about the frequency or difficulty of compiler upgrades, but that as soon as we became aware that compiler upgrade tasks were necessary, we found ways to make sure to perform those tasks with a constant number of engineers, even as the codebase grew.[^16] If we had instead decided that the task was too expensive and should be avoided in the future, we might still be using a decade-old compiler version. We would be paying perhaps 25% extra for computational resources as a result of missed optimization opportunities. Our central infrastructure could be vulnerable to significant security risks given that a 2006-era compiler is certainly not helping to mitigate speculative execution vulnerabilities. Stagnation is an option, but often not a wise one.
 
-潜在的教训不是关于编译器升级的频率或难度，而是一旦我们意识到编译器升级任务是必要的，我们就找到了方法，确保在代码库增长的情况下，由固定数量的工程师执行这些任务。如果我们认为任务成本太高，应该学会避免，我们可以仍然使用十年前的编译器版本。由于错过了优化机会，我们需要额外支付25%的计算资源。考虑到2006年的编译器对缓解推测性执行漏洞没有效果，我们的中央基础设施可能会面临重大的安全风险风险，这不是一个明智的选择。
+潜在的教训不是关于编译器升级的频率或难度，而是一旦我们意识到编译器升级任务是必要的，我们就找到了方法，确保在代码库增长的情况下，由固定数量的工程师执行这些任务。如果我们认为任务成本太高，应该学会避免，我们可以仍然使用十年前的编译器版本。由于错过了优化机会，我们需要额外支付25%的计算资源。考虑到2006年的编译器对缓解推测性执行漏洞没有效果，我们的中央基础设施可能会面临重大的安全风险，这不是一个明智的选择。
 
 > [^15]: Beyer et al. Site Reliability Engineering: How Google Runs Production Systems, Chapter 5, “Eliminating Toil.”\
 > Beyer等人，《SRE：Google运维解密》,第五章 减少琐事。
@@ -447,6 +447,7 @@ Overall, the saved costs associated with adding a distributed build system far, 
 
 ### Example: Deciding Between Time and Scale 示例：在时间和规模之间做决定
 Much of the time, our major themes of time and scale overlap and work in conjunction. A policy like the Beyoncé Rule scales well and helps us maintain things over time. A change to an OS interface might require many small refactorings to adapt to, but most of those changes will scale well because they are of a similar form: the OS change doesn’t manifest differently for every caller and every project.
+
 很多时候，我们关于时间和规模的主题相互重合，相互影响。符合碧昂斯规则策略具备可扩展性，并帮助我们长期维护事物。对操作系统接口的更改需要许多小的重构来适应，但这些更改中的大多数都可以很好地扩展，因为它们具有相似的形式： 操作系统的变化对每个调用者和每个项目都没有不同的表现。
 
 Occasionally time and scale come into conflict, and nowhere so clearly as in the basic question: should we add a dependency or fork/reimplement it to better suit our local needs?
