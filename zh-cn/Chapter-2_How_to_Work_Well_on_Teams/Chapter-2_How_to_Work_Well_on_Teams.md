@@ -52,15 +52,15 @@ The answer is insecurity. People are afraid of others seeing and judging their w
 
 Many humans have the instinct to find and worship idols. For software engineers, those might be Linus Torvalds, Guido Van Rossum, Bill Gates—all heroes who changed the world with heroic feats. Linus wrote Linux by himself, right?
 
-许多人有寻找和崇拜偶像的本能。对于软件工程师来说，他们可能是Linus Torvalds, Guido Van Rossum, Bill Gates——他们都是改变世界的英雄。是Linus自己写的Linux？
+许多人有寻找和崇拜偶像的本能。对于软件工程师来说，他们可能是Linus Torvalds, Guido Van Rossum, Bill Gates——他们都是改变世界的英雄。Linus自己写了Linux，对吧？
 
 Actually, what Linus did was write just the beginnings of a proof-of-concept Unix- like kernel and show it to an email list. That was no small accomplishment, and it was definitely an impressive achievement, but it was just the tip of the iceberg. Linux is hundreds of times bigger than that initial kernel and was developed by thousands of smart people. Linus’ real achievement was to lead these people and coordinate their work; Linux is the shining result not of his original idea, but of the collective labor of the community. (And Unix itself was not entirely written by Ken Thompson and Dennis Ritchie, but by a group of smart people at Bell Labs.)
 
-实际上，Linus所做的只是编写了概念验证类Unix内核的开头，并将电子邮件发送出去。这是不小的成就，绝对是一个令人印象深刻的成就，但这只是冰山一角。Linux比最初的内核大几百倍，是由成千上万的聪明人开发的。Linus真正的成就是领导并协调他们的完成工作；Linux不仅仅是他最初创意的成果，更是社区集体努力的成果。（Unix本身并非完全由肯·汤普森和丹尼斯·里奇编写，而是由贝尔实验室的一群聪明人编写的。）
+实际上，Linus所做的只是编写了概念验证类Unix内核的开头，并通过邮件列表发布出去。这是不小的成就，绝对是一个令人印象深刻的成就，但这只是冰山一角。Linux比最初的内核大几百倍，是由成千上万的聪明人开发的。Linus真正的成就是领导这些人并协调他们的完成工作；Linux不仅仅是他最初创意的成果，更是社区集体努力的成果。（Unix本身并非完全由肯·汤普森和丹尼斯·里奇编写，而是由贝尔实验室的一群聪明人编写的。）
 
 On that same note, did Guido Van Rossum personally write all of Python? Certainly, he wrote the first version. But hundreds of others were responsible for contributing to subsequent versions, including ideas, features, and bug fixes. Steve Jobs led an entire team that built the Macintosh, and although Bill Gates is known for writing a BASIC interpreter for early home computers, his bigger achievement was building a successful company around MS-DOS. Yet they all became leaders and symbols of the collective achievements of their communities. The Genius Myth is the tendency that we as humans need to ascribe the success of a team to a single person/leader.
 
-同样，Guido Van Rossum是否亲自编写了所有Python？当然，他写了第一个版本。但还有数百人为后续版本做出贡献，包括想法、功能和bug修复。史蒂夫·乔布斯领导了一个建造麦金塔的整个团队，尽管比尔·盖茨以为早期家用电脑编写BASIC解释器而闻名，但他更大的成就是围绕MS-DOS系统建立了一家成功的公司。然而，他们都成为集体成就的领袖和象征。天才的神话是一种趋势，即我们需要将团队的成功归因于一个人/领导者。
+同样，Guido Van Rossum是否亲自编写了所有Python？当然，他写了第一个版本，但还有数百人为后续版本做出贡献，包括想法、功能和bug修复。尽管史蒂夫·乔布斯领导了一个建造麦金塔的整个团队，尽管比尔·盖茨以为早期家用电脑编写BASIC解释器而闻名，但他更大的成就是围绕MS-DOS系统建立了一家成功的公司。然而，他们都成为集体成就的领袖和象征。天才的神话是一种趋势，即我们需要将团队的成功归因于一个人/领导者。
 
 And what about Michael Jordan?
 
@@ -104,8 +104,6 @@ But hold on: time for a reality check. You’re probably not a genius.
 是时候回归现实了。你很可能不是天才。
 
 No offense, of course—we’re sure that you’re a very intelligent person. But do you realize how rare actual geniuses really are? Sure, you write code, and that’s a tricky skill. But even if you are a genius, it turns out that that’s not enough. Geniuses still make mistakes, and having brilliant ideas and elite programming skills doesn’t guarantee that your software will be a hit. Worse, you might find yourself solving only analytical problems and not human problems. Being a genius is most definitely not an excuse for being a jerk: anyone—genius or not—with poor social skills tends to be a poor teammate. The vast majority of the work at Google (and at most companies!) doesn’t require genius-level intellect, but 100% of the work requires a minimal level of social skills. What will make or break your career, especially at a company like Google, is how well you collaborate with others.
-
-无意冒犯，我们当然相信你是个非常聪明的人。但你要知道真正的天才有多稀有吗？当然，你需要编写代码，这是一项棘手的技能。即使你是个天才，会编程还不够。天才仍然会犯错误，拥有卓越的想法和精英编程技能并不能保证你的软件会大受欢迎。更糟糕的是，你可能会发现自己只解决了分析性问题，而没有解决人的问题。作为一个天才绝对不是成为一个混蛋的借口： 天才与否，社交能力差的人，往往是一个猪队友。谷歌（以及大多数公司！）的绝大多数工作不需要天才水平的智力，但100%的工作需要最低水平的社交技能。决定你职业生涯成败，尤其是在谷歌这样的公司，更取决于你与他人合作的程度。
 
 It turns out that this Genius Myth is just another manifestation of our insecurity. Many programmers are afraid to share work they’ve only just started because it means peers will see their mistakes and know the author of the code is not a genius.
 
@@ -178,7 +176,7 @@ How dispersed is the knowledge and know-how in your project? If you’re the onl
 
 Beyond the bus factor, there’s the issue of overall pace of progress. It’s easy to forget that working alone is often a tough slog, much slower than people want to admit. How much do you learn when working alone? How fast do you move? Google and Stack Overflow are great sources of opinions and information, but they’re no substitute for actual human experience. Working with other people directly increases the collective wisdom behind the effort. When you become stuck on something absurd, how much time do you waste pulling yourself out of the hole? Think about how different the experience would be if you had a couple of peers to look over your shoulder and tell you—instantly—how you goofed and how to get past the problem. This is exactly why teams sit together (or do pair programming) in software engineering companies. Programming is hard. Software engineering is even harder. You need that second pair of eyes.
 
-除了巴士因子，还有整体进度的问题。人们很容易忘记，独自工作往往是一项艰苦的工作，比人们自认为的慢得多。你独自工作能学到多少？你推进地有多快？Google和Stack Overflow是观点和信息的重要来源，但它们不能替代人的真实体验。与他人一起工作会直接增加工作背后的集体智慧。当你陷入误区时，你需要浪费多少时间才能从困境中解脱？想想如果你有几个同龄人看着你并立即告知你是如何犯错以及如何解决问题，体验会有多么不同。这正是软件工程公司中团队坐在一起（或进行配对编程）的原因。编程很难。软件工程更难。你需要另一双眼睛。
+除了巴士因子，还有整体进度的问题。人们很容易忘记，独自工作往往是一项艰苦的工作，比人们自认为的慢得多。你独自工作能学到多少？你推进地有多快？Google和Stack Overflow是观点和信息的重要来源，但它们不能替代人的真实体验。与他人一起工作会直接增加工作背后的集体智慧。当你陷入误区时，你需要浪费多少时间才能从困境中解脱？想想如果你有几个同龄人看着你并立即告知你是如何犯错以及如何解决问题，体验会有多么不同。这正是软件工程公司中团队坐在一起（或进行结对编程）的原因。编程很难，软件工程更难。你需要另一双眼睛。
 
 ### Pace of Progress 进展速度
 
@@ -341,7 +339,7 @@ Ego manifests itself in many ways, and a lot of the time, it can get in the way 
 
 A few years ago, Joe started a new job as a programmer. After his first week, he really began digging into the codebase. Because he cared about what was going on, he started gently questioning other teammates about their contributions. He sent simple code reviews by email, politely asking about design assumptions or pointing out places where logic could be improved. After a couple of weeks, he was summoned to his director’s office. “What’s the problem?” Joe asked. “Did I do something wrong?” The director looked concerned: “We’ve had a lot of complaints about your behavior, Joe. Apparently, you’ve been really harsh toward your teammates, criticizing them left and right. They’re upset. You need to tone it down.” Joe was utterly baffled. Surely, he thought, his code reviews should have been welcomed and appreciated by his peers. In this case, however, Joe should have been more sensitive to the team’s widespread insecurity and should have used a subtler means to introduce code reviews into the culture—perhaps even something as simple as discussing the idea with the team in advance and asking team members to try it out for a few weeks.
 
-几年前，乔开始了一份新工作，成为一个程序员。在第一周后，他真的开始钻研代码库。因为他关心正在发生的事情，他开始温和地询问其他队友的提交。他通过电子邮件发送简单的代码评审，礼貌地询问设计假设或指出可以改进逻辑的地方。几周后，他被传唤到主管办公室。“怎么了？”乔问。“我做错什么了吗？”主管看起来很担心：“乔，我们对你的行为有很多抱怨。显然，你对你的队友非常苛刻，到处批评他们。他们很不高兴。你需要淡化它。”乔完全不知所措。当然，他认为，他的代码审查应该受到同行的欢迎和赞赏。然而，在这种情况下，乔应该对团队普遍存在的不安全感更加敏感，并且应该使用更巧妙的方法将代码审查引入到文化中——甚至可能是一些简单的事情，比如事先与团队讨论这个想法，并请团队成员尝试几周。
+几年前，乔开始了一份新工作，成为一个程序员。在第一周后，他真的开始钻研代码库。因为他关心正在发生的事情，他开始温和地询问其他队友的提交。他通过电子邮件发送简单的代码评审，礼貌地询问设计假设或指出可以改进逻辑的地方。几周后，他被传唤到主管办公室。“怎么了？”乔问。“我做错什么了吗？”主管看起来很担心：“乔，我们听到很多对你行为的抱怨。显然，你对你的队友非常苛刻，到处批评他们。他们很不高兴。你需要淡化它。”乔完全不知所措。当然，他认为，他的代码审查应该受到同行的欢迎和赞赏。然而，在这种情况下，乔应该对团队普遍存在的不安全感更加敏感，并且应该使用更巧妙的方法将代码审查引入到文化中——甚至可能是一些简单的事情，比如事先与团队讨论这个想法，并请团队成员尝试几周。
 
 In a professional software engineering environment, criticism is almost never personal—it’s usually just part of the process of making a better project. The trick is to make sure you (and those around you) understand the difference between a constructive criticism of someone’s creative output and a flat-out assault against someone’s character. The latter is useless—it’s petty and nearly impossible to act on. The former can (and should!) be helpful and give guidance on how to improve. And, most important, it’s imbued with respect: the person giving the constructive criticism genuinely cares about the other person and wants them to improve themselves or their work. Learn to respect your peers and give constructive criticism politely. If you truly respect someone, you’ll be motivated to choose tactful, helpful phrasing—a skill acquired with much practice. We cover this much more in Chapter 9.
 
@@ -366,7 +364,7 @@ There’s a well-known urban legend in the business world about a manager who ma
 “My resignation,” says the executive. “I assume you called me in here to fire me.”  
 “Fire you?” responds the CEO, incredulously. “Why would I fire you? I just spent $10 million training you!”[^6]  
 
-商界有一个著名的城市传奇，说的是一位经理犯了一个错误，损失了令人印象深刻的1000万美元。第二天，他沮丧地走进办公室，开始收拾桌子。当他接到不可抗拒的“CEO想见你在办公室”电话时，他蹒跚地走进CEO办公室，悄悄地把一张纸递上桌子。  
+商界有一个著名的城市传奇，说的是一位经理犯了一个错误，损失了令人印象深刻的1000万美元。第二天，他沮丧地走进办公室，开始收拾桌子。当他接到不可抗拒的“CEO想在他办公室见你”的电话时，他蹒跚地走进CEO办公室，悄悄地把一张纸递上桌子。  
 "这是什么？"CEO问道。  
 "我的辞呈，"这位经理说。"我想你叫我来是要解雇我。"  
 "解雇你？"首席执行官难以置信地回答道。"我为什么要解雇你？我刚刚花了1000万美元培训你！"
@@ -394,7 +392,7 @@ Over in Google X—the division that works on “moonshots” like self-driving 
 
 The key to learning from your mistakes is to document your failures by performing a root-cause analysis and writing up a “postmortem,” as it’s called at Google (and many other companies). Take extra care to make sure the postmortem document isn’t just a useless list of apologies or excuses or finger-pointing—that’s not its purpose. A proper postmortem should always contain an explanation of what was learned and what is going to change as a result of the learning experience. Then, make sure that the postmortem is readily accessible and that the team really follows through on the proposed changes. Properly documenting failures also makes it easier for other people (present and future) to know what happened and avoid repeating history. Don’t erase your tracks—light them up like a runway for those who follow you!
 
-从错误中学习的关键是通过进行根因分析和撰写“事后总结”来记录你的失败，在谷歌（和许多其他公司）成为事后总结（国内成为复盘）。要格外小心，确保 "事后总结 "文件不只是一份无用的道歉、借口或指责的清单，这不是它的目的。正确事后总结应该总是包含对所学到的内容的解释，以及作为学习经验作为后续的改进落地。然后，确保事后总结可以随时查阅，并确保团队真正贯彻执行所建议的改变。好的故障复盘要让其他人（现在和将来）知道发生了什么，避免重蹈覆辙。不要抹去你的足迹——让它们在道路上照亮给那些追随你的人!
+从错误中学习的关键是通过进行根因分析和撰写“事后总结”来记录你的失败，在谷歌（和许多其他公司）成为事后总结（国内称为复盘）。要格外小心，确保 "事后总结 "文件不只是一份无用的道歉、借口或指责的清单，这不是它的目的。正确事后总结应该总是包含对所学到的内容的解释，以及作为学习经验作为后续的改进落地。然后，确保事后总结可以随时查阅，并确保团队真正贯彻执行所建议的改变。好的故障复盘要让其他人（现在和将来）知道发生了什么，避免重蹈覆辙。不要抹去你的足迹——让它们在道路上照亮给那些追随你的人!
 
 A good postmortem should include the following:
 - A brief summary of the event
