@@ -19,8 +19,8 @@ As mentioned previously, Google has specific notions of test size. Small tests a
 如前所述，谷歌对测试规模有特定的概念。小型测试仅限于一个线程、一个进程、一台机器。较大的测试没有相同的限制。但谷歌也有测试范围的概念。单元测试的范围必然比集成测试的范围小。而最大范围的测试（有时被称为端到端或系统测试）通常涉及多个实际依赖项和较少的测试替身。（`Test Double`是在Martin Fowler的文章[Test Double](https://martinfowler.com/bliki/TestDouble.html)中，Gerard Meszaros提出了这个概念。虽然是06年的文章了，但里面的概念并不过时。这篇文章提到`Test Double`只是一个通用的词，代表为了达到测试目的并且减少被测试对象的依赖，使用“替身”代替一个真实的依赖对象，从而保证了测试的速度和稳定性。统一翻译为测试替代）
 
 Larger tests are many things that small tests are not. They are not bound by the same constraints; thus, they can exhibit the following characteristics:
-•	They may be slow. Our large tests have a default timeout of 15 minutes or 1 hour, but we also have tests that run for multiple hours or even days.
-•	They may be nonhermetic. Large tests may share resources with other tests and traffic.
+- They may be slow. Our large tests have a default timeout of 15 minutes or 1 hour, but we also have tests that run for multiple hours or even days.
+- They may be nonhermetic. Large tests may share resources with other tests and traffic.
 - They may be nondeterministic. If a large test is nonhermetic, it is almost impossible to guarantee determinism: other tests or user state may interfere with it.
 
 较大的测试有许多是小型测试所不具备的内容。它们不受相同的约束；因此，它们可以表现出以下特征：
@@ -38,7 +38,7 @@ Also, how do you know that your code continues to work during upgrades? Suppose 
 
 Unit tests can give you confidence about individual functions, objects, and modules, but large tests provide more confidence that the overall system works as intended. And having actual automated tests scales in ways that manual testing does not.
 
-单元测试可以让你对单个功能、对象和模块有信心，但大型测试可以让你对整个系统按预期工作更有信心。而以手动测试无法实现的规模化进行实际的自动化测试。
+单元测试可以让你对单个功能、对象和模块有信心，但大型测试可以让你对整个系统按预期工作更有信心。并且拥有实际的自动化测试能以手动测试无法比拟的方式扩展。
 
 ### Fidelity 仿真度
 
@@ -177,7 +177,7 @@ Throughout this book, we have looked at the influence of time on software engine
 
 As we pointed out before, unit tests begin to make sense for software with an expected lifespan from hours on up. At the minutes level (for small scripts), manual testing is most common, and the SUT usually runs locally, but the local demo likely *is* production, especially for one-off scripts, demos, or experiments. At longer lifespans, manual testing continues to exist, but the SUTs usually diverge because the production instance is often cloud hosted instead of locally hosted.
 
-正如我们之前所指出的，单元测试对于预生命周期在几小时以上的软件开始有意义。在分钟级别（小型脚本），手动测试是最常见的，SUT通常在本地运行，但本地demo很可能*就是*生产环境，特别是对于一次性的脚本、演示或实验。在更长的生命期，手动测试继续存在，但SUT通常是分歧的，因为生产实例通常是云托管而不是本地托管。
+正如我们之前所指出的，单元测试对于预生命周期在几小时以上的软件开始有意义。在分钟级别（小型脚本），手动测试是最常见的，SUT通常在本地运行，但本地demo很可能*就是*产品，特别是对于一次性的脚本、演示或实验。在更长的生命期，手动测试继续存在，但SUT通常是分歧的，因为生产实例通常是云托管而不是本地托管。
 
 The remaining larger tests all provide value for longer-lived software, but the main concern becomes the maintainability of such tests as time increases.
 
