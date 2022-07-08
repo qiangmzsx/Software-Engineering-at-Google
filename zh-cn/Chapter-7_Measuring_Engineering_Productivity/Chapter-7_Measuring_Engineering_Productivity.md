@@ -25,19 +25,19 @@ There is another way to address our scaling problem, though: *we could make each
 
 Google has had to grow quickly into new businesses, which has meant learning how to make our engineers more productive. To do this, we needed to understand what makes them productive, identify inefficiencies in our engineering processes, and fix the identified problems. Then, we would repeat the cycle as needed in a continuous improvement loop. By doing this, we would be able to scale our engineering organization with the increased demand on it.
 
-谷歌不得不迅速发展新业务，这意味着要学习如何让我们的工程师更有效率。要做到这一点，我们需要了解是什么让他们富有成效，找出我们工程流程中的低效之处，并解决所发现的问题。然后，我们将根据需要在一个持续改进的循环中重复这个循环。通过这样做，我们将能够在需求增加的情况下扩大我们的工程组织。
+谷歌不得不迅速发展新业务，这意味着要学习如何让我们的工程师更有效率。要做到这一点，我们需要了解是什么让他们富有成效，找出我们工程流程中的低效之处，并解决所发现的问题。然后，我们将根据需要在一个持续改进的循环中重复这个循环。通过这样做，我们将能够在需求增加的情况下扩展我们的工程组织。
 
 However, this improvement cycle *also* takes human resources. It would not be worthwhile to improve the productivity of your engineering organization by the equivalent of 10 engineers per year if it took 50 engineers per year to understand and fix productivity blockers. *Therefore, our goal is to not only improve software engineering productivity, but to do so efficiently.*
 
-然而，这个改进周期*也*需要人力资源。如果每年需要50个工程师来了解和解决生产力的障碍，那么以每年10名工程师的数量来提高工程组织的生产率是不值得的。*因此，我们的目标是不仅要提高软件工程的生产效率，而且要有效地做到这一点。*
+然而，这个增量改进过程*同样*需要人力资源。如果每年需要50个工程师来了解和解决生产力的障碍，那么以每年10名工程师的数量来提高工程组织的生产率是不值得的。*因此，我们不仅要在目标上提高软件工程的生产力，而且这一改进过程也要同样高效。*
 
 At Google, we addressed these trade-offs by creating a team of researchers dedicated to understanding engineering productivity. Our research team includes people from the software engineering research field and generalist software engineers, but we also include social scientists from a variety of fields, including cognitive psychology and behavioral economics. The addition of people from the social sciences allows us to not only study the software artifacts that engineers produce, but to also understand the human side of software development, including personal motivations, incentive structures, and strategies for managing complex tasks. The goal of the team is to take a data-driven approach to measuring and improving engineering productivity.
 
-在谷歌，我们通过创建一个致力于了解工程生产效率的研究团队来解决这些权衡问题。我们的研究团队包括来自软件工程研究领域的人员和普通的软件工程师，但我们也包括来自不同领域的社会科学家，包括认知心理学和行为经济学。来自社会科学的人员的加入使我们不仅可以研究工程师生产的软件工件，还可以了解软件开发中人的一面，包括个人动机、激励结构和管理复杂任务的策略。该团队的目标是采用数据驱动的方法来衡量和提高工程生产效率。
+在谷歌，我们通过建立一个致力于了解工程生产效率的研究团队来解决这些权衡问题。我们的研究团队包括来自软件工程研究人员和普通的软件工程师，但我们也包括来自不同领域的社会学家，包括认知心理学和行为经济学。来自社会科学的人员的加入使我们不仅可以研究工程师生产的软件构件，还可以了解软件开发过程中人的一面，包括个人动机、激励结构和管理复杂任务的策略。该团队的目标是采用数据驱动的方法来衡量和提高工程生产效率。
 
 In this chapter, we walk through how our research team achieves this goal. This begins with the triage process: there are many parts of software development that we *can* measure, but what *should* we measure? After a project is selected, we walk through how the research team identifies meaningful metrics that will identify the problematic parts of the process. Finally, we look at how Google uses these metrics to track improvements to productivity.
 
-在本章中，我们将介绍我们的研究团队是如何实现这一目标的。这从分类过程开始：我们对软件开发的许多部分*可以*进行测量，但是我们应该测量什么呢？在一个项目被选中后，我们将介绍研究团队如何确定有意义的指标，以确定该过程中存在问题的部分。最后，我们看一下谷歌是如何使用这些指标来跟踪生产效率的改进。
+在本章中，我们将介绍我们的研究团队是如何实现这一目标的。这从分类过程开始：我们对软件开发的许多部分*可以*进行计量，但是我们到底应该计量什么呢？在一个项目被选中后，我们将介绍研究团队如何确定有意义的指标，以确定该过程中存在问题的部分。最后，我们看一下谷歌是如何使用这些指标来跟踪生产效率的改进。
 
 For this chapter, we follow one concrete example posed by the C++ and Java language teams at Google: readability. For most of Google’s existence, these teams have managed the readability process at Google. (For more on readability, see Chapter 3.) The readability process was put in place in the early days of Google, before automatic formatters (Chapter 8 and linters that block submission were commonplace (Chapter 9). The process itself is expensive to run because it requires hundreds of engineers performing readability reviews for other engineers in order to grant readability to them. Some engineers viewed it as an archaic hazing process that no longer held utility, and it was a favorite topic to argue about around the lunch table. The concrete question from the language teams was this: is the time spent on the readability process worthwhile?
 
@@ -52,11 +52,11 @@ For this chapter, we follow one concrete example posed by the C++ and Java langu
 
 Before we decide how to measure the productivity of engineers, we need to know when a metric is even worth measuring. The measurement itself is expensive: it takes people to measure the process, analyze the results, and disseminate them to the rest of the company. Furthermore, the measurement process itself might be onerous and slow down the rest of the engineering organization. Even if it is not slow, tracking progress might change engineers’ behavior, possibly in ways that mask the underlying issues. We need to measure and estimate smartly; although we don’t want to guess, we shouldn’t waste time and resources measuring unnecessarily.
 
-在我们决定如何测量工程师的生产效率之前，我们需要知道什么时候使用哪个指标甚至值得测量。测量本身是昂贵的：它需要人去测量过程，分析结果，并将其传播给公司的其他部门。此外，测量过程本身可能是繁琐的，会拖累工程组织的其他部门。即使它不慢，跟踪进度也可能改变工程师的行为，可能会掩盖潜在的问题。我们需要聪明地测量和估计；虽然我们不想猜测，但我们不应该浪费时间和资源进行不必要的测量。
+在我们决定如何测量工程师的生产效率之前，我们需要知道某个指标是否值得测量。测量本身是昂贵的：它需要人去测量过程，分析结果，并将其传播给公司的其他部门。此外，测量过程本身可能是繁琐的，会拖累工程组织的其他部门。即使它不慢，跟踪进度也可能改变工程师的行为，可能会掩盖潜在的问题。我们需要聪明地测量和估计；虽然我们不想猜测，但我们不应该浪费时间和资源进行不必要的测量。
 
 At Google, we’ve come up with a series of questions to help teams determine whether it’s even worth measuring productivity in the first place. We first ask people to describe what they want to measure in the form of a concrete question; we find that the more concrete people can make this question, the more likely they are to derive benefit from the process. When the readability team approached us, its question was simple: are the costs of an engineer going through the readability process worth the benefits they might be deriving for the company?
 
-在谷歌，我们想出了一系列的问题来帮助团队确定是否值得优先测量生产效率。我们首先要求人们以具体问题的形式描述他们想要测量的东西；我们发现，人们提出这个问题越具体，他们就越有可能从这个过程中获益。当可读性团队与我们接触时，其问题很简单：工程师在可读性过程中的成本是否值得他们为公司带来的好处？
+在谷歌，我们想出了一系列的问题来帮助团队确定是否值得优先测量生产效率。我们首先要求人们以具体问题的形式描述他们想要测量的东西；我们发现，人们提出这个问题越具体，他们就越有可能从这个过程中获益。当可读性团队与我们接触时，其问题很简单：工程师在提高可读性过程中的成本增加是否匹配他们为公司带来的好处？
 
 We then ask them to consider the following aspects of their question:
 
