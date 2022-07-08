@@ -129,7 +129,7 @@ Hyrum’s Law represents the practical knowledge that—even with the best of in
 海勒姆定律代表了一种实践知识，即使有最好的规划、最好的工程师和可靠的代码评审实践，我们也不能假设完全遵守已发布的契约或最佳实践。作为API所有者，通过明确地接口约定，你将获得一定的灵活性和自由度，但在实践中，给定更改的复杂性和难度还取决于用户对你的API的一些可观察行为的有用程度。如果用户不能依赖这些东西，那么你的API将很容易更改。如果有足够的时间和足够的用户，即使是最无害的变更也会破坏某些东西；你对变更价值的分析必须包含调查、识别和解决这些缺陷的难度。
 
 > [^8]:	To his credit, Hyrum tried really hard to humbly call this “The Law of Implicit Dependencies,” but “Hyrum’s Law” is the shorthand that most people at Google have settled on.\
-> 值得称道的是，海勒姆非常努力地将其称为 "隐性依赖定律"，但 "海勒姆定律 "是谷歌公司大多数人都认可的速记方法。
+> 值得称道的是，海勒姆非常努力地将其称为 "隐性依赖定律"，但 "海勒姆定律 "是谷歌公司大多数人都认可的简称。
 >
 > [^9]:	See “Workflow,” an xkcd comic.\
 > 见 "工作流程"，一幅xkcd漫画。
