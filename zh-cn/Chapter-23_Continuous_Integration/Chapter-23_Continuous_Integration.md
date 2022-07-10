@@ -94,11 +94,11 @@ In general, as issues progress to the “right” in our diagram, they become co
 
 To minimize the cost of bugs, CI encourages us to use *fast feedback loops.*[^3] Each time we integrate a code (or other) change into a testing scenario and observe the results, we get a new *feedback loop*. Feedback can take many forms; following are some common ones (in order of fastest to slowest):
 - The edit-compile-debug loop of local development
--  Automated test results to a code change author on presubmit
--  An integration error between changes to two projects, detected after both are submitted and tested together (i.e., on post-submit)
--  An incompatibility between our project and an upstream microservice dependency, detected by a QA tester in our staging environment, when the upstream service deploys its latest changes
--  Bug reports by internal users who are opted in to a feature before external users
--  Bug or outage reports by external users or the press
+- Automated test results to a code change author on presubmit
+- An integration error between changes to two projects, detected after both are submitted and tested together (i.e., on post-submit)
+- An incompatibility between our project and an upstream microservice dependency, detected by a QA tester in our staging environment, when the upstream service deploys its latest changes
+- Bug reports by internal users who are opted in to a feature before external users
+- Bug or outage reports by external users or the press
 
 为了使bug的代价最小化，CI鼓励我们使用*快速反馈环*。每次我们将代码（或其他）变化集成到测试场景中并观察结果时，我们就会得到一个新的*反馈回路*。反馈可以有很多形式；下面是一些常见的形式（按从快到慢的顺序）:
 - 本地开发的编辑-编译-调试回路
@@ -624,9 +624,9 @@ So, the team reused the sandboxed environments from presubmit, easily extending 
 
 **Lesson learned.** Faster feedback loops prevent problems in dev deploys:
 
--   Moving tests for different Takeout products from “after nightly deploy” to presubmit prevented 95% of broken servers from bad configuration and reduced nightly deployment failures by 50%.
+- Moving tests for different Takeout products from “after nightly deploy” to presubmit prevented 95% of broken servers from bad configuration and reduced nightly deployment failures by 50%.
 
--   Though end-to-end tests couldn’t be moved all the way to presubmit, they were still moved from “after nightly deploy” to “post-submit within two hours.” This effectively cut the “culprit set” by 12 times.
+- Though end-to-end tests couldn’t be moved all the way to presubmit, they were still moved from “after nightly deploy” to “post-submit within two hours.” This effectively cut the “culprit set” by 12 times.
 
 **经验教训。**更快的反馈循环防止了开发部署中的问题：
 

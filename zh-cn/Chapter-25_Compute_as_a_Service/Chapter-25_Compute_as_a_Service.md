@@ -18,9 +18,9 @@ After doing the hard work of writing code, you need some hardware to run it. Thu
 
 This chapter is about how this simple concept—just give me the hardware to run my stuff[^1]—maps into a system that will survive and scale as your organization evolves and grows. It is somewhat long because the topic is complex, and divided into four sections:
 - [“Taming the Compute Environment” on page 518 ](#_bookmark2134)covers how Google arrived at its solution for this problem and explains some of the key concepts of CaaS.
--  [“Writing Software for Managed Compute” on page 523 ](#_bookmark2156)shows how a managed compute solution affects how engineers write software. We believe that the “cattle, not pets”/flexible scheduling model has been fundamental to Google’s success in the past 15 years and is an important tool in a software engineer’s toolbox.
--  [“CaaS Over Time and Scale” on page 530 ](#_bookmark2183)goes deeper into a few lessons Google learned about how various choices about a compute architecture play out as the organization grows and evolves.
--  Finally, [“Choosing a Compute Service” on page 535](#_bookmark2202) is dedicated primarily to those engineers who will make a decision about what compute service to use in their organization.
+- [“Writing Software for Managed Compute” on page 523 ](#_bookmark2156)shows how a managed compute solution affects how engineers write software. We believe that the “cattle, not pets”/flexible scheduling model has been fundamental to Google’s success in the past 15 years and is an important tool in a software engineer’s toolbox.
+- [“CaaS Over Time and Scale” on page 530 ](#_bookmark2183)goes deeper into a few lessons Google learned about how various choices about a compute architecture play out as the organization grows and evolves.
+- Finally, [“Choosing a Compute Service” on page 535](#_bookmark2202) is dedicated primarily to those engineers who will make a decision about what compute service to use in their organization.
 
 本章讲述的是这个简单的概念--如何为我提供硬件--如何组成一个系统，随着你的组织的发展和壮大而生存和扩展。本章有点长，因为主题很复杂，分为四个部分：
 - 第518页的 "驯服计算环境"涵盖了谷歌是如何得出这个问题的解决方案的，并解释了CaaS的一些关键概念。
@@ -103,7 +103,7 @@ All of these improvements systematically deal with the growing scale of the orga
 ### Containerization and Multitenancy 容器化和多租户
 
 So far, we implicitly assumed a one-to-one mapping between machines and the programs running on them. This is highly inefficient in terms of computing resource (RAM, CPU) consumption, in many ways:
--  It’s very likely to have many more different types of jobs (with different resource requirements) than types of machines (with different resource availability), so many jobs will need to use the same machine type (which will need to be provisioned for the largest of them).
+- It’s very likely to have many more different types of jobs (with different resource requirements) than types of machines (with different resource availability), so many jobs will need to use the same machine type (which will need to be provisioned for the largest of them).
 - Machines take a long time to deploy, whereas program resource needs grow over time. If obtaining new, larger machines takes your organization months, you need to also make them large enough to accommodate expected growth of resource needs over the time needed to provision new ones, which leads to waste, as new machines are not utilized to their full capacity.[^3]
 - Even when the new machines arrive, you still have the old ones (and it’s likely wasteful to throw them away), and so you must manage a heterogeneous fleet that does not adapt itself to your needs.
 

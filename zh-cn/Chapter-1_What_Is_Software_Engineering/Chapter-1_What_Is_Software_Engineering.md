@@ -32,10 +32,10 @@ This distinction is at the core of what we call sustainability for software. You
 
 Another way to look at software engineering is to consider scale. How many people are involved? What part do they play in the development and maintenance over time? A programming task is often an act of individual creation, but a software engineering task is a team effort. An early attempt to define software engineering produced a good definition for this viewpoint: “The multiperson development of multiversion programs.”[^4] This suggests the difference between software engineering and programming is one of both time and people. Team collaboration presents new problems, but also provides more potential to produce valuable systems than any single programmer could.
 
-另一种看待软件工程的方法是考虑规模。有多少人参与？随着时间的推移，他们在开发和维护中扮演什么角色？编程任务通常是个人创建的行为，但软件工程任务是团队的工作。早期定义软件工程的尝试为这一观点提供了一个很好的定义：“多人开发的多版本程序”。这表明软件工程和程序设计之间的区别是时间和人的区别。团队协作带来了新的问题，但也提供了比任任何单个程序员更多的潜力来产生有价值的系统。
+另一种看待软件工程的方法是考虑规模。有多少人参与？随着时间的推移，他们在开发和维护中扮演什么角色？编程任务通常是个人的创造行为，但软件工程任务是团队的工作。早期定义软件工程的尝试为这一观点提供了一个很好的定义：“多人开发的多版本程序”。这表明软件工程和程序设计之间的区别是时间和人的区别。团队协作带来了新的问题，但也提供了比任何单个程序员更多的潜力来产生有价值的系统。
 
 > [^2]: This is perhaps a reasonable hand-wavy definition of technical debt: things that “should” be done, but aren’t yet—the delta between our code and what we wish it was.\
-> 这也许是一个合理的技术债务定义：那些“应该”做的事情，但还不是我们的代码和我们希望它是什么之间的增量。
+> 这也许是一个合理且简单的技术债务定义：那些“应该”做却还未完成的事————我们代码的现状和理想代码之间的差距。
 >
 > [^3]: Also consider the issue of whether we know ahead of time that a project is going to be long lived.\
 > 也要考虑我们是否提前知道项目将长期存在的问题。  
@@ -87,14 +87,14 @@ Consider [Figure 1-1](#_bookmark20), which demonstrates two software projects on
 
 The low and high points on the expected life span spectrum suggest that there’s a transition somewhere. Somewhere along the line between a one-off program and a project that lasts for decades, a transition happens: a project must begin to react to changing externalities.[^7] For any project that didn’t plan for upgrades from the start, that transition is likely very painful for three reasons, each of which compounds the others:
 
--   You’re performing a task that hasn’t yet been done for this project; more hidden assumptions have been baked-in.
--   The engineers trying to do the upgrade are less likely to have experience in this sort of task.
--   The size of the upgrade is often larger than usual, doing several years’ worth of upgrades at once instead of a more incremental upgrade.
+- You’re performing a task that hasn’t yet been done for this project; more hidden assumptions have been baked-in.
+- The engineers trying to do the upgrade are less likely to have experience in this sort of task.
+- The size of the upgrade is often larger than usual, doing several years’ worth of upgrades at once instead of a more incremental upgrade.
 
 预期生命周期范围的低点和高点表明某处有一个过渡。介于一次性计划和持续十年的项目，发生了转变：一个项目必须开始对不断变化的外部因素做出反应。对于任何一个从一开始就没有升级计划的项目，这种转变可能会非常痛苦，原因有三个，每一个都会使其他原因变得复杂：
--   你正在执行本项目尚未完成的任务；更多隐藏的假设已经成立。
--   尝试进行升级的工程师不太可能具有此类任务的经验。
--   升级的规模通常比平时大，一次完成几年的升级，而不是增量升级。
+- 你正在执行本项目尚未完成的任务；更多隐藏的假设已经成立。
+- 尝试进行升级的工程师不太可能具有此类任务的经验。
+- 升级的规模通常比平时大，一次完成几年的升级，而不是增量升级。
 
 And thus, after actually going through such an upgrade once (or giving up part way through), it’s pretty reasonable to overestimate the cost of doing a subsequent upgrade and decide “Never again.” Companies that come to this conclusion end up committing to just throwing things out and rewriting their code, or deciding to never upgrade again. Rather than take the natural approach by avoiding a painful task, sometimes the more responsible answer is to invest in making it less painful. It all depends on the cost of your upgrade, the value it provides, and the expected life span of the project in question.
 
@@ -129,7 +129,7 @@ Hyrum’s Law represents the practical knowledge that—even with the best of in
 海勒姆定律代表了一种实践知识，即使有最好的规划、最好的工程师和可靠的代码评审实践，我们也不能假设完全遵守已发布的契约或最佳实践。作为API所有者，通过明确地接口约定，你将获得一定的灵活性和自由度，但在实践中，给定更改的复杂性和难度还取决于用户对你的API的一些可观察行为的有用程度。如果用户不能依赖这些东西，那么你的API将很容易更改。如果有足够的时间和足够的用户，即使是最无害的变更也会破坏某些东西；你对变更价值的分析必须包含调查、识别和解决这些缺陷的难度。
 
 > [^8]:	To his credit, Hyrum tried really hard to humbly call this “The Law of Implicit Dependencies,” but “Hyrum’s Law” is the shorthand that most people at Google have settled on.\
-> 值得称道的是，海勒姆非常努力地将其称为 "隐性依赖定律"，但 "海勒姆定律 "是谷歌公司大多数人都认可的速记方法。
+> 值得称道的是，海勒姆非常努力地将其称为 "隐性依赖定律"，但 "海勒姆定律 "是谷歌公司大多数人都认可的简称。
 >
 > [^9]:	See “Workflow,” an xkcd comic.\
 > 见 "工作流程"，一幅xkcd漫画。
@@ -156,7 +156,7 @@ Most programmers know that hash tables are non-obviously ordered. Few know the s
 - Per Hyrum’s Law, programmers will write programs that depend on the order in which a hash table is traversed, if they have the ability to do so.
 
 大多数程序员都知道哈希表是无序的。很少有人知道他们使用的特定哈希表是否打算永远提供特定的排序。这似乎不起眼，但在过去的一二十年中，计算行业使用这类类型的经验不断发展：
-- 散列洪水10次攻击增加了非确定性哈希迭代的动力。
+- 哈希洪水攻击增加了非确定性哈希迭代的动力。
 - 研究改进的散列算法或散列容器的潜在效率收益需要更改散列迭代顺序。
 - 根据海勒姆定律，如有能力程序员可根据哈希表的遍历顺序编写程序。
 
@@ -166,7 +166,7 @@ As a result, if you ask any expert “Can I assume a particular output sequence 
 
 This is a very basic example of the difference between “it works” and “it is correct.” For a short-lived program, depending on the iteration order of your containers will not cause any technical problems. For a software engineering project, on the other hand, such reliance on a defined order is a risk—given enough time, something will make it valuable to change that iteration order. That value can manifest in a number of ways, be it efficiency, security, or merely future-proofing the data structure to allow for future changes. When that value becomes clear, you will need to weigh the trade- offs between that value and the pain of breaking your developers or customers.
 
-这是“有效”和“正确”之间区别的一个非常基本的例子。对于一个短期的程序，取决于容器的迭代顺序不会导致任何技术问题。另一方面，对于一个软件工程项目来说，如果有足够的时间，这种对已定义顺序的依赖是一种风险使更改迭代顺序变得有价值。这种价值可以通过多种方式体现出来，无论是效率、安全性，还是仅仅是数据结构的未来验证，以允许将来的更改。当这一价值变得清晰时，你需要权衡这一价值与破坏开发人员或客户的痛苦之间的平衡。
+这是“可用”和“正确”之间区别的一个非常基本的例子。对于一个短期的程序，依赖容器的迭代顺序不会导致任何技术问题。另一方面，对于一个软件工程项目来说，如果有足够的时间，这种对已定义顺序的依赖是一种风险使更改迭代顺序变得有价值。这种价值可以通过多种方式体现出来，无论是效率、安全性，还是仅仅是数据结构的未来验证，以允许将来的更改。当这一价值变得清晰时，你需要权衡这一价值与破坏开发人员或客户的痛苦之间的平衡。
 
 
 > [^10]: A type of Denial-of-Service (DoS) attack in which an untrusted user knows the structure of a hash table and the hash function and provides data in such a way as to degrade the algorithmic performance of operations on the table.\
@@ -179,7 +179,7 @@ Some languages specifically randomize hash ordering between library versions or 
 
 Thinking over the differences between code written with a “works now” and a “works indefinitely” mentality, we can extract some clear relationships. Looking at code as an artifact with a (highly) variable lifetime requirement, we can begin to categorize programming styles: code that depends on brittle and unpublished features of its dependencies is likely to be described as “hacky” or “clever,” whereas code that follows best practices and has planned for the future is more likely to be described as “clean” and “maintainable.” Both have their purposes, but which one you select depends crucially on the expected life span of the code in question. We’ve taken to saying, “It’s programming if ‘clever’ is a compliment, but it’s software engineering if ‘clever’ is an accusation.” 
 
-思考一下用“现在工作”和“不限期工作”心态编写的代码之间的差异，我们可以提取出一些明确的关系。将代码视为具有（高度）可变生命周期需求的构件，我们可以开始对编程风格进行分类：依赖其依赖性的脆弱和未发布特性的代码可能被描述为“黑客”或“聪明”而遵循最佳实践并为未来规划的代码更可能被描述为“干净”和“可维护”。两者都有其目的，但你选择哪一个关键取决于所讨论代码的预期生命周期。我们常说，“如果‘聪明’是一种恭维，那就是程序，如果‘聪明’是一种指责，那就是软件工程。”  
+思考一下用“当前可用”和“一直可用”心态编写的代码之间的差异，我们可以提取出一些明确的关系。将代码视为具有（高度）可变生命周期需求的构件，我们可以开始对编程风格进行分类：依赖其依赖性的脆弱和未发布特性的代码可能被描述为“黑客”或“聪明”而遵循最佳实践并为未来规划的代码更可能被描述为“干净”和“可维护”。两者都有其目的，但你选择哪一个关键取决于所讨论代码的预期生命周期。我们常说，“如果‘聪明’是一种恭维，那就是程序，如果‘聪明’是一种指责，那就是软件工程。”  
 
 ### Why Not Just Aim for “Nothing Changes”? 为什么不以“无变化”为目标？
 Implicit in all of this discussion of time and the need to react to change is the assumption that change might be necessary. Is it?
@@ -192,7 +192,7 @@ As with effectively everything else in this book, it depends. We’ll readily co
 
 Most projects have far more exposure to shifting underlying technology. Most programming languages and runtimes change much more than C does. Even libraries implemented in pure C might change to support new features, which can affect downstream users. Security problems are disclosed in all manner of technology, from processors to networking libraries to application code. Every piece of technology upon which your project depends has some (hopefully small) risk of containing critical bugs and security vulnerabilities that might come to light only after you’ve started relying on it. If you are incapable of deploying a patch for Heartbleed or mitigating speculative execution problems like Meltdown and Spectre because you’ve assumed (or promised) that nothing will ever change, that is a significant gamble.
 
-大多数项目更多地接触到不断变化的基础技术。大多数编程语言和运行时的变化要比C大得多。甚至用纯C实现的库也可能改变以支持新特性，这可能会影响下游用户。从处理器到网络库，再到应用程序代码，各种技术都会暴露安全问题。你的项目所依赖的每一项技术都有一些（希望很小）包含关键bug和安全漏洞的风险，这些漏洞只有在你开始依赖它之后才会暴露出来。如果你无法部署心脏出血或缓解症状的修补程序投机的执行问题，如熔毁和幽灵，因为你假设（或保证）什么都不会改变，这是一场巨大的赌博。
+大多数项目更多地接触到不断变化的基础技术。大多数编程语言和运行时的变化要比C大得多。甚至用纯C实现的库也可能改变以支持新特性，这可能会影响下游用户。从处理器到网络库，再到应用程序代码，各种技术都会暴露安全问题。你的项目所依赖的每一项技术都有一些（希望很小）包含关键bug和安全漏洞的风险，这些漏洞只有在你开始依赖它之后才会暴露出来。如果你无法部署心脏出血或缓解推测性执行漏洞（如熔毁和幽灵）的修补程序，因为你假设（或保证）什么都不会改变，这是一场巨大的赌博。
 
 Efficiency improvements further complicate the picture. We want to outfit our datacenters with cost-effective computing equipment, especially enhancing CPU efficiency. However, algorithms and data structures from early-day Google are simply less efficient on modern equipment: a linked-list or a binary search tree will still work fine, but the ever-widening gap between CPU cycles versus memory latency impacts what “efficient” code looks like. Over time, the value in upgrading to newer hardware can be diminished without accompanying design changes to the software. Backward compatibility ensures that older systems still function, but that is no guarantee that old optimizations are still helpful. Being unwilling or unable to take advantage of such opportunities risks incurring large costs. Efficiency concerns like this are particularly subtle: the original design might have been perfectly logical and following reasonable best practices. It’s only after an evolution of backward-compatible changes that a new, more efficient option becomes important. No mistakes were made, but the passage of time still made change valuable.
 
@@ -321,7 +321,7 @@ Through this and other experiences, we’ve discovered many factors that affect 
 
 The underlying lesson is not about the frequency or difficulty of compiler upgrades, but that as soon as we became aware that compiler upgrade tasks were necessary, we found ways to make sure to perform those tasks with a constant number of engineers, even as the codebase grew.[^16] If we had instead decided that the task was too expensive and should be avoided in the future, we might still be using a decade-old compiler version. We would be paying perhaps 25% extra for computational resources as a result of missed optimization opportunities. Our central infrastructure could be vulnerable to significant security risks given that a 2006-era compiler is certainly not helping to mitigate speculative execution vulnerabilities. Stagnation is an option, but often not a wise one.
 
-潜在的教训不是关于编译器升级的频率或难度，而是一旦我们意识到编译器升级任务是必要的，我们就找到了方法，确保在代码库增长的情况下，由固定数量的工程师执行这些任务。如果我们认为任务成本太高，应该学会避免，我们可以仍然使用十年前的编译器版本。由于错过了优化机会，我们需要额外支付25%的计算资源。考虑到2006年的编译器对缓解推测性执行漏洞没有效果，我们的中央基础设施可能会面临重大的安全风险风险，这不是一个明智的选择。
+潜在的教训不是关于编译器升级的频率或难度，而是一旦我们意识到编译器升级任务是必要的，我们就找到了方法，确保在代码库增长的情况下，由固定数量的工程师执行这些任务。如果我们认为任务成本太高，应该学会避免，我们可以仍然使用十年前的编译器版本。由于错过了优化机会，我们需要额外支付25%的计算资源。考虑到2006年的编译器对缓解推测性执行漏洞没有效果，我们的中央基础设施可能会面临重大的安全风险，这不是一个明智的选择。
 
 > [^15]: Beyer et al. Site Reliability Engineering: How Google Runs Production Systems, Chapter 5, “Eliminating Toil.”\
 > Beyer等人，《SRE：Google运维解密》,第五章 减少琐事。
@@ -378,7 +378,7 @@ In addition to the aforementioned costs (or our estimate of them), there are bia
 
 In many organizations, whiteboard markers are treated as precious goods. They are tightly controlled and always in short supply. Invariably, half of the markers at any given whiteboard are dry and unusable. How often have you been in a meeting that was disrupted by lack of a working marker? How often have you had your train of thought derailed by a marker running out? How often have all the markers just gone missing, presumably because some other team ran out of markers and had to abscond with yours? All for a product that costs less than a dollar.
 
-在许多组织中，白板标记被视为贵重物品。它们受到严格的控制，而且总是供不应求。在任何的白板上，都有一半的记号笔是干的，无法使用。你参加会议的频次有多少，因为缺少记号笔而中断？你的思路因一个记号笔用完了？有多少次所有的记号笔都不见了，大概是因为其他团队的记号笔用完了，不得不拿走你的记号笔？所有这些都是为了一个价格不到一美元的产品。
+在许多组织中，白板记号笔被视为贵重物品。它们受到严格的控制，而且总是供不应求。在任何的白板上，都有一半的记号笔是干的，无法使用。你有多少次因为没有一个好用的记号笔而中断会议进程？多少次因为记号笔水用完而打断思考？多少次所有的记号笔都不见了，大概是因为其他团队的记号笔用完了，不得不拿走你的记号笔？所有这些都是因为一个价格不到一美元的产品。
 
 Google tends to have unlocked closets full of office supplies, including whiteboard markers, in most work areas. With a moment’s notice it is easy to grab dozens of markers in a variety of colors. Somewhere along the line we made an explicit trade- off: it is far more important to optimize for obstacle-free brainstorming than to protect against someone wandering off with a bunch of markers.
 
@@ -403,7 +403,7 @@ Decisions should not be “We are doing this because I said so.”[^17]
 > [^17]: This is not to say that decisions need to be made unanimously, or even with broad consensus; in the end, someone must be the decider. This is primarily a statement of how the decision-making process should flow for whoever is actually responsible for the decision.\
 > 这并不是说决策需要一致做出，甚至需要有广泛的共识；最终，必须有人成为决策者。这主要是说明决策过程应该如何为实际负责决策的人进行。
 
-### Inputs to Decision Making 对决策的投入
+### Inputs to Decision Making 对决策的输入
 When we are weighing data, we find two common scenarios:
 - All of the quantities involved are measurable or can at least be estimated. This usually means that we’re evaluating trade-offs between CPU and network, or dollars and RAM, or considering whether to spend two weeks of engineer-time in order to save N CPUs across our datacenters.
 - Some of the quantities are subtle, or we don’t know how to measure them. Sometimes this manifests as “We don’t know how much engineer-time this will take.” Sometimes it is even more nebulous: how do you measure the engineering cost of a poorly designed API? Or the societal impact of a product choice?
@@ -447,11 +447,12 @@ Overall, the saved costs associated with adding a distributed build system far, 
 
 ### Example: Deciding Between Time and Scale 示例：在时间和规模之间做决定
 Much of the time, our major themes of time and scale overlap and work in conjunction. A policy like the Beyoncé Rule scales well and helps us maintain things over time. A change to an OS interface might require many small refactorings to adapt to, but most of those changes will scale well because they are of a similar form: the OS change doesn’t manifest differently for every caller and every project.
+
 很多时候，我们关于时间和规模的主题相互重合，相互影响。符合碧昂斯规则策略具备可扩展性，并帮助我们长期维护事物。对操作系统接口的更改需要许多小的重构来适应，但这些更改中的大多数都可以很好地扩展，因为它们具有相似的形式： 操作系统的变化对每个调用者和每个项目都没有不同的表现。
 
 Occasionally time and scale come into conflict, and nowhere so clearly as in the basic question: should we add a dependency or fork/reimplement it to better suit our local needs?
 
-有时时间和规模会发生冲突，最明显的是基本问：我们应该添加一个依赖性，还是分支/重新实现它，来更好地满足我们的需求？
+有时时间和规模会发生冲突，而且没有什么地方能像在基本问题中那么明显：我们应该添加一个依赖性，还是分支/重新实现它，来更好地满足我们的需求？
 
 This question can arise at many levels of the software stack because it is regularly the case that a bespoke solution customized for your narrow problem space may outperform the general utility solution that needs to handle all possibilities. By forking or reimplementing utility code and customizing it for your narrow domain, you can add new features with greater ease, or optimize with greater certainty, regardless of whether we are talking about a microservice, an in-memory cache, a compression routine, or anything else in our software ecosystem. Perhaps more important, the control you gain from such a fork isolates you from changes in your underlying dependencies: those changes aren’t dictated by another team or third-party provider. You are in control of how and when to react to the passage of time and necessity to change.
 

@@ -398,8 +398,8 @@ The key to learning from your mistakes is to document your failures by performin
 
 A good postmortem should include the following:
 - A brief summary of the event
--  A timeline of the event, from discovery through investigation to resolution
--  The primary cause of the event
+- A timeline of the event, from discovery through investigation to resolution
+- The primary cause of the event
 - Impact and damage assessment
 - A set of action items (with owners) to fix the problem immediately
 - A set of action items to prevent the event from happening again
@@ -501,7 +501,7 @@ The foundation for almost any software endeavor—of almost any size—is a well
 
 ## TL;DRs  内容提要
 
--  Be aware of the trade-offs of working in isolation.
+- Be aware of the trade-offs of working in isolation.
 - Acknowledge the amount of time that you and your team spend communicating and in interpersonal conflict. A small investment in understanding personalities and working styles of yourself and others can go a long way toward improving productivity.
 - If you want to work effectively with a team or a large organization, be aware of your preferred working style and that of others.
 

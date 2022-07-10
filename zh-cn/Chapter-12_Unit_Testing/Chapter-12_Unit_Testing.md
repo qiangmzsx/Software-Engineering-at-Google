@@ -105,7 +105,7 @@ The takeaway is that after you write a test, you shouldn’t need to touch that 
 
 Now that we understand our goal, let’s look at some practices for making sure that tests don’t need to change unless the requirements of the system being tested change. By far the most important way to ensure this is to write tests that invoke the system being tested in the same way its users would; that is, make calls against its public API [rather than its implementation details](https://oreil.ly/ijat0). If tests work the same way as the system’s users, by definition, change that breaks a test might also break a user. As an additional bonus, such tests can serve as useful examples and documentation for users.
 
-现在我们了解了我们的目标，让我们看看一些做法，以确保测试不需要改变，除非被测试系统的需求改变。到目前为止，确保这一点的最重要的方法是编写测试，以与用户相同的方式调用正在测试的系统；也就是说，针对其公共API[而不是其实现细节]进行调用（https://oreil.ly/ijat0）。如果测试的工作方式与系统的用户相同，根据定义，破坏测试的变化也可能破坏用户。作为一个额外的好处，这样的测试可以作为用户的有用的例子和文档。
+现在我们了解了我们的目标，让我们看看一些做法，以确保测试不需要改变，除非被测试系统的需求改变。到目前为止，确保这一点的最重要的方法是编写测试，以与用户相同的方式调用正在测试的系统；也就是说，针对其公共API[而不是其实现细节](https://oreil.ly/ijat0)进行调用。如果测试的工作方式与系统的用户相同，根据定义，破坏测试的变化也可能破坏用户。作为一个额外的好处，这样的测试可以作为用户的有用的例子和文档。
 
 Consider [Example 12-1](#_bookmark959), which validates a transaction and saves it to a database.
 
@@ -199,9 +199,9 @@ It’s not always clear what constitutes a “public API,” and the question re
 
 Defining an appropriate scope for a unit and hence what should be considered the public API is more art than science, but here are some rules of thumb:
 
--  If a method or class exists only to support one or two other classes (i.e., it is a “helper class”), it probably shouldn’t be considered its own unit, and its functionality should be tested through those classes instead of directly.
--  If a package or class is designed to be accessible by anyone without having to consult with its owners, it almost certainly constitutes a unit that should be tested directly, where its tests access the unit in the same way that the users would.
--   If a package or class can be accessed only by the people who own it, but it is designed to provide a general piece of functionality useful in a range of contexts (i.e., it is a “support library”), it should also be considered a unit and tested directly. This will usually create some redundancy in testing given that the support library’s code will be covered both by its own tests and the tests of its users. However, such redundancy can be valuable: without it, a gap in test coverage could be introduced if one of the library’s users (and its tests) were ever removed.
+- If a method or class exists only to support one or two other classes (i.e., it is a “helper class”), it probably shouldn’t be considered its own unit, and its functionality should be tested through those classes instead of directly.
+- If a package or class is designed to be accessible by anyone without having to consult with its owners, it almost certainly constitutes a unit that should be tested directly, where its tests access the unit in the same way that the users would.
+- If a package or class can be accessed only by the people who own it, but it is designed to provide a general piece of functionality useful in a range of contexts (i.e., it is a “support library”), it should also be considered a unit and tested directly. This will usually create some redundancy in testing given that the support library’s code will be covered both by its own tests and the tests of its users. However, such redundancy can be valuable: without it, a gap in test coverage could be introduced if one of the library’s users (and its tests) were ever removed.
 
 为一个单元定义一个合适的范围，因此应该将其视为公共API，这与其说是科学，不如说是艺术，但这里有一些经验法则：
 
@@ -209,7 +209,7 @@ Defining an appropriate scope for a unit and hence what should be considered the
 
 - 如果一个包或类被设计成任何人都可以访问，而不需要咨询其所有者，那么它几乎肯定构成了一个应该直接测试的单元，它的测试以用户的方式访问该单元。
 
-- 如果一个包或类只能由拥有它的人访问，但它的设计目的是提供在各种上下文中有用的通用功能（即，它是一个“支持库”），还应将其视为一个单元并直接进行测试。这通常会在测试中产生一些冗余，因为支持库的代码会被它自己的测试和用户的测试所覆盖。然而，这种冗余可能是有价值的：如果没有它，如果库的一个用户（和它的测试）被删除，测试覆盖率就会出现缺口。
+- 如果一个包或类只能由拥有它的人访问，但它的设计目的是提供在各种上下文中有用的通用功能（即，它是一个“支持库”），也应将其视为一个单元并直接进行测试。这通常会在测试中产生一些冗余，因为支持库的代码会被它自己的测试和用户的测试所覆盖。然而，这种冗余可能是有价值的：如果没有它，如果库的一个用户（和它的测试）被删除，测试覆盖率就会出现缺口。
 
 At Google, we’ve found that engineers sometimes need to be persuaded that testing via public APIs is better than testing against implementation details. The reluctance is understandable because it’s often much easier to write tests focused on the piece of code you just wrote rather than figuring out how that code affects the system as a whole. Nevertheless, we have found it valuable to encourage such practices, as the extra upfront effort pays for itself many times over in reduced maintenance burden. Testing against public APIs won’t completely prevent brittleness, but it’s the most important thing you can do to ensure that your tests fail only in the event of meaningful changes to your system.
 
@@ -397,8 +397,8 @@ The extra boilerplate required to split apart the single test is more than worth
 
 拆分单个测试所需的额外模板文件非常值得，并且最终的测试比原来测试更清晰。行为驱动测试往往比面向方法的测试更清晰，原因有几个。首先，它们阅读起来更像自然语言，让人们自然地理解它们，而不需要语言繁琐的心理分析。其次，它们更清楚地表达了因果关系，因为每个测试的范围都更有限。最后，每个测试都很短且描述性强，这一事实使我们更容易看到已经测试了哪些功能，并鼓励工程师添加新的简洁测试方法，而不是堆积在现有方法上。
 
-> [^4]: See https://testing.googleblog.com/2014/04/testing-on-toilet-test-behaviors-not.html and https://dannorth.net/ introducing-bdd./
-> 4 见https://testing.googleblog.com/2014/04/testing-on-toilet-test-behaviors-not.html 和 https://dannorth.net/ 介绍-bdd。
+> 4	See https://testing.googleblog.com/2014/04/testing-on-toilet-test-behaviors-not.html and https://dannorth.net/introducing-bdd./
+> 4 见 https://testing.googleblog.com/2014/04/testing-on-toilet-test-behaviors-not.html 和 https://dannorth.net/introducing-bdd。
 >
 > [^5]: Furthermore, a feature (in the product sense of the word) can be expressed as a collection of behaviors./
 > 5 此外，一个特征（在这个词的产品意义上）可以被表达为一个行为的集合。
@@ -407,7 +407,7 @@ The extra boilerplate required to split apart the single test is more than worth
 
 Thinking about tests as being coupled to behaviors instead of methods significantly affects how they should be structured. Remember that every behavior has three parts: a “given” component that defines how the system is set up, a “when” component that defines the action to be taken on the system, and a “then” component that validates the result.[^6] Tests are clearest when this structure is explicit. Some frameworks like Cucumber and Spock directly bake in given/when/then. Other languages can use whitespace and optional comments to make the structure stand out, such as that shown in Example 12-11.
 
-将测试视为与行为而非方法相耦合会显著影响测试的结构。请记住，每个行为都有三个部分：一个是定义系统如何设置的 "给定 "组件，一个是定义对系统采取的行动的 "何时 "组件，以及一个验证结果的 "何时 "组件。当此结构是显式的时，测试是最清晰的。一些框架（如Cucumber和Spock）直接在给定的/when/then中烘焙。其他语言可以使用空格和可选注释使结构突出，如示例12-11所示。
+将测试视为与行为而非方法相耦合会显著影响测试的结构。请记住，每个行为都有三个部分：一个是定义系统如何设置的 "given "组件，一个是定义对系统采取的行动的 "when "组件，以及一个验证结果的 "then "组件。当此结构是显式的时，测试是最清晰的。一些框架（如Cucumber和Spock）直接加入了given/when/then的功能支持。其他语言可以使用空格和可选注释使结构突出，如示例12-11所示。
 
 *Example 12-11. A well-structured test*  *例12-11. 一个结构良好的测试*
 
@@ -438,7 +438,7 @@ This level of description isn’t always necessary in trivial tests, and it’s 
 
 1. 读者可以从测试方法的名称开始（下面讨论），以获得对被测试行为的粗略描述。
 
-2. 如果这还不够，读者可以查看给定的/when/then注释，以获得行为的正式描述。
+2.	如果这还不够，读者可以查看given/when/then注释，以获得行为的正式描述。
 
 3. 最后，读者可以查看实际代码，以准确地看到该行为是如何表达的。
 
@@ -578,7 +578,7 @@ public void shouldNavigateToPhotosPage() {
 
 When the whole string is written out, we can see right away that we’re expecting two slashes in the URL instead of just one. If the production code made a similar mistake, this test would fail to detect a bug. Duplicating the base URL was a small price to pay for making the test more descriptive and meaningful (see the discussion of DAMP versus DRY tests later in this chapter).
 
-当写出整个字符串时，我们可以立即看到，我们期望URL中有两个斜杠，而不是一个。如果产品代码犯了类似的错误，此测试将无法检测到错误。复制基本URL是为了使测试更具描述性和意义而付出的小代价（见本章后面关于DAMP与DRY测试的讨论）。
+当写出整个字符串时，我们可以立即看到，我们期望URL中有两个斜杠，而不是一个。如果产品代码犯了类似的错误，此测试将无法检测到错误。重复基本URL是为了使测试更具描述性和意义而付出的小代价（见本章后面关于DAMP与DRY测试的讨论）。
 
 If humans are bad at spotting bugs from string concatenation, we’re even worse at spotting bugs that come from more sophisticated programming constructs like loops and conditionals. The lesson is clear: in test code, stick to straight-line code over clever logic, and consider tolerating some duplication when it makes the test more descriptive and meaningful. We’ll discuss ideas around duplication and code sharing later in this chapter.
 
@@ -640,7 +640,7 @@ if result != 5 {
 
 One final aspect of writing clear tests and avoiding brittleness has to do with code sharing. Most software attempts to achieve a principle called DRY—“Don’t Repeat Yourself.” DRY states that software is easier to maintain if every concept is canonically represented in one place and code duplication is kept to a minimum. This approach is especially valuable in making changes easier because an engineer needs to update only one piece of code rather than tracking down multiple references. The downside to such consolidation is that it can make code unclear, requiring readers to follow chains of references to understand what the code is doing.
 
-编写清晰的测试和避免脆弱性的最后一个方面与代码共享有关。大多数软件都试图实现一个称为DRY的原则——“不要重复你自己。”DRY指出，如果每个概念都在一个地方被规范地表示，并且代码复制保持在最低限度，那么软件就更容易维护。这种方法在简化更改方面尤其有用，因为工程师只需要更新一段代码，而不需要跟踪多个引用。。这种合并的缺点是，它可能会使代码变得不清楚，需要读者跟随引用链来理解代码在做什么。
+编写清晰的测试和避免脆弱性的最后一个方面与代码共享有关。大多数软件都试图实现一个称为DRY的原则——“不要重复你自己。”DRY指出，如果每个概念都在一个地方被规范地表示，并且代码重复保持在最低限度，那么软件就更容易维护。这种方法在简化更改方面尤其有用，因为工程师只需要更新一段代码，而不需要跟踪多个引用。。这种合并的缺点是，它可能会使代码变得不清楚，需要读者跟随引用链来理解代码在做什么。
 
 In normal production code, that downside is usually a small price to pay for making code easier to change and work with. But this cost/benefit analysis plays out a little differently in the context of test code. Good tests are designed to be stable, and in fact you usually want them to break when the system being tested changes. So DRY doesn’t have quite as much benefit when it comes to test code. At the same time, the costs of complexity are greater for tests: production code has the benefit of a test suite to ensure that it keeps working as it becomes complex, whereas tests must stand by themselves, risking bugs if they aren’t self-evidently correct. As mentioned earlier, something has gone wrong if tests start becoming complex enough that it feels like they need their own tests to ensure that they’re working properly.
 
@@ -777,14 +777,14 @@ Engineers are usually drawn to using shared constants because constructing indiv
 *Example 12-22. Shared values using helper methods*   *例12-22. 使用辅助方法的共享值*
 
 ```java
-#A helper method wraps a constructor by defining arbitrary defaults
-for # each of its parameters.
+# A helper method wraps a constructor by defining arbitrary defaults for 
+# each of its parameters.
 def newContact(
         firstName = "Grace", lastName = "Hopper", phoneNumber = "555-123-4567"):
     return Contact(firstName, lastName, phoneNumber)
 
-# Tests call the helper, specifying values
-for only the parameters that they# care about.
+# Tests call the helper, specifying values for only the parameters that they
+# care about.
 def test_fullNameShouldCombineFirstAndLastNames(self):
     def contact = newContact(firstName = "Ada", lastName = "Lovelace") self.assertEqual(contact.fullName(), "Ada Lovelace")
 
@@ -813,8 +813,8 @@ Using helper methods to construct these values allows each test to create the ex
 
 使用辅助方法来构建这些值，允许每个测试创建它所需要的精确值，而不必担心指定不相关的信息或与其他测试冲突。
 
-> [^7]: In many cases, it can even be useful to slightly randomize the default values returned for fields that aren’t explicitly set. This helps to ensure that two different instances won’t accidentally compare as equal, and makes it more difficult for engineers to hardcode dependencies on the defaults.
-> 7   在许多情况下，甚至可以对未显式设置的字段返回的默认值进行轻微的随机化。这有助于确保两个不同的实例不会意外地比较为相等，并使工程师更难硬编码对默认值的依赖关系。
+> [^7]:	In many cases, it can even be useful to slightly randomize the default values returned for fields that aren’t explicitly set. This helps to ensure that two different instances won’t accidentally compare as equal, and makes it more difficult for engineers to hardcode dependencies on the defaults./
+> 7 在许多情况下，甚至可以对未显式设置的字段返回的默认值进行轻微的随机化。这有助于确保两个不同的实例不会意外地比较为相等，并使工程师更难硬编码对默认值的依赖关系。
 
 ### Shared Setup  共享设置
 
@@ -824,7 +824,7 @@ A related way that tests shared code is via setup/initialization logic. Many tes
 
 The best use case for setup methods is to construct the object under tests and its collaborators. This is useful when the majority of tests don’t care about the specific arguments used to construct those objects and can let them stay in their default states. The same idea also applies to stubbing return values for test doubles, which is a concept that we explore in more detail in Chapter 13.
 
-设置方法的最佳用例是构造被测试对象及其col-laborator。当大多数测试不关心用于构造这些对象的特定参数，并且可以让它们保持默认状态时，这非常有用。同样的想法也适用于测试替换的打桩返回值，这是一个我们在第13章中详细探讨的概念。
+设置方法的最佳用例是构造被测试对象及其合作者们。当大多数测试不关心用于构造这些对象的特定参数，并且可以让它们保持默认状态时，这非常有用。同样的想法也适用于测试替换的打桩返回值，这是一个我们在第13章中详细探讨的概念。
 
 One risk in using setup methods is that they can lead to unclear tests if those tests begin to depend on the particular values used in setup. For example, the test in Example 12-23 seems incomplete because a reader of the test needs to go hunting to discover where the string “Donald Knuth” came from.
 
@@ -904,15 +904,15 @@ private void assertUserHasAccessToAccount(User user, Account account) {
 }
 ```
 
-### Defining Test Infrastructure  界定测试基础加
-
+### Defining Test Infrastructure  界定测试基础框架
+>>>>>>> e62a431152c49eed54adedf4695677544653c19f
 The techniques we’ve discussed so far cover sharing code across methods in a single test class or suite. Sometimes, it can also be valuable to share code across multiple test suites. We refer to this sort of code as test infrastructure. Though it is usually more valuable in integration or end-to-end tests, carefully designed test infrastructure can make unit tests much easier to write in some circumstances.
 
-到目前为止，我们讨论的技术包括在单个测试类或测试套件中跨方法共享代码。有时，跨多个测试套件共享代码也很有价值。我们将这种代码称为测试基础结构。尽管它通常在集成或端到端测试中更有价值，但精心设计的测试基础框架可以使单元测试在某些情况下更易于编写。
+到目前为止，我们讨论的技术包括在单个测试类或测试套件中跨方法共享代码。有时，跨多个测试套件共享代码也很有价值。我们将这种代码称为测试基础框架。尽管它通常在集成或端到端测试中更有价值，但精心设计的测试基础框架可以使单元测试在某些情况下更易于编写。
 
 Custom test infrastructure must be approached more carefully than the code sharing that happens within a single test suite. In many ways, test infrastructure code is more similar to production code than it is to other test code given that it can have many callers that depend on it and can be difficult to change without introducing breakages. Most engineers aren’t expected to make changes to the common test infrastructure while testing their own features. Test infrastructure needs to be treated as its own separate product, and accordingly, test infrastructure must always have its own tests.
 
-自定义测试基础框架必须比在单个测试套件中发生的代码共享更谨慎地对待。在许多方面，测试基础框架的代码比其他测试代码更类似于产品代码，因为它可能有许多依赖它的调用者，并且在不引入破坏的情况下很难改变。大多数工程师不希望在测试他们自己的功能时对通用测试基础空间进行修改。测试基础架构需要被当作自己独立的产品，相应地，测试基础框架必须始终有自己的测试。
+自定义测试基础框架必须比在单个测试套件中发生的代码共享更谨慎地对待。在许多方面，测试基础框架的代码比其他测试代码更类似于产品代码，因为它可能有许多依赖它的调用者，并且在不引入破坏的情况下很难改变。大多数工程师不应该在测试他们自己的功能时对通用测试基础框架进行修改。测试基础框架需要被当作自己独立的产品，相应地，测试基础框架必须始终有自己的测试。
 
 Of course, most of the test infrastructure that most engineers use comes in the form of well-known third-party libraries like JUnit. A huge number of such libraries are available, and standardizing on them within an organization should happen as early and universally as possible. For example, Google many years ago mandated Mockito as the only mocking framework that should be used in new Java tests and banned new tests from using other mocking frameworks. This edict produced some grumbling at the time from people comfortable with other frameworks, but today, it’s universally seen as a good move that made our tests easier to understand and work with.
 
@@ -962,10 +962,11 @@ Unit tests at Google are far from perfect, but we’ve found tests that follow t
 
 - 强调行为的结构测试。
 
-- 在测试行为后命名测试。
+- 使用被测试的行为来命名测试。
 
 - 不要把逻辑放在测试中。
 
 - 编写清晰的失败信息。
 
-- 在分享测试的代码时，遵循DAMP而不是DRY。
+- 在共享测试的代码时，遵循DAMP而不是DRY。
+
