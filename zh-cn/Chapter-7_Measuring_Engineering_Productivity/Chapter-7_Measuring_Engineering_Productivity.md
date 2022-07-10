@@ -25,19 +25,19 @@ There is another way to address our scaling problem, though: *we could make each
 
 Google has had to grow quickly into new businesses, which has meant learning how to make our engineers more productive. To do this, we needed to understand what makes them productive, identify inefficiencies in our engineering processes, and fix the identified problems. Then, we would repeat the cycle as needed in a continuous improvement loop. By doing this, we would be able to scale our engineering organization with the increased demand on it.
 
-谷歌不得不迅速发展新业务，这意味着要学习如何让我们的工程师更有效率。要做到这一点，我们需要了解是什么让他们富有成效，找出我们工程流程中的低效之处，并解决所发现的问题。然后，我们将根据需要在一个持续改进的循环中重复这个循环。通过这样做，我们将能够在需求增加的情况下扩大我们的工程组织。
+谷歌不得不迅速发展新业务，这意味着要学习如何让我们的工程师更有效率。要做到这一点，我们需要了解是什么让他们富有成效，找出我们工程流程中的低效之处，并解决所发现的问题。然后，我们将根据需要在一个持续改进的循环中重复这个循环。通过这样做，我们将能够在需求增加的情况下扩展我们的工程组织。
 
 However, this improvement cycle *also* takes human resources. It would not be worthwhile to improve the productivity of your engineering organization by the equivalent of 10 engineers per year if it took 50 engineers per year to understand and fix productivity blockers. *Therefore, our goal is to not only improve software engineering productivity, but to do so efficiently.*
 
-然而，这个改进周期*也*需要人力资源。如果每年需要50个工程师来了解和解决生产力的障碍，那么以每年10名工程师的数量来提高工程组织的生产率是不值得的。*因此，我们的目标是不仅要提高软件工程的生产效率，而且要有效地做到这一点。*
+然而，这个增量改进过程*同样*需要人力资源。如果每年需要50个工程师来了解和解决生产力的障碍，那么以每年10名工程师的数量来提高工程组织的生产率是不值得的。*因此，我们不仅要在目标上提高软件工程的生产力，而且这一改进过程也要同样高效。*
 
 At Google, we addressed these trade-offs by creating a team of researchers dedicated to understanding engineering productivity. Our research team includes people from the software engineering research field and generalist software engineers, but we also include social scientists from a variety of fields, including cognitive psychology and behavioral economics. The addition of people from the social sciences allows us to not only study the software artifacts that engineers produce, but to also understand the human side of software development, including personal motivations, incentive structures, and strategies for managing complex tasks. The goal of the team is to take a data-driven approach to measuring and improving engineering productivity.
 
-在谷歌，我们通过创建一个致力于了解工程生产效率的研究团队来解决这些权衡问题。我们的研究团队包括来自软件工程研究领域的人员和普通的软件工程师，但我们也包括来自不同领域的社会科学家，包括认知心理学和行为经济学。来自社会科学的人员的加入使我们不仅可以研究工程师生产的软件工件，还可以了解软件开发中人的一面，包括个人动机、激励结构和管理复杂任务的策略。该团队的目标是采用数据驱动的方法来衡量和提高工程生产效率。
+在谷歌，我们通过建立一个致力于了解工程生产效率的研究团队来解决这些权衡问题。我们的研究团队包括来自软件工程研究人员和普通的软件工程师，但我们也包括来自不同领域的社会学家，包括认知心理学和行为经济学。来自社会科学的人员的加入使我们不仅可以研究工程师生产的软件构件，还可以了解软件开发过程中人的一面，包括个人动机、激励结构和管理复杂任务的策略。该团队的目标是采用数据驱动的方法来衡量和提高工程生产效率。
 
 In this chapter, we walk through how our research team achieves this goal. This begins with the triage process: there are many parts of software development that we *can* measure, but what *should* we measure? After a project is selected, we walk through how the research team identifies meaningful metrics that will identify the problematic parts of the process. Finally, we look at how Google uses these metrics to track improvements to productivity.
 
-在本章中，我们将介绍我们的研究团队是如何实现这一目标的。这从分类过程开始：我们对软件开发的许多部分*可以*进行测量，但是我们应该测量什么呢？在一个项目被选中后，我们将介绍研究团队如何确定有意义的指标，以确定该过程中存在问题的部分。最后，我们看一下谷歌是如何使用这些指标来跟踪生产效率的改进。
+在本章中，我们将介绍我们的研究团队是如何实现这一目标的。这从分类过程开始：我们对软件开发的许多部分*可以*进行计量，但是我们到底应该计量什么呢？在一个项目被选中后，我们将介绍研究团队如何确定有意义的指标，以确定该过程中存在问题的部分。最后，我们看一下谷歌是如何使用这些指标来跟踪生产效率的改进。
 
 For this chapter, we follow one concrete example posed by the C++ and Java language teams at Google: readability. For most of Google’s existence, these teams have managed the readability process at Google. (For more on readability, see Chapter 3.) The readability process was put in place in the early days of Google, before automatic formatters (Chapter 8 and linters that block submission were commonplace (Chapter 9). The process itself is expensive to run because it requires hundreds of engineers performing readability reviews for other engineers in order to grant readability to them. Some engineers viewed it as an archaic hazing process that no longer held utility, and it was a favorite topic to argue about around the lunch table. The concrete question from the language teams was this: is the time spent on the readability process worthwhile?
 
@@ -52,11 +52,11 @@ For this chapter, we follow one concrete example posed by the C++ and Java langu
 
 Before we decide how to measure the productivity of engineers, we need to know when a metric is even worth measuring. The measurement itself is expensive: it takes people to measure the process, analyze the results, and disseminate them to the rest of the company. Furthermore, the measurement process itself might be onerous and slow down the rest of the engineering organization. Even if it is not slow, tracking progress might change engineers’ behavior, possibly in ways that mask the underlying issues. We need to measure and estimate smartly; although we don’t want to guess, we shouldn’t waste time and resources measuring unnecessarily.
 
-在我们决定如何测量工程师的生产效率之前，我们需要知道什么时候使用哪个指标甚至值得测量。测量本身是昂贵的：它需要人去测量过程，分析结果，并将其传播给公司的其他部门。此外，测量过程本身可能是繁琐的，会拖累工程组织的其他部门。即使它不慢，跟踪进度也可能改变工程师的行为，可能会掩盖潜在的问题。我们需要聪明地测量和估计；虽然我们不想猜测，但我们不应该浪费时间和资源进行不必要的测量。
+在我们决定如何测量工程师的生产效率之前，我们需要知道某个指标是否值得测量。测量本身是昂贵的：它需要人去测量过程，分析结果，并将其传播给公司的其他部门。此外，测量过程本身可能是繁琐的，会拖累工程组织的其他部门。即使它不慢，跟踪进度也可能改变工程师的行为，可能会掩盖潜在的问题。我们需要聪明地测量和估计；虽然我们不想猜测，但我们不应该浪费时间和资源进行不必要的测量。
 
 At Google, we’ve come up with a series of questions to help teams determine whether it’s even worth measuring productivity in the first place. We first ask people to describe what they want to measure in the form of a concrete question; we find that the more concrete people can make this question, the more likely they are to derive benefit from the process. When the readability team approached us, its question was simple: are the costs of an engineer going through the readability process worth the benefits they might be deriving for the company?
 
-在谷歌，我们想出了一系列的问题来帮助团队确定是否值得优先测量生产效率。我们首先要求人们以具体问题的形式描述他们想要测量的东西；我们发现，人们提出这个问题越具体，他们就越有可能从这个过程中获益。当可读性团队与我们接触时，其问题很简单：工程师在可读性过程中的成本是否值得他们为公司带来的好处？
+在谷歌，我们想出了一系列的问题来帮助团队确定是否值得优先测量生产效率。我们首先要求人们以具体问题的形式描述他们想要测量的东西；我们发现，人们提出这个问题越具体，他们就越有可能从这个过程中获益。当可读性团队与我们接触时，其问题很简单：工程师在提高可读性过程中的成本增加是否匹配他们为公司带来的好处？
 
 We then ask them to consider the following aspects of their question:
 
@@ -80,7 +80,7 @@ We then ask them to consider the following aspects of their question:
 
 *你期望的结果是什么？为什么？*
 	尽管我们可能想假装我们是中立的调查人员，但事实并非如此。我们确实对应该发生什么有先入为主的观念。通过一开始就承认这一点，我们可以尝试解决这些偏见，防止对结果进行事后解释。
-	当这个问题被提给可读性小组时，该小组指出，它并不确定。人们确信在某个时间点上的成本是值得的，但是随着自动格式化和静态分析工具的出现，没有人完全确定。越来越多的人认为，这个过程现在成了一种自欺欺人的仪式。虽然它可能仍然为工程师提供了好处（他们有调查数据显示人们确实声称有这些好处），但不清楚它是否值得作者或代码审查员投入时间。
+	当这个问题被提给可读性小组时，该小组指出，它并不确定。人们确信在某个时间点上，成本是值得的，但是随着自动格式化和静态分析工具的出现，没有人完全确定。越来越多的人认为，这个过程现在成了一种自欺欺人的仪式。虽然它可能仍然为工程师提供了好处（他们有调查数据显示人们确实声称有这些好处），但不清楚它是否值得作者或代码审查员投入时间。
 
 *如果数据支持你的预期结果，将采取什么行动*
 	我们这样问是因为如果不采取任何行动，那么测量就没有意义了。请注意，如果没有这一结果，就会发生计划变更，那么行动实际上可能是“维持现状”。
@@ -112,15 +112,15 @@ By asking these questions, we find that in many cases, measurement is simply not
 
 通过问这些问题，我们发现在许多情况下，测量根本不值得……这没有关系！有许多很好的理由不测量一个工具或过程对生产效率的影响。以下是我们看到的一些例子：
 
-*你现在没有能力改变这个过程/工具*  
-	可能有时间上的限制或资金上的制约，使之无法进行。例如，你可能确定，只要你切换到一个更快的构建工具，每周就能节省几个小时的时间。然而，转换意味着在每个人都转换的时候暂停开发，而且有一个重要的资金期限即将到来，这样你就无法承受这种中断。工程权衡不是在真空中评估的——在这样的情况下，重要的是要意识到，更广泛的背景完全可以证明推迟对结果采取行动是合理的。
+*至少在现阶段，你承担不了改变这个过程/工具的成本*  
+	可能有时间上的限制或资金上的制约，使之无法进行。例如，你可能确定，只要你切换到一个更快的构建工具，每周就能节省几个小时的时间。然而，转换意味着在每个人都转换的时候暂停开发，而且有一个重要的资金期限即将到来，这样你就无法承受这种中断。工程权衡不是在真空中评估的——在这样的情况下，重要的是要意识到，更广泛的背景完全可以说明推迟对结果采取行动是合理的。
 
 *任何结果很快就会因其他因素而失效*  
 	这里的例子可能包括在计划重组之前测量一个组织的软件流程。或者测量一个被废弃的系统的技术债务的数量。  
 	决策者有强烈的意见，而你不太可能提供足够多的正确类型的证据，来改变他们的信念。  
 	这就需要了解你的受众。即使在谷歌，我们有时也会发现一些人由于他们过去的经验而对某一主题有坚定的信念。我们曾发现一些利益相关者从不相信调查数据，因为他们不相信自我观念。我们也发现一些利益相关者，他们最容易被由少量访谈得出的令人信服的叙述所动摇。当然，也有一些利益相关者只被日志分析所动摇。在所有情况下，我们都试图用混合方法对真相进行三角分析，但如果利益相关者只限于相信不适合问题的方法，那么做这项工作就没有意义。
 
-*结果只能作为虚荣的指标，以来支持你一定要做的事情*  
+*结果只能作为浮华的指标，以来支持你一定要做的事情*  
 	这也许是我们在谷歌告诉人们不要测量软件过程的最常见的原因。很多时候，人们已经为多个原因规划了一个决策，而改进软件开发过程只是这些决策的一个好处。例如，谷歌的发布工具团队曾经要求对发布工作流程系统的计划变更进行测量。由于变化的性质，很明显，这个变化不会比目前的状态差，但他们不知道这是一个小的改进还是一个大的改进。我们问团队：如果结果只是一个小的改进，无论如何你会花资源来实现这个功能，即使它看起来不值得投资？答案是肯定的! 这个功能碰巧提高了生产效率，但这是一个副作用：它也更具有性能，降低了发布工具团队的维护负担。
 
 *唯一可用的指标不够精确，无法衡量问题，而且会被其他因素所干扰*  
@@ -265,7 +265,7 @@ Going back to the readability example, our research team worked with the readabi
 
 A signal is the way in which we will know we’ve achieved our goal. Not all signals are measurable, but that’s acceptable at this stage. There is not a 1:1 relationship between signals and goals. Every goal should have at least one signal, but they might have more. Some goals might also share a signal. Table 7-1 shows some example signals for the goals of the readability process measurement.
 
-信号是我们将知道我们已经实现了目标的方式。并非所有的信号都是可衡量的，但这在现阶段是可以接受的。信号和目标之间不是1:1的关系。每个目标应该至少有一个信号，但它们可能有更多的信号。有些目标也可能共享一个信号。表7-1显示了可读性过程测量的目标的一些信号示例。
+通过约定的信号，我们可以知晓某个目标已被实现。并非所有的信号都是可衡量的，但这在现阶段是可以接受的。信号和目标之间不是1:1的关系。每个目标应该至少有一个信号，但它们可能有更多的信号。有些目标也可能共享一个信号。表7-1显示了可读性过程测量的目标的一些信号示例。
 
 *Table 7-1. Signals and goals*  *表7-1. 信号和目标 *
 
@@ -288,7 +288,7 @@ A signal is the way in which we will know we’ve achieved our goal. Not all sig
 
 Metrics are where we finally determine how we will measure the signal. Metrics are not the signal themselves; they are the measurable proxy of the signal. Because they are a proxy, they might not be a perfect measurement. For this reason, some signals might have multiple metrics as we try to triangulate on the underlying signal.
 
-指标是我们最终确定如何测量信号的标准。指标不是信号本身；它们是信号的可测量的代表。因为它们是一个代表，所以它们可能不是一个完美的测量。出于这个原因，一些信号可能有多个指标，因为我们试图对基本信号进行三角测量分析。
+指标是我们最终确定如何计量、评判信号的标准。指标不是信号本身；它们是信号的可测量的代表。因为它们是一个代表，所以它们可能不是一个完美的测量。出于这个原因，一些信号可能有多个指标，因为我们试图对基本信号进行三角测量分析。
 
 For example, to measure whether engineers’ code is reviewed faster after readability, we might use a combination of both survey data and logs data. Neither of these metrics really provide the underlying truth. (Human perceptions are fallible, and logs metrics might not be measuring the entire picture of the time an engineer spends reviewing a piece of code or can be confounded by factors unknown at the time, like the size or difficulty of a code change.) However, if these metrics show different results, it signals that possibly one of them is incorrect and we need to explore further. If they are the same, we have more confidence that we have reached some kind of truth.
 
@@ -389,7 +389,7 @@ Ultimately, when evaluating the impact of readability on productivity, we ended 
 > 8 因为我们只问了那些完成过程的人，所以我们没有捕捉到那些没有完成过程的人的意见。
 >
 > [^9]:	There is a temptation to use such metrics to evaluate individual engineers, or perhaps even to identify high and low performers. Doing so would be counterproductive, though. If productivity metrics are used for performance reviews, engineers will be quick to game the metrics, and they will no longer be useful for measuring and improving productivity across the organization. The only way to make these measurements work is to let go of the idea of measuring individuals and embrace measuring the aggregate effect./
-> 9 有一种诱惑，就是用这样的指标来评价个别的工程师，甚至可能用来识别高绩效和低绩效的人。不过，这样做会适得其反。如果生产效率指标被用于绩效评估，工程师们就会很快玩弄这些指标，它们将不再对测量和提高整个组织的生产效率有用。让这些指标发挥作用的唯一方法是，放下衡量个人的想法，接受测量总体效果。
+> 9 有一种诱惑，就是用这样的指标来评价个别的工程师，甚至可能用来识别高绩效和低绩效的人。不过，这样做会适得其反。如果生产效率指标被用于绩效评估，工程师们就会很快学会操弄这些指标，它们将不再对测量和提高整个组织的生产效率有用。让这些指标发挥作用的唯一方法是，不将其用于衡量个体，而是接受测量总体效果。
 
 
 ## Taking Action and Tracking Results  采取行动并跟踪结果
