@@ -10,7 +10,7 @@
 
 The previous chapter introduced two of the main axes along which Google classifies tests: *size* and *scope*. To recap, size refers to the resources consumed by a test and what it is allowed to do, and scope refers to how much code a test is intended to validate. Though Google has clear definitions for test size, scope tends to be a little fuzzier. We use the term *unit test* to refer to tests of relatively narrow scope, such as of a single class or method. Unit tests are usually small in size, but this isn’t always the case.
 
-上一章介绍了谷歌对测试进行分类的两个主要轴线：*大小*和*范围*。简而言之，大小是指测试所消耗的资源和允许做的事情，范围是指测试要验证多少代码。虽然谷歌对测试规模有明确的定义，但范围往往是比较模糊的。我们使用术语*单元测试*指的是范围相对较窄的测试，如单个类或方法的测试。单元测试通常是小规模的，但这并不总是这样的。
+上一章介绍了谷歌对测试进行分类的两个主要轴线：*大小*和*范围*。简而言之，大小是指测试所消耗的资源和允许做的事情，范围是指测试要验证多少代码。虽然谷歌对测试规模有明确的定义，但范围往往是比较模糊的。我们使用术语*单元测试*指的是范围相对较窄的测试，如单个类或方法的测试。单元测试通常是小规模的，但并不总是如此。
 
 After preventing bugs, the most important purpose of a test is to improve engineers’ productivity. Compared to broader-scoped tests, unit tests have many properties that make them an excellent way to optimize productivity:
 
@@ -276,7 +276,7 @@ Test failures happen for one of two reasons:[^3]
 - The test itself is flawed. In this case, nothing is wrong with the system under test, but the test was specified incorrectly. If this was an existing test rather than one that you just wrote, this means that the test is brittle. The previous section discussed how to avoid brittle tests, but it’s rarely possible to eliminate them entirely.
 
 总有一天，即使我们已经完全避免了脆弱性，我们的测试也会失败。失败是一件好事——测试失败为工程师提供了有用的信号，也是单元测试提供价值的主要方式之一。
-测试失败有两个原因之一：
+测试失败有两个原因：
 
 - 被测系统有问题或不完整。这个结果正是测试的设计目的：提醒你注意bug，以便你能修复它们。
 - 测试本身是有缺陷的。在这种情况下，被测系统没有任何问题，但测试的指定是不正确的。如果这是一个现有的测试，而不是你刚写的测试，这意味着测试是脆弱的。上一节讨论了如何避免脆性测试，但很少有可能完全消除它们。
@@ -644,7 +644,7 @@ One final aspect of writing clear tests and avoiding brittleness has to do with 
 
 In normal production code, that downside is usually a small price to pay for making code easier to change and work with. But this cost/benefit analysis plays out a little differently in the context of test code. Good tests are designed to be stable, and in fact you usually want them to break when the system being tested changes. So DRY doesn’t have quite as much benefit when it comes to test code. At the same time, the costs of complexity are greater for tests: production code has the benefit of a test suite to ensure that it keeps working as it becomes complex, whereas tests must stand by themselves, risking bugs if they aren’t self-evidently correct. As mentioned earlier, something has gone wrong if tests start becoming complex enough that it feels like they need their own tests to ensure that they’re working properly.
 
-在正常的产品代码中，为了使代码更容易修改和使用，这种缺点通常是一个很小的代价。但是这种成本/效益分析在测试代码的背景下有一点不同。好的测试被设计成稳定的，事实上，当被测试的系统发生变化时，你通常希望它们会被破坏。因此，当涉及到测试代码时，DRY并没有那么多的好处。同时，对于测试来说，复杂性的成本更高：产品代码具有测试套件的优势，可以确保它在变得复杂时继续工作，而测试必须独立进行，如果它们不明显正确，则可能出现错误。如前所述，如果测试变得足够复杂，以至于感觉需要自己的测试来确保它们正常工作，那么就会出现问题。
+在通常的产品代码中，为了使代码更容易修改和使用，这种缺点通常是一个很小的代价。但是这种成本/效益分析在测试代码的背景下有一点不同。好的测试被设计成稳定的，事实上，当被测试的系统发生变化时，你通常希望它们会被破坏。因此，当涉及到测试代码时，DRY并没有那么多的好处。同时，对于测试来说，复杂性的成本更高：产品代码具有测试套件的优势，可以确保它在变得复杂时继续工作，而测试必须独立进行，如果它们不明显正确，则可能出现错误。如前所述，如果测试变得足够复杂，以至于感觉需要自己的测试来确保它们正常工作，那么就会出现问题。
 
 Instead of being completely DRY, test code should often strive to be DAMP—that is, to promote “Descriptive And Meaningful Phrases.” A little bit of duplication is OK in tests so long as that duplication makes the test simpler and clearer. To illustrate, Example 12-19 presents some tests that are far too DRY.
 
