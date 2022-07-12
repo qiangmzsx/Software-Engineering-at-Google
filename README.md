@@ -2,6 +2,13 @@
 
 《Software Engineering at Google》的中文翻译版本。
 
+## 书籍介绍
+![Software Engineering at Google](./images/cover.jpg)
+by **Titus Winters, Tom Manshreck, and Hyrum Wright**
+
+当前国内已经有中文版书籍出版了，大家需要更加准确，推荐大家去购买。
+
+
 ## 为什么翻译
 
 目前 GitHub 上并没有对《Software Engineering at Google》的中文翻译。加之本人的英语也不好，好不容易看了一遍，似有所有领悟，想要再看一遍的时候，发现满眼都是英文，实在是痛苦！    
