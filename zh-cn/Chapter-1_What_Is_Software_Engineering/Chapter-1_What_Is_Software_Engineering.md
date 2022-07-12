@@ -484,7 +484,7 @@ Be evidence driven, but also realize that things that can’t be measured may st
 
 以证据为导向，但也要意识到无法衡量的东西可能仍然有价值。如果你是一个领导者，那就是你被要求做的：审时度势，主张事在人为。我们将在第5章和第6章中详细介绍领导力
 
-## Software Engineering Versus Programming
+## Software Engineering Versus Programming 软件工程与编程
 When presented with our distinction between software engineering and programming, you might ask whether there is an inherent value judgement in play. Is programming somehow worse than software engineering? Is a project that is expected to last a decade with a team of hundreds inherently more valuable than one that is useful for only a month and built by two people?
 
 在介绍软件工程和编程之间的区别时，你可能会问，是否存在内在的价值判断。编程是否比软件工程更糟糕？一个由数百人组成的团队预计将持续十年的项目是否比一个只有一个月的项目和两个人构建的项目更有价值？
@@ -519,7 +519,7 @@ This book discusses all of these topics: policies for an organization and for a 
 - 在预期的代码生命周期内，当我们能够响应依赖关系、技术或产品需求的变化时，软件是可持续的。我们可能选择不改变事情，但我们需要有能力。
 - 海勒姆定律：当一个 API 有足够的用户的时候，在约定中你承诺的什么都无所谓，所有在你系统里面被观察到的行为都会被一些用户直接依赖。
 - 你的组织重复执行的每项任务都应在人力投入方面具有可扩展性（线性或更好）。策略是使流程可伸缩的好工具。
-- 流程效率低下和其他软件开发任务的扩展速度缓慢。小心煮青蛙的问题。
+- 流程效率低下和其他软件开发任务往往会慢慢扩大规模。小心煮青蛙的问题。
 - 当专业知识与规模经济相结合时，回报尤其丰厚。
 - “因为我说过”是做事的可怕理由。
 - 数据驱动是一个良好的开端，但实际上，大多数决策都是基于数据、假设、先例和论据的混合。最好是客观数据占这些输入的大部分，但很少可能是全部。
