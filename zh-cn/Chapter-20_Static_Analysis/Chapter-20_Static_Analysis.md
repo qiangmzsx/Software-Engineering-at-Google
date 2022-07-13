@@ -271,7 +271,7 @@ Although we mostly focus on showing newly introduced static analysis warnings, o
 
 Static analysis can be a great tool to improve a codebase, find bugs early, and allow more expensive processes (such as human review and testing) to focus on issues that are not mechanically verifiable. By improving the scalability and usability of our static analysis infrastructure, we have made static analysis an effective component of software development at Google.
 
-静态分析是一个很好的工具，可以改进代码库，尽早发现错误，并允许成本更高的过程（如人工审查和测试）关注无法通过机械方式验证的问题。通过提高静态分析基础设施的可扩展性和可用性，我们使静态分析成为谷歌软件开发的有效组成部分。
+静态分析是一个很好的工具，可以改进代码库，尽早发现错误，并允许成本更高的过程（如人工审查和测试）聚焦在无法通过机械方式验证的问题。通过提高静态分析基础设施的可扩展性和可用性，我们使静态分析成为谷歌软件开发的有效组成部分。
 
 ## 内容提要
 
@@ -283,4 +283,4 @@ Static analysis can be a great tool to improve a codebase, find bugs early, and 
 
 - 关注开发者的幸福感。我们投入了大量精力，在我们的工具中建立分析用户和作者之间的反馈渠道，并积极调整分析以减少误报的数量。
 - 将静态分析作为核心开发人员工作流程的一部分。谷歌静态分析的主要集成点是通过代码评审，在这里，分析工具提供修复并让评审人员参与。然而，我们也在其他方面（通过编译器检查、选通代码提交、在IDE中以及在浏览代码时）集成分析。
-- 授权用户做出贡献。通过利用领域专家的专业知识，我们可以扩展构建和维护分析工具和平台的工作。开发人员不断添加新的分析和检查，使他们的生活更轻松，我们的代码库更好。
+- 授权用户做出贡献。通过利用领域专家的专业知识，我们可以扩展构建和维护分析工具和平台的工作。开发人员不断添加新的分析和检查，使他们的生活更轻松，使我们的代码库更好。
