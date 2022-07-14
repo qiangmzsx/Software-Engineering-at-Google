@@ -312,8 +312,8 @@ Although stubbing can be a quick and simple technique to apply, it has limitatio
 *Example* *13-9. Interaction testing*
 
 ```java
-// Pass in a test double that was created by a mocking 
-framework. AccessManager accessManager = new AccessManager(mockAuthorizationService);
+// Pass in a test double that was created by a mocking framework.
+AccessManager accessManager = new AccessManager(mockAuthorizationService);
 accessManager.userHasAccess(USER_ID);
 
 // The test will fail if accessManager.userHasAccess(USER_ID) didn’t call
