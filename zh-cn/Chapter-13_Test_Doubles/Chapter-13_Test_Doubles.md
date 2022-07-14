@@ -496,8 +496,9 @@ If using a real implementation is not feasible within a test, the best option is
 public class FakeFileSystem implements FileSystem {
     // Stores a map of file name to file contents. The files are stored in
     // memory instead of on disk since tests shouldn’t need to do disk I/O.
-    private Map < String, String > files = new HashMap < > ();@
-    Override
+    private Map < String, String > files = new HashMap< > ();
+    
+    @Override
     public void writeFile(String fileName, String contents) {
         // Add the file name and contents to the map.
         files.add(fileName, contents);
