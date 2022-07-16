@@ -91,7 +91,7 @@ We’re not here to attempt to convince you to become a manager, but rather to h
 
 我们来这里不是为了说服你成为一名管理者，而是为了帮助你展示为什么最好的领导者会以谦逊、尊重和信任的原则为团队服务。了解领导力的来龙去脉是影响你工作方向的重要技能。如果你想为你的项目掌舵，而不是随波逐流，你需要知道如何导航，否则你会把自己（和你的项目）撞上沙滩。
 
-### The Only Thing to Fear Is…Well, Everything  唯一害怕的是…嗯，一切都好
+### The Only Thing to Fear Is…Well, Everything  唯一害怕的是…嗯，所有的事
 
 Aside from the general sense of malaise that most people feel when they hear the word “manager,” there are a number of reasons that most people don’t want to become managers. The biggest reason you’ll hear in the software development world is that you spend much less time writing code. This is true whether you become a TL or an engineering manager, and I’ll talk more about this later in the chapter, but first, let’s cover some more reasons why most of us avoid becoming managers.
 
