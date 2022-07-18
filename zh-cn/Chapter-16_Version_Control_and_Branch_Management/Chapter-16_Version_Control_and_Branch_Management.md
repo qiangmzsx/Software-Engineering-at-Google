@@ -124,7 +124,7 @@ As a response to this scaling problem, the VCSs that were popular through the 90
 
 Starting in the mid-2000s, many popular VCSs followed the Distributed Version Control System (DVCS) paradigm, seen in systems like Git and Mercurial. The primary conceptual difference between DVCS and more traditional centralized VCS (Subversion, CVS) is the question: “Where can you commit?” or perhaps, “Which copies of these files count as a repository?”
 
-从2000年中期开始，许多流行的VCS遵循分布式版本控制系统（DVCS）的范式，在Git和Mercurial等系统中看到。DVCS和更多传统的集中式VCS（Subversion，CVS）之间的主要概念差异是问题。"你可以在哪里提交？"或者说，"这些文件的哪些副本算作一个存储库？"
+从2000年中期开始，许多流行的VCS遵循分布式版本控制系统（DVCS）的范式，在Git和Mercurial等系统中看到。DVCS和更多传统的集中式VCS（Subversion，CVS）之间的主要概念差异在于问题："你可以在哪里提交？"或者说，"这些文件的哪些副本算作一个存储库？"
 
 A DVCS world does not enforce the constraint of a central repository: if you have a copy (clone, fork) of the repository, you have a repository that you can commit to as well as all of the metadata necessary to query for information about things like revision history. A standard workflow is to clone some existing repository, make some edits, commit them locally, and then push some set of commits to another repository, which may or may not be the original source of the clone. Any notion of centrality is purely conceptual, a matter of policy, not fundamental to the technology or the underlying protocols.
 

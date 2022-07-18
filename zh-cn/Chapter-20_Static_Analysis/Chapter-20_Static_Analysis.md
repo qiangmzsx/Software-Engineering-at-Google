@@ -6,7 +6,7 @@
 
 Static analysis refers to programs analyzing source code to find potential issues such as bugs, antipatterns, and other issues that can be diagnosed *without executing the* *program*. The “static” part specifically refers to analyzing the source code instead of a running program (referred to as “dynamic” analysis). Static analysis can find bugs in programs early, before they are checked in as production code. For example, static analysis can identify constant expressions that overflow, tests that are never run, or invalid format strings in logging statements that would crash when executed.[^1] However, static analysis is useful for more than just finding bugs. Through static analysis at Google, we codify best practices, help keep code current to modern API versions, and prevent or reduce technical debt. Examples of these analyses include verifying that naming conventions are upheld, flagging the use of deprecated APIs, or pointing out simpler but equivalent expressions that make code easier to read. Static analysis is also an integral tool in the API deprecation process, where it can prevent backsliding during migration of the codebase to a new API (see [Chapter 22](#_bookmark1935)). We have also found evidence that static analysis checks can educate developers and actually prevent antipatterns from entering the codebase.[^2]
 
-静态分析是指通过程序分析源代码来发现潜在的问题，例如bug、反模式和其他无需执行程序就能发现的问题。“静态”具体是指分析源代码，而不是运行中的程序（即“动态”分析）。它可以在代码被合入生产环境前发现bug，例如，可以识别溢出的常量表达式、永远不会运行的测试或对日志字符串的无效格式化导致运行崩溃的问题。但静态分析的作用不只是查找bug。通过对Google代码的静态分析，我们编写了最佳实践，帮助推进代码使用最新接口和减少技术债务，这些分析的例子包括：校验是否遵循命名规范；标记已弃用但仍然使用的接口；简化表达式以提高代码可读性。静态分析也是弃用某个接口时不可或缺的工具，它可以防止将代码库迁移到新接口时出现“倒退”现象（参见第22章，指被调用系统不断迁移旧接口到新接口，而其他系统不断的调用弃用接口而不调用新接口）。我们还发现静态分析检查可以对开发人员起到启发和约束作用，可以防止开发人员写出反模式的代码。
+静态分析是指通过程序分析源代码来发现潜在的问题，例如bug、反模式和其他无需执行程序就能发现的问题。“静态”具体是指分析源代码，而不是运行中的程序（即“动态”分析）。它可以在代码被合入生产环境前发现bug，例如，可以识别溢出的常量表达式、永远不会运行的测试用例或日志字符串的无效格式化导致运行崩溃的问题。但静态分析的作用不只是查找bug。通过对Google代码的静态分析，我们编写了最佳实践，帮助推进代码使用最新接口和减少技术债，这些分析的例子包括：校验是否遵循命名规范；标记已弃用但仍然使用的接口；简化表达式以提高代码可读性。静态分析也是弃用某个接口时不可或缺的工具，它可以防止将代码库迁移到新接口时出现“倒退”现象（参见第22章，指被调用系统不断迁移旧接口到新接口，而其他系统不断的调用弃用接口而不调用新接口）。我们还发现静态分析检查可以对开发人员起到启发和约束作用，可以防止开发人员写出反模式的代码。
 
 In this chapter, we’ll look at what makes effective static analysis, some of the lessons we at Google have learned about making static analysis work, and how we implemented these best practices in our static analysis tooling and processes.[^3]
 
@@ -271,7 +271,7 @@ Although we mostly focus on showing newly introduced static analysis warnings, o
 
 Static analysis can be a great tool to improve a codebase, find bugs early, and allow more expensive processes (such as human review and testing) to focus on issues that are not mechanically verifiable. By improving the scalability and usability of our static analysis infrastructure, we have made static analysis an effective component of software development at Google.
 
-静态分析是一个很好的工具，可以改进代码库，尽早发现错误，并允许成本更高的过程（如人工审查和测试）关注无法通过机械方式验证的问题。通过提高静态分析基础设施的可扩展性和可用性，我们使静态分析成为谷歌软件开发的有效组成部分。
+静态分析是一个很好的工具，可以改进代码库，尽早发现错误，并允许成本更高的过程（如人工审查和测试）聚焦在无法通过机械方式验证的问题。通过提高静态分析基础设施的可扩展性和可用性，我们使静态分析成为谷歌软件开发的有效组成部分。
 
 ## 内容提要
 
@@ -283,4 +283,4 @@ Static analysis can be a great tool to improve a codebase, find bugs early, and 
 
 - 关注开发者的幸福感。我们投入了大量精力，在我们的工具中建立分析用户和作者之间的反馈渠道，并积极调整分析以减少误报的数量。
 - 将静态分析作为核心开发人员工作流程的一部分。谷歌静态分析的主要集成点是通过代码评审，在这里，分析工具提供修复并让评审人员参与。然而，我们也在其他方面（通过编译器检查、选通代码提交、在IDE中以及在浏览代码时）集成分析。
-- 授权用户做出贡献。通过利用领域专家的专业知识，我们可以扩展构建和维护分析工具和平台的工作。开发人员不断添加新的分析和检查，使他们的生活更轻松，我们的代码库更好。
+- 授权用户做出贡献。通过利用领域专家的专业知识，我们可以扩展构建和维护分析工具和平台的工作。开发人员不断添加新的分析和检查，使他们的生活更轻松，使我们的代码库更好。
