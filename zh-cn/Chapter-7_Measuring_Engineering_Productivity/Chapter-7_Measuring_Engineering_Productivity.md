@@ -5,7 +5,9 @@
 
 # 第七章  测量工程效率
 
-​																			**Written by  Ciera Jaspan Edited by Riona Macnamara**
+**Written by  Ciera Jaspan**
+
+**Edited by Riona Macnamara**
 
 
 Google is a data-driven company. We back up most of our products and design decisions with hard data. The culture of data-driven decision making, using appropriate metrics, has some drawbacks, but overall, relying on data tends to make most decisions objective rather than subjective, which is often a good thing. Collecting and analyzing data on the human side of things, however, has its own challenges. Specifically, within software engineering, Google has found that having a team of specialists focus on engineering productivity itself to be very valuable and important as the company scales and can leverage insights from such a team.

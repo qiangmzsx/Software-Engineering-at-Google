@@ -5,7 +5,9 @@
 
 # 第二十二章 大规模变更
 
-                       							 Written by Hyrum Wright Edited by Lisa Carey
+**Written by Hyrum Wright**
+
+**Edited by Lisa Carey**
 
 Think for a moment about your own codebase. How many files can you reliably update in a single, simultaneous commit? What are the factors that constrain that number? Have you ever tried committing a change that large? Would you be able to do it in a reasonable amount of time in an emergency? How does your largest commit size compare to the actual size of your codebase? How would you test such a change? How many people would need to review the change before it is committed? Would you be able to roll back that change if it did get committed? The answers to these questions might surprise you (both what you *think* the answers are and what they actually turn out to be for your organization).
 

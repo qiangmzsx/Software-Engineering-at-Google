@@ -5,7 +5,9 @@
 
 # 第五章 如何领导团队
 
-                       							Written by Brian Fitzpatrick Edited by Riona MacNamara
+**Written by Brian Fitzpatrick**
+
+**Edited by Riona MacNamara**
 
 We’ve covered a lot of ground so far on the culture and composition of teams writing software, and in this chapter, we’ll take a look at the person ultimately responsible for making it all work.
 

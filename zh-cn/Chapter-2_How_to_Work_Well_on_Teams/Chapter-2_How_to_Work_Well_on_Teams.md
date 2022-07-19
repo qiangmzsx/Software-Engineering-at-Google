@@ -5,7 +5,9 @@
 
 # 第二章 如何融入团队
 
-​                                                              **Written by Brian Fitzpatrick Edited by Riona MacNamara**
+**Written by Brian Fitzpatrick**
+
+**Edited by Riona MacNamara**
 
 Because this chapter is about the cultural and social aspects of software engineering at Google, it makes sense to begin by focusing on the one variable over which you definitely have control: you.
 

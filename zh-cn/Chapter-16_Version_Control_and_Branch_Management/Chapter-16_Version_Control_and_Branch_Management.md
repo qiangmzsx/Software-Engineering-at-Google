@@ -6,7 +6,9 @@
 
 # 第十六章 版本控制和分支管理
 
-                       							 Written by Titus Winters Edited by Lisa Carey
+**Written by Titus Winters**
+
+**Edited by Lisa Carey**
 
 Perhaps no software engineering tool is quite as universally adopted throughout the industry as version control. One can hardly imagine any software organization larger than a few people that doesn’t rely on a formal Version Control System (VCS) to manage its source code and coordinate activities between engineers.
 

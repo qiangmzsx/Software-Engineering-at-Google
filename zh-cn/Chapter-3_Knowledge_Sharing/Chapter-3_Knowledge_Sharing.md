@@ -4,9 +4,10 @@
 # Knowledge Sharing 
 
 # 第三章 知识共享
-​																						**Written by Nina Chen and Mark Barolak **
 
-​                                                                                                 **Edited by Riona MacNamara**
+**Written by Nina Chen and Mark Barolak**
+
+**Edited by Riona MacNamara**
 
 Your organization understands your problem domain better than some random person on the internet; your organization should be able to answer most of its own questions. To achieve that, you need both experts who know the answers to those questions and mechanisms to distribute their knowledge, which is what we’ll explore in this chapter. These mechanisms range from the utterly simple (Ask questions; Write down what you know) to the much more structured, such as tutorials and classes. Most importantly, however, your organization needs a culture of learning, and that requires creating the psychological safety that permits people to admit to a lack of knowledge.
 

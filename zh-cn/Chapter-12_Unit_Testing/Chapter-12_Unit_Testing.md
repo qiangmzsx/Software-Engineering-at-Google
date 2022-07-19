@@ -6,7 +6,9 @@
 
 # 第十二章 单元测试
 
-                        Written by Erik Kuefler Edited by Tom Manshreck
+**Written by Erik Kuefler**
+
+**Edited by Tom Manshreck**
 
 The previous chapter introduced two of the main axes along which Google classifies tests: *size* and *scope*. To recap, size refers to the resources consumed by a test and what it is allowed to do, and scope refers to how much code a test is intended to validate. Though Google has clear definitions for test size, scope tends to be a little fuzzier. We use the term *unit test* to refer to tests of relatively narrow scope, such as of a single class or method. Unit tests are usually small in size, but this isn’t always the case.
 

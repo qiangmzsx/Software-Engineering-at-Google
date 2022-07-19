@@ -1,12 +1,12 @@
-
-
 **CHAPTER 15**
 
 # Deprecation
 
 # 第十五章 废弃
 
-本章由海鲁姆·赖特撰写，由汤姆·曼什雷克编辑
+**Written by Hirum Wright**
+
+**Edited by Tom Manshlake**
 
 I love deadlines. I like the whooshing sound they make as they fly by. —Douglas Adams
 

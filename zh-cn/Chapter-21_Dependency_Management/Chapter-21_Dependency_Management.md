@@ -6,7 +6,9 @@
 
 # 第二十一章 依赖管理
 
-                       							 Written by Titus Winters Edited by Lisa Carey
+**Written by Titus Winters**
+
+**Edited by Lisa Carey**
 
 Dependency management—the management of networks of libraries, packages, and dependencies that we don’t control—is one of the least understood and most challenging problems in software engineering. Dependency management focuses on questions like: how do we update between versions of external dependencies? How do we describe versions, for that matter? What types of changes are allowed or expected in our dependencies? How do we decide when it is wise to depend on code produced by other organizations?
 

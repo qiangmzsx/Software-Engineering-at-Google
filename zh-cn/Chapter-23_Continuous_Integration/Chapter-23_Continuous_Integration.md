@@ -5,7 +5,9 @@
 
 # 第二十三章 持续集成
 
-                                    Written by Rachel Tannenbaum Edited by Lisa Carey
+**Written by Rachel Tannenbaum**
+
+**Edited by Lisa Carey**
 
 *Continuous Integration*, or CI, is generally defined as “a software development practice where members of a team integrate their work frequently [...] Each integration is verified by an automated build (including test) to detect integration errors as quickly as possible.”[^1] Simply put, the fundamental goal of CI is to automatically catch problematic changes as early as possible.
 

@@ -5,7 +5,9 @@
 
 # 第四章 公平工程
 
-            Written by Demma Rodriguez Edited by Riona MacNamara
+**Written by Demma Rodriguez**
+
+**Edited by Riona MacNamara**
 
 In earlier chapters, we’ve explored the contrast between programming as the production of code that addresses the problem of the moment, and software engineering as the broader application of code, tools, policies, and processes to a dynamic and ambiguous problem that can span decades or even lifetimes. In this chapter, we’ll discuss the unique responsibilities of an engineer when designing products for a broad base of users. Further, we evaluate how an organization, by embracing diversity, can design systems that work for everyone, and avoid perpetuating harm against our users.
 

@@ -4,9 +4,9 @@
 
 # 第十四章 大型测试
 
-            Written by  Written by Joseph Graves Edited by Lisa Carey
+**Written by  Written by Joseph Graves**
 
-
+**Edited by Lisa Carey**
 
 In previous chapters, we have recounted how a testing culture was established at Google and how small unit tests became a fundamental part of the developer workflow. But what about other kinds of tests? It turns out that Google does indeed use many larger tests, and these comprise a significant part of the risk mitigation strategy necessary for healthy software engineering. But these tests present additional challenges to ensure that they are valuable assets and not resource sinks. In this chapter, we’ll discuss what we mean by “larger tests,” when we execute them, and best practices for keeping them effective.
 
