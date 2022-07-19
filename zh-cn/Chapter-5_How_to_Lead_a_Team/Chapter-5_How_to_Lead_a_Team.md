@@ -392,7 +392,7 @@ The easiest way to set a clear goal and get your team pulling the product in the
 
 This doesn’t mean that we’re assuming you are lying to your team, but it merits a mention because you’ll inevitably find yourself in a position in which you can’t tell your team something or, even worse, you need to tell everyone something they don’t want to hear. One manager we know tells new team members, “I won’t lie to you, but I will tell you when I can’t tell you something or if I just don’t know.”
 
-这并不意味着我们假设你在对你的团队撒谎，但值得一提的是，你将不可避免地发现自己处于一种无法告诉团队的境地，或者更糟糕的是，你需要告诉每个人他们不想听的事情。我们认识的一位经理告诉新团队成员，“我不会对你们撒谎，但我可以告诉你们什么事情不能告诉你或者我也不知道的事情。”
+这并不意味着我们假设你在对你的团队撒谎，但值得一提的是，你将不可避免地发现自己处于一种无法告诉团队的境地，或者更糟糕的是，你需要告诉每个人他们不想听的事情。我们认识的一位经理告诉新团队成员，“我不会对你们撒谎，但当我不能告诉你们一些事情或者我只是不知道的什么时候，可以告诉你们。”
 
 If a team member approaches you about something you can’t share, it’s OK to just tell them you know the answer but are not at liberty to say anything. Even more common is when a team member asks you something you don’t know the answer to: you can tell that person you don’t know. This is another one of those things that seems blindingly obvious when you read it, but many people in a manager role feel that if they don’t know the answer to something, it proves that they’re weak or out of touch. In reality, the only thing it proves is that they’re human.
 
