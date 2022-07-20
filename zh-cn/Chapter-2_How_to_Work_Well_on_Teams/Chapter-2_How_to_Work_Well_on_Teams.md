@@ -85,12 +85,12 @@ Celebrity is a big part of it. Humans have a natural instinct to find leaders an
 名人效应是一个重要原因。人类有寻找领导者和榜样的本能，崇拜他们，并试图模仿他们。我们都需要英雄来激发灵感，编程世界也有自己的英雄。“科技名人”已经几乎被神化，我们都想写一些改变世界的东西，比如Linux或者设计下一种优秀的编程语言。
 
 Deep down, many engineers secretly wish to be seen as geniuses. This fantasy goes something like this:
-•    You are struck by an awesome new concept.
-•    You vanish into your cave for weeks or months, slaving away at a perfect implementation of your idea.
-•    You then “unleash” your software on the world, shocking everyone with your genius.
-•    Your peers are astonished by your cleverness.
-•    People line up to use your software.
-•    Fame and fortune follow naturally.
+- You are struck by an awesome new concept.
+- You vanish into your cave for weeks or months, slaving away at a perfect implementation of your idea.
+- You then “unleash” your software on the world, shocking everyone with your genius.
+- Your peers are astonished by your cleverness.
+- People line up to use your software.
+- Fame and fortune follow naturally.
 
 在内心深处，许多工程师暗中希望被视为天才。这种幻想是这样的：
 
@@ -152,7 +152,7 @@ Then, one day your neighbor pulls his bike out of his garage with a radical new 
 
 然后，有一天，你的邻居将他的自行车从车库中拉出，这辆自行车使用一种全新的换档机构。事实表明，他也在制造一些与你的发明非常相似的东西，但是他得到了自行车店的一些朋友的帮助。这时候，你很生气。你给他看你的原型。他指出，你的设计有一些简单的缺陷，如果你给他看的话，这些缺陷可能在第一周就被修复了。这里有许多教训要学习。
 
-### Early Detection 提早发现
+### Early Detection 及早发现
 
 If you keep your great idea hidden from the world and refuse to show anyone anything until the implementation is polished, you’re taking a huge gamble. It’s easy to make fundamental design mistakes early on. You risk reinventing wheels.2 And you forfeit the benefits of collaboration, too: notice how much faster your neighbor moved by working with others? This is why people dip their toes in the water before jumping in the deep end: you need to make sure that you’re working on the right thing, you’re doing it correctly, and it hasn’t been done before. The chances of an early misstep are high. The more feedback you solicit early on, the more you lower this risk.3 Remember the tried-and-true mantra of “Fail early, fail fast, fail often.”
 
@@ -269,7 +269,7 @@ High-functioning teams are gold and the true key to success. You should be aimin
 
 高效的团队是黄金，是成功的真正关键。你应该尽可能地追求这种体验。
 
-### The Three Pillars of Social Interaction社会互动的三大支柱
+### The Three Pillars of Social Interaction社交的三大支柱
 
 So, if teamwork is the best route to producing great software, how does one build (or find) a great team?
 
@@ -449,7 +449,7 @@ Professional politicians, for example, are notorious for never admitting error o
 
 例如，职业政客因从不承认错误或无知而臭名昭著，即使他们在某个问题上显然是错的或无知的。存在这种行为主要是因为政客们经常受到对手的攻击，这就是为什么大多数人不相信政客们说的一个字。然而，当你在编写软件时，你不需要不断地保持防备状态——你的团队成员是合作者，而不是竞争对手。你们都有相同的目标。
 
-### Being Googley  成为谷歌的
+### Being Googley  成为谷歌范
 
 At Google, we have our own internal version of the principles of “humility, respect, and trust” when it comes to behavior and human interactions.
 
