@@ -4,7 +4,9 @@
 
 # 第十九章 体验：google的代码审查工具
 
-            Written by  Written by Caitlin Sadowski, Ilham Kurnia, and Ben Rohlfs Edited by Lisa Carey
+**Written by Caitlin Sadowski, Ilham Kurnia, and Ben Rohlfs**
+
+**Edited by Lisa Carey**
 
 As you saw in Chapter 9, code review is a vital part of software development, particularly when working at scale. The main goal of code review is to improve the readability and maintainability of the code base, and this is supported fundamentally by the review process. However, having a well-defined code review process in only one part of the code review story. Tooling that supports that process also plays an important part in its success.
 

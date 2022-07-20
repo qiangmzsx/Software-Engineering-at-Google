@@ -4,7 +4,9 @@
 
 # 第十三章 测试替代
 
-            Written by Andrew Trenk and Dillon Bly Edited by Tom Manshreck
+**Written by Andrew Trenk and Dillon Bly**
+
+**Edited by Tom Manshreck**
 
 Unit tests are a critical tool for keeping developers productive and reducing defects in code. Although they can be easy to write for simple code, writing them becomes difficult as code becomes more complex.
 

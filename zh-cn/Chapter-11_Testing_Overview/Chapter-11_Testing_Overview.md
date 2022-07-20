@@ -6,7 +6,9 @@
 
 # 第十一章 测试概述
 
-                       							 Written by Adam Bender Edited by Tom Manshreck
+**Written by Adam Bender**
+
+**Edited by Tom Manshreck**
 
 Testing has always been a part of programming. In fact, the first time you wrote a computer program you almost certainly threw some sample data at it to see whether it performed as you expected. For a long time, the state of the art in software testing resembled a very similar process, largely manual and error prone. However, since the early 2000s, the software industry’s approach to testing has evolved dramatically to cope with the size and complexity of modern software systems. Central to that evolution has been the practice of developer-driven, automated testing.
 

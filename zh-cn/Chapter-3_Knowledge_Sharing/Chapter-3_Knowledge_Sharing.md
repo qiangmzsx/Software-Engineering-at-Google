@@ -4,9 +4,10 @@
 # Knowledge Sharing 
 
 # 第三章 知识共享
-​																						**Written by Nina Chen and Mark Barolak **
 
-​                                                                                                 **Edited by Riona MacNamara**
+**Written by Nina Chen and Mark Barolak**
+
+**Edited by Riona MacNamara**
 
 Your organization understands your problem domain better than some random person on the internet; your organization should be able to answer most of its own questions. To achieve that, you need both experts who know the answers to those questions and mechanisms to distribute their knowledge, which is what we’ll explore in this chapter. These mechanisms range from the utterly simple (Ask questions; Write down what you know) to the much more structured, such as tutorials and classes. Most importantly, however, your organization needs a culture of learning, and that requires creating the psychological safety that permits people to admit to a lack of knowledge.
 
@@ -274,7 +275,7 @@ Mailing lists are not without their trade-offs. They’re well suited for compli
 
 Google culture is infamously email-centric and email-heavy. Google engineers receive hundreds of emails (if not more) each day, with varying degrees of actionability. Nooglers can spend days just setting up email filters to deal with the volume of notifications coming from groups that they’ve been autosubscribed to; some people just give up and don’t try to keep up with the flow. Some groups CC large mailing lists onto every discussion by default, without trying to target information to those who are likely to be specifically interested in it; as a result, the signal-to-noise ratio can be a real problem.
 
-谷歌的文化是臭名昭著的以电子邮件为中心和电子邮件主。谷歌的工程师们每天都会收到数以百计的电子邮件（如果不是更多的话），其中有不同程度的可操作性。新手们需要花好几天时间来设置电子邮件过滤器，以处理来自他们自动订阅的群组的大量通知；有些人干脆放弃了，不尝试跟上邮件数。一些群组将大型邮件列表默认为每一个讨论，而不试图将信息定向给那些可能对其特别感兴趣的人；结果，信噪比成为了一个真正的问题。
+谷歌的文化是臭名昭著的以电子邮件为中心和重度使用电子邮件。谷歌的工程师们每天都会收到数以百计的电子邮件（如果不是更多的话），其中有不同程度的可操作性。新手们需要花好几天时间来设置电子邮件过滤器，以处理来自他们自动订阅的群组的大量通知；有些人干脆放弃了，放弃追随最新的邮件。一些群组将大型邮件列表默认为每一个讨论，而不试图将信息定向发送给那些可能对其特别感兴趣的人；结果，信噪比成为了一个真正的问题。
 
 Google tends toward email-based workflows by default. This isn’t necessarily because email is a better medium than other communications options—it often isn’t—rather, it’s because that’s what our culture is accustomed to. Keep this in mind as your organization considers what forms of communication to encourage or invest in.
 
@@ -290,12 +291,12 @@ YAQS（"另一个问题系统"）是谷歌内部版本的[Stack Overflow](https:
 
 Like Stack Overflow, YAQS shares many of the same advantages of mailing lists and adds refinements: answers marked as helpful are promoted in the user interface, and users can edit questions and answers so that they remain accurate and useful as code and facts change. As a result, some mailing lists have been superseded by YAQS, whereas others have evolved into more general discussion lists that are less focused on problem solving.
 
-像Stack Overflow一样，YAQS分享了邮件列表的许多相同的优点，并增加了完善的功能：标记为有用的答案在用户界面上被推广，用户可以编辑问题和答案，以便随着代码和事实的变化保持准确和有用。因此，一些邮件列表已经被YAQS所取代，而其他的邮件列表已经演变成更一般的讨论列表，不再专注于解决问题。
+像Stack Overflow一样，YAQS与邮件列表有许多相同的优点，并增加了完善的功能：标记为有用的答案在用户界面上被推广，用户可以编辑问题和答案，以便随着代码和事实的变化保持准确和有用。因此，一些邮件列表已经被YAQS所取代，而其他的邮件列表已经演变成更一般的讨论列表，不再专注于解决问题。
 
 ## Scaling Your Knowledge:You Always Have Something to Teach 扩展你的知识：你总是有东西可教的
 Teaching is not limited to experts, nor is expertise a binary state in which you are either a novice or an expert. Expertise is a multidimensional vector of what you know: everyone has varying levels of expertise across different areas. This is one of the reasons why diversity is critical to organizational success: different people bring different perspectives and expertise to the table (see Chapter 4). Google engineers teach others in a variety of ways, such as office hours, giving tech talks, teaching classes, writing documentation, and reviewing code.
 
-教学不局限专家，专业知识也不是一种二元状态，你要么是新手，要么是专家。专业知识是你所知道的一个多维向量：每个人在不同领域都有不同水平的专业知识。这就是为什么多样性对组织的成功至关重要的原因之一：不同的人带来不同的观点和专业知识（见第四章）。谷歌工程师以各种方式教授他人，如办公时间、举办技术讲座、教授课程、编写文档和审查代码。
+教学不局限专家，专业知识也不是一种二元状态，你要么是新手，要么是专家。专业知识是你所知道的一个多维向量：每个人在不同领域都有不同水平的专业知识。这就是为什么多样性是组织的成功至关重要的原因之一：不同的人带来不同的观点和专业知识（见第四章）。谷歌工程师以各种方式教授他人，如办公时间、举办技术讲座、教授课程、编写文档和审查代码。
 
 ### Office Hours 固定时间
 Sometimes it’s really important to have a human to talk to, and in those instances, office hours can be a good solution. Office hours are a regularly scheduled (typically weekly) event during which one or more people make themselves available to answer questions about a particular topic. Office hours are almost never the first choice for knowledge sharing: if you have an urgent question, it can be painful to wait for the next session for an answer; and if you’re hosting office hours, they take up time and need to be regularly promoted. That said, they do provide a way for people to talk to an expert in person. This is particularly useful if the problem is still ambiguous enough that the engineer doesn’t yet know what questions to ask (such as when they’re just starting to design a new service) or whether the problem is about something so specialized that there just isn’t documentation on it.
@@ -305,7 +306,7 @@ Sometimes it’s really important to have a human to talk to, and in those insta
 ### Tech Talks and Classes 技术讲座和课程
 Google has a robust culture of both internal and external[^5] tech talks and classes. Our engEDU (Engineering Education) team focuses on providing Computer Science education to many audiences, ranging from Google engineers to students around the world. At a more grassroots level, our g2g (Googler2Googler) program lets Googlers sign up to give or attend talks and classes from fellow Googlers.[^6] The program is wildly successful, with thousands of participating Googlers teaching topics from the technical (e.g., “Understanding Vectorization in Modern CPUs”) to the just-for-fun (e.g., “Beginner Swing Dance”).
 
-谷歌拥有强大的内部和外部5技术讲座和课程的文化。我们的engEDU（工程教育）团队专注于为许多受众提供计算机科学教育，包括谷歌工程师和世界各地的学生。在更底层的层面上，我们的g2g（Googler2Googler）计划让Googlers报名参加，以举办或参加Googlers同伴的讲座和课程。该计划非常成功，有数千名Googlers参与，教授的主题从技术（如 "了解现代CPU的矢量化"）到只是为了好玩（如 "初级摇摆舞"）。
+谷歌拥有强大的内部和外部技术讲座和课程的文化。我们的engEDU（工程教育）团队专注于为许多受众提供计算机科学教育，包括谷歌工程师和世界各地的学生。在更底层的层面上，我们的g2g（Googler2Googler）计划让Googlers报名参加，以举办或参加Googlers同伴的讲座和课程。该计划非常成功，有数千名Googlers参与，教授的主题从技术（如 "了解现代CPU的矢量化"）到只是为了好玩（如 "初级摇摆舞"）。
 
 Tech talks typically consist of a speaker presenting directly to an audience. Classes, on the other hand, can have a lecture component but often center on in-class exercises and therefore require more active participation from attendees. As a result, instructor-led classes are typically more demanding and expensive to create and maintain than tech talks and are reserved for the most important or difficult topics. That said, after a class has been created, it can be scaled relatively easily because many instructors can teach a class from the same course materials. We’ve found that classes tend to work best when the following circumstances exist:  
 - The topic is complicated enough that it’s a frequent source of misunderstanding. Classes take a lot of work to create, so they should be developed only when they’re addressing specific needs.
@@ -315,11 +316,13 @@ Tech talks typically consist of a speaker presenting directly to an audience. Cl
 
 技术讲座通常由演讲者直接向听众介绍。另一方面，课堂可以有讲座的部分，但往往以课堂练习为中心，因此需要与会者更积极地参与。因此，与技术讲座相比，教师授课的课程在创建和维护方面通常要求更高、成本也更高，而且只保留给最重要或最难的主题。也就是说，在一个课程创建之后，它的规模可以相对容易地扩大，因为许多教员可以用同样的课程材料来教课。我们发现，当存在以下情况时，课程往往效果最好：  
 - 主题足够复杂，以至于经常出现误解。课程的创建需要大量的工作，因此只有在满足特定需求时才能开发。
-- 该主题相对稳定。更新课堂材料是一项大量的工作，所以如果该主题快速发展，其他形式的知识共享将有更好的回报。
+- 该主题相对稳定。更新课堂材料是一项繁重的工作，所以如果该主题快速发展，其他形式的知识共享将有更好的回报。
 - 该主题得益于有教师回答问题和提供个性化的帮助。如果学生可以在没有指导帮助的情况下轻松学习，那么像文档或录音这样的自我服务媒介就会更有效率。谷歌的一些介绍性课程也有自学版本。
 - 有足够的需求定期提供课程。否则，潜在的学习者会通过其他方式获得他们需要的信息，而不是等待课程。在谷歌，这对于地理位置偏远的小型办公室来说尤其是一个问题。
 
-> [^5]:	https://talksat.withgoogle.com and https://www.youtube.com/GoogleTechTalks, to name a few./
+> 
+
+5]:	https://talksat.withgoogle.com and https://www.youtube.com/GoogleTechTalks, to name a few./
 > 5 https://talksat.withgoogle.com 和 https://www.youtube.com/GoogleTechTalks，仅举几例。
 > 
 > [^6]:	The g2g program is detailed in: Laszlo Bock, Work Rules!: Insights from Inside Google That Will Transform How You Live and Lead (New York: Twelve Books, 2015). It includes descriptions of different aspects of the program as well as how to evaluate impact and recommendations for what to focus on when setting up similar programs./
@@ -338,11 +341,11 @@ In this section, we focus on spotting opportunities for contributing to and crea
 #### Updating documentation 更新文档
 The first time you learn something is the best time to see ways that the existing documentation and training materials can be improved. By the time you’ve absorbed and understood a new process or system, you might have forgotten what was difficult or what simple steps were missing from the “Getting Started” documentation. At this stage, if you find a mistake or omission in the documentation, fix it! Leave the campground cleaner than you found it,[^7] and try to update the documents yourself, even when that documentation is owned by a different part of the organization.
 
-你第一次学习某样东西的时候，最好是看看如何改进现有的文档和培训材料。当你吸收并理解了一个新的流程或系统时，你可能已经忘记了 "入门 "文档中的难点或缺少哪些简单的步骤文档。在这个阶段，如果你发现文件中的错误或遗漏，就把它改正过来! 离开营地时要比你发现时更干净，并尝试自己更新文件，即使文档属于组织的其他部门。
+你第一次学习某样东西的时候，最好是看看如何改进现有的文档和培训材料。当你吸收并理解了一个新的流程或系统时，你可能已经忘记了 "入门 "文档中的难点或缺少哪些简单的步骤文档。在这个阶段，如果你发现文件中的错误或遗漏，就把它改正过来! 离开营地时要比你发现时更干净[^7]，并尝试自己更新文件，即使文档属于组织的其他部门。
 
 At Google, engineers feel empowered to update documentation regardless of who owns it—and we often do—even if the fix is as small as correcting a typo. This level of community upkeep increased notably with the introduction of g3doc,[^8] which made it much easier for Googlers to find a documentation owner to review their suggestion. It also leaves an auditable trail of change history no different than that for code.
 
-在谷歌，工程师们觉得无论文档的所有者是谁，都有权更新文档——我们经常这样做——即使修复的范围很小，比如纠正一个拼写错误。这种社区维护的水平随着g3doc的引入而明显提高，这使得Googlers更容易找到一个文档的所有者来审查他们的建议。这也让可审核的变更历史记录与代码的变更历史记录相同。
+在谷歌，工程师们觉得无论文档的所有者是谁，都有权更新文档——我们经常这样做——即使修复的范围很小，比如纠正一个拼写错误。这种社区维护的水平随着g3doc[^8]的引入而明显提高，这使得Googlers更容易找到一个文档的所有者来审查他们的建议。这也让可审核的变更历史记录与代码的变更历史记录相同。
 
 #### Creating documentation 创建文档
 As your proficiency grows, write your own documentation and update existing docs. For example, if you set up a new development flow, document the steps. You can then make it easier for others to follow in your path by pointing them to your document. Even better, make it easier for people to find the document themselves. Any sufficiently undiscoverable or unsearchable documentation might as well not exist. This is another area in which g3doc shines because the documentation is predictably located right next to the source code, as opposed to off in an (unfindable) document or webpage somewhere.
@@ -364,7 +367,7 @@ Traditionally, encouraging engineers to document their work can be difficult. Wr
 
 However, a document author can often directly benefit from writing documentation. Suppose that team members always ask you for help debugging certain kinds of production failures. Documenting your procedures requires an upfront investment of time, but after that work is done, you can save time in the future by pointing team members to the documentation and providing hands-on help only when needed.
 
-然而，文档作者往往可以直接从编写文档中受益。假设团队成员总是向你寻求帮助，以调试某些种类的生产故障。记录你的程序需要前期的时间投入，但在这项工作完成后，你可以在未来节省时间，指点团队成员去看文档，只在需要时提供动手帮助。
+然而，文档作者往往可以直接从编写文档中受益。假设团队成员总是向你寻求帮助，以调试某些种类的生产故障。记录你的程序需要前期的时间投入，但在这项工作完成后，你可以在未来节省时间，指点团队成员去看文档，只在需要时亲自提供帮助。
 
 Writing documentation also helps your team and organization scale. First, the information in the documentation becomes canonicalized as a reference: team members can refer to the shared document and even update it themselves. Second, the canonicalization may spread outside the team. Perhaps some parts of the documentation are not unique to the team’s configuration and become useful for other teams looking to resolve similar problems.
 
@@ -398,7 +401,7 @@ Ensuring that expertise is appropriately shared across the organization becomes 
 ### Cultivating a Knowledge-Sharing Culture 培养知识共享文化
 Organizational culture is the squishy human thing that many companies treat as an afterthought. But at Google, we believe that focusing on the culture and environment first[^9] results in better outcomes than focusing on only the output—such as the code— of that environment.
 
-组织文化是许多公司视为事后诸葛亮的东西。但在谷歌，我们相信首先关注文化和环境会比只关注该环境的产出（如代码）带来更好的结果。
+组织文化是许多公司视为事后诸葛亮的东西。但在谷歌，我们相信首先关注文化和环境[^9]会比只关注该环境的产出（如代码）带来更好的结果。
 
 Making major organizational shifts is difficult, and countless books have been written on the topic. We don’t pretend to have all the answers, but we can share specific steps Google has taken to create a culture that promotes learning.
 
@@ -406,7 +409,7 @@ Making major organizational shifts is difficult, and countless books have been w
 
 See the book Work Rules [^10] for a more in-depth examination of Google’s culture.
 
-请参阅《工作规则》（Work Rules!: Insights From Inside *Google* That Will TransformLaszlo BockGrand Central Publis）一书，对谷歌的文化进行更深入的研究。
+请参阅《工作规则》[^10]一书，对谷歌的文化进行更深入的研究。
 
 > [^9]: Laszlo Bock, Work Rules!: Insights from Inside Google That Will Transform How You Live and Lead (New York: Twelve Books, 2015)./
 > 9 Laszlo Bock, Work Rules! 来自谷歌内部的洞察力，将改变你的生活和领导方式（纽约：十二书局，2015）。 
@@ -423,7 +426,7 @@ Knowledge sharing can and should be done with kindness and respect. In tech, tol
 	Although a measure of technical leadership is expected at higher levels, not all leadership is directed at technical problems. Leaders improve the quality of the people around them, improve the team’s psychological safety, create a culture of teamwork and collaboration, defuse tensions within the team, set an example of Google’s culture and values, and make Google a more vibrant and exciting place to work. Jerks are not good leaders.
 
 知识分享可以而且应该以善意和尊重的方式进行。在科技界，对 "聪明的混蛋 "的容忍——还有更糟糕的是，崇尚 "聪明的混蛋"，即是普遍又是危害的，但作为一个专家和善良并不互斥。谷歌软件工程职位阶梯的领导力部分清楚地概述了这一点：
-	虽然在更高的层次上需要衡量技术领导力，但并非所有的领导力都针对技术问题。领导者可以提高周围人的素质，改善团队的心理安全，创造团队合作文化，化解团队内部的紧张情绪，树立谷歌文化和价值观的榜样，让谷歌成为一个更具活力和激情的工作场所。混蛋不是好领导。
+	虽然在更高的层次上需要衡量技术领导力，但并非所有的领导力都针对技术问题。领导者可以提高周围人的素质，改善团队的心理安全感，创造团队合作文化，化解团队内部的紧张情绪，树立谷歌文化和价值观的榜样，让谷歌成为一个更具活力和激情的工作场所。混蛋不是好领导。
 
 This expectation is modeled by senior leadership: Urs Hölzle (Senior Vice President of Technical Infrastructure) and Ben Treynor Sloss (Vice President, Founder of Google SRE) wrote a regularly cited internal document (“No Jerks”) about why Googlers should care about respectful behavior at work and what to do about it.
 
@@ -487,7 +490,7 @@ Creating and maintaining centralized, canonical sources of information is expens
 #### Developer guides  开发者指南 
 Google has a broad and deep set of official guidance for engineers, including style guides, official software engineering best practices,[^12] guides for code review[^13] and testing,[^14] and Tips of the Week (TotW).[^15]
 
-谷歌为工程师提供了一套广泛而深入的官方指导，包括风格指南、官方软件工程最佳实践、代码审查和测试指南以及每周提示（TotW）。
+谷歌为工程师提供了一套广泛而深入的官方指导，包括风格指南、官方软件工程最佳实践[^12]、代码审查[^13]和测试指南[^14]以及每周提示（TotW）[^15]。
 
 The corpus of information is so large that it’s impractical to expect engineers to read it all end to end, much less be able to absorb so much information at once. Instead, a human expert already familiar with a guideline can send a link to a fellow engineer, who then can read the reference and learn more. The expert saves time by not needing to personally explain a company-wide practice, and the learner now knows that there is a canonical source of trustworthy information that they can access whenever necessary. Such a process scales knowledge because it enables human experts to recognize and solve a specific information need by leveraging common, scalable resources.
 
@@ -507,12 +510,12 @@ The corpus of information is so large that it’s impractical to expect engineer
 > 15 可用于多种语言。对外可用于C++，在https://abseil.io/tips。
 
 
-#### go/links
+#### go/links 链接
 go/links (sometimes referred to as goto/ links) are Google’s internal URL shortener.[^16] Most Google-internal references have at least one internal go/ link. For example, “go/ spanner” provides information about Spanner, “go/python” is Google’s Python developer guide. The content can live in any repository (g3doc, Google Drive, Google Sites, etc.), but having a go/ link that points to it provides a predictable, memorable way to access it. This yields some nice benefits:
 •	- go/links are so short that it’s easy to share them in conversation (“You should check out go/frobber!”). This is much easier than having to go find a link and then send a message to all interested parties. Having a low-friction way to share references makes it more likely that that knowledge will be shared in the first place.
 •	- go/links provide a permalink to the content, even if the underlying URL changes. When an owner moves content to a different repository (for example, moving content from a Google doc to g3doc), they can simply update the go/link’s target URL. The go/link itself remains unchanged.
 
-go/links（有时被称为goto/链接）是谷歌的内部URL缩短器。大多数谷歌内部的参考资料至少有一个内部go/links。例如，"go/spanner "提供关于Spanner的信息，"go/python "是谷歌的Python开发者指南。这些内容可以存在于任何资源库中（g3doc、Google Drive、Google Sites等），但有一个指向它的go/links提供了一种可预测的、可记忆的访问方式。这产生了一些很好的好处：
+go/links（有时被称为goto/链接）是谷歌的内部URL缩短器。[^16]大多数谷歌内部的参考资料至少有一个内部go/links。例如，"go/spanner "提供关于Spanner的信息，"go/python "是谷歌的Python开发者指南。这些内容可以存在于任何资源库中（g3doc、Google Drive、Google Sites等），但有一个指向它的go/links提供了一种可预测的、可记忆的访问方式。这产生了一些很好的好处：
 - go/links非常短，很容易在谈话中分享它们（"你应该看看go/frobber！"）。这比去找一个链接，然后给所有感兴趣的人发一个消息要容易得多。有一个低成本的方式来分享参考资料，使得这些知识更有可能在第一时间被分享。
 - go/links提供内容的固定链接，即使底层的URL发生变化。当所有者将内容移到一个不同的资源库时（例如，将内容从Google doc移到g3doc），他们可以简单地更新go/link的目标URL。go/link本身保持不变。
 
@@ -523,7 +526,7 @@ go/links在谷歌文化中根深蒂固，以至于出现了一个良性循环：
 #### Codelabs 代码实验室
 Google codelabs are guided, hands-on tutorials that teach engineers new concepts or processes by combining explanations, working best-practice example code, and code exercises.[^17] A canonical collection of codelabs for technologies broadly used across Google is available at go/codelab. These codelabs go through several rounds of formal review and testing before publication. Codelabs are an interesting halfway point between static documentation and instructor-led classes, and they share the best and worst features of each. Their hands-on nature makes them more engaging than traditional documentation, but engineers can still access them on demand and complete them on their own; but they are expensive to maintain and are not tailored to the learner’s specific needs.
 
-Google codelabs是有指导的实践教程，通过结合解释、工作中的最佳实践示例代码和代码练习，向工程师传授新概念或流程。go/codelab上提供了一个规范的codelabs集合，用于Google广泛使用的技术。这些代码集在发布前经过了几轮正式的审查和测试。Codelabs是介于静态文档和讲师指导课程之间的一个有趣的中间点，它们分享了两者的最佳和最差的特点。它们的实践性使它们比传统的文档更有吸引力，但工程师仍然可以按需访问它们，并自行完成；但它们的维护成本很高，而且不适合学习者的特定需求。
+Google codelabs是有指导的实践教程，通过结合解释、工作中的最佳实践示例代码和代码练习，向工程师传授新概念或流程[^17]。go/codelab上提供了一个规范的codelabs集合，用于Google广泛使用的技术。这些代码集在发布前经过了几轮正式的审查和测试。Codelabs是介于静态文档和讲师指导课程之间的一个有趣的中间点，它们分享了两者的最佳和最差的特点。它们的实践性使它们比传统的文档更有吸引力，但工程师仍然可以按需访问它们，并自行完成；但它们的维护成本很高，而且不适合学习者的特定需求。
 
 > [^16]:	go/ links are unrelated to the Go language.  
 > 16  go/link与go语言无关。
@@ -577,7 +580,7 @@ Inevitably, Google’s hiring rate grew beyond what one person could keep up wit
 ### What Is the Readability Process?  什么是可读性过程？
 Code review is mandatory at Google. Every changelist (CL)[^18] requires readability approval, which indicates that someone who has readability certification for that language has approved the CL. Certified authors implicitly provide readability approval of their own CLs; otherwise, one or more qualified reviewers must explicitly give readability approval for the CL. This requirement was added after Google grew to a point where it was no longer possible to enforce that every engineer received code reviews that taught best practices to the desired rigor.
 
-在谷歌，代码审查是强制性的。每个变更列表（CL）都需要可读性批准，这表明拥有该语言的可读性认证的人已经批准了该CL。经过认证的作者隐含地对他们自己的CL提供可读性批准；否则，一个或多个合格的审查员必须明确地对CL提供可读性批准。这项要求是在谷歌发展到无法强制要求每个工程师接受代码审查，从而将最佳实践传授到所需的严格程度之后添加的。
+在谷歌，代码审查是强制性的。每个变更列表（CL）[^18]都需要可读性批准，这表明拥有该语言的可读性认证的人已经批准了该CL。经过认证的作者隐含地对他们自己的CL提供可读性批准；否则，一个或多个合格的审查员必须明确地对CL提供可读性批准。这项要求是在谷歌发展到无法强制要求每个工程师接受代码审查，从而将最佳实践传授到所需的严格程度之后添加的。
 
 Within Google, having readability certification is commonly referred to as “having readability” for a language. Engineers with readability have demonstrated that they consistently write clear, idiomatic, and maintainable code that exemplifies Google’s best practices and coding style for a given language. They do this by submitting CLs through the readability process, during which a centralized group of readability reviewers review the CLs and give feedback on how much it demonstrates the various areas of mastery. As authors internalize the readability guidelines, they receive fewer and fewer comments on their CLs until they eventually graduate from the process and formally receive readability. Readability brings increased responsibility: engineers with readability are trusted to continue to apply their knowledge to their own code and to act as reviewers for other engineers’ code.
 
@@ -592,7 +595,7 @@ Around 1 to 2% of Google engineers are readability reviewers. All reviewers are 
 
 Readability is deliberately a human-driven process that aims to scale knowledge in a standardized yet personalized way. As a complementary blend of written and tribal knowledge, readability combines the advantages of written documentation, which can be accessed with citable references, with the advantages of expert human reviewers, who know which guidelines to cite. Canonical guidelines and language recommendations are comprehensively documented—which is good!—but the corpus of information is so large[^19] that it can be overwhelming, especially to newcomers.
 
-可读性是一个人为驱动的过程，旨在以标准化但个性化的方式扩展知识。作为书面知识和内部知识的互补混合体，可读性结合了书面文件的优势，可以通过可引用的参考文献来获取，也结合了专家审查员的优势，他们知道应该引用哪些指南。典范指南和语言建议被全面地记录下来——这很好！——但信息的语料库非常大，可能会让人不知所措，特别是对新人来说。
+可读性是一个人为驱动的过程，旨在以标准化但个性化的方式扩展知识。作为书面知识和内部知识的互补混合体，可读性结合了书面文件的优势，可以通过可引用的参考文献来获取，也结合了专家审查员的优势，他们知道应该引用哪些指南。典范指南和语言建议被全面地记录下来——这很好！——但信息的语料库非常大[^19]，可能会让人不知所措，特别是对新人来说。
 
 > [^19]:  As of 2019, just the Google C++ style guide is 40 pages long. The secondary material making up the complete corpus of best practices is many times longer./
 > 19  截至2019，谷歌C++风格指南只有40页长。构成完整的最佳实践语法库的次要材料要长很多倍。
@@ -600,7 +603,7 @@ Readability is deliberately a human-driven process that aims to scale knowledge 
 ### Why Have This Process? 为什么有这个过程？
 Code is read far more than it is written, and this effect is magnified at Google’s scale and in our (very large) monorepo.[^20] Any engineer can look at and learn from the wealth of knowledge that is the code of other teams, and powerful tools like Kythe make it easy to find references throughout the entire codebase (see Chapter 17). An important feature of documented best practices (see Chapter 8) is that they provide consistent standards for all Google code to follow. Readability is both an enforcement and propagation mechanism for these standards.
 
-代码的阅读量远远大于编写量，这种影响在谷歌的规模和我们（非常大的）monorepo中被放大。任何工程师都可以查看并学习其他团队的代码的丰富知识，而像Kythe这样强大的工具使得在整个代码库中寻找参考资料变得很容易（见第17章）。文档化最佳实践的一个重要特征（见第8章）是，它们为所有谷歌代码提供了一致的标准。可读性是这些标准的可强制执行和传播的基础。
+代码的阅读量远远大于编写量，这种影响在谷歌的规模和我们（非常大的）monorepo中被放大。[^20]任何工程师都可以查看并学习其他团队的代码的丰富知识，而像Kythe这样强大的工具使得在整个代码库中寻找参考资料变得很容易（见第17章）。文档化最佳实践的一个重要特征（见第8章）是，它们为所有谷歌代码提供了一致的标准。可读性是这些标准的可强制执行和传播的基础。
 
 One of the primary advantages of the readability program is that it exposes engineers to more than just their own team’s tribal knowledge. To earn readability in a given language, engineers must send CLs through a centralized set of readability reviewers who review code across the entire company. Centralizing the process makes a significant trade-off: the program is limited to scaling linearly rather than sublinearly with organization growth, but it makes it easier to enforce consistency, avoid islands, and avoid (often unintentional) drifting from established norms.
 
@@ -626,7 +629,7 @@ These benefits come with some costs: readability is a heavyweight process compar
 
 The question, then, is whether the benefits outweigh the costs. There’s also the factor of time: the full effect of the benefits versus the costs are not on the same timescale. The program makes a deliberate trade-off of increased short-term code-review latency and upfront costs for the long-term payoffs of higher-quality code, repository-wide code consistency, and increased engineer expertise. The longer timescale of the benefits comes with the expectation that code is written with a potential lifetime of years, if not decades.[^21]
 
-那么，问题是收益是否大于成本。还有一个时间因素：收益与成本的全部效果并不在同一时间维度上。该计划对增加的短期代码审查延迟和前期成本进行了慎重的权衡，以获得更高质量代码、存储库范围内的代码一致性和增加的工程师专业知识的长期回报。效益的时间尺度较长，期望编写的代码有几年甚至几十年的潜在寿命。
+那么，问题是收益是否大于成本。还有一个时间因素：收益与成本的全部效果并不在同一时间维度上。该计划对增加的短期代码审查延迟和前期成本进行了慎重的权衡，以获得更高质量代码、存储库范围内的代码一致性和增加的工程师专业知识的长期回报。效益的时间尺度较长，期望编写的代码有几年甚至几十年的潜在寿命[^21]。
 
 As with most—or perhaps all—engineering processes, there’s always room for improvement. Some of the costs can be mitigated with tooling. A number of readability comments address issues that could be detected statically and commented on automatically by static analysis tooling. As we continue to invest in static analysis, readability reviewers can increasingly focus on higher-order areas, like whether a particular block of code is understandable by outside readers who are not intimately familiar with the codebase instead of automatable detections like whether a line has trailing whitespace.
 

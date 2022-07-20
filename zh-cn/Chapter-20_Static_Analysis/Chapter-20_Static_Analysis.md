@@ -2,7 +2,10 @@
 
 # Static Analysis
 # 第二十章 静态分析
-        --由凯特琳·萨多夫斯基 (Caitlin Sadowski) 撰写，丽莎·凯莉 (Lisa Carey) 修改
+        
+**Written by Caitlin Sadowski**
+
+**Edited by Lisa Carey**
 
 Static analysis refers to programs analyzing source code to find potential issues such as bugs, antipatterns, and other issues that can be diagnosed *without executing the* *program*. The “static” part specifically refers to analyzing the source code instead of a running program (referred to as “dynamic” analysis). Static analysis can find bugs in programs early, before they are checked in as production code. For example, static analysis can identify constant expressions that overflow, tests that are never run, or invalid format strings in logging statements that would crash when executed.[^1] However, static analysis is useful for more than just finding bugs. Through static analysis at Google, we codify best practices, help keep code current to modern API versions, and prevent or reduce technical debt. Examples of these analyses include verifying that naming conventions are upheld, flagging the use of deprecated APIs, or pointing out simpler but equivalent expressions that make code easier to read. Static analysis is also an integral tool in the API deprecation process, where it can prevent backsliding during migration of the codebase to a new API (see [Chapter 22](#_bookmark1935)). We have also found evidence that static analysis checks can educate developers and actually prevent antipatterns from entering the codebase.[^2]
 

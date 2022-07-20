@@ -5,7 +5,9 @@
 
 # 第四章 公平工程
 
-            Written by Demma Rodriguez Edited by Riona MacNamara
+**Written by Demma Rodriguez**
+
+**Edited by Riona MacNamara**
 
 In earlier chapters, we’ve explored the contrast between programming as the production of code that addresses the problem of the moment, and software engineering as the broader application of code, tools, policies, and processes to a dynamic and ambiguous problem that can span decades or even lifetimes. In this chapter, we’ll discuss the unique responsibilities of an engineer when designing products for a broad base of users. Further, we evaluate how an organization, by embracing diversity, can design systems that work for everyone, and avoid perpetuating harm against our users.
 
@@ -59,11 +61,11 @@ As late as 2018, Google still had not adequately addressed the underlying proble
 
 In this example, our product was inadequately designed and executed, failing to properly consider all racial groups, and as a result, failed our users and caused Google bad press. Other technology suffers from similar failures: autocomplete can return offensive or racist results. Google’s Ad system could be manipulated to show racist or offensive ads. YouTube might not catch hate speech, though it is technically outlawed on that platform.
 
-在这个例子中，我们的产品设计和执行不当，未能适当考虑到所有的种族群体，结果是辜负了我们的用户，给谷歌带来了恶劣的影响。其他技术也有类似的失误：自动完成补全可以返回攻击性或种族主义的结果。谷歌的广告系统可以被操纵来显示种族主义或攻击性广告。YouTube可能捕获仇恨言论，尽管从技术上讲，它在该平台上是非法的。
+在这个例子中，我们的产品设计和执行不当，未能适当考虑到所有的种族群体，结果是辜负了我们的用户，给谷歌带来了恶劣的影响。其他技术也有类似的失误：自动完成补全可以返回攻击性或种族主义的结果。谷歌的广告系统可以被操纵来显示种族主义或攻击性广告。YouTube可能没有识别到仇恨言论，尽管从技术上讲，它在该平台上是非法的。
 
 In all of these cases, the technology itself is not really to blame. Autocomplete, for example, was not designed to target users or to discriminate. But it was also not resilient enough in its design to exclude discriminatory language that is considered hate speech. As a result, the algorithm returned results that caused harm to our users. The harm to Google itself should also be obvious: reduced user trust and engagement with the company. For example, Black, Latinx, and Jewish applicants could lose faith in Google as a platform or even as an inclusive environment itself, therefore undermining Google’s goal of improving representation in hiring.
 
-在所有这些情况下，技术本身并不是真正的罪魁祸首。例如，自动完成补全的设计目的不是为了针对用户或进行歧视。但它的设计也没有足够的灵活来排除被认为是仇恨言论的歧视性语言。结果，该算法返回的结果对我们的用户造成了伤害。对谷歌本身的损害也应该是显而易见的：用户对该公司的信任和参与度降低。例如，黑人、拉美人和犹太人的申请者可能会对谷歌这个平台甚至其本身的包容性环境失去信心，因此破坏了谷歌改善招聘中的人群目标。
+在所有这些情况下，技术本身并不是真正的罪魁祸首。例如，自动完成补全的设计目的不是为了针对用户或进行歧视。但它的设计也没有足够的灵活来排除被认为是仇恨言论的歧视性语言。结果，该算法返回的结果对我们的用户造成了伤害。对谷歌本身的损害也应该是显而易见的：用户对该公司的信任和参与度降低。例如，黑人、拉美人和犹太人的申请者可能会对谷歌这个平台甚至其本身的包容性环境失去信心，因此破坏了谷歌在招聘中改善代表性的目标。
 
 How could this happen? After all, Google hires technologists with impeccable education and/or professional experience—exceptional programmers who write the best code and test their work. “Build for everyone” is a Google brand statement, but the truth is that we still have a long way to go before we can claim that we do. One way to address these problems is to help the software engineering organization itself look like the populations for whom we build products.
 
@@ -93,13 +95,13 @@ The first order of business is to disrupt the notion that as a person with a com
 
 Engineers should begin by focusing all work within the framing of the complete ecosystem they seek to influence. At minimum, they need to understand the population demographics of their users. Engineers should focus on people who are different than themselves, especially people who might attempt to use their products to cause harm. The most difficult users to consider are those who are disenfranchised by the processes and the environment in which they access technology. To address this challenge, engineering teams need to be representative of their existing and future users. In the absence of diverse representation on engineering teams, individual engineers need to learn how to build for all users.
 
-工程师应首先关注他们试图影响的完整生态系统框架内的所有工作。至少，他们需要了解用户的人群统计数据。工程师应该关注与自己不同的人，特别是那些试图使用他们的产品而造成伤害的人。最难考虑的用户是那些被他们获取技术的过程和环境所剥夺了权益的人。为了应对这一挑战，工程团队需要代表其现有和未来的用户。在工程团队缺乏多元化代表的情况下，每个工程师需要学习如何为所有用户构建。
+工程师应首先关注他们试图影响的完整生态系统框架内的所有工作。至少，他们需要了解用户的人群统计数据。工程师应该关注与自己不同的人，特别是那些试图使用他们的产品而受伤的人。最难考虑的用户是那些被他们获取技术的过程和环境所剥夺了权益的人。为了应对这一挑战，工程团队需要代表其现有和未来的用户。在工程团队缺乏多元化代表的情况下，每个工程师需要学习如何为所有用户构建。
 
 ## Building Multicultural Capacity 构建多元化能力
 
 One mark of an exceptional engineer is the ability to understand how products can advantage and disadvantage different groups of human beings. Engineers are expected to have technical aptitude, but they should also have the *discernment* to know when to build something and when not to. Discernment includes building the capacity to identify and reject features or products that drive adverse outcomes. This is a lofty and difficult goal, because there is an enormous amount of individualism that goes into being a high-performing engineer. Yet to succeed, we must extend our focus beyond our own communities to the next billion users or to current users who might be disenfranchised or left behind by our products.
 
-卓越的工程师的一个标志是能够理解产品如何对不同的人群益处和害处。工程师应该有技术能力，但他们也应该有*敏锐的判断力*，知道什么时候该造什么，什么时候不该造。判断力包括建立识别和拒绝那些导致不良结果的功能或产品的能力。这是一个崇高而艰难的目标，因为要成为一名出色的工程师，需要有大量的个人主义。然而，想要成功，我们必须扩大我们的关注范围，关注我们当前用户之外的未来十亿的用户，哪怕是可能被我们的产品剥夺权利或遗弃的现有用户。
+卓越的工程师的一个标志是能够理解产品对不同的人群的好处和坏处。工程师应该有技术能力，但他们也应该有*敏锐的判断力*，知道什么时候该造什么，什么时候不该造。判断力包括建立识别和拒绝那些导致不良结果的功能或产品的能力。这是一个崇高而艰难的目标，因为要成为一名出色的工程师，需要有大量的个人主义。然而，想要成功，我们必须扩大我们的关注范围，关注我们当前用户之外的未来十亿的用户，哪怕是可能被我们的产品剥夺权利或遗弃的现有用户。
 
 Over time, you might build tools that billions of people use daily—tools that influence how people think about the value of human lives, tools that monitor human activity, and tools that capture and persist sensitive data, such as images of their children and loved ones, as well as other types of sensitive data. As an engineer, you might wield more power than you realize: the power to literally change society. It’s critical that on your journey to becoming an exceptional engineer, you understand the innate responsibility needed to exercise power without causing harm. The first step is to recognize the default state of your bias caused by many societal and educational factors. After you recognize this, you’ll be able to consider the often-forgotten use cases or users who can benefit or be harmed by the products you build.
 
@@ -152,7 +154,7 @@ We cannot perpetuate solutions that present a single philosophy or methodology f
 
 One singular narrative held dear in the technology industry is that lack of representation in the workforce can be addressed solely by fixing the hiring pipelines. Yes, that is a fundamental step, but that is not the immediate issue we need to fix. We need to recognize systemic inequity in progression and retention while simultaneously focusing on more representative hiring and educational disparities across lines of race, gender, and socioeconomic and immigration status, for example.
 
-在科技行业中，有一种单一的说法是，劳动力中缺乏代表性的问题可以只通过解决招聘管道来解决。是的，这是一个基本步骤，但这并不是我们需要解决的紧迫问题。我们需要认识到在晋升和留任方面的系统不平等，同时关注更具代表性的招聘和教育差异，例如种族、性别、社会经济和移民状况。
+在科技行业中，有一种单一的说法是，劳动力中缺乏代表性的问题可以只通过修复招聘通道来解决。是的，这是一个基本步骤，但这并不是我们需要解决的紧迫问题。我们需要认识到在晋升和留任方面的系统不平等，同时关注更具代表性的招聘和教育差异，例如种族、性别、社会经济和移民状况。
 
 In the technology industry, many people from underrepresented groups are passed over daily for opportunities and advancement. Attrition among Black+ Google employees outpaces attrition from all other groups and confounds progress on representation goals. If we want to drive change and increase representation, we need to evaluate whether we’re creating an ecosystem in which all aspiring engineers and other technology professionals can thrive.
 

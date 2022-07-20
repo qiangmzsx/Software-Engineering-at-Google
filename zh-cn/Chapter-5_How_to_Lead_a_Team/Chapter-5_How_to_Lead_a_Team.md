@@ -5,7 +5,9 @@
 
 # 第五章 如何领导团队
 
-                       							Written by Brian Fitzpatrick Edited by Riona MacNamara
+**Written by Brian Fitzpatrick**
+
+**Edited by Riona MacNamara**
 
 We’ve covered a lot of ground so far on the culture and composition of teams writing software, and in this chapter, we’ll take a look at the person ultimately responsible for making it all work.
 
@@ -316,7 +318,7 @@ Most people new to a leadership role feel an enormous responsibility to get ever
 
 The last part of losing the ego is a simple one, but many engineers would rather be boiled in oil than do it: apologize when you make a mistake. And we don’t mean you should just sprinkle “I’m sorry” throughout your conversation like salt on popcorn— you need to sincerely mean it. You are absolutely going to make mistakes, and whether or not you admit it, your team is going to know you’ve made a mistake. Your team members will know regardless of whether they talk to you (and one thing is guaranteed: they *will* talk about it with one another). Apologizing doesn’t cost money. People have enormous respect for leaders who apologize when they screw up, and contrary to popular belief, apologizing doesn’t make you vulnerable. In fact, you’ll usually gain respect from people when you apologize, because apologizing tells people that you are level headed, good at assessing situations, and—coming back to humility, respect, and trust—humble.
 
-失去自负的最后一部分很简单，但许多工程师宁愿在油锅里也不愿意这样做：当你犯了错误时要道歉。我们并不是说你应该像在爆米花上撒盐一样在你的谈话中撒下 "对不起"，你需要真诚地表达。你绝对会犯错误，无论你是否承认，你的团队都会知道你犯了错误。无论你的团队成员是否与你交谈，他们都会知道（有一点是可以保证的：他们*会*彼此谈论这个问题）。道歉不需要花钱。人们对那些在犯错时道歉的领导人有着极大的尊重，与流行的观点相反，道歉不会让你变得脆弱。事实上，当你道歉时，你通常会得到人们的尊重，因为道歉告诉人们，你头脑冷静，善于评估情况，而且——回到谦逊、尊重和信任——谦虚。
+丢掉自负的最后一部分很简单，但许多工程师宁愿在油锅里也不愿意这样做：当你犯了错误时要道歉。我们并不是说你应该像在爆米花上撒盐一样在你的谈话中撒下 "对不起"，你需要真诚地表达。你绝对会犯错误，无论你是否承认，你的团队都会知道你犯了错误。无论你的团队成员是否与你交谈，他们都会知道（有一点是可以保证的：他们*会*彼此谈论这个问题）。道歉不需要花钱。人们对那些在犯错时道歉的领导人有着极大的尊重，与流行的观点相反，道歉不会让你变得脆弱。事实上，当你道歉时，你通常会得到人们的尊重，因为道歉告诉人们，你头脑冷静，善于评估情况，而且——回到谦逊、尊重和信任——谦虚。
 
 ### Be a Zen Master  管好自己
 
@@ -330,7 +332,7 @@ A simple way to visualize this effect is to see your company’s organization ch
 
 Another way of thinking about this is the maxim that the leader is always on stage. This means that if you’re in an overt leadership position, you are always being watched: not just when you run a meeting or give a talk, but even when you’re just sitting at your desk answering emails. Your peers are watching you for subtle clues in your body language, your reactions to small talk, and your signals as you eat lunch. Do they read confidence or fear? As a leader, your job is to inspire, but inspiration is a 24/7 job. Your visible attitude about absolutely everything—no matter how trivial—is unconsciously noticed and spreads infectiously to your team.
 
-另一种思考方式是 "领导者总是站在舞台上 "的格言。这意味着，如果你处于公开的领导地位，你总是被监视着：不仅仅是当你主持会议或发表演讲时，甚至当你只是坐在办公桌前回复电子邮件时。你的同僚在观察你，从你的肢体语言、你对闲谈的反应以及你吃午餐时的信号中寻找微妙的线索。他们是读出了自信还是恐惧？作为一个领导，你的工作是激励，但激励是一项全天候的工作。你对所有事情的明显态度——无论多么微不足道——都会不自觉地被注意到，并会传染给你的团队。
+另一种思考方式是 "领导者总是站在舞台上" 的格言。这意味着，如果你处于公开的领导地位，你总是被监视着：不仅仅是当你主持会议或发表演讲时，甚至当你只是坐在办公桌前回复电子邮件时。你的同僚在观察你，从你的肢体语言、你对闲谈的反应以及你吃午餐时的信号中寻找微妙的线索。他们是读出了自信还是恐惧？作为一个领导，你的工作是激励，但激励是一项全天候的工作。你对所有事情的明显态度——无论多么微不足道——都会不自觉地被注意到，并会传染给你的团队。
 
 One of the early managers at Google, Bill Coughran, a VP of engineering, had truly mastered the ability to maintain calm at all times. No matter what blew up, no matter what crazy thing happened, no matter how big the firestorm, Bill would never panic. Most of the time he’d place one arm across his chest, rest his chin in his hand, and ask questions about the problem, usually to a completely panicked engineer. This had the effect of calming them and helping them to focus on solving the problem instead of running around like a chicken with its head cut off. Some of us used to joke that if someone came in and told Bill that 19 of the company’s offices had been attacked by space aliens, Bill’s response would be, “Any idea why they didn’t make it an even 20?”
 

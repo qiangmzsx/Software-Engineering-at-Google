@@ -6,7 +6,9 @@
 
 # 第二十五章 计算即服务
 
-            Written by Onufry Wojtaszczyk Edited by Lisa Carey
+**Written by Onufry Wojtaszczyk**
+
+**Edited by Lisa Carey**
 
 *I don’t try to understand computers. I try to understand the programs.*
 
