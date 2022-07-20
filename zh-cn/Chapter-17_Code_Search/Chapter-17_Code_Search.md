@@ -4,7 +4,9 @@
 
 # 第十七章 代码搜索
 
-​                                         																									Written by Alexander Neubeck and Ben St. John Edited by Lisa Carey
+**Written by Alexander Neubeck and Ben St. John**
+
+**Edited by Lisa Carey**
 
 Code Search is a tool for browsing and searching code at Google that consists of a frontend UI and various backend elements. Like many of the development tools at Google, it arose directly out of a need to scale to the size of the codebase. Code Search began as a combination of a grep-type tool[^1] for internal code with the ranking and UI of external Code Search[^2]. Its place as a key tool for Google developers was cemented by the integration of Kythe/Grok[^3], which added cross-references and the ability to jump to symbol definitions.
 

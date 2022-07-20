@@ -5,7 +5,9 @@
 
 # 第二章 如何融入团队
 
-​                                                              **Written by Brian Fitzpatrick Edited by Riona MacNamara**
+**Written by Brian Fitzpatrick**
+
+**Edited by Riona MacNamara**
 
 Because this chapter is about the cultural and social aspects of software engineering at Google, it makes sense to begin by focusing on the one variable over which you definitely have control: you.
 
@@ -361,12 +363,13 @@ A better way to say the same thing might be, “Hey, I’m confused by the contr
 
 #### Fail fast and iterate 快速失败并迭代
 
-There’s a well-known urban legend in the business world about a manager who makes a mistake and loses an impressive $10 million. He dejectedly goes into the office the next day and starts packing up his desk, and when he gets the inevitable “the CEO wants to see you in his office” call, he trudges into the CEO’s office and quietly slides a piece of paper across the desk.  
+There’s a well-known urban legend in the business world about a manager who makes a mistake and loses an impressive $10 million. He dejectedly goes into the office the next day and starts packing up his desk, and when he gets the inevitable “the 
+wants to see you in his office” call, he trudges into the CEO’s office and quietly slides a piece of paper across the desk.  
 “What’s this?” asks the CEO.  
 “My resignation,” says the executive. “I assume you called me in here to fire me.”  
 “Fire you?” responds the CEO, incredulously. “Why would I fire you? I just spent $10 million training you!”[^6]  
 
-商界有一个著名的城市传奇，说的是一位经理犯了一个错误，损失了令人印象深刻的1000万美元。第二天，他沮丧地走进办公室，开始收拾桌子。当他接到不可抗拒的“CEO想见你在办公室”电话时，他蹒跚地走进CEO办公室，悄悄地把一张纸递上桌子。  
+商界有一个著名的城市传奇，说的是一位经理犯了一个错误，损失了令人印象深刻的1000万美元。第二天，他沮丧地走进办公室，开始收拾桌子。当他接到不可抗拒的“CEO让你去他办公室”电话时，他蹒跚地走进CEO办公室，悄悄地把一张纸递上桌子。  
 "这是什么？"CEO问道。  
 "我的辞呈，"这位经理说。"我想你叫我来是要解雇我。"  
 "解雇你？"首席执行官难以置信地回答道。"我为什么要解雇你？我刚刚花了1000万美元培训你！"
@@ -440,11 +443,11 @@ The idea of vulnerability can seem strange, too. If someone admits ignorance of 
 
 Not true. Admitting that you’ve made a mistake or you’re simply out of your league can increase your status over the long run. In fact, the willingness to express vulnerability is an outward show of humility, it demonstrates accountability and the willingness to take responsibility, and it’s a signal that you trust others’ opinions. In return, people end up respecting your honesty and strength. Sometimes, the best thing you can do is just say, “I don’t know.”
 
-并非如此。从长远来看，承认自己犯了错误，或者根本不属于你的行列，都会提高你的地位。事实上，表达脆弱性的意愿是一种谦逊的外在表现，它表明了责任感和承担责任的意愿，也是你信任他人意见的信号。作为回报，人们最终会尊重你的诚实和力量。有时，你能做的最好的事情就是说，"我不知道"。
+并非如此。从长远来看，承认自己犯了错误，或者根本不在你的能力范围，都会提高你的地位。事实上，表达脆弱性的意愿是一种谦逊的外在表现，它表明了责任感和承担责任的意愿，也是你信任他人意见的信号。作为回报，人们最终会尊重你的诚实和力量。有时，你能做的最好的事情就是说，"我不知道"。
 
 Professional politicians, for example, are notorious for never admitting error or ignorance, even when it’s patently obvious that they’re wrong or unknowledgeable about a subject. This behavior exists primarily because politicians are constantly under attack by their opponents, and it’s why most people don’t believe a word that politicians say. When you’re writing software, however, you don’t need to be continually on the defensive—your teammates are collaborators, not competitors. You all have the same goal.
 
-例如，职业政客因从不承认错误或无知而臭名昭著，即使他们在某个问题上显然是错的或不知的。存在这种行为主要是因为政客们经常受到对手的攻击，这就是为什么大多数人不相信政客们说的一个字。然而，当你在编写软件时，你不需要不断地进行防守——你的团队成员是合作者，而不是竞争对手。你们都有相同的目标。
+例如，职业政客因从不承认错误或无知而臭名昭著，即使他们在某个问题上显然是错的或无知的。存在这种行为主要是因为政客们经常受到对手的攻击，这就是为什么大多数人不相信政客们说的一个字。然而，当你在编写软件时，你不需要不断地保持防备状态——你的团队成员是合作者，而不是竞争对手。你们都有相同的目标。
 
 ### Being Googley  成为谷歌的
 

@@ -5,7 +5,9 @@
 
 # 第五章 如何领导团队
 
-                       							Written by Brian Fitzpatrick Edited by Riona MacNamara
+**Written by Brian Fitzpatrick**
+
+**Edited by Riona MacNamara**
 
 We’ve covered a lot of ground so far on the culture and composition of teams writing software, and in this chapter, we’ll take a look at the person ultimately responsible for making it all work.
 
@@ -91,7 +93,7 @@ We’re not here to attempt to convince you to become a manager, but rather to h
 
 我们来这里不是为了说服你成为一名管理者，而是为了帮助你展示为什么最好的领导者会以谦逊、尊重和信任的原则为团队服务。了解领导力的来龙去脉是影响你工作方向的重要技能。如果你想为你的项目掌舵，而不是随波逐流，你需要知道如何导航，否则你会把自己（和你的项目）撞上沙滩。
 
-### The Only Thing to Fear Is…Well, Everything  唯一害怕的是…嗯，一切都好
+### The Only Thing to Fear Is…Well, Everything  唯一害怕的是…嗯，所有的事
 
 Aside from the general sense of malaise that most people feel when they hear the word “manager,” there are a number of reasons that most people don’t want to become managers. The biggest reason you’ll hear in the software development world is that you spend much less time writing code. This is true whether you become a TL or an engineering manager, and I’ll talk more about this later in the chapter, but first, let’s cover some more reasons why most of us avoid becoming managers.
 
@@ -165,7 +167,7 @@ Most people still use the title “manager” despite the fact that it’s often
 
 A new engineer, Jerry, joined my team a few years ago. Jerry’s last manager (at a different company) was adamant that he be at his desk from 9:00 to 5:00 every day, and assumed that if he wasn’t there, he wasn’t working enough (which is, of course, a ridiculous assumption). On his first day working with me, Jerry came to me at 4:40p.m. and stammered out an apology that he had to leave 15 minutes early because he had an appointment that he had been unable to reschedule. I looked at him, smiled, and told him flat out, “Look, as long as you get your job done, I don’t care what time you leave the office.” Jerry stared blankly at me for a few seconds, nodded, and went on his way. I treated Jerry like an adult; he always got his work done, and I never had to worry about him being at his desk, because he didn’t need a babysitter to get his work done. If your employees are so uninterested in their job that they actually need traditional-manager babysitting to be convinced to work, *that* is your real problem.
 
-几年前，一位名叫杰瑞的工程师新加入了我的团队。杰里的上一任经理（在另一家公司）坚决要求他每天从早上9点到下午5点都在办公桌前，并认为如果他不在那里，就说明他工作得不够努力（当然，这是一个可笑的假设）。在他和我一起工作的第一天，杰里在下午4点40分来找我，结结巴巴地道歉，说他不得不提前15分钟离开，因为他有一个约会，但他没法重新安排。我看着他，笑了笑，直截了当地告诉他："听着，只要你完成了你的工作，我不在乎你什么时候离开办公室。" 杰里茫然地盯着我看了几秒钟，点了点头，然后上路了。我对待杰瑞就像对待成年人一样，他总是能完成工作，我从来没有担心过他是否在办公桌前，因为他不需要保姆一样的来完成工作。如果你的员工对他们的工作如此不感兴趣，以至于他们实际上需要传统的经理保姆式来监督他们工作，这才是你真正的问题。
+几年前，一位名叫杰瑞的工程师新加入了我的团队。杰瑞的上一任经理（在另一家公司）坚决要求他每天从早上9点到下午5点都在办公桌前，并认为如果他不在那里，就说明他工作得不够努力（当然，这是一个可笑的假设）。在他和我一起工作的第一天，杰瑞在下午4点40分来找我，结结巴巴地道歉，说他不得不提前15分钟离开，因为他有一个约会，但他没法重新安排。我看着他，笑了笑，直截了当地告诉他："听着，只要你完成了你的工作，我不在乎你什么时候离开办公室。" 杰瑞茫然地盯着我看了几秒钟，点了点头，然后上路了。我对待杰瑞就像对待成年人一样，他总是能完成工作，我从来没有担心过他是否在办公桌前，因为他不需要保姆一样的来完成工作。如果你的员工对他们的工作如此不感兴趣，以至于他们实际上需要传统的经理保姆式来监督他们工作，这才是你真正的问题。
 
 > [^4]:	If you have kids, the odds are good that you can remember with startling clarity the first time you said something to your child that made you stop and exclaim (perhaps even aloud), “Holy crap, I’ve become my mother.”/
 > 4 如果你有孩子，你很有可能清楚地记得你第一次对你的孩子说了什么，让你停下来并感叹（也许甚至是大声地感叹）："我的妈呀，我已经变成我的母亲了。"
@@ -316,7 +318,7 @@ Most people new to a leadership role feel an enormous responsibility to get ever
 
 The last part of losing the ego is a simple one, but many engineers would rather be boiled in oil than do it: apologize when you make a mistake. And we don’t mean you should just sprinkle “I’m sorry” throughout your conversation like salt on popcorn— you need to sincerely mean it. You are absolutely going to make mistakes, and whether or not you admit it, your team is going to know you’ve made a mistake. Your team members will know regardless of whether they talk to you (and one thing is guaranteed: they *will* talk about it with one another). Apologizing doesn’t cost money. People have enormous respect for leaders who apologize when they screw up, and contrary to popular belief, apologizing doesn’t make you vulnerable. In fact, you’ll usually gain respect from people when you apologize, because apologizing tells people that you are level headed, good at assessing situations, and—coming back to humility, respect, and trust—humble.
 
-失去自负的最后一部分很简单，但许多工程师宁愿在油锅里也不愿意这样做：当你犯了错误时要道歉。我们并不是说你应该像在爆米花上撒盐一样在你的谈话中撒下 "对不起"，你需要真诚地表达。你绝对会犯错误，无论你是否承认，你的团队都会知道你犯了错误。无论你的团队成员是否与你交谈，他们都会知道（有一点是可以保证的：他们*会*彼此谈论这个问题）。道歉不需要花钱。人们对那些在犯错时道歉的领导人有着极大的尊重，与流行的观点相反，道歉不会让你变得脆弱。事实上，当你道歉时，你通常会得到人们的尊重，因为道歉告诉人们，你头脑冷静，善于评估情况，而且——回到谦逊、尊重和信任——谦虚。
+丢掉自负的最后一部分很简单，但许多工程师宁愿在油锅里也不愿意这样做：当你犯了错误时要道歉。我们并不是说你应该像在爆米花上撒盐一样在你的谈话中撒下 "对不起"，你需要真诚地表达。你绝对会犯错误，无论你是否承认，你的团队都会知道你犯了错误。无论你的团队成员是否与你交谈，他们都会知道（有一点是可以保证的：他们*会*彼此谈论这个问题）。道歉不需要花钱。人们对那些在犯错时道歉的领导人有着极大的尊重，与流行的观点相反，道歉不会让你变得脆弱。事实上，当你道歉时，你通常会得到人们的尊重，因为道歉告诉人们，你头脑冷静，善于评估情况，而且——回到谦逊、尊重和信任——谦虚。
 
 ### Be a Zen Master  管好自己
 
@@ -330,7 +332,7 @@ A simple way to visualize this effect is to see your company’s organization ch
 
 Another way of thinking about this is the maxim that the leader is always on stage. This means that if you’re in an overt leadership position, you are always being watched: not just when you run a meeting or give a talk, but even when you’re just sitting at your desk answering emails. Your peers are watching you for subtle clues in your body language, your reactions to small talk, and your signals as you eat lunch. Do they read confidence or fear? As a leader, your job is to inspire, but inspiration is a 24/7 job. Your visible attitude about absolutely everything—no matter how trivial—is unconsciously noticed and spreads infectiously to your team.
 
-另一种思考方式是 "领导者总是站在舞台上 "的格言。这意味着，如果你处于公开的领导地位，你总是被监视着：不仅仅是当你主持会议或发表演讲时，甚至当你只是坐在办公桌前回复电子邮件时。你的同僚在观察你，从你的肢体语言、你对闲谈的反应以及你吃午餐时的信号中寻找微妙的线索。他们是读出了自信还是恐惧？作为一个领导，你的工作是激励，但激励是一项全天候的工作。你对所有事情的明显态度——无论多么微不足道——都会不自觉地被注意到，并会传染给你的团队。
+另一种思考方式是 "领导者总是站在舞台上" 的格言。这意味着，如果你处于公开的领导地位，你总是被监视着：不仅仅是当你主持会议或发表演讲时，甚至当你只是坐在办公桌前回复电子邮件时。你的同僚在观察你，从你的肢体语言、你对闲谈的反应以及你吃午餐时的信号中寻找微妙的线索。他们是读出了自信还是恐惧？作为一个领导，你的工作是激励，但激励是一项全天候的工作。你对所有事情的明显态度——无论多么微不足道——都会不自觉地被注意到，并会传染给你的团队。
 
 One of the early managers at Google, Bill Coughran, a VP of engineering, had truly mastered the ability to maintain calm at all times. No matter what blew up, no matter what crazy thing happened, no matter how big the firestorm, Bill would never panic. Most of the time he’d place one arm across his chest, rest his chin in his hand, and ask questions about the problem, usually to a completely panicked engineer. This had the effect of calming them and helping them to focus on solving the problem instead of running around like a chicken with its head cut off. Some of us used to joke that if someone came in and told Bill that 19 of the company’s offices had been attacked by space aliens, Bill’s response would be, “Any idea why they didn’t make it an even 20?”
 

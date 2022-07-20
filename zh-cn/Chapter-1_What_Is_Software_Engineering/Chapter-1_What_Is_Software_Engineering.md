@@ -5,7 +5,9 @@
 
 # 第一章 软件工程是什么？
 
-​																			**Written by Titus Winters Edited by Tom Manshreck**
+**Written by Titus Winters**
+
+**Edited by Tom Manshreck**
 
 *Nothing is built on stone; all is built on sand, but we must build as if the sand were stone.*
 																																		*--Jorge Luis Borges*
@@ -20,8 +22,7 @@ Within Google, we sometimes say, “Software engineering is programming integrat
 
 One way to see the impact of time on a program is to think about the question, “What is the expected life span[^1] of your code?” Reasonable answers to this question vary by roughly a factor of 100,000. It is just as reasonable to think of code that needs to last for a few minutes as it is to imagine code that will live for decades. Generally, code on the short end of that spectrum is unaffected by time. It is unlikely that you need to adapt to a new version of your underlying libraries, operating system (OS), hardware, or language version for a program whose utility spans only an hour. These short-lived systems are effectively “just” a programming problem, in the same way that a cube compressed far enough in one dimension is a square. As we expand that time to allow for longer life spans, change becomes more important. Over a span of a decade or more, most program dependencies, whether implicit or explicit, will likely change. This recognition is at the root of our distinction between software engineering and programming.
 
-了解时间对程序的影响的一种方法是思考“代码的预期生命周期是多少？”这个问题的合理答案大约相差100,000倍。想到生命周期几分钟的代码和想象将持续执行几十年的代码是一样合理。通常，周期短的代码不受时间的影响。对于一个只需要存活一个小时的程序，你不太可能考虑其适应基础库、操作系统（OS）、硬件或语言版本的新版本。这些短期系统实际上“只是”一个编程问题，就像在一个维度中压缩得足够扁的立方体是正方形一样。随着我们扩大时间维度，允许更长的生命周期，改变显得更加重要。在十年或更长的时间里，大多数程序依赖关系，无论是隐式的还是显式的，都可能发生变化。这一认识是我们区分软件工程和编程的根本原因。
-
+了解时间对程序的影响的一种方法是思考“代码的预期生命周期是多少？”这个问题的合理答案大约相差100,000倍。想到生命周期几分钟的代码和想象将持续执行几十年的代码是一样合理。通常，周期短的代码不受时间的影响。对于一个只需要存活一个小时的程序，你不太可能考虑其底层库、操作系统（OS）、硬件或语言版本的新版本。这些短期系统实际上“只是”一个编程问题，就像在一个维度中压缩得足够扁的立方体是正方形一样。随着我们扩大时间维度，允许更长的生命周期，改变显得更加重要。在十年或更长的时间里，大多数程序依赖关系，无论是隐式的还是显式的，都可能发生变化。这一认识是我们区分软件工程和编程的根本原因。
 
 [^1]: We don’t mean “execution lifetime,” we mean “maintenance lifetime”—how long will the code continue to be built, executed, and maintained? How long will this software provide value?\
 我们不是指“开发生命周期”，而是指“维护生命周期”——代码将持续构建、执行和维护多长时间？这个软件能提供多长时间的价值？
@@ -484,7 +485,7 @@ Be evidence driven, but also realize that things that can’t be measured may st
 
 以证据为导向，但也要意识到无法衡量的东西可能仍然有价值。如果你是一个领导者，那就是你被要求做的：审时度势，主张事在人为。我们将在第5章和第6章中详细介绍领导力
 
-## Software Engineering Versus Programming
+## Software Engineering Versus Programming 软件工程与编程
 When presented with our distinction between software engineering and programming, you might ask whether there is an inherent value judgement in play. Is programming somehow worse than software engineering? Is a project that is expected to last a decade with a team of hundreds inherently more valuable than one that is useful for only a month and built by two people?
 
 在介绍软件工程和编程之间的区别时，你可能会问，是否存在内在的价值判断。编程是否比软件工程更糟糕？一个由数百人组成的团队预计将持续十年的项目是否比一个只有一个月的项目和两个人构建的项目更有价值？
@@ -519,7 +520,7 @@ This book discusses all of these topics: policies for an organization and for a 
 - 在预期的代码生命周期内，当我们能够响应依赖关系、技术或产品需求的变化时，软件是可持续的。我们可能选择不改变事情，但我们需要有能力。
 - 海勒姆定律：当一个 API 有足够的用户的时候，在约定中你承诺的什么都无所谓，所有在你系统里面被观察到的行为都会被一些用户直接依赖。
 - 你的组织重复执行的每项任务都应在人力投入方面具有可扩展性（线性或更好）。策略是使流程可伸缩的好工具。
-- 流程效率低下和其他软件开发任务的扩展速度缓慢。小心煮青蛙的问题。
+- 流程效率低下和其他软件开发任务往往会慢慢扩大规模。小心煮青蛙的问题。
 - 当专业知识与规模经济相结合时，回报尤其丰厚。
 - “因为我说过”是做事的可怕理由。
 - 数据驱动是一个良好的开端，但实际上，大多数决策都是基于数据、假设、先例和论据的混合。最好是客观数据占这些输入的大部分，但很少可能是全部。

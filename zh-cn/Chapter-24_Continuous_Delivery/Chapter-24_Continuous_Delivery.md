@@ -5,7 +5,9 @@
 
 # 第二十四章 持续交付
 
-                        Written by adha Narayan, Bobbi Jones, Sheri Shipe, and David Owens Edited by Lisa Carey
+**Written by adha Narayan, Bobbi Jones, Sheri Shipe, and David Owens**
+
+**Edited by Lisa Carey**
 
 Given how quickly and unpredictably the technology landscape shifts, the competitive advantage for any product lies in its ability to quickly go to market. An organization’s velocity is a critical factor in its ability to compete with other players, maintain product and service quality, or adapt to new regulation. This velocity is bottlenecked by the time to deployment. Deployment doesn’t just happen once at initial launch. There is a saying among educators that no lesson plan survives its first contact with the student body. In much the same way, no software is perfect at first launch, and the only guarantee is that you’ll have to update it. Quickly.
 

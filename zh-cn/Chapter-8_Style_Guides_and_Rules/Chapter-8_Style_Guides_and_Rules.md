@@ -4,9 +4,10 @@
 
 # 第八章 风格指导和规则
 
-​	**Written by Shaindel Schwartz Edited by Tom Manshreck**
+**Written by Shaindel Schwartz**
 
-​	**作者:Shaindel Schwartz 编辑:Tom Manshreck**
+**Edited by Tom Manshreck**
+
 
 Most engineering organizations have rules governing their codebases—rules about where source files are stored, rules about the formatting of the code, rules about naming and patterns and exceptions and threads. Most software engineers are working within the bounds of a set of policies that control how they operate. At Google, to manage our codebase, we maintain a set of style guides that define our rules.
 

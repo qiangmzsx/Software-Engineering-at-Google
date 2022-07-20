@@ -5,7 +5,9 @@
 
 # 第十章 文档
 
-            Written by Tom Manshreck Edited by Riona MacNamara
+**Written by Tom Manshreck**
+
+**Edited by Riona MacNamara**
 
 Of the complaints most engineers have about writing, using, and maintaining code, a singular common frustration is the lack of quality documentation. “What are the side effects of this method?” “I got an error after step 3.” “What does this acronym mean?” “Is this document up to date?” Every software engineer has voiced complaints about the quality, quantity, or sheer lack of documentation throughout their career, and the software engineers at Google are no different.
 

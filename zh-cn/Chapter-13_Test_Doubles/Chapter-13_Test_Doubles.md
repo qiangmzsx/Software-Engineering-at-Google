@@ -4,7 +4,9 @@
 
 # 第十三章 测试替代
 
-            Written by Andrew Trenk and Dillon Bly Edited by Tom Manshreck
+**Written by Andrew Trenk and Dillon Bly**
+
+**Edited by Tom Manshreck**
 
 Unit tests are a critical tool for keeping developers productive and reducing defects in code. Although they can be easy to write for simple code, writing them becomes difficult as code becomes more complex.
 
@@ -57,7 +59,7 @@ At Google, we’ve seen countless examples of the benefits to productivity and s
 
 One lesson we learned the hard way is the danger of overusing mocking frameworks, which allow you to easily create test doubles (we will discuss mocking frameworks in more detail later in this chapter). When mocking frameworks first came into use at Google, they seemed like a hammer fit for every nail—they made it very easy to write highly focused tests against isolated pieces of code without having to worry about how to construct the dependencies of that code. It wasn’t until several years and countless tests later that we began to realize the cost of such tests: though these tests were easy to write, we suffered greatly given that they required constant effort to maintain while rarely finding bugs. The pendulum at Google has now begun swinging in the other direction, with many engineers avoiding mocking frameworks in favor of writing more realistic tests.
 
-我们经过艰苦的历程学到的一个教训是过度使用模拟框架的危险，它允许你轻松创建测试替代（我们将在本章后面更详细地讨论模拟框架）。当mocking框架首次在Google使用时，它们就像一把锤子，适合每一根钉子。它们使得针对独立的代码段编写高度集中的测试变得非常容易，而不必担心如何构建代码的依赖关系。直到经过几年和无数次测试之后，我们才开始意识到这些测试的成本：尽管这些测试很容易编写，但由于它们需要不断的努力来维护，而很少发现bug，我们遭受了巨大的损失。谷歌的天平现在开始向另一个方向摆动，许多工程师避免模仿框架，转而编写更真实的测试。
+我们经过艰苦的历程学到的一个教训是过度使用模拟框架的危险，它允许你轻松创建测试替代（我们将在本章后面更详细地讨论模拟框架）。当mocking框架首次在Google使用时，它们就像一把锤子，适合每一根钉子。它们使得针对独立的代码段编写高度集中的测试变得非常容易，而不必担心如何构建代码的依赖关系。直到经过几年和无数次测试之后，我们才开始意识到这些测试的成本：尽管这些测试很容易编写，但由于它们需要不断的努力来维护，而很少发现bug，我们遭受了巨大的损失。谷歌的天平现在开始向另一个方向摆动，许多工程师避免mocking框架，转而编写更真实的测试。
 
 Even though the practices discussed in this chapter are generally agreed upon at Google, the actual application of them varies widely from team to team. This variance stems from engineers having inconsistent knowledge of these practices, inertia in an existing codebase that doesn’t conform to these practices, or teams doing what is easiest for the short term without thinking about the long-term implications.
 
@@ -113,7 +115,8 @@ Although this test double doesn’t look very useful, using it in a test still a
 
 ```java
 @Test public void cardIsExpired_returnFalse() {
-	boolean success = paymentProcessor.makePayment(EXPIRED_CARD, AMOUNT); assertThat(success).isFalse();
+	boolean success = paymentProcessor.makePayment(EXPIRED_CARD, AMOUNT);
+    assertThat(success).isFalse();
 }
 ```
 
@@ -200,17 +203,20 @@ class PaymentProcessorTest {
 PaymentProcessor paymentProcessor;
 
 // Create a test double of CreditCardService with just one line of code.
-@Mock CreditCardService mockCreditCardService; @Before public void setUp() {
+@Mock CreditCardService mockCreditCardService;
+
+@Before public void setUp() {
     // Pass in the test double to the system under test.
     paymentProcessor = new PaymentProcessor(mockCreditCardService);
 }
+
 @Test public void chargeCreditCardFails_returnFalse() {
     // Give some behavior to the test double: it will return false
     // anytime the chargeCreditCard() method is called. The usage of
     // “any()” for the method’s arguments tells the test double to
     // return false regardless of which arguments are passed.
     when(mockCreditCardService.chargeCreditCard(any(), any())
-    .thenReturn(false);
+    	.thenReturn(false);
     boolean success = paymentProcessor.makePayment(CREDIT_CARD, AMOUNT);
     assertThat(success).isFalse();
   }
@@ -253,7 +259,8 @@ assertFalse(accessManager.userHasAccess(USER_ID));
 
 // The user ID should have access after it is added to
 // the authorization service. 
-fakeAuthorizationService.addAuthorizedUser(new User(USER_ID)); assertThat(accessManager.userHasAccess(USER_ID)).isTrue();
+fakeAuthorizationService.addAuthorizedUser(new User(USER_ID));
+assertThat(accessManager.userHasAccess(USER_ID)).isTrue();
 
 ```
 
@@ -278,10 +285,12 @@ Using a fake is often the ideal technique when you need to use a test double, bu
 AccessManager accessManager = new AccessManager(mockAuthorizationService):
 
 // The user ID shouldn’t have access if null is returned. 
-when(mockAuthorizationService.lookupUser(USER_ID)).thenReturn(null); assertThat(accessManager.userHasAccess(USER_ID)).isFalse();
+when(mockAuthorizationService.lookupUser(USER_ID)).thenReturn(null);
+assertThat(accessManager.userHasAccess(USER_ID)).isFalse();
 
 // The user ID should have access if a non-null value is returned.   
-when(mockAuthorizationService.lookupUser(USER_ID)).thenReturn(USER); assertThat(accessManager.userHasAccess(USER_ID)).isTrue();
+when(mockAuthorizationService.lookupUser(USER_ID)).thenReturn(USER);
+assertThat(accessManager.userHasAccess(USER_ID)).isTrue();
 ```
 
 Stubbing is typically done through mocking frameworks to reduce boilerplate that would otherwise be needed for manually creating new classes that hardcode return values.
@@ -305,8 +314,9 @@ Although stubbing can be a quick and simple technique to apply, it has limitatio
 *Example* *13-9. Interaction testing*
 
 ```java
-// Pass in a test double that was created by a mocking 
-framework. AccessManager accessManager = new AccessManager(mockAuthorizationService); accessManager.userHasAccess(USER_ID);
+// Pass in a test double that was created by a mocking framework.
+AccessManager accessManager = new AccessManager(mockAuthorizationService);
+accessManager.userHasAccess(USER_ID);
 
 // The test will fail if accessManager.userHasAccess(USER_ID) didn’t call
 // mockAuthorizationService.lookupUser(USER_ID).
@@ -488,8 +498,9 @@ If using a real implementation is not feasible within a test, the best option is
 public class FakeFileSystem implements FileSystem {
     // Stores a map of file name to file contents. The files are stored in
     // memory instead of on disk since tests shouldn’t need to do disk I/O.
-    private Map < String, String > files = new HashMap < > ();@
-    Override
+    private Map < String, String > files = new HashMap< > ();
+    
+    @Override
     public void writeFile(String fileName, String contents) {
         // Add the file name and contents to the map.
         files.add(fileName, contents);

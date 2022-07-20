@@ -4,7 +4,9 @@
 
 # 第十八章 构建系统，构建理念
 
-            Written by  Erik Kuefler Edited by Lisa Carey
+**Written by  Erik Kuefler**
+
+**Edited by Lisa Carey**
 
 If you ask Google engineers what they like most about working at Google (besides the free food and cool products), you might hear something surprising: engineers love the build system.[^1] Google has spent a tremendous amount of engineering effort over its lifetime in creating its own build system from the ground up, with the goal of ensuring that our engineers are able to quickly and reliably build code. The effort has been so successful that Blaze, the main component of the build system, has been reimplemented several different times by ex-Googlers who have left the company.[^2] In 2015, Google finally open sourced an implementation of Blaze named Bazel.
 
