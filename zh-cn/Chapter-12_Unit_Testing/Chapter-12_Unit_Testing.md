@@ -267,7 +267,7 @@ This test more accurately expresses what we care about: the state of the system 
 
 The most common reason for problematic interaction tests is an over reliance on mocking frameworks. These frameworks make it easy to create test doubles that record and verify every call made against them, and to use those doubles in place of real objects in tests. This strategy leads directly to brittle interaction tests, and so we tend to prefer the use of real objects in favor of mocked objects, as long as the real objects are fast and deterministic.
 
-交互测试出现问题的最常见原因是过度依赖框架。这些框架可以很容易地创建测试替换，记录并验证针对它们的每个调用，并在测试中使用这些替换来代替真实对象。这种策略直接导致了脆弱的交互测试，因此我们倾向于使用真实对象而不是模拟对象，只要真实对象是快速和确定的。
+交互测试出现问题的最常见原因是过度依赖mocking框架。这些框架可以很容易地创建测试替换，记录并验证针对它们的每个调用，并在测试中使用这些替换来代替真实对象。这种策略直接导致了脆弱的交互测试，因此我们倾向于使用真实对象而不是模拟对象，只要真实对象是快速和确定的。
 
 ## Writing Clear Tests  编写清晰的测试
 
