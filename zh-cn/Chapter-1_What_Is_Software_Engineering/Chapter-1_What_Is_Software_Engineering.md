@@ -404,7 +404,7 @@ Decisions should not be “We are doing this because I said so.”[^17]
 > [^17]: This is not to say that decisions need to be made unanimously, or even with broad consensus; in the end, someone must be the decider. This is primarily a statement of how the decision-making process should flow for whoever is actually responsible for the decision.\
 > 这并不是说决策需要一致做出，甚至需要有广泛的共识；最终，必须有人成为决策者。这主要是说明决策过程应该如何为实际负责决策的人进行。
 
-### Inputs to Decision Making 对决策的输入
+### Inputs to Decision Making 对决策的投入
 When we are weighing data, we find two common scenarios:
 - All of the quantities involved are measurable or can at least be estimated. This usually means that we’re evaluating trade-offs between CPU and network, or dollars and RAM, or considering whether to spend two weeks of engineer-time in order to save N CPUs across our datacenters.
 - Some of the quantities are subtle, or we don’t know how to measure them. Sometimes this manifests as “We don’t know how much engineer-time this will take.” Sometimes it is even more nebulous: how do you measure the engineering cost of a poorly designed API? Or the societal impact of a product choice?
@@ -523,6 +523,6 @@ This book discusses all of these topics: policies for an organization and for a 
 - 流程效率低下和其他软件开发任务往往会慢慢扩大规模。小心煮青蛙的问题。
 - 当专业知识与规模经济相结合时，回报尤其丰厚。
 - “因为我说过”是做事的可怕理由。
-- 数据驱动是一个良好的开端，但实际上，大多数决策都是基于数据、假设、先例和论据的混合。最好是客观数据占这些输入的大部分，但很少可能是全部。
-- 随着时间的推移，数据驱动意味着当数据发生变化时（或假设消除时），需要改变方向。错误或修订的计划不在表中。
+- 数据驱动是一个良好的开端，但实际上，大多数决策都是基于数据、假设、先例和争论的混合。最好是客观数据占这些输入的大部分，但很少可能是全部。
+- 随着时间的推移，数据驱动意味着当数据发生变化时（或假设消除时），需要改变方向。错误或计划修订是不可避免的。
 
