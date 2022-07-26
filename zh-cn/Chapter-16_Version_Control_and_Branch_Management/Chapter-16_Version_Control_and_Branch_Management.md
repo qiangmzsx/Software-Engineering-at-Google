@@ -12,7 +12,7 @@
 
 Perhaps no software engineering tool is quite as universally adopted throughout the industry as version control. One can hardly imagine any software organization larger than a few people that doesn’t rely on a formal Version Control System (VCS) to manage its source code and coordinate activities between engineers.
 
-也许没有一种软件工程工具像版本控制那样在整个行业中被广泛采用。你很难想象有哪个软件组织比不依赖正式版本控制系统（VCS）来管理其源代码和协调工程师之间的活动。
+也许没有一种软件工程工具像版本控制那样在整个行业中被广泛采用。我们很难想象，任何超过几个人的软件组织不依靠正式的版本控制系统（VCS）来管理其源代码和协调工程师之间的活动。
 
 In this chapter, we’re going to look at why the use of version control has become such an unambiguous norm in software engineering, and we describe the various possible approaches to version control and branch management, including how we do it at scale across all of Google. We’ll also examine the pros and cons of various approaches; although we believe everyone should use version control, some version control policies and processes might work better for your organization (or in general) than others. In particular, we find “trunk-based development” as popularized by DevOps[^1] (one repository, no dev branches) to be a particularly scalable policy approach, and we’ll provide some suggestions as to why that is.
 
@@ -26,7 +26,7 @@ In this chapter, we’re going to look at why the use of version control has bec
 
 A VCS is a system that tracks revisions (versions) of files over time. A VCS maintains some metadata about the set of files being managed, and collectively a copy of the files and metadata is called a repository[^2] (repo for short). A VCS helps coordinate the activities of teams by allowing multiple developers to work on the same set of files simultaneously. Early VCSs did this by granting one person at a time the right to edit a file—that style of locking is enough to establish sequencing (an agreed-upon “which is newer,” an important feature of VCS). More advanced systems ensure that changes to a *collection* of files submitted at once are treated as a single unit (*atomicity* when a logical change touches multiple files). Systems like CVS (a popular VCS from the 90s) that didn’t have this atomicity for a commit were subject to corruption and lost changes. Ensuring atomicity removes the chance of previous changes being overwritten unintentionally, but requires tracking which version was last synced to—at commit time, the commit is rejected if any file in the commit has been modified at head since the last time the local developer synced. Especially in such a change-tracking VCS, a developer’s working copy of the managed files will therefore need metadata of its own. Depending on the design of the VCS, this copy of the repository can be a repository itself, or might contain a reduced amount of metadata—such a reduced copy is usually a “client” or “workspace.”
 
-VCS是一个跟踪文件随时间变化的修订（版本）的系统。VCS维护一些关于被管理的文件集的元数据，文件和元数据的副本统称为版本库（简称repo）。VCS通过允许多个开发者同时在同一组文件上工作来帮助协调团队的活动。早期的VCS是通过每次授予一个人编辑文件的权利来实现的--这种锁定方式足以建立顺序（一种约定的“更新的”，VCS的一个重要特性）。更高级的系统确保对一次提交的*文件集合*的更改被视为单个单元（当逻辑更改涉及多个文件时，原子性）。像CVS（90年代流行的VCS）这样的系统，如果没有这种提交的原子性，就会出现损坏和丢失更改。确保原子性消除了以前的更改被无意覆盖的可能性，但需要跟踪最后同步的版本--在提交时，如果提交中的任何文件在本地开发者最后一次同步后被修改过，则提交将被拒绝。特别是在这样一个变化跟踪的VCS中，开发者管理文件的工作副本因此需要有自己的元数据。根据VCS的设计，这个版本库的副本可以是一个版本库本身，也可以包含一个减少的元数据--这样一个减少的副本通常是一个 "客户端 "或 "工作区"。
+VCS是一个跟踪文件随时间变化的修订（版本）的系统。VCS维护一些关于被管理的文件集的元数据，文件和元数据的副本统称为版本库（简称repo）。VCS通过允许多个开发者同时在同一组文件上工作来帮助协调团队的活动。早期的VCS是通过每次授予一个人编辑文件的权利来实现的--这种锁定方式足以建立顺序（一种约定的“更新的”，VCS的一个重要特性）。更高级的系统确保对一次提交的*文件集合*的更改被视为单个单元（当逻辑更改涉及多个文件时，原子性）。像CVS（90年代流行的VCS）这样的系统，如果没有这种提交的原子性，就会出现损坏和丢失更改。确保原子性消除了以前的更改被无意覆盖的可能性，但需要跟踪最后同步的版本--在提交时，如果提交中的任何文件在本地开发者最后一次同步后被修改过，则提交将被拒绝。特别是在这样一个变化跟踪的VCS中，开发者管理着的文件的工作副本因此需要有自己的元数据。根据VCS的设计，这个版本库的副本可以是一个版本库本身，也可以包含一个减少的元数据--这样一个减少的副本通常是一个 "客户端 "或 "工作区"。
 
 This seems like a lot of complexity: why is a VCS necessary? What is it about this sort of tool that has allowed it to become one of the few nearly universal tools for software development and software engineering?
 
@@ -380,11 +380,11 @@ As a counterexample: in a development community that depends heavily on long- li
 
 Imagine this scenario: some infrastructure team is working on a new Widget, better than the old one. Excitement grows. Other newly started projects ask, “Can we depend on your new Widget?” Obviously, this can be handled if you’ve invested in codebase visibility policies, but the deep problem happens when the new Widget is “allowed” but only exists in a parallel branch. Remember: new development must not have a choice when adding a dependency. That new Widget should be committed to trunk, disabled from the runtime until it’s ready, and hidden from other developers by visibility if possible—or the two Widget options should be designed such that they can coexist, linked into the same programs.
 
-想象一下这样的场景：一些基础组件团队正在开发一个新的Widget，比老的更好。兴奋之情油然而生。其他新开始的项目问："我们可以依赖你的新Widget吗？" 显然，如果你在代码库的可见性策略上进行了投如，这种情况是可以处理的，但当新的Widget被 "允许 "深层次的问题就会发生但只存在于并行分支中。记住：新的开发在添加依赖关系时不能有选择。那个新的Widget应该被提交到主干，在它准备好之前被禁止在运行时使用，并且如果可能的话，通过可见性来隐藏其他开发者，或者两个Widget选项应该被设计成它们可以共存，被链接到同一个程序中。
+想象一下这样的场景：一些基础组件团队正在开发一个新的Widget，比老的更好。兴奋之情油然而生。其他新开始的项目问："我们可以依赖你的新Widget吗？" 显然，如果你在代码库的可见性策略上进行了投资，这种情况是可以处理的，但当新的Widget被 "允许 "，深层次的问题就会发生但只存在于并行分支中。记住：新的开发在添加依赖关系时不能有选择。那个新的Widget应该被提交到主干，在它准备好之前被禁止在运行时使用，并且如果可能的话，通过可见性来隐藏其他开发者，或者两个Widget选项应该被设计成它们可以共存，被链接到同一个程序中。
 
 Interestingly, there is already evidence of this being important in the industry. In Accelerate and the most recent State of DevOps reports, DORA points out that there is a predictive relationship between trunk-based development and high-performing software organizations. Google is not the only organization to have discovered this— nor did we necessarily have expected outcomes in mind when these policies evolved —--—it just seemed like nothing else worked. DORA’s result certainly matches our experience.
 
-有趣的是，已经有证据表明这在行业中是很重要的。在《加速》和最近的《DevOps状况》报告中，DORA指出，基于主干的开发和高绩效的软件组织之间存在着预测关系。谷歌并不是唯一发现这一点的组织--当这些策略演变时，我们也不一定有预期的结果--只是看起来没有别的办法了。DORA的结果当然与我们的经验相符。
+有趣的是，已经有证据表明这在行业中是很重要的。在《加速》和最近的《DevOps状况》报告中，DORA指出，基于主干的开发和高绩效的软件组织之间存在着可预测关系。谷歌并不是唯一发现这一点的组织--当这些策略演变时，我们也不一定有预期的结果--只是看起来没有别的办法了。DORA的结果当然与我们的经验相符。
 
 Our policies and tools for large-scale changes (LSCs; see [Chapter 22](#_bookmark1935)) put additional weight on the importance of trunk-based development: broad/shallow changes that are applied across the codebase are already a massive (often tedious) undertaking when modifying everything checked in to the trunk branch. Having an unbounded number of additional dev branches that might need to be refactored at the same time would be an awfully large tax on executing those types of changes, finding an ever- expanding set of hidden branches. In a DVCS model, it might not even be possible to identify all of those branches.
 
@@ -532,7 +532,7 @@ Choice leads to costs here. We highly endorse the One-Version Rule presented her
 
 - 对任何大于“只有一名开发人员且永远不会更新的玩具项目”的软件开发项目都要使用版本控制。
 - 当存在 "我应该依赖哪个版本 "的选择时，就会存在内在的扩展问题。
-- 单一版本规则对组织效率的重要性出人意料。删除提交地点或依赖内容的选择可能会导致显著的简化。。
+- 单一版本规则对组织效率的重要性出人意料。删除提交地点或依赖内容的选择可能会导致显著的简化。
 - 在某些语言中，你可能会花一些精力来躲避这个问题，比如着色、单独编译、链接器隐藏等等技术方法。使这些方法正常工作的工作完全是徒劳的--你的软件工程师并没有生产任何东西，他们只是在解决技术债务。
 - 以前的研究（DORA/State of DevOps/Accelerate）表明，基于干线的开发是高绩效开发组织的一个预测因素。长周期的开发分支不是一个好的默认计划。
 - 使用任何对你有意义的版本控制体系。如果你的组织想优先考虑为不同的项目建立独立的仓库，那么取消存储库间的依赖关系/“基于头部”/“基于主干”可能仍然是明智的越来越多的VCS和构建系统设施允许您拥有小型、细粒度的存储库以及整个组织一致的“虚拟”头/主干概念。
