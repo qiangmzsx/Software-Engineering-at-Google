@@ -114,7 +114,7 @@ For example, experts who know the context for a particular kind of configuration
 ## Tricorder: Google’s Static Analysis Platform  Tricorder：谷歌的静态分析平台
 Tricorder, our static analysis platform, is a core part of static analysis at Google.[^7] Tricorder came out of several failed attempts to integrate static analysis with the developer workflow at Google;[^8] the key difference between Tricorder and previous attempts was our relentless focus on having Tricorder deliver only valuable results to its users. Tricorder is integrated with the main code review tool at Google, Critique. Tricorder warnings show up on Critique’s diff viewer as gray comment boxes, as demonstrated in [Figure 20-1](#_bookmark1812).
 
-我们的静态分析平台 ricorder是Google静态分析的核心部分。Tricorder是在Google多次尝试将静态分析与开发人员工作流集成的失败尝试中诞生的，与之前尝试的主要区别在于 我们坚持不懈地致力于让Tricorder只为用户提供有价值的结果。
+我们的静态分析平台 Tricorder是Google静态分析的核心部分。Tricorder是在Google多次尝试将静态分析与开发人员工作流集成的失败尝试中诞生的，与之前尝试的主要区别在于 我们坚持不懈地致力于让Tricorder只为用户提供有价值的结果。
 Tricorder与谷歌的主要代码审查工具Critique集成在一起。 Tricorder警告在Critique的差异查看器上显示为灰色的注释框，如图 20-1 所示。 
 
 ![Figure 20-1](./images/Figure%2020-1.png)
