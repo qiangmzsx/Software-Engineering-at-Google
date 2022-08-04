@@ -242,7 +242,7 @@ Consider a traditional approach to deprecation. We discuss deprecation much more
 
 This type of approach might work in a small software setting but quickly fails as both the depth and breadth of the dependency graph increases. Teams depend on an ever- increasing number of Widgets, and a single build break can affect a growing percentage of the company. Solving these problems in a scalable way means changing the way we do deprecation: instead of pushing migration work to customers, teams can internalize it themselves, with all the economies of scale that provides.
 
-这种方法可能适用于小型软件项目，但随着依赖关系图的深度和广度的增加，很快就会失败。团队依赖越来越多的小部件，单个构建中断可能会影响公司不断增长的百分比。以一种可扩展的方式解决这些问题，意味着需要改变我们废弃的方式： 不是将迁移工作推给客户，团队可以将其内部消化，并提供所需资源投入。
+这种方法可能适用于小型软件项目，但随着依赖关系图的深度和广度的增加，很快就会失败。团队依赖越来越多的小部件，单个构建中断可能会影响公司不断增长的利润。以一种可扩展的方式解决这些问题，意味着需要改变我们废弃的方式： 不是将迁移工作推给客户，团队可以将其内部消化，并提供所需资源投入。
 
 In 2012, we tried to put a stop to this with rules mitigating churn: infrastructure teams must do the work to move their internal users to new versions themselves or do the update in place, in backward-compatible fashion. This policy, which we’ve called the “Churn Rule,” scales better: dependent projects are no longer spending progressively greater effort just to keep up. We’ve also learned that having a dedicated group of experts execute the change scales better than asking for more maintenance effort from every user: experts spend some time learning the whole problem in depth and then apply that expertise to every subproblem. Forcing users to respond to churn means that every affected team does a worse job ramping up, solves their immediate problem, and then throws away that now-useless knowledge. Expertise scales better.   
 
