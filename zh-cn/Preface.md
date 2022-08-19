@@ -59,7 +59,7 @@ We’ve divided the topics in this book into three main aspects of Google’s so
 
 我们将本书的主题分为谷歌软件工程领域的三个主要方面：
 - 文化
-- 过程
+- 流程
 - 工具
 
 Google’s culture is unique, but the lessons we have learned in developing our engineering culture are widely applicable. Our chapters on Culture ([Part II](#_bookmark100)) emphasize the collective nature of a software development enterprise, that the development of software is a team effort, and that proper cultural principles are essential for an organization to grow and remain healthy.

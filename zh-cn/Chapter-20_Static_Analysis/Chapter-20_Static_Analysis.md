@@ -148,7 +148,7 @@ Tricorder 检查有四个标准：
 
 Tricorder analyzers report results for more than 30 languages and support a variety of analysis types. Tricorder includes more than 100 analyzers, with most being contributed from outside the Tricorder team. Seven of these analyzers are themselves plug-in systems that have hundreds of additional checks, again contributed from developers across Google. The overall effective false-positive rate is just below 5%.
 
-Tricorder分析仪报告支持30种语言，并支持多种分析类型。Tricorder包括100多个分析器，其中大部分来自Tricorder团队外部。 其中七个分析器本身就是插件系统，具有数百项额外检查，由 Google 的开发人员提供，总体“ffective falsepositive”略低于 5%。
+Tricorder分析仪报告支持30种语言，并支持多种分析类型。Tricorder包括100多个分析器，其中大部分来自Tricorder团队外部。 其中七个分析器本身就是插件系统，具有数百项额外检查，由 Google 的开发人员提供，总体“effective false-positive”略低于 5%。
 
 > [^7]:	Caitlin Sadowski, Jeffrey van Gogh, Ciera Jaspan, Emma Söderberg, and Collin Winter, Tricorder: Building a Program Analysis Ecosystem, International Conference on Software Engineering (ICSE), May 2015./
 > 7  Caitlin Sadowski, Jeffrey van Gogh, Ciera Jaspan, Emma Söderberg, and Collin Winter, Tricorder: 构建一个程序分析生态系统，国际软件工程会议（ICSE），2015年5月。
