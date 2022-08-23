@@ -10,7 +10,7 @@
 
 Code Search is a tool for browsing and searching code at Google that consists of a frontend UI and various backend elements. Like many of the development tools at Google, it arose directly out of a need to scale to the size of the codebase. Code Search began as a combination of a grep-type tool[^1] for internal code with the ranking and UI of external Code Search[^2]. Its place as a key tool for Google developers was cemented by the integration of Kythe/Grok[^3], which added cross-references and the ability to jump to symbol definitions.
 
-代码搜索是用于在 Google 内部浏览和搜索代码的工具，它由一个前端 UI页面和各种后端元素组成。就像Google的许多开发工具一样，它直接源于代码库扩展的需求。代码搜索开始是类似于 grep 类型工具的组合，用于带有排名和 UI 的内部代码外部代码搜索。通过 Kythe/Grok 的整合，它作为 Google 开发人员的关键工具的地位得到巩固，他们增加了交叉引用和跳转到符号定义的能力。
+代码搜索是用于在 Google 内部浏览和搜索代码的工具，它由一个前端 UI页面和各种后端组件组成。就像Google的许多开发工具一样，它直接源于代码库扩展的需求。代码搜索开始是类似于 grep 类型工具的组合，用于带有排名和 UI 的内部代码外部代码搜索。通过 Kythe/Grok 的整合，它作为 Google 开发人员的关键工具的地位得到巩固，他们增加了交叉引用和跳转到符号定义的能力。
 
 That integration changed its focus from searching to browsing code, and later development of Code Search was partly guided by a principle of “answering the next question about code in a single click.”Now such questions as “Where is this symbol defined?”, “Where is it used?”, “How do I include it?”, “When was it added to the codebase?”, and even ones like “Fleet-wide, how many CPU cycles does it consume?” are all answerable with one or two clicks.
 
