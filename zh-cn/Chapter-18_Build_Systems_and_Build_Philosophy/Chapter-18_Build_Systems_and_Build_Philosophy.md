@@ -10,7 +10,7 @@
 
 If you ask Google engineers what they like most about working at Google (besides the free food and cool products), you might hear something surprising: engineers love the build system.[^1] Google has spent a tremendous amount of engineering effort over its lifetime in creating its own build system from the ground up, with the goal of ensuring that our engineers are able to quickly and reliably build code. The effort has been so successful that Blaze, the main component of the build system, has been reimplemented several different times by ex-Googlers who have left the company.[^2] In 2015, Google finally open sourced an implementation of Blaze named Bazel.
 
-如果你问谷歌的工程师，他们最喜欢在谷歌工作的什么（除了免费的食物和黑科技产品），你还会听到一些令人惊讶的事情：工程师们喜欢构建系统。谷歌一直在花费了巨大的努力，从零开始创建自己的构建系统，目的是确保工程师们能够快速、可靠地构建代码。这一努力是成功的，构建系统的主要组件Blaze，已经被已经离开公司的前谷歌员工重新实现了好几次。2015年，谷歌终于公开了Blaze的一个实现，名为Bazel。
+如果你问谷歌的工程师，他们最喜欢在谷歌工作的原因（除了免费的食物和黑科技产品），你还会听到一些令人惊讶的事情：工程师们喜欢构建系统。谷歌一直在花费了巨大的努力，从零开始创建自己的构建系统，目的是确保工程师们能够快速、可靠地构建代码。这一努力是成功的，构建系统的主要组件Blaze，已经被已离开公司的前谷歌员工重新实现了好几次。2015年，谷歌终于公开了Blaze的一个实现，名为Bazel。
 
 > [^1]:	In an internal survey, 83% of Googlers reported being satisfied with the build system, making it the fourth most satisfying tool of the 19 surveyed. The average tool had a satisfaction rating of 69%./
 > 1  在一项内部调查中，83%的谷歌用户表示对构建系统感到满意，这使它成为19项调查中第四个最令人满意的工具。平均工具的满意度为69%。
@@ -48,13 +48,12 @@ Build systems aren’t just for humans; they also allow machines to create build
 - 代码自动构建、测试并推送到生产环境，无需任何人工干预。不同的团队以不同的频率做这件事：有些团队每周推送一次，有些团队每天推送一次，有些团队则以系统能够创建和验证新构建的速度推送。(见第24章）。
 - 开发人员的更改在发送给代码审查时自动进行测试（参见第19章），以便作者和审查人员都可以立即看到更改引起的任何构建或测试问题。。
 - 在将修改合并到主干中之前，会立即对其进行测试，这使得提交破坏性修改变得更加困难。
-
 - 基础库的作者能够在整个代码库中测试他们的修改，确保他们的修改在数百万的测试和二进制文件中是安全的。
-- 工程师们能够创建大规模的修改（LSCs），同时触及数以万计的源文件（例如，重命名公共符号），同时仍然能够安全地提交和测试这些修改。我们将在第22章中更详细地讨论LSCs。
+- 工程师们能够创建大规模的变更（LSCs），同时触及数以万计的源文件（例如，重命名公共符号），同时仍然能够安全地提交和测试这些修改。我们将在第22章中更详细地讨论LSCs。
 
 All of this is possible only because of Google’s investment in its build system. Although Google might be unique in its scale, any organization of any size can realize similar benefits by making proper use of a modern build system. This chapter describes what Google considers to be a “modern build system” and how to use such systems.
 
-所有这些都是由于谷歌对其构建系统的投入才得以实现。尽管谷歌的规模是独一无二的，但任何规模的组织都可以通过正确使用现代构建系统实现类似的好处。本章介绍了Google认为的 "现代构建系统 "以及如何使用这些系统。
+所有这些都是由于谷歌对其构建系统的投入才得以实现。尽管谷歌的规模是独一无二的，但任何规模的组织都可以通过正确使用现代构建系统实现类似的好处。本章介绍了Google认为的 "现代构建系统"以及如何使用这些系统。
 
 #  What Happens Without a Build System? 没有构建系统会怎样？
 
@@ -64,12 +63,13 @@ Build systems allow your development to scale. As we’ll illustrate in the next
 
 ## But All I Need Is a Compiler! 但我所需要的只是一个编译器!
 The need for a build system might not be immediately obvious. After all, most of us probably didn’t use a build system when we were first learning to code—we probably started by invoking tools like gcc or javac directly from the command line, or the equivalent in an integrated development environment (IDE). As long as all of our source code is in the same directory, a command like this works fine:
-```
+
+```shell
 javac *.java
 ```
 对构建系统的需求可能不是很明显。毕竟，我们中的大多数人在最初学习编码时可能并没有使用构建系统--我们可能一开始就直接从命令行中调用gcc或javac等工具，或者在集成开发环境（IDE）中调用相应的工具。只要我们所有的源代码都在同一个目录下，这样的命令就能正常工作：
 
-```
+```shell
 javac *.java
 ```
 
@@ -91,6 +91,7 @@ The compiler also doesn’t know anything about how to handle external dependenc
 
 ## Shell Scripts to the Rescue? 来自shell脚本的拯救？
 Suppose that your hobby project starts out simple enough that you can build it using just a compiler, but you begin running into some of the problems described previously. Maybe you still don’t think you need a real build system and can automate away the tedious parts using some simple shell scripts that take care of building things in the correct order. This helps out for a while, but pretty soon you start running into even more problems:
+
 - It becomes tedious. As your system grows more complex, you begin spending almost as much time working on your build scripts as on real code. Debugging shell scripts is painful, with more and more hacks being layered on top of one another.
 - It’s slow. To make sure you weren’t accidentally relying on stale libraries, you have your build script build every dependency in order every time you run it. You think about adding some logic to detect which parts need to be rebuilt, but that sounds awfully complex and error prone for a script. Or you think about specifying which parts need to be rebuilt each time, but then you’re back to square one.
 - Good news: it’s time for a release! Better go figure out all the arguments you need to pass to the jar command to make your final build. And remember how to upload it and push it out to the central repository. And build and push the documentation updates, and send out a notification to users. Hmm, maybe this calls for another script...
@@ -100,7 +101,8 @@ Suppose that your hobby project starts out simple enough that you can build it u
 - Builds become slower and slower as the project grows. One day, while waiting for a build to complete, you gaze mournfully at the idle desktop of your coworker, who is on vacation, and wish there were a way to take advantage of all that wasted computational power.
 
 假设你的业余项目开始时非常简单，你可以只用一个编译器来构建它，但你开始遇到前面描述的一些问题。也许你仍然认为你不需要一个真正的构建系统，可以使用一些简单的shell脚本来自动处理那些繁琐的部分，这些脚本负责按照正确的顺序构建东西。这会有一段时间的帮助，但很快你就会遇到更多的问题：
-- 它变得乏味了。随着你的系统越来越复杂，你开始花在构建脚本上的时间几乎和真正的代码一样多。调试shell脚本是很痛苦的，越来越多的"黑"操作操作被叠加在一起。
+
+- 它变得乏味了。随着你的系统越来越复杂，你开始花在构建脚本上的时间几乎和真正的写代码一样多。调试shell脚本是很痛苦的，越来越多的"黑"操作操作被叠加在一起。
 - 速度很慢。为了确保你没有意外地依赖过时的库，你让你的构建脚本在每次运行时按顺序构建每个依赖。你可以考虑添加一些逻辑来检测哪些部分需要重建，但这对于一个脚本来说听起来非常复杂而且容易出错。或者你可以考虑每次指定哪些部分需要重建，但是你又回到了原点。
 - 好消息是：现在是发布的时候了! 最好弄清楚所有需要传递给jar命令以进行最终构建的参数。并记住如何上传并推送到中央仓库。构建并推送文档更新，并向用户发送通知。嗯，也许这需要另一个脚本......
 - 灾难! 硬盘崩溃了，现在需要重新创建整个系统。你很聪明，把所有的源文件都保存在版本控制中，但是你下载的那些库呢？你能重新找到它们，并确保它们和你第一次下载它们时的版本相同吗？你的脚本可能依赖于特定的工具被安装在特定的地方--你能恢复同样的环境，使脚本再次工作吗？那些你很久以前为了让编译器工作得恰到好处而设置的环境变量，后来又忘记了，怎么办？
@@ -110,13 +112,13 @@ Suppose that your hobby project starts out simple enough that you can build it u
 
 You’ve run into a classic problem of scale. For a single developer working on at most a couple hundred lines of code for at most a week or two (which might have been the entire experience thus far of a junior developer who just graduated university), a compiler is all you need. Scripts can maybe take you a little bit farther. But as soon as you need to coordinate across multiple developers and their machines, even a perfect build script isn’t enough because it becomes very difficult to account for the minor differences in those machines. At this point, this simple approach breaks down and it’s time to invest in a real build system.
 
-你遇到了一个典型的规模问题。对于一个开发人员来说，一个编译器就是你所需要的一切，他最多工作几百行代码，最多工作一两周（这可能是一个刚从大学毕业的初级开发人员迄今为止的全部经验）。脚本可能会让您走得更远一些。但是一旦你需要在多个开发人员和他们的机器之间进行协作，即使是一个完美的构建脚本也是不够的，因为很难解释这些机器中的细微差异。在这一点上，这个简单的方法崩溃了，是时候开发一个真正的构建系统了。
+你遇到了一个典型的规模问题。对于一个开发人员来说，一个编译器就是你所需要的一切，他最多工作几百行代码，最多工作一两周（这可能是一个刚从大学毕业的初级开发人员迄今为止的全部经验）。脚本可能会让你走得更远一些。但是一旦你需要在多个开发人员和他们的机器之间进行协作，即使是一个完美的构建脚本也是不够的，因为很难解释这些机器中的细微差异。在这一点上，这个简单的方法崩溃了，是时候开发一个真正的构建系统了。
 
 # Modern Build Systems 现代化的构建系统
 
 Fortunately, all of the problems we started running into have already been solved many times over by existing general-purpose build systems. Fundamentally, they aren’t that different from the aforementioned script-based DIY approach we were working on: they run the same compilers under the hood, and you need to understand those underlying tools to be able to know what the build system is really doing. But these existing systems have gone through many years of development, making them far more robust and flexible than the scripts you might try hacking together yourself.
 
-幸运的是，我们开始遇到的所有问题已经被现有的通用构建系统多次解决。从根本上说，它们与前面提到的基于脚本的DIY方法没有什么不同：它们在后台运行相同的编译器，您需要了解这些底层工具，才能了解构建系统真正在做什么。但是这些现有的系统已经经历了多年的开发，使得它们比您自己尝试破解的脚本更加健壮和灵活。
+幸运的是，我们开始遇到的所有问题已经被现有的通用构建系统多次解决。从根本上说，它们与前面提到的基于脚本的DIY方法没有什么不同：它们在后台运行相同的编译器，你需要了解这些底层工具，才能了解构建系统真正在做什么。但是这些现有的系统已经经历了多年的开发，使得它们比你自己尝试破解的脚本更加健壮和灵活。
 
 ## It’s All About Dependencies 一切都是关于依赖关系
 
@@ -593,7 +595,7 @@ We’ll examine this further in the context of a large monorepo in [Chapter 21](
 
 This is very convenient: when adding a dependency on a new library, it would be a big pain to have to track down each of that library’s transitive dependencies and add them all manually. But there’s also a huge downside: because different libraries can depend on different versions of the same third-party library, this strategy necessarily violates the One-Version Rule and leads to the diamond dependency problem. If your target depends on two external libraries that use different versions of the same dependency, there’s no telling which one you’ll get. This also means that updating an external dependency could cause seemingly unrelated failures throughout the codebase if the new version begins pulling in conflicting versions of some of its dependencies.
 
-这非常方便：在新库上添加依赖项时，必须跟踪该库的每个可传递依赖项并手动添加它们，这将是一个很大的麻烦。但也有一个巨大的缺点：因为不同的库可能依赖于同一第三方库的不同版本，所以这种策略必然违反一个版本规则，并导致钻石依赖问题。如果你的目标依赖于使用同一依赖项的不同版本的两个外部库，则无法确定您将获得哪一个。这也意味着，如果新版本开始引入其某些依赖项的冲突版本，更新外部依赖项可能会导致整个代码库中看似无关的故障。
+这非常方便：在新库上添加依赖项时，必须跟踪该库的每个可传递依赖项并手动添加它们，这将是一个很大的麻烦。但也有一个巨大的缺点：因为不同的库可能依赖于同一第三方库的不同版本，所以这种策略必然违反一个版本规则，并导致钻石依赖问题。如果你的目标依赖于使用同一依赖项的不同版本的两个外部库，则无法确定你将获得哪一个。这也意味着，如果新版本开始引入其某些依赖项的冲突版本，更新外部依赖项可能会导致整个代码库中看似无关的故障。
 
 For this reason, Bazel does not automatically download transitive dependencies. And, unfortunately, there’s no silver bullet—Bazel’s alternative is to require a global file that lists every single one of the repository’s external dependencies and an explicit version used for that dependency throughout the repository. Fortunately, [Bazel provides tools](https://oreil.ly/kejfX) that are able to automatically generate such a file containing the transitive dependencies of a set of Maven artifacts. This tool can be run once to generate the initial *WORKSPACE* file for a project, and that file can then be manually updated to adjust the versions of each dependency.
 
