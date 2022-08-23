@@ -124,7 +124,7 @@ Fortunately, all of the problems we started running into have already been solve
 
 In looking through the previously described problems, one theme repeats over and over: managing your own code is fairly straightforward, but managing its dependencies is much more difficult (and Chapter 21 )is devoted to covering this problem in detail). There are all sorts of dependencies: sometimes there’s a dependency on a task (e.g., “push the documentation before I mark a release as complete”), and sometimes there’s a dependency on an artifact (e.g., “I need to have the latest version of the computer vision library to build my code”). Sometimes, you have internal dependencies on another part of your codebase, and sometimes you have external dependencies on code or data owned by another team (either in your organization or a third party). But in any case, the idea of “I need that before I can have this” is something that recurs repeatedly in the design of build systems, and managing dependencies is perhaps the most fundamental job of a build system.
 
-在回顾之前描述的问题时，有一个主题反复出现：管理你自己的代码是相当简单的，但管理它的依赖关系要困难得多（[第21章]专门详细介绍了这个问题）。有各种各样的依赖关系：有时依赖于任务（例如，“在我将发布标记为完成之前推送文档”），有时依赖于工件（例如，“我需要最新版本的计算机视觉库来构建代码”）。有时，你对你的代码库的另一部分有内部依赖性，有时你对另一个团队（在你的组织中或第三方）拥有的代码或数据有外部依赖性。但无论如何，"在我拥有这个之前，我需要那个"的想法在构建系统的设计中反复出现，而管理依赖性也许是构建系统最基本的工作。
+在回顾之前描述的问题时，有一个主题反复出现：管理你自己的代码是相当简单的，但管理它的依赖关系要困难得多（[第21章]专门详细介绍了这个问题）。有各种各样的依赖关系：有时依赖于任务（例如，“在我将发布标记为完成之前推送文档”），有时依赖于构件（例如，“我需要最新版本的计算机视觉库来构建代码”）。有时，你对你的代码库的另一部分有内部依赖性，有时你对另一个团队（在你的组织中或第三方）拥有的代码或数据有外部依赖性。但无论如何，"在我拥有这个之前，我需要那个"的想法在构建系统的设计中反复出现，而管理依赖性也许是构建系统最基本的工作。
 
 ## Task-Based Build Systems 基于任务的构建系统
 
@@ -307,7 +307,7 @@ visibility = ["//java/com/example/myproduct: subpackages "], deps = [
 ```
 In Bazel, BUILD files define targets—the two types of targets here are java_binary and java_library. Every target corresponds to an artifact that can be created by the system: binary targets produce binaries that can be executed directly, and library targets produce libraries that can be used by binaries or other libraries. Every target has a name (which defines how it is referenced on the command line and by other targets, srcs (which define the source files that must be compiled to create the artifact for the target), and deps (which define other targets that must be built before this target and linked into it). Dependencies can either be within the same package (e.g., MyBinary’s dependency on ":mylib"), on a different package in the same source hierarchy (e.g., mylib’s dependency on "//java/com/example/common"), or on a third- party artifact outside of the source hierarchy (e.g., mylib’s dependency on "@com_google_common_guava_guava//jar"). Each source hierarchy is called a workspace and is identified by the presence of a special WORKSPACE file at the root.
 
-在Bazel中，BUILD文件定义了目标--这里的两类目标是java_binary和java_library。每个目标都对应于系统可以创建的构件：二进制目标产生可以直接执行的二进制文件，而库目标产生可以被二进制文件或其他库使用的库。每个目标都有一个名字（它定义了它在命令行和其他目标中的引用方式）、srcs（它定义了必须被编译以创建目标的组件的源文件）和deps（它定义了必须在这个目标之前构建并链接到它的其他目标）。依赖关系可以是在同一个包内（例如，MyBinary对":mylib "的依赖），也可以是在同一个源层次结构中的不同包上（例如，mylib对"//java/com/example/common "的依赖），或者是在源层次结构之外的第三方工件上（例如，mylib对"@com_google_common_guava_guava//jar "的依赖）。每个源层次结构被称为工作区，并通过在根部存在一个特殊的WORKSPACE文件来识别。
+在Bazel中，BUILD文件定义了目标--这里的两类目标是java_binary和java_library。每个目标都对应于系统可以创建的构件：二进制目标产生可以直接执行的二进制文件，而库目标产生可以被二进制文件或其他库使用的库。每个目标都有一个名字（它定义了它在命令行和其他目标中的引用方式）、srcs（它定义了必须被编译以创建目标的组件的源文件）和deps（它定义了必须在这个目标之前构建并链接到它的其他目标）。依赖关系可以是在同一个包内（例如，MyBinary对":mylib "的依赖），也可以是在同一个源层次结构中的不同包上（例如，mylib对"//java/com/example/common "的依赖），或者是在源层次结构之外的第三方构件上（例如，mylib对"@com_google_common_guava_guava//jar "的依赖）。每个源层次结构被称为工作区，并通过在根部存在一个特殊的WORKSPACE文件来识别。
 
 Like with Ant, users perform builds using Bazel’s command-line tool. To build the MyBinary target, a user would run bazel build :MyBinary. Upon entering that command for the first time in a clean repository, Bazel would do the following:  
 1. Parse every BUILD file in the workspace to create a graph of dependencies among artifacts.
@@ -319,14 +319,14 @@ Like with Ant, users perform builds using Bazel’s command-line tool. To build 
 
   和Ant一样，用户使用Bazel的命令行工具进行构建。为了构建MyBinary目标，用户可以运行 bazel build :MyBinary。在一个干净的版本库中第一次输入该命令时，Bazel会做以下工作。
 
-  1. 解析工作区中的每个BUILD文件，以创建工件之间的依赖关系图。
+  1. 解析工作区中的每个BUILD文件，以创建构件之间的依赖关系图。
   2. 使用该图来确定MyBinary的横向依赖关系；也就是说，MyBinary所依赖的每个目标以及这些目标所依赖的每个目标都是递归的。
   3. 生成（或下载外部依赖项）每个依赖项按顺序排列。Bazel首先构建没有其他依赖项的每个目标，并跟踪每个目标仍需要构建哪些依赖项。一旦构建了目标的所有依赖项，Bazel就会开始构建该目标。此过程一直持续到MyBinary的每个可传递依赖项已经建成。
   4. 构建MyBinary，产生一个最终的可执行二进制文件，该文件链接了在步骤3中构建的所有依赖项。
 
   The benefits extend beyond parallelism, though. The next thing that this approach gives us becomes apparent when the developer types bazel build :MyBinary a second time without making any changes: Bazel will exit in less than a second with a message saying that the target is up to date. This is possible due to the functional programming paradigm we talked about earlier—Bazel knows that each target is the result only of running a Java compiler, and it knows that the output from the Java compiler depends only on its inputs, so as long as the inputs haven’t changed, the output can be reused. And this analysis works at every level; if MyBinary.java changes, Bazel knows to rebuild MyBinary but reuse mylib. If a source file for //java/com/ example/common changes, Bazel knows to rebuild that library, mylib, and MyBinary, but reuse //java/com/example/myproduct/otherlib. Because Bazel knows about the properties of the tools it runs at every step, it’s able to rebuild only the minimum set of artifacts each time while guaranteeing that it won’t produce stale builds.
 
-  从根本上说，这里发生的事情似乎与使用基于任务的构建系统时发生的事情没有太大的不同。事实上，最终结果是相同的二进制文件，生成它的过程包括分析一系列步骤以找到它们之间的依赖关系，然后按顺序运行这些步骤。但是有一些关键的区别。第一个出现在第3步：因为Bazel知道每个目标只会生成一个Java库，所以它知道它所要做的就是运行Java编译器，而不是任意的用户定义脚本，所以它知道运行它是安全的。这些步骤是并行的。与在多核机器上一次构建一个目标相比，这可以产生一个数量级的性能改进，并且这是唯一可能的，因为基于工件的方法让构建系统负责自己的执行策略，以便它能够对并行性做出更有力的保证。
+  从根本上说，这里发生的事情似乎与使用基于任务的构建系统时发生的事情没有太大的不同。事实上，最终结果是相同的二进制文件，生成它的过程包括分析一系列步骤以找到它们之间的依赖关系，然后按顺序运行这些步骤。但是有一些关键的区别。第一个出现在第3步：因为Bazel知道每个目标只会生成一个Java库，所以它知道它所要做的就是运行Java编译器，而不是任意的用户定义脚本，所以它知道运行它是安全的。这些步骤是并行的。与在多核机器上一次构建一个目标相比，这可以产生一个数量级的性能改进，并且这是唯一可能的，因为基于构件的方法让构建系统负责自己的执行策略，以便它能够对并行性做出更有力的保证。
 
   Reframing the build process in terms of artifacts rather than tasks is subtle but powerful. By reducing the flexibility exposed to the programmer, the build system can know more about what is being done at every step of the build. It can use this knowledge to make the build far more efficient by parallelizing build processes and reusing their outputs. But this is really just the first step, and these building blocks of parallelism and reuse will form the basis for a distributed and highly scalable build system that will be discussed later.
 
@@ -342,7 +342,7 @@ Artifact-based build systems fundamentally solve the problems with parallelism a
 
 Bazel solves the first part of this problem by treating tools as dependencies to each target. Every java_library in the workspace implicitly depends on a Java compiler, which defaults to a well-known compiler but can be configured globally at the workspace level. Whenever Blaze builds a java_library, it checks to make sure that the specified compiler is available at a known location and downloads it if not. Just like any other dependency, if the Java compiler changes, every artifact that was dependent upon it will need to be rebuilt. Every type of target defined in Bazel uses this same strategy of declaring the tools it needs to run, ensuring that Bazel is able to bootstrap them no matter what exists on the system where it runs.
 
-Bazel解决了这个问题的第一部分，把工具当作对每个目标的依赖。工作区中的每一个java_library都隐含地依赖于一个Java编译器，它默认为一个知名的编译器，但可以在工作区层面进行全局配置。每当Blaze构建一个java_library时，它都会检查以确保指定的编译器在已知的位置上是可用的，如果不可用，就下载它。就像其他依赖关系一样，如果Java编译器改变了，每个依赖它的工件都需要重建。在Bazel中定义的每一种类型的目标都使用这种相同的策略来声明它需要运行的工具，确保Bazel能够启动它们，无论它运行的系统上存在什么。
+Bazel解决了这个问题的第一部分，把工具当作对每个目标的依赖。工作区中的每一个java_library都隐含地依赖于一个Java编译器，它默认为一个知名的编译器，但可以在工作区层面进行全局配置。每当Blaze构建一个java_library时，它都会检查以确保指定的编译器在已知的位置上是可用的，如果不可用，就下载它。就像其他依赖关系一样，如果Java编译器改变了，每个依赖它的构件都需要重建。在Bazel中定义的每一种类型的目标都使用这种相同的策略来声明它需要运行的工具，确保Bazel能够启动它们，无论它运行的系统上存在什么。
 
 Bazel solves the second part of the problem, platform independence, by using toolchains. Rather than having targets depend directly on their tools, they actually depend on types of toolchains. A toolchain contains a set of tools and other properties defining how a type of target is built on a particular platform. The workspace can define the particular toolchain to use for a toolchain type based on the host and target platform. For more details, see the Bazel manual.
 
@@ -419,7 +419,7 @@ Every system that performs builds, including both developer workstations and con
 
 For a remote caching system to work, the build system must guarantee that builds are completely reproducible. That is, for any build target, it must be possible to determine the set of inputs to that target such that the same set of inputs will produce exactly the same output on any machine. This is the only way to ensure that the results of downloading an artifact are the same as the results of building it oneself. Fortunately, Bazel provides this guarantee and so supports [remote caching](https://oreil.ly/D9doX). Note that this requires that each artifact in the cache be keyed on both its target and a hash of its inputs—that way, different engineers could make different modifications to the same target at the same time, and the remote cache would store all of the resulting artifacts and serve them appropriately without conflict.
 
-为了使远程缓存系统发挥作用，构建系统必须保证构建是完全可重复的。也就是说，对于任何构建目标，必须能够确定该目标的输入集，以便相同的输入集在任何机器上产生完全相同的输出。这是确保下载工件的结果与自己构建工件的结果相同的唯一方法。幸运的是，Bazel提供了这种保证，因此支持[远程缓存]（https://oreil.ly/D9doX）。请注意，这要求缓存中的每个构件都以其目标和输入的哈希值为关键--这样，不同的工程师可以在同一时间对同一目标进行不同的修改，而远程缓存将存储所有结果的构件，并适当地为它们提供服务，而不会产生冲突。
+为了使远程缓存系统发挥作用，构建系统必须保证构建是完全可重复的。也就是说，对于任何构建目标，必须能够确定该目标的输入集，以便相同的输入集在任何机器上产生完全相同的输出。这是确保下载构件的结果与自己构建构件的结果相同的唯一方法。幸运的是，Bazel提供了这种保证，因此支持[远程缓存]（https://oreil.ly/D9doX）。请注意，这要求缓存中的每个构件都以其目标和输入的哈希值为关键--这样，不同的工程师可以在同一时间对同一目标进行不同的修改，而远程缓存将存储所有结果的构件，并适当地为它们提供服务，而不会产生冲突。
 
 Of course, for there to be any benefit from a remote cache, downloading an artifact needs to be faster than building it. This is not always the case, especially if the cache server is far from the machine doing the build. Google’s network and build system is carefully tuned to be able to quickly share build results. When configuring remote caching in your organization, take care to consider network latencies and perform experiments to ensure that the cache is actually improving performance.
 
@@ -479,11 +479,11 @@ Choosing a task-based build system instead of relying on DIY scripts greatly imp
 
 Task-based build systems begin to run into some fundamental problems as the project scales further, and these issues can be remedied by using an artifact-based build system instead. Such build systems unlock a whole new level of scale because huge builds can now be distributed across many machines, and thousands of engineers can be more certain that their builds are consistent and reproducible. As with so many other topics in this book, the trade-off here is a lack of flexibility: artifact- based systems don’t let you write generic tasks in a real programming language, but require you to work within the constraints of the system. This is usually not a problem for projects that are designed to work with artifact-based systems from the start, but migration from an existing task-based system can be difficult and is not always worth it if the build isn’t already showing problems in terms of speed or correctness.
 
-随着项目规模的进一步扩大，基于任务的构建系统开始遇到一些基本问题，而这些问题可以通过使用基于构件的构建系统来弥补。这样的构建系统开启了一个全新的规模，因为巨大的构建现在可以分布在许多机器上，成千上万的工程师可以更确定他们的构建是一致的和可重复的。就像本书中的许多其他主题一样，这里的权衡是缺乏灵活性：基于构件的系统不允许你用真正的编程语言编写通用任务，而要求你在系统的约束范围内工作。对于那些从一开始就被设计为与基于工件的系统一起工作的项目来说，这通常不是一个问题，但是从现有的基于任务的系统迁移可能是困难的，而且如果构建在速度或正确性方面还没有出现问题的话，这并不总是值得的。
+随着项目规模的进一步扩大，基于任务的构建系统开始遇到一些基本问题，而这些问题可以通过使用基于构件的构建系统来弥补。这样的构建系统开启了一个全新的规模，因为巨大的构建现在可以分布在许多机器上，成千上万的工程师可以更确定他们的构建是一致的和可重复的。就像本书中的许多其他主题一样，这里的权衡是缺乏灵活性：基于构件的系统不允许你用真正的编程语言编写通用任务，而要求你在系统的约束范围内工作。对于那些从一开始就被设计为与基于构件的系统一起工作的项目来说，这通常不是一个问题，但是从现有的基于任务的系统迁移可能是困难的，而且如果构建在速度或正确性方面还没有出现问题的话，这并不总是值得的。
 
 Changes to a project’s build system can be expensive, and that cost increases as the project becomes larger. This is why Google believes that almost every new project benefits from incorporating an artifact-based build system like Bazel right from the start. Within Google, essentially all code from tiny experimental projects up to Google Search is built using Blaze.
 
-对一个项目的构建系统进行修改代价耿是昂贵的，而且随着项目的扩大，成本也会增加。这就是为什么谷歌认为，几乎每一个新项目从一开始就可以从Bazel这样的基于工件的构建系统中获益。在谷歌内部，从微小的实验性项目到谷歌搜索，基本上所有的代码都是用Blaze构建的。
+对一个项目的构建系统进行修改代价耿是昂贵的，而且随着项目的扩大，成本也会增加。这就是为什么谷歌认为，几乎每一个新项目从一开始就可以从Bazel这样的基于构件的构建系统中获益。在谷歌内部，从微小的实验性项目到谷歌搜索，基本上所有的代码都是用Blaze构建的。
 
 # Dealing with Modules and Dependencies 处理模块和依赖关系
 Projects that use artifact-based build systems like Bazel are broken into a set of modules, with modules expressing dependencies on one another via BUILD files. Proper organization of these modules and dependencies can have a huge effect on both the performance of the build system and how much work it takes to maintain.
@@ -493,7 +493,7 @@ Projects that use artifact-based build systems like Bazel are broken into a set 
 ## Using Fine-Grained Modules and the 1:1:1 Rule 使用细粒度模块和1:1:1规则
 The first question that comes up when structuring an artifact-based build is deciding how much functionality an individual module should encompass. In Bazel, a “module” is represented by a target specifying a buildable unit like a java_library or a go_binary. At one extreme, the entire project could be contained in a single module by putting one BUILD file at the root and recursively globbing together all of that project’s source files. At the other extreme, nearly every source file could be made into its own module, effectively requiring each file to list in a BUILD file every other file it depends on.
 
-构建基于工件的构建时出现的第一个问题是决定单个模块应该包含多少功能。在Bazel中，一个 "module"是由一个指定可构建单元的目标表示的，如java_library或go_binary。在一个极端，整个项目可以包含在一个单一的module中，方法是把一个BUILD文件放在根部，然后递归地把该项目所有的源文件放在一起。在另一个极端，几乎每一个源文件都可以成为自己的模块，有效地要求每个文件在BUILD文件中列出它所依赖的每个其他文件。
+构建基于构件的构建时出现的第一个问题是决定单个模块应该包含多少功能。在Bazel中，一个 "module"是由一个指定可构建单元的目标表示的，如java_library或go_binary。在一个极端，整个项目可以包含在一个单一的module中，方法是把一个BUILD文件放在根部，然后递归地把该项目所有的源文件放在一起。在另一个极端，几乎每一个源文件都可以成为自己的模块，有效地要求每个文件在BUILD文件中列出它所依赖的每个其他文件。
 
 Most projects fall somewhere between these extremes, and the choice involves a trade-off between performance and maintainability. Using a single module for the entire project might mean that you never need to touch the BUILD file except when adding an external dependency, but it means that the build system will always need to build the entire project all at once. This means that it won’t be able to parallelize or distribute parts of the build, nor will it be able to cache parts that it’s already built. One-module-per-file is the opposite: the build system has the maximum flexibility in caching and scheduling steps of the build, but engineers need to expend more effort maintaining lists of dependencies whenever they change which files reference which.
 
@@ -524,7 +524,7 @@ Modules need to be able to refer to one another. The downside of breaking a code
 ### Internal dependencies 内部依赖关系
 In a large project broken into fine-grained modules, most dependencies are likely to be internal; that is, on another target defined and built in the same source repository. Internal dependencies differ from external dependencies in that they are built from source rather than downloaded as a prebuilt artifact while running the build. This also means that there’s no notion of “version” for internal dependencies—a target and all of its internal dependencies are always built at the same commit/revision in the repository.
 
-在细分为细粒度模块的大型项目中，大多数依赖关系可能是内部的；也就是说，在同一源存储库中定义和构建的另一个目标上。内部依赖项与外部依赖项的不同之处在于，它们是从源代码构建的，而不是在运行构建时作为预构建工件下载的。这也意味着内部依赖项没有“版本”的概念——目标及其所有内部依赖项始终在存储库中的同一提交/修订中构建。
+在细分为细粒度模块的大型项目中，大多数依赖关系可能是内部的；也就是说，在同一源存储库中定义和构建的另一个目标上。内部依赖项与外部依赖项的不同之处在于，它们是从源代码构建的，而不是在运行构建时作为预构建构件下载的。这也意味着内部依赖项没有“版本”的概念——目标及其所有内部依赖项始终在存储库中的同一提交/修订中构建。
 
 One issue that should be handled carefully with regard to internal dependencies is how to treat transitive dependencies (Figure 18-5). Suppose target A depends on target B, which depends on a common library target C. Should target A be able to use classes defined in target C?
 
@@ -557,7 +557,7 @@ If a dependency isn’t internal, it must be external. External dependencies are
 
  **Automatic versus manual dependency management.** Build systems can allow the versions of external dependencies to be managed either manually or automatically. When managed manually, the buildfile explicitly lists the version it wants to download from the artifact repository, often using [a semantic version string ](https://semver.org/)such as “1.1.4”. When managed automatically, the source file specifies a range of acceptable versions, and the build system always downloads the latest one. For example, Gradle allows a dependency version to be declared as “1.+” to specify that any minor or patch version of a dependency is acceptable so long as the major version is 1.
 
- **自动与手动依赖管理。**构建系统可以允许手动或自动管理外部依赖的版本。当手动管理时，构建文件明确列出它要从工件库中下载的版本，通常使用[语义版本字符串](https://semver.org/)，如 "1.1.4"。当自动管理时，源文件指定了一个可接受的版本范围，并且构建系统总是下载最新的版本。例如，Gradle允许将依赖版本声明为 "1.+"，以指定只要主要版本是1，那么依赖的任何次要或补丁版本都是可以接受的。
+ **自动与手动依赖管理。**构建系统可以允许手动或自动管理外部依赖的版本。当手动管理时，构建文件明确列出它要从构件库中下载的版本，通常使用[语义版本字符串](https://semver.org/)，如 "1.1.4"。当自动管理时，源文件指定了一个可接受的版本范围，并且构建系统总是下载最新的版本。例如，Gradle允许将依赖版本声明为 "1.+"，以指定只要主要版本是1，那么依赖的任何次要或补丁版本都是可以接受的。
 
 Automatically managed dependencies can be convenient for small projects, but they’re usually a recipe for disaster on projects of nontrivial size or that are being worked on by more than one engineer. The problem with automatically managed dependencies is that you have no control over when the version is updated. There’s no way to guarantee that external parties won’t make breaking updates (even when they claim to use semantic versioning), so a build that worked one day might be broken the next with no easy way to detect what changed or to roll it back to a working state. Even if the build doesn’t break, there can be subtle behavior or performance changes that are impossible to track down.
 
@@ -593,11 +593,11 @@ For this reason, Bazel does not automatically download transitive dependencies. 
 
 Yet again, the choice here is one between convenience and scalability. Small projects might prefer not having to worry about managing transitive dependencies themselves and might be able to get away with using automatic transitive dependencies. This strategy becomes less and less appealing as the organization and codebase grows, and conflicts and unexpected results become more and more frequent. At larger scales, the cost of manually managing dependencies is much less than the cost of dealing with issues caused by automatic dependency management.
 
-然而，这里的权衡是在便捷性和可伸缩性之间。小型项目可能更愿意不必担心管理可传递依赖项本身，并且可能可以不使用自动可传递依赖项。随着组织和代码库的增长，这种策略越来越没有吸引力，冲突和意外结果也越来越频繁。在更大的范围内，手动管理依赖关系的成本远远低于处理自动依赖关系管理所引起的问题的成本。
+然而，这里的权衡是在便捷性和可扩展性之间。小型项目可能更愿意不必担心管理可传递依赖本身，并且可能可以不使用自动可传递依赖。随着组织和代码库的增长，这种策略越来越没有吸引力，冲突和意外结果也越来越频繁。在更大的范围内，手动管理依赖关系的成本远远低于处理自动依赖关系管理所引起的问题的成本。
 
 **Caching build results using external dependencies.** External dependencies are most often provided by third parties that release stable versions of libraries, perhaps without providing source code. Some organizations might also choose to make some of their own code available as artifacts, allowing other pieces of code to depend on them as third- party rather than internal dependencies. This can theoretically speed up builds if artifacts are slow to build but quick to download.
 
-**使用外部依赖性缓存构建结果。**外部依赖性最常由发布稳定版本库的第三方提供，可能没有提供源代码。一些组织可能也会选择将他们自己的一些代码作为构件来提供，允许其他代码作为第三方依赖它们，而不是内部依赖。如果构件的构建速度慢但下载速度快，理论上这可以加快构建速度。
+**使用外部依赖性缓存构建结果。**外部依赖最常由发布稳定版本库的第三方提供，可能没有提供源代码。一些组织可能也会选择将他们自己的一些代码作为构件来提供，允许其他代码作为第三方依赖它们，而不是内部依赖。如果构件的构建速度慢但下载速度快，理论上这可以加快构建速度。
 
 However, this also introduces a lot of overhead and complexity: someone needs to be responsible for building each of those artifacts and uploading them to the artifact repository, and clients need to ensure that they stay up to date with the latest version. Debugging also becomes much more difficult because different parts of the system will have been built from different points in the repository, and there is no longer a consistent view of the source tree.
 
@@ -605,7 +605,7 @@ However, this also introduces a lot of overhead and complexity: someone needs to
 
 A better way to solve the problem of artifacts taking a long time to build is to use a build system that supports remote caching, as described earlier. Such a build system will save the resulting artifacts from every build to a location that is shared across engineers, so if a developer depends on an artifact that was recently built by someone else, the build system will automatically download it instead of building it. This provides all of the performance benefits of depending directly on artifacts while still ensuring that builds are as consistent as if they were always built from the same source. This is the strategy used internally by Google, and Bazel can be configured to use a remote cache.
 
-解决工件构建时间过长问题的更好方法是使用支持远程缓存的构建系统，如前所述。这样的构建系统将把每次构建产生的构件保存到工程师共享的位置，所以如果一个开发者依赖于最近由其他人构建的构件，构建系统将自动下载它而不是构建它。这提供了直接依赖构件的所有性能优势，同时确保构建的一致性，就像它们总是从同一个源构建一样。这是谷歌内部使用的策略，Bazel可以配置为使用远程缓存。
+解决构建构建时间过长问题的更好方法是使用支持远程缓存的构建系统，如前所述。这样的构建系统将把每次构建产生的构件保存到工程师共享的位置，所以如果一个开发者依赖于最近由其他人构建的构件，构建系统将自动下载它而不是构建它。这提供了直接依赖构件的所有性能优势，同时确保构建的一致性，就像它们总是从同一个源构建一样。这是谷歌内部使用的策略，Bazel可以配置为使用远程缓存。
 
 **Security and reliability of external dependencies.** Depending on artifacts from third- party sources is inherently risky. There’s an availability risk if the third-party source (e.g., an artifact repository) goes down, because your entire build might grind to a halt if it’s unable to download an external dependency. There’s also a security risk: if the third-party system is compromised by an attacker, the attacker could replace the referenced artifact with one of their own design, allowing them to inject arbitrary code into your build.
 
@@ -613,7 +613,7 @@ A better way to solve the problem of artifacts taking a long time to build is to
 
 Both problems can be mitigated by mirroring any artifacts you depend on onto servers you control and blocking your build system from accessing third-party artifact repositories like Maven Central. The trade-off is that these mirrors take effort and resources to maintain, so the choice of whether to use them often depends on the scale of the project. The security issue can also be completely prevented with little overhead by requiring the hash of each third-party artifact to be specified in the source repository, causing the build to fail if the artifact is tampered with.
 
-这两个问题都可以通过将你依赖的构件镜像到你控制的服务器上，并阻止你的构建系统访问第三方构件库（如Maven Central）来缓解。权衡之下，这些镜像需要花费精力和资源来维护，所以是否使用这些镜像往往取决于项目的规模。安全问题也可以通过要求在源码库中指定每个第三方工件的哈希值来完全避免，如果构件被篡改，则会导致构建失败。
+这两个问题都可以通过将你依赖的构件镜像到你控制的服务器上，并阻止你的构建系统访问第三方构件库（如Maven Central）来缓解。权衡之下，这些镜像需要花费精力和资源来维护，所以是否使用这些镜像往往取决于项目的规模。安全问题也可以通过要求在源码库中指定每个第三方构件的哈希值来完全避免，如果构件被篡改，则会导致构建失败。
 
 Another alternative that completely sidesteps the issue is to *vendor* your project’s dependencies. When a project vendors its dependencies, it checks them into source control alongside the project’s source code, either as source or as binaries. This effectively means that all of the project’s external dependencies are converted to internal dependencies. Google uses this approach internally, checking every third-party library referenced throughout Google into a *third_party* directory at the root of Google’s source tree. However, this works at Google only because Google’s source control system is custom built to handle an extremely large monorepo, so vendoring might not be an option for other organizations.
 
@@ -631,11 +631,11 @@ As discussed in this chapter, one of the more surprising lessons that Google has
 
 We took this insight and used it to create a whole new type of *artifact-based* build system, contrasting with traditional *task-based* build systems. This reframing of the build as centering around artifacts instead of tasks is what allows our builds to scale to an organization the size of Google. At the extreme end, it allows for a *distributed* *build system* that is able to leverage the resources of an entire compute cluster to accelerate engineers’ productivity. Though your organization might not be large enough to benefit from such an investment, we believe that artifact-based build systems scale down as well as they scale up: even for small projects, build systems like Bazel can bring significant benefits in terms of speed and correctness.
 
-我们接受了这一观点，并利用它创建了一种全新的基于构件的构建系统，与传统的构建系统形成对比。这种以构件为中心而不是以任务为中心的构建重构，使我们的构建能够扩展到一个与谷歌规模相当的组织。在极端情况下，它允许一个*分布式构建系统*，能够利用整个计算集群的资源来加速工程师的生产力。虽然你的组织可能还没有大到可以从这样的投资中获益，但我们相信，基于工件的构建系统会随着规模的扩大而缩小：即使对于小型项目，像Bazel这样的构建系统也可以在速度和正确性方面带来显著的好处。
+我们接受了这一观点，并利用它创建了一种全新的基于构件的构建系统，与传统的构建系统形成对比。这种以构件为中心而不是以任务为中心的构建重构，使我们的构建能够扩展到一个与谷歌规模相当的组织。在极端情况下，它允许一个*分布式构建系统*，能够利用整个计算集群的资源来加速工程师的生产力。虽然你的组织可能还没有大到可以从这样的投资中获益，但我们相信，基于构件的构建系统会随着规模的扩大而缩小：即使对于小型项目，像Bazel这样的构建系统也可以在速度和正确性方面带来显著的好处。
 
 The remainder of this chapter explored how to manage dependencies in an artifact- based world. We came to the conclusion that *fine-grained modules scale better than coarse-grained modules*. We also discussed the difficulties of managing dependency versions, describing the O*ne-Version Rule* and the observation that all dependencies should be *versioned manually and explicitly*. Such practices avoid common pitfalls like the diamond dependency issue and allow a codebase to achieve Google’s scale of billions of lines of code in a single repository with a unified build system.
 
-本章的其余部分探讨了如何在一个基于工件的系统中管理依赖关系。我们得出的结论是：*细粒度的模块比粗粒度的模块更容易扩展。我们还讨论了管理依赖版本的困难，描述了* "一个版本规则 "*，以及所有的依赖都应该*手动和明确的版本*的观点。这样的做法可以避免像钻石依赖问题这样的常见陷阱，并允许代码库在一个具有统一构建系统的单一存储库中实现谷歌数万亿行代码的规模。
+本章的其余部分探讨了如何在一个基于构件的系统中管理依赖关系。我们得出的结论是：*细粒度的模块比粗粒度的模块更容易扩展。我们还讨论了管理依赖版本的困难，描述了* "一个版本规则 "*，以及所有的依赖都应该*手动和明确的版本*的观点。这样的做法可以避免像钻石依赖问题这样的常见陷阱，并允许代码库在一个具有统一构建系统的单一存储库中实现谷歌数万亿行代码的规模。
 
 # TL;DRs  内容提要
 
