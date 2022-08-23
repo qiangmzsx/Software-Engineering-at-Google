@@ -69,7 +69,7 @@ Typical review steps go as follows:
 2. **要求审查。**在作者对修改的差异和Critique中显示的分析器的结果感到满意后，他们将修改发送给一个或多个审查员。
 3. **评论。**评论者在Critique中打开修改，并对diff起草评论。评论默认标记为*未解决*，意味着它们对作者来说是至关重要的。此外，评论者可以添加*已解决*的评论，这些评论是可选的或信息性的。自动代码分析器的结果，如果存在的话，也可以让审查者看到。一旦审查者起草了一组评论，他们需要*发布*它们，以便作者看到它们；这样做的好处是允许审查者在审查了整个修改后，以原子方式提供一个完整的想法。任何人都可以对变更发表评论，并在他们认为必要时提供“驱动式审查”。
 4. **修改变更并回复评论。**作者修改变更，根据反馈上传新的快照，并回复评论者。作者处理（至少）所有未解决的评论，要么修改代码，要么直接回复评论并将评论类型改为*解决*。作者和审稿人可以查看任何一对快照之间的差异，看看有什么变化。步骤3和4可能要重复多次。
-5. **变更批准。**当审查者对修改的最新状态感到满意时，他们会批准变更，并将其标记为 “我觉得不错"（LGTM）。他们可以选择包括评论来解决。更改被认为适合提交后，在UI中会清楚地标记为绿色以显示此状态。
+5. **变更批准。**当审查者对修改的最新状态感到满意时，他们会批准变更，并将其标记为 “我觉得不错"（LGTM）。他们可以选择包含已解决的评论。更改被认为适合提交后，在UI中会清楚地标记为绿色以显示此状态。
 6. **提交变更。**只要变更被批准（我们很快会讨论），作者就可以触发变更的提交过程。如果自动分析器和其他预提交钩子（称为 "预提交"）没有发现任何问题，该变更就被提交到代码库中。
 
 Even after the review process is started, the entire system provides significant flexibility to deviate from the regular review flow. For example, reviewers can un-assign themselves from the change or explicitly assign it to someone else, and the author can postpone the review altogether. In emergency cases, the author can forcefully commit their change and have it reviewed after commit.
@@ -168,17 +168,17 @@ For example, suppose that a linter finds a style violation of extra spaces at th
 ### Tight Tool Integration 紧密的工具集成
 
 Google has tools built on top of Piper, its monolithic source code repository (see [Chapter 16](#_bookmark1364)), such as the following:
-•   Cider, an online IDE for editing source code stored in the cloud
-•   Code Search, a tool for searching code in the codebase
-•   Tricorder, a tool for displaying static analysis results (mentioned earlier)
-•   Rapid, a release tool that packages and deploys binaries containing a series of changes
-•   Zapfhahn, a test coverage calculation tool
+- Cider, an online IDE for editing source code stored in the cloud
+- Code Search, a tool for searching code in the codebase
+- Tricorder, a tool for displaying static analysis results (mentioned earlier)
+- Rapid, a release tool that packages and deploys binaries containing a series of changes
+- Zapfhahn, a test coverage calculation tool
 
 谷歌拥有建立在Piper--其单体源代码库（见第16章）之上的工具，例如以下这些。
 - Cider，用于编辑云中存储的源代码的在线IDE
 - 代码搜索，用于在代码库中搜索代码的工具
 - Tricorder，用于显示静态分析结果的工具（前面提到）
-- Rapid，个打包和部署包含一系列更改的二进制文件的发布工具
+- Rapid，一个打包和部署包含一系列更改的二进制文件的发布工具
 - Zapfhahn，一个测试覆盖率计算工具
 
 Additionally, there are services that provide context on change metadata (for example, about users involved in a change or linked bugs). Critique is a natural melting pot for a quick one-click/hover access or even embedded UI support to these systems, although we need to be careful not to sacrifice simplicity. For example, from a change page in Critique, the author needs to click only once to start editing the change further in Cider. There is support to navigate between cross-references using Kythe or view the mainline state of the code in Code Search (see [Chapter 17](#_bookmark1485)). Critique links out to the release tool so that users can see whether a submitted change is in a specific release. For these tools, Critique favors links rather than embedding so as not to distract from the core review experience. One exception here is test coverage: the information of whether a line of code is covered by a test is shown by different background colors on the line gutter in the file’s diff view (not all projects use this coverage tool).
@@ -202,10 +202,10 @@ After the author is happy with the state of the change, they can send it for rev
 Figure 19-5. Requesting reviewers
 
 Given the size of Google’s codebase and the number of people modifying it, it can be difficult to find out who is best qualified to review a change outside your own project. Finding reviewers is a problem to consider when reaching a certain scale. Critique must deal with scale. Critique offers the functionality to propose sets of reviewers that are sufficient to approve the change. The reviewer selection utility takes into account the following factors:
-•   Who owns the code that is being changed (see the next section)
-•   Who is most familiar with the code (i.e., who recently changed it)
-•   Who is available for review (i.e., not out of office and preferably in the same time zone)
-•   The GwsQ team alias setup
+*   Who owns the code that is being changed (see the next section)
+*   Who is most familiar with the code (i.e., who recently changed it)
+*   Who is available for review (i.e., not out of office and preferably in the same time zone)
+*   The GwsQ team alias setup
 
 考虑到谷歌代码库的规模和修改代码的人数，很难找出谁最有资格审查你自己项目之外的变更。发现审查者在达到一定的规模时要考虑的问题。评论必须处理规模问题。Critique提供了建议一组足以批准更改的审阅者的功能。评审员的选择工具考虑到了以下因素。
 - 谁拥有被修改的代码（见下一节）
