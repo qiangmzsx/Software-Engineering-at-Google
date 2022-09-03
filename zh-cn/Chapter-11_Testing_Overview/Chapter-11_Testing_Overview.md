@@ -254,7 +254,8 @@ The other important constraints on small tests are that they aren’t allowed to
 
 The purpose of these restrictions is to ensure that small tests don’t have access to the main sources of test slowness or nondeterminism. A test that runs on a single process and never makes blocking calls can effectively run as fast as the CPU can handle. It’s difficult (but certainly not impossible) to accidentally make such a test slow or nondeterministic. The constraints on small tests provide a sandbox that prevents engineers from shooting themselves in the foot.
 
-这些限制的目的是确保小的测试没有机会使用到测试缓慢或非确定性的主要来源。在单个进程上运行且从不进行阻塞调用的测试可以有效地以CPU能够处理的速度运行。除非一些极端场景， 小型测试绝大部分情况下执行高效、结果稳定准确。对小型测试的限制确保了这一点。
+这些限制的目的是确保小的测试没有机会使用到测试缓慢或非确定性的主要来源。在单个进程上运行且从不进行阻塞调用的测试可以有效地以CPU能够处理的速度运行。除非一些极端场景， 小型测试绝大部分情况下执行高效、结果稳定准确。对小型测试的限制确保了这一点， 防止工程师自食其果。
+
 
 These restrictions might seem excessive at first, but consider a modest suite of a couple hundred small test cases running throughout the day. If even a few of them fail nondeterministically (often called [flaky tests](https://oreil.ly/NxC4A)), tracking down the cause becomes a serious drain on productivity. At Google’s scale, such a problem could grind our testing infrastructure to a halt.
 
@@ -281,7 +282,7 @@ The ability to run multiple processes opens up a lot of possibilities. For examp
 
 Unfortunately, with increased flexibility comes increased potential for tests to become slow and nondeterministic. Tests that span processes or are allowed to make blocking calls are dependent on the operating system and third-party processes to be fast and deterministic, which isn’t something we can guarantee in general. Medium tests still provide a bit of protection by preventing access to remote machines via the network, which is far and away the biggest source of slowness and nondeterminism in most systems. Still, when writing medium tests, the “safety” is off, and engineers need to be much more careful.
 
-不幸的是，随着灵活性的增加，测试变得缓慢和不确定性也在增加。如果测试可以跨进程执行、或者被允许进行阻塞性调用，那么它是否执行高效并保证结果稳定将依赖于操作系统和第三方进程， 这在一般情况下我们是无法保证的。中型测试仍然通过防止通过网络访问远程机器来提供一些保护，而网络是大多数系统中速度慢和非确定性的最大来源。尽管如此，在编写中型测试时，"安全 "是关闭的，工程师需要更加小心。
+不幸的是，随着灵活性的增加，测试变得缓慢和不确定性也在增加。如果测试可以跨进程执行被允许进行阻塞性调用，那么它是否执行高效并保证结果稳定将依赖于操作系统和第三方进程， 这在一般情况下我们是无法保证的。中型测试仍然通过防止通过网络访问远程机器来提供一些保护，而网络是大多数系统中速度慢和非确定性的最大来源。尽管如此，在编写中型测试时，"安全 "是关闭的，工程师需要更加小心。
 
 #### Large tests  大型测试
 
