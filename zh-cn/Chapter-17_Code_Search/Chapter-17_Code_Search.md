@@ -122,7 +122,7 @@ About 8% of Code Searches try to answer questions around who or when someone int
 
 大约 8% 的代码搜索试图回答有关谁或何时引入某段代码的问题，并与版本控制系统进行交互。例如，可以查看何时引入了特定行（如 Git 的“blame”）并跳转到相关的代码审查。这个历史面板对于寻找最好的人来询问代码或审查对它的更改也非常有用。
 
-> 6 That said, given the rate of commits for machine-generated changes, naive “blame” tracking has less value than it does in more change-averse ecosystems./
+> [^6]: That said, given the rate of commits for machine-generated changes, naive “blame” tracking has less value than it does in more change-averse ecosystems./
 > 6也就是说，考虑到机器生成的更改的提交率，天真的“指责”跟踪比在更厌恶更改的生态系统中的价值要小。
 
 ## Why a Separate Web Tool? 
@@ -248,7 +248,7 @@ One could consider the power of the search query language (e.g., specifying file
 
 可以将搜索查询语言的功能（例如，指定文件、使用正则表达式）视为另一个标准；我们将在本章稍后的权衡部分讨论这个问题。
 
-> 10 The Code Search UI does also have a classical file tree, so navigating this way is also possible./
+> [^10]: The Code Search UI does also have a classical file tree, so navigating this way is also possible./
 > 10 代码搜索用户界面也有一个经典的文件树，所以用这种方式导航也是可以的。
 ### Index Latency
 
@@ -306,7 +306,7 @@ To support local workspaces (which have a small delta from the global repository
 
 为了支持本地工作空间（与全局存储库有一个小的增量），我们有多台机器进行简单的暴力搜索。工作区数据在第一次请求时加载，然后通过侦听文件更改来保持同步。当内存不足时，我们会从机器中删除最近的工作区。使用我们的历史索引搜索未更改的文档。因此，搜索被隐式限制为工作空间同步到的存储库状态。
 
-> 11 See https://blog.scalyr.com/2014/05/searching-20-gbsec-systems-engineering-before-algorithms and http://volnitsky.com/project/str_search./
+> [^11]: See https://blog.scalyr.com/2014/05/searching-20-gbsec-systems-engineering-before-algorithms and http://volnitsky.com/project/str_search./
 > 11 查阅blog.scalyr.com/2014/05/searching-20-gbsec-systems-engineering-before-algorithms 和tp://volnitsky.com/project/str_search.
 
 ### Ranking
@@ -344,7 +344,7 @@ Large-scale refactorings, such as open sourcing core libraries, present a second
 
 大规模重构，例如开源核心库，是第二个挑战。此类更改不会在单个代码更新中自动发生；相反，它们需要分多个阶段推出。通常，引入间接方式，例如隐藏文件的使用移动。这些类型间接降低了移动文件的页面排行，并使开发人员更难发现新位置。此外，移动文件时文件视图通常会丢失，从而使情况变得更糟。因为代码库的这种全局重组比较少见（大多数接口很少移动），最简单的解决方案是在这种过渡期间手动提升文件。 （或者等到迁移完成并等待自然过程在其新位置对文件进行升级。）
 
-> 13 This could likely be somewhat corrected by using recency in some form as a signal, perhaps doing something imilar to web search dealing with new pages, but we don’t yet do so.
+> [^13]: This could likely be somewhat corrected by using recency in some form as a signal, perhaps doing something imilar to web search dealing with new pages, but we don’t yet do so.
 >  13 这很可能通过使用某种形式的事件作为信号而得到一定程度的修正，也许可以做一些类似于网络搜索处理新页面的事情，但我们还没有这样做。
 
 #### Query dependent signals
@@ -363,7 +363,7 @@ For convenience, a default search matches filename and qualified symbols[^14] io
 
 为方便起见，除了实际文件内容外，默认搜索还匹配文件名和限定符号。用户可以指定特定类型的匹配，但他们不需要。与正常的内容匹配相比，该评分提高了符号和文件名匹配，以反映开发人员的推断意图。与 Web 搜索一样，开发人员可以在搜索中添加更多术语以使查询更加具体。通过文件名提示“限定”查询是很常见的（例如，“基础”或“我的项目”）。评分通过提升大部分查询出现在潜在结果的完整路径中的结果来利用这一点，将此类结果置于仅包含其内容中随机位置的单词的结果之前。
 
-> 14 In programming languages, a symbol such as a function “Alert” often is defined in a particular scope, such as  class (“Monitor”) or namespace (“absl”). The qualified name might then be absl::Monitor::Alert, and this is indable, even if it doesn’t occur in the actual text.
+> [^14]: In programming languages, a symbol such as a function “Alert” often is defined in a particular scope, such as  class (“Monitor”) or namespace (“absl”). The qualified name might then be absl::Monitor::Alert, and this is indable, even if it doesn’t occur in the actual text.
 > 14 在编程语言中，像函数 "Alert "这样的符号经常被定义在一个特定的范围内，例如类（"Monitor"）或命名空间（"absl"）。因此，限定的名称可能是absl::Monitor::Alert，这是可以理解的，即使它没有出现在实际文本中。
 
 #### Retrieval
@@ -424,7 +424,7 @@ Normal search sacrifices completeness for speed, essentially gambling that ranki
 
 Being able to deliver all results for very large result sets has high cost, but we felt it was required for tooling, and for developers to trust the results. However, because for most queries only a few results are relevant (either there are only a few matches[^15] or only a few are interesting), we didn’t want to sacrifice average speed for potential completeness.
 
-能够为非常大的结果集交付所有结果的成本很高，但我们认为这是工具所必需的，并且开发人员需要信任结果。然而，因为对于大多数查询，只有少数结果是相关的（或者只有少数匹配 15 或只有少数是有用的），我们不想为了潜在的完整性而牺牲平均速度。
+能够为非常大的结果集交付所有结果的成本很高，但我们认为这是工具所必需的，并且开发人员需要信任结果。然而，因为对于大多数查询，只有少数结果是相关的（或者只有少数匹配或只有少数是有用的），我们不想为了潜在的完整性而牺牲平均速度。
 
 To achieve both goals with one architecture, we split the codebase into shards with files ordered by their priority. Then, we usually need to consider only the matches to high priority files from each chunk. This is similar to how web search works. However, if requested, Code Search can fetch all results from each chunk, to guarantee finding all results.[^16] This lets us address both use cases, without typical searches being slowed down by the less frequently used capability of returning large, complete results sets. Results can also then be delivered in alphabetical order, rather than ranked, which is useful for some tools.
 
@@ -434,15 +434,15 @@ So, here the trade-off was a more complex implementation and API versus greater 
 
 因此，这里权衡的是更复杂的实现和 API 与更强大的功能，而不是更明显的延迟与完整性。
 
-> 15 An analysis of queries showed that about one-third of user searches have fewer than 20 results./
+> [^15]: An analysis of queries showed that about one-third of user searches have fewer than 20 results./
 > 15 对查询的分析表明，大约三分之一的用户搜索结果少于20个。
 > 
-> 16 In practice, even more happens behind the scenes so that responses don’t become painfully huge and developers don’t bring down the whole system by making searches that match nearly everything (imagine searching for the letter “i” or a single space)./
+> [^16]: In practice, even more happens behind the scenes so that responses don’t become painfully huge and developers don’t bring down the whole system by making searches that match nearly everything (imagine searching for the letter “i” or a single space)./
 > 16在实践中，更多的事情发生在幕后，因此响应不会变得异常巨大，开发人员也不会通过搜索几乎所有内容来破坏整个系统（想象一下搜索字母“i”或单个空格）
 
 ### Completeness: Head Versus Branches Versus All History Versus Workspaces
 
-### 完整性：头vs分支vs所有历史vs工作区
+### 完整性：Head vs 分支 vs 所有历史 vs 工作区
 
 Related to the dimension of corpus size is the question of which code versions should be indexed: specifically, whether anything more than the current snapshot of code (“head”) should be indexed. System complexity, resource consumption, and overall cost increase drastically if more than a single file revision is indexed. To our knowledge, no IDE indexes anything but the current version of code. When looking at distributed version control systems like Git or Mercurial, a lot of their efficiency comes from the compression of their historical data. But the compactness of these representations becomes lost when constructing reverse indices. Another issue is that it is difficult to efficiently index graph structures, which are the basis for Distributed Version Control Systems.
 
@@ -453,24 +453,18 @@ Although it is difficult to index multiple versions of a repository, doing so al
 尽管索引存储库的多个版本很困难，但这样做可以探索代码如何更改并找到已删除的代码。在 Google 中，代码搜索索引（线性）Piper 历史。这意味着可以在代码的任意快照中搜索代码库，查找已删除的代码，甚至是某些人创作的代码。
 
 One big benefit is that obsolete code can now simply be deleted from the codebase. Before, code was often moved into directories marked as obsolete so that it could still be found later. The full history index also laid the foundation for searching effectively in people’s workspaces (unsubmitted changes), which are synced to a specific snapshot of the codebase. For the future, a historical index opens up the possibility of interesting signals to use when ranking, such as authorship, code activity, and so on. Workspaces are very different from the global repository:
+- Each developer can have their own workspaces.
+- There are usually a small number of changed files within a workspace.
+- The files being worked on are changing frequently.
+- A workspace exists only for a relatively short time period.
+
+
 
 一个大的优点是现在可以简单地从代码库中删除过时的代码。以前，代码经常被移动到标记为过时的目录中，以便以后仍然可以找到它。完整的历史索引还为在人们的工作空间（未提交的更改）中进行有效搜索奠定了基础，这些工作空间与代码库的特定快照同步。对于未来，历史索引开辟了在排行时使用有效信号的可能性，例如作者身份、代码活动等。工作区与全局存储库有很大不同：
-
-• Each developer can have their own workspaces.
-
-• 每个开发人员都可以拥有自己的工作区。
-
-• There are usually a small number of changed files within a workspace.
-
-• 工作空间中通常有少量更改的文件。
-
-• The files being worked on are changing frequently.
-
-• 正在处理的文件经常更改。
-
-• A workspace exists only for a relatively short time period.
-
-• 工作空间仅存在相对较短的时间段。
+- 每个开发人员都可以拥有自己的工作区。
+- 工作空间中通常有少量更改的文件。
+- 正在处理的文件经常更改。
+- 工作空间仅存在相对较短的时间段。
 
 To provide value, a workspace index must reflect exactly the current state of the workspace.
 
@@ -508,10 +502,10 @@ If a substring index is available, it’s easy to extend it to allow regular exp
 
 如果子字符串索引可用，很容易扩展它以允许正则表达式搜索。基本思想是将正则表达式自动机转换为一组子字符串搜索。这种转换对于三元索引很简单，并且可以推广到其他子字符串索引。因为没有完美的正则表达式索引，所以总是可以构建导致暴力搜索的查询。然而，鉴于只有一小部分用户查询是复杂的正则表达式，在实践中，通过子字符串索引的近似效果非常好。
 
-> 17 There are other intermediate varieties, such as building a prefix/suffix index, but generally they provide less expressiveness in search queries while still having high complexity and indexing costs./
+> [^17]: There are other intermediate varieties, such as building a prefix/suffix index, but generally they provide less expressiveness in search queries while still having high complexity and indexing costs./
 > 17 还有其他的类似方式，如建立前缀/后缀索引，但一般来说，它们在搜索查询中提供的表达能力较低，同时仍有较高的复杂性和索引成本。
 > 
-18 Russ Cox, “Regular Expression Matching with a Trigram Index or How Google Code Search Worked.”/
+[^18]: Russ Cox, “Regular Expression Matching with a Trigram Index or How Google Code Search Worked.”/
 > 18 Russ Cox，"用三元索引进行正则表达式匹配或谷歌代码搜索的工作原理"。
 
 ## Conclusion
