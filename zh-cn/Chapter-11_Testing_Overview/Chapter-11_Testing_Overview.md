@@ -254,7 +254,8 @@ The other important constraints on small tests are that they aren’t allowed to
 
 The purpose of these restrictions is to ensure that small tests don’t have access to the main sources of test slowness or nondeterminism. A test that runs on a single process and never makes blocking calls can effectively run as fast as the CPU can handle. It’s difficult (but certainly not impossible) to accidentally make such a test slow or nondeterministic. The constraints on small tests provide a sandbox that prevents engineers from shooting themselves in the foot.
 
-这些限制的目的是确保小的测试没有机会使用到测试缓慢或非确定性的主要来源。在单个进程上运行且从不进行阻塞调用的测试可以有效地以CPU能够处理的速度运行。很难（但肯定不是不可能）意外地使这样的测试变得缓慢或不确定。对小型测试的限制提供了一个沙盒，防止工程师自食其果。
+这些限制的目的是确保小的测试没有机会使用到测试缓慢或非确定性的主要来源。在单个进程上运行且从不进行阻塞调用的测试可以有效地以CPU能够处理的速度运行。除非一些极端场景， 小型测试绝大部分情况下执行高效、结果稳定准确。对小型测试的限制确保了这一点， 防止工程师自食其果。
+
 
 These restrictions might seem excessive at first, but consider a modest suite of a couple hundred small test cases running throughout the day. If even a few of them fail nondeterministically (often called [flaky tests](https://oreil.ly/NxC4A)), tracking down the cause becomes a serious drain on productivity. At Google’s scale, such a problem could grind our testing infrastructure to a halt.
 
@@ -281,7 +282,7 @@ The ability to run multiple processes opens up a lot of possibilities. For examp
 
 Unfortunately, with increased flexibility comes increased potential for tests to become slow and nondeterministic. Tests that span processes or are allowed to make blocking calls are dependent on the operating system and third-party processes to be fast and deterministic, which isn’t something we can guarantee in general. Medium tests still provide a bit of protection by preventing access to remote machines via the network, which is far and away the biggest source of slowness and nondeterminism in most systems. Still, when writing medium tests, the “safety” is off, and engineers need to be much more careful.
 
-不幸的是，随着灵活性的增加，测试变得缓慢和不确定性也在增加。跨进程的测试或被允许进行阻塞性调用的测试依赖于操作系统和第三方进程的快速和决定，这在一般情况下我们是无法保证的。中型测试仍然通过防止通过网络访问远程机器来提供一些保护，而网络是大多数系统中速度慢和非确定性的最大来源。尽管如此，在编写中型测试时，"安全 "是关闭的，工程师需要更加小心。
+不幸的是，随着灵活性的增加，测试变得缓慢和不确定性也在增加。如果测试可以跨进程执行被允许进行阻塞性调用，那么它是否执行高效并保证结果稳定将依赖于操作系统和第三方进程， 这在一般情况下我们是无法保证的。中型测试仍然通过防止通过网络访问远程机器来提供一些保护，而网络是大多数系统中速度慢和非确定性的最大来源。尽管如此，在编写中型测试时，"安全 "是关闭的，工程师需要更加小心。
 
 #### Large tests  大型测试
 
@@ -399,7 +400,7 @@ We have a name for this general philosophy: we call it the [Beyoncé Rule](https
 
 One of the most important situations a system must account for is failure. Failure is inevitable, but waiting for an actual catastrophe to find out how well a system responds to a catastrophe is a recipe for pain. Instead of waiting for a failure, write automated tests that simulate common kinds of failures. This includes simulating exceptions or errors in unit tests and injecting Remote Procedure Call (RPC) errors or latency in integration and end-to-end tests. It can also include much larger disruptions that affect the real production network using techniques like Chaos Engineering. A predictable and controlled response to adverse conditions is a hallmark of a reliable system.
 
-系统必须考虑的最重要的情况之一是失败。失败是不可避免的，但是等待实际的故障来发现系统对故障的反应如何，是一种痛苦的诀窍。与其等待失败，不如写自动测试来模拟常见的失败类型。这包括在单元测试中模拟异常或错误，在集成和端到端测试中注入远程过程调用（RPC）错误或延迟。它还可以包括使用混沌工程等技术影响真实生产网络的更大的破坏。对不利条件的可预测和可控制的反应是一个可靠系统的标志。
+系统必须考虑的最重要的情况之一是失败。失败是不可避免的，但是要被动等待实际的故障发生后才做对应的补救，是令人痛苦的。与其等待失败，不如写自动测试来模拟常见的失败类型。这包括在单元测试中模拟异常或错误，在集成和端到端测试中注入远程过程调用（RPC）错误或延迟。它还可以包括使用混沌工程等技术影响真实生产网络的更大的破坏。对不利条件的可预测和可控制的反应是一个可靠系统的标志。
 
 -----
 
@@ -504,11 +505,11 @@ Three key initiatives helped usher automated testing into the company’s consci
 
 Even though much of the early engineering staff at Google eschewed testing, the pioneers of automated testing at Google knew that at the rate the company was growing, new engineers would quickly outnumber existing team members. If they could reach all the new hires in the company, it could be an extremely effective avenue for introducing cultural change. Fortunately, there was, and still is, a single choke point that all new engineering hires pass through: orientation.
 
-尽管谷歌早期的工程人员大多回避测试，但Google自动化测试的工程师们知道，按照公司的发展速度，新加入的工程师会很快超过现有的团队成员。如果他们能接触到公司所有的新员工，这可能是一个引入文化变革的极其有效的途径。幸运的是，所有新的工程人员都要经历一个瓶颈：定位。
+尽管谷歌早期的工程人员大多回避测试，但Google自动化测试的工程师们知道，按照公司的发展速度，新加入的工程师会很快超过现有的团队成员。如果他们能接触到公司所有的新员工，这可能是一个引入文化变革的极其有效的途径。幸运的是，所有新的工程人员都要经历一个节点：入职培训。
 
 Most of Google’s early orientation program concerned things like medical benefits and how Google Search worked, but starting in 2005 it also began including an hour- long discussion of the value of automated testing.[^9] The class covered the various benefits of testing, such as increased productivity, better documentation, and support for refactoring. It also covered how to write a good test. For many Nooglers (new Googlers) at the time, such a class was their first exposure to this material. Most important, all of these ideas were presented as though they were standard practice at the company. The new hires had no idea that they were being used as trojan horses to sneak this idea into their unsuspecting teams.
 
-谷歌早期的指导计划大多涉及诸如医疗福利和谷歌搜索如何工作，但从2005年开始，它也开始包括一个长达一小时的关于自动化测试价值的讨论。该课程涵盖了测试的各种好处，如提高生产力，更好的文档，以及对重构的支持。它还包括如何写一个好的测试。对于当时的许多Nooglers（新的Googlers）来说，这样的课程是他们第一次接触到这种材料。最重要的是，所有这些想法都是作为公司的标准做法来介绍的。新员工们不知道他们被当作特洛伊木马，把这种想法偷偷带入他们毫无戒心的团队。
+谷歌早期的新人培训大多涉及诸如医疗福利和谷歌搜索如何工作，但从2005年开始，它也开始包括一个长达一小时的关于自动化测试价值的讨论。该课程涵盖了测试的各种好处，如提高生产力，更好的文档，以及对重构的支持。它还包括如何写一个好的测试。对于当时的许多Nooglers（新的Googlers）来说，这样的课程是他们第一次接触到这种材料。最重要的是，所有这些想法都是作为公司的标准做法来介绍的。新员工们不知道他们被当作特洛伊木马，把这种想法偷偷带入他们毫无戒心的团队。
 
 As Nooglers joined their teams following orientation, they began writing tests and questioning those on the team who didn’t. Within only a year or two, the population of engineers who had been taught testing outnumbered the pretesting culture engineers. As a result, many new projects started off on the right foot.
 
