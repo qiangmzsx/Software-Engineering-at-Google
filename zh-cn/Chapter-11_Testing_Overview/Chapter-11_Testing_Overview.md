@@ -505,7 +505,7 @@ Three key initiatives helped usher automated testing into the company’s consci
 
 Even though much of the early engineering staff at Google eschewed testing, the pioneers of automated testing at Google knew that at the rate the company was growing, new engineers would quickly outnumber existing team members. If they could reach all the new hires in the company, it could be an extremely effective avenue for introducing cultural change. Fortunately, there was, and still is, a single choke point that all new engineering hires pass through: orientation.
 
-尽管谷歌早期的工程人员大多回避测试，但Google自动化测试的工程师们知道，按照公司的发展速度，新加入的工程师会很快超过现有的团队成员。如果他们能接触到公司所有的新员工，这可能是一个引入文化变革的极其有效的途径。幸运的是，所有新的工程人员会参加新人培训。
+尽管谷歌早期的工程人员大多回避测试，但Google自动化测试的工程师们知道，按照公司的发展速度，新加入的工程师会很快超过现有的团队成员。如果他们能接触到公司所有的新员工，这可能是一个引入文化变革的极其有效的途径。幸运的是，所有新的工程人员都要经历一个节点：入职培训。
 
 Most of Google’s early orientation program concerned things like medical benefits and how Google Search worked, but starting in 2005 it also began including an hour- long discussion of the value of automated testing.[^9] The class covered the various benefits of testing, such as increased productivity, better documentation, and support for refactoring. It also covered how to write a good test. For many Nooglers (new Googlers) at the time, such a class was their first exposure to this material. Most important, all of these ideas were presented as though they were standard practice at the company. The new hires had no idea that they were being used as trojan horses to sneak this idea into their unsuspecting teams.
 
