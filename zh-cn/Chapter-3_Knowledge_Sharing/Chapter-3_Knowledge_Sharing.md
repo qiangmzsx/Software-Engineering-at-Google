@@ -552,7 +552,7 @@ Some information is critical to do one’s job, such as knowing how to do a typi
 #### Newsletters 时事通讯
 Google has a number of company-wide newsletters that are sent to all engineers, including EngNews (engineering news), Ownd (Privacy/Security news), and Google’s Greatest Hits (report of the most interesting outages of the quarter). These are a good way to communicate information that is of interest to engineers but isn’t mission critical. For this type of update, we’ve found that newsletters get better engagement when they are sent less frequently and contain more useful, interesting content. Otherwise, newsletters can be perceived as spam.
 
-谷歌有一些发给所有工程师的公司范围内的新闻简报，包括EngNews（工程新闻），Ownd（隐私/安全新闻），以及谷歌的Greatest Hits（本季度最有趣的故障报告）。这些都是传达工程师感兴趣但并非关键任务的信息的好方法。对于这种类型的更新，我们发现，如果通讯发送的频率较低，并且包含更多有用的、有趣的内容，就会得到更好的参与度。否则，通讯会被认为是垃圾邮件。
+谷歌有一些发给所有工程师的公司范围内的新闻简报，包括EngNews（工程新闻），Ownd（隐私/安全新闻），以及谷歌的Greatest Hits（本季度最有趣的故障报告）。这些都是传达工程师感兴趣但并非关键任务的信息的好方法。对于这种类型的更新，我们发现，如果通讯发送的频率较低，并且包含更多有用的、有趣的内容，就会得到更好的参与度。否则，新闻简报会被认为是垃圾邮件。
 
 Even though most Google newsletters are sent via email, some are more creative in their distribution. Testing on the Toilet (testing tips) and Learning on the Loo (productivity tips) are single-page newsletters posted inside toilet stalls. This unique delivery medium helps the Testing on the Toilet and Learning on the Loo stand out from other newsletters, and all issues are archived online.
 
