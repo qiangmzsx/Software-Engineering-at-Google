@@ -194,7 +194,7 @@ Incidentally, this time impact might be one reason for the development of the �
 
 When development starts with manual testing (when engineers think that code is meant to last only for minutes), those manual tests accumulate and dominate the initial overall testing portfolio. For example, it’s pretty typical to hack on a script or an app and test it out by running it, and then to continue to add features to it but continue to test it out by running it manually. This prototype eventually becomes functional and is shared with others, but no automated tests actually exist for it.
 
-当开发从手动测试开始时（当工程师认为代码只能持续几分钟时），那些手动测试就会积累起来并主导最初的整体测试组合。例如，通常我们会修改脚本或应用程序并通过运行来验证修改有效，然后继续向其添加功能，并继续通过手动运行来测试它，这是非常典型的。长此以往，原型产品的功能会越来越完整，直至可与其他人共享，但实际上不存在针对它的自动测试。
+当开发从手动测试开始时（当工程师认为代码只能持续几分钟时），那些手动测试就会积累起来并主导最初的整体测试组合。例如，通常我们会修改脚本或应用程序并通过运行来验证修改有效，然后继续向其添加功能并通过手动运行来测试它，这是非常典型的。长此以往，原型产品的功能会越来越完整，直至可与其他人共享，但实际上不存在针对它的自动测试。
 
 Even worse, if the code is difficult to unit test (because of the way it was implemented in the first place), the only automated tests that can be written are end-to-end ones, and we have inadvertently created “legacy code” within days.
 
