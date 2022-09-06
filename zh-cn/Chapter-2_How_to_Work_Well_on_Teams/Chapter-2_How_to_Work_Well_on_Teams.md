@@ -160,7 +160,7 @@ If you keep your great idea hidden from the world and refuse to show anyone anyt
 
 Early sharing isn’t just about preventing personal missteps and getting your ideas vetted. It’s also important to strengthen what we call the bus factor of your project.
 
-早期分享不仅仅是为了防止个人失误和检验你的想法。加强我们称之为项目的巴士因子。
+尽早分享不仅仅是为了防止个人失误和检验你的想法，对于加强我们称之为项目的巴士因子也是十分重要的。
 
 > [^2]:    Literally, if you are, in fact, a bike designer.
 > 2  实际上，如果你是一个自行车设计师。
