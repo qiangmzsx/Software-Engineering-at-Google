@@ -96,7 +96,7 @@ So in a magical world in which everything is always perfectly and immediately do
 
 Tribal and written knowledge complement each other. Even a perfectly expert team with perfect documentation needs to communicate with one another, coordinate with other teams, and adapt their strategies over time. No single knowledge-sharing approach is the correct solution for all types of learning, and the particulars of a good mix will likely vary based on your organization. Institutional knowledge evolves over time, and the knowledge-sharing methods that work best for your organization will likely change as it grows. Train, focus on learning and growth, and build your own stable of experts: there is no such thing as too much engineering expertise.
 
-内部知识和书面知识相互补充。即使是一个拥有完美文档的专家团队也需要相互沟通，与其他团队协调，并随着时间的推移不断调整他们的策略。没有任何一种知识共享方法是所有类型学习的正确解决方案，最佳组合的具体内容会根据你的组织而有所不同。团队知识随着时间的推移而演变，对你的组织最有效的知识共享方法可能会随着组织的发展而改变。培训，专注于学习和成长，并建立自己稳定的专家队伍：没有太多的工程专业知识。
+内部知识和书面知识相互补充。即使是一个拥有完美文档的专家团队也需要相互沟通，与其他团队协调，并随着时间的推移不断调整他们的策略。没有任何一个单一的知识共享方法对于所有类型学习而言都是正确的解决方案，最佳组合的具体内容会根据你的组织而有所不同。团队知识随着时间的推移而演变，对你的组织最有效的知识共享方法可能会随着组织的发展而改变。培训，专注于学习和成长，并建立自己稳定的专家队伍：没有太多的工程专业知识。
 
 ## Setting the Stage: Psychological Safety 搭建舞台：心理安全
 Psychological safety is critical to promoting a learning environment.
