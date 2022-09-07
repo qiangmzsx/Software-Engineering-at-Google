@@ -120,7 +120,7 @@ Unit tests are limited by the imagination of the engineer writing them. That is,
 
 Unit tests are limited to the scope that they cover (especially with the widespread use of test doubles), so if behavior changes in areas outside of this scope, it cannot be detected. And because unit tests are designed to be fast and reliable, they deliberately eliminate the chaos of real dependencies, network, and data. A unit test is like a problem in theoretical physics: ensconced in a vacuum, neatly hidden from the mess of the real world, which is great for speed and reliability but misses certain defect categories.
 
-由于被设计为快速可靠，单元测试往往只关注它所覆盖的范围内的行为（特别是随着测试替代的广泛使用,屏蔽了外界的副作用及噪声：比如真实依赖、网络和数据），因此如果外部行为发生变化，单元测试则无法检测到。单元测试就像理论物理中的一个问题：运行在真空中，巧妙地隐藏在现实世界的混乱中，这有助于提高速度和可靠性，但忽略了某些缺陷类别。
+单元测试仅限于它们所覆盖的范围内（特别是随着测试替代的广泛使用），因此如果超过此范围发生行为变化，则无法检测到。由于单元测试被设计为快速可靠，它们设计成屏蔽外界的副作用及噪声：比如真实依赖、网络和数据。单元测试就像理论物理中的一个问题：运行在真空中，巧妙地隐藏在现实世界的混乱中，这有助于提高速度和可靠性，但忽略了某些缺陷类别。
 
 ### Why Not Have Larger Tests? 为什么不进行大型测试？
 
