@@ -376,7 +376,7 @@ Gerrit是一个独立的开源代码审查工具，与Git版本控制系统紧�
 
 Both Critique and Gerrit have the same model for code reviews in that each commit is reviewed separately. Gerrit supports stacking commits and uploading them for individual review. It also allows the chain to be committed atomically after it’s reviewed.
 
-Commission和Gerrit都有相同的代码评审模型，每个提交都是单独评审的。Gerrit支持堆叠提交并将其上载以供个人审阅。它还允许在对链进行审查后以原子方式提交链
+Critique和Gerrit都有相同的代码评审模型，每个提交都是单独评审的。Gerrit支持堆叠提交并将其上载以供个人审阅。它还允许在对链进行审查后以原子方式提交链
 
 Being open source, Gerrit accommodates more variants and a wider range of use cases; Gerrit’s rich plug-in system enables a tight integration into custom environments. To support these use cases, Gerrit also supports a more sophisticated scoring system. A reviewer can veto a change by placing a –2 score, and the scoring system is highly configurable.
 
