@@ -160,7 +160,7 @@ If you keep your great idea hidden from the world and refuse to show anyone anyt
 
 Early sharing isn’t just about preventing personal missteps and getting your ideas vetted. It’s also important to strengthen what we call the bus factor of your project.
 
-早期分享不仅仅是为了防止个人失误和检验你的想法。加强我们称之为项目的巴士因子。
+尽早分享不仅仅是为了防止个人失误和检验你的想法，对于加强我们称之为项目的巴士因子也是十分重要的。
 
 > [^2]:    Literally, if you are, in fact, a bike designer.
 > 2  实际上，如果你是一个自行车设计师。
@@ -217,7 +217,7 @@ Of course, in any situation, individual engineers still need a way to filter out
 
 Other teams have tokens or stuffed animals that team members put on their monitor to signify that they should be interrupted only in case of emergency. Still other teams give out noise-canceling headphones to engineers to make it easier to deal with background noise—in fact, in many companies, the very act of wearing headphones is a common signal that means “don’t disturb me unless it’s really important.” Many engineers tend to go into headphones-only mode when coding, which may be useful for short spurts but, if used all the time, can be just as bad for collaboration as walling yourself off in an office.
 
-其他团队有代币或布娃娃，团队成员将它们放在显示器上，以表示只有在紧急情况下才应打扰。还有一些团队向工程师分发降噪耳机，以便于处理背景噪音。事实上，在许多公司，佩戴耳机的行为是一种常见的信号，表示“除非非常重要，否则不要打扰我。”许多工程师在编码时倾向于只使用耳机模式，这可能对短时间的使用是有效，但如果一直使用，对协作的影响和把自己独自关在办公室里一样糟糕。
+其他团队有标记或布娃娃，团队成员将它们放在显示器上，以表示只有在紧急情况下才应打扰。还有一些团队向工程师分发降噪耳机，以便于处理背景噪音。事实上，在许多公司，佩戴耳机的行为是一种常见的信号，表示“除非非常重要，否则不要打扰我。”许多工程师在编码时倾向于只使用耳机模式，这可能对短时间的使用是有效，但如果一直使用，对协作的影响和把自己独自关在办公室里一样糟糕。
 
 Don’t misunderstand us—we still think engineers need uninterrupted time to focus on writing code, but we think they need a high-bandwidth, low-friction connection to their team just as much. If less-knowledgeable people on your team feel that there’s a barrier to asking you a question, it’s a problem: finding the right balance is an art.
 
