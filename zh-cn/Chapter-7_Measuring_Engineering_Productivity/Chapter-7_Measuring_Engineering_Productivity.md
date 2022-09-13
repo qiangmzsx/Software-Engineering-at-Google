@@ -1,7 +1,7 @@
 
 **CHAPTER 7**
 
-# Measuring Engineering Productivity 
+# Measuring Engineering Productivity
 
 # 第七章  测量工程效率
 
@@ -12,14 +12,13 @@
 
 Google is a data-driven company. We back up most of our products and design decisions with hard data. The culture of data-driven decision making, using appropriate metrics, has some drawbacks, but overall, relying on data tends to make most decisions objective rather than subjective, which is often a good thing. Collecting and analyzing data on the human side of things, however, has its own challenges. Specifically, within software engineering, Google has found that having a team of specialists focus on engineering productivity itself to be very valuable and important as the company scales and can leverage insights from such a team.
 
-谷歌是一家数据驱动型公司。我们的大部分产品和设计决策都有可靠的数据支持。数据驱动的决策文化，使用适当的指标，有一些缺点，但总的来说，依靠数据往往使大多数决策变得客观而不是主观，这往往是一件好事。然而，收集和分析人类方面的数据，有其自身的挑战。具体来说，在软件工程领域，谷歌发现，随着公司规模的扩大，拥有一支专注于工程生产效率的专家团队本身是非常有价值和重要的，可以利用这样一支团队的洞察力。
+谷歌是一家数据驱动型公司。我们的大部分产品和设计决策都有可靠的数据支持。数据驱动的决策文化，使用适当的指标，有一些不足，但总的来说，依靠数据往往使大多数决策变得客观而不是主观，这往往是一件好事。然而，收集和分析数据是人性的弱点，有其自身的挑战。具体来说，在软件工程领域，谷歌发现，随着公司规模的扩大，拥有一支专注于工程生产效率的专家团队本身是非常有价值和重要的，可以利用这样一支团队的洞察力。
 
 ## Why Should We Measure Engineering Productivity? 我们为什么要测量工程效率
 
 Let’s presume that you have a thriving business (e.g., you run an online search engine), and you want to increase your business’s scope (enter into the enterprise application market, or the cloud market, or the mobile market). Presumably, to increase the scope of your business, you’ll need to also increase the size of your engineering organization. However, as organizations grow in size linearly, communication costs grow quadratically.[^1] Adding more people will be necessary to increase the scope of your business, but the communication overhead costs will not scale linearly as you add additional personnel. As a result, you won’t be able to scale the scope of your business linearly to the size of your engineering organization.
 
 让我们假设你有一个蓬勃发展的业务（例如，你经营一个在线搜索引擎），并且你想扩大你的业务范围（进入企业应用市场，或云市场，或移动市场）。据推测，为了增加你的业务范围，你也需要增加你的工程组织的规模。然而，随着组织规模的线性增长，沟通成本也呈二次曲线增长。增加人员对扩大业务范围是必要的，但沟通成本不会随着你增加人员而线性扩展。因此，你将无法根据你的工程组织的规模线性地扩大你的业务范围。
-
 
 There is another way to address our scaling problem, though: *we could make each individual more productive*. If we can increase the productivity of individual engineers in the organization, we can increase the scope of our business without the commensurate increase in communication overhead.
 
@@ -31,7 +30,7 @@ Google has had to grow quickly into new businesses, which has meant learning how
 
 However, this improvement cycle *also* takes human resources. It would not be worthwhile to improve the productivity of your engineering organization by the equivalent of 10 engineers per year if it took 50 engineers per year to understand and fix productivity blockers. *Therefore, our goal is to not only improve software engineering productivity, but to do so efficiently.*
 
-然而，这个增量改进过程*同样*需要人力资源。如果每年需要50个工程师来了解和解决生产力的障碍，那么以每年10名工程师的数量来提高工程组织的生产率是不值得的。*因此，我们不仅要在目标上提高软件工程的生产力，而且这一改进过程也要同样高效。*
+然而，这个增量改进过程*同样*需要人力资源。如果每年需要50个工程师来了解和解决生产力的障碍，那么以每年10名工程师的数量来提高工程组织的生产率是不值当的。*因此，我们不仅要在目标上提高软件工程的生产力，而且这一改进过程也要同样高效。*
 
 At Google, we addressed these trade-offs by creating a team of researchers dedicated to understanding engineering productivity. Our research team includes people from the software engineering research field and generalist software engineers, but we also include social scientists from a variety of fields, including cognitive psychology and behavioral economics. The addition of people from the social sciences allows us to not only study the software artifacts that engineers produce, but to also understand the human side of software development, including personal motivations, incentive structures, and strategies for managing complex tasks. The goal of the team is to take a data-driven approach to measuring and improving engineering productivity.
 
@@ -45,10 +44,8 @@ For this chapter, we follow one concrete example posed by the C++ and Java langu
 
 在本章中，我们遵循谷歌的C++和Java语言团队提出的一个具体例子：可读性。在谷歌存在的大部分时间里，这些团队一直在管理谷歌的可读性过程。(关于可读性的更多信息，请参见第三章）。可读性过程是在谷歌的早期建立的，当时自动格式化工具（第8章）和阻止提交的锁定还没有普及（第9章）。这个过程本身运行成本很高，因为它需要数以百计的工程师为其他工程师进行可读性审查，以便授予他们可读性。一些工程师认为这是一个古老的自欺欺人过程，不再具有实用性，这也是午餐桌上最喜欢争论的话题。来自语言团队的具体问题是：花在可读性过程上的时间是值得的吗？
 
-
-> [^1]:	Frederick P. Brooks, The Mythical Man-Month: Essays on Software Engineering (New York: Addison-Wesley, 1995)./
+> [^1]:	Frederick P. Brooks, The Mythical Man-Month: Essays on Software Engineering (New York: Addison-Wesley, 1995). 
 > 1   Frederick P.Brooks，《人月神话：软件工程随笔》（纽约：Addison Wesley，1995）。
-
 
 ## Triage: Is It Even Worth Measuring? 分类：是否值得测量？
 

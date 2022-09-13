@@ -3,11 +3,11 @@
 《Software Engineering at Google》的中文翻译版本。
 
 ## 书籍介绍
-![Software Engineering at Google](./images/cover.jpg)
+
+![Software Engineering at Google](./assets/images/swe_at_google.2.cover.jpg)
 by **Titus Winters, Tom Manshreck, and Hyrum Wright**
 
 当前国内已经有中文版书籍出版了，大家需要更加准确，推荐大家去购买。
-
 
 ## 为什么翻译
 
