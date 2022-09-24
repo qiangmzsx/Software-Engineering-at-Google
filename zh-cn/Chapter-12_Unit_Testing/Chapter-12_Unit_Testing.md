@@ -197,7 +197,7 @@ Tests using only public APIs are, by definition, accessing the system under test
 
 It’s not always clear what constitutes a “public API,” and the question really gets to the heart of what a “unit” is in unit testing. Units can be as small as an individual function or as broad as a set of several related packages/modules. When we say “public API” in this context, we’re really talking about the API exposed by that unit to third parties outside of the team that owns the code. This doesn’t always align with the notion of visibility provided by some programming languages; for example, classes in Java might define themselves as “public” to be accessible by other packages in the same unit but are not intended for use by other parties outside of the unit. Some languages like Python have no built-in notion of visibility (often relying on conventions like prefixing private method names with underscores), and build systems like Bazel can further restrict who is allowed to depend on APIs declared public by the programming language.
 
-什么是 "公共API "并不总是很清楚，这个问题实际上涉及到单元测试中的 "单元 "的核心。单元可以小到一个单独的函数，也可以大到由几个相关的包/模块组成的集合。当我们在这里说 "公共API "时，我们实际上是在谈论该单元暴露给拥有该代码的团队之外的第三方的API。这并不总是与某些编程语言提供的可见性概念一致；例如，Java中的类可能将自己定义为 "公共"，以便被同一单元中的其他包所访问，但并不打算供该单元之外的其他方使用。有些语言，如Python，没有内置的可见性概念（通常依靠惯例，如在私有方法名称前加上下划线），而像Bazel这样的构建系统可以进一步限制谁可以依赖编程语言所声明的公共API。
+什么是 "公共API "并不总是很清楚，这个问题实际上涉及到单元测试中的 "单元"的核心。单元可以小到一个单独的函数，也可以大到由几个相关的包/模块组成的集合。当我们在这里说 "公共API"时，我们实际上是在谈论该单元暴露给拥有该代码的团队之外的第三方的API。这并不总是与某些编程语言提供的可见性概念一致；例如，Java中的类可能将自己定义为 "公共"，以便被同一单元中的其他包所访问，但并不打算供该单元之外的其他方使用。有些语言，如Python，没有内置的可见性概念（通常依靠惯例，如在私有方法名称前加上下划线），而像Bazel这样的构建系统可以进一步限制谁可以依赖编程语言所声明的公共API。
 
 Defining an appropriate scope for a unit and hence what should be considered the public API is more art than science, but here are some rules of thumb:
 
@@ -207,7 +207,7 @@ Defining an appropriate scope for a unit and hence what should be considered the
 
 为一个单元定义一个合适的范围，因此应该将其视为公共API，这与其说是科学，不如说是艺术，但这里有一些经验法则：
 
-- 如果一个方法或类的存在只是为了支持一两个其他的类（即，它是一个 "辅助类"），它可能不应该被认为是自己的单元，它的功能应该通过这些类而不是直接测试。
+- 如果一个方法或类的存在只是为了支持一两个其他的类（即，它是一个 "辅助类"），它可能不应该被认为是自己的单元，它的功能测试应该通过这些类进行，而不是直接测试它。
 
 - 如果一个包或类被设计成任何人都可以访问，而不需要咨询其所有者，那么它几乎肯定构成了一个应该直接测试的单元，它的测试以用户的方式访问该单元。
 
@@ -215,7 +215,7 @@ Defining an appropriate scope for a unit and hence what should be considered the
 
 At Google, we’ve found that engineers sometimes need to be persuaded that testing via public APIs is better than testing against implementation details. The reluctance is understandable because it’s often much easier to write tests focused on the piece of code you just wrote rather than figuring out how that code affects the system as a whole. Nevertheless, we have found it valuable to encourage such practices, as the extra upfront effort pays for itself many times over in reduced maintenance burden. Testing against public APIs won’t completely prevent brittleness, but it’s the most important thing you can do to ensure that your tests fail only in the event of meaningful changes to your system.
 
-在谷歌，我们发现工程师有时需要被说服，通过公共API进行测试比针对实现细节进行测试要好。这种不情愿的态度是可以理解的，因为写测试的重点往往是你刚刚写的那段代码，而不是弄清楚这段代码是如何影响整个系统的。然而，我们发现鼓励这种做法是很有价值的，因为额外的前期努力在减少维护负担方面得到了许多倍的回报。针对公共API的测试并不能完全防止脆性，但这是你能做的最重要的事情，以确保你的测试只在系统发生有意义的变化时才失败。
+在谷歌，我们发现工程师有时需要被说服，通过公共API进行测试比针对实现细节进行测试要好。这种不情愿的态度是可以理解的，因为写测试的重点往往是你刚刚写的那段代码，而不是弄清楚这段代码是如何影响整个系统的。然而，我们发现鼓励这种做法是很有价值的，因为额外的前期努力在减少维护负担方面得到了许多倍的回报。针对公共API的测试并不能完全防止脆弱性，但这是你能做的最重要的事情，以确保你的测试只在系统发生有意义的变化时才失败。
 
 ### Test State, Not Interactions  测试状态，而不是交互
 
@@ -225,7 +225,7 @@ Another way that tests commonly depend on implementation details involves not wh
 
 Interaction tests tend to be more brittle than state tests for the same reason that it’s more brittle to test a private method than to test a public method: interaction tests check *how* a system arrived at its result, whereas usually you should care only *what* the result is. [Example 12-4 ](#_bookmark971)illustrates a test that uses a test double (explained further in [Chapter 13](#_bookmark1056)) to verify how a system interacts with a database.
 
-交互测试往往比状态测试更脆弱，原因与测试一个私有方法比测试一个公共方法更脆的原因相同：交互测试检查系统是*如何*得到结果的，而通常你只应该关心结果是*什么*。例12-4展示了一个测试，它使用一个测试替换（在第13章中进一步解释）来验证一个系统如何与数据库交互。
+交互测试往往比状态测试更脆弱，测试一个私有方法比测试一个公共方法更脆的原因相同：交互测试检查系统是*如何*得到结果的，而通常你只应该关心结果是*什么*。例12-4展示了一个测试，它使用一个测试替换（在第13章中进一步解释）来验证一个系统如何与数据库交互。
 
 *Example  12-4. A brittle interaction test*  *例12-4.  脆弱性相互作用测试*
 
@@ -336,7 +336,7 @@ public void shouldPerformAddition() {
 
 Ideas we discuss later, especially around code sharing, will tie back to completeness and conciseness. In particular, it can often be worth violating the DRY (Don’t Repeat Yourself) principle if it leads to clearer tests. Remember: a test’s body should contain all of the information needed to understand it without containing any irrelevant or distracting information.
 
-我们稍后讨论的观点，特别是围绕代码共享，将与完整性和简洁性挂钩。需要注意的是，如果能使测试更清晰，违反DRY（不要重复自己）原则通常是值得的。记住：一个测试的主体应该包含理解它所需要的所有信息，而不包含任何无关或分散的信息。
+我们稍后讨论的观点，特别是围绕代码共享，将与完整性和简洁性挂钩。需要注意的是，如果能使测试更清晰，违反DRY（不要重复自己）原则通常是值得的。记住：**一个测试的主体应该包含理解它所需要的所有信息，而不包含任何无关或分散的信息**。
 
 ### Test Behaviors, Not Methods  测试行为，而不是方法
 
@@ -376,7 +376,7 @@ With such tests, it’s likely that the test started out covering only the first
 
 The problem is that framing tests around methods can naturally encourage unclear tests because a single method often does a few different things under the hood and might have several tricky edge and corner cases. There’s a better way: rather than writing a test for each method, write a test for each behavior.[^4] A behavior is any guarantee that a system makes about how it will respond to a series of inputs while in a particular state.[^5] Behaviors can often be expressed using the words “given,” “when,” and “then”: “Given that a bank account is empty, when attempting to withdraw money from it, then the transaction is rejected.” The mapping between methods and behaviors is many-to-many: most nontrivial methods implement multiple behaviors, and some behaviors rely on the interaction of multiple methods. The previous example can be rewritten using behavior-driven tests, as presented in Example 12-10.
 
-问题是，围绕方法测试框架自然会鼓励不清晰测试，因为单个方法经常在背后下做一些不同的事情，可能有几个棘手的边缘和角落的情况。有一个更好的方法：与其为每个方法写一个测试，不如为每个行为写一个测试。 行为是一个系统对它在特定状态下如何响应一系列输入的任何保证。"鉴于一个银行账户是空的，当试图从该账户中取钱时，该交易被拒绝。" 方法和行为之间的映射是多对多的：大多数不重要的方法实现了多个行为，一些行为依赖于多个方法的交互。前面的例子可以用行为驱动的测试来重写，如例12-10所介绍。
+问题是，围绕方法测试框架自然会鼓励不清晰测试，因为单个方法经常在背后下做一些不同的事情，可能有几个棘手的边缘和角落的情况。有一个更好的方法：与其为每个方法写一个测试，不如为每个行为写一个测试。 行为是一个系统对它在特定状态下如何响应一系列输入的任何保障。"鉴于一个银行账户是空的，当试图从该账户中取钱时，该交易被拒绝。" 方法和行为之间的映射是多对多的：大多数不重要的方法实现了多个行为，一些行为依赖于多个方法的交互。前面的例子可以用行为驱动的测试来重写，如例12-10所介绍。
 
 *Example 12-10. A behavior-driven test*   *例12-10. 行为驱动的测试*
 
@@ -399,11 +399,11 @@ The extra boilerplate required to split apart the single test is more than worth
 
 拆分单个测试所需的额外模板文件非常值得，并且最终的测试比原来测试更清晰。行为驱动测试往往比面向方法的测试更清晰，原因有几个。首先，它们阅读起来更像自然语言，让人们自然地理解它们，而不需要语言繁琐的心理分析。其次，它们更清楚地表达了因果关系，因为每个测试的范围都更有限。最后，每个测试都很短且描述性强，这一事实使我们更容易看到已经测试了哪些功能，并鼓励工程师添加新的简洁测试方法，而不是堆积在现有方法上。
 
-> 4	See https://testing.googleblog.com/2014/04/testing-on-toilet-test-behaviors-not.html and https://dannorth.net/introducing-bdd./
+> [^4]:	See https://testing.googleblog.com/2014/04/testing-on-toilet-test-behaviors-not.html and https://dannorth.net/introducing-bdd./
 > 4 见 https://testing.googleblog.com/2014/04/testing-on-toilet-test-behaviors-not.html 和 https://dannorth.net/introducing-bdd。
 >
 > [^5]: Furthermore, a feature (in the product sense of the word) can be expressed as a collection of behaviors./
-> 5 此外，一个特征（在这个词的产品意义上）可以被表达为一个行为的集合。
+> 5 此外，一个特征（在这个词的产品意义上）可以被表达为一组行为。
 
 #### Structure tests to emphasize behaviors  强调行为的结构测试
 
