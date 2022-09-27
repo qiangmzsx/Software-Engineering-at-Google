@@ -409,7 +409,7 @@ The extra boilerplate required to split apart the single test is more than worth
 
 Thinking about tests as being coupled to behaviors instead of methods significantly affects how they should be structured. Remember that every behavior has three parts: a “given” component that defines how the system is set up, a “when” component that defines the action to be taken on the system, and a “then” component that validates the result.[^6] Tests are clearest when this structure is explicit. Some frameworks like Cucumber and Spock directly bake in given/when/then. Other languages can use whitespace and optional comments to make the structure stand out, such as that shown in Example 12-11.
 
-将测试视为与行为而非方法相耦合会显著影响测试的结构。请记住，每个行为都有三个部分：一个是定义系统如何设置的 "given "组件，一个是定义对系统采取的行动的 "when "组件，以及一个验证结果的 "then "组件。当此结构是显式的时，测试是最清晰的。一些框架（如Cucumber和Spock）直接加入了given/when/then的功能支持。其他语言可以使用空格和可选注释使结构突出，如示例12-11所示。
+将测试视为与行为而非方法相耦合会显著影响测试的结构。请记住，每个行为都有三个部分：一个是定义系统如何设置的 "given"组件，一个是定义对系统采取的行动的 "when"组件，以及一个验证结果的 "then"组件。当此结构是显式的时，测试是最清晰的。一些框架（如Cucumber和Spock）直接加入了given/when/then的功能支持。其他语言可以使用空格和可选注释使结构突出，如示例12-11所示。
 
 *Example 12-11. A well-structured test*  *例12-11. 一个结构良好的测试*
 
@@ -436,11 +436,11 @@ This level of description isn’t always necessary in trivial tests, and it’s 
 
 3. Finally, a reader can look at the actual code to see precisely how that behavior is expressed.
 
-这种程度的描述在琐碎的测试中并不总是必要的，通常省略注释并依靠空白来使各部分清晰。然而，明确的注释可以使更复杂的测试更容易理解。这种模式使我们有可能在三个层次的粒度上阅读测试。
+这种程度的描述在琐碎的测试中并不总是必要的，通常省略注释并依靠空白来使各部分清晰。然而，明确的注释可以使更复杂的测试更容易理解。这种模式使我们有可能在三个层次的粒度上阅读测试:
 
 1. 读者可以从测试方法的名称开始（下面讨论），以获得对被测试行为的粗略描述。
 
-2.	如果这还不够，读者可以查看given/when/then注释，以获得行为的正式描述。
+2. 如果这还不够，读者可以查看given/when/then注释，以获得行为的正式描述。
 
 3. 最后，读者可以查看实际代码，以准确地看到该行为是如何表达的。
 
@@ -480,7 +480,7 @@ public void shouldTimeOutConnections() {
 
 When writing such tests, be careful to ensure that you’re not inadvertently testing multiple behaviors at the same time. Each test should cover only a single behavior, and the vast majority of unit tests require only one “when” and one “then” block.
 
-在编写这种测试时，要注意确保你不会无意中同时测试多个行为。每个测试应该只覆盖一个行为，绝大多数的单元测试只需要一个 "when "和一个 "then "块。
+在编写这种测试时，要注意确保你不会无意中同时测试多个行为。每个测试应该只覆盖一个行为，绝大多数的单元测试只需要一个 "when"和一个 "then"块。
 
 > [^6]: These components are sometimes referred to as “arrange,” “act,” and “assert.”/
 > 6 这些组成部分有时被称为 "安排"、"行动 "和 "断言"。
@@ -527,7 +527,7 @@ Other languages require us to encode all of this information in a method name, l
 
 *Example 12-14. Some sample method naming patterns*  例12-14. 一些示例方法的命名模式
 
-```java
+``` java
 multiplyingTwoPositiveNumbersShouldReturnAPositiveNumber 
 multiply_postiveAndNegative_returnsNegative 
 divide_byZero_throwsException
@@ -539,7 +539,7 @@ Names like this are much more verbose than we’d normally want to write for met
 
 Many different naming strategies are acceptable so long as they’re used consistently within a single test class. A good trick if you’re stuck is to try starting the test name with the word “should.” When taken with the name of the class being tested, this naming scheme allows the test name to be read as a sentence. For example, a test of a BankAccount class named shouldNotAllowWithdrawalsWhenBalanceIsEmpty can be read as “BankAccount should not allow withdrawals when balance is empty.” By reading the names of all the test methods in a suite, you should get a good sense of the behaviors implemented by the system under test. Such names also help ensure that the test stays focused on a single behavior: if you need to use the word “and” in a test name, there’s a good chance that you’re actually testing multiple behaviors and should be writing multiple tests!
 
-许多不同的命名策略是可以接受的，只要它们在一个测试类中使用一致。如果你陷入困境，一个好的技巧是尝试用 "应该 "这个词来开始测试名称。当与被测类的名称一起使用时，这种命名方案允许将测试名称作为一个句子来阅读。例如，一个名为shouldNotAllowWithdrawalsWhenBalanceIsEmpty的BankAccount类的测试可以被理解为 "BankAccount不应该允许在余额为空时提款"。通过阅读套件中所有测试方法的名称，你应该对被测系统实现的行为有一个很好的了解。这样的名字也有助于确保测试集中在单个行为上：如果你需要在测试名称中使用 "and"这个词，很有可能你实际上是在测试多个行为，应该写多个测试!
+许多不同的命名策略是可以接受的，只要它们在一个测试类中使用一致。如果你陷入困境，一个好的技巧是尝试用 "应当"这个词来开始测试名称。当与被测类的名称一起使用时，这种命名方案允许将测试名称作为一个句子来阅读。例如，一个名为shouldNotAllowWithdrawalsWhenBalanceIsEmpty的BankAccount类的测试可以被理解为 "BankAccount不应该允许在余额为空时提款"。通过阅读套件中所有测试方法的名称，你应该对被测系统实现的行为有一个很好的了解。这样的名字也有助于确保测试集中在单个行为上：如果你需要在测试名称中使用 "and"这个词，很有可能你实际上是在测试多个行为，应该写多个测试!
 
 ### Don’t Put Logic in Tests  不要把逻辑放进测试中
 
@@ -907,7 +907,6 @@ private void assertUserHasAccessToAccount(User user, Account account) {
 ```
 
 ### Defining Test Infrastructure  界定测试基础框架
->>>>>>> e62a431152c49eed54adedf4695677544653c19f
 The techniques we’ve discussed so far cover sharing code across methods in a single test class or suite. Sometimes, it can also be valuable to share code across multiple test suites. We refer to this sort of code as test infrastructure. Though it is usually more valuable in integration or end-to-end tests, carefully designed test infrastructure can make unit tests much easier to write in some circumstances.
 
 到目前为止，我们讨论的技术包括在单个测试类或测试套件中跨方法共享代码。有时，跨多个测试套件共享代码也很有价值。我们将这种代码称为测试基础框架。尽管它通常在集成或端到端测试中更有价值，但精心设计的测试基础框架可以使单元测试在某些情况下更易于编写。
@@ -971,4 +970,3 @@ Unit tests at Google are far from perfect, but we’ve found tests that follow t
 - 编写清晰的失败信息。
 
 - 在共享测试的代码时，遵循DAMP而不是DRY。
-
