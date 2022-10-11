@@ -250,7 +250,7 @@ Our *third_party* policies don’t work for these unfortunately common scenarios
 
 Having looked at the ways that dependency management is difficult and how it can go wrong, let’s discuss more specifically the problems we’re trying to solve and how we might go about solving them. Throughout this chapter, we call back to the formulation, “How do we manage code that comes from outside our organization (or that we don’t perfectly control): how do we update it, how do we manage the things it depends upon over time?” We need to be clear that any good solution here avoids conflicting requirements of any form, including diamond dependency version conflicts, even in a dynamic ecosystem in which new dependencies or other requirements might be added (at any point in the network). We also need to be aware of the impact of time: all software has bugs, some of those will be security critical, and some fraction of our dependencies will therefore be *critical* to update over a long enough period of time.
 
-在了解了依赖管理的困难以及它如何出错之后，让我们更具体地讨论我们要解决的问题以及我们如何去解决它们。在本章中，我们一直在呼吁："我们如何管理来自我们组织之外（或我们不能完全控制）的代码：我们如何更新它，如何管理它所依赖的东西？我们需要清楚，这里的任何好的解决方案都会避免任何形式的需求冲突，包括菱形依赖版本冲突，甚至在一个动态的生态系统中，可能会增加新的依赖或其他需求（在网络中的任何一点）。我们还需要意识到时间的影响：所有的软件都有bug，其中一些将是安全上的关键，因此我们的依赖中的一些部分将在足够长的时间内可更新。
+在了解了依赖管理的困难以及它出错的原因之后，让我们更具体地讨论我们要解决的问题以及我们如何去解决它们。在本章中，我们一直在呼吁："我们如何管理来自我们组织之外（或我们不能完全控制）的代码：我们如何更新它，如何管理它所依赖的东西？我们需要清楚，这里的任何好的解决方案都会避免任何形式的需求冲突，包括菱形依赖版本冲突，甚至在一个动态的生态系统中，可能会增加新的依赖或其他需求（在网络中的任何一点）。我们还需要意识到时间的影响：所有的软件都有bug，其中一些将是安全上的关键，因此我们的依赖中的一些部分将在足够长的时间内可更新。
 
 A stable dependency-management scheme must therefore be flexible with time and scale: we can’t assume indefinite stability of any particular node in the dependency graph, nor can we assume that no new dependencies are added (either in code we control or in code we depend upon). If a solution to dependency management prevents conflicting requirement problems among your dependencies, it’s a good solution. If it does so without assuming stability in dependency version or dependency fan-out, coordination or visibility between organizations, or significant compute resources, it’s a great solution.
 
@@ -260,11 +260,11 @@ When proposing solutions to dependency management, there are four common options
 
 在提出依赖性管理的解决方案时，我们知道有四种常见的选择，它们至少表现出一些适当的属性：无任何更改、语义版本控制、捆绑你所需要的一切（不是按项目协调，而是按发行量协调），或直接使用最新版本。
 
-### Nothing Changes (aka The Static Dependency Model)  无任何更改（也称为静态依赖模型）
+### Nothing Changes (aka The Static Dependency Model)  没有任何更改（也称为静态依赖模型）
 
 The simplest way to ensure stable dependencies is to never change them: no API changes, no behavioral changes, nothing. Bug fixes are allowed only if no user code could be broken. This prioritizes compatibility and stability over all else. Clearly, such a scheme is not ideal due to the assumption of indefinite stability. If, somehow, we get to a world in which security issues and bug fixes are a nonissue and dependencies aren’t changing, the Nothing Changes model is very appealing: if we start with satisfiable constraints, we’ll be able to maintain that property indefinitely.
 
-确保稳定的依赖关系的最简单方法是永远不要更改它们：不要改变API，不要改变行为，什么都不要。只有在没有用户代码被破坏的情况下才允许修复错误。这将兼容性和稳定性置于所有其他方面之上。显然，这样的方案并不理想，因为有无限期的稳定性的假设。如果以某种方式，我们到达了一个安全问题和错误修复都不是问题，并且依赖关系不发生变化的世界，那么 "无变化 "模型就非常有吸引力：如果我们从可满足的约束开始，我们就能无限期地保持这种特性。
+确保稳定的依赖关系的最简单方法是永远不要更改它们：不要改变API，不要改变行为，什么都不要。只有在没有用户代码被破坏的情况下才允许修复错误。这将兼容性和稳定性置于所有其他方面之上。显然，这样的方案并不理想，因为有无限期的稳定性的假设。如果以某种方式，我们遇到了一个安全问题和错误修复都不是问题，并且依赖关系不发生变化的世界，那么 "无变化"模型就非常有吸引力：如果我们从可满足的约束开始，我们就能无限期地保持这种特性。
 
 Although not sustainable in the long term, practically speaking, this is where every organization starts: up until you’ve demonstrated that the expected lifespan of your project is long enough that change becomes necessary, it’s really easy to live in a world where we assume that nothing changes. It’s also important to note: this is probably the right model for most new organizations. It is comparatively rare to know that you’re starting a project that is going to live for decades and have a *need* to be able to update dependencies smoothly. It’s much more reasonable to hope that stability is a real option and pretend that dependencies are perfectly stable for the first few years of a project.
 
@@ -272,7 +272,7 @@ Although not sustainable in the long term, practically speaking, this is where e
 
 The downside to this model is that, over a long enough time period, it *is* false, and there isn’t a clear indication of exactly how long you can pretend that it is legitimate. We don’t have long-term early warning systems for security bugs or other critical issues that might force you to upgrade a dependency—and because of chains of dependencies, a single upgrade can in theory become a forced update to your entire dependency network.
 
-这种模式的缺点是，在足够长的时间内，它*是不存在*，并且没有明确的迹象表明你可以假装它是合理的。我们没有针对安全漏洞或其他可能迫使你升级依赖关系的关键问题的长期预警系统，这些问题可能会迫使你升级一个依赖关系--由于依赖关系链的存在，一个单一的升级在理论上可以成为你整个依赖关系网络的强制更新。
+这种模式的缺点是，在足够长的时间内，它*是不存在*，并且没有明确的迹象表明你可以假装它是合理的。我们没有针对安全漏洞或其他可能迫使你升级依赖关系的关键问题的长期预警系统，这些问题可能会迫使你升级一个依赖--由于依赖关系链的存在，有一个关系升级在理论上可以成为你整个依赖关系网络的强制更新。
 
 In this model, version selection is simple: there are no decisions to be made, because there are no versions.
 
@@ -316,7 +316,7 @@ We’ll look at some of the limitations of SemVer in more detail later in this c
 
 As an industry, we’ve seen the application of a powerful model of managing dependencies for decades now: an organization gathers up a collection of dependencies, finds a mutually compatible set of those, and releases the collection as a single unit. This is what happens, for instance, with Linux distributions—there’s no guarantee that the various pieces that are included in a distro are cut from the same point in time. In fact, it’s somewhat more likely that the lower-level dependencies are somewhat older than the higher-level ones, just to account for the time it takes to integrate them.
 
-作为一个行业，几十年来我们已经看到了一个强大的依赖管理模型的应用：一个组织收集一组依赖项，找到一组相互兼容的依赖项，并将这些依赖项作为一个单元发布。例如，这就是发生在Linux发行版上的情况--不能保证包含在发行版中的各个部分是在同一时间点上划分的。事实上，更有可能的是，低级别的依赖关系比高级别的依赖关系要老一些，只是为了考虑到集成它们所需要的时间。
+作为一个行业，几十年来我们已经看到了一个强大的依赖管理模型的应用：一个组织收集一组依赖项，找到一组相互兼容的依赖项，并将这些依赖项作为一个单元发布。例如，这就是发生在Linux发行版上的情况——不能保证包含在发行版中的各个部分是在同一时间点上划分的。事实上，更有可能的是，低级别的依赖关系比高级别的依赖关系要老一些，只是为了考虑到集成它们所需要的时间。
 
 This “draw a bigger box around it all and release that collection” model introduces entirely new actors: the distributors. Although the maintainers of all of the individual dependencies may have little or no knowledge of the other dependencies, these higher-level *distributors* are involved in the process of finding, patching, and testing a mutually compatible set of versions to include. Distributors are the engineers responsible for proposing a set of versions to bundle together, testing those to find bugs in that dependency tree, and resolving any issues.
 
@@ -330,11 +330,11 @@ In the bundled distribution approach, version selection is handled by dedicated 
 
 在捆绑式分销方式中，版本选择由专门的分销商处理。
 
-### Live at Head  活在当下
+### Live at Head  直接使用最新版本
 
 The model that some of us at Google[^8] have been pushing for is theoretically sound, but places new and costly burdens on participants in a dependency network. It’s wholly unlike the models that exist in OSS ecosystems today, and it is not clear how to get from here to there as an industry. Within the boundaries of an organization like Google, it is costly but effective, and we feel that it places most of the costs and incentives into the correct places. We call this model “Live at Head.” It is viewable as the dependency-management extension of trunk-based development: where trunk- based development talks about source control policies, we’re extending that model to apply to upstream dependencies as well.
 
-我们谷歌的一些人一直在推动的模式在理论上是合理的，但给依赖网络的参与者带来了新的、沉重的负担。它完全不同于今天存在于开放源码软件生态系统中的模式，而且不清楚作为一个行业如何从这里走到那里。在像谷歌这样的组织的范围内，它的成本很高，但很有效，我们觉得它把大部分的成本和激励放到了正确的地方。我们称这种模式为 "活在当下"。它可以被看作是基于主干的开发的依赖管理的延伸：基于主干的开发讨论源代码控制策略时，我们将该模型扩展到应用于上游依赖关系。
+我们谷歌的一些人一直在推动的模式在理论上是合理的，但给依赖网络的参与者带来了新的、沉重的负担。它完全不同于今天存在于开放源码软件生态系统中的模式，而且不清楚作为一个行业如何从这里走到那里。在像谷歌这样的组织的范围内，它的成本很高，但很有效，我们觉得它把大部分的成本和激励放到了正确的地方。我们称这种模式为 "Live at Head"。它可以被看作是基于主干的开发的依赖管理的延伸：基于主干的开发讨论源代码控制策略时，我们将该模型扩展到应用于上游依赖关系。
 
 Live at Head presupposes that we can unpin dependencies, drop SemVer, and rely on dependency providers to test changes against the entire ecosystem before committing. Live at Head is an explicit attempt to take time and choice out of the issue of dependency management: always depend on the current version of everything, and never change anything in a way in which it would be difficult for your dependents to adapt. A change that (unintentionally) alters API or behavior will in general be caught by CI on downstream dependencies, and thus should not be committed. For cases in which such a change *must* happen (i.e., for security reasons), such a break should be made only after either the downstream dependencies are updated or an automated tool is provided to perform the update in place. (This tooling is essential for closed- source downstream consumers: the goal is to allow any user the ability to update use of a changing API without expert knowledge of the use or the API. That property significantly mitigates the “mostly bystanders” costs of breaking changes.) This philosophical shift in responsibility in the open source ecosystem is difficult to motivate initially: putting the burden on an API provider to test against and change all of its downstream customers is a significant revision to the responsibilities of an API provider.
 
@@ -342,7 +342,7 @@ Live at Head presupposes that we can unpin dependencies, drop SemVer, and rely o
 
 Changes in a Live at Head model are not reduced to a SemVer “I think this is safe or not.” Instead, tests and CI systems are used to test against visible dependents to determine experimentally how safe a change is. So, for a change that alters only efficiency or implementation details, all of the visible affected tests might likely pass, which demonstrates that there are no obvious ways for that change to impact users—it’s safe to commit. A change that modifies more obviously observable parts of an API (syntactically or semantically) will often yield hundreds or even thousands of test failures. It’s then up to the author of that proposed change to determine whether the work involved to resolve those failures is worth the resulting value of committing the change. Done well, that author will work with all of their dependents to resolve the test failures ahead of time (i.e., unwinding brittle assumptions in the tests) and might potentially create a tool to perform as much of the necessary refactoring as possible.
 
-Live at Head模型中的变化不会被简化为SemVer "我认为这很安全或不安全"。相反，测试和CI系统用于针对可见的依赖进行测试，以通过实验确定变化的安全性。因此，对于一个只改变效率或实现细节的变化，所有可见的受影响的测试都可能通过，这表明该变化没有明显的影响用户的方式--它是安全的提交。修改API中更明显的可观察部分（语法上或语义上），往往会产生成百上千的测试失败。这时就需要修改建议的作者来决定解决这些故障的工作是否值得提交修改的结果。如果做得好，作者将与他们所有的依赖者一起工作，提前解决测试失败的问题（即解除测试中的脆性假设），并有可能创建一个工具来执行尽可能多的必要重构。
+Live at Head模型中的变化不会被简化为SemVer "我认为这很安全或不安全"。相反，测试和CI系统用于针对可见的依赖进行测试，以通过实验确定变化的安全性。因此，对于一个只改变效率或实现细节的变化，所有可见的受影响的测试都可能通过，这表明该变化没有明显的影响用户的方式——它是安全的提交。修改API中更明显的可观察部分（语法上或语义上），往往会产生成百上千的测试失败。这时就需要修改建议的作者来决定解决这些故障的工作是否值得提交修改的结果。如果做得好，作者将与他们所有的依赖者一起工作，提前解决测试失败的问题（即解除测试中的脆性假设），并有可能创建一个工具来执行尽可能多的必要重构。
 
 The incentive structures and technological assumptions here are materially different than other scenarios: we assume that there exist unit tests and CI, we assume that API providers will be bound by whether downstream dependencies will be broken, and we assume that API consumers are keeping their tests passing and relying on their dependency in supported ways. This works significantly better in an open source ecosystem (in which fixes can be distributed ahead of time) than it does in the face of hidden/closed-source dependencies. API providers are incentivized when making changes to do so in a way that can be smoothly migrated to. API consumers are incentivized to keep their tests working so as not to be labeled as a low-signal test and potentially skipped, reducing the protection provided by that test.
 
@@ -368,13 +368,13 @@ There’s a lot to unpack in the SemVer definition of what a dotted-triple versi
 
 However, this idea of “estimating” compatibility begins to weaken when we talk about networks of dependencies and SAT-solvers applied to those networks. The fundamental problem in this formulation is the difference between node values in traditional SAT and version values in a SemVer dependency graph. A node in a three-SAT graph *is* either True or False. A version value (1.1.14) in a dependency graph is provided by the maintainer as an *estimate* of how compatible the new version is, given code that used the previous version. We’re building all of our version-satisfaction logic on top of a shaky foundation, treating estimates and self-attestation as absolute. As we’ll see, even if that works OK in limited cases, in the aggregate, it doesn’t necessarily have enough fidelity to underpin a healthy ecosystem.
 
-然而，当我们谈论依赖网络和应用于这些网络的SAT求解器时，这种 "预估 "兼容性的想法就开始弱化了。这种表述的基本问题是传统SAT中的节点值和SemVer依赖关系图中的版本值之间的区别。三SAT图中的节点*是*真或假。依赖关系图中的版本值（1.1.14）是由维护者提供的，是对新版本的兼容程度的*预估*，给定使用以前版本的代码。我们将所有的版本满足逻辑建立在一个不稳定的基础之上，将预估和自我证明视为绝对。正如我们将看到的，即使这在有限的情况下是可行的，但从总体上看，它不一定有足够的仿真度来支撑一个健康的生态系统。
+然而，当我们谈论依赖网络和应用于这些网络的SAT求解器时，这种 "预估"兼容性的想法就开始弱化了。这种表述的基本问题是传统SAT中的节点值和SemVer依赖关系图中的版本值之间的区别。三种SAT图中的节点*是*真或假。依赖关系图中的版本值（1.1.14）是由维护者提供的，是对新版本的兼容程度的*预估*，给定使用以前版本的代码。我们将所有的版本满足逻辑建立在一个不稳定的基础之上，将预估和自我证明视为绝对。正如我们将看到的，即使这在有限的情况下是可行的，但从总体上看，它不一定有足够的仿真度来支撑一个健康的生态系统。
 
 If we acknowledge that SemVer is a lossy estimate and represents only a subset of the possible scope of changes, we can begin to see it as a blunt instrument. In theory, it works fine as a shorthand. In practice, especially when we build SAT-solvers on top of it, SemVer can (and does) fail us by both overconstraining and underprotecting us.
 
 如果我们承认SemVer是一个有损失的预估，并且只代表可能的变化范围的一个子集，我们就可以开始把它看作是一个钝器。在理论上，它作为一种速记工具是很好的。在实践中，尤其是当我们在它上面构建SAT求解器时，SemVer可能（也确实）会因为过度约束和保护不足而让我们失败。
 
-> [^9]: For example: a poorly implemented polyfill that adds the new libbase API ahead of time, causing a conflicting definition. Or, use of language reflection APIs to depend upon the precise number of APIs provided by libbase, introducing crashes if that number changes. These shouldn’t happen and are certainly rare even if they do happen by accident—the point is that the libbase providers can’t prove compatibility./
+> [^9]: For example: a poorly implemented polyfill that adds the new libbase API ahead of time, causing a conflicting definition. Or, use of language reflection APIs to depend upon the precise number of APIs provided by libbase, introducing crashes if that number changes. These shouldn’t happen and are certainly rare even if they do happen by accident—the point is that the libbase providers can’t prove compatibility.
 > 9  例如：一个实现不佳的 polyfill，提前添加了新的 libbase API，导致定义冲突。或者，使用语言反射 API 来依赖 libbase 提供的精确数量的 API，如果这个数量发生变化，就会引入崩溃。这些都不应该发生，而且即使是意外发生，也肯定很罕见--关键是 libbase 提供者无法证明兼容性。
 
 ### SemVer Might Overconstrain  SemVer可能会过度限制
