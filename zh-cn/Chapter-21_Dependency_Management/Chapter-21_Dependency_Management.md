@@ -381,48 +381,47 @@ If we acknowledge that SemVer is a lossy estimate and represents only a subset o
 
 Consider what happens when libbase is recognized to be more than a single monolith: there are almost always independent interfaces within a library. Even if there are only two functions, we can see situations in which SemVer overconstrains us. Imagine that libbase is indeed composed of only two functions, Foo and Bar. Our mid-level dependencies liba and libb use only Foo. If the maintainer of libbase makes a breaking change to Bar, it is incumbent on them to bump the major version of lib base in a SemVer world. liba and libb are known to depend on libbase 1.x— SemVer dependency solvers won’t accept a 2.x version of that dependency. However, in reality these libraries would work together perfectly: only Bar changed, and that was unused. The compression inherent in “I made a breaking change; I must bump the major version number” is lossy when it doesn’t apply at the granularity of an individual atomic API unit. Although some dependencies might be fine grained enough for that to be accurate,[^10] that is not the norm for a SemVer ecosystem.
 
-考虑一下当libbase被认定为不只是一个单一的单体时会发生什么：一个库内几乎都有独立的接口。即使只有两个函数，我们也可以看到 SemVer 对我们过度约束的情况。想象一下，libbase确实只由Foo和Bar这两个函数组成。我们的中层依赖关系 liba 和 libb 只使用 Foo。如果 libbase 的维护者对 Bar 进行了破坏性的修改，那么在 SemVer 世界中，他们就有责任提升 libbase 的主要版本。已知 liba 和 libb 依赖于 libbase 1.x--SemVer 依赖解决器不会接受这种依赖的 2.x 版本。然而，在现实中，这些库可以完美地协同工作：只有Bar改变了，而且是未使用的。当 "我做了一个突破性的改变；我必须提高主要版本号 "的固有压缩不适用单个原子API单元的粒度时，它是有损的。虽然有些依赖关系可能足够精细，所以这是很准确的，这不是SemVer生态系统的标准。
+考虑一下当libbase被认定为不只是一个单体时会发生什么：一个库内几乎都有独立的接口。即使只有两个函数，我们也可以看到 SemVer 对我们过度约束的情况。想象一下，libbase确实只由Foo和Bar这两个函数组成。我们的中层依赖关系 liba 和 libb 只使用 Foo。如果 libbase 的维护者对 Bar 进行了破坏性的修改，那么在 SemVer 世界中，他们就有责任提升 libbase 的主要版本。已知 liba 和 libb 依赖于 libbase 1.x——SemVer 依赖解决器不会接受这种依赖的 2.x 版本。然而，在现实中，这些库可以完美地协同工作：只有Bar改变了，而且是未使用的。当 "我做了一个突破性的改变；我必须提高主要版本号"的固有压缩不适用单个原子API单元的粒度时，它是有损的。虽然有些依赖关系可能足够精细，所以这是很准确的，这不是SemVer生态系统的标准。
 
 If SemVer overconstrains, either because of an unnecessarily severe version bump or insufficiently fine-grained application of SemVer numbers, automated package managers and SAT-solvers will report that your dependencies cannot be updated or installed, even if everything would work together flawlessly by ignoring the SemVer checks. Anyone who has ever been exposed to dependency hell during an upgrade might find this particularly infuriating: some large fraction of that effort was a complete waste of time.
 
 如果SemVer过度约束，无论是由于不必要的严重的版本升级，还是由于对SemVer数字的应用不够精细，自动软件包管理器和SAT求解器将报告你的依赖关系不能被更新或安装，即使忽略SemVer检查，一切都能完美地协同工作。任何曾经在升级过程中被暴露在依赖地狱中的人都会发现这一点特别令人生气：其中很大一部分工作完全是浪费时间。
 
-> [^10]:	The Node ecosystem has noteworthy examples of dependencies that provide exactly one API./
+> [^10]: The Node ecosystem has noteworthy examples of dependencies that provide exactly one API.
 > 10  节点生态系统有值得注意的依赖关系示例，这些依赖关系只提供一个API。
 
 ### SemVer Might Overpromise  SemVer可能过度承诺
 
 On the flip side, the application of SemVer makes the explicit assumption that an API provider’s estimate of compatibility can be fully predictive and that changes fall into three buckets: breaking (by modification or removal), strictly additive, or non-API- impacting. If SemVer is a perfectly faithful representation of the risk of a change by classifying syntactic and semantic changes, how do we characterize a change that adds a one-millisecond delay to a time-sensitive API? Or, more plausibly: how do we characterize a change that alters the format of our logging output? Or that alters the order that we import external dependencies? Or that alters the order that results are returned in an “unordered” stream? Is it reasonable to assume that those changes are “safe” merely because those aren’t part of the syntax or contract of the API in question? What if the documentation said “This may change in the future”? Or the API was named “ForInternalUseByLibBaseOnlyDoNotTouchThisIReallyMeanIt?”[^11]
 
-另一方面，SemVer的应用做出了明确的假设，即API提供者对兼容性的预估可以完全预测，并且更改分为三个类：破坏（通过修改或删除）、严格的添加或不影响API。如果SemVer通过对语法和语义变化进行分类，完全忠实地表示了变化的风险，那么我们如何描述为时间敏感API增加一毫秒延迟的更改？或者，更合理的说法是：我们如何描述改变日志输出格式的更改？或者改变了我们导入外部依赖关系的顺序？或者改变了在 "无序 "流中返回结果的顺序？仅仅因为这些变更不属于问题中API的语法或契约的一部分，就认为这些变更是“安全的”是合理的吗？如果文档中说 "这在未来可能会发生变化 "呢？或者API被命名为 "ForInternalUseByLibBaseOnlyDoNotTouchThisIReallyMeanIt？"
+另一方面，SemVer的应用做出了明确的假设，即API提供者对兼容性的预估可以完全预测，并且更改分为三个类：破坏（通过修改或删除）、严格的添加或不影响API。如果SemVer通过对语法和语义变化进行分类，完全忠实地表示了变化的风险，那么我们如何描述为时间敏感API增加一毫秒延迟的更改？或者，更合理的说法是：我们如何描述改变日志输出格式的更改？或者改变了我们导入外部依赖关系的顺序？或者改变了在 "无序"流中返回结果的顺序？仅仅因为这些变更不属于问题中API的语法或契约的一部分，就认为这些变更是“安全的”是合理的吗？如果文档中说"这在未来可能会发生变化"呢？或者API被命名为 "ForInternalUseByLibBaseOnlyDoNotTouchThisIReallyMeanIt？"
 
 The idea that SemVer patch versions, which in theory are only changing implementation details, are “safe” changes absolutely runs afoul of Google’s experience with Hyrum’s Law—“With a sufficient number of users, every observable behavior of your system will be depended upon by someone.” Changing the order that dependencies are imported, or changing the output order for an “unordered” producer will, at scale, invariably break assumptions that some consumer was (perhaps incorrectly) relying upon. The very term “breaking change” is misleading: there are changes that are theoretically breaking but safe in practice (removing an unused API). There are also changes that are theoretically safe but break client code in practice (any of our earlier Hyrum’s Law examples). We can see this in any SemVer/dependency-management system for which the version-number requirement system allows for restrictions on the patch number: if you can say liba requires libbase >1.1.14 rather than liba requires libbase 1.1, that’s clearly an admission that there are observable differences in patch versions.
 
-SemVer补丁版本在理论上只是改变了实现细节，是 "安全 "的改变，这种想法绝对违背了谷歌对Hyrum定律的经验--"只要有足够数量的用户，你的系统的每一个可观察到的行为都会被某人所依赖。" 改变依赖关系的导入顺序，或者改变一个 "无序 "使用者的输出顺序，在规模上将不可避免地打破一些使用者（也许是错误地）所依赖的假设。"破坏性变化 "这个术语本身就具有误导性：有些更改在理论上是突破性的，但在实践中是安全的（删除未使用的API）。也有一些变化在理论上是安全的，但在实践中会破坏客户端代码（我们之前的任何一个Hyrum定律的例子）。我们可以在任何SemVer/依赖管理系统中看到这一点，其中的版本号要求系统允许对补丁号进行限制：如果你可以说liba需要libbase >1.1.14，而不是liba需要libbase 1.1，这显然是承认补丁版本中存在明显的差异。
+SemVer补丁版本在理论上只是改变了实现细节，是 "安全"的更改，这种想法绝对违背了谷歌对Hyrum定律的经验--"只要有足够数量的用户，你的系统的每一个可观察到的行为都会被某人所依赖。" 改变依赖关系的导入顺序，或者改变一个 "无序"使用者的输出顺序，在规模上将不可避免地打破一些使用者（也许是错误地）所依赖的假设。"破坏性变化"这个术语本身就具有误导性：有些更改在理论上是突破性的，但在实践中是安全的（删除未使用的API）。也有一些变化在理论上是安全的，但在实践中会破坏客户端代码（我们之前的任何一个Hyrum定律的例子）。我们可以在任何SemVer/依赖管理系统中看到这一点，其中的版本号要求系统允许对补丁号进行限制：如果你可以说liba需要libbase >1.1.14，而不是liba需要libbase 1.1，这显然是承认补丁版本中存在明显的差异。
 
 *A change in isolation isn’t breaking or nonbreaking—*that statement can be evaluated only in the context of how it is being used. There is no absolute truth in the notion of “This is a breaking change”; a change can been seen to be breaking for only a (known or unknown) set of existing users and use cases. The reality of how we evaluate a change inherently relies upon information that isn’t present in the SemVer formulation of dependency management: how are downstream users consuming this dependency?
 
-*孤立的变化不是破坏性的，也不是非破坏性的*——这种说法只能在它被使用的情况下进行评估。在 "这是一个破坏性的变化 "的概念中没有绝对的真理；一个变化只能被看作是对（已知或未知的）现有用户和用例的破坏。我们如何评估一个变化的现实，本质上依赖于SemVer制定的依赖管理中所没有的信息：下游用户是如何使用这个依赖的？
+*孤立的变化不是破坏性的，也不是非破坏性的*——这种说法只能在它被使用的情况下进行评估。在 "这是一个破坏性的变化"的概念中没有绝对的真理；一个变化只能被看作是对（已知或未知的）现有用户和用例的破坏。我们如何评估一个变化的现实，本质上依赖于SemVer制定的依赖管理中所没有的信息：下游用户是如何使用这个依赖的？
 
 Because of this, a SemVer constraint solver might report that your dependencies work together when they don’t, either because a bump was applied incorrectly or because something in your dependency network had a Hyrum’s Law dependence on something that wasn’t considered part of the observable API surface. In these cases, you might have either build errors or runtime bugs, with no theoretical upper bound on their severity.
 
 正因为如此，SemVer约束求解器可能会报告说，你的依赖关系可以一起工作，但它们却不能一起工作，这可能是因为错误地应用了一个坑点，或者是因为你的依赖网络中的某些东西与不被认为是可观察API表面的一部分的东西存在Hyrum定律依赖。在这些情况下，你可能会有构建错误或运行时错误，其严重性在理论上没有上限。
 
-> [^11]:	It’s worth noting: in our experience, naming like this doesn’t fully solve the problem of users reaching in to access private APIs. Prefer languages that have good control over public/private access to APIs of all forms./
+> [^11]: It’s worth noting: in our experience, naming like this doesn’t fully solve the problem of users reaching in to access private APIs. Prefer languages that have good control over public/private access to APIs of all forms.
 > 11  值得注意的是：根据我们的经验，这样命名并不能完全解决用户访问私有API的问题。首选对所有形式的API的公共/私人访问有良好控制的语言。
-
 
 ### Motivations  动机
 
 There is a further argument that SemVer doesn’t always incentivize the creation of stable code. For a maintainer of an arbitrary dependency, there is variable systemic incentive to *not* make breaking changes and bump major versions. Some projects care deeply about compatibility and will go to great lengths to avoid a major-version bump. Others are more aggressive, even intentionally bumping major versions on a fixed schedule. The trouble is that most users of any given dependency are indirect users—they wouldn’t have any significant reasons to be aware of an upcoming change. Even most direct users don’t subscribe to mailing lists or other release notifications.
 
-还有一种观点认为，SemVer并不总是鼓励创建稳定的代码。对于任意依赖的维护者来说，有一个可变的系统激励机制来*不*做破坏性的修改和提升主要版本。一些项目非常关心兼容性，并将竭尽全力避免出现重大版本冲突。其他项目则更加积极，甚至有意在一个固定的时间表上提升主要版本。问题是，任何给定依赖项的大多数用户都是间接用户--他们没有任何重要的理由知道即将发生的更改。即使是最直接的用户也不会订阅邮件列表或其他发布通知。
+还有一种观点认为，SemVer并不总是鼓励创建稳定的代码。对于任意依赖的维护者来说，有一个可变的系统激励机制来*不*做破坏性的修改和提升主要版本。一些项目非常关心兼容性，并将竭尽全力避免出现重大版本冲突。其他项目则更加积极，甚至有意在一个固定的时间表上提升主要版本。问题是，任何给定依赖项的大多数用户都是间接用户——他们没有任何重要的理由知道即将发生的更改。即使是最直接的用户也不会订阅邮件列表或其他发布通知。
 
 All of which combines to suggest that no matter how many users will be inconvenienced by adoption of an incompatible change to a popular API, the maintainers bear a tiny fraction of the cost of the resulting version bump. For maintainers who are also users, there can also be an incentive *toward* breaking: it’s always easier to design a better interface in the absence of legacy constraints. This is part of why we think projects should publish clear statements of intent with respect to compatibility, usage, and breaking changes. Even if those are best-effort, nonbinding, or ignored by many users, it still gives us a starting point to reason about whether a breaking change/ major version bump is “worth it,” without bringing in these conflicting incentive structures.
 
 所有这些都表明，不管有多少用户会因为采用不兼容的API而感到不便，维护者只需承担由此带来的版本升级的一小部分成本。对于同时也是用户的维护者来说，也会有一个激励机制，那就是：在没有遗留限制的情况下，设计一个更好的接口总是更容易。这也是为什么我们认为项目应该发表关于兼容性、使用和破坏性变化的明确声明的部分原因。即使这些都是尽力而为、不具约束力或被许多用户忽略的，但它仍然为我们提供了一个起点，让我们可以在不引入这些相互冲突的激励结构的情况下，思考突破性的更改/重大版本升级是否“值得”。
 
-[Go ](https://research.swtch.com/vgo-import)and [Clojure ](https://oreil.ly/Iq9f_)both handle this nicely: in their standard package management ecosystems, the equivalent of a major-version bump is expected to be a fully new package. This has a certain sense of justice to it: if you’re willing to break backward compatibility for your package, why do we pretend this is the same set of APIs? Repackaging and renaming everything seems like a reasonable amount of work to expect from a provider in exchange for them taking the nuclear option and throwing away backward compatibility.
+[Go](https://research.swtch.com/vgo-import)and [Clojure](https://oreil.ly/Iq9f_)both handle this nicely: in their standard package management ecosystems, the equivalent of a major-version bump is expected to be a fully new package. This has a certain sense of justice to it: if you’re willing to break backward compatibility for your package, why do we pretend this is the same set of APIs? Repackaging and renaming everything seems like a reasonable amount of work to expect from a provider in exchange for them taking the nuclear option and throwing away backward compatibility.
 
 [Go](https://research.swtch.com/vgo-import)和[Clojure](https://oreil.ly/Iq9f_)都很好地处理了这个问题：在他们的标准包管理生态系统中，相当于一个主要版本的升级被认为是一个完全新的包。这有一定的正义感：如果你愿意为你的包打破向后的兼容性，为什么我们要假装这是同一套API？重新打包和重命名一切似乎是一个合理的工作量，期望从提供者那里得到，以换取他们接受核选项并抛弃向后兼容性。
 
@@ -440,7 +439,7 @@ Finally, there’s the human fallibility of the process. In general, SemVer vers
 
 In 2018, as part of an essay series on building a package management system for the Go programming language, Google’s own Russ Cox described an interesting variation on SemVer dependency management: [Minimum Version Selection](https://research.swtch.com/vgo-mvs) (MVS). When updating the version for some node in the dependency network, it is possible that its dependencies need to be updated to newer versions to satisfy an updated SemVer requirement—this can then trigger further changes transitively. In most constraint- satisfaction/version-selection formulations, the newest possible versions of those downstream dependencies are chosen: after all, you’ll need to update to those new versions eventually, right?
 
-2018年，作为为Go编程语言构建软件包管理系统的系列文章的一部分，谷歌自己的Russ Cox描述了SemVer依赖性管理的一个有趣变化。[最小版本选择](https://research.swtch.com/vgo-mvs)（MVS）。当更新依赖网络中某个节点的版本时，它的依赖关系有可能需要更新到较新的版本，以满足更新的SemVer需求--这可能会触发进一步的变化。在大多数约束满足/版本选择公式中，这些下游依赖关系的最新版本被选中：毕竟，你最终需要更新到这些新版本，对吗？
+2018年，作为为Go编程语言构建软件包管理系统的系列文章的一部分，谷歌自己的Russ Cox描述了SemVer依赖性管理的一个有趣变化。[最小版本选择](https://research.swtch.com/vgo-mvs)（MVS）。当更新依赖网络中某个节点的版本时，它的依赖关系有可能需要更新到较新的版本，以满足更新的SemVer需求——这可能会触发进一步的变化。在大多数约束满足/版本选择公式中，这些下游依赖关系的最新版本被选中：毕竟，你最终需要更新到这些新版本，对吗？
 
 MVS makes the opposite choice: when liba’s specification requires libbase ≥1.7, we’ll try libbase 1.7 directly, even if a 1.8 is available. This “produces high-fidelity builds in which the dependencies a user builds are as close as possible to the ones the author developed against.”[^14] There is a critically important truth revealed in this point: when liba says it requires libbase ≥1.7, that almost certainly means that the developer of liba had libbase 1.7 installed. Assuming that the maintainer performed even basic testing before publishing,[^15] we have at least anecdotal evidence of interoperability testing for that version of liba and version 1.7 of libbase. It’s not CI or proof that everything has been unit tested together, but it’s something.
 
@@ -454,10 +453,10 @@ Inherent in the idea of MVS is the admission that a newer version might introduc
 
 在MVS的理念中，承认较新的版本在实践中可能会带来不兼容，即使版本号在*理论上*说不兼容。这就是认识到SemVer的核心问题，无论是否使用MVS：在将软件更改压缩为版本号的过程中，仿真度有所损失。MVS提供了一些额外的实际仿真度，试图产生最接近那些可能已经被一起测试过的版本的选定版本。这可能是一个足够的推动力，使更大的依赖网络正常运作。不幸的是，我们还没有找到一个很好的方法来经验性地验证这个想法。MVS是否能在不解决该方法的基本理论和激励问题的情况下使SemVer“足够好”还没有定论，但我们仍然认为，它代表了SemVer约束应用的一个明显改进，正如今天所使用的那样。
 
-> 14 Russ Cox, “Minimal Version Selection,” February 21, 2018, https://research.swtch.com/vgo-mvs./
+> [^14]: Russ Cox, “Minimal Version Selection,” February 21, 2018, https://research.swtch.com/vgo-mvs./
 > 14 Russ Cox，"最小的版本选择"，2018年2月21日，https://research.swtch.com/vgo-mvs。
 > 
-> 15 If that assumption doesn’t hold, you should really stop depending on liba./
+> [^15]: If that assumption doesn’t hold, you should really stop depending on liba./
 > 15 如果这个假设不成立，你真的应该停止对liba的依赖。
 
 ### So, Does SemVer Work? 那么，SemVer是否有效？
@@ -472,11 +471,11 @@ SemVer works well enough in limited scales. It’s deeply important, however, to
 
 SemVer在有限的范围内运行良好。然而，认识到它实际上在做什么，以及它不能做什么，是非常重要的。SemVer将工作得很好，前提是:
 
-- 你的依赖关系提供者准确且负责（以避免SemVer碰撞中的人为错误）
+- 你的依赖关系提供者准确且负责（以避免SemVer冲突中的人为错误）
 
 - 你的依赖关系是细粒度的（以避免在更新依赖关系中未使用/不相关的API时错误地过度约束，以及不可满足SemVer需求的相关风险）。
 
-- 所有API的所有使用都在预期的使用范围内（以避免被假定的兼容更改直接或在你以传递方式依赖的代码中破坏）
+- 所有API的所有使用都在预期的使用范围内（以避免被一个假定的兼容变化以令人惊讶的方式破坏，无论是直接的还是在你过渡依赖的代码中）。
 
 When you have only a few carefully chosen and well-maintained dependencies in your dependency graph, SemVer can be a perfectly suitable solution.
 
