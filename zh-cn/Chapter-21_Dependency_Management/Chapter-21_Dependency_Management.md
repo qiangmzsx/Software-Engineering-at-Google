@@ -488,25 +488,21 @@ However, our experience at Google suggests that it is unlikely that you can have
 ## Dependency Management with Infinite Resources  无限资源下的依赖管理
 
 Here’s a useful thought experiment when considering dependency-management solutions: what would dependency management look like if we all had access to infinite compute resources? That is, what’s the best we could hope for, if we aren’t resource constrained but are limited only by visibility and weak coordination among organizations? As we see it currently, the industry relies on SemVer for three reasons:
-
 - It requires only local information (an API provider doesn’t *need* to know the particulars of downstream users)
-
 - It doesn’t assume the availability of tests (not ubiquitous in the industry yet, but definitely moving that way in the next decade), compute resources to run the tests, or CI systems to monitor the test results
-
 - It’s the existing practice
 
-在考虑依赖管理解决方案时，有一个有用的思想实验：如果我们都能获得无限的计算资源，依赖管理会是什么样子？也就是说，如果我们不受资源限制，而只受限于组织间的可见性和弱协调性，那么我们能希望的最好结果是什么？正如我们目前所看到的，该行业依赖SemVer的原因有三个。
-
+在考虑依赖管理解决方案时，有一个有用的思想实验：如果我们都能获得无限的计算资源，依赖管理会是什么样子？也就是说，如果我们不受资源限制，而只受限于组织间的可见性和弱协调性，那么我们能希望的最好结果是什么？正如我们目前所看到的，该行业依赖SemVer的原因有三个：
 - 它只需要本地信息（API提供者不需要知道下游用户的标识符）
-
 - 它不需要测试的可用性（在行业中还没有普及，但在未来十年肯定会向这个方向发展）、运行测试的计算资源或监控测试结果的CI系统的可用性。
-
 - 这是现成的做法
 
+The  “requirement”  of  local  information  isn’t  really  necessary,  specifically  because dependency networks tend to form in only two environments:
+- Within a single organization
+- Within the OSS ecosystem, where source is visible even if the projects are not necessarily collaborating
+
 对本地信息的 "要求 "并不是真正必要的，特别是因为依赖性网络往往只在两种环境中形成：
-
 - 在一个组织内
-
 - 在开放源码软件生态系统内，即使项目不一定合作，源码也是可见的
 
 In either of those cases, significant information about downstream usage is *available*, even if it isn’t being readily exposed or acted upon today. That is, part of SemVer’s effective dominance is that we’re choosing to ignore information that is theoretically available to us. If we had access to more compute resources and that dependency information was surfaced readily, the community would probably find a use for it.
@@ -519,7 +515,7 @@ Although an OSS package can have innumerable closed-source dependents, the commo
 
 Next, we must remember the *intent* of SemVer: “In my estimation, this change will be easy (or not) to adopt.” Is there a better way of conveying that information? Yes, in the form of practical experience demonstrating that the change is easy to adopt. How do we get such experience? If most (or at least a representative sample) of our dependencies are publicly visible, we run the tests for those dependencies with every proposed change. With a sufficiently large number of such tests, we have at least a statistical argument that the change is safe in the practical Hyrum’s-Law sense. The tests still pass, the change is good—it doesn’t matter whether this is API impacting, bug fixing, or anything in between; there’s no need to classify or estimate.
 
-接下来，我们必须记住SemVer的*意图*："据我估计，这种变化将很容易（或不容易）被采纳。" 是否有更好的方式来传达这一信息？是的，以实践经验的形式，证明该变化是容易采用的。我们如何获得这种经验呢？如果我们大部分（或者至少是有代表性的样本）的依赖关系是公开的，那么我们就在每一个提议的改变中对这些依赖关系进行测试。有了足够多的这样的测试，我们至少有了一个统计学上的论据，即从实际的Hyrum定律意义上来说，这个变化是安全的。测试仍然通过，变化就是好的--这与影响API、修复bug或介于两者之间的事情无关；没有必要进行分类或评估。
+接下来，我们必须记住SemVer的*意图*："据我估计，这种变化将很容易（或不容易）被采纳。" 是否有更好的方式来传达这一信息？是的，以实践经验的形式，证明该变化是容易采用的。我们如何获得这种经验呢？如果我们大部分（或者至少是有代表性的样本）的依赖关系是公开的，那么我们就在每一个提议的改变中对这些依赖关系进行测试。有了足够多的这样的测试，我们至少有了一个统计学上的论据，即从实际的Hyrum定律意义上来说，这个变化是安全的。测试仍然通过，变化就是好的——这与影响API、修复bug或介于两者之间的事情无关；没有必要进行分类或评估。
 
 Imagine, then, that the OSS ecosystem moved to a world in which changes were accompanied with *evidence* of whether they are safe. If we pull compute costs out of the equation, the *truth*[^17] of “how safe is this” comes from running affected tests in downstream dependencies.
 
@@ -527,9 +523,9 @@ Imagine, then, that the OSS ecosystem moved to a world in which changes were acc
 
 Even without formal CI applied to the entire OSS ecosystem, we can of course use such a dependency graph and other secondary signals to do a more targeted presubmit analysis. Prioritize tests in dependencies that are heavily used. Prioritize tests in dependencies that are well maintained. Prioritize tests in dependencies that have a history of providing good signal and high-quality test results. Beyond just prioritizing tests based on the projects that are likely to give us the most information about experimental change quality, we might be able to use information from the change authors to help estimate risk and select an appropriate testing strategy. Running “all affected” tests is theoretically necessary if the goal is “nothing that anyone relies upon is change in a breaking fashion.” If we consider the goal to be more in line with “risk mitigation,” a statistical argument becomes a more appealing (and cost-effective) approach.
 
-即使没有正式的CI应用于整个开放源码生态系统，我们当然也可以使用这样的依赖关系和其他次级信号来做更有针对性的预提交分析。优先考虑大量使用的依赖关系中的测试。优先考虑维护良好的依赖关系中的测试。优先考虑那些有提供良好信号和高质量测试结果历史的依赖关系中的测试。除了根据有可能给我们提供最多实验性变化质量信息的项目来确定测试的优先级外，我们还可以利用变化作者的信息来帮助估计风险和选择适当的测试策略。如果目标是 任何人所依赖的都是一种破坏性的改变"，运行 "所有受影响 "的测试在理论上是必要的。如果我们认为目标更符合 "风险缓解"，那么统计论证就会成为一种更有吸引力（和成本效益）的方法。
+即使没有正式的CI应用于整个开放源码生态系统，我们当然也可以使用这样的依赖关系和其他次级信号来做更有针对性的预提交分析。优先考虑大量使用的依赖项中的测试。优先考虑维护良好的依赖项中的测试。优先考虑那些有提供良好信号和高质量测试结果历史的依赖关系中的测试。除了根据有可能给我们提供最多实验性变化质量信息的项目来确定测试的优先级外，我们还可以利用变化作者的信息来帮助估计风险和选择适当的测试策略。如果目标是 任何人所依赖的都是一种破坏性的改变"，运行 "所有受影响 "的测试在理论上是必要的。如果我们认为目标更符合 "风险缓解"，那么统计论证就会成为一种更有吸引力（和成本效益）的方法。
 
-In [Chapter 12](#_bookmark938), we identified four varieties of change, ranging from pure refactorings to modification of existing functionality. Given a CI-based model for dependency updating, we can begin to map those varieties of change onto a SemVer-like model for which the author of a change estimates the risk and applies an appropriate level of testing. For example, a pure refactoring change that modifies only internal APIs might be assumed to be low risk and justify running tests only in our own project and perhaps a sampling of important direct dependents. On the other hand, a change that removes a deprecated interface or changes observable behaviors might require as much testing as we can afford.
+In Chapter 12, we identified four varieties of change, ranging from pure refactorings to modification of existing functionality. Given a CI-based model for dependency updating, we can begin to map those varieties of change onto a SemVer-like model for which the author of a change estimates the risk and applies an appropriate level of testing. For example, a pure refactoring change that modifies only internal APIs might be assumed to be low risk and justify running tests only in our own project and perhaps a sampling of important direct dependents. On the other hand, a change that removes a deprecated interface or changes observable behaviors might require as much testing as we can afford.
 
 在第12章中，我们确定了四种变化，从纯粹的重构到对现有功能的修改。考虑到基于CI的依赖更新模型，我们可以开始将这些变化种类映射到类似SemVer的模型上，对于这些变化，变更的作者会估计风险并应用适当的测试水平。例如，仅修改内部API的纯重构变化可能被认为是低风险的，并证明仅在我们自己的项目和重要的直接依赖者中运行测试。另一方面，删除一个废弃的接口或改变可观察到的行为的变化可能需要我们进行尽可能多的测试。
 
@@ -547,13 +543,13 @@ What changes would we need to the OSS ecosystem to apply such a model? Unfortuna
 
 为了应用这样的模式，我们需要对开放源码软件的生态系统进行哪些改变？不幸的是，相当多:
 
-- 所有的依赖关系必须提供单元测试。尽管我们正不可阻挡地走向一个单元测试被广泛接受和无处不在的世界，但我们还没有到那一步。
+- 所有的依赖项必须提供单元测试。尽管我们正不可阻挡地走向一个单元测试被广泛接受和无处不在的世界，但我们还没有到那一步。
 
-- 了解大多数开放源码软件生态系统的依赖网络。目前尚不清楚是否有任何机制可用于在该网络上执行图形算法--信息是公开的，可用的，但实际上没有被普遍索引或使用。许多软件包管理系统/依赖性管理生态系统允许你看到一个项目的依赖性，但不允许查看反向边缘和依赖关系。
+- 了解大多数开放源码软件生态系统的依赖网络。目前尚不清楚是否有任何机制可用于在该网络上执行图形算法--信息是公开的，可用的，但实际上没有被普遍索引或使用。许多软件包管理系统/依赖性管理生态系统允许你看到一个项目的依赖项，但不允许查看反向边缘和依赖关系。
 
 - 用于执行CI的计算资源的可用性仍然非常有限。大多数开发者没有机会使用构建和测试的计算集群。
 
-- 依赖关系通常以固定方式表示。作为libbase的维护者，如果liba和libb的依赖关系显式地依赖于libbase的特定固定版本，那么我们就不能通过liba和libb的测试实验性地运行更改。
+- 依赖项通常以固定方式表示。作为libbase的维护者，如果liba和libb的依赖项显式地依赖于libbase的特定固定版本，那么我们就不能通过liba和libb的测试实验性地运行更改。
 
 - 我们可能希望在CI计算中明确包括历史和声誉。一个提议的变更打破了一个长期以来一直通过测试的项目，这给我们提供了一种不同形式的证据，而不是一个最近才添加的项目中的破坏，并且由于不相关的原因而有破坏的历史。
 
@@ -573,11 +569,11 @@ Inherent in this is a scale question: against which versions of each dependency 
 
 So far, we’ve only talked about taking on dependencies; that is, depending on software that other people have written. It’s also worth thinking about how we build software that can be *used* as a dependency. This goes beyond just the mechanics of packaging software and uploading it to a repository: we need to think about the benefits, costs, and risks of providing software, for both us and our potential dependents.
 
-到目前为止，我们只讨论了依赖关系；也就是说，这取决于其他人编写的软件。同样值得思考的是，我们如何构建可以作为依赖使用的软件。这不仅仅是打包软件并将其上传到存储库的机制：我们需要考虑提供软件的好处、成本和风险，对我们和我们的潜在依赖者都是如此。
+到目前为止，我们只讨论了依赖；也就是说，这取决于其他人编写的软件。同样值得思考的是，我们如何构建可以作为依赖使用的软件。这不仅仅是打包软件并将其上传到存储库的机制：我们需要考虑提供软件的好处、成本和风险，对我们和我们的潜在依赖者都是如此。
 
 There are two major ways that an innocuous and hopefully charitable act like “open sourcing a library” can become a possible loss for an organization. First, it can eventually become a drag on the reputation of your organization if implemented poorly or not maintained properly. As the Apache community saying goes, we ought to prioritize “community over code.” If you provide great code but are a poor community member, that can still be harmful to your organization and the broader community. Second, a well-intentioned release can become a tax on engineering efficiency if you can’t keep things in sync. Given time, all forks will become expensive.
 
-像 "开源库 "这样无害的慈善的行为，有两种主要方式可以成为一个组织的可能损失。首先，如果实施不力或维护不当，它最终会拖累你的组织的声誉。正如Apache社区的说法，我们应该优先考虑 "社区优先于代码"。如果你提供了很好的代码，但却是一个糟糕的社区成员，这仍然会对你的组织和更广泛的社区造成伤害。其次，如果你不能保持同步，一个善意的发布会成为对工程效率的一种负担。只要有时间，所有的分支都会变得沉重。
+像 "开源库"这样无害的慈善的行为，有两种主要方式可以成为一个组织的可能损失。首先，如果实施不力或维护不当，它最终会拖累你的组织的声誉。正如Apache社区的说法，我们应该优先考虑 "社区优先于代码"。如果你提供了很好的代码，但却是一个糟糕的社区成员，这仍然会对你的组织和更广泛的社区造成伤害。其次，如果你不能保持同步，一个善意的发布会成为对工程效率的一种负担。只要有时间，所有的分支都会变得沉重。
 
 #### Example: open sourcing gflags  示例：开源GFLAG
 
@@ -589,21 +585,21 @@ For reputation loss, consider the case of something like Google’s experience c
 
 - If an OSS project accepts code from outside developers, that’s generally a legal issue—the project originator doesn’t *own* that contribution, they only have rights to it.
 
-对于信誉的损失，可以考虑像谷歌在2006年左右开放我们的C++命令行标志库的经验的情况。当然，回馈开源社区是一个纯粹的善举，不会回来困扰我们，对吗？遗憾的是，不是。有很多原因共同促使这一善举变成了肯定会伤害我们的声誉，也可能会损害开放源码社区:
+对于信誉的损失，可以考虑像谷歌在2006年左右开放我们的C++命令行标志库的经验的情况。当然，回馈开源社区是一个纯粹的善举，不会返回困扰我们，对吗？遗憾的是，不是。有很多原因共同促使这一善举变成了肯定会伤害我们的声誉，也可能会损害开放源码社区:
 
-- 当时，我们没有能力进行大规模的重构，所以所有内部使用该库的东西都必须保持相同--我们不能把代码移到代码库的新位置。
+- 当时，我们没有能力进行大规模的重构，所以所有内部使用该库的东西都必须保持相同——我们不能把代码移到代码库的新位置。
 
 - 我们将我们的资源库隔离成 "内部开发的代码"（如果需要分支，可以自由复制，只要正确重命名）和 "可能有法律/许可问题的代码"（可能有更细微的使用要求）。
 
-- 如果一个开放源码软件项目接受来自外部开发者的代码，这通常是一个法律问题--项目发起人并不*拥有*该贡献，他们只拥有对它的使用权利。
+- 如果一个开放源码软件项目接受来自外部开发者的代码，这通常是一个法律问题——项目发起人并不*拥有*该贡献，他们只拥有对它的使用权利。
 
 As a result, the gflags project was doomed to be either a “throw over the wall” release or a disconnected fork. Patches contributed to the project couldn’t be reincorporated into the original source inside of Google, and we couldn’t move the project within our monorepo because we hadn’t yet mastered that form of refactoring, nor could we make everything internally depend on the OSS version.
 
-因此，gflags 项目注定是一个 "抛弃"的版本，或者是一个不相连的分支。贡献给项目的补丁不能被重新纳入谷歌内部的原始源码，我们也无法将该项目转移到monorepo中，因为我们还没有掌握这种重构形式，也无法让内部的一切都依赖于开放源码版本。
+因此，gflags 项目注定是一个 "抛出"的版本，或者是一个断开的分支。贡献给项目的补丁不能被重新纳入谷歌内部的原始源码，我们也无法将该项目转移到monorepo中，因为我们还没有掌握这种重构形式，也无法让内部的一切都依赖于开放源码版本。
 
 Further, like most organizations, our priorities have shifted and changed over time. Around the time of the original release of that flags library, we were interested in  products outside of our traditional space (web applications, search), including things like Google Earth, which had a much more traditional distribution mechanism: precompiled binaries for a variety of platforms. In the late 2000s, it was unusual but not unheard of for a library in our monorepo, especially something low-level like flags, to be used on a variety of platforms. As time went on and Google grew, our focus narrowed to the point that it was extremely rare for any libraries to be built with anything other than our in-house configured toolchain, then deployed to our production fleet. The “portability” concerns for properly supporting an OSS project like flags were nearly impossible to maintain: our internal tools simply didn’t have support for those platforms, and our average developer didn’t have to interact with external tools. It was a constant battle to try to maintain portability.
 
-此外，像大多数组织一样，我们的优先事项随着时间的推移而发生了改变。在最初发布flags库的时候，我们对传统领域（网络应用、搜索）以外的产品感兴趣，包括像谷歌地球这样的产品，它有一个更传统的发布机制：为各种平台预编译的二进制文件。在21世纪末，在我们的monorepo中的一个库，特别是像flags这样的低级的东西，被用在各种平台上，这是不正常的，但也不是没有。随着时间的推移和谷歌的成长，我们的关注点逐渐缩小，除了我们内部配置的工具链之外，很少有任何库是用其他东西构建的，然后部署到我们的生产机群。对于正确支持像flags这样的开放源码软件项目来说，"可移植性 "问题几乎是不可能维持的：我们的内部工具根本没有对这些平台的支持，而我们的普通开发人员也不需要与外部工具进行互动。为了保持可移植性，这是一场持久战。
+此外，像大多数组织一样，我们的优先事项随着时间的推移而发生了改变。在最初发布flags库的时候，我们对传统领域（网络应用、搜索）以外的产品感兴趣，包括像谷歌地球这样的产品，它有一个更传统的发布机制：为各种平台预编译的二进制文件。在21世纪末，在我们的monorepo中的一个库，特别是像flags这样的低级的东西，被用在各种平台上，这是不正常的，但也不是没有。随着时间的推移和谷歌的成长，我们的关注点逐渐缩小，除了我们内部配置的工具链之外，很少有任何库是用其他东西构建的，然后部署到我们的生产机群。对于正确支持像flags这样的开放源码软件项目来说，"可移植性"问题几乎是不可能维持的：我们的内部工具根本没有对这些平台的支持，而我们的普通开发人员也不需要与外部工具进行互动。为了保持可移植性，这是一场持久战。
 
 As the original authors and OSS supporters moved on to new companies or new teams, it eventually became clear that nobody internally was really supporting our OSS flags project—nobody could tie that support back to the priorities for any particular team. Given that it was no specific team’s job, and nobody could say why it was important, it isn’t surprising that we basically let that project rot externally.[^18] The internal and external versions diverged slowly over time, and eventually some external developers took the external version and forked it, giving it some proper attention.
 
@@ -621,14 +617,13 @@ Then, for unrelated reasons, C++ library teams began tweaking observable-but-not
 
 然后，由于不相关的原因，C++库团队开始调整内部标志实现中可观察到但没有记录的部分。在这一点上，所有依赖于不支持的外部分支的稳定性和等效性的人都开始尖叫，他们的构建和发布突然被破坏。一个值得在谷歌集群中使用数千个CPU的优化机会被大大推迟了，不是因为难以更新2.5亿行代码所依赖的API，而是因为极少数项目依赖于未经预测和意外的东西。Hyrum定律再一次影响了软件的变化，在这种情况下，甚至是由不同组织维护的分叉API。
 
-> [^18]: That isn’t to say it’s right or wise, just that as an organization we let some things slip through the cracks./
+> [^18]: That isn’t to say it’s right or wise, just that as an organization we let some things slip through the cracks.
 > 18  这并不是说这是对的或明智的，只是作为一个组织，我们让一些事情从缝隙中溜走。
 > 
-> 19 Often through trial and error./
+> [^19]: Often through trial and error.
 > 19 往往是通过试验和错误。
 
 ----
-
 #### Case Study: AppEngine  案例研究：AppEngine
 
 A more serious example of exposing ourselves to greater risk of unexpected technical dependency comes from publishing Google’s AppEngine service. This service allows users to write their applications on top of an existing framework in one of several popular programming languages. So long as the application is written with a proper storage/state management model, the AppEngine service allows those applications to scale up to huge usage levels: backing storage and frontend management are managed and cloned on demand by Google’s production infrastructure.
@@ -637,13 +632,13 @@ A more serious example of exposing ourselves to greater risk of unexpected techn
 
 Originally, AppEngine’s support for Python was a 32-bit build running with an older version of the Python interpreter. The AppEngine system itself was (of course) implemented in our monorepo and built with the rest of our common tools, in Python and in C++ for backend support. In 2014 we started the process of doing a major update to the Python runtime alongside our C++ compiler and standard library installations, with the result being that we effectively tied “code that builds with the current C++ compiler” to “code that uses the updated Python version”—a project that upgraded one of those dependencies inherently upgraded the other at the same time. For most projects, this was a non-issue. For a few projects, because of edge cases and Hyrum’s Law, our language platform experts wound up doing some investigation and debugging to unblock the transition. In a terrifying instance of Hyrum’s Law running into business practicalities, AppEngine discovered that many of its users, our paying customers, couldn’t (or wouldn’t) update: either they didn’t want to take the change to the newer Python version, or they couldn’t afford the resource consumption changes involved in moving from 32-bit to 64-bit Python. Because there were some customers that were paying a significant amount of money for AppEngine services, AppEngine was able to make a strong business case that a forced switch to the new language and compiler versions must be delayed. This inherently meant that every piece of C++ code in the transitive closure of dependencies from AppEngine had to be compatible with the older compiler and standard library versions: any bug fixes or performance optimizations that could be made to that infrastructure had to be compatible across versions. That situation persisted for almost three years.
 
-最初，AppEngine对Python的支持是使用旧版本的Python解释器运行的32位构建。AppEngine系统本身（当然）是在我们的monorepo中实现的，并与我们其他的通用工具一起构建，用Python和C++来支持后端。2014年，我们开始对Python运行时进行重大更新，同时安装C++编译器和标准库，其结果是我们有效地将 "用当前C++编译器构建的代码 "与 "使用更新的Python版本的代码 "联系起来--一个项目如果升级了这些依赖中的一个，就同时升级了另一个。对于大多数项目来说，这并不是一个问题。对于少数项目，由于边缘案例和Hyrum定律，我们的语言平台专家最终做了一些调查和调试，以解除过渡的障碍。在一个可怕的Hyrum定律与商业实际相结合的例子中，AppEngine发现它的许多用户，即我们的付费客户，不能（或不愿）更新：要么他们不想改变到较新的Python版本，要么他们负担不起从32位到64位Python的资源消耗变化。因为有一些客户为AppEngine的服务支付了大量的费用，AppEngine能够提出一个强有力的商业方案，即必须推迟强制切换到新的语言和编译器版本。这就意味着AppEngine的依赖关系中的每一段C++代码都必须与旧的编译器和标准库版本兼容：对该基础设施的任何错误修复或性能优化都必须跨版本兼容。这种情况持续了近三年。
+最初，AppEngine对Python的支持是使用旧版本的Python解释器运行的32位构建。AppEngine系统本身（当然）是在我们的monorepo中实现的，并与我们其他的通用工具一起构建，用Python和C++来支持后端。2014年，我们开始对Python运行时进行重大更新，同时安装C++编译器和标准库，其结果是我们有效地将 "用当前C++编译器构建的代码 "与 "使用更新的Python版本的代码 "联系起来——一个项目如果升级了这些依赖中的一个，就同时升级了另一个。对于大多数项目来说，这并不是一个问题。对于少数项目，由于边缘案例和海勒姆定律，我们的语言平台专家最终做了一些调查和调试，以解除过渡的障碍。在一个可怕的海勒姆定律与商业实际相结合的例子中，AppEngine发现它的许多用户，即我们的付费客户，不能（或不愿）更新：要么他们不想改变到较新的Python版本，要么他们负担不起从32位到64位Python的资源消耗变化。因为有一些客户为AppEngine的服务支付了大量的费用，AppEngine能够提出一个强有力的商业方案，即必须推迟强制切换到新的语言和编译器版本。这就意味着AppEngine的依赖关系中的每一段C++代码都必须与旧的编译器和标准库版本兼容：对该基础设施的任何错误修复或性能优化都必须跨版本兼容。这种情况持续了近三年。
 
 -----
 
 With enough users, any “observable” of your system will come to be depended upon by somebody. At Google, we constrain all of our internal users within the boundaries of our technical stack and ensure visibility into their usage with the monorepo and code indexing systems, so it is far easier to ensure that useful change remains possible. When we shift from source control to dependency management and lose visibility into how code is used or are subject to competing priorities from outside groups (especially ones that are paying you), it becomes much more difficult to make pure engineering trade-offs. Releasing APIs of any sort exposes you to the possibility of competing priorities and unforeseen constraints by outsiders. This isn’t to say that you shouldn’t release APIs; it serves only to provide the reminder: external users of an API cost a lot more to maintain than internal ones.
 
-有了足够多的用户，你的系统的任何 "可观察到的 "都会被某些人所依赖。在谷歌，我们把所有的内部用户都限制在我们的技术堆栈的范围内，并通过monorepo和代码索引系统确保对他们的使用情况的可见性，所以更容易确保有用的改变是可能的。当我们从源码控制转向依赖管理，并失去了对代码使用情况的可见性，或者受到来自外部团体（尤其是那些付钱给你的团体）的高优先级的影响时，要做出纯粹的工程权衡就变得更加困难。发布任何类型的API都会使你暴露在竞争性的优先级和外部人员不可预见的限制的可能性中。这并不是说你不应该发布API；这只是为了提醒你：API的外部用户比内部用户的维护成本高得多。
+有了足够多的用户，你的系统的任何 "可观察到的"都会被某些人所依赖。在谷歌，我们把所有的内部用户都限制在我们的技术堆栈的范围内，并通过monorepo和代码索引系统确保对他们的使用情况的可见性，所以更容易确保有用的改变是可能的。当我们从源码控制转向依赖管理，并失去了对代码使用情况的可见性，或者受到来自外部团体（尤其是那些付钱给你的团体）的高优先级的影响时，要做出纯粹的工程权衡就变得更加困难。发布任何类型的API都会使你暴露在竞争性的优先级和外部人员不可预见的限制的可能性中。这并不是说你不应该发布API；这只是为了提醒你：API的外部用户比内部用户的维护成本高得多。
 
 Sharing code with the outside world, either as an open source release or as a closed- source library release, is not a simple matter of charity (in the OSS case) or business opportunity (in the closed-source case). Dependent users that you cannot monitor, in different organizations, with different priorities, will eventually exert some form of Hyrum’s Law inertia on that code. Especially if you are working with long timescales, it is impossible to accurately predict the set of necessary or useful changes that could become valuable. When evaluating whether to release something, be aware of the long-term risks: externally shared dependencies are often much more expensive to modify over time.
 
@@ -671,9 +666,9 @@ It is possible, however, that we move toward a world in which maintainer-provide
 
 - By comparison, testing and CI provide actual evidence of whether a new set of versions work together.
 
-- 更倾向于源控制问题，而不是依赖性管理问题：如果你能从你的组织中获得更多的代码，以便有更好的透明度和协调，这些都是重要的简化。
+- 更倾向于源控制问题，而不是依赖管理问题：如果你能从你的组织中获得更多的代码，以便有更好的透明度和协调，这些都是重要的简化。
 
-- 对于一个软件工程项目来说，增加一个依赖关系并不是免费的，建立一个 "持续 "的信任关系的复杂性是具有挑战性的。将依赖关系导入你的组织需要谨慎行事，并了解持续支持的成本。
+- 对于一个软件工程项目来说，增加一个依赖关系并不是免费的，建立一个 "持续"的信任关系的复杂性是具有挑战性的。将依赖关系导入你的组织需要谨慎行事，并了解持续支持的成本。
 
 - 依赖关系是一个合同：有付出就有收获，提供者和消费者在该合同中都有一些权利和责任。供应商应该清楚地了解他们在一段时间内试图承诺什么。
 
