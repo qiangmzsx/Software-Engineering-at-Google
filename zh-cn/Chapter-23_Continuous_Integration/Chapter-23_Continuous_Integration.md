@@ -2,27 +2,24 @@
 **CHAPTER 23**
 
 # Continuous Integration
-
 # 第二十三章 持续集成
 
 **Written by Rachel Tannenbaum**
-
 **Edited by Lisa Carey**
 
 *Continuous Integration*, or CI, is generally defined as “a software development practice where members of a team integrate their work frequently [...] Each integration is verified by an automated build (including test) to detect integration errors as quickly as possible.”[^1] Simply put, the fundamental goal of CI is to automatically catch problematic changes as early as possible.
 
-*持续集成*，或CI，通常被定义为 "一种软件开发实践，团队成员经常集成他们的工作[......]每个集成都由自动构建（包括测试）来验证，以尽快发现集成错误。"1简单地说，CI的基本目标是尽可能早地自动捕捉有问题的变化。
+*持续集成*，或CI，通常被定义为 "一种软件开发实践，团队成员经常集成他们的工作[......]每个集成都由自动构建（包括测试）来验证，以尽快发现集成错误。"简单地说，CI的基本目标是尽可能早地自动捕获有问题的变化。
 
 In practice, what does “integrating work frequently” mean for the modern, distributed application? Today’s systems have many moving pieces beyond just the latest versioned code in the repository. In fact, with the recent trend toward microservices, the changes that break an application are less likely to live inside the project’s immediate codebase and more likely to be in loosely coupled microservices on the other side of a network call. Whereas a traditional continuous build tests changes in your binary, an extension of this might test changes to upstream microservices. The dependency is just shifted from your function call stack to an HTTP request or Remote Procedure Calls (RPC).
 
-在实践中，"频繁地集成工作 "对于现代的、分布式的应用程序意味着什么？今天的系统除了存储库中最新版本的代码外，还有许多可移动的部分。事实上，随着近来的微服务趋势，破坏应用程序的变化不太可能存在于项目的即时代码库中，而更可能存在于网络调用的另一端的松散耦合的微服务中。传统的持续构建是测试二进制文件的变更，而其延伸则是测试上游微服务的变化。依赖性只是从你的函数调用栈转移到HTTP请求或远程过程调用（RPC）。
+在实践中，"频繁地集成工作 "对于现代的、分布式的应用程序意味着什么？今天的系统除了存储库中最新版本的代码外，还有许多可移动的部分。事实上，随着近来的微服务趋势，破坏应用程序的变化不太可能存在于项目的即时代码库中，而更可能存在于网络调用的另一端的松散耦合的微服务中。传统的持续构建是测试二进制文件的变更，而其延伸则是测试上游微服务的变化。依赖关系只是从你的函数调用栈转移到HTTP请求或远程过程调用（RPC）。
 
 Even further from code dependencies, an application might periodically ingest data or update machine learning models. It might execute on evolving operating systems, runtimes, cloud hosting services, and devices. It might be a feature that sits on top of a growing platform or be the platform that must accommodate a growing feature base. All of these things should be considered dependencies, and we should aim to “continuously integrate” their changes, too. Further complicating things, these changing components are often owned by developers outside our team, organization, or company and deployed on their own schedules.
 
-甚至在代码依赖性之外，应用程序可能会定期接收数据或更新机器学习模型。它可能在不断发展的操作系统、运行时、云托管服务和设备上执行。它可能是位于不断增长的平台之上的功能，也可能是必须适应不断增长的功能基础的平台。所有这些都应该被视为依赖关系，我们也应该致力于“持续集成”它们的变化。更复杂的是，这些变化的组件通常由我们团队、组织或公司之外的开发人员拥有，并按照他们自己的时间表部署。
+甚至在代码依赖关系之外，应用程序可能会定期接收数据或更新机器学习模型。它可能在不断发展的操作系统、运行时、云托管服务和设备上执行。它可能是位于不断增长的平台之上的功能，也可能是必须适应不断增长的功能基础的平台。所有这些都应该被视为依赖关系，我们也应该致力于“持续集成”它们的变化。更复杂的是，这些变化的组件通常由我们团队、组织或公司之外的开发人员拥有，并按照他们自己的时间表部署。
 
-> [^1]:	https://www.martinfowler.com/articles/continuousIntegration.html
-
+> [^1]: https://www.martinfowler.com/articles/continuousIntegration.html
 
 So, perhaps a better definition for CI in today’s world, particularly when developing at scale, is the following:
 
@@ -37,10 +34,12 @@ It is natural to conceptualize CI in terms of testing because the two are tightl
 从测试的角度对CI进行思考是很自然的，因为两者紧密结合，我们将在本章中这样做。在前面的章节中，我们讨论了一系列全面的测试，从单元到集成，再到更大范围的系统。
 
 From a testing perspective, CI is a paradigm to inform the following:
-- *Which* tests to run *when* in the development/release workflow, as code (and other) changes are continuously integrated into it
-- *How* to compose the system under test (SUT) at each point, balancing concerns like fidelity and setup cost
+
+- *Which* tests to run *when* in the development/release workflow, as code (and other) changes are continuously integrated into it.
+- *How* to compose the system under test (SUT) at each point, balancing concerns like fidelity and setup cost.
 
 从测试的角度来看，CI是一种范式，可以告知以下内容：
+
 - 在开发/发布工作流程中，由于代码（和其他）变化不断地被集成到其中，在什么时候运行哪些测试
 - 如何在每个点上组成被测系统（SUT），平衡仿真度和设置成本等问题
 
@@ -56,11 +55,8 @@ In the rest of this chapter, we’ll introduce some key CI concepts, best practi
 
 在本章的其余部分中，我们将介绍一些关键CI概念、最佳实践和挑战，然后介绍我们如何在Google管理CI，并介绍我们的持续构建工具TAP，以及对某个应用程序的CI转换的深入研究。
 
-
-> [^2]:	Forsgren, Nicole, et al. (2018). Accelerate: The Science of Lean Software and DevOps: Building and Scaling High Performing Technology Organizations. IT Revolution./
+> [^2]: Forsgren, Nicole, et al. (2018). Accelerate: The Science of Lean Software and DevOps: Building and Scaling High Performing Technology Organizations. IT Revolution./
 > 2   Forsgren，Nicole等人（2018年）。加速：精益软件科学和DevOps：建立和扩展高性能技术组织。这是一场革命。
-
-
 
 ## CI Concepts CI概念
 
@@ -70,7 +66,7 @@ First, let’s begin by looking at some core concepts of CI.
 
 ### Fast Feedback Loops 快速反馈回路
 
-As discussed in [Chapter 11](#_bookmark838), the cost of a bug grows almost exponentially the later it is caught. [Figure 23-1 ](#_bookmark2031)shows all the places a problematic code change might be caught in its lifetime.
+As discussed in Chapter 11, the cost of a bug grows almost exponentially the later it is caught. Figure 23-1 shows all the places a problematic code change might be caught in its lifetime.
 
 正如第11章所讨论的，一个bug被捕获的时间越晚，其成本几乎呈指数增长。图23-1显示了有问题的代码更改在其生命周期中可能出现的所有位置。
 
@@ -95,6 +91,7 @@ In general, as issues progress to the “right” in our diagram, they become co
 - 它们会对其他人产生负面影响，无论是工作中的工程师还是最终的终端用户。
 
 To minimize the cost of bugs, CI encourages us to use *fast feedback loops.*[^3] Each time we integrate a code (or other) change into a testing scenario and observe the results, we get a new *feedback loop*. Feedback can take many forms; following are some common ones (in order of fastest to slowest):
+
 - The edit-compile-debug loop of local development
 - Automated test results to a code change author on presubmit
 - An integration error between changes to two projects, detected after both are submitted and tested together (i.e., on post-submit)
@@ -103,6 +100,7 @@ To minimize the cost of bugs, CI encourages us to use *fast feedback loops.*[^3]
 - Bug or outage reports by external users or the press
 
 为了使bug的代价最小化，CI鼓励我们使用*快速反馈环*。每次我们将代码（或其他）变化集成到测试场景中并观察结果时，我们就会得到一个新的*反馈回路*。反馈可以有很多形式；下面是一些常见的形式（按从快到慢的顺序）:
+
 - 本地开发的编辑-编译-调试回路
 - 在提交前向代码修改者提供自动测试结果
 - 两个项目变更之间的集成错误，在两个项目一起提交和测试后检测（即提交后）。
@@ -170,8 +168,6 @@ The first step in Continuous Delivery (CD; discussed more fully in [Chapter 24](
 
 *候选版本*（RC）:由自动化流程创建的内聚、可部署单元，由通过持续构建的代码、配置和其他依赖关系组成。
 
-
-
 Note that we include configuration in release candidates—this is extremely important, even though it can slightly vary between environments as the candidate is promoted. We’re not necessarily advocating you compile configuration into your binaries—actually, we would recommend dynamic configuration, such as experiments or feature flags, for many scenarios.[^6]
 
 请注意，我们在候选版本中包含了配置--这一点极为重要，尽管在候选版本的推广过程中，不同环境下的配置会略有不同。我们不一定提倡你把配置编译到你的二进制文件中--事实上，我们建议在许多情况下使用动态配置，如实验或特征标志。
@@ -181,10 +177,12 @@ Rather, we are saying that any static configuration you *do* have should be prom
 相反，我们的意思是，您所拥有的任何静态配置都应该作为候选版本的一部分进行升级，以便它可以与其对应的代码一起接受测试。记住，很大比例的生产错误是由 "愚蠢的 "配置问题引起的，所以测试你的配置和测试你的代码一样重要（而且要和将要使用它的相同代码一起测试）。在这个发布--候选--推广的过程中，经常会出现版本倾斜。当然，这是假设你的静态配置是在版本控制中的--在谷歌，静态配置是和代码一起在版本控制中的，因此要经过同样的代码审查过程。
 
 We then define CD as follows:
-	*Continuous Delivery* (CD): a continuous assembling of release candidates, followed by the promotion and testing of those candidates throughout a series of environments— sometimes reaching production and sometimes not.
+
+    *Continuous Delivery* (CD): a continuous assembling of release candidates, followed by the promotion and testing of those candidates throughout a series of environments— sometimes reaching production and sometimes not.
 
 那么我们对CD的定义如下:
-	*持续交付（CD）*：持续集合候选版本，然后在一系列环境中推广和测试这些候选版本--有时达到生产阶段，有时不达到生产阶段。
+
+    *持续交付（CD）*：持续集合候选版本，然后在一系列环境中推广和测试这些候选版本--有时达到生产阶段，有时不达到生产阶段。
 
 The promotion and deployment process often depends on the team. We’ll show how our case study navigated this process.
 
@@ -198,22 +196,25 @@ As an RC progresses through environments, its artifacts (e.g., binaries, contain
 
 当一个RC在各种环境中发展，它的构建（如二进制文件、容器）最好不要被重新编译或重建。使用像Docker这样的容器有助于在不同的环境中强制执行RC的一致性，从本地开发开始。同样，使用像Kubernetes这样的协调工具（或者在我们的例子中，通常是[Borg](https://oreil.ly/89yPv)），有助于强制执行部署之间的一致性。通过强制执行在不同环境间的发布和部署的一致性，我们实现了更高的保真度、更早的测试和更少的生产意外。
 
-> 4	Head is the latest versioned code in our monorepo. In other workflows, this is also referred to as master, mainline, or trunk. Correspondingly, integrating at head is also known as trunk-based development./
+> [4^]: Head is the latest versioned code in our monorepo. In other workflows, this is also referred to as master, mainline, or trunk. Correspondingly, integrating at head is also known as trunk-based development.
+>
 > 4 Head是我们monorepo中最新版本的代码。在其他工作流程中，这也被称为主干、主线或主干。相应地，在head集成也被称为基于主干的开发。
 >
-> 5	At Google, release automation is managed by a separate system from TAP. We won’t focus on how release automation assembles RCs, but if you’re interested, we do refer you to Site Reliability Engineering (O’Reilly) in which our release automation technology (a system called Rapid) is discussed in detail./
+> [5^]: At Google, release automation is managed by a separate system from TAP. We won’t focus on how release automation assembles RCs, but if you’re interested, we do refer you to Site Reliability Engineering (O’Reilly) in which our release automation technology (a system called Rapid) is discussed in detail./
+>
 > 5 在谷歌，发布自动化是由一个独立于TAP的系统管理的。我们不会专注于发布自动化是如何组装RC的，但如果你有兴趣，我们会向你推荐《网站可靠性工程》（O'Reilly），其中详细讨论了我们的发布自动化技术（一个叫做Rapid的系统）。
 >
-> 6	CD with experiments and feature flags is discussed further in Chapter 24./
+> [6^]: CD with experiments and feature flags is discussed further in Chapter 24./
+>
 > 6 第24章进一步讨论了带有实验和特征标志的CD。
 >
-> 7	We call these “mid-air collisions” because the probability of it occurring is extremely low; however, when this does happen, the results can be quite surprising./
+> [7^]: We call these “mid-air collisions” because the probability of it occurring is extremely low; however, when this does happen, the results can be quite surprising./
+>
 > 7 我们称这些为 "空中碰撞"，因为它发生的概率极低；然而，当这种情况发生时，其结果可能是相当令人惊讶的。
-
 
 ### Continuous Testing 持续测试
 
-Let’s look at how CB and CD fit in as we apply Continuous Testing (CT) to a code change throughout its lifetime, as shown [Figure 23-2](#_bookmark2049).
+Let’s look at how CB and CD fit in as we apply Continuous Testing (CT) to a code change throughout its lifetime, as shown Figure 23-2.
 
 让我们来看看，当我们将持续测试（CT）应用于代码变更的整个生命周期时，CB和CD是如何配合的，如图23-2所示。
 
@@ -257,7 +258,7 @@ Most teams at Google run their small tests (like unit tests) on presubmit[^8]—
 
 谷歌的大多数团队都在预提交上运行他们的小型测试（如单元测试）--这些是明显要运行的，因为它们往往是最快和最可靠的。是否以及如何在提交前运行更大范围的测试是个更有趣的问题，这因团队而异。对于想要运行这些测试的团队来说，封闭测试是一种行之有效的方法来减少其固有的不稳定性。另一个选择是允许大范围的测试在预提交时不可靠，但当它们开始失败时，要主动禁用它们。
 
-> [^8]:	Each team at Google configures a subset of its project’s tests to run on presubmit (versus post-submit). In reality, our continuous build actually optimizes some presubmit tests to be saved for post-submit, behind the scenes. We’ll further discuss this later on in this chapter./
+> [^8]: Each team at Google configures a subset of its project’s tests to run on presubmit (versus post-submit). In reality, our continuous build actually optimizes some presubmit tests to be saved for post-submit, behind the scenes. We’ll further discuss this later on in this chapter./
 > 8 谷歌的每个团队都将其项目的测试的一个子集配置为在预提交运行（相对于提交后）。实际上，我们的持续构建实际上在幕后优化了一些预提交的测试，以保存到提交后。我们将在本章的后面进一步讨论这个问题。
 
 #### Release candidate testing 候选版本测试
@@ -359,12 +360,11 @@ This “CI is alerting” insight is new, and we’re still figuring out how to 
 
 ----
 
-> 9	Aiming for 100% uptime is the wrong target. Pick something like 99.9% or 99.999% as a business or product trade-off, define and monitor your actual uptime, and use that “budget” as an input to how aggressively you’re willing to push risky releases./
+> [9^]: Aiming for 100% uptime is the wrong target. Pick something like 99.9% or 99.999% as a business or product trade-off, define and monitor your actual uptime, and use that “budget” as an input to how aggressively you’re willing to push risky releases./
 > 9 以100%的正常运行时间为目标是错误的。选择像99.9%或99.999%这样的目标作为业务或产品的权衡，定义并监控你的实际正常运行时间，并使用该 "成本预算 "作为你愿意多积极地推动风险发布的输入。
 >
-> 10	We believe CI is actually critical to the software engineering ecosystem: a must-have, not a luxury. But that is not universally understood yet./
+> [10^]: We believe CI is actually critical to the software engineering ecosystem: a must-have, not a luxury. But that is not universally understood yet./
 > 10 我们相信CI实际上对软件工程生态系统至关重要：它是必需品，而不是奢侈品。但这一点尚未得到普遍理解。
-
 
 ### CI Challenges
 
@@ -410,11 +410,11 @@ Another approach that helps with test instability (and other CI challenges) is h
 
 Because talking to a live backend is unreliable, we often use [hermetic backends ](https://oreil.ly/-PbRM)for larger-scoped tests. This is particularly useful when we want to run these tests on presubmit, when stability is of utmost importance. In [Chapter 11](#_bookmark838), we introduced the concept of hermetic tests:
 
-*Hermetic tests*: tests run against a test environment (i.e., application servers and resources) that is entirely self-contained (i.e., no external dependencies like production backends).
+    *Hermetic tests*: tests run against a test environment (i.e., application servers and resources) that is entirely self-contained (i.e., no external dependencies like production backends).
 
 因为与实时后端交互是不可靠的，我们经常使用[封闭后端](https://oreil.ly/-PbRM)进行较大范围的测试。当我们想在提交前运行这些测试时，这是特别有用的，因为此时稳定性是最重要的。在第11章中，我们介绍了封闭测试的概念。
 
-​	*封闭测试*：针对测试环境（即应用服务器和资源）运行的测试，是完全自成一体的（即没有像生产后端那样的外部依赖）。
+    *封闭测试*：针对测试环境（即应用服务器和资源）运行的测试，是完全自成一体的（即没有像生产后端那样的外部依赖）。
 
 Hermetic tests have two important properties: greater determinism (i.e., stability) and isolation. Hermetic servers are still prone to some sources of nondeterminism, like system time, random number generation, and race conditions. But, what goes into the test doesn’t change based on outside dependencies, so when you run a test twice with the same application and test code, you should get the same results. If a hermetic test fails, you know that it’s due to a change in your application code or tests (with a minor caveat: they can also fail due to a restructuring of your hermetic test environment, but this should not change very often). For this reason, when CI systems rerun tests hours or days later to provide additional signals, hermeticity makes test failures easier to narrow down.
 
@@ -439,26 +439,25 @@ The cleanest option to achieve a presubmit-worthy integration test is with a ful
 Record/replay (see [Chapter 14](#_bookmark1181)) systems record live backend responses, cache them, and replay them in a hermetic test environment. Record/replay is a powerful tool for reducing test instability, but one downside is that it leads to brittle tests: it’s difficult to strike a balance between the following:
 
 *False positives*
-
-​	The test passes when it probably shouldn’t have because we are hitting the cache too much and missing problems that would surface when capturing a new response.
+    The test passes when it probably shouldn’t have because we are hitting the cache too much and missing problems that would surface when capturing a new response.
 
 *False negatives*
-
-​	The test fails when it probably shouldn’t have because we are hitting the cache too little. This requires responses to be updated, which can take a long time and lead to test failures that must be fixed, many of which might not be actual problems. This process is often submit-blocking, which is not ideal.
+​   The test fails when it probably shouldn’t have because we are hitting the cache too little. This requires responses to be updated, which can take a long time and lead to test failures that must be fixed, many of which might not be actual problems. This process is often submit-blocking, which is not ideal.
 
 记录/重放（见第14章）系统记录实时的后端响应，缓存它们，并在一个封闭的测试环境中重放它们。记录/重放是一个强大的工具，可以减少测试的不稳定性，但一个缺点是它会导致测试变脆弱：很难在以下方面取得平衡：
 
 *假阳性*
-​	测试在不应该通过的情况下通过了，因为我们对缓存的访问太多，并且遗漏了捕获新响应时可能出现的问题。
+​   测试在不应该通过的情况下通过了，因为我们对缓存的访问太多，并且遗漏了捕获新响应时可能出现的问题。
 
 *错误的否定*
-​	测试在不应该通过的情况下失败了，因为我们对缓冲区的命中太少。这需要更新响应，这可能需要很长时间，并导致必须修复的测试失败，其中许多可能不是实际问题。这个过程通常是提交阻塞，这并不理想。
+​   测试在不应该通过的情况下失败了，因为我们对缓冲区的命中太少。这需要更新响应，这可能需要很长时间，并导致必须修复的测试失败，其中许多可能不是实际问题。这个过程通常是提交阻塞，这并不理想。
 
 Ideally, a record/replay system should detect only problematic changes and cache- miss only when a request has changed in a meaningful way. In the event that that change causes a problem, the code change author would rerun the test with an updated response, see that the test is still failing, and thereby be alerted to the problem. In practice, knowing when a request has changed in a meaningful way can be incredibly difficult in a large and ever-changing system.
 
 理想情况下，记录/重放系统应该只检测有问题的更改，并且只有在请求以有意义的方式更改时才检测缓存未命中。如果该更改导致问题，代码修改者会用更新的响应重新运行测试，查看测试是否仍然失败，并因此收到问题警报。在实践中，在一个大型且不断变化的系统中，知道请求何时以有意义的方式发生了更改可能非常困难。
 
 > [^11]: In practice, it’s often difficult to make a completely sandboxed test environment, but the desired stability can be achieved by minimizing outside dependencies.
+>
 > 11 在实践中，通常很难做出一个完全沙盒化的测试环境，但可以通过尽量减少外部的依赖性来实现所需的稳定性。
 
 -----
@@ -505,7 +504,7 @@ Now let’s look in more detail at how CI is implemented at Google. First, we’
 
 ### TAP: Google’s Global Continuous Build 谷歌的全球持续构建
 
-Adam Bender 亚当-本德 
+Adam Bender 亚当-本德
 
 We run a massive continuous build, called the Test Automation Platform (TAP), of our entire codebase. It is responsible for running the majority of our automated tests. As a direct consequence of our use of a monorepo, TAP is the gateway for almost all changes at Google. Every day it is responsible for handling more than 50,000 unique changes *and* running more than four billion individual test cases.
 
@@ -565,7 +564,8 @@ Fast rollbacks work hand in hand with a test suite to ensure continued productiv
 
 快速回滚与测试套件携手并进，以确保持续的生产力。测试给了我们改变的信心，回滚给了我们撤销的信心。没有测试，回滚就不能安全进行。没有回滚，破损的测试就不能被快速修复，从而降低了对系统的信心。
 
-> 12 Any change to Google’s codebase can be rolled back with two clicks!
+> [12^]: Any change to Google’s codebase can be rolled back with two clicks!
+>
 > 12 对谷歌代码库的任何改动都可以通过两次点击来回滚。
 
 #### Resource constraints 资源限制
@@ -627,13 +627,11 @@ So, the team reused the sandboxed environments from presubmit, easily extending 
 **Lesson learned.** Faster feedback loops prevent problems in dev deploys:
 
 - Moving tests for different Takeout products from “after nightly deploy” to presubmit prevented 95% of broken servers from bad configuration and reduced nightly deployment failures by 50%.
-
 - Though end-to-end tests couldn’t be moved all the way to presubmit, they were still moved from “after nightly deploy” to “post-submit within two hours.” This effectively cut the “culprit set” by 12 times.
 
 **经验教训。**更快的反馈循环防止了开发部署中的问题：
 
 - 将不同Takeout产品的测试从 "夜间部署后 "转移到预提交，可以防止95%的服务器因配置不良而损坏，并将夜间部署的失败率降低50%。
-
 - 尽管端到端测试不能全部转移到预提交，但它们仍然从 "夜间部署后 "转移到 "两小时内提交后"。这有效地将 "罪魁祸首集 "减少了12倍。
 
 #### Scenario #2: Indecipherable test logs 场景2：无法识别的测试日志
@@ -646,7 +644,7 @@ Takeout’s end-to-end tests dumped its failures to a log, and this approach did
 
 Takeout的端到端测试将其故障转储到日志中，这种方法不能扩展到90个产品插件。随着更多产品的集成，更多的故障被引入。尽管团队在提交后的CI中更早更频繁地运行测试，但多个故障还是会堆积在里面，很容易被忽略。翻阅这些日志成了一个令人沮丧的时间消耗，而且测试几乎总是失败。
 
-**What the team did.** The team refactored the tests into a dynamic, configuration-based suite (using a [parameterized test runner](https://oreil.ly/UxkHk)) that reported results in a friendlier UI, clearly showing individual test results as green or red: no more digging through logs. They also made failures much easier to debug, most notably, by displaying failure information, with links to logs, directly in the error message. For example, if Takeout failed to fetch a file from Gmail, the test would dynamically construct a link that searched for that file’s ID in the Takeout logs and include it in the test failure message. This automated much of the debugging process for product plug-in engineers and required less of the Takeout team’s assistance in sending them logs, as demonstrated in [Figure 23-3](#_bookmark2091).
+**What the team did.** The team refactored the tests into a dynamic, configuration-based suite (using a [parameterized test runner](https://oreil.ly/UxkHk)) that reported results in a friendlier UI, clearly showing individual test results as green or red: no more digging through logs. They also made failures much easier to debug, most notably, by displaying failure information, with links to logs, directly in the error message. For example, if Takeout failed to fetch a file from Gmail, the test would dynamically construct a link that searched for that file’s ID in the Takeout logs and include it in the test failure message. This automated much of the debugging process for product plug-in engineers and required less of the Takeout team’s assistance in sending them logs, as demonstrated in Figure 23-3.
 
 **团队所做的**。团队将测试重构为一个动态的、基于配置的套件（使用一个参数化的测试运行器），在一个更友好的用户界面中报告结果，清楚地显示单个测试结果为绿色或红色：不再翻阅日志。他们还使失败变得更容易调试，最明显的是，在错误信息中直接显示失败信息，并提供日志链接。例如，如果Takeout从Gmail获取文件失败，测试将动态地构建一个链接，在Takeout日志中搜索该文件的ID，并将其包含在测试失败信息中。如图23-3所示，这使产品插件工程师的大部分调试过程自动化，并在向他们发送日志时不再需要Takeout团队的协助。
 
@@ -750,7 +748,6 @@ Even though we’ve described our CI processes and some of how we’ve automated
 
 - Accessible, actionable feedback allows a CI system to become more efficient.
 
-
 - CI系统决定使用什么测试以及何时使用。
 
 - 随着代码库的老化和规模的扩大，CI系统变得越来越有必要。
@@ -758,6 +755,3 @@ Even though we’ve described our CI processes and some of how we’ve automated
 - CI应该在提交前优化更快、更可靠的测试，在提交后优化更慢、更不确定的测试。
 
 - 可访问、可操作的反馈使CI系统变得更加有效。
-
-
-
