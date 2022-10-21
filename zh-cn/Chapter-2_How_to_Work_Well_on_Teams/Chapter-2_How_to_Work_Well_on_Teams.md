@@ -48,6 +48,7 @@ The answer is insecurity. People are afraid of others seeing and judging their w
 答案是缺乏安全感。人们害怕别人看到和评价他们正在进行的工作。从某种意义上说，缺乏安全感是人性的一部分——没有人喜欢被批评，尤其是那些没有完成的事情。认识到这个主题让我们看到了软件开发中一个更普遍的趋势：缺乏安全实际上是一个更大问题的征兆。
 
 > [^1]: Ben Collins-Sussman, also an author within this book.
+>
 > 1 Ben Collins-Sussman，也是本书的作者之一。
 
 ## The Genius Myth  天才的神话
@@ -85,6 +86,7 @@ Celebrity is a big part of it. Humans have a natural instinct to find leaders an
 名人效应是一个重要原因。人类有寻找领导者和榜样的本能，崇拜他们，并试图模仿他们。我们都需要英雄来激发灵感，编程世界也有自己的英雄。“科技名人”已经几乎被神化，我们都想写一些改变世界的东西，比如Linux或者设计下一种优秀的编程语言。
 
 Deep down, many engineers secretly wish to be seen as geniuses. This fantasy goes something like this:
+
 - You are struck by an awesome new concept.
 - You vanish into your cave for weeks or months, slaving away at a perfect implementation of your idea.
 - You then “unleash” your software on the world, shocking everyone with your genius.
@@ -117,7 +119,7 @@ To quote a friend:
     *I know I get SERIOUSLY insecure about people looking before something is done. Like they are going to seriously judge me and think I’m an idiot.*
 
 引用一位朋友的话：  
-		*我知道，别人在我完成某事之前就来看，会让我感到非常不安全。好像他们会认真地评判我，认为我是个白痴。*
+   *我知道，别人在我完成某事之前就来看，会让我感到非常不安全。好像他们会认真地评判我，认为我是个白痴。*
 
 This is an extremely common feeling among programmers, and the natural reaction is to hide in a cave, work, work, work, and then polish, polish, polish, sure that no one will see your goof-ups and that you’ll still have a chance to unveil your masterpiece when you’re done. Hide away until your code is perfect.
 
@@ -162,10 +164,12 @@ Early sharing isn’t just about preventing personal missteps and getting your i
 
 尽早分享不仅仅是为了防止个人失误和检验你的想法，对于加强我们称之为项目的巴士因子也是十分重要的。
 
-> [^2]:    Literally, if you are, in fact, a bike designer.
+> [^2]: Literally, if you are, in fact, a bike designer.
+>
 > 2  实际上，如果你是一个自行车设计师。
 >
-> [^3]:    I should note that sometimes it’s dangerous to get too much feedback too early in the process if you’re still unsure of your general direction or goal.
+> [^3]: I should note that sometimes it’s dangerous to get too much feedback too early in the process if you’re still unsure of your general direction or goal.
+>
 > 3  我应该注意到，如果你仍然不确定自己的总体方向或目标，那么在过程中过早地获得太多反馈是很危险的。
 
 ### The Bus Factor 巴士因子
@@ -225,8 +229,8 @@ Don’t misunderstand us—we still think engineers need uninterrupted time to f
 
 ------
 
-
 > [^4]:    I do, however, acknowledge that serious introverts likely need more peace, quiet, and alone time than most people and might benefit from a quieter environment, if not their own office.  
+>
 > 4  然而，我承认，严肃内向的人可能比大多数人需要更多的平静、安静和独处的时间，如果不是他们自己的办公室，他们可能会从一个更安静的环境中受益。
 
 ### In Short, Don’t Hide 总之，不要隐藏
@@ -276,8 +280,9 @@ So, if teamwork is the best route to producing great software, how does one buil
 那么，如果团队合作是生产优秀软件的最佳路径，那么如何建立（或找到）一个优秀的团队呢？
 
 To reach collaborative nirvana, you first need to learn and embrace what I call the “three pillars” of social skills. These three principles aren’t just about greasing the wheels of relationships; they’re the foundation on which all healthy interaction and collaboration are based:
+
 *Pillar 1: Humility*  
-	You are not the center of the universe (nor is your code!). You’re neither omniscient nor infallible. You’re open to self-improvement.
+    You are not the center of the universe (nor is your code!). You’re neither omniscient nor infallible. You’re open to self-improvement.
 *Pillar 2: Respect*  
     You genuinely care about others you work with. You treat them kindly and appreciate their abilities and accomplishments.
 *Pillar 3: Trust*  
@@ -297,6 +302,7 @@ If you perform a root-cause analysis on almost any social conflict, you can ulti
 如果你对所有社会冲突进行根本原因分析，你最终可以追溯到缺乏谦逊、尊重和信任。一开始听起来似乎不太可信，但不妨试一试。想想你生活中的一些令人尴尬或不舒服的社交场合。在最基本的层面上，每个人都适当地谦虚吗？人们真的互相尊重吗？有相互信任吗？
 
 > [^5]:    This is incredibly difficult if you’ve been burned in the past by delegating to incompetent people./
+>
 > 5  如果你过去曾被委派给不称职的人，这将是非常困难的。
 
 ### Why Do These Pillars Matter?为什么这些支柱很重要？
@@ -337,7 +343,8 @@ Ego manifests itself in many ways, and a lot of the time, it can get in the way 
     John Tukey almost always dressed very casually. He would go into an important office and it would take a long time before the other fellow realized that this is a first-class man and he had better listen. For a long time, John has had to overcome this kind of hostility. It’s wasted effort! I didn’t say you should conform; I said, “The appearance of conforming gets you a long way.” If you chose to assert your ego in any number of ways, “I am going to do it my way,” you pay a small steady price throughout the whole of your professional career. And this, over a whole lifetime, adds up to an enormous amount of needless trouble. […] By realizing you have to use the system and studying how to get the system to do your work, you learn how to adapt the system to your desires. Or you can fight it steadily, as a small, undeclared war, for the whole of your life.
 
 自我表现在很多方面，很多时候，它会妨碍你的生产力，拖累你。下面是Hamming演讲中的另一个精彩故事，完美地说明了这一点（重点是我们的）：
-	*John Tukey 几乎总是穿得很随便。他会走进一个重要会议，过了很长一段时间，另一个人才意识到这是一个牛逼的人，他最好听从。长期以来，约翰不得不克服这种敌意。这是白费力气！我没说你应该服从；我说，“顺从的外表让你走得更远。”如果你选择以任何一种方式来主张你的自我，"我要用我的方式来做"，你就会在整个职业生涯中付出确定的小代价。而这，在整个一生中，加起来就是一个大量的不必要的麻烦。[…]通过意识到你必须使用这个系统并研究如何让这个系统完成你的工作，你学会了如何让这个系统适应你的愿望。或者你可以在你的一生中，作为一场小型的、不宣而战的战争，稳扎稳打。*
+
+    *John Tukey 几乎总是穿得很随便。他会走进一个重要会议，过了很长一段时间，另一个人才意识到这是一个牛逼的人，他最好听从。长期以来，约翰不得不克服这种敌意。这是白费力气！我没说你应该服从；我说，“顺从的外表让你走得更远。”如果你选择以任何一种方式来主张你的自我，"我要用我的方式来做"，你就会在整个职业生涯中付出确定的小代价。而这，在整个一生中，加起来就是一个大量的不必要的麻烦。[…]通过意识到你必须使用这个系统并研究如何让这个系统完成你的工作，你学会了如何让这个系统适应你的愿望。或者你可以在你的一生中，作为一场小型的、不宣而战的战争，稳扎稳打。*
 
 #### Learn to give and take criticism 学会给出和接受批评
 
@@ -386,12 +393,12 @@ Over in Google X—the division that works on “moonshots” like self-driving 
 
 在谷歌X部门——该部门负责研究自动驾驶汽车和通过热气球提供互联网接入等 "登月计划"——故意将失败次数纳入其激励系统。人们会想出一些稀奇古怪的想法，同事们也会受到积极的鼓励尽快实现它们。每个人都会得到奖励（甚至是竞争），看看他们能在一段固定的时间内反驳或否定多少观点。只有当一个概念真的不能在白板上被所有同行揭穿时，它才能进入早期原型。
 
-> [^6]:    You can find a dozen variants of this legend on the web, attributed to different famous managers./
+> [^6]:    You can find a dozen variants of this legend on the web, attributed to different famous managers.
+>
 > 6  你可以在网上找到这一传说的十几种变体，它们都是由不同的著名经理人创造的。
-> 
-> [^7]:    By the same token, if you do the same thing over and over and keep failing, it’s not failure, it’s incompetence./
+>
+> [^7]:    By the same token, if you do the same thing over and over and keep failing, it’s not failure, it’s incompetence.
 > 7  同样的道理，如果你一次又一次地做同样的事情，却不断失败，那不是失败，而是无能。
-
 
 ### Blameless Post-Mortem Culture 无责的事后文化
 
@@ -400,6 +407,7 @@ The key to learning from your mistakes is to document your failures by performin
 从错误中学习的关键是通过进行根因分析和撰写“事后总结”来记录你的失败，在谷歌（和许多其他公司）成为事后总结（国内成为复盘）。要格外小心，确保 "事后总结 "文件不只是一份无用的道歉、借口或指责的清单，这不是它的目的。正确事后总结应该总是包含对所学到的内容的解释，以及作为学习经验作为后续的改进落地。然后，确保事后总结可以随时查阅，并确保团队真正贯彻执行所建议的改变。好的故障复盘要让其他人（现在和将来）知道发生了什么，避免重蹈覆辙。不要抹去你的足迹——让它们在道路上照亮给那些追随你的人!
 
 A good postmortem should include the following:
+
 - A brief summary of the event
 - A timeline of the event, from discovery through investigation to resolution
 - The primary cause of the event
@@ -409,6 +417,7 @@ A good postmortem should include the following:
 - Lessons learned
 
 一个好的事后总结应该包括以下内容：
+
 - 事件的简要概述
 - 事件的时间线，从发现、调查到解决的过程
 - 事件的主要原因
@@ -465,6 +474,7 @@ Of course, we eventually realized that the term “Googley” was being overload
 当然，我们最终意识到“Googley”这个词的含义太多了；更糟糕的是，它可能成为招聘或评估中无意识偏见的来源。如果“Googley”对每个员工都有不同的含义，那么我们就有可能把“Googley”这个词的意思改成“和我一样”。显然，这不是一个好的招聘模式——我们不希望招聘 "和我一样 "的人，而是来自不同背景、有不同意见和经验的人。面试官想和候选人（或同事）一起喝啤酒的愿望，绝不应该被认为是关于其他人的表现或在谷歌发展的能力的有效信号。
 
 Google eventually fixed the problem by explicitly defining a rubric for what we mean by “Googleyness”—a set of attributes and behaviors that we look for that represent strong leadership and exemplify “humility, respect, and trust”:
+
 - *Thrives in ambiguity*  
     Can deal with conflicting messages or directions, build consensus, and make progress against a problem, even when the environment is constantly shifting.
 - *Values feedback*  
@@ -479,18 +489,19 @@ Google eventually fixed the problem by explicitly defining a rubric for what we 
     Has a strong sense of ethics about everything they do; willing to make difficult or inconvenient decisions to protect the integrity of the team and product.
 
 谷歌最终解决了这个问题，明确定义了我们所说的“谷歌特质”（Googleyness）——我们所寻找的一套属性和行为，代表了强大的领导力，体现了 "谦逊、尊重和信任"：
+
 - *在模棱两可中茁壮成长*  
-	即使在环境不断变化的情况下，也能处理相互冲突的信息或方向，建立共识，并对问题做出改进。
+    即使在环境不断变化的情况下，也能处理相互冲突的信息或方向，建立共识，并对问题做出改进。
 - *重视反馈*  
-	谦虚优雅地接受和给出反馈，理解反馈对个人（和团队）发展的价值。
+    谦虚优雅地接受和给出反馈，理解反馈对个人（和团队）发展的价值。
 - *走出舒适区*  
-	能够设定宏伟的目标并去追求，即使有来自他人的抵制或惰性。
+    能够设定宏伟的目标并去追求，即使有来自他人的抵制或惰性。
 - *客户第一*  
-	对谷歌产品的用户抱有同情和尊重，并追求符合其最佳利益的行动。
+    对谷歌产品的用户抱有同情和尊重，并追求符合其最佳利益的行动。
 - *关心团队*  
-	对同事抱有同情心和尊重，并积极主动地帮助他们，提高团队凝聚力。
+    对同事抱有同情心和尊重，并积极主动地帮助他们，提高团队凝聚力。
 - *做正确的事*  
-	对自己所做的一切有强烈的主人感；愿意做出困难或不易的决定以保护团队和产品的完整。
+    对自己所做的一切有强烈的主人感；愿意做出困难或不易的决定以保护团队和产品的完整。
 
 Now that we have these best-practice behaviors better defined, we’ve begun to shy away from using the term “Googley.” It’s always better to be specific about expectations!
 
