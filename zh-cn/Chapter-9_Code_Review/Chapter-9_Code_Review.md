@@ -1,5 +1,4 @@
 
-
 **CHAPTER 9**
 
 # Code Review
@@ -22,11 +21,12 @@ Some of the benefits of code review, such as detecting bugs in code before they 
 
 代码审查的一些好处，例如在代码进入代码库之前检测到代码中的错误，已经得到了很好的证实，而且有点明显（如果测量不精确的话）。然而，其他的好处则更为微妙。由于谷歌的代码审查过程是如此的普遍和广泛，我们已经注意到了许多这些更微妙的影响，包括心理上的影响，随着时间的推移和规模的扩大，会给一个组织带来许多好处。
 
-
-> [^1]:	We also use Gerrit to review Git code, primarily for our open source projects. However, Critique is the primary tool of a typical software engineer at Google./
+> [^1]: We also use Gerrit to review Git code, primarily for our open source projects. However, Critique is the primary tool of a typical software engineer at Google.
+>
 > 1 我们也使用Gerrit来审查Git代码，主要用于我们的开源项目。然而，Critique是谷歌公司典型的软件工程师的主要工具。
-
-> [^2]: Steve McConnell, Code Complete (Redmond: Microsoft Press, 2004)./
+>
+> [^2]: Steve McConnell, Code Complete (Redmond: Microsoft Press, 2004).
+>
 > 2 史蒂夫·麦康奈尔, Code Complete (雷蒙德：微软出版社，2004年).
 
 ## Code Review Flow  代码审查流程
@@ -36,6 +36,7 @@ Code reviews can happen at many stages of software development. At Google, code 
 代码评审可以发生在软件开发的多个阶段。在谷歌，代码评审是在更改提交到代码库之前进行的；这个阶段也被称为*预提交审查*。代码评审的主要最终目标是让另一位工程师同意变更，我们通过将变更标记为“我觉得不错”（LGTM）来表示。我们将此LGTM用作必要的权限“标识”（与下面提到的其他标识结合使用），以允许提交更改。
 
 A typical code review at Google goes through the following steps:
+
 1. A user writes a change to the codebase in their workspace. This *author* then creates a snapshot of the change: a patch and corresponding description that are uploaded to the code review tool. This change produces a *diff* against the codebase, which is used to evaluate what code has changed.
 2. The author can use this initial patch to apply automated review comments or do self-review. When the author is satisfied with the diff of the change, they mail the change to one or more reviewers. This process notifies those reviewers, asking them to view and comment on the snapshot.
 3. *Reviewers* open the change in the code review tool and post comments on the diff. Some comments request explicit resolution. Some are merely informational.
@@ -44,6 +45,7 @@ A typical code review at Google goes through the following steps:
 6. After a change is marked LGTM, the author is allowed to commit the change to the codebase, provided they *resolve all comments* and that the change is *approved*. We’ll cover approval in the next section.
 
 谷歌的典型代码审查过程如下：
+
 1. 用户在其工作区的代码库中写入一个变更。然后作者创建变更的快照：一个补丁和相应的描述，上传到代码审查工具。此更改会产生与代码库的*差异*，用于评估已更改的代码。
 2. 作者可以使用此初始补丁应用自动审查评论或进行自我审查。当作者对变更的差异感到满意时，他们会将变更邮寄给一个或多个审查者。此过程通知这些审查者，要求他们查看快照并对其进行评论。
 3. *审查者*在代码审阅工具中打开更改，并在差异上发表评论。有些评论要求明确的解决。有些仅仅是信息性的。
@@ -57,7 +59,7 @@ We’ll go over this process in more detail later in this chapter.
 
 -----
 
-#### Code Is a Liability    编码是一种责任
+#### Code Is a Liability 编码是一种责任
 
 It’s important to remember (and accept) that code itself is a liability. It might be a necessary liability, but by itself, code is simply a maintenance task to someone somewhere down the line. Much like the fuel that an airplane carries, it has weight, though it is, of course, [necessary for that airplane to fly](https://oreil.ly/TmoWX).
 
@@ -83,12 +85,14 @@ We’ve pointed out roughly how the typical code review process works, but the d
 
 我们已经粗略地指出了典型的代码审查过程是如何工作的，但问题在于细节。本节详细概述了谷歌的代码审查工作原理，以及这些实践如何使其能够随时间适当扩展。
 
-There are three aspects of review that require “approval” for any given change at Google:  
+There are three aspects of review that require “approval” for any given change at Google:
+
 - A correctness and comprehension check from another engineer that the code is appropriate and does what the author claims it does. This is often a team member, though it does not need to be. This is reflected in the LGTM permissions “bit,” which will be set after a peer reviewer agrees that the code “looks good” to them.
 - Approval from one of the code owners that the code is appropriate for this particular part of the codebase (and can be checked into a particular directory). This approval might be implicit if the author is such an owner. Google’s codebase is a tree structure with hierarchical owners of particular directories. (See [Chapter 16](#_bookmark1364)). Owners act as gatekeepers for their particular directories. A change might be proposed by any engineer and LGTM’ed by any other engineer, but an owner of the directory in question must also *approve* this addition to their part of the codebase. Such an owner might be a tech lead or other engineer deemed expert in that particular area of the codebase. It’s generally up to each team to decide how broadly or narrowly to assign ownership privileges.
 - Approval from someone with language “readability”[^3] that the code conforms to the language’s style and best practices, checking whether the code is written in the manner we expect. This approval, again, might be implicit if the author has such readability. These engineers are pulled from a company-wide pool of engineers who have been granted readability in that programming language.
 
-对于Google的任何特定变化，有三个方面的审查需要 "批准"：  
+对于Google的任何特定变化，有三个方面的审查需要 "批准"：
+
 - 由另一位工程师进行的正确性和可读性检查，检查代码是否合适，以及代码是否符合作者的要求。这通常是一个团队成员，尽管不一定是。这反映在LGTM权限的 "标识 "上，在同行审查者同意代码 "看起来不错 "之后，该标识将被设置。
 - 来自代码所有者之一的批准，即该代码适合于代码库的这个特定部分（并且可以被检查到一个特定的目录）。如果作者是这样一个所有者，这种批准可能是隐含的。谷歌的代码库是一个树状结构，有特定目录的分层所有者。(见第16章）。所有者作为他们特定目录的看门人。任何工程师都可以提出修改意见，任何其他工程师也可以提出LGTM，但有关目录的所有者必须*批准*在他们的代码库中加入这一内容。这样的所有者可能是技术领导或其他被认为是代码库特定领域的专家的工程师。通常由每个团队决定分配所有权特权的范围是宽还是窄。
 - 拥有语言 "可读性"的人批准代码符合语言的风格和最佳实践，检查代码是否以我们期望的方式编写。如果作者有这样的可读性，这种认可又可能是隐含的。这些工程师来自公司范围内的工程师队伍，他们被授予了该编程语言的可读性。
@@ -109,7 +113,8 @@ If all three of these types of reviews can be handled by one reviewer, why not j
 
 如果这三种类型的审查都可以由一个审查员处理，为什么不直接让这些类型的审查员处理所有的代码审查呢？简单的答案是规模。将这三种角色分开，可以增加代码审查过程的灵活性。如果你和同行一起在一个实用程序库中开发一个新的函数，你可以让你团队中的某人来审查代码的正确性和理解性。经过几轮（也许是几天的时间），你的代码让你的同行审查员满意，你就会得到一个LGTM。现在，你只需要让该库的*所有者*（而所有者往往具有适当的可读性）批准这项修改。
 
-> [^3]: At Google, “readability” does not refer simply to comprehension, but to the set of styles and best practices that allow code to be maintainable to other engineers. See Chapter 3./
+> [^3]: At Google, “readability” does not refer simply to comprehension, but to the set of styles and best practices that allow code to be maintainable to other engineers. See Chapter 3.
+>
 > 3   在谷歌，“可读性”不仅仅指理解能力，而是指允许其他工程师维护代码的一套风格和最佳实践。见第3章。
 
 -----
@@ -176,7 +181,8 @@ Many of these benefits are critical to a software organization over time, and ma
 
 随着时间的推移，这些好处对一个软件组织来说是至关重要的，其中许多好处不仅对作者有利，而且对审查员也有利。下面的章节将对这些项目中的每一项进行更详细的说明。
 
-> [^4]:	Some changes to documentation and configurations might not require a code review, but it is often still preferable to obtain such a review./
+> [^4]: Some changes to documentation and configurations might not require a code review, but it is often still preferable to obtain such a review.
+>
 > 4   对文档和配置的某些更改可能不需要代码审查，但通常仍然可以获得这样的审查。
 
 ### Code Correctness  代码正确性
@@ -193,7 +199,7 @@ To prevent the evaluation of correctness from becoming more subjective than obje
 
 为了防止正确性评估变得更加主观而非客观，作者通常会遵循其特定方法，无论是在设计中还是在引入变更的功能中。审查员不应该因为个人意见而提出替代方案。审查员可以提出替代方案，但前提是这些替代方案能够改善理解性（例如，通过降低复杂性）或功能性（例如，通过提高效率）。一般来说，鼓励工程师批准改进代码库的更改，而不是等待就更“完美”的解决方案达成共识。这种关注倾向于加速代码审查。
 
-As tooling becomes stronger, many correctness checks are performed automatically through techniques such as static analysis and automated testing (though tooling might never completely obviate the value for human-based inspection of code—see [Chapter 20 ](#_bookmark1781)for more information). Though this tooling has its limits, it has definitely lessoned the need to rely on human-based code reviews for checking code correctness.
+As tooling becomes stronger, many correctness checks are performed automatically through techniques such as static analysis and automated testing (though tooling might never completely obviate the value for human-based inspection of code—see Chapter 20 for more information). Though this tooling has its limits, it has definitely lessoned the need to rely on human-based code reviews for checking code correctness.
 
 随着工具越来越强大，许多正确性检查会通过静态分析和自动测试等技术自动执行（尽管工具可能永远不会完全消除基于人工的代码检查的价值，更多信息请参见第20章）。尽管这种工具有其局限性，但它明确地说明了需要依靠基于人工的代码检查来检查代码的正确性。
 
@@ -205,12 +211,13 @@ Surprisingly enough, checking for code correctness is not the primary benefit Go
 
 令人惊讶的是，检查代码的正确性并不是谷歌从代码审查过程中获得的最大好处。检查代码正确性通常可以确保更改有效，但更重要的是确保代码更改是可以理解的，并且随着时间的推移和代码库本身的扩展而变得有意义。为了评估这些方面，我们需要查看除代码在逻辑上是否“正确”或理解之外的其他因素。
 
-> [^5]:	“Advances in Software Inspection,” IEEE Transactions on Software Engineering, SE-12(7): 744–751, July 1986. Granted, this study took place before robust tooling and automated testing had become so important in the software development process, but the results still seem relevant in the modern software age./
+> [^5]: “Advances in Software Inspection,” IEEE Transactions on Software Engineering, SE-12(7): 744–751, July 1986. Granted, this study took place before robust tooling and automated testing had become so important in the software development process, but the results still seem relevant in the modern software age.
+>
 > 5 "Advances in Software Inspection," IEEE Transactions on Software Engineering, SE-12(7): 744-751, July 1986. 诚然，这项研究发生在强大的工具和自动测试在软件开发过程中变得如此重要之前，但其结果在现代软件时代似乎仍有意义。
 >
-> [^6]:	Rigby, Peter C. and Christian Bird. 2013. “Convergent software peer review practices.” ESEC/FSE 2013: Proceedings of the 2013 9th Joint Meeting on Foundations of Software Engineering, August 2013: 202-212. https:// dl.acm.org/doi/10.1145/2491411.2491444./
+> [^6]: Rigby, Peter C. and Christian Bird. 2013. “Convergent software peer review practices.” ESEC/FSE 2013: Proceedings of the 2013 9th Joint Meeting on Foundations of Software Engineering, August 2013: 202-212. https:// dl.acm.org/doi/10.1145/2491411.2491444.
+>
 > 6 Rigby, Peter C. and Christian Bird. 2013. "趋同的软件同行评审实践"。ESEC/FSE 2013。2013年第九届软件工程基础联席会议论文集》，2013年8月：202-212。https:// dl.acm.org/doi/10.1145/2491411.2491444。
-
 
 ### Comprehension of Code  代码理解
 
@@ -346,16 +353,18 @@ Keeping changes small also allows the “approval” reviewers to more quickly a
 
 保持小的更改也允许 "批准 "审查员更快地批准任何特定的变化。他们可以快速检查主要的代码审查员是否尽职尽责，并纯粹关注这一变化是否增强了代码库，同时随着时间的推移保持代码的健康。
 
-> [^7]:	Caitlin Sadowski, Emma Söderberg, Luke Church, Michal Sipko, and Alberto Bacchelli, “Modern code review: a case study at Google.”/
+> [^7]: Caitlin Sadowski, Emma Söderberg, Luke Church, Michal Sipko, and Alberto Bacchelli, “Modern code review: a case study at Google.”
+>
 > 7   Caitlin Sadowski、Emma Söderberg、Luke Church、Michal Sipko和Alberto Baccelli，“现代代码评论：谷歌的案例研究”
 >
-> [^8]:	Ibid.
+> [^8]: Ibid.
+>
 > 8   同上。
 
 
 ### Write Good Change Descriptions  写出好的变更描述
 
-A change description should indicate its type of change on the first line, as a summary. The first line is prime real estate and is used to provide summaries within the code review tool itself, to act as the subject line in any associated emails, and to become the visible line Google engineers see in a history summary within Code Search (see [Chapter 17](#_bookmark1485)), so that first line is important.
+A change description should indicate its type of change on the first line, as a summary. The first line is prime real estate and is used to provide summaries within the code review tool itself, to act as the subject line in any associated emails, and to become the visible line Google engineers see in a history summary within Code Search (see Chapter 17), so that first line is important.
 
 变更描述应该在第一行标注它的变更类型，作为一个摘要。第一行是最重要的，它被用来在代码审查工具中提供摘要，作为任何相关电子邮件的主题行，并成为谷歌工程师在代码搜索中看到的历史摘要的可见行（见第17章），所以第一行很重要。
 
@@ -381,7 +390,8 @@ The code review process is optimized around the trust we place in our engineers 
 
 代码审查过程是围绕着我们对工程师的信任而优化的，他们会做正确的事情。在某些情况下，让一个特定的更改由多人审查可能是有用的，但即使在这些情况下，这些审查员也应该专注于同一变化的不同方面。
 
-> [^9]:	Ibid.
+> [^9]: Ibid.
+>
 > 9   同上。
 
 ### Automate Where Possible  尽可能实现自动化
@@ -390,7 +400,7 @@ Code review is a human process, and that human input is important, but if there 
 
 代码评审是一个人工过程，人的投入很重要，但是如果代码过程中的某些部分可以自动化，就尽量这样做。应该探索将人类的机械任务自动化的机会；在适当的工具上的投资可以获得回报。在谷歌，我们的代码审查工具允许作者自动提交修改，并在批准后自动同步到源代码控制系统（通常用于相当简单的修改）。
 
-One of the most important technological improvements regarding automation over the past few years is automatic static analysis of a given code change (see [Chapter 20](#_bookmark1781)). Rather than require authors to run tests, linters, or formatters, the current Google code review tooling provides most of that utility automatically through what is known as *presubmits*. A presubmit process is run when a change is initially sent to a reviewer. Before that change is sent, the presubmit process can detect a variety of problems with the existing change, reject the current change (and prevent sending an awkward email to a reviewer), and ask the original author to fix the change first. Such automation not only helps out with the code review process itself, it also allows the reviewers to focus on more important concerns than formatting.
+One of the most important technological improvements regarding automation over the past few years is automatic static analysis of a given code change (see Chapter 20). Rather than require authors to run tests, linters, or formatters, the current Google code review tooling provides most of that utility automatically through what is known as *presubmits*. A presubmit process is run when a change is initially sent to a reviewer. Before that change is sent, the presubmit process can detect a variety of problems with the existing change, reject the current change (and prevent sending an awkward email to a reviewer), and ask the original author to fix the change first. Such automation not only helps out with the code review process itself, it also allows the reviewers to focus on more important concerns than formatting.
 
 在过去的几年中，关于自动化的最重要的技术改进之一是对给定的代码修改进行自动静态分析（见第20章）。目前的Google代码审查工具并不要求作者运行测试、linters或格式化程序，而是通过所谓的*预提交*自动提供大部分的效用。预提交的过程是在一个更改最初被发送给一个审查员时运行的。在该更改被发送之前，预提交程序可以检测到现有更改的各种问题，拒绝当前的更改（并防止向审查者发送尴尬的电子邮件），并要求原作者首先修复该更改。这样的自动化不仅对代码审查过程本身有帮助，还能让审查员专注于比格式化更重要的问题。
 
@@ -416,7 +426,7 @@ The least common type of code review is that of entirely new code, a so-called *
 
 最不常见的代码审查类型是全新的代码，即所谓的*绿地审查*。绿地审查是评估代码是否经得起时间考验的最重要时机：随着时间和规模的变化，代码的基本假设也会发生变化，它将更容易维护。当然，引入全新的代码并不令人惊讶。正如本章前面提到的，编码是一种责任，因此引入全新的代码通常应该解决一个真正的问题，而不仅仅是提供另一种选择。在Google，除了代码审查之外，我们一般要求新的代码和/或项目要经过广泛的设计审查。代码审查不是辩论过去已经做出的设计决定的时候（同样的道理，代码审查也不是介绍建议的API的设计的时候）。
 
-To ensure that code is sustainable, a greenfield review should ensure that an API matches an agreed design (which may require reviewing a design document) and is tested *fully*, with all API endpoints having some form of unit test, and that those tests fail when the code’s assumptions change. (See [Chapter 11](#_bookmark838)). The code should also have proper owners (one of the first reviews in a new project is often of a single OWNERS file for the new directory), be sufficiently commented, and provide supplemental documentation, if needed. A greenfield review might also necessitate the introduction of a project into the continuous integration system. (See [Chapter 23](#_bookmark2022)).
+To ensure that code is sustainable, a greenfield review should ensure that an API matches an agreed design (which may require reviewing a design document) and is tested *fully*, with all API endpoints having some form of unit test, and that those tests fail when the code’s assumptions change. (See Chapter 11). The code should also have proper owners (one of the first reviews in a new project is often of a single OWNERS file for the new directory), be sufficiently commented, and provide supplemental documentation, if needed. A greenfield review might also necessitate the introduction of a project into the continuous integration system. (See Chapter 23).
 
 为了确保代码是可持续性，绿地审查应该确保API与商定的设计相匹配（这可能需要审查设计文档），并进行*充分测试*，所有API端点都有某种形式的单元测试，而且当代码的假设发生变化时，这些测试会失效。(见第11章）。代码还应该有适当的所有者（一个新项目的第一次审查往往是对新目录的一个单一的OWNERS文件的审查），有足够的注释，如果需要的话，还应该提供补充文档。绿地审查也可能需要将项目引入持续集成系统。(参见第23章）。
 
@@ -454,7 +464,7 @@ It also becomes critically important that any change that could cause a potentia
 
 ### Refactorings and Large-Scale Changes  重构和大规模更改
 
-Many changes at Google are automatically generated: the author of the change isn’t a person, but a machine. We discuss more about the large-scale change (LSC) process in [Chapter 22](#_bookmark1935), but even machine-generated changes require review. In cases where the change is considered low risk, it is reviewed by designated reviewers who have approval privileges for our entire codebase. But for cases in which the change might be risky or otherwise requires local domain expertise, individual engineers might be asked to review automatically generated changes as part of their normal workflow.
+Many changes at Google are automatically generated: the author of the change isn’t a person, but a machine. We discuss more about the large-scale change (LSC) process in Chapter 22, but even machine-generated changes require review. In cases where the change is considered low risk, it is reviewed by designated reviewers who have approval privileges for our entire codebase. But for cases in which the change might be risky or otherwise requires local domain expertise, individual engineers might be asked to review automatically generated changes as part of their normal workflow.
 
 谷歌的许多变更是自动生成的：变更的作者不是人，而是机器。我们在第22章中讨论了更多关于大规模变更(LSC)的过程，但即使是机器生成的变更也需要审查。在被认为是低风险的情况下，它被指定的审查员审查，他们对我们的整个代码库有批准权。但对于那些可能有风险或需要本地领域专业知识的变化，个别工程师可能被要求审查自动生成的变化，作为他们正常工作流程的一部分。
 

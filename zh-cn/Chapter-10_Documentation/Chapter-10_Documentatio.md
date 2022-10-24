@@ -59,10 +59,12 @@ If documentation conveys all these benefits, why is it generally considered “p
 - 由于有限的工具支持或集成到开发人员的工作流程中，编写文档往往更加困难。
 - 文档被看作是一个额外的负担——需要维护的其他东西——而不是能使他们现有的代码维护更容易的东西。
 
-> [^1]:    OK, you will need to maintain it and revise it occasionally./
+> [^1]: OK, you will need to maintain it and revise it occasionally.
+>
 > 1   好的，你将需要维护它并偶尔修改它。
 >
-> [^2]:    English is still the primary language for most programmers, and most technical documentation for programmers relies on an understanding of English./
+> [^2]: English is still the primary language for most programmers, and most technical documentation for programmers relies on an understanding of English.
+>
 > 2   英语仍然是大多数程序员的主要语言，大多数程序员的技术文档都依赖于对英语的理解。
 
 Not every engineering team needs a technical writer (and even if that were the case, there aren’t enough of them). This means that engineers will, by and large, write most of the documentation themselves. So, instead of forcing engineers to become technical writers, we should instead think about how to make writing documentation easier for engineers. Deciding how much effort to devote to documentation is a decision your organization will need to make at some point.
@@ -165,7 +167,8 @@ The key difference was that maintaining documentation became a similar experienc
 
 ------
 
-> [^3]: When we deprecated GooWiki, we found that around 90% of the documents had no views or updates in the previous few months./
+> [^3]: When we deprecated GooWiki, we found that around 90% of the documents had no views or updates in the previous few months.
+>
 > 3   当我们弃用GooWiki时，我们发现大约90%的文档在前几个月没有视图或更新。
 
 ## Know Your Audience 了解你的受众

@@ -29,8 +29,9 @@ The wide variance among even our own style guides makes it difficult to pin down
 
 即使是我们自己的风格指南也存在很大的差异，这使得我们很难精确地描述一个风格指南应该涵盖什么内容。指导谷歌风格指南开发的决定源于保持我们代码库可持续性的需要。其他组织的代码库天生对可持续性有不同的要求，这就需要一套不同的定制规则。本章讨论了指导我们规则和指南开发的原则和过程，主要从谷歌的c++、Python和Java风格指南中抽取示例。
 
-> [^1]: Many of our style guides have external versions, which you can find at https://google.github.io/styleguide. We cite numerous examples from these guides within this chapter. /
-> 1 我们的许多风格指南都有外部版本，你可以在https://google.github.io/styleguide。我们在本章中引用了这些指南中的许多例子。 
+> [^1]: Many of our style guides have external versions, which you can find at https://google.github.io/styleguide. We cite numerous examples from these guides within this chapter.
+>
+> 1 我们的许多风格指南都有外部版本，你可以在https://google.github.io/styleguide。我们在本章中引用了这些指南中的许多例子。
 
 ## Why Have Rules?  为什么需要规则？
 
@@ -59,6 +60,7 @@ In this context, the goal of our rules is to manage the complexity of our develo
 在这种情况下，我们规则的目标是管理开发环境的复杂性，保持代码库的可管理性，同时仍然允许工程师高效地工作。我们在这里做了权衡:帮助我们实现这一目标的大量规则确实意味着我们在限制选择。我们失去了一些灵活性，甚至可能会冒犯某些人，但权威标准所带来的一致性和减少冲突的收益是最重要的。
 
 Given this view, we recognize a number of overarching principles that guide the development of our rules, which must:
+
 - Pull their weight
 - Optimize for the reader
 - Be consistent
@@ -66,6 +68,7 @@ Given this view, we recognize a number of overarching principles that guide the 
 - Concede to practicalities when necessary
 
 鉴于这一观点，我们认识到一些指导我们制定规则的首要原则，这些原则必须:
+
 - 发挥其作用
 - 为读者优化
 - 保持一致
@@ -82,7 +85,8 @@ To this end, we deliberately chose not to include rules expected to be self-evid
 
 为此，我们有意排除了大家公认的不言而喻的规则。谷歌的风格指南不打算以法律的方式解释;没有明确规定的东西并不意味着它是合法的。例如，c++风格指南没有规定禁止使用goto。c++程序员已经倾向于避免使用它，所以包含禁止使用它的显式规则将引入不必要的开销。如果只有一两个工程师犯了错误，那么通过创建新规则来增加每个人的负担是不利于以后扩展的。
 
-> [^2]: Tooling matters here. The measure for “too many” is not the raw number of rules in play, but how many an engineer needs to remember. For example, in the bad-old-days pre-clang-format, we needed to remember a ton of formatting rules. Those rules haven’t gone away, but with our current tooling, the cost of adherence has fallen dramatically. We’ve reached a point at which somebody could add an arbitrary number of formatting rules and nobody would care, because the tool just does it for you./
+> [^2]: Tooling matters here. The measure for “too many” is not the raw number of rules in play, but how many an engineer needs to remember. For example, in the bad-old-days pre-clang-format, we needed to remember a ton of formatting rules. Those rules haven’t gone away, but with our current tooling, the cost of adherence has fallen dramatically. We’ve reached a point at which somebody could add an arbitrary number of formatting rules and nobody would care, because the tool just does it for you.
+>
 > 2  这里的工具很重要。衡量 "太多 "的标准不是规则的初始数量，而是一个工程师需要记住多少规则。例如，在clang-format之前的糟糕时代，我们需要记住大量的格式化规则。这些规则并没有消失，但在我们目前的工具中，遵守规则的成本已经大大降低了。我们已经达到了这样的程度：任何人都可以添加任意数量的格式化规则，而没有人会在意，因为工具只是为你处理好。
 
 #### Optimize for the reader   为读者优化
@@ -99,7 +103,7 @@ Evidence of intended behavior becomes even more important when it might be surpr
 
 这可能令人惊讶，有意行为的证明变得更加重要。在C++中，仅仅通过阅读一段代码，有时很难追踪指针的所有权。如果一个指针被传递给一个函数，在不熟悉该函数的行为的情况下，我们不能确定将会发生什么。调用者仍然拥有指针吗?这个函数拥有所有权了吗?我可以在函数返回后继续使用指针吗?或者它可能已经被删除了?为了避免这个问题，我们的C++风格指南更倾向于使用std::unique_ptr来实现所有权转移。Unique_ptr是一个管理指针所有权的构造，确保指针只有一个副本存在。当函数接受一个unique_ptr作为参数，并打算获得指针的所有权时，调用者必须显式地调用move语义:
 
-```
+```C++
 // Function that takes a Foo* and may or may not assume ownership of 
 // the passed pointer.
 void TakeFoo(Foo* arg);
@@ -108,10 +112,11 @@ void TakeFoo(Foo* arg);
 Foo* my_foo(NewFoo());
 TakeFoo(my_foo);
 ```
+
 Compare this to the following:
 将此与以下内容进行比较:
 
-```
+```C++
 // Function that takes a std::unique_ptr<Foo>.
 void TakeFoo(std::unique_ptr<Foo> arg);
 // Any call to the function explicitly shows that ownership is 
@@ -141,6 +146,7 @@ That’s what we strive for with our source code. Consistency is what enables an
 ##### Advantages of consistency    一致性的优点
 
 Even though it might feel restrictive for an office to be disallowed from customizing a badge reader or video conferencing interface, the consistency benefits far outweigh the creative freedom we lose. It’s the same with code: being consistent may feel constraining at times, but it means more engineers get more work done with less effort:[^3]
+
 - When a codebase is internally consistent in its style and norms, engineers writing code and others reading it can focus on what’s getting done rather than how it is presented. To a large degree, this consistency allows for expert chunking. [^4]When we solve our problems with the same interfaces and format the code in a consistent way, it’s easier for experts to glance at some code, zero in on what’s important, and understand what it’s doing. It also makes it easier to modularize code and spot duplication. For these reasons, we focus a lot of attention on consistent naming conventions, consistent use of common patterns, and consistent formatting and structure. There are also many rules that put forth a decision on a seemingly small issue solely to guarantee that things are done in only one way.For example, take the choice of the number of spaces to use for indentation or the limit set on line length .[^5] It’s the consistency of having one answer rather than the answer itself that is the valuable part here.
 - Consistency enables scaling. Tooling is key for an organization to scale, and consistent code makes it easier to build tools that can understand, edit, and generate code. The full benefits of the tools that depend on uniformity can’t be applied if everyone has little pockets of code that differ—if a tool can keep source files updated by adding missing imports or removing unused includes, if different projects are choosing different sorting strategies for their import lists, the tool might not be able to work everywhere. When everyone is using the same components and when everyone’s code follows the same rules for structure and organization, we can invest in tooling that works everywhere, building in automation for many of our maintenance tasks. If each team needed to separately invest in a bespoke version of the same tool, tailored for their unique environment, we would lose that advantage.
 - Consistency helps when scaling the human part of an organization, too. As an organization grows, the number of engineers working on the codebase increases. Keeping the code that everyone is working on as consistent as possible enables better mobility across projects, minimizing the ramp-up time for an engineer switching teams and building in the ability for the organization to flex and adapt as headcount needs fluctuate. A growing organization also means that people in other roles interact with the code—SREs, library engineers, and code janitors, for example. At Google, these roles often span multiple projects, which means engineers unfamiliar with a given team’s project might jump in to work on that project’s code. A consistent experience across the codebase makes this efficient.
@@ -152,15 +158,17 @@ Even though it might feel restrictive for an office to be disallowed from custom
 - 在扩展组织的人力部分时，一致性也有帮助。随着组织的增长，从事代码库工作的工程师数量也会增加。让每个人都在编写的代码尽可能一致，这样可以更好地跨项目移动，最大限度地减少工程师转换团队的过渡时间，并为组织构建适应员工需求波动的能力。一个成长中的组织还意味着其他角色的人与代码SREs、库工程师和代码管理员进行交互。在谷歌，这些角色通常跨越多个项目，这意味着不熟悉某个团队项目的工程师可能会参与到项目代码的编写中。跨代码库的一致体验使得这种方法非常有效。
 - 一致性也确保了对时间的适应性。随着时间的推移，工程师离开项目，新人加入，所有权转移，项目合并或分裂。努力实现一致的代码库可以确保这些转换的成本较低，并允许我们对代码和工作在代码上的工程师几乎不受约束的流动，从而简化长期维护所需的过程。
 
-> [^3]:  Credit to H. Wright for the real-world comparison, made at the point of having visited around 15 different Google offices./
+> [^3]:  Credit to H. Wright for the real-world comparison, made at the point of having visited around 15 different Google offices.
+>
 > 3 归功于H.Wright的现实世界的比较，这是在访问了大约15个不同的谷歌办公室后做出的。
-> 
-> [^4]:  “Chunking” is a cognitive process that groups pieces of information together into meaningful “chunks” rather than keeping note of them individually. Expert chess players, for example, think about configurations of  pieces rather than the positions of the individuals./
+>
+> [^4]:  “Chunking” is a cognitive process that groups pieces of information together into meaningful “chunks” rather than keeping note of them individually. Expert chess players, for example, think about configurations of  pieces rather than the positions of the individuals.
+>
 > 4  "分块 "是一种认知过程，它将信息碎片组合成有意义的 "块"，而不是单独记下它们。例如，国际象棋高手考虑的是棋子的配置，而不是个人的位置。
-> 
+>
 > [^5]:  See [4.2 Block indentation: +2 spaces, Spaces vs. Tabs, 4.4 Column limit:100 and Line Length](https://oreil.ly/WhufW)
+>
 > 5 查阅  [4.2 Block indentation: +2 spaces, Spaces vs. Tabs, 4.4 Column limit:100 and Line Length](https://oreil.ly/WhufW)
-
 
 -----
 
@@ -192,7 +200,8 @@ However, it is not always enough for an organization to create and stick to a se
 
 然而，对于一个组织来说，仅仅创建并遵守一套内部惯例是不够的。有时，应考虑到外部环境的惯例。
 
-> [^6]: Use of const, for example./
+> [^6]: Use of const, for example.
+>
 > 6 [使用const](https://google.github.io/styleguide/cppguide.html#Use_of_const)，例子。
 
 -----
@@ -213,7 +222,8 @@ If conventions already exist, it is usually a good idea for an organization to b
 
 如果惯例已经存在，那么一个组织与外界保持一致通常是一个好主意。对于小的，独立的，生命周期短的项目，它可能不会有什么不同;内部一致性比发生在项目有限范围之外的任何事情都重要。一旦时间的推移和潜在的扩展性成为要素，代码与外部项目交互甚至最终与外部世界交互的可能性就会增加。从长远来看，坚持被广泛接受的标准可能会有回报。
 
-> [^7]: Style formatting for BUILD files implemented with Starlark is applied by buildifier. See https://github.com/ bazelbuild/buildtools./
+> [^7]: Style formatting for BUILD files implemented with Starlark is applied by buildifier. See https://github.com/ bazelbuild/buildtools.
+>
 > 7 用Starlark实现的BUILD文件的样式格式由buildifier应用。参见https://github.com/ bazelbuild/buildtools。
 
 #### Avoid error-prone and surprising constructs  避免容易出错和令人惊讶的结构
@@ -279,20 +289,24 @@ Interoperability also matters. Code that is designed to work with specific non-G
 
 互操作性也很重要。为特定的非google部分而设计的代码，如果为其目标量身定做，可能会做得更好。例如，我们的C++风格指南有一个通用CamelCase命名准则的例外，它允许对模仿标准库功能的实体使用标准库的 snake_case 风格。C++风格指南还允许对Windows编程的豁免，在Windows编程中，与平台特性的兼容性需要使用多重继承，这对其他情况的C++代码来说都是明确禁止的。我们的Java和JavaScript风格指南都明确指出，生成的代码中，经常与项目之外的组件交互或依赖于这些组件的代码不在本指南的范围内。一致性是非常重要的；适应更是关键所在。
 
-> [^8]: See [Exceptions to Naming Rules](https://google.github.io/styleguide/cppguide.html#Exceptions_to_Naming_Rules). As an example, our open sourced Abseil libraries use snake_case naming for types intended to be replacements for standard types. See the types defined in https://github.com/abseil/abseilcpp/blob/master/absl/utility/utility.h. These are C++11 implementation of C++14 standard types and therefore use the standard’s favored snake_case style instead of Google’s preferred CamelCase form./
+> [^8]: See [Exceptions to Naming Rules](https://google.github.io/styleguide/cppguide.html#Exceptions_to_Naming_Rules). As an example, our open sourced Abseil libraries use snake_case naming for types intended to be replacements for standard types. See the types defined in https://github.com/abseil/abseilcpp/blob/master/absl/utility/utility.h. These are C++11 implementation of C++14 standard types and therefore use the standard’s favored snake_case style instead of Google’s preferred CamelCase form.
+>
 > 8 见命名规则的例外情况。作为一个例子，我们的开源Abseil库对打算替代标准类型的类型使用了snake_case命名。参见https://github.com/abseil/abseilcpp/blob/master/absl/utility/utility.h 中定义的类型。这些是C++11对C++14标准类型的实现，因此使用了标准所青睐的snake_case风格，而不是谷歌所青睐的CamelCase形式。
-> 
-> [^9};  See [Generated code: mostly exempt](https://google.github.io/styleguide/jsguide.html#policies-generated-code-mostly-exempt)./
+>
+> [^9};  See [Generated code: mostly exempt](https://google.github.io/styleguide/jsguide.html#policies-generated-code-mostly-exempt).
+>
 > 9 查阅 [生成的代码：主要是豁免](https://google.github.io/styleguide/jsguide.html#policies-generated-code-mostly-exempt)./
 
 ### The Style Guide  风格指南
 
 So, what does go into a language style guide? There are roughly three categories into which all style guide rules fall:
+
 - Rules to avoid dangers
 - Rules to enforce best practices
 - Rules to ensure consistency
 
 那么，语言风格指南应该包含哪些内容呢?所有的风格指南规则大致分为三类:
+
 - 规避危险的规则
 - 执行最佳实践的规则
 - 确保一致性的规则
@@ -317,9 +331,9 @@ Our style guides also include limitations on new and not-yet-well-understood lan
 
 我们的风格指南还包括对新的和尚未被很好理解的语言特性的限制。目的是在学习过程中，在一个功能的潜在缺陷周围预先安装安全围栏。同时，在每个人都应用起来之前，限制使用让我们有机会观察，从我们观察的例子中开发和提取最佳实践的使用模式。对于这些新特性，在开始的时候，我们有时并不确定该如何给予适当的指导。随着采用范围的扩大，希望以不同方式使用新特性的工程师会与风格指南的所有者讨论他们的例子，要求允许超出最初限制范围的额外用例。通过观察收到的豁免请求，我们了解了该特性是如何被使用的，并最终收集了足够多的示例来总结好的实践。在我们得到这些信息之后，我们可以回到限制性规则，并修改它以允许更广泛的使用。
 
-> [^10]: See https://google.github.io/styleguide/cppguide.html#Comments, http://google.github.io/styleguide/pyguide#38-comments-and-docstrings, and https://google.github.io/styleguide/javaguide.html#s7-javadoc, where multiple languages define general comment rules./
-> 10 查阅 https://google.github.io/styleguide/cppguide.html#Comments, http://google.github.io/styleguide/pyguide#38-comments-and-docstrings, 以及 https://google.github.io/styleguide/javaguide.html#s7-javadoc, where multiple languages define general comment rules.其中多种语言定义了一般的评论规则。。
-
+> [^10]: See `https://google.github.io/styleguide/cppguide.html#Comments`, `http://google.github.io/styleguide/pyguide#38-comments-and-docstrings`, and `https://google.github.io/styleguide/javaguide.html#s7-javadoc`, where multiple languages define general comment rules.
+>
+> 10 查阅 `https://google.github.io/styleguide/cppguide.html#Comments`, `http://google.github.io/styleguide/pyguide#38-comments-and-docstrings`, 以及 `https://google.github.io/styleguide/javaguide.html#s7-javadoc`, where multiple languages define general comment rules.其中多种语言定义了一般的评论规则。
 
 ---
 
@@ -341,7 +355,8 @@ Our style guides also contain rules that cover a lot of the smaller stuff. For t
 
 我们的风格指南还包含了一些规则，涵盖了许多较小的内容。对于这些规则，我们主要是为了做出和记录一个决定。这类规则中的许多规则都没有重大的技术影响。诸如命名约定、缩进间距、导入顺序等:通常一种形式相对于另一种形式没有明确的、可衡量的技术优势，这可能是技术社区倾向于对它们争论不休的原因。选择一个，我们就退出了无休止的辩论循环，可以继续前进了。我们的工程师不再花时间去讨论两个空格与四个空格。这类规则的重要部分不是我们为给定的规则选择的内容，而是我们选择的这个动作本身。
 
-> 11 Such discussions are really just bikeshedding, an illustration of Parkinson’s law of triviality./
+> 11 Such discussions are really just bikeshedding, an illustration of Parkinson’s law of triviality.
+>
 > 11 这样的讨论实际上只是在骑自行车，是对帕金森法则的零散的描述。
 
 #### And for everything else...   至于其他的一切……
@@ -366,7 +381,7 @@ Documenting the reasoning behind a given decision gives us the advantage of bein
 
 ---
 
-#### Case Study: CamelCase Naming   案例分析：驼峰命名法
+#### Case Study:CamelCase Naming 案例分析：驼峰命名法
 
 At Google, when we defined our initial style guidance for Python code, we chose to use CamelCase naming style instead of snake_case naming style for method names. Although the public Python style guide (PEP 8) and most of the Python community used snake_case naming, most of Google’s Python usage at the time was for C++ developers using Python as a scripting layer on top of a C++ codebase. Many of the defined Python types were wrappers for corresponding C++ types, and because Google’s C++ naming conventions follow CamelCase style, the cross-language consistency was seen as key.
 
@@ -410,7 +425,7 @@ The actual decision making for any style guide change is a discussion of the eng
 
 对于任何风格指南的更改，实际的决策都是对提议修改的工程权衡的反复讨论。仲裁者在风格指南优化的一致目标上下文中做出决定。更改并非根据个人喜好。它们是权衡判断。事实上，C++风格仲裁组目前由四个成员组成。这可能看起来很奇怪:如果委员会成员人数为奇数，就可以防止出现出现意见分歧的情况，出现票数平手的情况。然而，由于决策制定方法的本质，没有什么是“因为我认为它应该是这样的”，一切都是一种权衡，决策是通过共识而不是投票做出的。这个由四名成员组成的小组就这样愉快地运作着。
 
- ### Exceptions   例外
+### Exceptions   例外
 
 Yes, our rules are law, but yes, some rules warrant exceptions. Our rules are typically designed for the greater, general case. Sometimes, specific situations would benefit from an exemption to a particular rule. When such a scenario arises, the style arbiters are consulted to determine whether there is a valid case for granting a waiver to a particular rule.
 
@@ -447,16 +462,19 @@ Software engineers come in to a new project or codebase with knowledge of the pr
 软件工程师进入一个新的项目或代码库时，已经掌握了他们将要使用的编程语言的知识，但缺乏关于如何在 Google 中使用该编程语言的知识。为了弥补这一差距，我们为使用中的每一种主要编程语言设置了一系列的“<语言>@Google 101”课程。这些全日制课程侧重于在我们的代码库中使用该语言进行开发的不同之处。它们涵盖了最常用的库和习惯用法、内部首选项和自定义工具的使用。对于一个刚刚成为谷歌C++工程师的C++工程师，该课程填补了缺失的部分，使他们不仅是一名优秀的工程师，而且是一名优秀的 Google 代码库工程师。
 
 In addition to teaching courses that aim to get someone completely unfamiliar with our setup up and running quickly, we also cultivate ready references for engineers deep in the codebase to find the information that could help them on the go. These references vary in form and span the languages that we use. Some of the useful references that we maintain internally include the following:
+
 - Language-specific advice for the areas that are generally more difficult to get correct (such as concurrency and hashing).
 - Detailed breakdowns of new features that are introduced with a language update and advice on how to use them within the codebase.
 - Listings of key abstractions and data structures provided by our libraries. This keeps us from reinventing structures that already exist and provides a response to, “I need a thing, but I don’t know what it’s called in our libraries.”
 
-除了教授旨在让完全不熟悉我们的人快速运行的课程外，我们还为深入代码库的工程师培养现成的参考资料，以便在学习途中找到可以帮助他们的信息。这些参考资料的形式各不相同，并且跨越了我们使用的语言。我们内部维护的一些有用的参考资料包括：  
+除了教授旨在让完全不熟悉我们的人快速运行的课程外，我们还为深入代码库的工程师培养现成的参考资料，以便在学习途中找到可以帮助他们的信息。这些参考资料的形式各不相同，并且跨越了我们使用的语言。我们内部维护的一些有用的参考资料包括：
+
 - 针对通常很难正确处理的领域(如并发性和散列)提供特定语言的建议。
 - 语言更新中引入的新特性的详细分解，以及如何在代码库中使用它们的建议。
 - 我们库提供的关键抽象和数据结构列表。这阻止了我们重新创建已经存在的结构，并提供了对“我需要一个东西，但我不知道它在我们的库中叫什么”的回应。
 
-> 12 https://abseil.io/tips has a selection of some of our most popular tips./
+> 12 https://abseil.io/tips has a selection of some of our most popular tips.
+>
 > 12 https://abseil.io/tips 选择了一些我们最受欢迎的提示。
 
 ## Applying the Rules  应用规则
@@ -518,7 +536,8 @@ We enforce use of these formatters with presubmit checks: before code can be sub
 
 我们通过预提交检查强制使用这些格式化程序:在提交代码之前，服务会检查在代码上运行格式化器是否会产生任何差异。如果是，提交将被拒绝，并提供有关如何运行格式化程序以修复代码的说明。谷歌上的大多数代码都要接受这种预提交检查。在我们的代码中，C++使用了clang-format;Python使用yapf内部包装器;Go使用gofmt; Dart 使用 dartfmt;以及我们的 BUILD 文件使用buildifier。
 
-> 13 When you consider that it takes at least two engineers to have the discussion and multiply that by the number of times this conversation is likely to happen within a collection of more than 30,000 engineers, it turns out that “how many characters” can become a very expensive question./
+> 13 When you consider that it takes at least two engineers to have the discussion and multiply that by the number of times this conversation is likely to happen within a collection of more than 30,000 engineers, it turns out that “how many characters” can become a very expensive question.
+>
 > 13 当你考虑到至少需要两名工程师进行讨论，并将其乘以这种对话可能在30,000多名工程师的集合中发生的次数时，事实证明，"多少个字符 "可能成为一个成本非常高的问题。
 
 ---
@@ -573,19 +592,21 @@ It took six weeks for one engineer to get the reformatting of Google’s 200,000
 
 -----
 
-> [^14]:  In December 2018, Go was the #4 language on GitHub as measured by pull requests./
+> [^14]:  In December 2018, Go was the #4 language on GitHub as measured by pull requests.
 >
 > 14 2018年12月，按拉动请求衡量，Go是GitHub上排名第四的语言。
 >
-> [^15]:  Robert Griesemer’s 2015 talk, “The Cultural Evolution of gofmt,” provides details on the motivation, design,and impact of gofmt on Go and other languages./
+> [^15]:  Robert Griesemer’s 2015 talk, “The Cultural Evolution of gofmt,” provides details on the motivation, design,and impact of gofmt on Go and other languages.
 >
 > 15 Robert Griesemer在2015年的演讲《gofmt的文化演变》中详细介绍了gofmt的动机、设计。
 > 以及gofmt对Go和其他语言的影响。
 >
-> [^16]:  Russ Cox explained in 2009 that gofmt was about automated changes: “So we have all the hard parts of a program manipulation tool just sitting waiting to be used. Agreeing to accept ‘gofmt style’ is the piece that makes it doable in a finite amount of code.”/
+> [^16]:  Russ Cox explained in 2009 that gofmt was about automated changes: “So we have all the hard parts of a program manipulation tool just sitting waiting to be used. Agreeing to accept ‘gofmt style’ is the piece that makes it doable in a finite amount of code.”
+>
 > 16 Russ Cox在2009年解释说，gofmt是关于自动化修改的。"因此，我们有一个程序操作工具的所有硬性部分，只是坐在那里等着被使用。同意接受'gofmt风格'是使其在有限的代码量中可以做到的部分。"
 >
-> [^17]:  The Go AST and format packages each have thousands of importers./
+> [^17]:  The Go AST and format packages each have thousands of importers.
+>
 > 17 Go AST和格式包各自有成千上万的导入器。
 
 ## Conclusion  结论
@@ -607,5 +628,3 @@ For any organization, but especially for an organization as large as Google’s 
 - 并非所有事情都应该成为规则。
 - 一致性是关键。
 - 在可能的情况下自动化执行。
-
-[^2]: 

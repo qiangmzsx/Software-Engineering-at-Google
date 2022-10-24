@@ -30,10 +30,9 @@ Much ink has been spilled about the subject of testing software, and for good re
 
 关于测试软件的话题，人们已经倾注了大量的笔墨，这是有充分理由的：对于如此重要的实践，对许多人来说，把它做好似乎仍然是一门神秘的技艺。在谷歌，虽然我们已经取得了长足的进步，但我们仍然面临着让流程在整个公司内可靠扩展的难题。在本章中，我们将分享我们所学到的有助于进一步对话的知识。
 
-
-> [^1]:	See “Defect Prevention: Reducing Costs and Enhancing Quality.”/
+> [^1]: See “Defect Prevention: Reducing Costs and Enhancing Quality.”
+>
 > 1  请参阅“缺陷预防：降低成本和提高质量”
-
 
 ## Why Do We Write Tests?  为什么我们要编写测试？
 
@@ -71,8 +70,8 @@ At Google, we have determined that testing cannot be an afterthought. Focusing o
 
 在谷歌，我们已经确定测试不能是事后诸葛亮。关注质量和测试是我们工作的一部分。我们已经了解到，有时是痛苦地认识到，未能将质量融入我们的产品和服务不可避免地会导致糟糕的结果。因此，我们将测试融入了我们工程文化的核心。
 
-
-> [^2]:	See “Failure at Dhahran.”/
+> [^2]: See “Failure at Dhahran.”
+>
 > 2   参见“达兰的失败”
 
 ### The Story of Google Web Server  谷歌网络服务器的故事
@@ -107,7 +106,7 @@ Software systems are growing larger and ever more complex. A typical application
 
 软件系统正在变得越来越大，越来越复杂。谷歌的一个典型的应用程序或服务是由数千或数百万行代码组成的。它使用数以百计的库或框架，必须通过不可靠的网络传递到越来越多的平台上，并以难以计数的配置运行。更糟糕的是，新版本被频繁地推送给用户，有时每天推送多次。这与每年只更新一到两次的压缩包安装的软件世界相去甚远。
 
-The ability for humans to manually validate every behavior in a system has been unable to keep pace with the explosion of features and platforms in most software. Imagine what it would take to manually test all of the functionality of Google Search, like finding flights, movie times, relevant images, and of course web search results (see [Figure 11-1](#_bookmark854)). Even if you can determine how to solve that problem, you then need to multiply that workload by every language, country, and device Google Search must support, and don’t forget to check for things like accessibility and security. Attempting to assess product quality by asking humans to manually interact with every feature just doesn’t scale. When it comes to testing, there is one clear answer: automation.
+The ability for humans to manually validate every behavior in a system has been unable to keep pace with the explosion of features and platforms in most software. Imagine what it would take to manually test all of the functionality of Google Search, like finding flights, movie times, relevant images, and of course web search results (see Figure 11-1). Even if you can determine how to solve that problem, you then need to multiply that workload by every language, country, and device Google Search must support, and don’t forget to check for things like accessibility and security. Attempting to assess product quality by asking humans to manually interact with every feature just doesn’t scale. When it comes to testing, there is one clear answer: automation.
 
 人工手动验证系统中每一个行为的能力已经无法跟上大多数软件中功能和平台的爆炸性增长的步伐。想象一下，要手动测试谷歌搜索的所有功能，比如寻找航班、电影时间、相关图片，当然还有网页搜索结果（见图11-1），需要花费多少时间。即使你能确定如何解决这个问题，你也需要把这个工作量乘以谷歌搜索必须支持的每一种语言、国家和设备，而且别忘了检查诸如可访问性和安全性。试图通过要求人工手动与每个功能交互来评估产品质量是不可行的。当涉及到测试时，有一个明确的答案：自动化。
 
@@ -123,7 +122,7 @@ In its purest form, automating testing consists of three activities: writing tes
 
 在最纯粹的形式中，自动化测试包括三个活动：编写测试、运行测试和对测试失败作出反应。自动测试是一小段代码，通常是单个函数或方法，它调用要测试的较大系统的一个独立部分。测试代码设置预期的环境，调用系统（通常使用已知的输入），并验证结果。有些测试非常小，只执行一条代码方式；另一些则要大得多，可能涉及整个系统，如移动操作系统或web浏览器。
 
-[Example 11-1 ](#_bookmark857)presents a deliberately simple test in Java using no frameworks or testing libraries. This is not how you would write an entire test suite, but at its core every automated test looks similar to this very simple example.
+Example 11-1 )presents a deliberately simple test in Java using no frameworks or testing libraries. This is not how you would write an entire test suite, but at its core every automated test looks similar to this very simple example.
 
 例11-1绍了一个特意用Java写的简单测试，没有使用框架或测试库。这不是你编写整个测试套件的方式，但在其核心部分，每个自动化测试都与这个非常简单的例子类似。
 
@@ -147,11 +146,11 @@ Of course, writing tests is different from writing *good tests*. It can be quite
 
 当然，写测试和写*好测试*是不同的。要训练数以万计的工程师写出好的测试是相当困难的。我们将在接下来的章节中讨论关于编写好测试的知识。
 
-Writing tests is only the first step in the process of automated testing. After you have written tests, you need to run them. Frequently. At its core, automated testing consists of repeating the same action over and over, only requiring human attention when something breaks. We will discuss this Continuous Integration (CI) and testing in [Chapter 23](#_bookmark2022). By expressing tests as code instead of a manual series of steps, we can run them every time the code changes—easily thousands of times per day. Unlike human testers, machines never grow tired or bored.
+Writing tests is only the first step in the process of automated testing. After you have written tests, you need to run them. Frequently. At its core, automated testing consists of repeating the same action over and over, only requiring human attention when something breaks. We will discuss this Continuous Integration (CI) and testing in Chapter 23. By expressing tests as code instead of a manual series of steps, we can run them every time the code changes—easily thousands of times per day. Unlike human testers, machines never grow tired or bored.
 
 编写测试只是自动化测试过程中的第一步。编写测试后，需要运行它们。频繁地自动化测试的核心是一遍又一遍地重复相同的操作，只有在出现故障时才需要人的注意。我们将在第23章讨论这种持续集成（CI）和测试。通过将测试表达为代码，而不是手动的一系列步骤，我们可以在每次代码改变时运行它们——每天很容易地运行数千次。与人工测试人员不同，机器从不感到疲劳或无聊。
 
-Another benefit of having tests expressed as code is that it is easy to modularize them for execution in various environments. Testing the behavior of Gmail in Firefox requires no more effort than doing so in Chrome, provided you have configurations for both of these systems.[^3](#_bookmark864) Running tests for a user interface (UI) in Japanese or German can be done using the same test code as for English.
+Another benefit of having tests expressed as code is that it is easy to modularize them for execution in various environments. Testing the behavior of Gmail in Firefox requires no more effort than doing so in Chrome, provided you have configurations for both of these systems.^3 Running tests for a user interface (UI) in Japanese or German can be done using the same test code as for English.
 
 将测试转变为代码的另一个好处是，很容易将它们模块化，以便在各种环境中执行。在Firefox中测试Gmail的行为并不需要比在Chrome中测试更多的努力，只要你有这两个系统的配置。可以使用与英语相同的测试代码对日语或德语用户界面（UI）进行测试。
 
@@ -163,7 +162,8 @@ In summary, a healthy automated testing culture encourages everyone to share the
 
 总之，一个健康的自动化测试文化鼓励每个人分享编写测试的工作。这种文化也确保了测试的定期运行。最后，也许也是最重要的，它强调快速修复损坏的测试，以保持对测试过程的高度信心。
 
-> [^3]:	Getting the behavior right across different browsers and languages is a different story! But, ideally, the end- user experience should be the same for everyone./
+> [^3]: Getting the behavior right across different browsers and languages is a different story! But, ideally, the end- user experience should be the same for everyone.
+>
 > 3 在不同的浏览器和语言中获得正确的行为是一个不同的说法! 但是，理想情况下，终端用户的体验对每个人来说都应该是一样的。
 
 ### Benefits of Testing Code  测试代码的好处
@@ -208,7 +208,6 @@ To developers coming from organizations that don’t have a strong testing cultu
 - *快速、高质量的发布*  
 	有了健康的自动化测试套件，团队可以放心地发布新版本的应用程序。谷歌的许多项目每天都会向生产部门发布一个新的版本--即使是有数百名工程师的大型项目，每天都会提交成千上万的代码修改。如果没有自动化测试，这是不可能的。
 
-
 ## Designing a Test Suite  设计测试套件
 
 Today, Google operates at a massive scale, but we haven’t always been so large, and the foundations of our approach were laid long ago. Over the years, as our codebase has grown, we have learned a lot about how to approach the design and execution of a test suite, often by making mistakes and cleaning up afterward.
@@ -237,10 +236,9 @@ We make this distinction, as opposed to the more traditional “unit” or “in
 
 我们做出这样的区分，而不是更传统的 "单元 "或 "集成"，因为我们希望从我们的测试套件中得到的最重要的品质是速度和确定性，无论测试的范围如何。小型测试，无论范围如何，几乎总是比涉及更多基础设施或消耗更多资源的测试更快、更有确定性。对小型测试施加限制，使速度和确定性更容易实现。随着测试规模的增长，许多限制都被放松了。中型测试有更多的灵活性，但也有更多的非确定性的风险。大型测试只保存在最复杂和困难的测试场景中。让我们仔细看看每一种测试的确切约束条件。
 
-
-> [^4]:	Technically, we have four sizes of test at Google: small, medium, large, and enormous. The internal difference between large and enormous is actually subtle and historical; so, in this book, most descriptions of large actually apply to our notion of enormous./
+> [^4]:	Technically, we have four sizes of test at Google: small, medium, large, and enormous. The internal difference between large and enormous is actually subtle and historical; so, in this book, most descriptions of large actually apply to our notion of enormous.
+>
 > 4 从技术上讲，我们在谷歌有四种规模的测试：小型、中型、大型和超大型。大型和超大型之间的内部差异实际上是微妙的和历史性的；因此，在本书中，大多数关于大型的描述实际上适用于我们的超大型概念。
-
 
 #### Small tests  小型测试
 
@@ -248,7 +246,7 @@ Small tests are the most constrained of the three test sizes. The primary constr
 
 小型测试是三种测试规模中最受限制的。主要的限制是，小测试必须在一个进程中运行。在许多语言中，我们甚至进一步限制，说它们必须在一个单线程上运行。这意味着执行测试的代码必须与被测试的代码在同一进程中运行。你不能运行一个服务器，而让一个单独的测试进程连接到它。这也意味着你不能运行第三方程序，如数据库作为你测试的一部分。
 
-The other important constraints on small tests are that they aren’t allowed to sleep, perform I/O operations,[^5] or make any other blocking calls. This means that small tests aren’t allowed to access the network or disk. Testing code that relies on these sorts of operations requires the use of test doubles (see [Chapter 13](#_bookmark1056)) to replace the heavyweight dependency with a lightweight, in-process dependency.
+The other important constraints on small tests are that they aren’t allowed to sleep, perform I/O operations,[^5] or make any other blocking calls. This means that small tests aren’t allowed to access the network or disk. Testing code that relies on these sorts of operations requires the use of test doubles (see Chapter 13) to replace the heavyweight dependency with a lightweight, in-process dependency.
 
 对小测试的其他重要限制是，它们不允许休眠，执行I/O操作，或进行任何其他阻塞调用。这意味着，小测试不允许访问网络或磁盘。测试依赖于这类操作的代码需要使用测试替代（见第13章)），用轻量级的进程内依赖取代重量级依赖。
 
@@ -261,14 +259,13 @@ These restrictions might seem excessive at first, but consider a modest suite of
 
 起初，这些限制可能看起来太过夸张，但考虑一套完整的一组数百个小测试用例，在一天内运行完成。如果哪怕是其中的一小部分测试不确定地失败（通常称为松散测试），那么追踪原因将严重影响生产率。按照谷歌的规模，这样的问题可能会使我们的测试基础设施陷入停顿。
 
-At Google, we encourage engineers to try to write small tests whenever possible, regardless of the scope of the test, because it keeps the entire test suite running fast and reliably. For more discussion on small versus unit tests, see [Chapter 12](#_bookmark938).
+At Google, we encourage engineers to try to write small tests whenever possible, regardless of the scope of the test, because it keeps the entire test suite running fast and reliably. For more discussion on small versus unit tests, see Chapter 12.
 
 在谷歌，我们鼓励工程师尽可能地编写小型测试，而不管测试的范围如何，因为这样可以使整个测试套件快速可靠地运行。有关小测试与单元测试的更多讨论，请参阅第12章。
 
-
-> [^5]:	There is a little wiggle room in this policy. Tests are allowed to access a filesystem if they use a hermetic, in- memory implementation./
+> [^5]: There is a little wiggle room in this policy. Tests are allowed to access a filesystem if they use a hermetic, in- memory implementation.
+>
 > 5 这个策略有一点回旋余地。如果测试使用的是密封的、内存中的实现，则允许访问文件系统。
-
 
 #### Medium tests  中型测试
 
@@ -290,7 +287,7 @@ Finally, we have large tests. Large tests remove the localhost restriction impos
 
 最后，我们有大型测试。大型测试取消了对中型测试的本地主机限制，允许测试和被测系统跨越多台机器。例如，测试可能针对远程集群中的系统运行。
 
-As before, increased flexibility comes with increased risk. Having to deal with a system that spans multiple machines and the network connecting them increases the chance of slowness and nondeterminism significantly compared to running on a single machine. We mostly reserve large tests for full-system end-to-end tests that are more about validating configuration than pieces of code, and for tests of legacy components for which it is impossible to use test doubles. We’ll talk more about use cases for large tests in [Chapter 14](#_bookmark1181). Teams at Google will frequently isolate their large tests from their small or medium tests, running them only during the build and release process so as not to impact developer workflow.
+As before, increased flexibility comes with increased risk. Having to deal with a system that spans multiple machines and the network connecting them increases the chance of slowness and nondeterminism significantly compared to running on a single machine. We mostly reserve large tests for full-system end-to-end tests that are more about validating configuration than pieces of code, and for tests of legacy components for which it is impossible to use test doubles. We’ll talk more about use cases for large tests in Chapter 14. Teams at Google will frequently isolate their large tests from their small or medium tests, running them only during the build and release process so as not to impact developer workflow.
 
 和以前一样，灵活性的提高伴随着风险的增加。与在单一机器上运行相比，必须处理跨多台机器的系统以及连接这些机器的网络会显著增加速度慢和不确定性的概率。我们主要为全系统端到端测试保留大型测试，这些测试更多的是验证配置，而不是代码片段，并且为不可能使用测试替代的遗留组件的测试保留大型测试。我们将在第14章中更多地讨论大型测试的用例。谷歌的团队经常将大型测试与小型或中型测试隔离开来，只在构建和发布过程中运行它们，以免影响开发人员的工作流程。
 
@@ -380,8 +377,8 @@ When considering your own mix, you might want a different balance. If you emphas
 
 当考虑你自己的组合时，你可能想要一个不同的平衡。如果你强调集成测试，你可能会发现你的测试套件需要更长的时间来运行，但在组件之间捕获更多的问题。当你强调单元测试时，你的测试套件可以很快完成，而且你会捕捉到许多常见的逻辑错误。但是，单元测试无法验证组件之间的交互，就像由不同团队开发的两个系统之间的契约一样。一个好的测试套件包含不同的测试规模和范围的混合，适合本地架构和组织的实际情况。
 
-
-> 6	Mike Cohn, Succeeding with Agile: Software Development Using Scrum (New York: Addison-Wesley Professional, 2009)./
+> [^6]: Mike Cohn, Succeeding with Agile: Software Development Using Scrum (New York: Addison-Wesley Professional, 2009).
+>
 > 6   Mike Cohn，《敏捷的成功：使用Scrum的软件开发》（纽约：Addison-Wesley Professio-nal，2009）。
 
 ### The Beyoncé Rule  碧昂斯规则
@@ -418,10 +415,9 @@ A better way to approach the quality of your test suite is to think about the be
 
 评估测试套件质量的更好方法是考虑测试的行为。你有信心你的客户所期望的一切都能正常工作吗？你是否有信心能抓住你的依赖关系中的突发变化？你的测试是否稳定和可靠？像这样的问题是思考测试套件的一种更全面的方式。每个产品和团队都是不同的；有些会有难以测试的与硬件的互动，有些涉及到大量的数据集。试图用一个独立的数字来回答 "我们有足够的测试吗？"忽略了很多背景，不太可能是有用的。代码覆盖率可以提供一些对未测试代码的洞察力，但它不能替代对系统测试情况的批判性思考。
 
-
-> [^7]:	Keep in mind that there are different kinds of coverage (line, path, branch, etc.), and each says something different about which code has been tested. In this simple example, line coverage is being used./
+> [^7]: Keep in mind that there are different kinds of coverage (line, path, branch, etc.), and each says something different about which code has been tested. In this simple example, line coverage is being used.
+>
 > 7 请记住，有不同种类的覆盖率（行、路径、分支等），每一种都说明了不同的代码被测试的情况。在这个简单的例子中，我们使用的是行覆盖。
-
 
 ## Testing at Google Scale  以谷歌的规模进行测试
 
@@ -483,9 +479,9 @@ In addition to developing the proper culture, invest in your testing infrastruct
 
 除了发展适当的文化，通过开发工具、文档或其他援助，投资于你的测试基础设施，这些帮助会使其更难写出糟糕的测试。减少你需要支持的框架和工具的数量，以提高改进工作的时间效率。如果不投资于简化测试管理，工程师最终会认为根本不值得拥有它们。
 
-> [^8]:	Each supported language at Google has one standard test framework and one standard mocking/stubbing library. One set of infrastructure runs most tests in all languages across the entire codebase./
+> [^8]: Each supported language at Google has one standard test framework and one standard mocking/stubbing library. One set of infrastructure runs most tests in all languages across the entire codebase.
+>
 > 8 谷歌支持的每种语言都有一个标准的测试框架和一个标准的模拟/打桩库。一套基础设施在整个代码库中运行所有语言的大多数测试。
-
 
 ## History of Testing at Google  谷歌的测试历史
 
@@ -519,7 +515,8 @@ Testing has now become more widely practiced in the industry, so most new hires 
 
 现在，测试已经在行业中得到了更广泛的应用，所以大多数新员工来到这里时，对自动化测试的期望已经很高了。尽管如此，迎新课程仍然要设定对测试的期望，并将Nooglers在谷歌以外的测试知识与在我们非常大和非常复杂的代码库中进行测试的挑战联系起来。
 
->[^9]:	This class was so successful that an updated version is still taught today. In fact, it is one of the longest- running orientation classes in the company’s history./
+>[^9]: This class was so successful that an updated version is still taught today. In fact, it is one of the longest- running orientation classes in the company’s history.
+>
 > 9 这门课非常成功，以至于今天仍在教授更新的版本。事实上，它是公司历史上运行时间最长的定向课程之一。
 
 ### Test Certified  测试认证
