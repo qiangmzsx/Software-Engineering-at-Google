@@ -9,7 +9,6 @@
 
 **Edited by Riona Macnamara**
 
-
 Google is a data-driven company. We back up most of our products and design decisions with hard data. The culture of data-driven decision making, using appropriate metrics, has some drawbacks, but overall, relying on data tends to make most decisions objective rather than subjective, which is often a good thing. Collecting and analyzing data on the human side of things, however, has its own challenges. Specifically, within software engineering, Google has found that having a team of specialists focus on engineering productivity itself to be very valuable and important as the company scales and can leverage insights from such a team.
 
 谷歌是一家数据驱动型公司。我们的大部分产品和设计决策都有可靠的数据支持。数据驱动的决策文化，使用适当的指标，有一些不足，但总的来说，依靠数据往往使大多数决策变得客观而不是主观，这往往是一件好事。然而，收集和分析数据是人性的弱点，有其自身的挑战。具体来说，在软件工程领域，谷歌发现，随着公司规模的扩大，拥有一支专注于工程生产效率的专家团队本身是非常有价值和重要的，可以利用这样一支团队的洞察力。
@@ -44,7 +43,8 @@ For this chapter, we follow one concrete example posed by the C++ and Java langu
 
 在本章中，我们遵循谷歌的C++和Java语言团队提出的一个具体例子：可读性。在谷歌存在的大部分时间里，这些团队一直在管理谷歌的可读性过程。(关于可读性的更多信息，请参见第三章）。可读性过程是在谷歌的早期建立的，当时自动格式化工具（第8章）和阻止提交的锁定还没有普及（第9章）。这个过程本身运行成本很高，因为它需要数以百计的工程师为其他工程师进行可读性审查，以便授予他们可读性。一些工程师认为这是一个古老的自欺欺人过程，不再具有实用性，这也是午餐桌上最喜欢争论的话题。来自语言团队的具体问题是：花在可读性过程上的时间是值得的吗？
 
-> [^1]:	Frederick P. Brooks, The Mythical Man-Month: Essays on Software Engineering (New York: Addison-Wesley, 1995). 
+> [^1]: Frederick P. Brooks, The Mythical Man-Month: Essays on Software Engineering (New York: Addison-Wesley, 1995).
+>
 > 1   Frederick P.Brooks，《人月神话：软件工程随笔》（纽约：Addison Wesley，1995）。
 
 ## Triage: Is It Even Worth Measuring? 分类：是否值得度量？
@@ -60,81 +60,82 @@ At Google, we’ve come up with a series of questions to help teams determine wh
 We then ask them to consider the following aspects of their question:
 
 *What result are you expecting, and why?*  
-	Even though we might like to pretend that we are neutral investigators, we are not. We do have preconceived notions about what ought to happen. By acknowledging this at the outset, we can try to address these biases and prevent post hoc explanations of the results.  
-	When this question was posed to the readability team, it noted that it was not sure. People were certain the costs had been worth the benefits at one point in time, but with the advent of autoformatters and static analysis tools, no one was entirely certain. There was a growing belief that the process now served as a hazing ritual. Although it might still provide engineers with benefits (and they had survey data showing that people did claim these benefits), it was not clear whether it was worth the time commitment of the authors or the reviewers of the code.
+    Even though we might like to pretend that we are neutral investigators, we are not. We do have preconceived notions about what ought to happen. By acknowledging this at the outset, we can try to address these biases and prevent post hoc explanations of the results.  
+    When this question was posed to the readability team, it noted that it was not sure. People were certain the costs had been worth the benefits at one point in time, but with the advent of autoformatters and static analysis tools, no one was entirely certain. There was a growing belief that the process now served as a hazing ritual. Although it might still provide engineers with benefits (and they had survey data showing that people did claim these benefits), it was not clear whether it was worth the time commitment of the authors or the reviewers of the code.
 
 *If the data supports your expected result, what action will be taken?*  
-	We ask this because if no action will be taken, there is no point in measuring. Notice that an action might in fact be “maintain the status quo” if there is a planned change that will occur if we didn’t have this result.  
-	When asked about this, the answer from the readability team was straightforward: if the benefit was enough to justify the costs of the process, they would link to the research and the data on the FAQ about readability and advertise it to set expectations.
+    We ask this because if no action will be taken, there is no point in measuring. Notice that an action might in fact be “maintain the status quo” if there is a planned change that will occur if we didn’t have this result.  
+    When asked about this, the answer from the readability team was straightforward: if the benefit was enough to justify the costs of the process, they would link to the research and the data on the FAQ about readability and advertise it to set expectations.
 
 *If we get a negative result, will appropriate action be taken?*  
-	We ask this question because in many cases, we find that a negative result will not change a decision. There might be other inputs into a decision that would override any negative result. If that is the case, it might not be worth measuring in the first place. This is the question that stops most of the projects that our research team takes on; we learn that the decision makers were interested in knowing the results, but for other reasons, they will not choose to change course.  
-	In the case of readability, however, we had a strong statement of action from the team. It committed that, if our analysis showed that the costs either outweighed the benefit or the benefits were negligible, the team would kill the process. As different programming languages have different levels of maturity in formatters and static analyses, this evaluation would happen on a per-language basis.
+    We ask this question because in many cases, we find that a negative result will not change a decision. There might be other inputs into a decision that would override any negative result. If that is the case, it might not be worth measuring in the first place. This is the question that stops most of the projects that our research team takes on; we learn that the decision makers were interested in knowing the results, but for other reasons, they will not choose to change course.  
+    In the case of readability, however, we had a strong statement of action from the team. It committed that, if our analysis showed that the costs either outweighed the benefit or the benefits were negligible, the team would kill the process. As different programming languages have different levels of maturity in formatters and static analyses, this evaluation would happen on a per-language basis.
 
 *Who is going to decide to take action on the result, and when would they do it?*  
-	We ask this to ensure that the person requesting the measurement is the one who is empowered to take action (or is doing so directly on their behalf). Ultimately, the goal of measuring our software process is to help people make business decisions. It’s important to understand who that individual is, including what form of data convinces them. Although the best research includes a variety of approaches (everything from structured interviews to statistical analyses of logs), there might be limited time in which to provide decision makers with the data they need. In those cases, it might be best to cater to the decision maker. Do they tend to make decisions by empathizing through the stories that can be retrieved from interviews?[^2] Do they trust survey results or logs data? Do they feel comfortable with complex statistical analyses? If the decider doesn’t believe the form of the result in principle, there is again no point in measuring the process.  
-	In the case of readability, we had a clear decision maker for each programming language. Two language teams, Java and C++, actively reached out to us for assistance, and the others were waiting to see what happened with those languages first.[^3] The decision makers trusted engineers’ self-reported experiences for understanding happiness and learning, but the decision makers wanted to see “hard numbers” based on logs data for velocity and code quality. This meant that we needed to include both qualitative and quantitative analysis for these metrics. There was not a hard deadline for this work, but there was an internal conference that would make for a useful time for an announcement if there was going to be a change. That deadline gave us several months in which to complete the work.
+    We ask this to ensure that the person requesting the measurement is the one who is empowered to take action (or is doing so directly on their behalf). Ultimately, the goal of measuring our software process is to help people make business decisions. It’s important to understand who that individual is, including what form of data convinces them. Although the best research includes a variety of approaches (everything from structured interviews to statistical analyses of logs), there might be limited time in which to provide decision makers with the data they need. In those cases, it might be best to cater to the decision maker. Do they tend to make decisions by empathizing through the stories that can be retrieved from interviews?[^2] Do they trust survey results or logs data? Do they feel comfortable with complex statistical analyses? If the decider doesn’t believe the form of the result in principle, there is again no point in measuring the process.  
+    In the case of readability, we had a clear decision maker for each programming language. Two language teams, Java and C++, actively reached out to us for assistance, and the others were waiting to see what happened with those languages first.[^3] The decision makers trusted engineers’ self-reported experiences for understanding happiness and learning, but the decision makers wanted to see “hard numbers” based on logs data for velocity and code quality. This meant that we needed to include both qualitative and quantitative analysis for these metrics. There was not a hard deadline for this work, but there was an internal conference that would make for a useful time for an announcement if there was going to be a change. That deadline gave us several months in which to complete the work.
 
 然后我们要求他们考虑以下问题：
 
 *你期望的结果是什么？为什么？*
-	尽管我们可能想假装我们是中立的调查人员，但事实并非如此。我们确实对一些事有先入为主的观念。通过一开始就承认这一点，我们可以尝试解决这些偏见，防止对结果进行事后解释。
-	当这个问题被提给可读性小组时，该小组指出，它并不确定。人们确信在某个时间点上，成本是值得的，但是随着自动格式化和静态分析工具的出现，没有人完全确定。越来越多的人认为，这个过程现在成了一种自欺欺人的仪式。虽然它可能仍然为工程师提供了好处（他们有调查数据显示人们确实声称有这些好处），但不清楚它是否值得作者或代码审查员投入时间。
+    尽管我们可能想假装我们是中立的调查人员，但事实并非如此。我们确实对一些事有先入为主的观念。通过一开始就承认这一点，我们可以尝试解决这些偏见，防止对结果进行事后解释。
+    当这个问题被提给可读性小组时，该小组指出，它并不确定。人们确信在某个时间点上，成本是值得的，但是随着自动格式化和静态分析工具的出现，没有人完全确定。越来越多的人认为，这个过程现在成了一种自欺欺人的仪式。虽然它可能仍然为工程师提供了好处（他们有调查数据显示人们确实声称有这些好处），但不清楚它是否值得作者或代码审查员投入时间。
 
 *如果数据支持你的预期结果，将采取什么行动*
-	我们这样问是因为如果不采取任何行动，那么度量就没有意义了。请注意，如果没有这一结果，就会发生计划变更，那么行动实际上可能是“维持现状”。
-	当被问及这个问题时，可读性团队的回答很直截了当：如果好处足以证明这个过程的成本是合理的，他们会链接到关于可读性的FAQ上的研究和数据，并进行宣传以设定期望。
+    我们这样问是因为如果不采取任何行动，那么度量就没有意义了。请注意，如果没有这一结果，就会发生计划变更，那么行动实际上可能是“维持现状”。
+    当被问及这个问题时，可读性团队的回答很直截了当：如果好处足以证明这个过程的成本是合理的，他们会链接到关于可读性的FAQ上的研究和数据，并进行宣传以设定期望。
 
 *如果我们得到一个负面的结果，是否会采取适当的行动？*
-	我们问这个问题是因为在许多情况下，我们发现负面结果不会改变决策。决策中可能会有其他的投入，而这些投入将取代任何负面的结果。如果是这样的话，可能一开始就不值得度量。这也是阻止我们研究团队所做的大多数项目的问题；我们了解到决策者对了解结果感兴趣，但由于其他原因，他们不会选择改变方向。
-	然而，在可读性的案例中，我们有一个来自团队的强有力的行动声明。它承诺，如果我们的分析显示成本大于收益，或者收益可以忽略不计，团队将放弃这个项目。由于不同的编程语言在格式化和静态分析方面有不同的成熟度，因此该评估将基于每种语言进行。
+    我们问这个问题是因为在许多情况下，我们发现负面结果不会改变决策。决策中可能会有其他的投入，而这些投入将取代任何负面的结果。如果是这样的话，可能一开始就不值得度量。这也是阻止我们研究团队所做的大多数项目的问题；我们了解到决策者对了解结果感兴趣，但由于其他原因，他们不会选择改变方向。
+    然而，在可读性的案例中，我们有一个来自团队的强有力的行动声明。它承诺，如果我们的分析显示成本大于收益，或者收益可以忽略不计，团队将放弃这个项目。由于不同的编程语言在格式化和静态分析方面有不同的成熟度，因此该评估将基于每种语言进行。
 
 *谁将决定对结果采取行动，以及他们何时采取行动？*
-	我们这样问是为了确保要求度量的人是被授权采取行动的人（或直接代表他们采取行动）。归根结底，度量我们的软件流程的目的是帮助人们做出业务决策。了解这个人是谁很重要，包括什么形式的数据能说服他们。尽管最好的研究包括各种方法（从结构化访谈到日志的统计分析等各种方法），但为决策者提供他们需要的数据的时间可能有限。在这些情况下，最好的办法是迎合决策者的要求。他们是否倾向于通过访谈中可以获取到的故事来做出决策？他们是否信任调查结果或日志数据？他们对复杂的统计分析感到满意吗？如果决策者压根就不相信结果的形式，那么度量过程又没有意义。
-	在可读性方面，我们对每种编程语言都有一个明确的决策者。有两个语言团队，即Java和C++，积极向我们寻求帮助，而其他团队则在等待，看这些语言先发生什么。决策者相信工程师自我报告的经验，以了解快乐和学习，但决策者希望看到基于日志数据的速度和代码质量的 "硬数字"。这意味着，我们需要对这些指标进行定性和定量分析。这项工作没有一个硬性的截止日期，但有一个内部会议，如果有变化的话，这个会议将宣布一个新的时间点。这个期限给了我们几个月的时间来完成这项工作。
+    我们这样问是为了确保要求度量的人是被授权采取行动的人（或直接代表他们采取行动）。归根结底，度量我们的软件流程的目的是帮助人们做出业务决策。了解这个人是谁很重要，包括什么形式的数据能说服他们。尽管最好的研究包括各种方法（从结构化访谈到日志的统计分析等各种方法），但为决策者提供他们需要的数据的时间可能有限。在这些情况下，最好的办法是迎合决策者的要求。他们是否倾向于通过访谈中可以获取到的故事来做出决策？他们是否信任调查结果或日志数据？他们对复杂的统计分析感到满意吗？如果决策者压根就不相信结果的形式，那么度量过程又没有意义。
+    在可读性方面，我们对每种编程语言都有一个明确的决策者。有两个语言团队，即Java和C++，积极向我们寻求帮助，而其他团队则在等待，看这些语言先发生什么。决策者相信工程师自我报告的经验，以了解快乐和学习，但决策者希望看到基于日志数据的速度和代码质量的 "硬数字"。这意味着，我们需要对这些指标进行定性和定量分析。这项工作没有一个硬性的截止日期，但有一个内部会议，如果有变化的话，这个会议将宣布一个新的时间点。这个期限给了我们几个月的时间来完成这项工作。
 
 By asking these questions, we find that in many cases, measurement is simply not worthwhile…and that’s OK! There are many good reasons to not measure the impact of a tool or process on productivity. Here are some examples that we’ve seen:
 
 *You can’t afford to change the process/tools right now*  
-	There might be time constraints or financial constraints that prevent this. For example, you might determine that if only you switched to a faster build tool, it would save hours of time every week. However, the switchover will mean pausing development while everyone converts over, and there’s a major funding deadline approaching such that you cannot afford the interruption. Engineering trade-offs are not evaluated in a vacuum—in a case like this, it’s important to realize that the broader context completely justifies delaying action on a result.
+    There might be time constraints or financial constraints that prevent this. For example, you might determine that if only you switched to a faster build tool, it would save hours of time every week. However, the switchover will mean pausing development while everyone converts over, and there’s a major funding deadline approaching such that you cannot afford the interruption. Engineering trade-offs are not evaluated in a vacuum—in a case like this, it’s important to realize that the broader context completely justifies delaying action on a result.
 
 *Any results will soon be invalidated by other factors*  
-	Examples here might include measuring the software process of an organization just before a planned reorganization. Or measuring the amount of technical debt for a deprecated system.  
-	The decision maker has strong opinions, and you are unlikely to be able to provide a large enough body of evidence, of the right type, to change their beliefs.  
-	This comes down to knowing your audience. Even at Google, we sometimes find people who have unwavering beliefs on a topic due to their past experiences. We have found stakeholders who never trust survey data because they do not believe self-reports. We’ve also found stakeholders who are swayed best by a compelling narrative that was informed by a small number of interviews. And, of course, there are stakeholders who are swayed only by logs analysis. In all cases, we attempt to triangulate on the truth using mixed methods, but if a stakeholder is limited to believing only in methods that are not appropriate for the problem, there is no point in doing the work.
+    Examples here might include measuring the software process of an organization just before a planned reorganization. Or measuring the amount of technical debt for a deprecated system.  
+    The decision maker has strong opinions, and you are unlikely to be able to provide a large enough body of evidence, of the right type, to change their beliefs.  
+    This comes down to knowing your audience. Even at Google, we sometimes find people who have unwavering beliefs on a topic due to their past experiences. We have found stakeholders who never trust survey data because they do not believe self-reports. We’ve also found stakeholders who are swayed best by a compelling narrative that was informed by a small number of interviews. And, of course, there are stakeholders who are swayed only by logs analysis. In all cases, we attempt to triangulate on the truth using mixed methods, but if a stakeholder is limited to believing only in methods that are not appropriate for the problem, there is no point in doing the work.
 
 *The results will be used only as vanity metrics to support something you were going to do anyway*  
-	This is perhaps the most common reason we tell people at Google not to measure a software process. Many times, people have planned a decision for multiple reasons, and improving the software development process is only one benefit of several. For example, the release tool team at Google once requested a measurement to a planned change to the release workflow system. Due to the nature of the change, it was obvious that the change would not be worse than the current state, but they didn’t know if it was a minor improvement or a large one. We asked the team: if it turns out to only be a minor improvement, would you spend the resources to implement the feature anyway, even if it didn’t look to be worth the investment? The answer was yes! The feature happened to improve productivity, but this was a side effect: it was also more performant and lowered the release tool team’s maintenance burden.  
+    This is perhaps the most common reason we tell people at Google not to measure a software process. Many times, people have planned a decision for multiple reasons, and improving the software development process is only one benefit of several. For example, the release tool team at Google once requested a measurement to a planned change to the release workflow system. Due to the nature of the change, it was obvious that the change would not be worse than the current state, but they didn’t know if it was a minor improvement or a large one. We asked the team: if it turns out to only be a minor improvement, would you spend the resources to implement the feature anyway, even if it didn’t look to be worth the investment? The answer was yes! The feature happened to improve productivity, but this was a side effect: it was also more performant and lowered the release tool team’s maintenance burden.  
 
 *The only metrics available are not precise enough to measure the problem and can be confounded by other factors*  
-	In some cases, the metrics needed (see the upcoming section on how to identify metrics) are simply unavailable. In these cases, it can be tempting to measure using other metrics that are less precise (lines of code written, for example). However, any results from these metrics will be uninterpretable. If the metric confirms the stakeholders’ preexisting beliefs, they might end up proceeding with their plan without consideration that the metric is not an accurate measure. If it does not confirm their beliefs, the imprecision of the metric itself provides an easy explanation, and the stakeholder might, again, proceed with their plan.
+    In some cases, the metrics needed (see the upcoming section on how to identify metrics) are simply unavailable. In these cases, it can be tempting to measure using other metrics that are less precise (lines of code written, for example). However, any results from these metrics will be uninterpretable. If the metric confirms the stakeholders’ preexisting beliefs, they might end up proceeding with their plan without consideration that the metric is not an accurate measure. If it does not confirm their beliefs, the imprecision of the metric itself provides an easy explanation, and the stakeholder might, again, proceed with their plan.
 
 通过问这些问题，我们发现在许多情况下，度量根本不值得……这没有关系！有许多很好的理由不度量一个工具或过程对生产效率的影响。以下是我们看到的一些例子：
 
 *至少在现阶段，你承担不了改变这个过程/工具的成本*  
-	可能有时间上的限制或资金上的制约，使之无法进行。例如，你可能确定，只要你切换到一个更快的构建工具，每周就能节省几个小时的时间。然而，转换意味着在每个人都转换的时候暂停开发，而且有一个重要的资金期限即将到来，这样你就无法承受这种中断。工程权衡不是在真空中评估的——在这样的情况下，重要的是要意识到，更广泛的背景完全可以说明推迟对结果采取行动是合理的。
+    可能有时间上的限制或资金上的制约，使之无法进行。例如，你可能确定，只要你切换到一个更快的构建工具，每周就能节省几个小时的时间。然而，转换意味着在每个人都转换的时候暂停开发，而且有一个重要的资金期限即将到来，这样你就无法承受这种中断。工程权衡不是在真空中评估的——在这样的情况下，重要的是要意识到，更广泛的背景完全可以说明推迟对结果采取行动是合理的。
 
 *任何结果很快就会因其他因素而失效*  
-	这里的例子可能包括在计划重组之前度量一个组织的软件流程。或者度量一个被废弃的系统的技术债务的数量。  
-	决策者有强烈的意见，而你不太可能提供足够多的正确类型的证据，来改变他们的信念。  
-	这就需要了解你的受众。即使在谷歌，我们有时也会发现一些人由于他们过去的经验而对某一主题有坚定的信念。我们曾发现一些利益相关者从不相信调查数据，因为他们不相信自我观念。我们也发现一些利益相关者，他们最容易被由少量访谈得出的令人信服的叙述所动摇。当然，也有一些利益相关者只被日志分析所动摇。在所有情况下，我们都试图用混合方法对真相进行三角分析，但如果利益相关者只限于相信不适合问题的方法，那么做这项工作就没有意义。
+    这里的例子可能包括在计划重组之前度量一个组织的软件流程。或者度量一个被废弃的系统的技术债务的数量。  
+    决策者有强烈的意见，而你不太可能提供足够多的正确类型的证据，来改变他们的信念。  
+    这就需要了解你的受众。即使在谷歌，我们有时也会发现一些人由于他们过去的经验而对某一主题有坚定的信念。我们曾发现一些利益相关者从不相信调查数据，因为他们不相信自我观念。我们也发现一些利益相关者，他们最容易被由少量访谈得出的令人信服的叙述所动摇。当然，也有一些利益相关者只被日志分析所动摇。在所有情况下，我们都试图用混合方法对真相进行三角分析，但如果利益相关者只限于相信不适合问题的方法，那么做这项工作就没有意义。
 
 *结果只能作为浮华的指标，以来支持你一定要做的事情*  
-	这也许是我们在谷歌告诉人们不要度量软件过程的最常见的原因。很多时候，人们已经为多个原因规划了一个决策，而改进软件开发过程只是这些决策的一个好处。例如，谷歌的发布工具团队曾经要求对发布工作流程系统的计划变更进行度量。由于变化的性质，很明显，这个变化不会比目前的状态差，但他们不知道这是一个小的改进还是一个大的改进。我们问团队：如果结果只是一个小的改进，无论如何你会花资源来实现这个功能，即使它看起来不值得投资？答案是肯定的! 这个功能碰巧提高了生产效率，但这是一个副作用：它也更具有性能，降低了发布工具团队的维护负担。
+    这也许是我们在谷歌告诉人们不要度量软件过程的最常见的原因。很多时候，人们已经为多个原因规划了一个决策，而改进软件开发过程只是这些决策的一个好处。例如，谷歌的发布工具团队曾经要求对发布工作流程系统的计划变更进行度量。由于变化的性质，很明显，这个变化不会比目前的状态差，但他们不知道这是一个小的改进还是一个大的改进。我们问团队：如果结果只是一个小的改进，无论如何你会花资源来实现这个功能，即使它看起来不值得投资？答案是肯定的! 这个功能碰巧提高了生产效率，但这是一个副作用：它也更具有性能，降低了发布工具团队的维护负担。
 
 *唯一可用的指标不够精确，无法度量问题，而且会被其他因素所干扰*  
-	在某些情况下，所需的指标（见即将到来的关于如何识别指标的章节）根本无法获得。在这些情况下，使用其他不那么精确的指标（例如，编写的代码行）进行度量是很诱人的。然而，这些指标的任何结果都是无法解释的。如果这个指标证实了利益相关者预先存在的观念，他们最终可能会继续执行他们的计划，而不考虑这个指标不是一个准确的度量标准。如果它没有证实他们的观念，那么指标本身的不精确性就提供了一个简单的解释，利益相关者可能再次继续他们的计划。
+    在某些情况下，所需的指标（见即将到来的关于如何识别指标的章节）根本无法获得。在这些情况下，使用其他不那么精确的指标（例如，编写的代码行）进行度量是很诱人的。然而，这些指标的任何结果都是无法解释的。如果这个指标证实了利益相关者预先存在的观念，他们最终可能会继续执行他们的计划，而不考虑这个指标不是一个准确的度量标准。如果它没有证实他们的观念，那么指标本身的不精确性就提供了一个简单的解释，利益相关者可能再次继续他们的计划。
 
 When you are successful at measuring your software process, you aren’t setting out to prove a hypothesis correct or incorrect; *success means giving a stakeholder the data they need to make a decision*. If that stakeholder won’t use the data, the project is always a failure. We should only measure a software process when a concrete decision will be made based on the outcome. For the readability team, there was a clear decision to be made. If the metrics showed the process to be beneficial, they would publicize the result. If not, the process would be abolished. Most important, the readability team had the authority to make this decision.
 
 当你成功地度量你的软件过程时，你并不是为了证明一个假设的正确与否；*成功意味着给利益相关者提供他们做出决定所需的数据*。如果这个利益相关者不使用这些数据，那么这个项目就是失败的。我们只应该在根据结果做出具体决定的时候才去度量一个软件过程。对于可读性团队来说，有一个明确的决定要做。如果度量标准显示这个过程是有益的，他们将公布这个结果。如果没有，这个过程就会被废除。最重要的是，可读性小组有权力做出这个决定。
 
-> [^2]:	It’s worth pointing out here that our industry currently disparages “anecdata,” and everyone has a goal of being “data driven.” Yet anecdotes continue to exist because they are powerful. An anecdote can provide context and narrative that raw numbers cannot; it can provide a deep explanation that resonates with others because it mirrors personal experience. Although our researchers do not make decisions on anecdotes, we do use and encourage techniques such as structured interviews and case studies to deeply understand phenomena and provide context to quantitative data./
+> [^2]: It’s worth pointing out here that our industry currently disparages “anecdata,” and everyone has a goal of being “data driven.” Yet anecdotes continue to exist because they are powerful. An anecdote can provide context and narrative that raw numbers cannot; it can provide a deep explanation that resonates with others because it mirrors personal experience. Although our researchers do not make decisions on anecdotes, we do use and encourage techniques such as structured interviews and case studies to deeply understand phenomena and provide context to quantitative data.
+>
 > 2 在此值得指出的是，我们的行业目前贬低 "轶事数据"，而每个人都有一个 "数据驱动 "的目标。然而，轶事仍然存在，因为它们是强大的。轶事可以提供原始数字无法提供的背景和叙述；它可以提供一个深刻的解释，因为它反映了个人的经验，所以能引起别人的共鸣。虽然我们的研究人员不会根据轶事做出决定，但我们确实使用并鼓励结构化访谈和案例研究等技术，以深入理解现象，并为定量数据提供背景。 
-
-> [^3]:	Java and C++ have the greatest amount of tooling support. Both have mature formatters and static analysis tools that catch common mistakes. Both are also heavily funded internally. Even though other language teams, like Python, were interested in the results, clearly there was not going to be a benefit for Python to remove readability if we couldn’t even show the same benefit for Java or C++./
+>
+> [^3]: Java and C++ have the greatest amount of tooling support. Both have mature formatters and static analysis tools that catch common mistakes. Both are also heavily funded internally. Even though other language teams, like Python, were interested in the results, clearly there was not going to be a benefit for Python to remove readability if we couldn’t even show the same benefit for Java or C++.
+>
 > 3 Java和C++拥有最大量的工具支持。两者都有成熟的格式化工具和静态分析工具，可以捕捉常见的错误。两者也都有大量的内部资金。即使其他语言团队，如Python，对结果感兴趣，但显然，如果我们连Java或C++都不能显示出同样的好处，那么Python就不会有删除可读性的好处。
-
 
 ## Selecting Meaningful Metrics with Goals and Signals  用目标和信号来选择有意义的度量标准
 
@@ -170,7 +171,8 @@ The important thing is to maintain *traceability*. For each metric, we should be
 
 重要的是要保持*可追溯性*。对于每个指标，我们应该能够追溯到它所要代表的信号，以及它所要度量的目标。这可以确保我们知道我们正在度量哪些指标，以及为什么我们要度量它们。
 
-> [^4]: “From there it is only a small step to measuring ‘programmer productivity’ in terms of ‘number of lines of code produced per month.’ This is a very costly measuring unit because it encourages the writing of insipid code, but today I am less interested in how foolish a unit it is from even a pure business point of view. My point today is that, if we wish to count lines of code, we should not regard them as ‘lines produced’ but as ‘lines spent’: the current conventional wisdom is so foolish as to book that count on the wrong side of the ledger.” Edsger Dijkstra, on the cruelty of really teaching computing science, EWD Manuscript 1036./
+> [^4]: “From there it is only a small step to measuring ‘programmer productivity’ in terms of ‘number of lines of code produced per month.’ This is a very costly measuring unit because it encourages the writing of insipid code, but today I am less interested in how foolish a unit it is from even a pure business point of view. My point today is that, if we wish to count lines of code, we should not regard them as ‘lines produced’ but as ‘lines spent’: the current conventional wisdom is so foolish as to book that count on the wrong side of the ledger.” Edsger Dijkstra, on the cruelty of really teaching computing science, EWD Manuscript 1036.
+>
 > 4  “从那时起，用‘每月产生的代码行数’来度量‘程序员生产效率’只需一小步。这是一个非常昂贵的度量单位，因为它鼓励编写平淡的代码，但今天我对这个单位的愚蠢程度不感兴趣，甚至从纯商业的角度来看也是如此。我今天的观点是，如果我们希望计算代码的行数，我们不应该将它们视为“生产的行数”，而应该视为“花费的行数”：当前的传统智慧愚蠢到将这些行数记在账本的错误一侧。”Edsger Dijkstra，关于真正教给计算机科学的残酷性，EWD手稿1036。
 
 ## Goals  目标
@@ -194,71 +196,70 @@ Taking the readability example, let’s assume that the team was so focused on m
 Although this is obviously an extreme example, teams forget core trade-offs all the time when measuring: they become so focused on improving velocity that they forget to measure quality (or vice versa). To combat this, our research team divides productivity into five core components. These five components are in trade-off with one another, and we encourage teams to consider goals in each of these components to ensure that they are not inadvertently improving one while driving others downward. To help people remember all five components, we use the mnemonic “QUANTS”:
 
 ***Quality** of the code*  
-	What is the quality of the code produced? Are the test cases good enough to prevent regressions? How good is an architecture at mitigating risk and changes?
+    What is the quality of the code produced? Are the test cases good enough to prevent regressions? How good is an architecture at mitigating risk and changes?
 
 ***Attention** from engineers*  
-	How frequently do engineers reach a state of flow? How much are they distracted by notifications? Does a tool encourage engineers to context switch?
+    How frequently do engineers reach a state of flow? How much are they distracted by notifications? Does a tool encourage engineers to context switch?
 
 *Intellectual complexity*  
-	How much cognitive load is required to complete a task? What is the inherent complexity of the problem being solved? Do engineers need to deal with unnecessary complexity?
+    How much cognitive load is required to complete a task? What is the inherent complexity of the problem being solved? Do engineers need to deal with unnecessary complexity?
 
 *Tempo and velocity*  
-	How quickly can engineers accomplish their tasks? How fast can they push their releases out? How many tasks do they complete in a given timeframe?
+    How quickly can engineers accomplish their tasks? How fast can they push their releases out? How many tasks do they complete in a given timeframe?
 
 *Satisfaction*  
-	How happy are engineers with their tools? How well does a tool meet engineers’ needs? How satisfied are they with their work and their end product? Are engineers feeling burned out?
+    How happy are engineers with their tools? How well does a tool meet engineers’ needs? How satisfied are they with their work and their end product? Are engineers feeling burned out?
 
 虽然这显然是一个极端的例子，但团队在度量时总是忘记了核心的权衡：他们太专注于提高速度而忘记了度量质量（或者反过来）。为了解决这个问题，我们的研究团队将生产效率分为五个核心部分。这五个部分是相互权衡的，我们鼓励团队考虑每一个部分的目标，以确保他们不会在无意中提高一个部分而使其他部分下降。为了帮助人们记住所有五个组成部分，我们使用了 "QUANTS "的记忆法：
 
 代码的***质量***  
-	产生的代码的质量如何？测试用例是否足以预防回归？架构在减轻风险和变化方面的能力如何？
+    产生的代码的质量如何？测试用例是否足以预防回归？架构在减轻风险和变化方面的能力如何？
 
 工程师的***关注度***  
-	工程师达到流动状态的频率如何？他们在多大程度上被通知分散了注意力？工具是否鼓励工程师进行状态切换？
+    工程师达到流动状态的频率如何？他们在多大程度上被通知分散了注意力？工具是否鼓励工程师进行状态切换？
 
 *知识的复杂性*  
-	完成一项任务需要多大的认知负荷？正在解决的问题的内在复杂性是什么？工程师是否需要处理不必要的复杂性？
+    完成一项任务需要多大的认知负荷？正在解决的问题的内在复杂性是什么？工程师是否需要处理不必要的复杂性？
 
 *节奏和速度*  
-	工程师能多快地完成他们的任务？他们能以多快的速度把他们的版本推出去？他们在给定的时间范围内能完成多少任务？
+    工程师能多快地完成他们的任务？他们能以多快的速度把他们的版本推出去？他们在给定的时间范围内能完成多少任务？
 
 *满意程度*  
-	工程师对他们的工具有多满意？工具能在多大程度上满足工程师的需求？他们对自己的工作和最终产品的满意度如何？工程师是否感到筋疲力尽？
-
+    工程师对他们的工具有多满意？工具能在多大程度上满足工程师的需求？他们对自己的工作和最终产品的满意度如何？工程师是否感到筋疲力尽？
 
 Going back to the readability example, our research team worked with the readability team to identify several productivity goals of the readability process:
 
 *Quality of the code*  
-	Engineers write higher-quality code as a result of the readability process; they write more consistent code as a result of the readability process; and they contribute to a culture of code health as a result of the readability process.
+    Engineers write higher-quality code as a result of the readability process; they write more consistent code as a result of the readability process; and they contribute to a culture of code health as a result of the readability process.
 
 *Attention from engineers*  
-	We did not have any attention goal for readability. This is OK! Not all questions about engineering productivity involve trade-offs in all five areas.
+    We did not have any attention goal for readability. This is OK! Not all questions about engineering productivity involve trade-offs in all five areas.
 
 *Intellectual complexity*  
-	Engineers learn about the Google codebase and best coding practices as a result of the readability process, and they receive mentoring during the readability process.
+    Engineers learn about the Google codebase and best coding practices as a result of the readability process, and they receive mentoring during the readability process.
 
 *Tempo and velocity*  
-	Engineers complete work tasks faster and more efficiently as a result of the readability process.
+    Engineers complete work tasks faster and more efficiently as a result of the readability process.
 
 *Satisfaction*  
-	Engineers see the benefit of the readability process and have positive feelings about participating in it.
+    Engineers see the benefit of the readability process and have positive feelings about participating in it.
 
 回到可读性的例子，我们的研究团队与可读性团队合作，确定了可读性过程中的几个生产力目标：
 
 *代码的质量*  
-	由于可读性过程，工程师们写出了更高质量的代码；由于可读性过程，他们写出了更一致的代码；由于可读性过程，他们为代码的健康文化做出了贡献。
+    由于可读性过程，工程师们写出了更高质量的代码；由于可读性过程，他们写出了更一致的代码；由于可读性过程，他们为代码的健康文化做出了贡献。
 
 *来自工程师的关注*  
-	我们没有为可读性制定任何关注目标。这是可以的! 并非所有关于工程生产力的问题都涉及所有五个领域的权衡。
+    我们没有为可读性制定任何关注目标。这是可以的! 并非所有关于工程生产力的问题都涉及所有五个领域的权衡。
 
 *知识复杂性*  
-	工程师们通过可读性过程了解谷歌代码库和最佳编码实践，他们在可读性过程中接受指导。
+    工程师们通过可读性过程了解谷歌代码库和最佳编码实践，他们在可读性过程中接受指导。
 
 *节奏和速度*  
-	由于可读性过程，工程师更快、更有效地完成工作任务。
+    由于可读性过程，工程师更快、更有效地完成工作任务。
 
 *满意度*  
-	工程师们看到了可读性过程的好处，对参与该过程有积极的感受。
+    工程师们看到了可读性过程的好处，对参与该过程有积极的感受。
 
 ## Signals  信号
 
@@ -311,7 +312,8 @@ Quantitative metrics are useful because they give you power and scale. You can m
 
 定量指标是有用的，因为它们给你能力和规模。你可以在很长一段时间内度量整个公司的工程师的经验，并对结果有信心。然而，它们并不提供任何背景或叙述。定量指标不能解释为什么一个工程师选择使用一个过时的工具来完成他们的任务，或者为什么他们采取了一个不寻常的工作流程，或者为什么他们绕过了一个标准流程。只有定性研究才能提供这些信息，也只有定性研究才能为改进流程的下一步提供洞察力。
 
-> [^5]:	It has routinely been our experience at Google that when the quantitative and qualitative metrics disagree, it was because the quantitative metrics were not capturing the expected result./
+> [^5]:	It has routinely been our experience at Google that when the quantitative and qualitative metrics disagree, it was because the quantitative metrics were not capturing the expected result.
+>
 > 5 我们在谷歌的常规经验是，当定量指标和定性指标不一致时，是因为定量指标没有捕捉到预期的结果。
 
 Consider now the signals presented in Table 7-2. What metrics might you create to measure each of those? Some of these signals might be measurable by analyzing tool and code logs. Others are measurable only by directly asking engineers. Still others might not be perfectly measurable—how do we truly measure code quality, for example?
@@ -378,18 +380,21 @@ Ultimately, when evaluating the impact of readability on productivity, we ended 
 
 
 
-> [^6]:	Recall bias is the bias from memory. People are more likely to recall events that are particularly interesting or frustrating./
+> [^6]:	Recall bias is the bias from memory. People are more likely to recall events that are particularly interesting or frustrating.
+>
 > 6 回忆偏差是来自记忆的偏差。人们更愿意回忆那些特别有趣或令人沮丧的事件。
 >
-> [^7]:	Recency bias is another form of bias from memory in which people are biased toward their most recent experience. In this case, as they just successfully completed the process, they might be feeling particularly good about it./
+> [^7]:	Recency bias is another form of bias from memory in which people are biased toward their most recent experience. In this case, as they just successfully completed the process, they might be feeling particularly good about it.
+>
 > 7 近期偏见是另一种形式的来自记忆的偏见，即人们偏向于最近的经历。在这种情况下，由于他们刚刚成功地完成了这个过程，他们可能会感觉特别好。
 >
-> [^8]:	Because we asked only those people who completed the process, we aren’t capturing the opinions of those who did not complete the process./
+> [^8]:	Because we asked only those people who completed the process, we aren’t capturing the opinions of those who did not complete the process.
+>
 > 8 因为我们只问了那些完成过程的人，所以我们没有捕捉到那些没有完成过程的人的意见。
 >
-> [^9]:	There is a temptation to use such metrics to evaluate individual engineers, or perhaps even to identify high and low performers. Doing so would be counterproductive, though. If productivity metrics are used for performance reviews, engineers will be quick to game the metrics, and they will no longer be useful for measuring and improving productivity across the organization. The only way to make these measurements work is to let go of the idea of measuring individuals and embrace measuring the aggregate effect./
+> [^9]:	There is a temptation to use such metrics to evaluate individual engineers, or perhaps even to identify high and low performers. Doing so would be counterproductive, though. If productivity metrics are used for performance reviews, engineers will be quick to game the metrics, and they will no longer be useful for measuring and improving productivity across the organization. The only way to make these measurements work is to let go of the idea of measuring individuals and embrace measuring the aggregate effect.
+>
 > 9 有一种诱惑，就是用这样的指标来评价个别的工程师，甚至可能用来识别高绩效和低绩效的人。不过，这样做会适得其反。如果生产效率指标被用于绩效评估，工程师们就会很快学会操弄这些指标，它们将不再对度量和提高整个组织的生产效率有用。让这些指标发挥作用的唯一方法是，不将其用于度量个体，而是接受度量总体效果。
-
 
 ## Taking Action and Tracking Results  采取行动并跟踪结果
 
