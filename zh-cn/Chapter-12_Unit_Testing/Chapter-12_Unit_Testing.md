@@ -1,5 +1,4 @@
 
-
 **CHAPTER 12**
 
 # Unit Testing
@@ -74,7 +73,7 @@ Before talking about patterns for avoiding brittle tests, we need to answer a qu
 What does this look like in practice? We need to think about the kinds of changes that engineers make to production code and how we should expect tests to respond to those changes. Fundamentally, there are four kinds of changes:
 
 - *Pure refactorings*  
-	When an engineer refactors the internals of a system without modifying its interface, whether for performance, clarity, or any other reason, the system’s tests shouldn’t need to change. The role of tests in this case is to ensure that the refactoring didn’t change the system’s behavior. Tests that need to be changed during a refactoring indicate that either the change is affecting the system’s behavior and isn’t a pure refactoring, or that the tests were not written at an appropriate level of abstraction. Google’s reliance on large-scale changes (described in [Chapter 22](#_bookmark1935)) to do such refactorings makes this case particularly important for us.
+	When an engineer refactors the internals of a system without modifying its interface, whether for performance, clarity, or any other reason, the system’s tests shouldn’t need to change. The role of tests in this case is to ensure that the refactoring didn’t change the system’s behavior. Tests that need to be changed during a refactoring indicate that either the change is affecting the system’s behavior and isn’t a pure refactoring, or that the tests were not written at an appropriate level of abstraction. Google’s reliance on large-scale changes (described in Chapter 22) to do such refactorings makes this case particularly important for us.
 
 - *New features*  
 	When an engineer adds new features or behaviors to an existing system, the system’s existing behaviors should remain unaffected. The engineer must write new tests to cover the new behaviors, but they shouldn’t need to change any existing tests. As with refactorings, a change to existing tests when adding new features suggest unintended consequences of that feature or inappropriate tests.
@@ -109,7 +108,7 @@ Now that we understand our goal, let’s look at some practices for making sure 
 
 现在我们了解了我们的目标，让我们看看一些做法，以确保测试不需要改变，除非被测试系统的需求改变。到目前为止，确保这一点的最重要的方法是编写测试，以与用户相同的方式调用正在测试的系统；也就是说，针对其公共API[而不是其实现细节](https://oreil.ly/ijat0)进行调用。如果测试的工作方式与系统的用户相同，根据定义，破坏测试的变化也可能破坏用户。作为一个额外的好处，这样的测试可以作为用户的有用的例子和文档。
 
-Consider [Example 12-1](#_bookmark959), which validates a transaction and saves it to a database.
+Consider Example 12-1, which validates a transaction and saves it to a database.
 
 考虑例12-1，它验证了一个事务并将其保存到数据库中。
 
@@ -191,7 +190,7 @@ Tests using only public APIs are, by definition, accessing the system under test
 
 根据定义，仅使用公共API的测试是以与用户相同的方式访问被测系统。这样的测试更现实，也不那么脆弱，因为它们形成了明确的契约：如果这样的测试失败，它意味着系统的现有用户也将失败。只测试这些契约意味着你可以自由地对系统进行任何内部重构，而不必担心对测试进行繁琐的更改。
 
-> [^2]:	This is sometimes called the "Use the front door first principle.”/
+> [^2]:	This is sometimes called the "Use the front door first principle.”
 >
 > 2   这有时被称为“使用前门优先原则”
 
@@ -299,7 +298,8 @@ For a test suite to scale and be useful over time, it’s important that each in
 
 为了使测试套件能够随时间扩展并变得有用，套件中的每个测试都尽可能清晰是很重要的。本节探讨了为实现清晰性而考虑测试的技术和方法。
 
-> [^3]: These are also the same two reasons that a test can be “flaky.” Either the system under test has a nondeterministic fault, or the test is flawed such that it sometimes fails when it should pass./
+> [^3]: These are also the same two reasons that a test can be “flaky.” Either the system under test has a nondeterministic fault, or the test is flawed such that it sometimes fails when it should pass.
+>
 > 3   这也是测试可能“不稳定”的两个原因。要么被测系统存在不确定性故障，要么测试存在缺陷，以至于在通过测试时有时会失败。
 
 ### Make Your Tests Complete and Concise  确保你的测试完整和简明
@@ -399,10 +399,12 @@ The extra boilerplate required to split apart the single test is more than worth
 
 拆分单个测试所需的额外模板文件非常值得，并且最终的测试比原来测试更清晰。行为驱动测试往往比面向方法的测试更清晰，原因有几个。首先，它们阅读起来更像自然语言，让人们自然地理解它们，而不需要语言繁琐的心理分析。其次，它们更清楚地表达了因果关系，因为每个测试的范围都更有限。最后，每个测试都很短且描述性强，这一事实使我们更容易看到已经测试了哪些功能，并鼓励工程师添加新的简洁测试方法，而不是堆积在现有方法上。
 
-> [^4]:	See https://testing.googleblog.com/2014/04/testing-on-toilet-test-behaviors-not.html and https://dannorth.net/introducing-bdd./
-> 4 见 https://testing.googleblog.com/2014/04/testing-on-toilet-test-behaviors-not.html 和 https://dannorth.net/introducing-bdd。
+> [^4]:	See `https://testing.googleblog.com/2014/04/testing-on-toilet-test-behaviors-not.html` and `https://dannorth.net/introducing-bdd`.
 >
-> [^5]: Furthermore, a feature (in the product sense of the word) can be expressed as a collection of behaviors./
+> 4 见 `https://testing.googleblog.com/2014/04/testing-on-toilet-test-behaviors-not.html` 和 `https://dannorth.net/introducing-bdd`。
+>
+> [^5]: Furthermore, a feature (in the product sense of the word) can be expressed as a collection of behaviors.
+>
 > 5 此外，一个特征（在这个词的产品意义上）可以被表达为一组行为。
 
 #### Structure tests to emphasize behaviors  强调行为的结构测试
@@ -431,17 +433,13 @@ public void transferFundsShouldMoveMoneyBetweenAccounts() {
 This level of description isn’t always necessary in trivial tests, and it’s usually sufficient to omit the comments and rely on whitespace to make the sections clear. However, explicit comments can make more sophisticated tests easier to understand. This pattern makes it possible to read tests at three levels of granularity:
 
 1. A reader can start by looking at the test method name (discussed below) to get a rough description of the behavior being tested.
-
 2. If that’s not enough, the reader can look at the given/when/then comments for a formal description of the behavior.
-
 3. Finally, a reader can look at the actual code to see precisely how that behavior is expressed.
 
 这种程度的描述在琐碎的测试中并不总是必要的，通常省略注释并依靠空白来使各部分清晰。然而，明确的注释可以使更复杂的测试更容易理解。这种模式使我们有可能在三个层次的粒度上阅读测试:
 
 1. 读者可以从测试方法的名称开始（下面讨论），以获得对被测试行为的粗略描述。
-
 2. 如果这还不够，读者可以查看given/when/then注释，以获得行为的正式描述。
-
 3. 最后，读者可以查看实际代码，以准确地看到该行为是如何表达的。
 
 This pattern is most commonly violated by interspersing assertions among multiple calls to the system under test (i.e., combining the “when” and “then” blocks). Merging the “then” and “when” blocks in this way can make the test less clear because it makes it difficult to distinguish the action being performed from the expected result.
@@ -482,7 +480,8 @@ When writing such tests, be careful to ensure that you’re not inadvertently te
 
 在编写这种测试时，要注意确保你不会无意中同时测试多个行为。每个测试应该只覆盖一个行为，绝大多数的单元测试只需要一个 "when"和一个 "then"块。
 
-> [^6]: These components are sometimes referred to as “arrange,” “act,” and “assert.”/
+> [^6]: These components are sometimes referred to as “arrange,” “act,” and “assert.”
+>
 > 6 这些组成部分有时被称为 "安排"、"行动 "和 "断言"。
 
 #### Name tests after the behavior being tested  以被测试的行为命名测试
@@ -527,7 +526,7 @@ Other languages require us to encode all of this information in a method name, l
 
 *Example 12-14. Some sample method naming patterns*  例12-14. 一些示例方法的命名模式
 
-``` java
+```Java
 multiplyingTwoPositiveNumbersShouldReturnAPositiveNumber 
 multiply_postiveAndNegative_returnsNegative 
 divide_byZero_throwsException
@@ -815,7 +814,8 @@ Using helper methods to construct these values allows each test to create the ex
 
 使用辅助方法来构建这些值，允许每个测试创建它所需要的精确值，而不必担心指定不相关的信息或与其他测试冲突。
 
-> [^7]:	In many cases, it can even be useful to slightly randomize the default values returned for fields that aren’t explicitly set. This helps to ensure that two different instances won’t accidentally compare as equal, and makes it more difficult for engineers to hardcode dependencies on the defaults./
+> [^7]: In many cases, it can even be useful to slightly randomize the default values returned for fields that aren’t explicitly set. This helps to ensure that two different instances won’t accidentally compare as equal, and makes it more difficult for engineers to hardcode dependencies on the defaults.
+>
 > 7 在许多情况下，甚至可以对未显式设置的字段返回的默认值进行轻微的随机化。这有助于确保两个不同的实例不会意外地比较为相等，并使工程师更难硬编码对默认值的依赖关系。
 
 ### Shared Setup  共享设置
@@ -907,6 +907,7 @@ private void assertUserHasAccessToAccount(User user, Account account) {
 ```
 
 ### Defining Test Infrastructure  界定测试基础框架
+
 The techniques we’ve discussed so far cover sharing code across methods in a single test class or suite. Sometimes, it can also be valuable to share code across multiple test suites. We refer to this sort of code as test infrastructure. Though it is usually more valuable in integration or end-to-end tests, carefully designed test infrastructure can make unit tests much easier to write in some circumstances.
 
 到目前为止，我们讨论的技术包括在单个测试类或测试套件中跨方法共享代码。有时，跨多个测试套件共享代码也很有价值。我们将这种代码称为测试基础框架。尽管它通常在集成或端到端测试中更有价值，但精心设计的测试基础框架可以使单元测试在某些情况下更易于编写。
