@@ -1,3 +1,4 @@
+
 **CHAPTER 19**
 
 # Critique: Google’s Code Review Tool
@@ -19,24 +20,26 @@ In this chapter, we’ll look at what makes successful code review tooling via G
 ## Code Review Tooling Principles 代码审查工具原则
 
 We mentioned above that Critique provides functionality to support the goals of code review (we look at this functionality in more detail later in this chapter), but why is it so successful? Critique has been shaped by Google’s development culture, which includes code review as a core part of the workflow. This cultural influence translates into a set of guiding principles that Critique was designed to emphasize:
+
 - *Simplicity*  
-	Critique’s user interface (UI) is based around making it easy to do code review without a lot of unnecessary choices, and with a smooth interface. The UI loads fast, navigation is easy and hotkey supported, and there are clear visual markers for the overall state of whether a change has been reviewed.
+    Critique’s user interface (UI) is based around making it easy to do code review without a lot of unnecessary choices, and with a smooth interface. The UI loads fast, navigation is easy and hotkey supported, and there are clear visual markers for the overall state of whether a change has been reviewed.
 - *Foundation of trust*  
-	Code review is not for slowing others down; instead, it is for empowering others. Trusting colleagues as much as possible makes it work. This might mean, for example, trusting authors to make changes and not requiring an additional review phase to double check that minor comments are actually addressed. Trust also plays out by making changes openly accessible (for viewing and reviewing) across Google.
+    Code review is not for slowing others down; instead, it is for empowering others. Trusting colleagues as much as possible makes it work. This might mean, for example, trusting authors to make changes and not requiring an additional review phase to double check that minor comments are actually addressed. Trust also plays out by making changes openly accessible (for viewing and reviewing) across Google.
 - *Generic communication*  
-	Communication problems are rarely solved through tooling. Critique prioritizes generic ways for users to comment on the code changes, instead of complicated protocols. Critique encourages users to spell out what they want in their comments or even suggests some edits instead of making the data model and process more complex. Communication can go wrong even with the best code review tool because the users are humans.
+    Communication problems are rarely solved through tooling. Critique prioritizes generic ways for users to comment on the code changes, instead of complicated protocols. Critique encourages users to spell out what they want in their comments or even suggests some edits instead of making the data model and process more complex. Communication can go wrong even with the best code review tool because the users are humans.
 - *Workflow integration*  
-	Critique has a number of integration points with other core software development tools. Developers can easily navigate to view the code under review in our code search and browsing tool, edit code in our web-based code editing tool, or view test results associated with a code change.
+    Critique has a number of integration points with other core software development tools. Developers can easily navigate to view the code under review in our code search and browsing tool, edit code in our web-based code editing tool, or view test results associated with a code change.
 
 我们在前面提到，Critique提供了支持代码审查目标的功能（我们在本章后面会详细介绍这种功能），但为什么它如此成功？Critique是基于Google的开发文化塑造的，其中包括代码审查作为工作流程的核心部分。这种文化影响转化为一套指导原则，Critique的设计就是为了强调这些原则：
+
 - *简洁性*  
-	Critique的用户界面（UI）基于使代码审查变得容易而不需要很多不必要的选择，并且具有流畅界面。用户界面加载速度快，导航简单，支持热键，而且有清晰的视觉标记，可以显示更改是否已审核的总体状态。
+    Critique的用户界面（UI）基于使代码审查变得容易而不需要很多不必要的选择，并且具有流畅界面。用户界面加载速度快，导航简单，支持热键，而且有清晰的视觉标记，可以显示更改是否已审核的总体状态。
 - *信任的基础*  
-	代码审查不是为了拖慢别人，相反，它是为了授权他人。尽可能地信任同事使其发挥作用。这可能意味着，例如，信任作者进行更改，而不需要额外的审查阶段来再次检查是否确实解决了次要评论。信任还体现在使修改在整个谷歌上公开进行（供查看和审查）。
+    代码审查不是为了拖慢别人，相反，它是为了授权他人。尽可能地信任同事使其发挥作用。这可能意味着，例如，信任作者进行更改，而不需要额外的审查阶段来再次检查是否确实解决了次要评论。信任还体现在使修改在整个谷歌上公开进行（供查看和审查）。
 - *通用的沟通*  
-	沟通问题很难通过工具来解决。Critique优先考虑让用户对代码修改进行评论的通用方法，而不是复杂的协定。评论鼓励用户详细说明他们想要的内容，甚至建议进行一些编辑，而不是使数据模型和过程更加复杂。即使是最好的代码审查工具，沟通也会出错，因为用户是人。
+    沟通问题很难通过工具来解决。Critique优先考虑让用户对代码修改进行评论的通用方法，而不是复杂的协定。评论鼓励用户详细说明他们想要的内容，甚至建议进行一些编辑，而不是使数据模型和过程更加复杂。即使是最好的代码审查工具，沟通也会出错，因为用户是人。
 - *工作流程的集成*  
-	Critique有很多与其他核心软件开发工具的集成点。开发人员可以在我们的代码搜索和浏览工具中轻松浏览正在审查的代码，在我们基于网络的代码编辑工具中编辑代码，或者查看与代码修改相关的测试结果。
+    Critique有很多与其他核心软件开发工具的集成点。开发人员可以在我们的代码搜索和浏览工具中轻松浏览正在审查的代码，在我们基于网络的代码编辑工具中编辑代码，或者查看与代码修改相关的测试结果。
 
 Across these guiding principles, simplicity has probably had the most impact on the tool. There were many interesting features we considered adding, but we decided not to make the model more complicated to support a small set of users.
 
@@ -47,6 +50,7 @@ Simplicity also has an interesting tension with workflow integration. We conside
 简单与工作流程的整合也有一个有趣的矛盾。我们考虑过，但最终决定不创建一个集代码编辑、审查和搜索于一体的 "代码中心"工具。尽管Critique与其他工具有许多接触点，但我们还是有意识地决定将代码审查作为主要关注点。特征与评论相关，但在不同的子系统中实施。
 
 ## Code Review Flow 代码审查流程
+
 Code reviews can be executed at many stages of software development, as illustrated in Figure 19-1. Critique reviews typically take place before a change can be committed to the codebase, also known as precommit reviews. Although Chapter 9 contains a brief description of the code review flow, here we expand it to describe key aspects of Critique that help at each stage. We’ll look at each stage in more detail in the following sections.
 
 代码审查可以在软件开发的许多阶段进行，如图19-1所示。评论评审通常在变更提交到代码库之前进行，也称为预提交评审。尽管第9章包含了对代码评审流程的简要描述，但在这里我们将其扩展，以描述Critique在每个阶段的关键作用。我们将在下面的章节中更详细地讨论每个阶段。
@@ -57,7 +61,7 @@ Code reviews can be executed at many stages of software development, as illustra
 
 Typical review steps go as follows:
 
-1. **Create a change.** A user authors a change to the codebase in their workspace. This *author* then uploads a *snapshot* (showing a patch at a particular point in time) to Critique, which triggers the run of automatic code analyzers (see [Chapter 20](#_bookmark1781)).
+1. **Create a change.** A user authors a change to the codebase in their workspace. This *author* then uploads a *snapshot* (showing a patch at a particular point in time) to Critique, which triggers the run of automatic code analyzers (see Chapter 20).
 2. **Request** **review.** After the author is satisfied with the diff of the change and the result of the analyzers shown in Critique, they mail the change to one or more reviewers.
 3. **Comment.** *Reviewers* open the change in Critique and draft comments on the diff. Comments are by default marked as *unresolved,* meaning they are crucial for the author to address. Additionally, reviewers can add *resolved* comments that are optional or informational. Results from automatic code analyzers, if present, are also visible to reviewers. Once a reviewer has drafted a set of comments, they need to *publish* them in order for the author to see them; this has the advantage of allowing a reviewer to provide a complete thought on a change atomically, after having reviewed the entire change. Anyone can comment on changes, providing a “drive-by review” as they see it necessary.
 4. **Modify change and reply to comments.** The author modifies the change, uploads new snapshots based on the feedback, and replies back to the reviewers. The author addresses (at least) all unresolved comments, either by changing the code or just replying to the comment and changing the comment type to be *resolved*. The author and reviewers can look at diffs between any pairs of snapshots to see what changed. Steps 3 and 4 might be repeated multiple times.
@@ -65,6 +69,7 @@ Typical review steps go as follows:
 6. **Commit a change.** Provided the change is approved (which we’ll discuss shortly), the author can trigger the commit process of the change. If automatic analyzers and other precommit hooks (called “presubmits”) don’t find any problems, the change is committed to the codebase.
 
 典型的审查步骤如下：
+
 1. **创建一个变更。** 一个用户对其工作区的代码库进行变更。然后这个*作者*向Critique上传一个*快照*（显示某一特定时间点的补丁），这将触发自动代码分析器的运行（见第20章）。
 2. **要求审查。** 在作者对修改的差异和Critique中显示的分析器的结果感到满意后，他们将修改发送给一个或多个审查员。
 3. **评论。**评论者在Critique中打开修改，并对diff起草评论。评论默认标记为*未解决*，意味着它们对作者来说是至关重要的。此外，评论者可以添加*已解决*的评论，这些评论是可选的或信息性的。自动代码分析器的结果，如果存在的话，也可以让审查者看到。一旦审查者起草了一组评论，他们需要*发布*它们，以便作者看到它们；这样做的好处是允许审查者在审查了整个修改后，以原子方式提供一个完整的想法。任何人都可以对变更发表评论，并在他们认为必要时提供“驱动式审查”。
@@ -92,7 +97,7 @@ Critique还管理与变化有关的电子邮件；重要的Critique事件会触�
 
 ## Stage 1: Create a Change 阶段1：创建一个变更
 
-A code review tool should provide support at all stages of the review process and should not be the bottleneck for committing changes. In the prereview step, making it easier for change authors to polish a change before sending it out for review helps reduce the time taken by the reviewers to inspect the change. Critique displays change diffs with knobs to ignore whitespace changes and highlight move-only changes. Critique also surfaces the results from builds, tests, and static analyzers, including style checks (as discussed in [Chapter 9](#_bookmark664)).
+A code review tool should provide support at all stages of the review process and should not be the bottleneck for committing changes. In the prereview step, making it easier for change authors to polish a change before sending it out for review helps reduce the time taken by the reviewers to inspect the change. Critique displays change diffs with knobs to ignore whitespace changes and highlight move-only changes. Critique also surfaces the results from builds, tests, and static analyzers, including style checks (as discussed in Chapter 9).
 
 代码审查工具应该在审查过程的各个阶段提供支持，不应该成为提交更改的瓶颈。在审查前的步骤中，让修改者在送出审查前更容易打磨修正，有助于减少审查者检查修改的时间。Critique在显示修改差异时，可以忽略空白处的修改，并突出显示纯移动的修改。Critique还可以显示构建、测试和静态分析器的结果，包括样式检查（如第9章中所讨论的）。
 
@@ -105,18 +110,21 @@ To provide further context for the reviewers, the author can also link the chang
 为了给审阅者提供进一步的上下文，作者还可以将更改链接到特定的bug。评论使用自动完成服务来显示相关的bug，并对分配给作者的bug进行优先级排序。
 
 ### Diffing 差异点
+
 The core of the code review process is understanding the code change itself. Larger changes are typically more difficult to understand than smaller ones. Optimizing the diff of a change is thus a core requirement for a good code review tool.
 
 代码审查过程的核心是理解代码变更本身。较大的变化通常比小的变化更难理解。因此，优化变更的差异是一个好的代码审查工具的核心要求。
 
 In Critique, this principle translates onto multiple layers (see Figure 19-2). The diffing component, starting from an optimized longest common subsequence algorithm, is enhanced with the following:
-•	Syntax highlighting
-•	Cross-references (powered by Kythe; see Chapter 17)
-•	Intraline diffing that shows the difference on character-level factoring in the word boundaries (Figure 19-2)
-•	An option to ignore whitespace differences to a varying degree
-•	Move detection, in which chunks of code that are moved from one place to another are marked as being moved (as opposed to being marked as removed here and added there, as a naive diff algorithm would)
+
+- Syntax highlighting
+- Cross-references (powered by Kythe; see Chapter 17)
+- Intraline diffing that shows the difference on character-level factoring in the word boundaries (Figure 19-2)
+- An option to ignore whitespace differences to a varying degree
+- Move detection, in which chunks of code that are moved from one place to another are marked as being moved (as opposed to being marked as removed here and added there, as a naive diff algorithm would)
 
 在Critique中，这一原则转化为多个层面（见图19-2）。从优化的最长共同子序列算法开始，diffing组件得到了以下增强：
+
 - 语法高亮
 - 交叉引用（由Kythe提供，见第17章）
 - 字符内差分，显示字符级的差异，并考虑到词的边界（图19-2）。
@@ -168,13 +176,15 @@ For example, suppose that a linter finds a style violation of extra spaces at th
 ### Tight Tool Integration 紧密的工具集成
 
 Google has tools built on top of Piper, its monolithic source code repository (see [Chapter 16](#_bookmark1364)), such as the following:
+
 - Cider, an online IDE for editing source code stored in the cloud
 - Code Search, a tool for searching code in the codebase
 - Tricorder, a tool for displaying static analysis results (mentioned earlier)
 - Rapid, a release tool that packages and deploys binaries containing a series of changes
 - Zapfhahn, a test coverage calculation tool
 
-谷歌拥有建立在Piper--其单体源代码库（见第16章）之上的工具，例如以下这些。
+谷歌拥有建立在Piper--其单体源代码库（见第16章）之上的工具，例如以下这些:
+
 - Cider，用于编辑云中存储的源代码的在线IDE
 - 代码搜索，用于在代码库中搜索代码的工具
 - Tricorder，用于显示静态分析结果的工具（前面提到）
@@ -191,7 +201,7 @@ Note that tight integration between Critique and a developer’s workspace is po
 
 ## Stage 2: Request Review 阶段2：发送审查
 
-After the author is happy with the state of the change, they can send it for review, as depicted in [Figure 19-5](#_bookmark1751). This requires the author to pick the reviewers. Within a small team, finding a reviewer might seem simple, but even there it is useful to distribute reviews evenly across team members and consider situations like who is on vacation. To address this, teams can provide an email alias for incoming code reviews. The alias is used by a tool called *GwsQ* (named after the initial team that used this technique:  
+After the author is happy with the state of the change, they can send it for review, as depicted in Figure 19-5. This requires the author to pick the reviewers. Within a small team, finding a reviewer might seem simple, but even there it is useful to distribute reviews evenly across team members and consider situations like who is on vacation. To address this, teams can provide an email alias for incoming code reviews. The alias is used by a tool called *GwsQ* (named after the initial team that used this technique:  
 (Google Web Server) that assigns specific reviewers based on the configuration linked to the alias. For example, a change author can assign a review to some-team-list-alias, and GwsQ will pick a specific member of some-team-list-alias to perform the review.
 
 在作者对更改的状态感到满意后，他们可以把它送去审查，如图19-5中所描述的。这需要作者挑选审查者。在一个小团队内，寻找审查者可能看起来很简单，但是即使在团队成员之间均匀地分配评论，也需要考虑像是谁休假的情况。为了解决这个问题，团队可以为收到的代码审查提供一个电子邮件别名。这个别名被一个叫做*GwsQ*的工具所使用（以最初使用这种技术的团队命名：
@@ -202,23 +212,27 @@ After the author is happy with the state of the change, they can send it for rev
 Figure 19-5. Requesting reviewers
 
 Given the size of Google’s codebase and the number of people modifying it, it can be difficult to find out who is best qualified to review a change outside your own project. Finding reviewers is a problem to consider when reaching a certain scale. Critique must deal with scale. Critique offers the functionality to propose sets of reviewers that are sufficient to approve the change. The reviewer selection utility takes into account the following factors:
+
 - Who owns the code that is being changed (see the next section)
 - Who is most familiar with the code (i.e., who recently changed it)
 - Who is available for review (i.e., not out of office and preferably in the same time zone)
 - The GwsQ team alias setup
 
-考虑到谷歌代码库的规模和修改代码的人数，很难找出谁最有资格审查你自己项目之外的变更。发现审查者在达到一定的规模时要考虑的问题。评论必须处理规模问题。Critique提供了建议一组足以批准更改的审阅者的功能。评审员的选择工具考虑到了以下因素。
+考虑到谷歌代码库的规模和修改代码的人数，很难找出谁最有资格审查你自己项目之外的变更。发现审查者在达到一定的规模时要考虑的问题。评论必须处理规模问题。Critique提供了建议一组足以批准更改的审阅者的功能。评审员的选择工具考虑到了以下因素:
+
 - 谁拥有被修改的代码（见下一节）
 - 谁对该代码最熟悉（即，谁最近修改过该代码）。
 - 谁可以进行审查（即不脱产，最好在同一时区）。
 - GwsQ团队的别名设置
 
 Assigning a reviewer to a change triggers a review request. This request runs “presubmits” or precommit hooks applicable to the change; teams can configure the presubmits related to their projects in many ways. The most common hooks include the following:
-•   Automatically adding email lists to changes to raise awareness and transparency
-•   Running automated test suites for the project
-•   Enforcing project-specific invariants on both code (to enforce local code style restrictions) and change descriptions (to allow generation of release notes or other forms of tracking)
+
+- Automatically adding email lists to changes to raise awareness and transparency
+- Running automated test suites for the project
+- Enforcing project-specific invariants on both code (to enforce local code style restrictions) and change descriptions (to allow generation of release notes or other forms of tracking)
 
 为一个变更指定一个审查员会触发一个审查请求。该请求运行适用于该变更的 "预提交"或预提交钩子；团队可以以多种方式配置与他们的项目相关的预提交。最常见的钩子包括以下内容：
+
 - 自动将电子邮件列表添加到更改中，以提高意识和透明度
 - 为项目运行自动化测试套件
 - 对代码（强制执行本地代码风格限制）和变更描述（允许生成发布说明或其他形式的跟踪）执行项目特定的不变因素
@@ -255,7 +269,7 @@ Critique does not dictate what comments users should create, but for some common
 
 Critique 没有规定用户应该创建什么评论，但对于一些常见的评论，Critique 提供了快速的快捷方式。修改者可以点击评论面板上的 "完成"按钮，以表示审查者的评论已被解决，或者点击 "Ack"按钮，以确认评论已被阅读，通常用于信息性或选择性评论。如果标注的评论未被解决，两者都有解决的效果。这些快捷方式简化了工作流程，减少了回复评论所需的时间。
 
-As mentioned earlier, comments are drafted as-you-go, but then “published” atomically, as shown in [Figure 19-7](#_bookmark1758). This allows authors and reviewers to ensure that they are happy with their comments before sending them out.
+As mentioned earlier, comments are drafted as-you-go, but then “published” atomically, as shown in Figure 19-7. This allows authors and reviewers to ensure that they are happy with their comments before sending them out.
 
 如前所述，评论是随心所欲地起草的，但随后以原子方式 "发表"，如图19-7所示。这允许作者和审查者在发送评论之前确保他们对自己的评论感到满意。
 
@@ -285,7 +299,7 @@ After we implemented this feature, our users had a difficult time imagining the 
 
 #### Dashboard and search system 仪表板和搜索系统
 
-Critique’s landing page is the user’s dashboard page, as depicted in [Figure 19-8](#_bookmark1762). The dashboard page is divided into user-customizable sections, each of them containing a list of change summaries.
+Critique’s landing page is the user’s dashboard page, as depicted in Figure 19-8. The dashboard page is divided into user-customizable sections, each of them containing a list of change summaries.
 
 Critique的登陆页面是用户的仪表盘页面，如图19-8所示。仪表盘页面被分为用户可定制的部分，每个部分都包含一个变更摘要列表。
 
@@ -301,17 +315,20 @@ To optimize the user experience (UX), Critique’s default dashboard setting is 
 
 为了优化用户体验（UX），Critique的默认仪表盘设置是在第一部分显示需要用户关注的变更，不过这也是可以定制的。还有一个搜索栏，可以对所有修改进行自定义查询，并浏览结果。作为一个审查员，你主要是需要关注的一组。作为一个作者，你大多数时候只需要看一下哪些东西还在等待审查，看看你是否需要修正。尽管我们在Critique用户界面的一些其他部分回避了可定制性，但我们发现用户喜欢以不同的方式设置他们的仪表板，而不影响基本的体验，就像每个人以不同的方式组织他们的电子邮件一样。
 
-> [^1]: Centralized “global” reviewers for large-scale changes (LSCs) are particularly prone to customizing this dashboard to avoid flooding it during an LSC (see Chapter 22)./
->  1 大规模变更（LSCs）的集中式 "全球 "审查员特别容易定制这个仪表盘，以避免在LSC期间淹没它（见第22章）。
+> [^1]: Centralized “global” reviewers for large-scale changes (LSCs) are particularly prone to customizing this dashboard to avoid flooding it during an LSC (see Chapter 22).
+>
+> 1 大规模变更（LSCs）的集中式 "全球 "审查员特别容易定制这个仪表盘，以避免在LSC期间淹没它（见第22章）。
 
 ## Stage 5: Change Approvals (Scoring a Change) 阶段5：变更批准（对变更进行评分）
 
 Showing whether a reviewer thinks a change is good boils down to providing concerns and suggestions via comments. There also needs to be some mechanism for providing a high-level “OK” on a change. At Google, the scoring for a change is divided into three parts:
-•   LGTM (“looks good to me”)
-•   Approval
-•   The number of unresolved comments
+
+- LGTM (“looks good to me”)
+- Approval
+- The number of unresolved comments
 
 显示一个审查员是否认为一个变更是好的，归根结底是通过评论提供关注和建议。此外，还需要有一些机制来提供一个高水平的 "OK"。在谷歌，对一个变化的打分分为三个部分：
+
 - LGTM（“我觉得不错”）
 - 批准
 - 未解决的评论的数量
@@ -329,11 +346,13 @@ This rating scheme has also had a positive influence on code review culture. Rev
 这种评分方案也对代码审查文化产生了积极影响。审查者不能在没有任何有用反馈的情况下对一个改动竖起大拇指；所有来自审查者的负面反馈都必须与需要修复的具体内容相联系（例如，一个未解决的评论）。选择 "未解决的评论 "这一措辞也是为了听起来比较好。
 
 Critique includes a scoring panel, next to the analysis chips, with the following information:
+
 - Who has LGTM’ed the change
 - What approvals are still required and why
 - How many unresolved comments are still open
 
-批评包括一个打分板，在分析卡片旁边，有以下信息。
+批评包括一个打分板，在分析卡片旁边，有以下信息:
+
 - 谁进行了变更
 - 还需要哪些批准，为什么？
 - 有多少的评论仍未解决
@@ -354,7 +373,7 @@ Last but not least, Critique has a button for committing the change after the re
 
 ### After Commit: Tracking History 提交后：跟踪历史记录
 
-In addition to the core use of Critique as a tool for reviewing source code changes before they are committed to the repository, Critique is also used as a tool for change archaeology. For most files, developers can view a list of the past history of changes that modified a particular file in the Code Search system (see [Chapter 17](#_bookmark1485)), or navigate directly to a change. Anyone at Google can browse the history of a change to generally viewable files, including the comments on and evolution of the change. This enables future auditing and is used to understand more details about why changes were made or how bugs were introduced. Developers can also use this feature to learn how changes were engineered, and code review data in aggregate is used to produce trainings.
+In addition to the core use of Critique as a tool for reviewing source code changes before they are committed to the repository, Critique is also used as a tool for change archaeology. For most files, developers can view a list of the past history of changes that modified a particular file in the Code Search system (see Chapter 17), or navigate directly to a change. Anyone at Google can browse the history of a change to generally viewable files, including the comments on and evolution of the change. This enables future auditing and is used to understand more details about why changes were made or how bugs were introduced. Developers can also use this feature to learn how changes were engineered, and code review data in aggregate is used to produce trainings.
 
 除了Critique的核心用途是在源代码修改提交到版本库之前对其进行审查外，Critique还被用作变更考古的工具。对于大多数文件，开发者可以在代码搜索系统中查看过去修改某个文件的历史列表（见第17章），或者直接导航到某个修改。Google的任何人都可以浏览一般可查看文件的修改历史，包括对修改的评论和演变。这使未来的审计成为可能，并被用来了解更多的细节，如为什么会做出改变或如何引入bug。开发人员也可以使用这个功能来了解变化是如何被设计的，代码审查数据的汇总被用来制作培训。
 
@@ -398,7 +417,7 @@ To minimize the time it takes for a change to be reviewed, the code review proce
 
 为了最大限度地减少评审更改所需的时间，代码评审过程应该无缝流动，简洁地告知用户需要关注的更改，并在人工评审员介入之前确定潜在问题（问题由分析人员和持续集成人员发现）。如果可能，在较长时间运行的分析完成之前，会显示快速分析结果。
 
-There are several ways in which Critique needs to support questions of scale. The Critique tool must scale to the large quantity of review requests produced without suffering a degradation in performance. Because Critique is on the critical path to getting changes committed, it must load efficiently and be usable for special situations such as unusually large changes.[^2](#_bookmark1778) The interface must support managing user activities (such as finding relevant changes) over the large codebase and help reviewers and authors navigate the codebase. For example, Critique helps with finding appropriate reviewers for a change without having to figure out the ownership/maintainer landscape (a feature that is particularly important for large-scale changes such as API migrations that can affect many files).
+There are several ways in which Critique needs to support questions of scale. The Critique tool must scale to the large quantity of review requests produced without suffering a degradation in performance. Because Critique is on the critical path to getting changes committed, it must load efficiently and be usable for special situations such as unusually large changes.[^2] The interface must support managing user activities (such as finding relevant changes) over the large codebase and help reviewers and authors navigate the codebase. For example, Critique helps with finding appropriate reviewers for a change without having to figure out the ownership/maintainer landscape (a feature that is particularly important for large-scale changes such as API migrations that can affect many files).
 
 Critique需要在几个方面支持规模问题。Critique工具必须在不降低性能的情况下，适应大量的审查请求。由于Critique是在提交修改的关键路径上，它必须有效地加载，并能在特殊情况下使用，如异常大的修改。界面必须支持在大型代码库中管理用户活动（如寻找相关修改），并帮助评审员和作者浏览代码库。例如，Critique有助于为某一变更找到合适的审查者，而不必弄清所有权/维护者的情况（这一功能对于大规模的变更，如可能影响许多文件的API迁移，尤为重要）。
 
@@ -406,7 +425,8 @@ Critique favors an opinionated process and a simple interface to improve the gen
 
 Critique倾向于采用意见一致的流程和简单的界面来改善一般的审查工作流程。然而，Critique确实允许一些自定义功能：自定义分析器和预提交提供了具体的修改内容，而且可以强制执行一些特定的团队策略（如要求多个审稿人提供LGTM）。
 
-> [^2]:	Although most changes are small (fewer than 100 lines), Critique is sometimes used to review large refactoring changes that can touch hundreds or thousands of files, especially for LSCs that must be executed atomically (see Chapter 22)./
+> [^2]: Although most changes are small (fewer than 100 lines), Critique is sometimes used to review large refactoring changes that can touch hundreds or thousands of files, especially for LSCs that must be executed atomically (see Chapter 22).
+>
 > 2 尽管大多数改动都很小（少于100行），但Critique有时也被用来审查大型的重构改动，这些改动可能会触及成百上千个文件，特别是对于那些必须原子化执行的LSCs（见第22章）。
 
 Trust and communication are core to the code review process. A tool can enhance the experience, but can’t replace them. Tight integration with other tools has also been a key factor in Critique’s success.
@@ -415,11 +435,10 @@ Trust and communication are core to the code review process. A tool can enhance 
 
 ## TL;DRs  内容提要
 
-•   Trust and communication are core to the code review process. A tool can enhance the experience, but it can’t replace them.
-•   Tight integration with other tools is key to great code review experience.
-•   Small workflow optimizations, like the addition of an explicit “attention set,” can increase clarity and reduce friction substantially.
+- Trust and communication are core to the code review process. A tool can enhance the experience, but it can’t replace them.
+- Tight integration with other tools is key to great code review experience.
+- Small workflow optimizations, like the addition of an explicit “attention set,” can increase clarity and reduce friction substantially.
 
 - 信任和沟通是代码审查过程的核心。工具可以增强体验，但不能替代它们。
 - 与其他工具的紧密集成是获得优秀代码审查体验的关键。
 - 小的工作流程优化，如增加一个明确的 "关注集"，可以提高清晰度并大大减少摩擦。
-
