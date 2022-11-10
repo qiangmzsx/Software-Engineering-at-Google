@@ -19,15 +19,15 @@ Even further from code dependencies, an application might periodically ingest da
 
 甚至在代码依赖关系之外，应用程序可能会定期接收数据或更新机器学习模型。它可能在不断发展的操作系统、运行时、云托管服务和设备上执行。它可能是位于不断增长的平台之上的功能，也可能是必须适应不断增长的功能基础的平台。所有这些都应该被视为依赖关系，我们也应该致力于“持续集成”它们的变化。更复杂的是，这些变化的组件通常由我们团队、组织或公司之外的开发人员拥有，并按照他们自己的时间表部署。
 
-> [^1]: https://www.martinfowler.com/articles/continuousIntegration.html
+> [^1]: `https://www.martinfowler.com/articles/continuousIntegration.html`.
 
 So, perhaps a better definition for CI in today’s world, particularly when developing at scale, is the following:
 
-*Continuous Integration (2)*: the continuous assembling and testing of our entire complex and rapidly evolving ecosystem.
+    *Continuous Integration (2)*: the continuous assembling and testing of our entire complex and rapidly evolving ecosystem.
 
 因此，在当今世界，特别是在大规模开发时，对CI更好的定义也许是以下几点：
 
-·持续集成：对我们整个复杂和快速发展的生态系统进行持续的组装和测试。
+    持续集成：对我们整个复杂和快速发展的生态系统进行持续的组装和测试。
 
 It is natural to conceptualize CI in terms of testing because the two are tightly coupled, and we’ll do so throughout this chapter. In previous chapters, we’ve discussed a comprehensive range of testing, from unit to integration, to larger-scoped systems.
 
