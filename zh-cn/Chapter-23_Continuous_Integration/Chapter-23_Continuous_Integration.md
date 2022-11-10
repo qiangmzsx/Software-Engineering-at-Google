@@ -77,18 +77,14 @@ As discussed in Chapter 11, the cost of a bug grows almost exponentially the lat
 
 In general, as issues progress to the “right” in our diagram, they become costlier for the following reasons:
 
-•   They must be triaged by an engineer who is likely unfamiliar with the problematic code change.
-
-•   They require more work for the code change author to recollect and investigate the change.
-
-•   They negatively affect others, whether engineers in their work or ultimately the end user.
+- They must be triaged by an engineer who is likely unfamiliar with the problematic code change.
+- They require more work for the code change author to recollect and investigate the change.
+- They negatively affect others, whether engineers in their work or ultimately the end user.
 
 一般来说，随着问题向我们图中的 "右侧 "发展，它们的成本会变得更高，原因如下：
 
 - 它们必须由可能不熟悉问题代码更改的工程师来处理。
-
 - 这些问题需要代码修改者做更多的工作来回忆和调查这些修改。
-
 - 它们会对其他人产生负面影响，无论是工作中的工程师还是最终的终端用户。
 
 To minimize the cost of bugs, CI encourages us to use *fast feedback loops.*[^3] Each time we integrate a code (or other) change into a testing scenario and observe the results, we get a new *feedback loop*. Feedback can take many forms; following are some common ones (in order of fastest to slowest):
@@ -109,15 +105,15 @@ To minimize the cost of bugs, CI encourages us to use *fast feedback loops.*[^3]
 - 在外部用户之前使用功能的内部用户的错误报告
 - 外部用户或媒体的错误或故障报告
 
-> [^3]:	This is also sometimes called “shifting left on testing.”/
+> [^3]: This is also sometimes called “shifting left on testing.”
+>
 > 3 这有时也被称为 "测试左移"。
-
 
 *Canarying*—or deploying to a small percentage of production first—can help minimize issues that do make it to production, with a subset-of-production initial feedback loop preceding all-of-production. However, canarying can cause problems, too, particularly around compatibility between deployments when multiple versions are deployed at once. This is sometimes known as *version skew*, a state of a distributed system in which it contains multiple incompatible versions of code, data, and/or configuration. Like many issues we look at in this book, version skew is another example of a challenging problem that can arise when trying to develop and manage software over time.
 
 *金丝雀*-或者先部署到一小部分生产，可以有助于最小化减少进入生产的问题，在所有生产之前先部署一部分生产初始反馈回路。但是，金丝雀部署也会导致新的问题，尤其是在同时部署多个版本时，部署之间的兼容性问题。这有时被称为版本倾斜，分布式系统的一种状态，其中包含多个不兼容的代码、数据和/或配置版本。就像我们在本书中看到的许多问题一样，版本倾斜是另一个在尝试开发和管理软件时可能出现的具有挑战性的问题的例子。
 
-*Experiments* and *feature flags* are extremely powerful feedback loops. They reduce deployment risk by isolating changes within modular components that can be dynamically toggled in production. Relying heavily on feature-flag-guarding is a common paradigm for Continuous Delivery, which we explore further in [Chapter 24](#_bookmark2100).
+*Experiments* and *feature flags* are extremely powerful feedback loops. They reduce deployment risk by isolating changes within modular components that can be dynamically toggled in production. Relying heavily on feature-flag-guarding is a common paradigm for Continuous Delivery, which we explore further in Chapter 24.
 
 *实验*特性标志是非常强大的反馈回路。它们通过隔离模块化组件中可以在生产中动态切换的更改来降低部署风险。严重依赖功能标志保护是持续交付的常见范例，我们将在第24章中进一步探讨。
 
@@ -161,7 +157,7 @@ After a change is submitted, the CB should run all relevant tests. If a change p
 
 #### Continuous Delivery 连续交付
 
-The first step in Continuous Delivery (CD; discussed more fully in [Chapter 24](#_bookmark2100)) is *release automation*, which continuously assembles the latest code and configuration from head into release candidates. At Google, most teams cut these at green, as opposed to true, head.
+The first step in Continuous Delivery (CD; discussed more fully in Chapter 24) is *release automation*, which continuously assembles the latest code and configuration from head into release candidates. At Google, most teams cut these at green, as opposed to true, head.
 
 持续交付（CD；在第24章中详细讨论）的第一步是发布自动化，它不断地将最新的代码和配置从head组装成候选发布版本。在谷歌，大多数团队都是在绿色（而不是真正的）head进行切割。
 
@@ -205,11 +201,11 @@ As an RC progresses through environments, its artifacts (e.g., binaries, contain
 >
 > 5 在谷歌，发布自动化是由一个独立于TAP的系统管理的。我们不会专注于发布自动化是如何组装RC的，但如果你有兴趣，我们会向你推荐《网站可靠性工程》（O'Reilly），其中详细讨论了我们的发布自动化技术（一个叫做Rapid的系统）。
 >
-> [6^]: CD with experiments and feature flags is discussed further in Chapter 24./
+> [6^]: CD with experiments and feature flags is discussed further in Chapter 24.
 >
 > 6 第24章进一步讨论了带有实验和特征标志的CD。
 >
-> [7^]: We call these “mid-air collisions” because the probability of it occurring is extremely low; however, when this does happen, the results can be quite surprising./
+> [7^]: We call these “mid-air collisions” because the probability of it occurring is extremely low; however, when this does happen, the results can be quite surprising.
 >
 > 7 我们称这些为 "空中碰撞"，因为它发生的概率极低；然而，当这种情况发生时，其结果可能是相当令人惊讶的。
 
@@ -259,7 +255,8 @@ Most teams at Google run their small tests (like unit tests) on presubmit[^8]—
 
 谷歌的大多数团队都在预提交上运行他们的小型测试（如单元测试）--这些是明显要运行的，因为它们往往是最快和最可靠的。是否以及如何在提交前运行更大范围的测试是个更有趣的问题，这因团队而异。对于想要运行这些测试的团队来说，封闭测试是一种行之有效的方法来减少其固有的不稳定性。另一个选择是允许大范围的测试在预提交时不可靠，但当它们开始失败时，要主动禁用它们。
 
-> [^8]: Each team at Google configures a subset of its project’s tests to run on presubmit (versus post-submit). In reality, our continuous build actually optimizes some presubmit tests to be saved for post-submit, behind the scenes. We’ll further discuss this later on in this chapter./
+> [^8]: Each team at Google configures a subset of its project’s tests to run on presubmit (versus post-submit). In reality, our continuous build actually optimizes some presubmit tests to be saved for post-submit, behind the scenes. We’ll further discuss this later on in this chapter.
+>
 > 8 谷歌的每个团队都将其项目的测试的一个子集配置为在预提交运行（相对于提交后）。实际上，我们的持续构建实际上在幕后优化了一些预提交的测试，以保存到提交后。我们将在本章的后面进一步讨论这个问题。
 
 #### Release candidate testing 候选版本测试
@@ -275,30 +272,30 @@ As CD builds RCs, it will run larger tests against the entire candidate. We test
 There are several reasons why it’s important to run a comprehensive, automated test suite against an RC, even if it is the same suite that CB just ran against the code on post-submit (assuming the CD cuts at green):
 
 - *As a sanity check*  
-​	We double check that nothing strange happened when the code was cut and recompiled in the RC.
+    We double check that nothing strange happened when the code was cut and recompiled in the RC.
 
 - *For* *auditability*  
-​	If an engineer wants to check an RC’s test results, they are readily available and associated with the RC, so they don’t need to dig through CB logs to find them.
+    If an engineer wants to check an RC’s test results, they are readily available and associated with the RC, so they don’t need to dig through CB logs to find them.
 
 - *To allow for cherry picks*  
-​	If you apply a cherry-pick fix to an RC, your source code has now diverged from the latest cut tested by the CB.
+    If you apply a cherry-pick fix to an RC, your source code has now diverged from the latest cut tested by the CB.
 
 - *For emergency pushes*  
-​	In that case, CD can cut from true head and run the minimal set of tests necessary to feel confident about an emergency push, without waiting for the full CB to pass.
+    In that case, CD can cut from true head and run the minimal set of tests necessary to feel confident about an emergency push, without waiting for the full CB to pass.
 
 有几个原因可以说明为什么对RC运行一个全面的、自动化的测试套件很重要，即使它是CB在提交后对代码运行的同一个套件（假设CD是绿色的）:
 
 - *作为理性的检查*  
-​	我们仔细检查，当代码在RC中被切割和重新编译时，确保没有任何奇怪的事情发生。
+    我们仔细检查，当代码在RC中被切割和重新编译时，确保没有任何奇怪的事情发生。
 
 - *为了便于审计*  
-​	如果工程师想检查RC的测试结果，他们很容易得到，并与RC相关联，所以他们不需要在CB日志中寻找它们。
+    如果工程师想检查RC的测试结果，他们很容易得到，并与RC相关联，所以他们不需要在CB日志中寻找它们。
 
 - *允许偷梁换柱*  
-​	如果你对一个RC应用了偷梁换柱式的修复，你的源代码现在已经与CB测试的最新版本相去甚远。
+    如果你对一个RC应用了偷梁换柱式的修复，你的源代码现在已经与CB测试的最新版本相去甚远。
 
 - *用于紧急推送*  
-​	在这种情况下，CD可以从真正的head切分，并运行必要的最小的测试集，对紧急推送感到有信心，而不等待完整的CB通过。
+    在这种情况下，CD可以从真正的head切分，并运行必要的最小的测试集，对紧急推送感到有信心，而不等待完整的CB通过。
 
 #### Production testing 生产测试
 
@@ -341,18 +338,14 @@ Cause-based alerts and brittle tests can still have value; they just aren’t th
 
 Although monitoring and alerting are considered a part of the SRE/production management domain, where the insight of “Error Budgets” is well understood,[^9] CI comes from a perspective that still tends to be focused on absolutes. Framing CI as the “left shift” of alerting starts to suggest ways to reason about those policies and propose better best practices:
 
-•   Having a 100% green rate on CI, just like having 100% uptime for a production service, is awfully expensive. If that is *actually* your goal, one of the biggest problems is going to be a race condition between testing and submission.
-
-•   Treating every alert as an equal cause for alarm is not generally the correct approach. If an alert fires in production but the service isn’t actually impacted, silencing the alert is the correct choice. The same is true for test failures: until our CI systems learn how to say, “This test is known to be failing for irrelevant reasons,” we should probably be more liberal in accepting changes that disable a failed test. Not all test failures are indicative of upcoming production issues.
-
-•   Policies that say, “Nobody can commit if our latest CI results aren’t green” are probably misguided. If CI reports an issue, such failures should definitely be *investigated* before letting people commit or compound the issue. But if the root cause is well understood and clearly would not affect production, blocking commits is unreasonable.
+- Having a 100% green rate on CI, just like having 100% uptime for a production service, is awfully expensive. If that is *actually* your goal, one of the biggest problems is going to be a race condition between testing and submission.
+- Treating every alert as an equal cause for alarm is not generally the correct approach. If an alert fires in production but the service isn’t actually impacted, silencing the alert is the correct choice. The same is true for test failures: until our CI systems learn how to say, “This test is known to be failing for irrelevant reasons,” we should probably be more liberal in accepting changes that disable a failed test. Not all test failures are indicative of upcoming production issues.
+- Policies that say, “Nobody can commit if our latest CI results aren’t green” are probably misguided. If CI reports an issue, such failures should definitely be *investigated* before letting people commit or compound the issue. But if the root cause is well understood and clearly would not affect production, blocking commits is unreasonable.
 
 尽管监控和告警被认为是SRE/生产管理领域的一部分，其中 "错误成本 "的洞察力被很好地理解，CI来自一个仍然倾向于关注绝对性的视角。将CI定义为告警的 "左移"，开始建议如何推理这些策略并提出更好的最佳实践：
 
 - 在CI上实现100%的绿色率，就像在生产服务中实现100%的正常运行时间一样，是非常昂贵的。如果这确实是你的目标，那么最大的问题之一就是测试和提交之间的竞争条件。
-
 - 把每一个告警都当作一个相同原因来处理，一般来说不是正确的方法。如果一个告警在生产中被触发，但服务实际上并没有受到影响，让告警沉默是正确的选择。对于测试失败也是如此：在我们的CI系统学会如何说“已知此测试因无关原因而失败”之前，我们可能应该更自由地接受禁用失败测试的更改。并非所有测试失败都表明即将出现生产问题。
-
 - 那些说 "如果我们最新的CI结果不是绿色的，任何人都不能提交 "的策略可能是错误的。如果 CI 报告了一个问题，在让人们提交或使问题复杂化之前，肯定要对这种失败进行调查。但如果根本原因已被充分理解，并且显然不会影响生产，那么阻止提交是不合理的。
 
 This “CI is alerting” insight is new, and we’re still figuring out how to fully draw parallels. Given the higher stakes involved, it’s unsurprising that SRE has put a lot of thought into best practices surrounding monitoring and alerting, whereas CI has been viewed as more of a luxury feature.[^10] For the next few years, the task in software engineering will be to see where existing SRE practice can be reconceptualized in a CI context to help reformulate the testing and CI landscape—and perhaps where best practices in testing can help clarify goals and policies on monitoring and alerting.
@@ -361,10 +354,12 @@ This “CI is alerting” insight is new, and we’re still figuring out how to 
 
 ----
 
-> [9^]: Aiming for 100% uptime is the wrong target. Pick something like 99.9% or 99.999% as a business or product trade-off, define and monitor your actual uptime, and use that “budget” as an input to how aggressively you’re willing to push risky releases./
+> [9^]: Aiming for 100% uptime is the wrong target. Pick something like 99.9% or 99.999% as a business or product trade-off, define and monitor your actual uptime, and use that “budget” as an input to how aggressively you’re willing to push risky releases.
+>
 > 9 以100%的正常运行时间为目标是错误的。选择像99.9%或99.999%这样的目标作为业务或产品的权衡，定义并监控你的实际正常运行时间，并使用该 "成本预算 "作为你愿意多积极地推动风险发布的输入。
 >
-> [10^]: We believe CI is actually critical to the software engineering ecosystem: a must-have, not a luxury. But that is not universally understood yet./
+> [10^]: We believe CI is actually critical to the software engineering ecosystem: a must-have, not a luxury. But that is not universally understood yet.
+>
 > 10 我们相信CI实际上对软件工程生态系统至关重要：它是必需品，而不是奢侈品。但这一点尚未得到普遍理解。
 
 ### CI Challenges
@@ -409,7 +404,7 @@ Another approach that helps with test instability (and other CI challenges) is h
 
 ### Hermetic Testing  封闭测试
 
-Because talking to a live backend is unreliable, we often use [hermetic backends ](https://oreil.ly/-PbRM)for larger-scoped tests. This is particularly useful when we want to run these tests on presubmit, when stability is of utmost importance. In [Chapter 11](#_bookmark838), we introduced the concept of hermetic tests:
+Because talking to a live backend is unreliable, we often use [hermetic backends ](https://oreil.ly/-PbRM)for larger-scoped tests. This is particularly useful when we want to run these tests on presubmit, when stability is of utmost importance. In Chapter 11, we introduced the concept of hermetic tests:
 
     *Hermetic tests*: tests run against a test environment (i.e., application servers and resources) that is entirely self-contained (i.e., no external dependencies like production backends).
 
@@ -429,7 +424,7 @@ Hermetic test success should not depend on the user running the test. This allow
 
 封闭测试的成功不应取决于运行测试的用户。这允许人们复制CI系统运行的测试，并允许人们（例如，库的开发者）运行其他团队拥有的测试。
 
-One type of hermetic backend is a fake. As discussed in [Chapter 13](#_bookmark1056), these can be cheaper than running a real backend, but they take work to maintain and have limited fidelity.
+One type of hermetic backend is a fake. As discussed in Chapter 13, these can be cheaper than running a real backend, but they take work to maintain and have limited fidelity.
 
 一种封闭式的后端是模拟的。正如在第13章中所讨论的，这些可能比运行一个真正的后端更廉价，但它们需要花费精力去维护，而且仿真度有限。
 
@@ -437,7 +432,7 @@ The cleanest option to achieve a presubmit-worthy integration test is with a ful
 
 实现具有预提交价值的集成测试的最干净的选择是使用一个完全精细的设置--即启动整个堆栈沙盒--谷歌为流行组件（如数据库）提供开箱即用的沙盒配置，以使其更简单。这对于组件较少的小型应用程序更为可行，但谷歌也有例外，即使是一个（由DisplayAds提供）在每次提交前以及提交后从零开始启动大约400台服务器的应用程序。但是，自创建该系统以来，录制/重播已成为大型系统的一种更受欢迎的范例，并且往往比启动大型沙盒堆栈更便宜。
 
-Record/replay (see [Chapter 14](#_bookmark1181)) systems record live backend responses, cache them, and replay them in a hermetic test environment. Record/replay is a powerful tool for reducing test instability, but one downside is that it leads to brittle tests: it’s difficult to strike a balance between the following:
+Record/replay (see Chapter 14) systems record live backend responses, cache them, and replay them in a hermetic test environment. Record/replay is a powerful tool for reducing test instability, but one downside is that it leads to brittle tests: it’s difficult to strike a balance between the following:
 
 *False positives*
     The test passes when it probably shouldn’t have because we are hitting the cache too much and missing problems that would surface when capturing a new response.
@@ -687,7 +682,7 @@ One common source of failures: tests would break when product plug-ins were roll
 
 一个常见的失败原因是：当产品插件推出一个功能时，测试会中断。例如，YouTube插件的播放列表获取功能可能在开发阶段启用了几个月的测试，然后才在生产阶段启用。Takeout测试只知道要检查一个结果，所以这往往导致测试需要在特定的环境中被禁用，并在功能推出时被手动修复。
 
-**What the team did.** The team came up with a strategic way to disable failing tests by tagging them with an associated bug and filing that off to the responsible team (usually a product plug-in team). When a failing test was tagged with a bug, the team’s testing framework would suppress its failure. This allowed the test suite to stay green and still provide confidence that everything else, besides the known issues, was passing, as illustrated in [Figure 23-4](#_bookmark2092).
+**What the team did.** The team came up with a strategic way to disable failing tests by tagging them with an associated bug and filing that off to the responsible team (usually a product plug-in team). When a failing test was tagged with a bug, the team’s testing framework would suppress its failure. This allowed the test suite to stay green and still provide confidence that everything else, besides the known issues, was passing, as illustrated in Figure 23-4.
 
 **团队所做的**。该团队提出了一种禁用失败测试的战略方法，方法是使用相关错误标记失败测试，并将其提交给负责的团队（通常是产品插件团队）。当失败的测试被标记为错误时，团队的测试框架将抑制其失败。这允许测试套件保持绿色，并且仍然提供信心，证明除已知问题外的所有其他问题都通过了，如图23-4所示。
 
@@ -719,7 +714,7 @@ These changes made a mostly self-maintaining test suite, as illustrated in [Figu
 
 **未来的改进。**自动归档和标记bug将是一个有用的下一步。这仍然是一个手动和繁重的过程。正如前面提到的，我们的一些大型团队已经这样做了。
 
-**Further challenges.** The scenarios we’ve described are far from the only CI challenges faced by Takeout, and there are still more problems to solve. For example, we mentioned the difficulty of isolating failures from upstream services in [“CI Challenges” on](#_bookmark2059) [page 490](#_bookmark2059). This is a problem that Takeout still faces with rare breakages originating with upstream services, such as when a security update in the streaming infrastructure used by Takeout’s “Drive folder downloads” API broke archive decryption when it deployed to production. The upstream services are staged and tested themselves, but there is no simple way to automatically check with CI if they are compatible with Takeout after they’re launched into production. An initial solution involved creating an “upstream staging” CI environment to test production Takeout binaries against the staged versions of their upstream dependencies. However, this proved difficult to maintain, with additional compatibility issues between staging and production versions.
+**Further challenges.** The scenarios we’ve described are far from the only CI challenges faced by Takeout, and there are still more problems to solve. For example, we mentioned the difficulty of isolating failures from upstream services in “CI Challenges” on page 490. This is a problem that Takeout still faces with rare breakages originating with upstream services, such as when a security update in the streaming infrastructure used by Takeout’s “Drive folder downloads” API broke archive decryption when it deployed to production. The upstream services are staged and tested themselves, but there is no simple way to automatically check with CI if they are compatible with Takeout after they’re launched into production. An initial solution involved creating an “upstream staging” CI environment to test production Takeout binaries against the staged versions of their upstream dependencies. However, this proved difficult to maintain, with additional compatibility issues between staging and production versions.
 
 **进一步的挑战。**我们所描述的场景远不是Takeout所面临的唯一的CI挑战，还有更多问题需要解决。例如，我们在第490页的 "CI挑战 "中提到了从上游服务隔离故障的困难。这是Takeout仍然面临的一个问题，即源于上游服务的罕见故障，例如Takeout的“驱动器文件夹下载”API使用的流式基础结构中的安全更新在部署到生产环境时破坏了存档解密。上游服务都是经过阶段性测试的，但没有简单的方法在它们投入生产后用CI自动检查它们是否与Takeout兼容。最初的解决方案是创建一个 "上游临时 "的CI环境，根据上游依赖的暂存版本测试Takeout的生产二进制文件。然而，这被证明是很难维护的，在临时版本和生产版本之间存在着额外的兼容性问题。
 
@@ -742,17 +737,11 @@ Even though we’ve described our CI processes and some of how we’ve automated
 ## TL;DRs  内容提要
 
 - A CI system decides what tests to use, and when.
-
 - CI systems become progressively more necessary as your codebase ages and grows in scale.
-
 - CI should optimize quicker, more reliable tests on presubmit and slower, less deterministic tests on post-submit.
-
 - Accessible, actionable feedback allows a CI system to become more efficient.
 
 - CI系统决定使用什么测试以及何时使用。
-
 - 随着代码库的老化和规模的扩大，CI系统变得越来越有必要。
-
 - CI应该在提交前优化更快、更可靠的测试，在提交后优化更慢、更不确定的测试。
-
 - 可访问、可操作的反馈使CI系统变得更加有效。
