@@ -21,12 +21,11 @@ Work that stays in progress for a long time before delivering user value is high
 
 在交付用户价值之前进行很长时间的工作是高风险和高成本的，甚至可能会消耗士气。在谷歌，我们努力做到早期和经常发布，或者说 "发布和迭代"，以使团队能够迅速看到他们工作的影响，并更快地适应不断变化的市场。代码的价值不是在提交时实现的，而是在你的用户可以使用的功能时实现的。缩短 "代码完成 "和用户反馈之间的时间，可以将正在进行中的工作的成本降到最低。
 
-	You get extraordinary outcomes by realizing that the launch *never lands* but that it begins a learning cycle where you then fix the next most important thing, measure how it went, fix the next thing, etc.—and it is *never complete*.
-	
-	—David Weekly, Former Google product manager
-	
-	当你意识到发射从未着陆，但它开始了一个学习周期，然后你修复下一个最重要的事情，衡量它如何进行，修复下一个事情，等等——而且它永远不会完成。
-	-David Weekly，前谷歌产品经理
+    You get extraordinary outcomes by realizing that the launch *never lands* but that it begins a learning cycle where you then fix the next most important thing, measure how it went, fix the next thing, etc.—and it is *never complete*.
+    —David Weekly, Former Google product manager
+
+    当你意识到发射从未着陆，但它开始了一个学习周期，然后你修复下一个最重要的事情，衡量它如何进行，修复下一个事情，等等——而且它永远不会完成。
+    -David Weekly，前谷歌产品经理
 
 At Google, the practices we describe in this book allow hundreds (or in some cases thousands) of engineers to quickly troubleshoot problems, to independently work on new features without worrying about the release, and to understand the effectiveness of new features through A/B experimentation. This chapter focuses on the key levers of rapid innovation, including managing risk, enabling developer velocity at scale, and understanding the cost and value trade-off of each feature you launch.
 
@@ -37,43 +36,42 @@ At Google, the practices we describe in this book allow hundreds (or in some cas
 A core tenet of Continuous Delivery (CD) as well as of Agile methodology is that over time, smaller batches of changes result in higher quality; in other words, *faster is safer*. This can seem deeply controversial to teams at first glance, especially if the prerequisites for setting up CD—for example, Continuous Integration (CI) and testing— are not yet in place. Because it might take a while for all teams to realize the ideal of CD, we focus on developing various aspects that deliver value independently en route to the end goal. Here are some of these:
 
 - *Agility*  
-​	Release frequently and in small batches
+    Release frequently and in small batches
 
 - *Automation*  
-​	Reduce or remove repetitive overhead of frequent releases
+​    Reduce or remove repetitive overhead of frequent releases
 
 - *Isolation*  
-​	Strive for modular architecture to isolate changes and make troubleshooting easier
+​    Strive for modular architecture to isolate changes and make troubleshooting easier
 
 - *Reliability*  
-​	Measure key health indicators like crashes or latency and keep improving them
+​    Measure key health indicators like crashes or latency and keep improving them
 
 - *Data-driven* *decision* *making*  
-​	Use A/B testing on health metrics to ensure quality
+​    Use A/B testing on health metrics to ensure quality
 
 - *Phased* *rollout*  
-​	Roll out changes to a few users before shipping to everyone
+​    Roll out changes to a few users before shipping to everyone
 
 持续交付（CD）以及敏捷方法论的一个核心原则是，随着时间的推移，小批量的变更会带来更高的质量；换句话说，越快越安全。乍一看，这似乎对团队有很大的争议，尤其是当建立CD的前提条件--例如，持续集成（CI）和测试--还没有到位的时候。因为所有团队可能需要一段时间才能实现CD的理想，所以我们将重点放在开发能够在实现最终目标的过程中独立交付价值的各个方面。下面是其中的一些：
 
 - *敏捷性*  
-​	频繁地、小批量地发布。
+​    频繁地、小批量地发布。
 
 - *自动化*  
-​	减少或消除频繁发布的重复性开销。
+​    减少或消除频繁发布的重复性开销。
 
 - *隔离性*  
-​	努力实现模块化体系结构，以隔离更改并使故障排除更加容易。
+​    努力实现模块化体系结构，以隔离更改并使故障排除更加容易。
 
 - *可靠性*  
-​	衡量关键的健康指标，如崩溃或延迟，并不断改善它们。
+​    衡量关键的健康指标，如崩溃或延迟，并不断改善它们。
 
 - *数据驱动的决策*  
-​	在健康指标上使用A/B测试以确保质量。
+​    在健康指标上使用A/B测试以确保质量。
 
 - *分阶段推出*  
-​	在向所有人发送之前，先在少数用户中推广变更。
-
+​    在向所有人发送之前，先在少数用户中推广变更。
 
 At first, releasing new versions of software frequently might seem risky. As your userbase grows, you might fear the backlash from angry users if there are any bugs that you didn’t catch in testing, and you might quite simply have too much new code in your product to test exhaustively. But this is precisely where CD can help. Ideally, there are so few changes between one release and the next that troubleshooting issues is trivial. In the limit, with CD, every change goes through the QA pipeline and is automatically deployed into production. This is often not a practical reality for many teams, and so there is often work of culture change toward CD as an intermediate step, during which teams can build their readiness to deploy at any time without actually doing so, building up their confidence to release more frequently in the future.
 
@@ -81,7 +79,7 @@ At first, releasing new versions of software frequently might seem risky. As you
 
 ## Velocity Is a Team Sport: How to Break Up a Deployment into Manageable Pieces   速度是一项团队运动：如何将部署工作分解成可管理的部分
 
-When a team is small, changes come into a codebase at a certain rate. We’ve seen an antipattern emerge as a team grows over time or splits into subteams: a subteam branches off its code to avoid stepping on anyone’s feet, but then struggles, later, with integration and culprit finding. At Google, we prefer that teams continue to develop at head in the shared codebase and set up CI testing, automatic rollbacks, and culprit finding to identify issues quickly. This is discussed at length in [Chapter 23](#_bookmark2022).
+When a team is small, changes come into a codebase at a certain rate. We’ve seen an antipattern emerge as a team grows over time or splits into subteams: a subteam branches off its code to avoid stepping on anyone’s feet, but then struggles, later, with integration and culprit finding. At Google, we prefer that teams continue to develop at head in the shared codebase and set up CI testing, automatic rollbacks, and culprit finding to identify issues quickly. This is discussed at length in Chapter 23.
 
 当一个团队很小的时候，变化以一定的速度进入一个代码库。我们看到，随着时间的推移，一个团队的成长或分裂成子团队，会出现一种反模式：一个子团队将其代码分支，以避免踩到其他团队的脚，但后来却在集成和寻找罪魁祸首方面陷入困境。在谷歌，我们更倾向于团队继续在共享代码库中进行开发，并设置CI测试、自动回滚和故障查找，以快速识别问题。这在第23章中有详细的讨论。
 
@@ -143,7 +141,8 @@ We ran from office to office trying to determine how many people actually spoke 
 
 我们从一个办公室跑到另一个办公室，试图确定究竟有多少人讲这种语言，是否每次用户用这种语言搜索时都会出现这种情况，以及这些人是否经常使用谷歌。每个与我们交谈的质量工程师都把我们推给更高级别的人。最后，数据在手，我们把问题交给了搜索部的高级副总裁。我们是否应该推迟一个重要的版本来修复一个只影响到菲律宾一个很小的岛屿的错误？事实证明，无论你的岛有多小，你都应该得到可靠和准确的搜索结果：我们推迟了发布，并修复了这个错误。
 
-> [^1]:  Remember the SRE “error-budget” formulation: perfection is rarely the best goal. Understand how much room for error is acceptable and how much of that budget has been spent recently and use that to adjust the trade-off between velocity and stability./
+> [^1]:  Remember the SRE “error-budget” formulation: perfection is rarely the best goal. Understand how much room for error is acceptable and how much of that budget has been spent recently and use that to adjust the trade-off between velocity and stability.
+>
 > 1 记住SRE的 "错误预算 "表述：完美很少是最佳目标。了解多少误差空间是可以接受的，以及该预算最近花了多少，并利用这一点来调整速度和稳定性之间的权衡。
 
 ### Meet Your Release Deadline 满足您的发布期限
@@ -159,7 +158,6 @@ There is the *rare* exception. The situation usually goes like this. It’s late
 A world of regular releases means that if a developer misses the release train, they’ll be able to catch the next train in a matter of hours rather than days. This limits developer panic and greatly improves work–life balance for release engineers.
 
 定期发布的世界意味着，如果开发人员错过了发版班车，他们将能够在几个小时而不是几天内赶上下一班班车。这限制了开发人员的恐慌，并大大改善了发布工程师的工作-生活平衡。
-
 
 ## Quality and User-Focus: Ship Only What Gets Used 质量和用户关注点：只提供使用的产品
 
@@ -192,17 +190,13 @@ If you’re building for all users, you might have clients on smart screens, spe
 One of our release managers shared a piece of wisdom that turned the situation around when he said that the diversity of our client market was not a *problem*, but a *fact*. After we accepted that, we could switch our release qualification model in the following ways:
 
 - If *comprehensive* testing is practically infeasible, aim for *representative* testing instead.
-
 - Staged rollouts to slowly increasing percentages of the userbase allow for fast fixes.
-
 - Automated A/B releases allow for statistically significant results proving a release’s quality, without tired humans needing to look at dashboards and make decisions.
 
 我们的一位发布经理分享了一条智慧，他说我们客户市场的多样性不是问题，而是事实，这扭转了局面。在我们接受后，我们可以通过以下方式切换我们的发布资格模型：
 
 - 如果*全面*的测试实际上是不可行的，就以*代表性*的测试为目标。
-
 - 分阶段向用户群中慢慢增加的百分比进行发布，可以快速修复问题。
-
 - 自动的A/B发布允许统计学上有意义的结果来证明一个版本的质量，而无需疲惫的人去看仪表盘和做决定。
 
 When it comes to developing for Android clients, Google apps use specialized testing tracks and staged rollouts to an increasing percentage of user traffic, carefully monitoring for issues in these channels. Because the Play Store offers unlimited testing tracks, we can also set up a QA team in each country in which we plan to launch, allowing for a global overnight turnaround in testing key features.
@@ -221,7 +215,8 @@ Obviously, this method does not apply to every app and can be a lot of overhead 
 
 显然，这种方法并不适用于每个应用程序，当你没有足够大的用户群时，可能会有很多开销。在这种情况下，推荐的最佳做法是以变化中立的发布为目标。所有的新功能都有标志保护，这样在发布过程中测试的唯一变化就是部署本身的稳定性。 
 
-> [^2]:  Dan Siroker and Pete Koomen, *A/B Testing: The Most Powerful Way to Turn Clicks Into Customers* (Hoboken: Wiley, 2013)./
+> [^2]:  Dan Siroker and Pete Koomen, *A/B Testing: The Most Powerful Way to Turn Clicks Into Customers* (Hoboken: Wiley, 2013).
+>
 > 2   Dan Siroker和Pete Koomen，《A/B测试：将点击转化为客户的最有效方式》（Hoboken:Wiley，2013）。
 
 ## Changing Team Culture: Building Discipline into Deployment 改变团队文化：在部署中建立规则
@@ -259,30 +254,15 @@ Simply having the structures in place that *enable* continuous deployment genera
 ## TL;DRs  内容提要
 
 - *Velocity is a team sport*: The optimal workflow for a large team that develops code collaboratively requires modularity of architecture and near-continuous integration.
-
 - Evaluate changes in isolation: Flag guard any features to be able to isolate prob‐ lems early.
-
 - Make reality your benchmark: Use a staged rollout to address device diversity and the breadth of the userbase. Release qualification in a synthetic environment that isn’t similar to the production environment can lead to late surprises.
-
 - Ship only what gets used: Monitor the cost and value of any feature in the wild to know whether it’s still relevant and delivering sufficient user value.
-
 - Shift left: Enable faster, more data-driven decision making earlier on all changes through CI and continuous deployment.
-
 - Faster is safer: Ship early and often and in small batches to reduce the risk of each release and to minimize time to market.
 
 - *速度是一项团队运动*。协作开发代码的大型团队的最佳工作流程需要架构的模块化和近乎连续的集成。
-
 - 孤立地评估变化。对任何功能进行标记，以便能够尽早隔离问题。
-
 - 让现实成为你的基准。使用分阶段推出的方式来解决设备的多样性和用户群的广泛性。在一个与生产环境不相似的合成环境中进行发布鉴定，会导致后期的意外。
-
 - 只发布被使用的东西。监控任何功能的成本和价值，以了解它是否仍有意义，是否能提供足够的用户价值。
-
 - 向左移动。通过CI和持续部署，使所有的变化更快，更多的数据驱动的决策更早。
-
 - 更快是更安全的。尽早地、经常地、小批量地发布，以减少每次发布的风险，并尽量缩短上市时间。
-
-
-
-
-
