@@ -11,15 +11,15 @@
 
 Think for a moment about your own codebase. How many files can you reliably update in a single, simultaneous commit? What are the factors that constrain that number? Have you ever tried committing a change that large? Would you be able to do it in a reasonable amount of time in an emergency? How does your largest commit size compare to the actual size of your codebase? How would you test such a change? How many people would need to review the change before it is committed? Would you be able to roll back that change if it did get committed? The answers to these questions might surprise you (both what you *think* the answers are and what they actually turn out to be for your organization).
 
-考虑一下你自己的代码库。在一次同步提交中，你可以可靠地更新多少个文件？限制这一数字的因素有哪些？你有没有试过做出这么大的改变？在紧急情况下，你能在合理的时间内完成吗？您的最大提交大小与代码库的实际大小相比如何？你将如何测试这种变更？在提交更改之前，需要多少人进行审查？如果它确实被提交，你是否能够回滚该更改？这些问题的答案可能会让你大吃一惊（无论是你*认为*答案是什么，还是它们对你的组织来说实际是什么）。
+思考一下你自己的代码库。在一次同步提交中，你可以可靠地更新多少个文件？限制这一数值的因素有哪些？你有没有试过做出这么大的改变？在紧急情况下，你能在合理的时间内完成吗？你的最大提交大小与代码库的实际大小相比如何？你将如何测试这种变更？在提交更改之前，需要多少人进行审查？如果它确实被提交，你是否能够回滚该更改？这些问题的答案可能会让你大吃一惊（无论是你*认为*答案是什么，还是它们对你的组织来说实际情况怎么样）。
 
 At Google, we’ve long ago abandoned the idea of making sweeping changes across our codebase in these types of large atomic changes. Our observation has been that, as a codebase and the number of engineers working in it grows, the largest atomic change possible counterintuitively *decreases—*running all affected presubmit checks and tests becomes difficult, to say nothing of even ensuring that every file in the change is up to date before submission. As it has become more difficult to make sweeping changes to our codebase, given our general desire to be able to continually improve underlying infrastructure, we’ve had to develop new ways of reasoning about large-scale changes and how to implement them.
 
-在谷歌，我们很久以前就放弃了在这些类型的大型原子性对代码库进行彻底更改的想法。我们的观察结果是，随着代码库和在其中工作的工程师数量的增加，最大的原子性更改可能会反直觉地减少运行所有受影响的提交前检查和测试变得困难，更不用说确保更改中的每个文件在提交前都是最新的了。随着对代码库进行全面更改变得越来越困难，考虑到我们希望能够持续改进底层基础设施的普遍愿望，我们不得不开发新的方法来推理大规模更改以及如何实现这些更改。
+在谷歌，我们很久之前就放弃了大型原子变更对代码库大规模变更的想法。我们的观察到的结果是，随着代码库和在其中工作的工程师数量的增加，最大的原子性更改可能会反直觉地减少，运行所有受影响的预提交检查和测试变得困难，更不用说确保更改中的每个文件在提交前都是最新的了。随着对代码库进行全面更改变得越来越困难，考虑到我们希望能够持续改进底层基础设施的普遍愿望，我们不得不开发新的方法来推理大规模更改以及如何实现这些更改。
 
 In this chapter, we’ll talk about the techniques, both social and technical, that enable us to keep the large Google codebase flexible and responsive to changes in underlying infrastructure. We’ll also provide some real-life examples of how and where we’ve used these approaches. Although your codebase might not look like Google’s, understanding these principles and adapting them locally will help your development organization scale while still being able to make broad changes across your codebase.
 
-在这一章中，我们将谈论社会和技术方面的技术，这些技术使我们能够保持大型谷歌代码库的灵活性，并对底层基础设施的变化做出响应。我们还将提供一些实际例子，说明我们如何以及在何处使用这些方法。尽管你的代码库可能不像谷歌的代码库，但了解这些原则并对其进行局部调整，将有助于你的开发组织在扩大规模的同时，仍然能够对你的代码库进行广泛的修改。
+在这一章中，我们将谈论社会和技术方面的技术，这些技术使我们能够保持谷歌大型代码库的灵活性，并对底层基础设施的变化做出响应。我们还将提供一些实际例子，说明我们如何以及在何处使用这些方法。尽管你的代码库可能不像谷歌的代码库，但了解这些原则并对其进行局部调整，将有助于你的开发组织在扩大规模的同时，仍然能够对你的代码库进行大规模的变更。
 
 ## What Is a Large-Scale Change? 什么是大规模的变更？
 
