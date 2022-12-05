@@ -202,7 +202,7 @@ Sure, it might be most efficient for you to do it, but then you’re failing to 
 
 The corollary here is that you need to be mindful of your own purpose as a leader of leaders. If you find yourself deep in the weeds, you’re doing a disservice to your organization. When you get to work each day, ask yourself a different critical question: What can I do that nobody else on my team can do?
 
-这里的推论是，在做领导的领导这件事上，你可能需要格外留心。如果你发现你陷在细节里陷得太深，你可能正在破坏你的团队。每天工作时，你要问自己另外一个重要的问题：有什么事情是除了我以为团队里的其他人做不了的？
+这里的推论是，在做领导的领导这件事上，你可能需要格外留心。如果你发现你陷在细节里陷得太深，你可能正在破坏你的团队。每天工作时，你要问自己另外一个重要的问题：有什么事情是除了我以外团队里的其他人做不了的？
 
 There are a number of good answers. For example, you can protect your teams from organizational politics; you can give them encouragement; you can make sure everyone is treating one another well, creating a culture of humility, trust, and respect. It’s also important to “manage up,” making sure your management chain understands what your group is doing and staying connected to the company at large. But often the most common and important answer to this question is: “I can see the forest through the trees.” In other words, you can define a high-level strategy. Your strategy needs to cover not just overall technical direction, but an organizational strategy as well. You’re building a blueprint for how the ambiguous problem is solved and how your organization can manage the problem over time. You’re continuously mapping out the forest, and then assigning the tree-cutting to others.
 
