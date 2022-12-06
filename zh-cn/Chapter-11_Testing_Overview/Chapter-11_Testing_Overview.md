@@ -321,7 +321,7 @@ All tests should strive to be hermetic: a test should contain all of the informa
 
 A test should contain *only* the information required to exercise the behavior in question. Keeping tests clear and simple aids reviewers in verifying that the code does what it says it does. Clear code also aids in diagnosing failure when they fail. We like to say that “a test should be obvious upon inspection.” Because there are no tests for the tests themselves, they require manual review as an important check on correctness. As a corollary to this, we also [strongly discourage the use of control flow statements like conditionals and loops in a test](https://oreil.ly/fQSuk). More complex test flows risk containing bugs themselves and make it more difficult to determine the cause of a test failure.
 
-测试应该*仅*包含测试行为所需的信息。保持测试的清晰和简单，有助于审查人员验证代码是否做了它所说的事情。清晰的代码也有助于在测试失败时诊断失败。我们喜欢说，"测试应该在检查时是明显的"。因为测试本身没有测试，所以需要手动检查，作为对正确性的重要检查。作为一个推论，我们也强烈反对在测试中使用控制流语句，如条件和循环。更加复杂的测试流程有可能包含bug本身，并使确定测试失败的原因更加困难。
+测试应该*仅*包含测试行为所需的信息。保持测试的清晰和简单，有助于审查人员验证代码是否做了它所说的事情。清晰的代码也有助于在测试失败时诊断失败。我们喜欢说，"测试应该在检查时是明显的"。因为测试本身没有测试，所以需要手动检查，作为对正确性的重要检查。作为一个推论，我们也强烈反对在测试中使用控制流语句，如条件和循环。更加复杂的测试流程有可能本身包含bug，并使确定测试失败的原因更加困难。
 
 Remember that tests are often revisited only when something breaks. When you are called to fix a broken test that you have never seen before, you will be thankful someone took the time to make it easy to understand. Code is read far more than it is written, so make sure you write the test you’d like to read!
 
