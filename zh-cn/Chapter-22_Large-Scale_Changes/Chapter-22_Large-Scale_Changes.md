@@ -43,11 +43,11 @@ LSCs at Google are almost always generated using automated tooling. Reasons for 
 
 The number of engineers working on these specific tasks in a given organization might be low, but it is useful for their customers to have insight into the LSC tools and process. By their very nature, LSCs will affect a large number of customers, and the LSC tools easily scale down to teams making only a few dozen related changes.
 
-在一个特定的组织中，从事这些特定任务的工程师的数量可能不多，但对于他们的客户来说，深入了解LSC工具和流程是很有用的。就其性质而言，LSC将影响大量的客户，而LSC工具很容易扩展到只做几十个相关更改的团队。
+在一个特定的组织中，从事这些特定任务的工程师的数量可能不多，但对于他们的客户来说，深入了解LSC工具和流程是很有用的。就其性质而言，LSC将影响大量的客户，而LSC工具很容易扩展到只做几十个相关变更的团队。
 
 There can be broader motivating causes behind specific LSCs. For example, a new language standard might introduce a more efficient idiom for accomplishing a given task, an internal library interface might change, or a new compiler release might require fixing existing problems that would be flagged as errors by the new release. The majority of LSCs across Google actually have near-zero functional impact: they tend to be widespread textual updates for clarity, optimization, or future compatibility. But LSCs are not theoretically limited to this behavior-preserving/refactoring class of change.
 
-在特定的LSC背后可能有更广泛的动机。例如，新的语言标准可能会引入一种更有效的习惯用法来完成给定的任务，内部库接口可能会更改，或者新的编译器版本可能需要修复新版本标记为错误的现有问题。谷歌的大多数LSC实际上几乎没有功能影响：它们往往是为了清晰、优化或未来兼容性而进行的广泛文本更新。但从理论上讲，LSC并不局限于这种行为维护/重构类的变化。
+在特定的LSC背后可能有更广泛的动机。例如，新的语言标准可能会引入一种更有效的习惯用法来完成给定的任务，内部库接口可能会更改，或者新的编译器版本可能需要修复新版本标记为错误的现有问题。谷歌的大多数LSC实际上几乎没有功能影响：它们往往是为了清晰、优化或未来兼容性而进行的广泛文本更新。但从理论上讲，LSC并不局限于这种行为维护/重构类型的变化。
 
 In all of these cases, on a codebase the size of Google’s, infrastructure teams might routinely need to change hundreds of thousands of individual references to the old pattern or symbol. In the largest cases so far, we’ve touched millions of references, and we expect the process to continue to scale well. Generally, we’ve found it advantageous to invest early and often in tooling to enable LSCs for the many teams doing infrastructure work. We’ve also found that efficient tooling also helps engineers performing smaller changes. The same tools that make changing thousands of files efficient also scale down to tens of files reasonably well.
 
@@ -59,7 +59,7 @@ In all of these cases, on a codebase the size of Google’s, infrastructure team
 >
 > [^2]:  It’s possible in this federated world to say “we’ll just commit to each repo as fast as possible to keep the duration of the build break small!” But that approach really doesn’t scale as the number of federated repositories grows.
 >
-> 2 在这个联合的世界里，我们可以说 "我们将尽可能快地提交到每个 repo，以保持较小的构建中断时间！" 但这种方法实际上不能随着联合存储库数量的增长而扩展。
+> 2 在这个联合的世界里，我们可以说 "我们将尽可能快地提交到每个 repo，以保持较小的构建中断时间！" 但这种方法实际上不能随着联合代码库数量的增长而扩展。
 >
 > [^3]: For a further discussion about this practice, see Chapter 15.
 >
@@ -69,7 +69,7 @@ In all of these cases, on a codebase the size of Google’s, infrastructure team
 
 As just indicated, the infrastructure teams that build and manage our systems are responsible for much of the work of performing LSCs, but the tools and resources are available across the company. If you skipped Chapter 1, you might wonder why infrastructure teams are the ones responsible for this work. Why can’t we just introduce a new class, function, or system and dictate that everybody who uses the old one move to the updated analogue? Although this might seem easier in practice, it turns out not to scale very well for several reasons.
 
-如前所述，构建和管理我们系统的基础架构团队负责执行LSC的大部分工作，但工具和资源在整个公司都可用。如果你跳过了第1章，您可能会想，为什么基础设施团队负责这项工作。为什么我们不能引入一个新的类、函数或系统，并要求所有使用旧类、函数或系统的人都使用更新后的类、函数或系统？虽然这在实践中似乎更容易实现，但由于几个原因，它的扩展性不是很好。
+如前所述，构建和管理我们系统的基础架构团队负责执行LSC的大部分工作，但工具和资源在整个公司都可用。如果你跳过了第1章，你可能会想，为什么基础设施团队负责这项工作。为什么我们不能引入一个新的类、函数或系统，并要求所有使用旧类、函数或系统的人都使用更新后的类、函数或系统？虽然这在实践中似乎更容易实现，但由于几个原因，它的扩展性不是很好。
 
 First, the infrastructure teams that build and manage the underlying systems are also the ones with the domain knowledge required to fix the hundreds of thousands of references to them. Teams that consume the infrastructure are unlikely to have the context for handling many of these migrations, and it is globally inefficient to expect them to each relearn expertise that infrastructure teams already have. Centralization also allows for faster recovery when faced with errors because errors generally fall into a small set of categories, and the team running the migration can have a playbook—formal or informal—for addressing them.
 
@@ -89,7 +89,7 @@ Additionally, having teams that own the systems requiring LSCs helps align incen
 
 > [^4]:  By “unfunded mandate,” we mean “additional requirements imposed by an external entity without balancing compensation.” Sort of like when the CEO says that everybody must wear an evening gown for “formal Fridays” but doesn’t give you a corresponding raise to pay for your formal wear.
 >
-> 4  我们所说的“无资金授权”是指“外部实体在不平衡薪酬的情况下强加的额外要求”。有点像CEO说每个人都必须在“正式周五”穿晚礼服，但没有给你相应的加薪来支付正式着装的费用。
+> 4  我们所说的“无资金授权”是指“外部实体在不平衡薪酬的情况下强加的额外要求”。有点像CEO说每个人都必须在“正式星期五”穿晚礼服，但没有给你相应的加薪来支付正式着装的费用。
 
 -----
 
