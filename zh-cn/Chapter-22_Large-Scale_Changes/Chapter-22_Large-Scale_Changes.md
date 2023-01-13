@@ -117,7 +117,7 @@ As the ability to make changes across our entire codebase has improved, the dive
 
 Before we discuss the process that Google uses to actually effect LSCs, we should talk about why many kinds of changes can’t be committed atomically. In an ideal world, all logical changes could be packaged into a single atomic commit that could be tested, reviewed, and committed independent of other changes. Unfortunately, as a repository—and the number of engineers working in it—grows, that ideal becomes less feasible. It can be completely infeasible even at small scale when using a set of distributed or federated repositories.
 
-在我们讨论Google实际影响LSC的过程之前，我们应该先谈谈为什么很多种类的更改不能原子化地提交。在理想情况下，所有逻辑更改都可以打包成单个原子提交，可以独立于其他更改进行测试、审查和提交。不幸的是，随着版本库和在其中工作的工程师数量的增加，这种理想变得不太可行。当使用一组分布式或联邦版本库时，即使在小规模下也完全不可行。
+在我们讨论 Google 实际影响LSC的过程之前，我们应该先谈谈为什么很多种类的更改不能原子提交。在理想情况下，所有逻辑更改都可以打包成单个原子提交，可以独立于其他更改进行测试、审查和提交。不幸的是，随着版本库和在其中工作的工程师数量的增加，这种理想变得不太可行。当使用一组分布式或联邦版本库时，即使在小规模下也完全不可行。
 
 ### Technical Limitations  技术限制
 
@@ -137,11 +137,11 @@ In short, it might not be just “difficult” or “unwise” to make a large c
 
 As the size of a change grows, the potential for merge conflicts also increases. Every version control system we know of requires updating and merging, potentially with manual resolution, if a newer version of a file exists in the central repository. As the number of files in a change increases, the probability of encountering a merge conflict also grows and is compounded by the number of engineers working in the repository.
 
-随着变更规模的增加，合并冲突的可能性也会增加。我们知道的每个版本控制系统都需要更新和合并，如果中央版本库中存在较新版本的文件，则可能需要手动解析。随着更改中文件数量的增加，遇到合并冲突的可能性也会增加，并且在版本库中工作的工程师数量也会增加。
+随着变更规模的增加，合并冲突的可能性也会增加。我们知道的每个版本控制系统都需要更新和合并，如果中央版本库中存在较新版本的文件，则可能需要手动分析。随着更改中文件数量的增加，遇到合并冲突的可能性也会增加，并且使用版本库工作的工程师数量也会增加。
 
 If your company is small, you might be able to sneak in a change that touches every file in the repository on a weekend when nobody is doing development. Or you might have an informal system of grabbing the global repository lock by passing a virtual (or even physical!) token around your development team. At a large, global company like Google, these approaches are just not feasible: somebody is always making changes to the repository.
 
-如果你的公司很小，你可能会在周末没有人做开发的时候，偷偷地修改版本库中的每个文件。或者你可能有一个非正式的系统，通过在开发团队中传递一个虚拟的（甚至是物理的！）令牌来抓取全局的版本库锁。在谷歌这样的大公司，这些方法是不可行的：总有人在对版本库进行修改。
+如果你的公司很小，你可能会在周末没有人做开发的时候，偷偷地修改版本库中的每个文件。或者你可能有一个非正式的系统，通过在开发团队中传递一个虚拟的（甚至是物理的！）令牌来抓取全局的版本库锁。在谷歌这样的大公司，这些方法是不可行的：任何时候都总有人在对版本库进行修改。
 
 With few files in a change, the probability of merge conflicts shrinks, so they are more likely to be committed without problems. This property also holds for the following areas as well.
 
