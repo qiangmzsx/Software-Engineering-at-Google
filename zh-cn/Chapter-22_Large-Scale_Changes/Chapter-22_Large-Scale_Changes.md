@@ -155,7 +155,7 @@ The SREs who run Google’s production services have a mantra: “No Haunted Gra
 
 Haunted graveyards don’t just exist in production systems, however; they can be found in codebases. Many organizations have bits of software that are old and unmaintained, written by someone long off the team, and on the critical path of some important revenue-generating functionality. These systems are also frozen in time, with layers of bureaucracy built up to prevent changes that might cause instability. Nobody wants to be the network support engineer II who flipped the wrong bit!
 
-然而，闹鬼的墓地并不仅仅存在于生产系统中，它们也可以在代码库中找到。许多组织都有一些老旧的、未经维护的软件，它们是由早已离开团队的人编写的，并且处于一些重要的创收功能的关键路径上。这些系统也被冻结在时间中，层层叠叠的官僚机构建立起来，防止可能导致不稳定的变化。没有人想成为网络支持工程师，他犯了错误！
+然而，闹鬼墓地并不仅仅存在于生产系统中，它们也可以在代码库中找到。许多组织都有一些老旧的、未经维护的软件，它们是由早已离开团队的人编写的，并且处于一些重要的创收功能的关键路径上。这些系统也被冻结在时间中，层层叠叠的官僚机构建立起来，防止可能导致不稳定的变化。没有人想成为网络支持工程师，他犯了错误！
 
 These parts of a codebase are anathema to the LSC process because they prevent the completion of large migrations, the decommissioning of other systems upon which they rely, or the upgrade of compilers or libraries that they use. From an LSC perspective, haunted graveyards prevent all kinds of meaningful progress.
 
@@ -169,7 +169,7 @@ At Google, we’ve found the counter to this to be good, old-fashioned  testing.
 
 LSCs really work only when the bulk of the effort for them can be done by computers, not humans. As good as humans can be with ambiguity, computers rely upon consistent environments to apply the proper code transformations to the correct places. If your organization has many different VCSs, Continuous Integration (CI) systems, project-specific tooling, or formatting guidelines, it is difficult to make sweeping changes across your entire codebase. Simplifying the environment to add more consistency will help both the humans who need to move around in it and the robots making automated transformations.
 
-只有当大部分的工作由计算机而不是人类来完成时，LSC才能真正发挥作用。尽管人类可以很好地处理模棱两可的问题，但计算机依赖于一致的环境将正确的代码转换应用到正确的位置。如果你的组织有许多不同的VCS、持续集成（CI）系统、特定项目的工具或格式化准则，就很难在整个代码库中进行全面的更改。简化环境以增加一致性将有助于需要在其中移动的人类和进行自动转换的机器人。
+只有当大部分的工作由计算机而不是人类来完成时，LSC才能真正发挥作用。尽管人类可以很好地处理模棱两可的问题，但计算机依赖于一致的环境将正确的代码转换应用到正确的位置。如果你的组织有许多不同的VCS、持续集成（CI）系统、特定项目的工具或格式化准则，就很难在整个代码库中进行全面的更改。简化环境，增加一致性，对需要在其中活动的人类和进行自动转换的机器人都有帮助。
 
 For example, many projects at Google have presubmit tests configured to run before changes are made to their codebase. Those checks can be very complex, ranging from checking new dependencies against a whitelist, to running tests, to ensuring that the change has an associated bug. Many of these checks are relevant for teams writing new features, but for LSCs, they just add additional irrelevant complexity.
 
@@ -177,7 +177,7 @@ For example, many projects at Google have presubmit tests configured to run befo
 
 We’ve decided to embrace some of this complexity, such as running presubmit tests, by making it standard across our codebase. For other inconsistencies, we advise teams to omit their special checks when parts of LSCs touch their project code. Most teams are happy to help given the benefit these kinds of changes are to their projects.
 
-我们已经决定采用这种复杂性，例如通过使其成为我们代码库中的标准来运行预提交测试。对于其他不一致性，我们建议团队在LSC的某些部分接触到其项目代码时忽略其特殊检查。鉴于此类变更对其项目的好处，大多数团队都乐于提供帮助。
+我们已经决定采用这种复杂度，例如通过使其成为我们代码库中的标准来运行预提交测试。对于其他不一致性，我们建议团队在LSC的某些部分接触到其项目代码时忽略其特殊检查。鉴于此类变更对其项目的好处，大多数团队都乐于提供协助。
 
 ### Testing  测试
 
@@ -187,7 +187,7 @@ Every change should be tested (a process we’ll talk about more in just a momen
 
 Small, independent changes are easier to validate, because each of them affects a smaller set of tests, but also because test failures are easier to diagnose and fix. Finding the root cause of a test failure in a change of 25 files is pretty straightforward; finding 1 in a 10,000-file change is like the proverbial needle in a haystack.
 
-小的、独立的更改更容易验证，因为每个更改都会影响较小的测试集，但也因为测试失败更容易诊断和修复。在25个文件的更改中找到测试失败的根本原因非常简单；在10,000个文件更改中找到1个，就像谚语中大海捞针一样。
+小的、独立的更改更容易验证，因为每个更改都会影响较小的测试集，但也因为测试失败更容易诊断和修复。在25个文件的更改中找到测试失败的根本原因非常简单；在10,000个文件更改中找到1个，就像谚语中说的大海捞针。
 
 The trade-off in this decision is that smaller changes will cause the same tests to be run multiple times, particularly tests that depend on large parts of the codebase. Because engineer time spent tracking down test failures is much more expensive than the compute time required to run these extra tests, we’ve made the conscious decision that this is a trade-off we’re willing to make. That same trade-off might not hold for all organizations, but it is worth examining what the proper balance is for yours.
 
