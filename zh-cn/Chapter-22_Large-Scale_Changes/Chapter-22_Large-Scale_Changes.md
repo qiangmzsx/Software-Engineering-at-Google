@@ -209,13 +209,13 @@ Today it is common for a double-digit percentage (10% to 20%) of the changes in 
 
 Even a simple one-line signature change becomes complicated when made in a thousand different places across hundreds of different products and services.[^7] After the change is written, you need to coordinate code reviews across dozens of teams. Lastly, after reviews are approved, you need to run as many tests as you can to be sure the change is safe.[^8] We say “as many as you can,” because a good-sized LSC could trigger a rerun of every single test at Google, and that can take a while. In fact, many LSCs have to plan time to catch downstream clients whose code backslides while the LSC makes its way through the process.
 
-即使是一个简单的单行签名修改，如果在上百个不同的产品和服务的一千多个不同的地方进行，也会变得很复杂。修改写完后，你需要协调几十个团队的代码审查。最后，在审查通过后，你需要运行尽可能多的测试，以确保变化是安全的。我们说 "尽可能多"，是因为一个规模不错的LSC可能会触发谷歌的每一个测试的重新运行，而这可能需要一段时间。事实上，许多LSC必须计划好时间，以便在LSC进行的过程中抓住那些代码倒退的下游客户。
+即使是一个简单的单个函数签名修改，如果在上百个不同的产品和服务的一千多个不同的地方进行，也会变得很复杂。修改写完后，你需要协调几十个团队的代码审查。最后，在审查通过后，你需要运行尽可能多的测试，以确保变化是安全的。我们说 "尽可能多"，是因为一个规模不错的LSC可能会触发谷歌的每一个测试的重新运行，而这可能需要一段时间。事实上，许多LSC必须计划好时间，以便在LSC进行的过程中抓住那些代码违例的下游客户。
 
 Testing an LSC can be a slow and frustrating process. When a change is sufficiently large, your local environment is almost guaranteed to be permanently out of sync with head as the codebase shifts like sand around your work. In such circumstances, it is easy to find yourself running and rerunning tests just to ensure your changes continue to be valid. When a project has flaky tests or is missing unit test coverage, it can require a lot of manual intervention and slow down the entire process. To help speed things up, we use a strategy called the TAP (Test Automation Platform) train.
 
 测试LSC可能是一个缓慢而令人沮丧的过程。当一个变更足够大的时候，你的本地环境几乎可以肯定会与head永久不同步，因为代码库会像沙子一样在你的工作中移动。在这种情况下，很容易发现自己在运行和重新运行测试，以确保你的变化继续有效。当一个项目有不稳定的测试或缺少单元测试覆盖率时，它可能需要大量的人工干预并拖慢整个过程。为了帮助加快进度，我们使用了一种叫做TAP（测试自动化平台）的策略。
 
-**Riding the TAP Train**  **搭乘TAP列车** 
+**Riding the TAP Train**  **搭乘TAP列车**
 
 The core insight to LSCs is that they rarely interact with one another, and most affected tests are going to pass for most LSCs. As a result, we can test more than one change at a time and reduce the total number of tests executed. The train model has proven to be very effective for testing LSCs.
 
