@@ -189,7 +189,7 @@ In some respects, this is reminiscent of the *Presentation v5 - final - redlines
 
 Consider what it takes to ensure that a release build includes all of the features that have been developed by each developer for the past few weeks. What (noncentralized, scalable) mechanisms are there to do that? Can we design policies that are fundamentally better than having everyone sign off? Are there any that require only sublinear human effort as the team scales up? Is that going to continue working as the number of developers on the team scales up? As far as we can see: probably not. Without a central Source of Truth, someone is going to keep a list of which features are potentially ready to be included in the next release. Eventually that bookkeeping is reproducing the model of having a centralized Source of Truth.
 
-考虑一下如何确保一个发布版本包括每个开发人员在过去几周内开发的所有功能。有什么（非集中的、可扩展的）机制可以做到这一点？我们能不能设计出从根本上比让每个人签字更好的策略？是否有任何随着团队规模的扩大只需要次线性的人力努力？随着团队中开发人员数量的增加，这是否会继续发挥作用？就我们所见：可能不会。如果没有一个核心的 "信息源"，就会有人记下哪些功能有可能被纳入下一个版本的清单。最终，这种记账方式正在重现拥有一个集中式信息源的模式。
+考虑一下如何确保一个发布版本包括每个开发人员在过去几周内开发的所有功能。有什么（非集中的、可扩展的）机制可以做到这一点？我们能不能设计出从根本上比让每个人签字更好的策略？是否有任何随着团队规模的扩大只需要亚线性的人力努力？随着团队中开发人员数量的增加，这是否会继续发挥作用？就我们所见：可能不会。如果没有一个核心的 "信息源"，就会有人记下哪些功能有可能被纳入下一个版本的清单。最终，这种记账方式正在重现拥有一个集中式信息源的模式。
 
 Further imagine: when a new developer joins the team, where do they get a fresh, known-good copy of the code?
 
@@ -197,7 +197,7 @@ Further imagine: when a new developer joins the team, where do they get a fresh,
 
 DVCS enables a lot of great workflows and interesting usage models. But if you’re concerned with finding a system that requires sublinear human effort to manage as the team grows, it’s pretty important to have one repository (and one branch) actually defined to be the ultimate source of truth.
 
-DVCS实现了很多出色的工作流程和有趣的使用模式。但如果你关心的是找到一个系统，随着团队的成长，需要非线性的人力来管理，那么将一个存储库（和一个分支）实际定义为最终的信息源是相当重要的。
+DVCS实现了很多出色的工作流程和有趣的使用模式。但如果你关心的是找到一个系统，随着团队的成长，需要亚线性的人力来管理，那么将一个存储库（和一个分支）实际定义为最终的信息源是相当重要的。
 
 There is some relativity in that Source of Truth. That is, for a given project, that Source of Truth might be different for a different organization. This caveat is important: it’s reasonable for engineers at Google or RedHat to have different Sources of Truth for Linux Kernel patches, still different than Linus (the Linux Kernel maintainer) himself would. DVCS works fine when organizations and their Sources of Truth are hierarchical (and invisible to those outside the organization)—that is perhaps the most practically useful effect of the DVCS model. A RedHat engineer can commit to the local Source of Truth repository, and changes can be pushed from there upstream periodically, while Linus has a completely different notion of what is the Source of Truth. So long as there is no choice or uncertainty as to where a change should be pushed, we can avoid a large class of chaotic scaling problems in the DVCS model.
 

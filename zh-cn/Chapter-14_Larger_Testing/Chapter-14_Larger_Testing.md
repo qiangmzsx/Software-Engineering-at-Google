@@ -471,7 +471,7 @@ assertThat(response.Contains("Colossal Cave"))
 
 - *手动*  
 	就像你在本地尝试你的二进制文件一样，手动验证使用人工与SUT互动以确定它的功能是否正确。这种验证可以包括通过执行一致的测试计划中定义的操作来测试回归，也可以是探索性的，通过不同的交互路径来识别可能的新故障。
-	需要注意的是，人工回归测试的规模化不是线性的：系统越大，通过它的操作越多，需要人力测试的时间就越多。
+	需要注意的是，人工回归测试的规模化不是线性的：系统越大，通过它的操作越多，需要人力测试的时间就越更多。
 - *断言*  
 	与单元测试一样，这些是对系统预期行为的明确检查。例如，对于谷歌搜索xyzzy的集成测试，一个断言可能如下：
 
@@ -627,7 +627,7 @@ Exploratory testing is useful for both new and launched systems to uncover unant
 
 Manual testing does not scale sublinearly; that is, it requires human time to perform the manual tests. Any defects found by exploratory tests should be replicated with an automated test that can run much more frequently.
 
-手动测试无法进行次线性扩展；也就是说，执行手动测试需要人工时间。通过探索性测试发现的任何缺陷都应该通过能够更频繁地运行的自动化测试进行复制。
+手动测试无法进行亚线性扩展；也就是说，执行手动测试需要人工时间。通过探索性测试发现的任何缺陷都应该通过能够更频繁地运行的自动化测试进行复制。
 
 #### Bug bashes 扫除bug
 

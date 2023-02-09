@@ -652,7 +652,7 @@ Code is read far more than it is written, and this effect is magnified at Google
 
 One of the primary advantages of the readability program is that it exposes engineers to more than just their own team’s tribal knowledge. To earn readability in a given language, engineers must send CLs through a centralized set of readability reviewers who review code across the entire company. Centralizing the process makes a significant trade-off: the program is limited to scaling linearly rather than sublinearly with organization growth, but it makes it easier to enforce consistency, avoid islands, and avoid (often unintentional) drifting from established norms.
 
-可读性项目的主要优势之一是，它让工程师接触到的不仅仅是他们自己团队的内部知识。为了获得特定语言的可读性，工程师们必须将 CLs 发送给一组集中的可读性审查员，他们审查整个公司的代码。将流程集中化会带来显著的折衷：该计划仅限于随着组织的发展而线性扩展，而不是次线性扩展，但它更容易实现一致性，避免孤岛，并避免（通常是无意的）偏离既定规范。
+可读性项目的主要优势之一是，它让工程师接触到的不仅仅是他们自己团队的内部知识。为了获得特定语言的可读性，工程师们必须将 CLs 发送给一组集中的可读性审查员，他们审查整个公司的代码。将流程集中化会带来显著的折衷：该计划仅限于随着组织的发展而线性扩展，而不是亚线性扩展，但它更容易实现一致性，避免孤岛，并避免（通常是无意的）偏离既定规范。
 
 The value of codebase-wide consistency cannot be overstated: even with tens of thousands of engineers writing code over decades, it ensures that code in a given language will look similar across the corpus. This enables readers to focus on what the code does rather than being distracted by why it looks different than code that they’re used to. Large-scale change authors (see Chapter 22) can more easily make changes across the entire monorepo, crossing the boundaries of thousands of teams. People can change teams and be confident that the way that the new team uses a given language is not drastically different than their previous team.
 

@@ -341,7 +341,7 @@ Occasionally, local owners question the purpose of a specific commit being made 
 
 To do LSCs, we’ve found it invaluable to be able to do large-scale analysis of our codebase, both on a textual level using traditional tools, as well as on a semantic level. For example, Google’s use of the semantic indexing tool [Kythe](https://kythe.io/)provides a complete map of the links between parts of our codebase, allowing us to ask questions such as “Where are the callers of this function?” or “Which classes derive from this one?” Kythe and similar tools also provide programmatic access to their data so that they can be incorporated into refactoring tools. (For further examples, see Chapters 17 and 20.)
 
-要进行LSC，我们发现能够使用传统工具在文本级别和语义级别上对代码库进行大规模分析是非常宝贵的。例如，Google使用语义索引工具Kythe提供了代码库各部分之间链接的完整地图，允许我们提出诸如“此函数的调用方在哪里？”或“哪些类源自此函数？”Kythe和类似的工具还提供对其数据的编程访问，以便可以将它们合并到重构工具中。（更多示例请参见第17章和第20章。）
+要进行LSC，我们发现能够使用传统工具在文本级别和语义级别上对代码库进行大规模分析是非常宝贵的经验。例如，Google使用语义索引工具Kythe提供了代码库各部分之间链接的完整地图，允许我们提出诸如“此函数的调用方在哪里？”或“哪些类源自此函数？”Kythe和类似的工具还提供对其数据的编程访问，以便可以将它们合并到重构工具中。（更多示例请参见第17章和第20章。）
 
 We also use compiler-based indices to run abstract syntax tree-based analysis and transformations over our codebase. Tools such as [ClangMR](https://oreil.ly/c6xvO), JavacFlume, or [Refaster](https://oreil.ly/Er03J), which can perform transformations in a highly parallelizable way, depend on these insights as part of their function. For smaller changes, authors can use specialized, custom tools, perl or sed, regular expression matching, or even a simple shell script.
 
@@ -349,7 +349,7 @@ We also use compiler-based indices to run abstract syntax tree-based analysis an
 
 Whatever tool your organization uses for change creation, it’s important that its human effort scale sublinearly with the codebase; in other words, it should take roughly the same amount of human time to generate the collection of all required changes, no matter the size of the repository. The change creation tooling should also be comprehensive across the codebase, so that an author can be assured that their change covers all of the cases they’re trying to fix.
 
-无论你的组织使用什么工具来创建变更，重要的是它的人力与代码库成次线性扩展；换句话说，无论代码库的大小，它都应该花费大致相同的人力时间来生成所有需要的变更集合。变更创建工具也应该在整个代码库中是全面的，这样作者就可以确信他们的变更涵盖了他们试图修复的所有情况。
+无论你的组织使用什么工具来创建变更，重要的是它的人力与代码库成亚线性扩展；换句话说，无论代码库的大小，它都应该花费大致相同的人力时间来生成所有需要的变更集合。变更创建工具也应该在整个代码库中是全面的，这样作者就可以确信他们的变更涵盖了他们试图修复的所有情况。
 
 As with other areas in this book, an early investment in tooling usually pays off in the short to medium term. As a rule of thumb, we’ve long held that if a change requires more than 500 edits, it’s usually more efficient for an engineer to learn and execute our change-generation tools rather than manually execute that edit. For experienced “code janitors,” that number is often much smaller.
 
@@ -369,7 +369,7 @@ Testing is another important piece of large-scale-change–enabling infrastructu
 
 Google’s testing strategy for LSCs differs slightly from that of normal changes while still using the same underlying CI infrastructure. Testing LSCs means not just ensuring the large master change doesn’t cause failures, but that each shard can be submitted safely and independently. Because each shard can contain arbitrary files, we don’t use the standard project-based presubmit tests. Instead, we run each shard over the transitive closure of every test it might affect, which we discussed earlier.
 
-谷歌针对LSC的测试策略与普通更改略有不同，但仍使用相同的底层CI基础设施。测试LSC不仅意味着确保大型主更改不会导致失败，而且还意味着可以安全、独立地提交每个分片。因为每个分片可以包含任意文件，所以我们不使用标准的基于项目的预提交测试。相反，我们在它可能影响的每个测试的可传递闭包上运行每个分片，我们在前面讨论过。
+谷歌针对LSC的测试策略与普通更改略有不同，但仍使用相同的底层CI基础设施。测试LSC不仅意味着确保大型主分支更改不会导致失败，而且还意味着可以安全、独立地提交每个分支。因为每个分支可以包含任意文件，所以我们不使用标准的基于项目的预提交测试。相反，我们在它可能影响的每个测试的可传递闭包上运行每个分支，我们在前面讨论过。
 
 ### Language Support  编程语言支持
 
@@ -381,7 +381,7 @@ We’ve also found that statically typed languages are much easier to perform la
 
 我们还发现，静态类型的语言比动态类型的语言更容易进行大规模的自动化修改。基于编译器的工具以及强大的静态分析提供了大量的信息，我们可以利用这些信息来建立影响LSC的工具，并在它们进入测试阶段之前拒绝无效的转换。这样做的不幸结果是，像Python、Ruby和JavaScript这些动态类型的语言对维护者来说是额外困难的。在许多方面，编程语言的选择与代码寿命的问题密切相关：那些倾向于被视为更注重开发者生产力的编程语言往往更难维护。虽然这不是一个固有的设计要求，但这是目前的技术状况。
 
-Finally, it’s worth pointing out that automatic language formatters are a crucial part of the LSC infrastructure. Because we work toward optimizing our code for readability, we want to make sure that any changes produced by automated tooling are intelligible to both immediate reviewers and future readers of the code. All of the LSCgeneration tools run the automated formatter appropriate to the language being changed as a separate pass so that the change-specific tooling does not need to concern itself with formatting specifics. Applying automated formatting, such as [google-java-format ](https://github.com/google/google-java-format)or [clang-format](https://clang.llvm.org/docs/ClangFormat.html), to our codebase means that automatically produced changes will “fit in” with code written by a human, reducing future development friction. Without automated formatting, large-scale automated changes would never have become the accepted status quo at Google.
+Finally, it’s worth pointing out that automatic language formatters are a crucial part of the LSC infrastructure. Because we work toward optimizing our code for readability, we want to make sure that any changes produced by automated tooling are intelligible to both immediate reviewers and future readers of the code. All of the LSCgeneration tools run the automated formatter appropriate to the language being changed as a separate pass so that the change-specific tooling does not need to concern itself with formatting specifics. Applying automated formatting, such as [google-java-format](https://github.com/google/google-java-format)or [clang-format](https://clang.llvm.org/docs/ClangFormat.html), to our codebase means that automatically produced changes will “fit in” with code written by a human, reducing future development friction. Without automated formatting, large-scale automated changes would never have become the accepted status quo at Google.
 
 最后，值得指出的是，自动语言格式化程序是LSC基础设施的一个重要组成部分。因为我们致力于优化我们的代码的可读性，我们希望确保任何由自动工具产生的变化对即时的审查者和未来的代码读者来说都是可理解的。所有的LSC生成工具都将适合于被修改的语言的自动格式化器作为一个单独的通道来运行，这样，针对修改的工具就不需要关注格式化的细节了。将自动格式化，如[google-java-format](https://github.com/google/google-java-format)或[clang-format](https://clang.llvm.org/docs/ClangFormat.html)，应用到我们的代码库中，意味着自动产生的变化将与人类编写的代码 “合并"，减少未来的开发阻力。如果没有自动格式化，大规模的自动修改就永远不会成为谷歌的公认现状。
 
@@ -457,7 +457,7 @@ After getting the required approval, an LSC author will begin to produce the act
 
 The change generation process should be as automated as possible so that the parent change can be updated as users backslide into old uses[^14] or textual merge conflicts occur in the changed code. Occasionally, for the rare case in which technical tools aren’t able to generate the global change, we have sharded change generation across humans (see “Case Study: Operation RoseHub” on page 472). Although much more labor intensive than automatically generating changes, this allows global changes to happen much more quickly for time-sensitive applications.
 
-变更生成过程应尽可能自动化，以便在用户退回到旧的使用方式14或在变更的代码中出现文本合并冲突时，可以更新父级变更。偶尔，在技术工具无法生成全局变更的罕见情况下，我们也会将变更的生成分给人工（见第472页的 "案例研究：RoseHub行动"）。尽管这比自动生成变更要耗费更多的人力，但对于时间敏感的应用来说，这使得全局性的变更能够更快发生。
+变更生成过程应尽可能自动化，以便在用户退回到旧的使用方式或在变更的代码中出现文本合并冲突时，可以更新父级变更。偶尔，在技术工具无法生成全局变更的罕见情况下，我们也会将变更的生成分给人工（见第472页的 "案例研究：RoseHub行动"）。尽管这比自动生成变更要耗费更多的人力，但对于时间敏感的应用来说，这使得全局性的变更能够更快推进。
 
 Keep in mind that we optimize for human readability of our codebase, so whatever tool generates changes, we want the resulting changes to look as much like humangenerated changes as possible. This requirement leads to the necessity of style guides and automatic formatting tools (see Chapter 8).[^15]
 
@@ -475,11 +475,11 @@ Keep in mind that we optimize for human readability of our codebase, so whatever
 
 After a global change has been generated, the author then starts running Rosie. Rosie takes a large change and shards it based upon project boundaries and ownership rules into changes that *can* be submitted atomically. It then puts each individually sharded change through an independent test-mail-submit pipeline. Rosie can be a heavy user of other pieces of Google’s developer infrastructure, so it caps the number of outstanding shards for any given LSC, runs at lower priority, and communicates with the rest of the infrastructure about how much load it is acceptable to generate on our shared testing infrastructure.
 
-在全局变更产生之后，作者就开始运行Rosie。Rosie接收一个大的变化，并根据项目边界和所有权规则将其分割成可以原子化提交的变化。然后，它把每个单独的分片变化通过一个独立的测试-邮件-提交管道。Rosie可能是谷歌开发者基础设施其他部分的重度用户，所以它对任何给定的LSC的未完成分片数量设置上限，以较低的优先级运行，并与基础设施的其他部分进行沟通，了解它在我们的共享测试基础设施上产生多少负载是可以接受的。
+在全局变更产生之后，作者就开始运行Rosie。Rosie接收一个大的变化，并根据项目边界和所有权规则将其分割成可以原子提交的变化。然后，它把每个单独的分支变化通过一个独立的测试-邮件-提交管道。Rosie可能是谷歌开发者基础设施其他部分的重度用户，所以它对任何给定的LSC的未完成分片数量设置上限，以较低的优先级运行，并与基础设施的其他部分进行沟通，了解它在我们的共享测试基础设施上产生多少负载是可以接受的。
 
 We talk more about the specific test-mail-submit process for each shard below.
 
-我们在下面会更多地谈论每个分片的具体测试-邮件提交过程。
+我们在下面会更多地谈论每个分支的具体测试-邮件提交过程。
 
 -----
 
@@ -499,7 +499,7 @@ In contrast, effective handling of LSCs requires a high degree of automation and
 
 With a “pet” commit, it can be difficult to not take rejection personally, but when working with many changes as part of a large-scale change, it’s just the nature of the job. Having automation means that tooling can be updated and new changes generated at very low cost, so losing a few cattle now and then isn’t a problem.
 
-对于一个 "宠物 "提交，不把拒绝放在心上是很难的，但当作为大规模变革的一部分而处理许多变化时，这只是工作的性质。拥有自动化意味着工具可以更新，并以非常低的成本产生新的变化，所以偶尔失去几头牛并不是什么问题。
+对于一个 "宠物" 提交，不把拒绝放在心上是很难的，但当作为大规模变革的一部分而处理许多变化时，这只是工作的性质。拥有自动化意味着工具可以更新，并以非常低的成本产生新的变化，所以偶尔失去几头牛并不是什么问题。
 
 -----
 
@@ -507,11 +507,11 @@ With a “pet” commit, it can be difficult to not take rejection personally, b
 
 Each independent shard is tested by running it through TAP, Google’s CI framework. We run every test that depends on the files in a given change transitively, which often creates high load on our CI system.
 
-每个独立的分片都是通过谷歌的CI框架TAP来测试的。我们运行每一个依赖于特定变化中的文件的测试，这常常给我们的CI系统带来高负荷。
+每个独立的分支都是通过谷歌的CI框架TAP来测试的。我们运行每一个依赖于特定变化中的文件的测试，这常常给我们的CI系统带来高负荷。
 
 This might sound computationally expensive, but in practice, the vast majority of shards affect fewer than one thousand tests, out of the millions across our codebase. For those that affect more, we can group them together: first running the union of all affected tests for all shards, and then for each individual shard running just the intersection of its affected tests with those that failed the first run. Most of these unions cause almost every test in the codebase to be run, so adding additional changes to that batch of shards is nearly free.
 
-这可能听起来很昂贵，但实际上，在我们的代码库中的数百万个测试中，绝大多数碎片影响的测试不到一千。对于那些影响更多的测试，我们可以将它们分组：首先运行所有分片的所有受影响测试的联合，然后对于每个单独的分片，只运行其受影响的测试与那些第一次运行失败的测试的交集。这些联合体中的大多数导致代码库中的几乎每一个测试都被运行，因此向该批分片添加额外的变化几乎是无额外负担的。
+这可能听起来很昂贵，但实际上，在我们的代码库中的数百万个测试中，绝大多数分支影响的测试不到一千。对于那些影响更多的测试，我们可以将它们分组：首先运行所有分支的所有受影响测试的联合，然后对于每个单独的分支，只运行其受影响的测试与那些第一次运行失败的测试的交集。这些联合体中的大多数导致代码库中的几乎每一个测试都被运行，因此向该批分支添加额外的变化几乎是无额外负担的。
 
 One of the drawbacks of running such a large number of tests is that independent low-probability events are almost certainties at large enough scale. Flaky and brittle tests, such as those discussed in Chapter 11, which often don’t harm the teams that write and maintain them, are particularly difficult for LSC authors. Although fairly low impact for individual teams, flaky tests can seriously affect the throughput of an LSC system. Automatic flake detection and elimination systems help with this issue, but it can be a constant effort to ensure that teams that write flaky tests are the ones that bear their costs.
 
@@ -519,11 +519,11 @@ One of the drawbacks of running such a large number of tests is that independent
 
 In our experience with LSCs as semantic-preserving, machine-generated changes, we are now much more confident in the correctness of a single change than a test with any recent history of flakiness—so much so that recently flaky tests are now ignored when submitting via our automated tooling. In theory, this means that a single shard can cause a regression that is detected only by a flaky test going from flaky to failing. In practice, we see this so rarely that it’s easier to deal with it via human communication rather than automation.
 
-根据我们对LSC作为语义保护、机器生成的更改的经验，我们现在对单个变化的正确性比对近期有任何不稳定测试更有信心--以至于最近不稳定测试现在在通过我们的自动化工具提交时被忽略了。在理论上，这意味着一个单一的分片可能会导致回归，而这个回归只能由一个不稳定的测试从不稳定到失败来检测。在实践中，我们很少看到这种情况，所以通过人工沟通而不是自动化来处理它。
+根据我们对LSC作为语义保护、机器生成的更改的经验，我们现在对单个变化的正确性比对近期有任何不稳定测试更有信心--以至于最近不稳定测试现在在通过我们的自动化工具提交时被忽略了。在理论上，这意味着一个单一的分支可能会导致回归，而这个回归只能由一个不稳定的测试从不稳定到失败来检测。在实践中，我们很少看到这种情况，所以通过人工沟通而不是自动化来处理它。
 
 For any LSC process, individual shards should be committable independently. This means that they don’t have any interdependence or that the sharding mechanism can group dependent changes (such as to a header file and its implementation) together. Just like any other change, large-scale change shards must also pass project-specific checks before being reviewed and committed.
 
-对于任何LSC过程来说，各个分片应该是可以独立提交的。这意味着它们没有任何相互依赖性，或者说分片机制可以将相互依赖的变更（比如对头文件和其实现的变更）归为一组。就像其他变化一样，大规模的更改分片在被审查和提交之前也必须通过项目特定的检查。
+对于任何LSC过程来说，各个分支应该是可以独立提交的。这意味着它们没有任何相互依赖性，或者说分支机制可以将相互依赖的变更（比如对头文件和其实现的变更）归为一组。就像其他变化一样，大规模的更改分支在被审查和提交之前也必须通过项目特定的检查。
 
 #### Mailing reviewers  推送审稿人
 
@@ -567,7 +567,7 @@ With Rosie, we are able to effectively create, test, review, and submit thousand
 
 Different LSCs have different definitions of “done,” which can vary from completely removing an old system to migrating only high-value references and leaving old ones to organically disappear.[^16] In almost all cases, it’s important to have a system that prevents additional introductions of the symbol or system that the large-scale change worked hard to remove. At Google, we use the Tricorder framework mentioned in Chapters 20 and 19 to flag at review time when an engineer introduces a new use of a deprecated object, and this has proven an effective method to prevent backsliding. We talk more about the entire deprecation process in Chapter 15.
 
-不同的LSC对 "完成 "有不同的定义，从完全删除旧系统到只迁移高价值的引用，让旧系统有机地消失。在几乎所有情况下，重要的是，要有一个系统，防止大规模变革努力消除的符号或系统的额外引入。在谷歌，我们使用和章节中提到的Tricorder框架，在工程师引入被废弃对象的新用途时，在审查时进行标记，这已被证明是防止倒退的有效方法。我们在第15章中更多地讨论了整个废弃过程。
+不同的LSC对 "完成" 有不同的定义，从完全删除旧系统到只迁移高价值的引用，让旧系统有机地消失。在几乎所有情况下，重要的是，要有一个系统，防止大规模变革努力消除的符号或系统的额外引入。在谷歌，我们使用和章节中提到的Tricorder框架，在工程师引入被废弃对象的新用途时，在审查时进行标记，这已被证明是防止倒退的有效方法。我们在第15章中更多地讨论了整个废弃过程。
 
 > [^16]: Sadly, the systems we most want to organically decompose are those that are the most resilient to doing so. They are the plastic six-pack rings of the code ecosystem.
 >
