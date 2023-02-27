@@ -1,6 +1,6 @@
 # Software-Engineering-at-Google
 
-《Software Engineering at Google》的中文翻译版本。
+《Software Engineering at Google》的中英文对译版本。
 
 ## 书籍介绍
 
