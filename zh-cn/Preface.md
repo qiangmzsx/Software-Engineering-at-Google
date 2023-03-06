@@ -36,7 +36,7 @@ The book emphasizes three fundamental principles that we feel software organizat
 
 本书强调了三个基本原则，我们认为软件组织在设计、架构和编写代码时应该牢记这些原则：
 *时间和变化*
-	​代码如何展期生命周期内进行适配。
+	​代码如何在其生命周期内进行适配。
 *规模和增长*
 	​一个组织如何适应它的发展过程。
 *权衡和成本*
