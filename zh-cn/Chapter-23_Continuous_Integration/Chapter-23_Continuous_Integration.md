@@ -466,7 +466,7 @@ Google Assistant provides a framework for engineers to run end-to-end tests, inc
 
 One of its greatest success stories was making its test suite fully hermetic on presubmit. When the team previously used to run nonhermetic tests on presubmit, the tests would routinely fail. In some days, the team would see more than 50 code changes bypass and ignore the test results. In moving presubmit to hermetic, the team cut the runtime by a factor of 14, with virtually no flakiness. It still sees failures, but those failures tend to be fairly easy to find and roll back.
 
-其最大的成功故事之一是使其测试套件在提交前完全密封。当该团队以前在提交前运行非封闭测试时，测试经常会失败。在某些日子里，团队会看到超过50个代码更改绕过并忽略测试结果。在将预提交转为封闭的过程中，该团队将运行时间缩短了14倍，而且几乎没有任何闪失。它仍然会出现故障，但这些故障往往是相当容易发现和回滚的。
+其最大的成功故事之一是使其测试套件在提交前完全密封。当该团队以前在提交前运行非封闭测试时，测试经常会失败。在某些时间里，团队会看到超过50个代码更改绕过并忽略测试结果。在将预提交转为封闭的过程中，该团队将运行时间缩短了14倍，而且几乎没有任何闪失。它仍然会出现故障，但这些故障往往是相当容易发现和回滚的。
 
 Now that nonhermetic tests have been pushed to post-submit, it results in failures accumulating there instead. Debugging failing end-to-end tests is still difficult, and some teams don’t have time to even try, so they just disable them. That’s better than having it stop all development for everyone, but it can result in production failures.
 
@@ -482,7 +482,7 @@ Another is how to do presubmit testing for the decentralized Assistant given tha
 
 Finally, the team is taking advantage of this decentralization in a clever new postsubmit failure-isolation strategy. For each of the *N* microservices within the Assistant, the team will run a post-submit environment containing the microservice built at head, along with production (or close to it) versions of the other *N* – 1 services, to isolate problems to the newly built server. This setup would normally be *O*(*N*2) cost to facilitate, but the team leverages a cool feature called *hotswapping* to cut this cost to *O*(*N*). Essentially, hotswapping allows a request to instruct a server to “swap” in the address of a backend to call instead of the usual one. So only *N* servers need to be run, one for each of the microservices cut at head—and they can reuse the same set of prod backends swapped in to each of these *N* “environments.”
 
-最后，该团队正在利用这种分散的优势，采取一种巧妙的新的提交后故障隔离策略。对于助手中的N个微服务中的每一个，团队将运行一个提交后的环境，其中包含在头部构建的微服务，以及其他N-1个服务的生产（或接近生产）版本，以将问题隔离到新构建的服务器。这种设置通常是O(N2)的成本，但该团队利用了一个很酷的功能，称为热交换，将这一成本削减到O(N)。从本质上讲，"热交换 "允许一个请求指示服务器 "交换 "一个后端地址来调用，而不是通常的一个。因此，只需要运行N个服务器，每个微服务都有一个，而且它们可以重复使用同一组被交换到这N个 "环境 "中的生产环境后端。
+最后，该团队正在利用这种分散的优势，采取一种巧妙的新的提交后故障隔离策略。对于助手中的N个微服务中的每一个，团队将运行一个提交后的环境，其中包含在头部构建的微服务，以及其他N-1个服务的生产（或接近生产）版本，以将问题隔离到新构建的服务器。这种设置通常是O(N2)的成本，但该团队利用了一个很酷的功能，称为热交换，将这一成本削减到O(N)。从本质上讲，"热交换"允许一个请求指示服务器 "交换 "一个后端地址来调用，而不是通常的一个。因此，只需要运行N个服务器，每个微服务都有一个，而且它们可以重复使用同一组被交换到这N个 "环境 "中的生产环境后端。
 
 -----
 
@@ -504,7 +504,7 @@ Adam Bender 亚当-本德
 
 We run a massive continuous build, called the Test Automation Platform (TAP), of our entire codebase. It is responsible for running the majority of our automated tests. As a direct consequence of our use of a monorepo, TAP is the gateway for almost all changes at Google. Every day it is responsible for handling more than 50,000 unique changes *and* running more than four billion individual test cases.
 
-我们在整个代码库中运行一个大规模的持续构建，称为测试自动化平台（TAP）。它负责运行我们大部分的自动化测试。由于我们使用的是monorepo，TAP是谷歌几乎所有变化的门户。每天，它负责处理超过50,000个独特的变化，运行超过40亿个单独的测试用例。
+我们在整个代码库中运行一个大规模的持续构建，称为测试自动化平台（TAP）。它负责运行我们大部分的自动化测试。由于我们使用的是monorepo，TAP是谷歌几乎所有变化的门户。每天，它负责处理超过50,000个独特的变化，运行超过40亿个独立的测试用例。
 
 TAP is the beating heart of Google’s development infrastructure. Conceptually, the process is very simple. When an engineer attempts to submit code, TAP runs the associated tests and reports success or failure. If the tests pass, the change is allowed into the codebase.
 
@@ -518,7 +518,7 @@ To catch issues quickly and consistently, it is important to ensure that tests a
 
 As discussed earlier, waiting a long time to run every test on presubmit can be severely disruptive, in some cases taking hours. To minimize the time spent waiting, Google’s CB approach allows potentially breaking changes to land in the repository (remember that they become immediately visible to the rest of the company!). All we ask is for each team to create a fast subset of tests, often a project’s unit tests, that can be run before a change is submitted (usually before it is sent for code review)—the presubmit. Empirically, a change that passes the presubmit has a very high likelihood (95%+) of passing the rest of the tests, and we optimistically allow it to be integrated so that other engineers can then begin to use it.
 
-如前所述，等待很长时间来运行预提交的每个测试可能会造成严重破坏，在某些情况下需要数小时。为了最大限度地减少等待时间，谷歌的CB方法允许潜在的破坏性更改提交到存储库中（请记住，这些更改会立即被公司其他人看到！）。我们只要求每个团队创建一个快速的测试子集，通常是一个项目的单元测试，可以在提交更改之前（通常是在发送更改进行代码审查之前）运行这些测试。根据经验，通过预提交的变更通过其余测试的可能性非常高（95%+），我们乐观地允许将其集成，以便其他工程师可以开始使用它。
+如前所述，等待很长时间来运行预提交的每个测试可能会造成严重破坏，在某些情况下需要等待数小时。为了最大限度地减少等待时间，谷歌的CB方法允许潜在的破坏性更改提交到存储库中（请记住，这些更改会立即被公司其他人看到！）。我们只要求每个团队创建一个快速的测试子集，通常是一个项目的单元测试，可以在提交更改之前（通常是在发送更改进行代码审查之前）运行这些测试。根据经验，通过预提交的变更通过其余测试的可能性非常高（95%+），我们乐观地允许将其集成，以便其他工程师可以开始使用它。
 
 After a change has been submitted, we use TAP to asynchronously run all potentially affected tests, including larger and slower tests.
 
@@ -576,7 +576,7 @@ The primary mechanism for determining which tests need to be run is an analysis 
 
 Another factor influencing the use of TAP is the speed of tests being run. TAP is often able to run changes with fewer tests sooner than those with more tests. This bias encourages engineers to write small, focused changes. The difference in waiting time between a change that triggers 100 tests and one that triggers 1,000 can be tens of minutes on a busy day. Engineers who want to spend less time waiting end up making smaller, targeted changes, which is a win for everyone.
 
-影响TAP使用的另一个因素是测试运行的速度。TAP通常能够以更少的测试比更多测试更快地运行更改。这种情况鼓励工程师编写小而集中的更改。在繁忙的一天中，触发100个测试的更改和触发1000个测试的更改之间的等待时间差异可能是几十分钟。希望花更少时间等待的工程师最终会做出更小的、有针对性的修改，这对所有人来说都是一种胜利。 
+影响TAP使用的另一个因素是测试运行的速度。TAP通常能够以更少的测试比更多测试更快地运行更改。这种情况鼓励工程师编写小而集中的更改。在繁忙的一天中，触发100个测试的更改和触发1000个测试的更改之间的等待时间差异可能是几十分钟。希望花更少时间等待的工程师最终会做出更小的、有针对性的修改，这对所有人来说都是一种胜利。
 
 ----
 
@@ -584,7 +584,7 @@ Another factor influencing the use of TAP is the speed of tests being run. TAP i
 
 Google Takeout started out as a data backup and download product in 2011. Its founders pioneered the idea of “data liberation”—that users should be able to easily take their data with them, in a usable format, wherever they go. They began by integrating Takeout with a handful of Google products themselves, producing archives of users’ photos, contact lists, and so on for download at their request. However, Takeout didn’t stay small for long, growing as both a platform and a service for a wide variety of Google products. As we’ll see, effective CI is central to keeping any large project healthy, but is especially critical when applications rapidly grow.
 
-2011年，Google Takeout开始作为一种数据备份和下载产品。其创始人率先提出了“数据解放”的理念，即用户无论走到哪里，都应该能够轻松地以可用的格式携带数据。他们首先将Takeout与少量谷歌产品整合在一起，制作用户照片、联系人列表等档案，以便在他们的要求下下载。然而，Takeout并没有在很长一段时间内保持规模，它不仅是一个平台，而且是一项针对各种谷歌产品的服务。正如我们将看到的，有效的CI对于保持任何大型项目的健康至关重要，但在应用程序快速增长时尤为关键。
+2011年，Google Takeout开始作为一种数据备份和下载产品。其创始人率先提出了“数据解放”的理念，即用户无论走到哪里，都应该能够轻松地以可用的格式携带数据。他们首先将Takeout与少量谷歌产品整合在一起，制作用户照片、联系人列表等档案，以便在他们的要求下载。然而，Takeout并没有在很长一段时间内保持规模，它不仅是一个平台，而且是一项针对各种谷歌产品的服务。正如我们将看到的，有效的CI对于保持任何大型项目的健康至关重要，但在应用程序快速增长时尤为关键。
 
 #### Scenario #1: Continuously broken dev deploys 情景#1：持续中断的开发部署
 
@@ -627,8 +627,8 @@ So, the team reused the sandboxed environments from presubmit, easily extending 
 
 **经验教训。**更快的反馈循环防止了开发部署中的问题：
 
-- 将不同Takeout产品的测试从 "夜间部署后 "转移到预提交，可以防止95%的服务器因配置不良而损坏，并将夜间部署的失败率降低50%。
-- 尽管端到端测试不能全部转移到预提交，但它们仍然从 "夜间部署后 "转移到 "两小时内提交后"。这有效地将 "罪魁祸首集 "减少了12倍。
+- 将不同Takeout产品的测试从 "夜间部署后"转移到预提交，可以防止95%的服务器因配置不良而损坏，并将夜间部署的失败率降低50%。
+- 尽管端到端测试不能全部转移到预提交，但它们仍然从 "夜间部署后"转移到 "两小时内提交后"。这有效地将"罪魁祸首"减少了12倍。
 
 #### Scenario #2: Indecipherable test logs 场景2：无法识别的测试日志
 
