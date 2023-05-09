@@ -634,7 +634,7 @@ So, the team reused the sandboxed environments from presubmit, easily extending 
 
 **Problem:** As Takeout incorporated more Google products, it grew into a mature platform that allowed product teams to insert plug-ins, with product-specific data- fetching code, directly into Takeout’s binary. For example, the Google Photos plug-in knows how to fetch photos, album metadata, and the like. Takeout expanded from its original “handful” of products to now integrate with more than *90*.
 
-**问题：**随着Takeout整合了更多的谷歌产品，它已经发展成为一个成熟的平台，允许产品团队直接在Takeout的二进制文件中插入插件，其中包含产品特定的数据获取代码。例如，谷歌照片插件知道如何获取照片、相册元数据等。Takeout从最初的 "少数 "产品扩展到现在与超过*90个*的产品集成。
+**问题：**随着Takeout整合了更多的谷歌产品，它已经发展成为一个成熟的平台，允许产品团队直接在Takeout的二进制文件中插入插件，其中包含产品特定的数据获取代码。例如，谷歌照片插件知道如何获取照片、相册元数据等。Takeout从最初的 "少数"产品扩展到现在与超过*90个*的产品集成。
 
 Takeout’s end-to-end tests dumped its failures to a log, and this approach didn’t scale to 90 product plug-ins. As more products integrated, more failures were introduced. Even though the team was running the tests earlier and more often with the addition of the post-submit CI, multiple failures would still pile up inside and were easy to miss. Going through these logs became a frustrating time sink, and the tests were almost always failing.
 
@@ -696,7 +696,7 @@ For the rollout problem, the team added capability for plug-in engineers to spec
 
 When bug tags from disabled tests began to accumulate and were not updated, the team automated their cleanup. The tests would now check whether a bug was closed by querying our bug system’s API. If a tagged-failing test actually passed and was passing for longer than a configured time limit, the test would prompt to clean up the tag (and mark the bug fixed, if it wasn’t already). There was one exception for this strategy: flaky tests. For these, the team would allow a test to be tagged as flaky, and the system wouldn’t prompt a tagged “flaky” failure for cleanup if it passed.
 
-当被禁用的测试的bug标签开始积累并且不被更新时，该团队将其清理自动化。测试现在会通过查询我们的错误系统的API来检查一个错误是否被关闭。如果一个被标记为失败的测试实际通过了，并且通过的时间超过了配置的时间限制，测试就会提示清理标签（如果还没有被修复的话，就标记为bug修复）。这个策略有一个例外：不稳定的测试。对于这些，团队将允许测试被标记为不稳定，如果测试通过了，系统不会提示清理标记的 "不稳定 "故障。
+当被禁用的测试的bug标签开始积累并且不被更新时，该团队将其清理自动化。测试现在会通过查询我们的错误系统的API来检查一个错误是否被关闭。如果一个被标记为失败的测试实际通过了，并且通过的时间超过了配置的时间限制，测试就会提示清理标签（如果还没有被修复的话，就标记为bug修复）。这个策略有一个例外：不稳定的测试。对于这些，团队将允许测试被标记为不稳定，如果测试通过了，系统不会提示清理标记的 "不稳定"故障。
 
 These changes made a mostly self-maintaining test suite, as illustrated in [Figure 23-5](#_bookmark2093).‘
 
@@ -708,7 +708,7 @@ These changes made a mostly self-maintaining test suite, as illustrated in [Figu
 
 **Lessons learned.** Disabling failing tests that can’t be immediately fixed is a practical approach to keeping your suite green, which gives confidence that you’re aware of all test failures. Also, automating the test suite’s maintenance, including rollout management and updating tracking bugs for fixed tests, keeps the suite clean and prevents technical debt. In DevOps parlance, we could call the metric in [Figure 23-5 ](#_bookmark2093)MTTCU: mean time to clean up.
 
-**经验教训。**禁用无法立即修复的失败测试是保持套件绿色的一种切实可行的方法，这使人相信你知道所有的测试失败。另外，自动化测试套件的维护，包括推出管理和更新跟踪固定测试的bug，保持套件的清洁，防止技术债务。用DevOps的说法，我们可以把图23-5MTTCU中的指标称为：平均清理时间。
+**经验教训。**禁用无法立即修复的失败测试是保持套件绿色的一种切实可行的方法，这使人相信你知道所有的测试失败。另外，自动化测试套件的维护，包括推出管理和更新跟踪固定测试的bug，保持套件的清洁，防止技术债务。用DevOps的说法，我们可以把图23-5 MTTCU中的指标称为：平均清理时间。
 
 **Future improvement.** Automating the filing and tagging of bugs would be a helpful next step. This is still a manual and burdensome process. As mentioned earlier, some of our larger teams already do this.
 
@@ -716,7 +716,7 @@ These changes made a mostly self-maintaining test suite, as illustrated in [Figu
 
 **Further challenges.** The scenarios we’ve described are far from the only CI challenges faced by Takeout, and there are still more problems to solve. For example, we mentioned the difficulty of isolating failures from upstream services in “CI Challenges” on page 490. This is a problem that Takeout still faces with rare breakages originating with upstream services, such as when a security update in the streaming infrastructure used by Takeout’s “Drive folder downloads” API broke archive decryption when it deployed to production. The upstream services are staged and tested themselves, but there is no simple way to automatically check with CI if they are compatible with Takeout after they’re launched into production. An initial solution involved creating an “upstream staging” CI environment to test production Takeout binaries against the staged versions of their upstream dependencies. However, this proved difficult to maintain, with additional compatibility issues between staging and production versions.
 
-**进一步的挑战。**我们所描述的场景远不是Takeout所面临的唯一的CI挑战，还有更多问题需要解决。例如，我们在第490页的 "CI挑战 "中提到了从上游服务隔离故障的困难。这是Takeout仍然面临的一个问题，即源于上游服务的罕见故障，例如Takeout的“驱动器文件夹下载”API使用的流式基础结构中的安全更新在部署到生产环境时破坏了存档解密。上游服务都是经过阶段性测试的，但没有简单的方法在它们投入生产后用CI自动检查它们是否与Takeout兼容。最初的解决方案是创建一个 "上游临时 "的CI环境，根据上游依赖的暂存版本测试Takeout的生产二进制文件。然而，这被证明是很难维护的，在临时版本和生产版本之间存在着额外的兼容性问题。
+**进一步的挑战。**我们所描述的场景远不是Takeout所面临的唯一的CI挑战，还有更多问题需要解决。例如，我们在第490页的"CI挑战"中提到了从上游服务隔离故障的困难。这是Takeout仍然面临的一个问题，即源于上游服务的罕见故障，例如Takeout的“驱动器文件夹下载”API使用的流式基础结构中的安全更新在部署到生产环境时破坏了存档解密。上游服务都是经过阶段性测试的，但没有简单的方法在它们投入生产后用CI自动检查它们是否与Takeout兼容。最初的解决方案是创建一个"上游临时"的CI环境，根据上游依赖的暂存版本测试Takeout的生产二进制文件。然而，这被证明是很难维护的，在临时版本和生产版本之间存在着额外的兼容性问题。
 
 ### But I Can’t Afford CI  但我用不起CI费用
 
