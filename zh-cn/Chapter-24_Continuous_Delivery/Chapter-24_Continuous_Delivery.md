@@ -103,7 +103,7 @@ A key to reliable continuous releases is to make sure engineers “flag guard”
 
 In the old world of binary releases, we had to time press releases closely with our binary rollouts. We had to have a successful rollout before a press release about new functionality or a new feature could be issued. This meant that the feature would be out in the wild before it was announced, and the risk of it being discovered ahead of time was very real.
 
-在过去的二进制发布的世界里，我们必须将新闻发布时间与二进制发布时间紧密配合。在发布关于新功能或新功能的新闻稿之前，我们必须进行成功的展示。这意味着该功能将在发布之前就已经公开，提前被发现的风险是非常现实的。
+在过去的二进制发布的世界里，我们必须将新闻发布时间与二进制发布时间紧密协调。在发布关于新功能或新功能的新闻稿之前，我们必须进行成功的发布。这意味着该功能将在发布之前就已经公开，提前被发现的风险是非常现实的。
 
 This is where the beauty of the flag guard comes to play. If the new code has a flag, the flag can be updated to turn your feature on immediately before the press release, thus minimizing the risk of leaking a feature. Note that flag-guarded code is not a *perfect* safety net for truly sensitive features. Code can still be scraped and analyzed if it’s not well obfuscated, and not all features can be hidden behind flags without adding a lot of complexity. Moreover, even flag configuration changes must be rolled out with care. Turning on a flag for 100% of your users all at once is not a great idea, so a configuration service that manages safe configuration rollouts is a good investment. Nevertheless, the level of control and the ability to decouple the destiny of a particular feature from the overall product release are powerful levers for long-term sustainability of the application.
 
