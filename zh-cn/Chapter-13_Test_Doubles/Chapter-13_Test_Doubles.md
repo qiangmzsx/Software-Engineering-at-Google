@@ -165,14 +165,8 @@ The code that calls this constructor is responsible for creating an appropriate 
 *Example 13-5. Passing in a test double*
 
 ```java
-class PaymentProcessor {
-  private CreditCardService creditCardService;
-
-  PaymentProcessor(CreditCardService creditCardService) {
-    this.creditCardService = creditCardService;
-  }
-  ...
-}
+PaymentProcessor paymentProcessor =
+    new PaymentProcessor(new TestDoubleCreditCardService());
 ```
 
 To reduce boilerplate associated with manually specifying constructors, automated dependency injection frameworks can be used for constructing object graphs automatically. At Google, [Guice](https://github.com/google/guice)and [Dagger](https://google.github.io/dagger)are automated dependency injection frameworks that are commonly used for Java code.
