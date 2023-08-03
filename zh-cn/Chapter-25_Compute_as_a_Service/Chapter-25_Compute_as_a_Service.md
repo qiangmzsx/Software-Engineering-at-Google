@@ -434,7 +434,7 @@ The point here is not that you should run your containers in PID namespaces. Alt
 
 As discussed earlier, the original WorkQueue design was targeted at only some batch jobs, which ended up all sharing a pool of machines managed by the WorkQueue, and a different architecture was used for serving jobs, with each particular serving job running in its own, dedicated pool of machines. The open source equivalent would be running a separate Kubernetes cluster for each type of workload (plus one pool for all the batch jobs).
 
-如前所述，最初的WorkQueue设计只针对一些批处理作业，这些作业最终都共享一个由WorkQueue管理的机器资源池，而对于服务作业则采用不同的架构，每个特定的服务作业都运行在自己的专用机器资源池中。开放源码的做法是为每种工作负载运行一个单独的Kubernetes集群（加上一个用于所有批处理工作的池）。
+如前所述，最初的WorkQueue设计只针对一些批处理作业，这些作业最终都共享一个由WorkQueue管理的机器资源池，而对于服务作业则采用不同的架构，每个特定的服务作业都运行在自己的专用机器资源池中。开源的替代方案是为每种类型的工作负载单独运行一个 Kubernetes 集群（以及一个用于所有批处理作业的池）。
 
 In 2003, the Borg project was started, aiming (and eventually succeeding at) building a compute service that assimilates these disparate pools into one large pool. Borg’s pool covered both serving and batch jobs and became the only pool in any datacenter (the equivalent would be running a single large Kubernetes cluster for all workloads in each geographical location). There are two significant efficiency gains here worth discussing.
 
@@ -504,7 +504,7 @@ Management of the service is much simplified if this complex setup can be expres
 
 A standardized configuration language provides standard configuration that other teams can easily include in their service definition. As usual, we emphasize the value of such standard configuration over time and scale. If every team writes a different snippet of custom code to stand up their memcached service, it becomes very difficult to perform organization-wide tasks like swapping out to a new memcache implementation (e.g., for performance or licencing reasons) or to push a security update to all the memcache deployments. Also note that such a standardized configuration language is a requirement for automation in deployment (see Chapter 24).
 
-标准化配置语言提供标准配置，其他团队可以轻松地将其包含在服务定义中。像往常一样，我们强调这种标准配置在时间和规模上的价值。如果每个团队都编写不同的自定义代码片段以支持其memcache服务，则执行组织范围内的任务（如切换到新的memcache实现）或将安全更新推送到所有memcache部署将变得非常困难。还要注意，这种标准化配置语言是部署自动化的一个要求（参见第24章
+标准化配置语言提供标准配置，其他团队可以轻松地将其包含在服务定义中。像往常一样，我们强调这种标准配置在时间和规模上的价值。如果每个团队都编写不同的自定义代码片段以支持其memcache服务，则执行组织范围内的任务（如切换到新的memcache实现）或将安全更新推送到所有memcache部署将变得非常困难。还要注意，这种标准化配置语言是部署自动化的一个要求（参见第24章)。
 
 ## Choosing a Compute Service 选择计算服务
 
