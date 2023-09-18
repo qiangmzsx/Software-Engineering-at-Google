@@ -554,7 +554,7 @@ However, a growing organization will have increasingly diverse needs. For instan
 
 Reconciling this difference required considerable work on both sides. The Cloud organization made sure to support live migration of VMs; that is, the ability to take a VM running on one machine, spin up a copy of that VM on another machine, bring the copy to be a perfect image, and finally redirect all traffic to the copy, without causing a noticeable period when service is unavailable.[^19] Borg, on the other hand, had to be adapted to avoid at-will killing of containers containing VMs (to provide the time to migrate the VM’s contents to the new machine), and also, given that the whole migration process is more expensive, Borg’s scheduling algorithms were adapted to optimize for decreasing the risk of rescheduling being needed.[^20] Of course, these modifications were rolled out only for the machines running the cloud workloads, leading to a (small, but still noticeable) bifurcation of Google’s internal compute offering.
 
-调和这种差异需要双方做大量的工作。云计算组织确保支持虚拟机的实时迁移；也就是说，能够在一台机器上运行一个虚拟机，在另一台机器上启动该虚拟机的副本，使该副本成为一个完美的镜像，并最终将所有流量重定向到该副本，而不会造成明显的服务不可用期。  另一方面，Borg必须进行调整，以避免随意杀死包含虚拟机的容器（以提供时间将虚拟机的内容迁移到新机器上），同时，鉴于整个迁移过程更加耗时，Borg的调度算法被调整为优化，以减少需要重新调度的风险。当然，这些修改只针对运行云工作负载的机器，导致了谷歌内部计算产品的分化（很小，但仍然很明显）。
+调和这种差异需要双方做大量的工作。云计算组织确保支持虚拟机的实时迁移；也就是说，能够在一台机器上运行一个虚拟机，在另一台机器上启动该虚拟机的副本，使该副本成为一个完美的镜像，并最终将所有流量重定向到该副本，而不会造成明显的服务不可用时间段。  另一方面，Borg必须进行调整，以避免随意杀死包含虚拟机的容器（以提供时间将虚拟机的内容迁移到新机器上），同时，鉴于整个迁移过程更加耗时，Borg的调度算法被调整为优化，以减少需要重新调度的风险。当然，这些修改只针对运行云工作负载的机器，导致了谷歌内部计算产品的分化（很小，但仍然很明显）。
 
 > [^18]: My mail server is not interchangeable with your graphics rendering job, even if both of those tasks are running in the same form of VM.
 >
@@ -570,11 +570,11 @@ Reconciling this difference required considerable work on both sides. The Cloud 
 
 A different example—but one that also leads to a bifurcation—comes from Search. Around 2011, one of the replicated containers serving Google Search web traffic had a giant index built up on local disks, storing the less-often-accessed part of the Google index of the web (the more common queries were served by in-memory caches from other containers). Building up this index on a particular machine required the capacity of multiple hard drives and took several hours to fill in the data. However, at the time, Borg assumed that if any of the disks that a particular container had data on had gone bad, the container will be unable to continue, and needs to be rescheduled to a different machine. This combination (along with the relatively high failure rate of spinning disks, compared to other hardware) caused severe availability problems; containers were taken down all the time and then took forever to start up again. To address this, Borg had to add the capability for a container to deal with disk failure by itself, opting out of Borg’s default treatment; while the Search team had to adapt the process to continue operation with partial data loss.
 
-一个不同的例子--但也导致了分叉--来自于搜索。2011年左右，一个为谷歌搜索网络流量服务的复制容器在本地磁盘上建立了一个巨大的索引，存储了谷歌网络索引中不常被访问的部分（更常见的查询由其他容器的内存缓存提供）。在一台特定的机器上建立这个索引需要多个硬盘的容量，并且需要几个小时来填入数据。然而，在当时，Borg认为，如果某个特定容器上有数据的任何磁盘坏了，该容器将无法继续运行，需要重新调度到另一台机器上。这种组合（与其他硬件相比，旋转磁盘的故障率相对较高）造成了严重的可用性问题；容器总是被关闭，然后又要花很长时间才能重新启动。为了解决这个问题，Borg必须增加容器自己处理磁盘故障的能力，选择不使用Borg的默认处理方式；而搜索团队必须调整流程，在部分数据丢失的情况下继续运行。
+另一个不同的例子--但也导致了分化--来自于搜索。2011年左右，一个为谷歌搜索网络流量服务的复制容器在本地磁盘上建立了一个巨大的索引，存储了谷歌网络索引中不常被访问的部分（更常见的查询由其他容器的内存缓存提供）。在一台特定的机器上建立这个索引需要多个硬盘的容量，并且需要几个小时来填入数据。然而，在当时，Borg认为，如果某个特定容器上有数据的任何磁盘坏了，该容器将无法继续运行，需要重新调度到另一台机器上。这种组合（与其他硬件相比，旋转磁盘的故障率相对较高）造成了严重的可用性问题；容器总是被关闭，然后又要花很长时间才能重新启动。为了解决这个问题，Borg必须增加容器自己处理磁盘故障的能力，选择不使用Borg的默认处理方式；而搜索团队必须调整流程，在部分数据丢失的情况下继续运行。
 
 Multiple other bifurcations, covering areas like filesystem shape, filesystem access, memory control, allocation and access, CPU/memory locality, special hardware, special scheduling constraints, and more, caused the API surface of Borg to become large and unwieldy, and the intersection of behaviors became difficult to predict, and even more difficult to test. Nobody really knew whether the expected thing happened if a container requested *both* the special Cloud treatment for eviction *and* the custom Search treatment for disk failure (and in many cases, it was not even obvious what “expected” means).
 
-其他多个分叉，涵盖了文件系统形状、文件系统访问、内存控制、分配和访问、CPU/内存定位、特殊硬件、特殊调度约束等领域，导致Borg的API体量变得庞大而笨重，各种行为的交叉点变得难以预测，甚至更难测试。没有人真正知道，如果一个容器同时请求特殊的云处理（用于驱逐）和自定义的磁盘故障搜索处理（在许多情况下，“预期”的含义甚至不明显），预期的事情是否会发生。
+其他多个分化，涵盖了文件系统形状、文件系统访问、内存控制、分配和访问、CPU/内存定位、特殊硬件、特殊调度约束等领域，导致Borg的API体量变得庞大而笨重，各种行为的交叉点变得难以预测，甚至更难测试。没有人真正知道，如果一个容器同时请求特殊的云处理（用于驱逐）和自定义的磁盘故障搜索处理（在许多情况下，“预期”的含义甚至不明显），预期的事情是否会发生。
 
 After 2012, the Borg team devoted significant time to cleaning up the API of Borg. It discovered some of the functionalities Borg offered were no longer used at all.[^21] The more concerning group of functionalities were those that were used by multiple containers, but it was unclear whether intentionally—the process of copying the configuration files between projects led to proliferation of usage of features that were originally intended for power users only. Whitelisting was introduced for certain features to limit their spread and clearly mark them as poweruser–only. However, the cleanup is still ongoing, and some changes (like using labels for identifying groups of containers) are still not fully done.[^22]
 
@@ -582,7 +582,7 @@ After 2012, the Borg team devoted significant time to cleaning up the API of Bor
 
 As usual with trade-offs, although there are ways to invest effort and get some of the benefits of customization while not suffering the worst downsides (like the aforementioned whitelisting for power functionality), in the end there are hard choices to be made. These choices usually take the form of multiple small questions: do we accept expanding the explicit (or worse, implicit) API surface to accommodate a particular user of our infrastructure, or do we significantly inconvenience that user, but maintain higher coherence?
 
-与通常的权衡方法一样，尽管有一些方法可以投入精力并从定制中获得一些好处，同时又不会遭受最坏的负面影响（如前面提到的特权白名单），但最终还是要做出艰难的选择。这些选择通常以多个小问题的形式出现：我们是否接受扩展显式（或更糟的是，隐式）API表面以适应我们基础设施的特定用户，或者我们是否显著地给该用户带来不便，但主要是保持更高的一致性？
+像通常情况下的权衡一样，尽管有一些方法可以投入精力并从定制中获得一些好处，同时又不会遭受严重的负面影响（如前面提到的特权白名单），但最终还是要做出艰难的选择。这些选择通常以多个小问题的形式出现：我们是否接受扩展显式（或更糟的是，隐式）API表面以适应我们基础设施的特定用户，或者我们是否显著地给该用户带来不便，但主要是保持更高的一致性？
 
 > [^21]: A good reminder that monitoring and tracking the usage of your features is valuable over time.
 >
@@ -596,7 +596,7 @@ As usual with trade-offs, although there are ways to invest effort and get some 
 
 The description of taming the compute environment by Google can easily be read as a tale of increasing and improving abstraction—the more advanced versions of Borg took care of more management responsibilities and isolated the container more from the underlying environment. It’s easy to get the impression this is a simple story: more abstraction is good; less abstraction is bad.
 
-谷歌对驯服计算环境的描述很容易被理解为一个增加和改进抽象的故事--更高级的Borg版本承担了更多的管理责任，并将容器与底层环境更多地隔离。这很容易让人觉得这是一个简单的故事：更多的抽象是好的；更少的抽象是差的。
+谷歌对驯服计算环境的描述很容易被理解为一个增加和改进抽象层的故事--更高级的Borg版本承担了更多的管理责任，并将容器与底层环境更多地隔离。这很容易让人觉得这是一个简单的故事：更多的抽象是好的；更少的抽象是差的。
 
 Of course, it is not that simple. The landscape here is complex, with multiple offerings. In “Taming the Compute Environment” on page 518, we discussed the progression from dealing with pets running on bare-metal machines (either owned by your organization or rented from a colocation center) to managing containers as cattle. In between, as an alternative path, are VM-based offerings in which VMs can progress from being a more flexible substitute for bare metal (in Infrastructure as a Service offerings like Google Compute Engine [GCE] or Amazon EC2) to heavier substitutes for containers (with autoscaling, rightsizing, and other management tools).
 
@@ -614,7 +614,7 @@ The advantage of VMs as cattle lies primarily in the ability to bring our own op
 
 An even higher level of abstraction is *serverless* offerings.[^23] Assume that an organization is serving web content and is using (or willing to adopt) a common server framework for handling the HTTP requests and serving responses. The key defining trait of a framework is the inversion of control—so, the user will only be responsible for writing an “Action” or “Handler” of some sort—a function in the chosen language that takes the request parameters and returns the response.
 
-更高层次的抽象是无服务器产品。假设一个组织正在为网络内容提供服务，并且正在使用（或愿意采用）一个通用的服务器框架来处理HTTP请求和提供响应。框架的关键定义特征是控制权的倒置--因此，用户只负责编写某种 "行动 "或 "处理程序"--所选语言中的函数，接收请求参数并返回响应。
+更高层次的抽象是无服务器产品。假设一个组织正在为网络内容提供服务，并且正在使用（或愿意采用）一个通用的服务器框架来处理HTTP请求和提供响应。框架的关键定义特征是控制权的倒置--因此，用户只负责编写某种“Action”或“Handler”--所选语言中的函数，接收请求参数并返回响应。
 
 In the Borg world, the way you run this code is that you stand up a replicated container, each replica containing a server consisting of framework code and your functions. If traffic increases, you will handle this by scaling up (adding replicas or expanding into new datacenters). If traffic decreases, you will scale down. Note that a minimal presence (Google usually assumes at least three replicas in each datacenter a server is running in) is required.
 
@@ -622,11 +622,11 @@ In the Borg world, the way you run this code is that you stand up a replicated c
 
 However, if multiple different teams are using the same framework, a different approach is possible: instead of just making the machines multitenant, we can also make the framework servers themselves multitenant. In this approach, we end up running a larger number of framework servers, dynamically load/unload the action code on different servers as needed, and dynamically direct requests to those servers that have the relevant action code loaded. Individual teams no longer run servers, hence “serverless.”
 
-但是，如果多个不同的团队使用同一个框架，就可以采用不同的方法：不只是让机器多租，我们还可以让框架服务器本身共享。在这种方法中，我们最终会运行更多的框架服务器，根据需要在不同的服务器上动态加载/卸载动作代码，并将请求动态地引导到那些加载了相关动作代码的服务器。各个团队不再运行服务器，因此 "无服务器"。
+但是，如果多个不同的团队使用同一个框架，就可以采用不同的方法：除了使机器支持多租户外，我们还可以使框架服务器本身支持多租户。在这种方法中，我们最终会运行更多的框架服务器，根据需要在不同的服务器上动态加载/卸载动作代码，并将请求动态地引导到那些加载了相关动作代码的服务器。各个团队不再运行服务器，因此 "无服务器"。
 
 Most discussions of serverless frameworks compare them to the “VMs as pets” model. In this context, the serverless concept is a true revolution, as it brings in all of the benefits of cattle management—autoscaling, lower overhead, lack of explicit provisioning of servers. However, as described earlier, the move to a shared, multitenant,cattle-based model should already be a goal for an organization planning to scale; and so the natural comparison point for serverless architectures should be “persistent containers” architecture like Borg, Kubernetes, or Mesosphere.
 
-大多数关于无服务器框架的讨论都将其与 "虚拟机作为宠物 "的模式相比较。在这种情况下，无服务器概念是一场真正的革命，因为它带来了牛群管理的所有好处--自动扩展、较低的开销、缺乏明确的服务器配置。然而，正如前文所述，对于计划扩展的组织来说，转向共享、多租户、基于牛的模式应该已经是一个目标；因此，无服务器架构的自然比较点应该是 "持久性容器 "架构，如Borg、Kubernetes或Mesosphere。
+大多数关于无服务器框架的讨论都将其与 "虚拟机作为宠物 "的模式相比较。在这种情况下，无服务器概念是一场真正的革命，因为它带来了牛群管理的所有好处--自动扩展、较低的开销、缺乏明确的服务器配置。然而，正如前文所述，对于计划扩展的组织来说，转向共享、多租户、基于牛的模式应该已经是一个目标；因此，无服务器架构的自然比较点应该是 "持久性容器"架构，如Borg、Kubernetes或Mesosphere。
 
 > [^23]: FaaS (Function as a Service) and PaaS (Platform as a Service) are related terms to serverless. There are differences between the three terms, but there are more similarities, and the boundaries are somewhat blurred.
 >
@@ -666,7 +666,7 @@ Google’s choice in this trade-off was not to invest heavily into serverless so
 
 However, Google’s choice is not necessarily the correct choice for every organization: other organizations have successfully built out on mixed container/serverless architectures, or on purely serverless architectures utilizing third-party solutions for storage.
 
-然而，谷歌的选择并不一定是每个组织的正确选择：其他组织已经成功地建立了混合容器/无服务器架构，或在纯粹的无服务器架构上利用第三方解决方案进行存储。
+然而，谷歌的选择并不一定是每个组织的正确选择：其他组织已经成功4地建立了混合容器/无服务器架构，或在纯粹的无服务器架构上利用第三方解决方案进行存储。
 
 The main pull of serverless, however, comes not in the case of a large organization making the choice, but in the case of a smaller organization or team; in that case, the comparison is inherently unfair. The serverless model, though being more restrictive, allows the infrastructure vendor to pick up a much larger share of the overall management overhead and thus *decrease the management overhead* for the users. Running the code of one team on a shared serverless architecture, like AWS Lambda or Google’s Cloud Run, is significantly simpler (and cheaper) than setting up a cluster to run the code on a managed container service like GKE or AKS if the cluster is not being shared among many teams. If your team wants to reap the benefits of a managed compute offering but your larger organization is unwilling or unable to move to a persistent containers-based solution, a serverless offering by one of the public cloud providers is likely to be attractive to you because the cost (in resources and management) of a shared cluster amortizes well only if the cluster is truly shared (between multiple teams in the organization).
 
