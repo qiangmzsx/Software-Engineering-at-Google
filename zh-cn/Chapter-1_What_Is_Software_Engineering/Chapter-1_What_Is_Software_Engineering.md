@@ -401,7 +401,7 @@ In addition to the aforementioned costs (or our estimate of them), there are bia
 
 In many organizations, whiteboard markers are treated as precious goods. They are tightly controlled and always in short supply. Invariably, half of the markers at any given whiteboard are dry and unusable. How often have you been in a meeting that was disrupted by lack of a working marker? How often have you had your train of thought derailed by a marker running out? How often have all the markers just gone missing, presumably because some other team ran out of markers and had to abscond with yours? All for a product that costs less than a dollar.
 
-在许多组织中，白板记号笔被视为贵重物品。它们受到严格的控制，而且总是供不应求。在任何的白板上，都有一半的记号笔是干的，无法使用。你有多少次因为没有一个好用的记号笔而中断会议进程？多少次因为记号笔水用完而打断思考？多少次所有的记号笔都不见了，大概是因为其他团队的记号笔用完了，不得不拿走你的记号笔？所有这些都是因为一个价格不到一美元的产品。
+在许多组织中，白板记号笔被视为贵重物品。它们受到严格的控制，而且总是供不应求。在任何的白板上，都有一半的记号笔是干的，无法使用。你有多少次因为没有一个好用的记号笔而中断会议进程？多少次因为记号笔水用完而导致思路中断？又有多少次，所有的记号笔都不翼而飞，大概是因为其他团队的记号笔用完了，不得不拿走你的记号笔？所有这些都是因为一个价格不到一美元的产品。
 
 Google tends to have unlocked closets full of office supplies, including whiteboard markers, in most work areas. With a moment’s notice it is easy to grab dozens of markers in a variety of colors. Somewhere along the line we made an explicit trade- off: it is far more important to optimize for obstacle-free brainstorming than to protect against someone wandering off with a bunch of markers.
 
