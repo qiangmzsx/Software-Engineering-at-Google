@@ -451,7 +451,7 @@ With an agreed-upon conversion table in hand, every engineer can do their own an
 
 For the second type of decision, there is no easy answer. We rely on experience, leadership, and precedent to negotiate these issues. We’re investing in research to help us quantify the hard-to-quantify (see Chapter 7). However, the best broad suggestion that we have is to be aware that not everything is measurable or predictable and to attempt to treat such decisions with the same priority and greater care. They are often just as important, but more difficult to manage.
 
-对于第二类决策，没有简单的答案。我们依靠经验、领导和先例来协商这些问题。我们正在投入研究，以帮助我们量化难以量化的问题（见第7章）然而，我们所拥有的最好的广泛建议是，意识到并非所有的事情都是可衡量或可预测的，并尝试以同样的优先权和更大的谨慎对待此类决策。它们往往同样重要，但更难管理。
+对于第二类决策，没有简单的答案。我们依靠经验、领导作风和先例来协商这些问题。我们正在投入研究，以帮助我们量化难以量化的问题（见第7章）不过，我们所能提供的最好的广泛建议是，意识到并非所有的事情都是可衡量或可预测的，并尝试以同样的优先级和更谨慎得对待此类决策。它们往往同样重要，但更难管理。
 
 ### Example: Distributed Builds 示例：分布式构建
 
