@@ -510,7 +510,7 @@ One of the unsung benefits of committing to a data-driven culture is the combine
 
 We believe strongly in data informing decisions, but we recognize that the data will change over time, and new data may present itself. This means, inherently, that decisions will need to be revisited from time to time over the life span of the system in question. For long-lived projects, it’s often critical to have the ability to change directions after an initial decision is made. And, importantly, it means that the deciders need to have the right to admit mistakes. Contrary to some people’s instincts, leaders who admit mistakes are more respected, not less.
 
-我们坚信数据能为决策提供信息，但我们也认识到数据会随着时间的推移而变化，新数据可能会出现。这意味着，本质上，在相关系统的生命周期内，需要不时地重新审视决策。对于长期项目而言，在做出初始决策后，有能力改变方向通常是至关重要的。更重要的是，这意味着决策者需要勇气承认错误。与人的本能相反，勇于承认错误的领导人受更多的尊重。
+我们坚信数据能为决策提供信息，但我们也认识到数据会随着时间的推移而变化，新数据可能会出现。这意味着，本质上，在相关系统的生命周期内，需要不时地重新审视决策。对于长期项目而言，在做出初始决策后，有能力改变方向通常是至关重要的。更重要的是，这意味着决策者需要勇气承认错误。与人的直觉相反，勇于承认错误的领导人受更多的尊重。
 
 Be evidence driven, but also realize that things that can’t be measured may still have value. If you’re a leader, that’s what you’ve been asked to do: exercise judgement, assert that things are important. We’ll speak more on leadership in Chapters 5 and 6.
 
