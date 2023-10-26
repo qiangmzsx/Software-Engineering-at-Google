@@ -347,13 +347,13 @@ The underlying lesson is not about the frequency or difficulty of compiler upgra
 >
 > [^16]: In our experience, an average software engineer (SWE) produces a pretty constant number of lines of code per unit time. For a fixed SWE population, a codebase grows linearly—proportional to the count of SWE- months over time. If your tasks require effort that scales with lines of code, that’s concerning.
 >
-> 根据我们的经验，平均软件工程师（SWE）每单位时间产生相当恒定的代码行数。对于固定的SWE总体，随着时间的推移，代码库的增长与SWE月数成线性比例。如果你的任务需要与代码行数成比例的工作，这是值得关注的。
+> 根据我们的经验，平均软件工程师（SWE）每单位时间产生相当恒定的代码行数。对于固定的SWE总体，随着时间的推移，代码库的增长与SWE月数成线性比例。如果您的任务所需的工作量与代码行数成正比，那就令人担忧了。
 
 ### Shifting Left  左移
 
 One of the broad truths we’ve seen to be true is the idea that finding problems earlier in the developer workflow usually reduces costs. Consider a timeline of the developer workflow for a feature that progresses from left to right, starting from conception and design, progressing through implementation, review, testing, commit, canary, and eventual production deployment. Shifting problem detection to the “left” earlier on this timeline makes it cheaper to fix than waiting longer, as shown in Figure 1-2.
 
-我们看到的一个普遍真理是，在开发人员的工作流程中发现的问题，通常可以降低成本。考虑开发人员工作流程的时间表，从左到右，从概念和设计开始，通过实施、评审、测试、提交、金丝雀和最终的生产部署来进行。在此时间线之前，将问题发现转移到“左侧”会使修问题解决成本更低，如图1-2所示。
+我们发现，在开发人员工作流程的早期发现问题通常可以降低成本，这是一个普遍的真理。考虑一下开发人员工作流程的时间轴，该时间轴从左到右依次为：从构思和设计开始，经过实施、审核、测试、提交、金丝雀和最终的生产部署。如图 1-2 所示，在此时间轴上将问题检测提前到 "左侧"，解决问题的成本会比等待时间更长。
 
 This term seems to have originated from arguments that security mustn’t be deferred until the end of the development process, with requisite calls to “shift left on security.” The argument in this case is relatively simple: if a security problem is discovered only after your product has gone to production, you have a very expensive problem. If it is caught before deploying to production, it may still take a lot of work to identify and remedy the problem, but it’s cheaper. If you can catch it before the original developer commits the flaw to version control, it’s even cheaper: they already have an understanding of the feature; revising according to new security constraints is cheaper than committing and forcing someone else to triage it and fix it.
 
