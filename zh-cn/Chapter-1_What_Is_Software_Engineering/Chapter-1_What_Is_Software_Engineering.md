@@ -347,13 +347,13 @@ The underlying lesson is not about the frequency or difficulty of compiler upgra
 >
 > [^16]: In our experience, an average software engineer (SWE) produces a pretty constant number of lines of code per unit time. For a fixed SWE population, a codebase grows linearly—proportional to the count of SWE- months over time. If your tasks require effort that scales with lines of code, that’s concerning.
 >
-> 根据我们的经验，平均软件工程师（SWE）每单位时间产生相当恒定的代码行数。对于固定的SWE总体，随着时间的推移，代码库的增长与SWE月数成线性比例。如果你的任务需要与代码行数成比例的工作，这是值得关注的。
+> 根据我们的经验，平均软件工程师（SWE）每单位时间产生相当恒定的代码行数。对于固定的SWE总体，随着时间的推移，代码库的增长与SWE月数成线性比例。如果您的任务所需的工作量与代码行数成正比，那就令人担忧了。
 
 ### Shifting Left  左移
 
 One of the broad truths we’ve seen to be true is the idea that finding problems earlier in the developer workflow usually reduces costs. Consider a timeline of the developer workflow for a feature that progresses from left to right, starting from conception and design, progressing through implementation, review, testing, commit, canary, and eventual production deployment. Shifting problem detection to the “left” earlier on this timeline makes it cheaper to fix than waiting longer, as shown in Figure 1-2.
 
-我们看到的一个普遍真理是，在开发人员的工作流程中发现的问题，通常可以降低成本。考虑开发人员工作流程的时间表，从左到右，从概念和设计开始，通过实施、评审、测试、提交、金丝雀和最终的生产部署来进行。在此时间线之前，将问题发现转移到“左侧”会使修问题解决成本更低，如图1-2所示。
+我们发现，在开发人员工作流程的早期发现问题通常可以降低成本，这是一个普遍的真理。考虑一下开发人员工作流程的时间轴，该时间轴从左到右依次为：从构思和设计开始，经过实施、审核、测试、提交、金丝雀和最终的生产部署。如图 1-2 所示，在此时间轴上将问题检测提前到 "左侧"，解决问题的成本会比等待时间更长。
 
 This term seems to have originated from arguments that security mustn’t be deferred until the end of the development process, with requisite calls to “shift left on security.” The argument in this case is relatively simple: if a security problem is discovered only after your product has gone to production, you have a very expensive problem. If it is caught before deploying to production, it may still take a lot of work to identify and remedy the problem, but it’s cheaper. If you can catch it before the original developer commits the flaw to version control, it’s even cheaper: they already have an understanding of the feature; revising according to new security constraints is cheaper than committing and forcing someone else to triage it and fix it.
 
@@ -397,15 +397,15 @@ In addition to the aforementioned costs (or our estimate of them), there are bia
 
 除了上述的成本（或我们对其的估计），还有一些偏差：维持现状偏差（个体在决策时，倾向于不作为、维持当前的或者以前的决策的一种现象。这一定义揭示个体在决策时偏好事件当前的状态，而且不愿意采取行动来改变这一状态，当面对一系列决策选项时，倾向于选择现状选项），损失厌恶偏差（人们面对同样的损失和收益时感到损失对情绪影响更大）等。当我们评估成本时，我们需要牢记之前列出的所有成本：一个组织的健康不仅仅是银行里是否有钱，还包括其成员是否感到有价值和有成就感。在软件等高度创新和利润丰厚的领域在工程设计中，财务成本通常不是限制因素，而人力资源是。保持工程师的快乐、专注和参与所带来的效率提升会成为主导因素，仅仅是因为专注力和生产力变化大，会有10-20%的差异很容易想象。
 
-### Example: Markers 示例：标记
+### Example: Markers 示例：记号笔
 
 In many organizations, whiteboard markers are treated as precious goods. They are tightly controlled and always in short supply. Invariably, half of the markers at any given whiteboard are dry and unusable. How often have you been in a meeting that was disrupted by lack of a working marker? How often have you had your train of thought derailed by a marker running out? How often have all the markers just gone missing, presumably because some other team ran out of markers and had to abscond with yours? All for a product that costs less than a dollar.
 
-在许多组织中，白板记号笔被视为贵重物品。它们受到严格的控制，而且总是供不应求。在任何的白板上，都有一半的记号笔是干的，无法使用。你有多少次因为没有一个好用的记号笔而中断会议进程？多少次因为记号笔水用完而打断思考？多少次所有的记号笔都不见了，大概是因为其他团队的记号笔用完了，不得不拿走你的记号笔？所有这些都是因为一个价格不到一美元的产品。
+在许多组织中，白板记号笔被视为贵重物品。它们受到严格的控制，而且总是供不应求。在任何的白板上，都有一半的记号笔是干的，无法使用。你有多少次因为没有一个好用的记号笔而中断会议进程？多少次因为记号笔水用完而导致思路中断？又有多少次，所有的记号笔都不翼而飞，大概是因为其他团队的记号笔用完了，不得不拿走你的记号笔？所有这些都是因为一个价格不到一美元的产品。
 
 Google tends to have unlocked closets full of office supplies, including whiteboard markers, in most work areas. With a moment’s notice it is easy to grab dozens of markers in a variety of colors. Somewhere along the line we made an explicit trade- off: it is far more important to optimize for obstacle-free brainstorming than to protect against someone wandering off with a bunch of markers.
 
-谷歌往往在大多数工作区域都有未上锁的柜子，里面装满了办公用品，包括记号笔。只要稍加注意，就可以很容易地拿到各种颜色的几十支记号笔。在某种程度上，我们做了一个明确的权衡：优化无障碍的头脑风暴远比防止有人拿着一堆记号笔乱跑要重要得多。
+谷歌往往在大多数工作区域都有未上锁的柜子，里面装满了办公用品，包括记号笔。只要稍加注意，就可以很容易地拿到各种颜色的几十支记号笔。在某种程度上，我们做了一个明确的权衡：优化无障碍头脑风暴要比防止有人拿着一堆记号笔走神重要得多。
 
 We aim to have the same level of eyes-open and explicit weighing of the cost/benefit trade-offs involved for everything we do, from office supplies and employee perks through day-to-day experience for developers to how to provision and run global- scale services. We often say, “Google is a data-driven culture.” In fact, that’s a simplification: even when there isn’t *data*, there might still be *evidence*, *precedent*, and *argument*. Making good engineering decisions is all about weighing all of the available inputs and making informed decisions about the trade-offs. Sometimes, those decisions are based on instinct or accepted best practice, but only after we have exhausted approaches that try to measure or estimate the true underlying costs.
 
@@ -451,7 +451,7 @@ With an agreed-upon conversion table in hand, every engineer can do their own an
 
 For the second type of decision, there is no easy answer. We rely on experience, leadership, and precedent to negotiate these issues. We’re investing in research to help us quantify the hard-to-quantify (see Chapter 7). However, the best broad suggestion that we have is to be aware that not everything is measurable or predictable and to attempt to treat such decisions with the same priority and greater care. They are often just as important, but more difficult to manage.
 
-对于第二类决策，没有简单的答案。我们依靠经验、领导和先例来协商这些问题。我们正在投入研究，以帮助我们量化难以量化的问题（见第7章）然而，我们所拥有的最好的广泛建议是，意识到并非所有的事情都是可衡量或可预测的，并尝试以同样的优先权和更大的谨慎对待此类决策。它们往往同样重要，但更难管理。
+对于第二类决策，没有简单的答案。我们依靠经验、领导作风和先例来协商这些问题。我们正在投入研究，以帮助我们量化难以量化的问题（见第7章）不过，我们所能提供的最好的广泛建议是，意识到并非所有的事情都是可衡量或可预测的，并尝试以同样的优先级和更谨慎得对待此类决策。它们往往同样重要，但更难管理。
 
 ### Example: Distributed Builds 示例：分布式构建
 
@@ -469,7 +469,7 @@ Eventually, Google developed its own distributed build system. Development of th
 
 So, we built a new system, deployed it to production, and sped up everyone’s build. Is that the happy ending to the story? Not quite: providing a distributed build system made massive improvements to engineer productivity, but as time went on, the distributed builds themselves became bloated. What was constrained in the previous case by individual engineers (because they had a vested interest in keeping their local builds as fast as possible) was unconstrained within a distributed build system. Bloated or unnecessary dependencies in the build graph became all too common. When everyone directly felt the pain of a nonoptimal build and was incentivized to be vigilant, incentives were better aligned. By removing those incentives and hiding bloated dependencies in a parallel distributed build, we created a situation in which consumption could run rampant, and almost nobody was incentivized to keep an eye on build bloat. This is reminiscent of Jevons Paradox: consumption of a resource may increase as a response to greater efficiency in its use.
 
-因此，我们构建了一个新系统，将其部署到生产环境中，并加快了每个人的构建速度。这就是故事的圆满结局吗？不完全是这样：提供分布式构建系统极大地提高了工程师的工作效率，但随着时间的推移，分布式构建本身变得臃肿起来。在以前的情况下，单个工程师受到的限制（因为他们尽最大可能保持本地构建的速度）在分布式构建系统中是不受限制的。构建图中的臃肿或不必要的依赖关系变得非常普遍。当每个人都直接感受到非最佳构建的痛苦，并被要求去保持警惕时，激励措施会更好地协调一致。通过取消这些激励措施，并将臃肿的依赖关系隐藏在并行的分布式构建中，我们创造了一种情况，在这种情况下，消耗可能猖獗，而且几乎没有人被要求去关注构建的臃肿。这让人想起杰文斯悖论（Jevons Paradox）：一种资源的消耗可能会随着使用效率的提高而增加。
+因此，我们构建了一个新系统，将其部署到生产环境中，并加快了每个人的构建速度。这就是故事的圆满结局吗？不完全是这样：提供分布式构建系统极大地提高了工程师的工作效率，但随着时间的推移，分布式构建本身变得臃肿起来。在以前的情况下，单个工程师受到的限制（因为他们尽最大可能保持本地构建的速度）在分布式构建系统中是不受限制的。构建图中的臃肿或不必要的依赖关系变得非常普遍。当每个人都直接感受到非最佳构建的痛苦，并被要求去保持警惕时，激励机制会更好地协调一致。通过取消这些激励措施，并将臃肿的依赖关系隐藏在并行的分布式构建中，我们创造了一种情况，在这种情况下，消耗可能猖獗，而且几乎没有人被要求去关注构建的臃肿。这让人想起杰文斯悖论（Jevons Paradox）：一种资源的消耗可能会随着使用效率的提高而增加。
 
 Overall, the saved costs associated with adding a distributed build system far, far outweighed the negative costs associated with its construction and maintenance. But, as we saw with increased consumption, we did not foresee all of these costs. Having blazed ahead, we found ourselves in a situation in which we needed to reconceptualize the goals and constraints of the system and our usage, identify best practices (small dependencies, machine-management of dependencies), and fund the tooling and maintenance for the new ecosystem. Even a relatively simple trade-off of the form “We’ll spend $$$s for compute resources to recoup engineer time” had unforeseen downstream effects.
 
@@ -510,7 +510,7 @@ One of the unsung benefits of committing to a data-driven culture is the combine
 
 We believe strongly in data informing decisions, but we recognize that the data will change over time, and new data may present itself. This means, inherently, that decisions will need to be revisited from time to time over the life span of the system in question. For long-lived projects, it’s often critical to have the ability to change directions after an initial decision is made. And, importantly, it means that the deciders need to have the right to admit mistakes. Contrary to some people’s instincts, leaders who admit mistakes are more respected, not less.
 
-我们坚信数据能为决策提供信息，但我们也认识到数据会随着时间的推移而变化，新数据可能会出现。这意味着，本质上，在相关系统的生命周期内，需要不时地重新审视决策。对于长期项目而言，在做出初始决策后，有能力改变方向通常是至关重要的。更重要的是，这意味着决策者需要勇气承认错误。与人的本能相反，勇于承认错误的领导人受更多的尊重。
+我们坚信数据能为决策提供信息，但我们也认识到数据会随着时间的推移而变化，新数据可能会出现。这意味着，本质上，在相关系统的生命周期内，需要不时地重新审视决策。对于长期项目而言，在做出初始决策后，有能力改变方向通常是至关重要的。更重要的是，这意味着决策者需要勇气承认错误。与人的直觉相反，勇于承认错误的领导人受更多的尊重。
 
 Be evidence driven, but also realize that things that can’t be measured may still have value. If you’re a leader, that’s what you’ve been asked to do: exercise judgement, assert that things are important. We’ll speak more on leadership in Chapters 5 and 6.
 
