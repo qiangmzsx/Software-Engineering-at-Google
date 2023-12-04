@@ -124,7 +124,7 @@ In its purest form, automating testing consists of three activities: writing tes
 
 Example 11-1 )presents a deliberately simple test in Java using no frameworks or testing libraries. This is not how you would write an entire test suite, but at its core every automated test looks similar to this very simple example.
 
-例11-1绍了一个特意用Java写的简单测试，没有使用框架或测试库。这不是你编写整个测试套件的方式，但在其核心部分，每个自动化测试都与这个非常简单的例子类似。
+例11-1介绍了一个特意用Java写的简单测试，没有使用框架或测试库。这不是你编写整个测试套件的方式，但在其核心部分，每个自动化测试都与这个非常简单的例子类似。
 
 *Example 11-1. An example test*  *例11-1. 一个测试实例*
 
