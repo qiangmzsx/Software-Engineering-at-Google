@@ -540,7 +540,7 @@ The corpus of information is so large that it’s impractical to expect engineer
 >
 > [^15]:	Available for multiple languages. Externally available for C++ at https://abseil.io/tips.
 >
-> 15 可用于多种语言。对外可用于C++，在[](https://abseil.io/tips)。
+> 15 可用于多种语言。对外可用于C++，在[https://abseil.io/tips](https://abseil.io/tips)。
 
 #### go/links 链接
 
