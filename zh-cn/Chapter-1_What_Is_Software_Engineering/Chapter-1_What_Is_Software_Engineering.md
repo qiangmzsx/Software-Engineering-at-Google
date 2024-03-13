@@ -457,7 +457,7 @@ For the second type of decision, there is no easy answer. We rely on experience,
 
 Consider your build. According to completely unscientific Twitter polling, something like 60 to 70% of developers build locally, even with today’s large, complicated builds. This leads directly to nonjokes as illustrated by this “Compiling” comic—how much productive time in your organization is lost waiting for a build? Compare that to the cost to run something like distcc for a small group. Or, how much does it cost to run a small build farm for a large group? How many weeks/months does it take for those costs to be a net win?
 
-考虑到你的构建。根据不可靠的推特投票结果显示，大约有60到70%的开发者在本地构建，即使是今天的大型、复杂的构建。才有了这样的笑话，如“编译”漫画所示。你的组织中有多少时间被浪费在等待构建上？将其与为一个小团队运行类似distcc的成本进行比较。或者，为一个大团队运行一个小构建场需要多少成本？这些成本需要多少周/月才能成为一个净收益？
+考虑到你的构建。根据不完全科学的推特民意调查，大约有60到70%的开发者在本地构建，即使是今天的大型、复杂的构建。才有了这样的笑话，如“编译”漫画所示。你的组织中有多少时间被浪费在等待构建上？将其与为一个小团队运行类似distcc的成本进行比较。或者，为一个大团队运行一个小构建场需要多少成本？这些成本需要多少周/月才能成为一个净收益？
 
 Back in the mid-2000s, Google relied purely on a local build system: you checked out code and you compiled it locally. We had massive local machines in some cases (you could build Maps on your desktop!), but compilation times became longer and longer as the codebase grew. Unsurprisingly, we incurred increasing overhead in personnel costs due to lost time, as well as increased resource costs for larger and more powerful local machines, and so on. These resource costs were particularly troublesome: of course we want people to have as fast a build as possible, but most of the time, a high- performance desktop development machine will sit idle. This doesn’t feel like the proper way to invest those resources.
 
