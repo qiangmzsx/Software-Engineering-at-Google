@@ -339,7 +339,7 @@ Tech talks typically consist of a speaker presenting directly to an audience. Cl
 
 > [5]: https://talksat.withgoogle.com and https://www.youtube.com/GoogleTechTalks, to name a few.
 >
-> 5 https://talksat.withgoogle.com 和 https://www.youtube.com/GoogleTechTalks，仅举几例。
+> 5 https://talksat.withgoogle.com 和 [https://www.youtube.com/GoogleTechTalks](https://www.youtube.com/GoogleTechTalks)，仅举几例。
 >
 > [^6]: The g2g program is detailed in: Laszlo Bock, Work Rules!: Insights from Inside Google That Will Transform How You Live and Lead (New York: Twelve Books, 2015). It includes descriptions of different aspects of the program as well as how to evaluate impact and recommendations for what to focus on when setting up similar programs.
 >
@@ -540,7 +540,7 @@ The corpus of information is so large that it’s impractical to expect engineer
 >
 > [^15]:	Available for multiple languages. Externally available for C++ at https://abseil.io/tips.
 >
-> 15 可用于多种语言。对外可用于C++，在https://abseil.io/tips。
+> 15 可用于多种语言。对外可用于C++，在[https://abseil.io/tips](https://abseil.io/tips)。
 
 #### go/links 链接
 
