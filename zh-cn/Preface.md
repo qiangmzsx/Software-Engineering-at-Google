@@ -10,17 +10,17 @@ The terms “programming” and “software engineering” have been used interc
 
 “Software engineering,” however, sounds more serious, as if it implies the application of some theoretical knowledge to build something real and precise. Mechanical engineers, civil engineers, aeronautical engineers, and those in other engineering disciplines all practice engineering. They all work in the real world and use the application of their theoretical knowledge to create something real. Software engineers also create “something real,” though it is less tangible than the things other engineers create.
 
-然而，"软件工程 "听起来更加严肃，似乎它意味着应用一些理论知识来建立一些真实和精确的东西。机械工程师、土木工程师、航空工程师和其他工程学科的人都在进行工程实践。他们都在现实世界中工作，运用他们的理论知识来创造一些真实的东西。软件工程师也创造 "真实的东西"，尽管它没有像其他工程师创造的东西那么有形。
+然而，"软件工程 "听起来更加严肃，似乎它意味着应用理论知识来建立真实和精确的东西。机械工程师、土木工程师、航空工程师和其他工程学科的人都在进行工程实践。他们都在现实世界中工作，运用他们的理论知识来创造一些真实的东西。软件工程师也创造 "真实的东西"，尽管它没有像其他工程师创造的东西那么有形。
 
 Unlike those more established engineering professions, current software engineering theory or practice is not nearly as rigorous. Aeronautical engineers must follow rigid guidelines and practices, because errors in their calculations can cause real damage; programming, on the whole, has traditionally not followed such rigorous practices. But, as software becomes more integrated into our lives, we must adopt and rely on more rigorous engineering methods. We hope this book helps others see a path toward more reliable software practices.
 
-与那些更成熟的工程专业不同，目前的软件工程理论或实践还没有那么严格。航空工程师必须遵循严格的准则和实践，因为他们的计算错误会造成真正的损失；而编程，总体来说，传统上没有遵循这样严格的实践。但是，随着软件越来越多地融入我们的生活，我们必须采用并依赖更严格的工程方法。我们希望这本书能帮助其他人看到一条通往更可靠的软件实践的道路。
+与那些更成熟的工程专业不同，目前的软件工程理论或实践方法还没有那么严格。航空工程师必须遵循严格的准则和实践，因为他们的计算错误会造成真正的损失；而编程，总体来说，传统上没有遵循这样严格的实践。但是，随着软件越来越多地融入我们的生活，我们必须采用并依赖更严格的工程方法。我们希望这本书能帮助其他人看到一条通往更可靠的软件实践的道路。
 
 ### Programming Over Time 随时间变化的编程
 
 We propose that “software engineering” encompasses not just the act of writing code, but all of the tools and processes an organization uses to build and maintain that code over time. What practices can a software organization introduce that will best keep its code valuable over the long term? How can engineers make a codebase more sustainable and the software engineering discipline itself more rigorous? We don’t have fundamental answers to these questions, but we hope that Google’s collective experience over the past two decades illuminates possible paths toward finding those answers.
 
-我们建议，"软件工程 "不仅包括编写代码的行为，还包括一个组织用来长期构建和维护代码的所有工具和流程。一个软件组织可以采用哪些做法来使其代码长期保持最佳价值？工程师们如何才能使代码库更具有可持续性，并使软件工程学科本身更加严格？我们没有这些问题的最终答案，但我们希望谷歌在过去20年的集体经验能够为寻找这些答案的提供可能。
+我们建议，"软件工程 "不仅包括编写代码的行为，还包括一个组织用来长期构建和随时间维护代码的所有工具和流程。一个软件组织可以采用哪些做法来使其代码长期保持最佳价值？工程师们如何才能使代码库更具有可持续性，并使软件工程学科本身更加严格？我们没有这些问题的最终答案，但我们希望谷歌在过去20年的集体经验能够为寻找这些答案的提供可能。
 
 One key insight we share in this book is that software engineering can be thought of as “programming integrated over time.” What practices can we introduce to our code to make it *sustainable*—able to react to necessary change—over its life cycle, from conception to introduction to maintenance to deprecation?
 
@@ -80,7 +80,7 @@ The culture, processes, and tools outlined in this book describe the lessons tha
 
 Neither is this book intended to be a sermon. Google itself still imperfectly applies many of the concepts within these pages. The lessons that we have learned, we learned through our failures: we still make mistakes, implement imperfect solutions, and need to iterate toward improvement. Yet the sheer size of Google’s engineering organization ensures that there is a diversity of solutions for every problem. We hope that this book contains the best of that group.
 
-本书也不打算成为一本布道书。谷歌自身仍在不完善地应用这些书中的许多理念。我们从失败中吸收了教训：我们仍然会犯错误，实施不完美的解决方案，还需要迭代改进。然而，谷歌工程组织的庞大规模确定了每个问题都有多样化的解决方案。我们希望这本书包含了这群人中最好的方案。
+本书也不打算成为一本布道书。谷歌自身仍在不完善地应用这些书中的许多理念。我们从失败中吸收了教训：我们仍然会犯错误，采用不完美的解决方案，还需要迭代改进。然而，谷歌工程组织的庞大规模确定了每个问题都有多样化的解决方案。我们希望这本书包含了这群人中最好的方案。
 
 ### What This Book Isn’t 本书不适用于哪些
 
