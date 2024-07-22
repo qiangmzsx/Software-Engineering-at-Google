@@ -11,7 +11,7 @@
 
 Because this chapter is about the cultural and social aspects of software engineering at Google, it makes sense to begin by focusing on the one variable over which you definitely have control: you.
 
-因为本章是从文化和社会方面来介绍谷歌软件工程，首先从焦聚与一个你完全控制的变量开始：你自己。
+因为本章是从文化和社会方面来介绍谷歌软件工程，首先从焦聚焦与一个你完全控制的变量开始：你自己。
 
 People are inherently imperfect—we like to say that humans are mostly a collection of intermittent bugs. But before you can understand the bugs in your coworkers, you need to understand the bugs in yourself. We’re going to ask you to think about your own reactions, behaviors, and attitudes—and in return, we hope you gain some real insight into how to become a more efficient and successful software engineer who spends less energy dealing with people-related problems and more time writing great code.
 
@@ -45,7 +45,7 @@ Can you spot a common theme to these requests?
 
 The answer is insecurity. People are afraid of others seeing and judging their work in progress. In one sense, insecurity is just a part of human nature—nobody likes to be criticized, especially for things that aren’t finished. Recognizing this theme tipped us off to a more general trend within software development: insecurity is actually a symptom of a larger problem.
 
-答案是缺乏安全感。人们害怕别人看到和评价他们正在进行的工作。从某种意义上说，缺乏安全感是人性的一部分——没有人喜欢被批评，尤其是那些没有完成的事情。认识到这个主题让我们看到了软件开发中一个更普遍的趋势：缺乏安全实际上是一个更大问题的征兆。
+答案是缺乏安全感。人们害怕别人看到和评价他们正在进行的工作。从某种意义上说，缺乏安全感是人性的一部分——没有人喜欢被批评，尤其是那些没有完成的事情。认识到这个主题让我们看到了软件开发中一个更普遍的趋势：缺乏安全感实际上是一个更大问题的征兆。
 
 > [^1]: Ben Collins-Sussman, also an author within this book.
 >
@@ -63,7 +63,7 @@ Actually, what Linus did was write just the beginnings of a proof-of-concept Uni
 
 On that same note, did Guido Van Rossum personally write all of Python? Certainly, he wrote the first version. But hundreds of others were responsible for contributing to subsequent versions, including ideas, features, and bug fixes. Steve Jobs led an entire team that built the Macintosh, and although Bill Gates is known for writing a BASIC interpreter for early home computers, his bigger achievement was building a successful company around MS-DOS. Yet they all became leaders and symbols of the collective achievements of their communities. The Genius Myth is the tendency that we as humans need to ascribe the success of a team to a single person/leader.
 
-同样，Guido Van Rossum是否亲自编写了所有Python？当然，他写了第一个版本。但还有数百人为后续版本做出贡献，包括想法、功能和bug修复。史蒂夫·乔布斯领导了一个建造麦金塔的整个团队，尽管比尔·盖茨以为早期家用电脑编写BASIC解释器而闻名，但他更大的成就是围绕MS-DOS系统建立了一家成功的公司。然而，他们都成为集体成就的领袖和象征。天才的神话是一种趋势，即我们需要将团队的成功归因于一个人/领导者。
+同样，Guido Van Rossum是否亲自编写了所有Python？当然，他写了第一个版本。但还有数百人为后续版本做出贡献，包括想法、功能和bug修复。史蒂夫·乔布斯领导了一个建造麦金塔的整个团队，尽管比尔·盖茨以为早期家用电脑编写BASIC解释器而闻名，但他更大的成就是围绕MS-DOS系统建立了一家成功的公司。然而，他们都成为集体成就的领袖和象征。天才神话是一种倾向，即我们人类需要将团队的成功归功于单一的个人或领导者。
 
 And what about Michael Jordan?
 
@@ -109,7 +109,7 @@ But hold on: time for a reality check. You’re probably not a genius.
 
 No offense, of course—we’re sure that you’re a very intelligent person. But do you realize how rare actual geniuses really are? Sure, you write code, and that’s a tricky skill. But even if you are a genius, it turns out that that’s not enough. Geniuses still make mistakes, and having brilliant ideas and elite programming skills doesn’t guarantee that your software will be a hit. Worse, you might find yourself solving only analytical problems and not human problems. Being a genius is most definitely not an excuse for being a jerk: anyone—genius or not—with poor social skills tends to be a poor teammate. The vast majority of the work at Google (and at most companies!) doesn’t require genius-level intellect, but 100% of the work requires a minimal level of social skills. What will make or break your career, especially at a company like Google, is how well you collaborate with others.
 
-无意冒犯，我们当然相信你是个非常聪明的人。但你要知道真正的天才有多稀有吗？当然，你需要编写代码，这是一项棘手的技能。即使你是个天才，会编程还不够。天才仍然会犯错误，拥有卓越的想法和精英编程技能并不能保证你的软件会大受欢迎。更糟糕的是，你可能会发现自己只解决了分析性问题，而没有解决人的问题。作为一个天才绝对不是成为一个混蛋的借口： 天才与否，社交能力差的人，往往是一个猪队友。谷歌（以及大多数公司！）的绝大多数工作不需要天才水平的智力，但100%的工作需要最低水平的社交技能。决定你职业生涯成败，尤其是在谷歌这样的公司，更取决于你与他人合作的程度。
+无意冒犯，我们当然相信你是个非常聪明的人。但你要知道真正的天才有多稀有吗？当然，你需要编写代码，这是一项棘手的技能。即使你是个天才，会编程还不够。天才仍然会犯错误，拥有卓越的想法和精英编程技能并不能保证你的软件会大受欢迎。更糟糕的是，你可能会发现自己只解决了分析性问题，而没有解决人的问题。作为一个天才绝对不是成为一个混蛋的借口： 天才与否，社交能力差的人，往往是一个猪队友。谷歌（以及大多数公司！）的绝大多数工作不需要天才水平的智力，但100%的工作需要一定程度的社交技能。决定你职业生涯成败，尤其是在谷歌这样的公司，更取决于你与他人合作的程度。
 
 It turns out that this Genius Myth is just another manifestation of our insecurity. Many programmers are afraid to share work they’ve only just started because it means peers will see their mistakes and know the author of the code is not a genius.
 
@@ -136,7 +136,7 @@ Actually, no. In this case, we assert that you’re doing it wrong, and it is a 
 
 事实上，不应该。在这种情况下，我们断定你错了，很是一个大错误。原因如下。
 
-## Hiding Considered Harmful 隐藏不利
+## Hiding Considered Harmful 隐藏负面影响
 
 If you spend all of your time working alone, you’re increasing the risk of unnecessary failure and cheating your potential for growth. Even though software development is deeply intellectual work that can require deep concentration and alone time, you must play that off against the value (and need!) for collaboration and review.
 
@@ -199,6 +199,9 @@ The same sort of rapid feedback loop is needed not just at the code level, but a
 ------
 
 **Case Study: Engineers and Offices**
+
+**案例研究：工程师与办公环境**
+
 Twenty-five years ago, conventional wisdom stated that for an engineer to be productive, they needed to have their own office with a door that closed. This was supposedly the only way they could have big, uninterrupted slabs of time to deeply concentrate on writing reams of code.
 
 25年前，传统观念认为，工程师要想提高工作效率，就需要有一间自己的办公室，还要有一扇关着的门。据说，只有这样，他们才能有充足的时间、不受干扰的编写代码。
@@ -233,13 +236,13 @@ Don’t misunderstand us—we still think engineers need uninterrupted time to f
 >
 > 4  然而，我承认，严肃内向的人可能比大多数人需要更多的平静、安静和独处的时间，如果不是他们自己的办公室，他们可能会从一个更安静的环境中受益。
 
-### In Short, Don’t Hide 总之，不要隐藏
+### In Short, Don’t Hide 总之，不要隐匿
 
 So, what “hiding” boils down to is this: working alone is inherently riskier than working with others. Even though you might be afraid of someone stealing your idea or thinking you’re not intelligent, you should be much more concerned about wasting huge swaths of your time toiling away on the wrong thing.
 
 Don’t become another statistic.
 
-因此，“隐藏”归结起来就是：独自工作比与他人一起工作具有更高的内在风险。即使你可能害怕有人窃取你的想法或认为你不聪明，你更应该担心浪费大量时间在错误的事情上。
+因此，“隐匿”归结起来就是：独自工作比与他人一起工作具有更高的内在风险。即使你可能害怕有人窃取你的想法或认为你不聪明，你更应该担心浪费大量时间在错误的事情上。
 
 不要成为另一个统计数字。
 
@@ -273,7 +276,7 @@ High-functioning teams are gold and the true key to success. You should be aimin
 
 高效的团队是黄金，是成功的真正关键。你应该尽可能地追求这种体验。
 
-### The Three Pillars of Social Interaction社交的三大支柱
+### The Three Pillars of Social Interaction社交互动的三大支柱
 
 So, if teamwork is the best route to producing great software, how does one build (or find) a great team?
 
@@ -346,7 +349,7 @@ Ego manifests itself in many ways, and a lot of the time, it can get in the way 
 
     *John Tukey 几乎总是穿得很随便。他会走进一个重要会议，过了很长一段时间，另一个人才意识到这是一个牛逼的人，他最好听从。长期以来，约翰不得不克服这种敌意。这是白费力气！我没说你应该服从；我说，“顺从的外表让你走得更远。”如果你选择以任何一种方式来主张你的自我，"我要用我的方式来做"，你就会在整个职业生涯中付出确定的小代价。而这，在整个一生中，加起来就是一个大量的不必要的麻烦。[…]通过意识到你必须使用这个系统并研究如何让这个系统完成你的工作，你学会了如何让这个系统适应你的愿望。或者你可以在你的一生中，作为一场小型的、不宣而战的战争，稳扎稳打。*
 
-#### Learn to give and take criticism 学会给出和接受批评
+#### Learn to give and take criticism 学会提出和接受建设性批评
 
 A few years ago, Joe started a new job as a programmer. After his first week, he really began digging into the codebase. Because he cared about what was going on, he started gently questioning other teammates about their contributions. He sent simple code reviews by email, politely asking about design assumptions or pointing out places where logic could be improved. After a couple of weeks, he was summoned to his director’s office. “What’s the problem?” Joe asked. “Did I do something wrong?” The director looked concerned: “We’ve had a lot of complaints about your behavior, Joe. Apparently, you’ve been really harsh toward your teammates, criticizing them left and right. They’re upset. You need to tone it down.” Joe was utterly baffled. Surely, he thought, his code reviews should have been welcomed and appreciated by his peers. In this case, however, Joe should have been more sensitive to the team’s widespread insecurity and should have used a subtler means to introduce code reviews into the culture—perhaps even something as simple as discussing the idea with the team in advance and asking team members to try it out for a few weeks.
 
@@ -368,7 +371,7 @@ A better way to say the same thing might be, “Hey, I’m confused by the contr
 
 更好的说法可能是，“嘿，我对这部分的控制流感到困惑。我想知道XYZY代码模式是否能让这更清晰、更容易维护？”注意你是如何用谦逊来回答关于你的问题，而不是他们。他们没有错；你只是理解代码有点困难。这个建议只是作为一种方式，为你澄清事情，同时可能有助于项目的长期可持续性目标。你也没有要求什么——你给了你的合作者和平拒绝建议的权力。讨论的重点是代码本身，而不是任何人的价值或编码技能。
 
-#### Fail fast and iterate 快速失败并迭代
+#### Fail fast and iterate 快速失败并持续迭代
 
 There’s a well-known urban legend in the business world about a manager who makes a mistake and loses an impressive $10 million. He dejectedly goes into the office the next day and starts packing up his desk, and when he gets the inevitable “the 
 wants to see you in his office” call, he trudges into the CEO’s office and quietly slides a piece of paper across the desk.  
@@ -400,7 +403,7 @@ Over in Google X—the division that works on “moonshots” like self-driving 
 > [^7]:    By the same token, if you do the same thing over and over and keep failing, it’s not failure, it’s incompetence.
 > 7  同样的道理，如果你一次又一次地做同样的事情，却不断失败，那不是失败，而是无能。
 
-### Blameless Post-Mortem Culture 无责的事后文化
+### Blameless Post-Mortem Culture 无指责的事后分析文化
 
 The key to learning from your mistakes is to document your failures by performing a root-cause analysis and writing up a “postmortem,” as it’s called at Google (and many other companies). Take extra care to make sure the postmortem document isn’t just a useless list of apologies or excuses or finger-pointing—that’s not its purpose. A proper postmortem should always contain an explanation of what was learned and what is going to change as a result of the learning experience. Then, make sure that the postmortem is readily accessible and that the team really follows through on the proposed changes. Properly documenting failures also makes it easier for other people (present and future) to know what happened and avoid repeating history. Don’t erase your tracks—light them up like a runway for those who follow you!
 
@@ -426,7 +429,7 @@ A good postmortem should include the following:
 - 一套防止事件再次发生的行动项目
 - 经验教训
 
-#### Learn patience 学会耐心
+#### Learn patience 培养耐心
 
 Years ago, I was writing a tool to convert CVS repositories to Subversion (and later, Git). Due to the vagaries of CVS, I kept unearthing bizarre bugs. Because my longtime friend and coworker Karl knew CVS quite intimately, we decided we should work together to fix these bugs.
 

@@ -11,7 +11,7 @@
 
 Your organization understands your problem domain better than some random person on the internet; your organization should be able to answer most of its own questions. To achieve that, you need both experts who know the answers to those questions and mechanisms to distribute their knowledge, which is what we’ll explore in this chapter. These mechanisms range from the utterly simple (Ask questions; Write down what you know) to the much more structured, such as tutorials and classes. Most importantly, however, your organization needs a culture of learning, and that requires creating the psychological safety that permits people to admit to a lack of knowledge.
 
-你的组织对你问题领域的理解比互联网上的一些随机的人要好；你的组织应该能解答你的大部分问题。要做到这一点，你需要知道解决问题答案的专家在哪里和传播知识的机制，这就是我们将在本章中探讨的。这些机制的范围很广，从完全简单的（提问；写下你所知道的）到系统化，如教程和课程。然而，最重要的是，你的组织需要一种学习文化，这需要创造一种心理上的安全感，允许人们承认自己缺乏知识。
+你的组织对你问题领域的理解比互联网上的一些随机的人要好；你的组织应该能解答大部分自己的问题。要做到这一点，你需要知道解决问题答案的专家在哪里和传播知识的机制，这就是我们将在本章中探讨的。这些机制的范围很广，从完全简单的（提问；写下你所知道的）到系统化，如教程和课程。然而，最重要的是，你的组织需要一种学习文化，这需要创造一种心理上的安全感，允许人们承认自己缺乏知识。
 
 ## Challenges to Learning 学习的挑战
 Sharing expertise across an organization is not an easy task. Without a strong culture of learning, challenges can emerge. Google has experienced a number of these challenges, especially as the company has scaled:
@@ -52,11 +52,11 @@ Sharing expertise across an organization is not an easy task. Without a strong c
 	当关键信息只能从一个人那里获得时，就会出现瓶颈。这与巴士因子有关，在第二章有详细讨论。  
 	SPOF可能是出于良好的意图：我们很容易陷入 "让我来帮你解决 "的习惯。但这种方法提高了短期效率（"我做起来更快"），但代价是长期可扩展性差（团队从未学会如何做需要做的事）。这种心态也往往导致失败，组员要么全会或要么都不会某方面的知识。  
 - *要么全会要么都不会*  
-	一群人被分成了 "什么都懂 "的老人和什么都不会的新手，几乎没有中间地带。如果专家总是自己做所有的事情，而不花时间通过指导或编写文档来培养新的专家，这个问题往往会加剧。在这种情况下，知识和责任继续在那些已经拥有专业知识的人身上积累，而新的团队成员或新手则只能自生自灭，提升速度更慢。  
+	一群人被分成了 "什么都懂 "的老手和什么都不会的新手，几乎没有中间地带。如果专家总是自己做所有的事情，而不花时间通过指导或编写文档来培养新的专家，这个问题往往会加剧。在这种情况下，知识和责任继续在那些已经拥有专业知识的人身上积累，而新的团队成员或新手则只能自生自灭，提升速度更慢。  
 - *鹦鹉学舌*  
 	模仿而不理解。这典型的特征是在不了解其目的的情况下无意识地复制模式或代码，通常是在假设上述代码是出于未知原因而需要的情况下。  
 - *闹鬼墓地*  
-	人们避免接触或改变的地方，通常在代码中，因为他们担心会出问题。与前面提到的鹦鹉学舌不同，闹鬼墓地的特点是人们因为恐惧和迷信而避免行动。  
+	通常是代码中的地方，人们避免触碰或改变它们，因为他们担心事情可能会出错。与前面提到的鹦鹉学舌不同，闹鬼墓地的特点是人们因为恐惧和迷信而避免行动。  
 
 In the rest of this chapter, we dive into strategies that Google’s engineering organizations have found to be successful in addressing these challenges.
 
@@ -70,7 +70,7 @@ In the rest of this chapter, we dive into strategies that Google’s engineering
 
 Software engineering can be defined as the multiperson development of multiversion programs.[^2] People are at the core of software engineering: code is an important output but only a small part of building a product. Crucially, code does not emerge spontaneously out of nothing, and neither does expertise. Every expert was once a novice: an organization’s success depends on growing and investing in its people.
 
-软件工程可以定义为多人协作开发多版本程序。人是软件工程的核心：代码是重要的产出，但只是构建产品的一小部分。至关重要的是，代码不是凭空出现的，专业知识也不会凭空出现。每个专家都曾经是菜鸟：一个组织的成功取决于其员工的成长和投入。
+软软件工程可以定义为多个人开发多个版本程序的过程。人是软件工程的核心：代码是重要的产出，但只是构建产品的一小部分。至关重要的是，代码不是凭空出现的，专业知识也不会凭空出现。每个专家都曾经是菜鸟：一个组织的成功取决于其员工的成长和投入。
 
 Personalized, one-to-one advice from an expert is always invaluable. Different team members have different areas of expertise, and so the best teammate to ask for any given question will vary. But if the expert goes on vacation or switches teams, the team can be left in the lurch. And although one person might be able to provide personalized help for one-to-many, this doesn’t scale and is limited to small numbers of “many.”
 
@@ -78,14 +78,14 @@ Personalized, one-to-one advice from an expert is always invaluable. Different t
 
 Documented knowledge, on the other hand, can better scale not just to the team but to the entire organization. Mechanisms such as a team wiki enable many authors to share their expertise with a larger group. But even though written documentation is more scalable than one-to-one conversations, that scalability comes with some trade- offs: it might be more generalized and less applicable to individual learners’ situations, and it comes with the added maintenance cost required to keep information relevant and up to date over time.
 
-另一方面，文档化的知识不仅可以更好地扩展到团队，还可以扩展到整个组织。团队wiki等机制使许多作者能够与更大的团队分享他们的专业知识。但是，尽管书面文档比一对一的对话更具可扩展性，但这种可扩展性也带来了一些代价：它可能更具普遍性，不太适用于个别学习者的情况，而且随着时间的推移，还需要额外的维护成本来，保持信息的相关性和实时性。
+另一方面，文档化的知识不仅可以更好地扩展到整个团队，还可以扩展到整个组织。团队wiki等机制使许多作者能够与更大的团队分享他们的专业知识。但是，尽管书面文档比一对一的对话更具可扩展性，但这种可扩展性也带来了一些代价：它可能更具普遍性，不太适用于个别学习者的情况，而且随着时间的推移，还需要额外的维护成本来，保持信息的相关性和实时性。
 
 Tribal knowledge exists in the gap between what individual team members know and what is documented. Human experts know these things that aren’t written down. If we document that knowledge and maintain it, it is now available not only to somebody with direct one-to-one access to the expert today, but to anybody who can find and view the documentation.
 
-内部知识存在于单个团队成员所知道的和被记录下来的东西之间的差距。人类专家知道这些没有写下来的东西。如果我们把这些知识记录下来并加以维护，那么现在不仅可以让今天的专家一对一地直接接触到这些知识，而且可以让任何能够找到并查看这些文件的人获得这些知识。
+口头知识存在于单个团队成员所知道的和被记录下来的东西之间的差距。人类专家知道这些没有写下来的东西。如果我们把这些知识记录下来并加以维护，那么现在不仅可以让今天的专家一对一地直接接触到这些知识，而且可以让任何能够找到并查看这些文件的人获得这些知识。
 
 ```
-tribal knowledge：内部知识；是指一种仅存在于某个部落中的信息或知识， 这些知识不为外界所知，没有正式记 录， 只能口口相传。
+tribal knowledge：口头知识；是指一种仅存在于某个部落中的信息或知识， 这些知识不为外界所知，没有正式记 录， 只能口口相传。
 ```
 
 So in a magical world in which everything is always perfectly and immediately documented, we wouldn’t need to consult a person any more, right? Not quite. Written knowledge has scaling advantages, but so does targeted human help. A human expert can synthesize their expanse of knowledge. They can assess what information is applicable to the individual’s use case, determine whether the documentation is still relevant, and know where to find it. Or, if they don’t know where to find the answers, they might know who does.
@@ -98,7 +98,7 @@ So in a magical world in which everything is always perfectly and immediately do
 
 Tribal and written knowledge complement each other. Even a perfectly expert team with perfect documentation needs to communicate with one another, coordinate with other teams, and adapt their strategies over time. No single knowledge-sharing approach is the correct solution for all types of learning, and the particulars of a good mix will likely vary based on your organization. Institutional knowledge evolves over time, and the knowledge-sharing methods that work best for your organization will likely change as it grows. Train, focus on learning and growth, and build your own stable of experts: there is no such thing as too much engineering expertise.
 
-内部知识和书面知识相互补充。即使是一个拥有完美文档的专家团队也需要相互沟通，与其他团队协调，并随着时间的推移不断调整他们的策略。没有任何一个单一的知识共享方法对于所有类型学习而言都是正确的解决方案，最佳组合的具体内容会根据你的组织而有所不同。团队知识随着时间的推移而演变，对你的组织最有效的知识共享方法可能会随着组织的发展而改变。培训，专注于学习和成长，并建立自己稳定的专家队伍：没有太多的工程专业知识。
+口头知识和书面知识相互补充。即使是一个拥有完美文档的专家团队也需要相互沟通，与其他团队协调，并随着时间的推移不断调整他们的策略。没有任何一个单一的知识共享方法对于所有类型学习而言都是正确的解决方案，最佳组合的具体内容会根据你的组织而有所不同。团队知识随着时间的推移而演变，对你的组织最有效的知识共享方法可能会随着组织的发展而改变。培训，专注于学习和成长，并建立自己稳定的专家队伍：没有太多的工程专业知识。
 
 ## Setting the Stage: Psychological Safety 搭建舞台：心理安全
 
@@ -169,8 +169,8 @@ These antipatterns can emerge unintentionally: someone might be trying to be hel
 
 这些反模式可能是无意中出现的：有人可能是想帮忙，但却意外地居高临下，不受欢迎。我们发现Recurse中心的社交规则在这里很有帮助：
 
-- *不要假装惊讶（"什么？ 我不相信你不知道堆栈是什么！"）*    
-	假装惊讶是心理安全的障碍，使团体成员害怕承认自己缺乏知识。  
+- *不要故作惊讶（"什么？ 我不相信你不知道堆栈是什么！"）*    
+	故作惊讶是心理安全的障碍，使团体成员害怕承认自己缺乏知识。  
 - *不根据事实*  
 	迂腐的纠正，往往是为了哗众取宠而非纠正。
 - *不开小会*  
@@ -183,7 +183,7 @@ These antipatterns can emerge unintentionally: someone might be trying to be hel
 
 Knowledge sharing starts with yourself. It is important to recognize that you always have something to learn. The following guidelines allow you to augment your own personal knowledge.
 
-知识共享从自己开始。重要的是要认识到，你总是有东西要学。下面的准则可以让你增加自己的个人知识。
+知识共享从自己开始。重要的是要认识到，总有新东西需要学习。下面的准则可以让你增加自己的个人知识。
 
 ### Ask Questions 提问
 
@@ -209,7 +209,7 @@ It’s especially critical for those in leadership roles to model this behavior:
 
 On the receiving end, patience and kindness when answering questions fosters an environment in which people feel safe looking for help. Making it easier to overcome the initial hesitation to ask a question sets the tone early: reach out to solicit questions, and make it easy for even “trivial” questions to get an answer. Although engineers could probably figure out tribal knowledge on their own, they’re not here to work in a vacuum. Targeted help allows engineers to be productive faster, which in turn makes their entire team more productive.
 
-在接受端，在回答问题时的耐心和善意培养了一种环境，使人们感到安全地寻求帮助。让人们更容易克服最初对提问的犹豫不决，尽早定下基调：主动征求问题，让即使是“琐碎”的问题也能轻松得到答案。虽然工程师们可能会自己摸索出内部知识，但他们不是在真空中工作的。有针对性的帮助可以让工程师更快地提高工作效率，从而使整个团队的工作效率更高。
+在接受端，在回答问题时的耐心和善意培养了一种环境，使人们感到安全地寻求帮助。让人们更容易克服最初对提问的犹豫不决，尽早定下基调：主动征求问题，让即使是“琐碎”的问题也能轻松得到答案。虽然工程师们可能会自己摸索出口头知识，但他们不是在真空中工作的。有针对性的帮助可以让工程师更快地提高工作效率，从而使整个团队的工作效率更高。
 
 > [^3]: Impostor syndrome is not uncommon among high achievers, and Googlers are no exception—in fact, a majority of this book’s authors have impostor syndrome. We acknowledge that fear of failure can be difficult for those with impostor syndrome and can reinforce an inclination to avoid branching out.
 >
@@ -247,7 +247,7 @@ Getting one-to-one help is high bandwidth but necessarily limited in scale. And 
 
 Chances are that future newcomers will have the same questions you had. Do them a favor, too, and share what you write down.
 
-未来的新来者可能会有和你一样的问题。也帮他们一个忙，分享你写下的东西。
+很可能未来的新成员会有和你一样的问题。也帮他们一个忙，分享你写下的东西。
 
 Although sharing the answers you receive can be useful, it’s also beneficial to seek help not from individuals but from the greater community. In this section, we examine different forms of community-based learning. Each of these approaches—group chats, mailing lists, and question-and-answer systems—have different trade-offs and complement one another. But each of them enables the knowledge seeker to get help from a broader community of peers and experts and also ensures that answers are broadly available to current and future members of that community.
 
@@ -261,7 +261,7 @@ When you have a question, it can sometimes be difficult to get help from the rig
 
 Group chats tend to be devoted either to topics or to teams. Topic-driven group chats are typically open so that anyone can drop in to ask a question. They tend to attract experts and can grow quite large, so questions are usually answered quickly. Team- oriented chats, on the other hand, tend to be smaller and restrict membership. As a result, they might not have the same reach as a topic-driven chat, but their smaller size can feel safer to a newcomer.
 
-群聊往往是专门针对主题或团队。以主题为导向的群聊通常是开放的，因此任何人都可以进来问问题。他们倾向于吸引专家，并且可以发展得相当大，所以问题通常会很快得到回答。另一方面，以团队为导向的聊天，往往规模较小，并限制成员。因此，他们可能没有话题驱动型聊天的影响力，但其较小的规模会让新人感到更安心。
+群聊通常专注于特定主题或团队。以主题为导向的群聊通常是开放的，因此任何人都可以进来问问题。他们倾向于吸引专家，并且可以发展得相当大，所以问题通常会很快得到回答。另一方面，以团队为导向的聊天，往往规模较小，并限制成员。因此，他们可能没有话题驱动型聊天的影响力，但其较小的规模会让新人感到更安心。
 
 Although group chats are great for quick questions, they don’t provide much structure, which can make it difficult to extract meaningful information from a conversation in which you’re not actively involved. As soon as you need to share information outside of the group, or make it available to refer back to later, you should write a document or email a mailing list.
 
@@ -287,7 +287,7 @@ Mailing lists are not without their trade-offs. They’re well suited for compli
 
 Google culture is infamously email-centric and email-heavy. Google engineers receive hundreds of emails (if not more) each day, with varying degrees of actionability. Nooglers can spend days just setting up email filters to deal with the volume of notifications coming from groups that they’ve been autosubscribed to; some people just give up and don’t try to keep up with the flow. Some groups CC large mailing lists onto every discussion by default, without trying to target information to those who are likely to be specifically interested in it; as a result, the signal-to-noise ratio can be a real problem.
 
-谷歌的文化是臭名昭著的以电子邮件为中心和重度使用电子邮件。谷歌的工程师们每天都会收到数以百计的电子邮件（如果不是更多的话），其中有不同程度的可操作性。新手们需要花好几天时间来设置电子邮件过滤器，以处理来自他们自动订阅的群组的大量通知；有些人干脆放弃了，放弃追随最新的邮件。一些群组将大型邮件列表默认为每一个讨论，而不试图将信息定向发送给那些可能对其特别感兴趣的人；结果，信噪比成为了一个真正的问题。
+谷歌的文化是广为人知的以电子邮件为中心和重度使用电子邮件。谷歌的工程师们每天都会收到数以百计的电子邮件（如果不是更多的话），其中有不同程度的可操作性。新手们需要花好几天时间来设置电子邮件过滤器，以处理来自他们自动订阅的群组的大量通知；有些人干脆放弃了，放弃追随最新的邮件。一些群组将大型邮件列表默认为每一个讨论，而不试图将信息定向发送给那些可能对其特别感兴趣的人；结果，信噪比成为了一个真正的问题。
 
 Google tends toward email-based workflows by default. This isn’t necessarily because email is a better medium than other communications options—it often isn’t—rather, it’s because that’s what our culture is accustomed to. Keep this in mind as your organization considers what forms of communication to encourage or invest in.
 
@@ -309,13 +309,13 @@ Like Stack Overflow, YAQS shares many of the same advantages of mailing lists an
 
 Teaching is not limited to experts, nor is expertise a binary state in which you are either a novice or an expert. Expertise is a multidimensional vector of what you know: everyone has varying levels of expertise across different areas. This is one of the reasons why diversity is critical to organizational success: different people bring different perspectives and expertise to the table (see Chapter 4). Google engineers teach others in a variety of ways, such as office hours, giving tech talks, teaching classes, writing documentation, and reviewing code.
 
-教学不局限专家，专业知识也不是一种二元状态，你要么是新手，要么是专家。专业知识是你所知道的一个多维向量：每个人在不同领域都有不同水平的专业知识。这就是为什么多样性是组织的成功至关重要的原因之一：不同的人带来不同的观点和专业知识（见第四章）。谷歌工程师以各种方式教授他人，如办公时间、举办技术讲座、教授课程、编写文档和审查代码。
+教学不局限专家，专业知识也不是一种二元状态，你要么是新手，要么是专家。专业知识是你所知的多维向量：每个人在不同领域的专业水平各不相同。这就是为什么多样性是组织的成功至关重要的原因之一：不同的人带来不同的观点和专业知识（见第四章）。谷歌工程师以各种方式教授他人，如办公时间、举办技术讲座、教授课程、编写文档和审查代码。
 
 ### Office Hours 固定时间
 
 Sometimes it’s really important to have a human to talk to, and in those instances, office hours can be a good solution. Office hours are a regularly scheduled (typically weekly) event during which one or more people make themselves available to answer questions about a particular topic. Office hours are almost never the first choice for knowledge sharing: if you have an urgent question, it can be painful to wait for the next session for an answer; and if you’re hosting office hours, they take up time and need to be regularly promoted. That said, they do provide a way for people to talk to an expert in person. This is particularly useful if the problem is still ambiguous enough that the engineer doesn’t yet know what questions to ask (such as when they’re just starting to design a new service) or whether the problem is about something so specialized that there just isn’t documentation on it.
 
-有时与人交谈非常重要，在这些情况下，固定时间是一个很好的解决方案。固定时间是一个定期安排的活动（通常是每周一次），在此期间，一个或多个人可以回答关于某个特定主题的问题。固定时间几乎从来不是知识共享的首选：如果你有一个紧急的问题，等待下一次会议的答案可能会很痛苦；如果你主持固定时间，它们会占用时间，需要定期宣传。也就是说，它们确实为人们提供了一种与专家当面交谈的方式。如果问题还很模糊，工程师还不知道该问什么问题（比如他们刚开始设计一个新的服务），或者问题是关于一个非常专业的东西，以至于没有相关的文档，那么这就特别有用。
+有时与人交谈非常重要，在这些情况下，固定时间是一个很好的解决方案。办公时间是定期安排的活动（通常每周一次），在这段时间里，一个或多个人会提供回答问题的服务，主题是特定的。固定时间几乎从来不是知识共享的首选：如果你有一个紧急的问题，等待下一次会议的答案可能会很痛苦；如果你主持固定时间，它们会占用时间，需要定期宣传。也就是说，它们确实为人们提供了一种与专家当面交谈的方式。如果问题还很模糊，工程师还不知道该问什么问题（比如他们刚开始设计一个新的服务），或者问题是关于一个非常专业的东西，以至于没有相关的文档，那么这就特别有用。
 
 ### Tech Talks and Classes 技术讲座和课程
 
@@ -330,7 +330,7 @@ Tech talks typically consist of a speaker presenting directly to an audience. Cl
 - The topic benefits from having teachers available to answer questions and provide personalized help. If students can easily learn without directed help, self- serve mediums like documentation or recordings are more efficient. A number of introductory classes at Google also have self-study versions.
 - There is enough demand to offer the class regularly. Otherwise, potential learners will get the information they need in other ways rather than waiting for the class. At Google, this is particularly a problem for small, geographically remote offices.
 
-技术讲座通常由演讲者直接向听众介绍。另一方面，课堂可以有讲座的部分，但往往以课堂练习为中心，因此需要与会者更积极地参与。因此，与技术讲座相比，教师授课的课程在创建和维护方面通常要求更高、成本也更高，而且只保留给最重要或最难的主题。也就是说，在一个课程创建之后，它的规模可以相对容易地扩大，因为许多教员可以用同样的课程材料来教课。我们发现，当存在以下情况时，课程往往效果最好：
+技术讲座通常由演讲者直接向听众介绍。另一方面，课程可能包含讲座环节，但通常侧重于课堂上的练习，因此需要参与者更积极地参与。因此，与技术讲座相比，教师授课的课程在创建和维护方面通常要求更高、成本也更高，而且只保留给最重要或最难的主题。也就是说，在一个课程创建之后，它的规模可以相对容易地扩大，因为许多教员可以用同样的课程材料来教课。我们发现，当存在以下情况时，课程往往效果最好：
 
 - 主题足够复杂，以至于经常出现误解。课程的创建需要大量的工作，因此只有在满足特定需求时才能开发。
 - 该主题相对稳定。更新课堂材料是一项繁重的工作，所以如果该主题快速发展，其他形式的知识共享将有更好的回报。
@@ -349,11 +349,11 @@ Tech talks typically consist of a speaker presenting directly to an audience. Cl
 
 Documentation is written knowledge whose primary goal is to help its readers learn something. Not all written knowledge is necessarily documentation, although it can be useful as a paper trail. For example, it’s possible to find an answer to a problem in a mailing list thread, but the primary goal of the original question on the thread was to seek answers, and only secondarily to document the discussion for others.
 
-文档是书面知识，其主要目的是帮助读者学习一些东西。并非所有的书面知识都一定是文档，尽管它可以用作书面记录。例如，有可能在一个邮件列表线索中找到一个问题的答案，但线索上的原始问题的主要目标是寻求答案，其次才是为其他人记录讨论情况。
+文档是一种书面形式的知识，其首要目标是帮助读者学习某些内容。并非所有的书面知识都一定是文档，尽管它可以用作书面记录。例如，有可能在一个邮件列表线索中找到一个问题的答案，但线索上的原始问题的主要目标是寻求答案，其次才是为其他人记录讨论情况。
 
 In this section, we focus on spotting opportunities for contributing to and creating formal documentation, from small things like fixing a typo to larger efforts such as documenting tribal knowledge.
 
-在这一节中，我们着重于发现为正式文件做出贡献的机会，小到修正一个错别字，大到记录内部知识等。
+在这一节中，我们着重于发现为正式文件做出贡献的机会，小到修正一个错别字，大到记录口头知识。
 
 #### Updating documentation 更新文档
 
@@ -638,7 +638,7 @@ Around 1 to 2% of Google engineers are readability reviewers. All reviewers are 
 
 Readability is deliberately a human-driven process that aims to scale knowledge in a standardized yet personalized way. As a complementary blend of written and tribal knowledge, readability combines the advantages of written documentation, which can be accessed with citable references, with the advantages of expert human reviewers, who know which guidelines to cite. Canonical guidelines and language recommendations are comprehensively documented—which is good!—but the corpus of information is so large[^19] that it can be overwhelming, especially to newcomers.
 
-可读性是一个人为驱动的过程，旨在以标准化但个性化的方式扩展知识。作为书面知识和内部知识的互补混合体，可读性结合了书面文件的优势，可以通过可引用的参考文献来获取，也结合了专家审查员的优势，他们知道应该引用哪些指南。典范指南和语言建议被全面地记录下来——这很好！——但信息的语料库非常大[^19]，可能会让人不知所措，特别是对新人来说。
+可读性是一个人为驱动的过程，旨在以标准化但个性化的方式扩展知识。作为书面知识和口头知识的互补混合体，可读性结合了书面文件的优势，可以通过可引用的参考文献来获取，也结合了专家审查员的优势，他们知道应该引用哪些指南。典范指南和语言建议被全面地记录下来——这很好！——但信息的语料库非常大[^19]，可能会让人不知所措，特别是对新人来说。
 
 > [^19]:  As of 2019, just the Google C++ style guide is 40 pages long. The secondary material making up the complete corpus of best practices is many times longer.
 >
@@ -652,7 +652,7 @@ Code is read far more than it is written, and this effect is magnified at Google
 
 One of the primary advantages of the readability program is that it exposes engineers to more than just their own team’s tribal knowledge. To earn readability in a given language, engineers must send CLs through a centralized set of readability reviewers who review code across the entire company. Centralizing the process makes a significant trade-off: the program is limited to scaling linearly rather than sublinearly with organization growth, but it makes it easier to enforce consistency, avoid islands, and avoid (often unintentional) drifting from established norms.
 
-可读性项目的主要优势之一是，它让工程师接触到的不仅仅是他们自己团队的内部知识。为了获得特定语言的可读性，工程师们必须将 CLs 发送给一组集中的可读性审查员，他们审查整个公司的代码。将流程集中化会带来显著的折衷：该计划仅限于随着组织的发展而线性扩展，而不是亚线性扩展，但它更容易实现一致性，避免孤岛，并避免（通常是无意的）偏离既定规范。
+可读性项目的主要优势之一是，它让工程师接触到的不仅仅是他们自己团队的口头知识。为了获得特定语言的可读性，工程师们必须将 CLs 发送给一组集中的可读性审查员，他们审查整个公司的代码。将流程集中化会带来显著的折衷：该计划仅限于随着组织的发展而线性扩展，而不是亚线性扩展，但它更容易实现一致性，避免孤岛，并避免（通常是无意的）偏离既定规范。
 
 The value of codebase-wide consistency cannot be overstated: even with tens of thousands of engineers writing code over decades, it ensures that code in a given language will look similar across the corpus. This enables readers to focus on what the code does rather than being distracted by why it looks different than code that they’re used to. Large-scale change authors (see Chapter 22) can more easily make changes across the entire monorepo, crossing the boundaries of thousands of teams. People can change teams and be confident that the way that the new team uses a given language is not drastically different than their previous team.
 
@@ -716,7 +716,7 @@ Knowledge is in some ways the most important (though intangible) capital of a so
 - At a systemic level, encourage and reward those who take time to teach and broaden their expertise beyond just themselves, their team, or their organization.
 - There is no silver bullet: empowering a knowledge-sharing culture requires a combination of multiple strategies, and the exact mix that works best for your organization will likely change over time.
 
-- 心理安全是培养知识共享环境的基础。
+- 心理安全对于促进学习环境至关重。
 - 从小事做起：问问题，把事情写下来。
 - 让人们可以很容易地从专家和有记录的参考资料中获得他们需要的帮助。
 - 在系统的层面上，鼓励和奖励那些花时间去教授和扩大他们的专业知识，而不仅仅是他们自己、他们的团队或他们的组织。
