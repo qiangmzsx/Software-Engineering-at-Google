@@ -11,7 +11,7 @@
 
 In earlier chapters, we’ve explored the contrast between programming as the production of code that addresses the problem of the moment, and software engineering as the broader application of code, tools, policies, and processes to a dynamic and ambiguous problem that can span decades or even lifetimes. In this chapter, we’ll discuss the unique responsibilities of an engineer when designing products for a broad base of users. Further, we evaluate how an organization, by embracing diversity, can design systems that work for everyone, and avoid perpetuating harm against our users.
 
-在前几章中，我们已经探讨了编程与软件工程之间的对比，前者是解决当下问题的代码生产，后者则是对代码、工具、策略和流程的更广泛的应用，以解决可能跨越几十年甚至一生的动态和模糊的问题。在本章中，我们将讨论工程师在为众多用户设计产品时的独特责任。此外，我们还将评估一个组织如何通过拥抱多样性来设计适合每个人的系统，并避免对我们的用户造成永久性的伤害。
+在前几章中，我们已经探讨了编程与软件工程之间的对比，前者是解决当下问题的代码生产，后者则是对代码、工具、策略和流程的更广泛的应用，以解决可能跨越几十年甚至一生的动态且不确定的问题。在本章中，我们将讨论工程师在为众多用户设计产品时的独特责任。此外，我们还将评估一个组织如何通过拥抱多样性来设计适合每个人的系统，并避免对我们的用户造成永久性的伤害。
 
 As new as the field of software engineering is, we’re newer still at understanding the impact it has on underrepresented people and diverse societies. We did not write this chapter because we know all the answers. We do not. In fact, understanding how to engineer products that empower and respect all our users is still something Google is learning to do. We have had many public failures in protecting our most vulnerable users, and so we are writing this chapter because the path forward to more equitable products begins with evaluating our own failures and encouraging growth.
 
@@ -19,17 +19,17 @@ As new as the field of software engineering is, we’re newer still at understan
 
 We are also writing this chapter because of the increasing imbalance of power between those who make development decisions that impact the world and those who simply must accept and live with those decisions that sometimes disadvantage already marginalized communities globally. It is important to share and reflect on what we’ve learned so far with the next generation of software engineers. It is even more important that we help influence the next generation of engineers to be better than we are today.
 
-我们之所以要写这一章，也是因为在那些做出影响世界发展的人和那些只能选择接受并忍受这些决定的人之间，力量越来越不平衡，这些决定有时使全球已经处于边缘地位的社会处于不利地位。与下一代软件工程师分享和反思我们迄今所学到的知识是很重要的。更重要的是，我们帮助影响下一代工程师，使他们比我们今天做得更好。
+我们之所以要写这一章，也是因为在那些做出影响世界发展的人和那些只能选择接受并忍受这些决定的人之间，力量越来越不平衡，这些决定有时使全球已经边缘化的社区处于不利地位。与下一代软件工程师分享和反思我们迄今所学到的知识是很重要的。更重要的是，我们帮助影响下一代工程师，使他们比我们今天做得更好。
 
 Just picking up this book means that you likely aspire to be an exceptional engineer. You want to solve problems. You aspire to build products that drive positive outcomes for the broadest base of people, including people who are the most difficult to reach. To do this, you will need to consider how the tools you build will be leveraged to change the trajectory of humanity, hopefully for the better.
 
-只要拿起这本书，就意味着你可能立志成为一名出色的工程师。你想解决问题。你渴望建造产品，为最广泛的人群，包括最难接触的人，打造一个能带来积极成果的产品。要做到这一点，你需要考虑如何利用你建造的工具来改变人类的轨迹，希望是为了获得更好的发展。
+只要拿起这本书，就意味着你可能渴望成为一名卓越的工程师。你想解决问题。你渴望建造产品，为最广泛的人群，包括最难接触的人，打造一个能带来积极成果的产品。要做到这一点，你需要考虑如何利用你建造的工具来改变人类的轨迹，希望是为了获得更好的发展。
 
 ## Bias Is the Default 偏见是默认的
 
 When engineers do not focus on users of different nationalities, ethnicities, races, genders, ages, socioeconomic statuses, abilities, and belief systems, even the most talented staff will inadvertently fail their users. Such failures are often unintentional; all people have certain biases, and social scientists have recognized over the past several decades that most people exhibit unconscious bias, enforcing and promulgating existing stereotypes. Unconscious bias is insidious and often more difficult to mitigate than intentional acts of exclusion. Even when we want to do the right thing, we might not recognize our own biases. By the same token, our organizations must also recognize that such bias exists and work to address it in their workforces, product development, and user outreach.
 
-当工程师不关注不同国籍、民族、种族、性别、年龄、社会经济地位、能力和信仰体系的用户时，即使是最优秀的工程师也会在不经意间让用户失望。这种失败往往是无意的；所有的人都存在一定的偏见，社会科学家在过去几十年中已经认识到，大多数人都表现出无意识的偏见，强迫和传播存在的刻板印象。无意识的偏见是隐藏的，往往比有意的排斥行为更难改正。即使我们想做正确的事，我们也可能意识不到自己的偏见。同样，我们的组织也必须认识到这种偏见的存在，并努力在员工队伍、产品开发和用户推广中解决这一问题。
+当工程师不关注不同国籍、民族、种族、性别、年龄、社会经济地位、能力和信仰体系的用户时，即使是最优秀的工程师也会无意中让他们的用户失望。这种失败往往是无意的；所有的人都存在一定的偏见，社会科学家在过去几十年中已经认识到，大多数人都表现出无意识的偏见，强迫和传播存在的刻板印象。无意识的偏见是隐藏的，往往比有意的排斥行为更难改正。即使我们想做正确的事，我们也可能意识不到自己的偏见。同样，我们的组织也必须认识到这种偏见的存在，并努力在员工队伍、产品开发和用户推广中解决这一问题。
 
 Because of bias, Google has at times failed to represent users equitably within their products, with launches over the past several years that did not focus enough on underrepresented groups. Many users attribute our lack of awareness in these cases to the fact that our engineering population is mostly male, mostly White or Asian, and certainly not representative of all the communities that use our products. The lack of representation of such users in our workforce[^1] means that we often do not have the requisite diversity to understand how the use of our products can affect underrepresented or vulnerable users.
 
@@ -41,7 +41,7 @@ Because of bias, Google has at times failed to represent users equitably within 
 
 In 2015, software engineer Jacky Alciné pointed out[^2] that the image recognition algorithms in Google Photos were classifying his black friends as “gorillas.” Google was slow to respond to these mistakes and incomplete in addressing them.
 
-2015年，软件工程师Jacky Alciné指出，谷歌照片中的图像识别算法将他的黑人朋友归为 "大猩猩"。谷歌对这些错误的反应很慢，解决起来也不彻底。
+2015年，软件工程师Jacky Alciné指出，谷歌照片中的图像识别算法将其黑人朋友错误地分类为‘大猩猩’。谷歌对这些错误的反应很慢，解决起来也不彻底。
 
 What caused such a monumental failure? Several things:
 - Image recognition algorithms depend on being supplied a “proper” (often meaning “complete”) dataset. The photo data fed into Google’s image recognition algorithm was clearly incomplete. In short, the data did not represent the population.
@@ -61,7 +61,7 @@ As late as 2018, Google still had not adequately addressed the underlying proble
 
 In this example, our product was inadequately designed and executed, failing to properly consider all racial groups, and as a result, failed our users and caused Google bad press. Other technology suffers from similar failures: autocomplete can return offensive or racist results. Google’s Ad system could be manipulated to show racist or offensive ads. YouTube might not catch hate speech, though it is technically outlawed on that platform.
 
-在这个例子中，我们的产品设计和执行不当，未能适当考虑到所有的种族群体，结果是辜负了我们的用户，给谷歌带来了恶劣的影响。其他技术也有类似的失误：自动完成补全可以返回攻击性或种族主义的结果。谷歌的广告系统可以被操纵来显示种族主义或攻击性广告。YouTube可能没有识别到仇恨言论，尽管从技术上讲，它在该平台上是非法的。
+在这个例子中，我们的产品设计和执行不充分，未能适当考虑到所有的种族群体，结果是辜负了我们的用户，给谷歌带来了恶劣的影响。其他技术也有类似的失误：自动完成补全可以返回攻击性或种族主义的结果。谷歌的广告系统可以被操纵来显示种族主义或攻击性广告。YouTube可能没有识别到仇恨言论，尽管从技术上讲，它在该平台上是非法的。
 
 In all of these cases, the technology itself is not really to blame. Autocomplete, for example, was not designed to target users or to discriminate. But it was also not resilient enough in its design to exclude discriminatory language that is considered hate speech. As a result, the algorithm returned results that caused harm to our users. The harm to Google itself should also be obvious: reduced user trust and engagement with the company. For example, Black, Latinx, and Jewish applicants could lose faith in Google as a platform or even as an inclusive environment itself, therefore undermining Google’s goal of improving representation in hiring.
 
@@ -150,7 +150,7 @@ If you are an engineering manager working on hiring more people from underrepres
 
 We cannot perpetuate solutions that present a single philosophy or methodology for fixing inequity in the technology sector. Our problems are complex and multifactorial. Therefore, we must disrupt singular approaches to advancing representation in the workplace, even if they are promoted by people we admire or who have institutional power.
 
-我们不能让那些提出单一理念或方法来解决技术部门不公平问题的解决方案永久化。我们的问题是复杂和多因素的。因此，我们必须打破推进工作场所代表性的单一方法，即使这些方法是由我们敬佩的人或拥有机构权力的人推动的。
+我们不能让那些提出单一理念或方法来解决技术部门不公平问题的延续解决方案。我们的问题是复杂和多因素的。因此，我们必须打破推进工作场所代表性的单一方法，即使这些方法是由我们敬佩的人或拥有机构权力的人推动的。
 
 One singular narrative held dear in the technology industry is that lack of representation in the workforce can be addressed solely by fixing the hiring pipelines. Yes, that is a fundamental step, but that is not the immediate issue we need to fix. We need to recognize systemic inequity in progression and retention while simultaneously focusing on more representative hiring and educational disparities across lines of race, gender, and socioeconomic and immigration status, for example.
 
@@ -170,7 +170,7 @@ A common methodology today is to build for the majority use case first, leaving 
 
 Designing for the user who is least like you is not just wise, it’s a best practice. There are pragmatic and immediate next steps that all technologists, regardless of domain, should consider when developing products that avoid disadvantaging or underrepresenting users. It begins with more comprehensive user-experience research. This research should be done with user groups that are multilingual and multicultural and that span multiple countries, socioeconomic class, abilities, and age ranges. Focus on the most difficult or least represented use case first.
 
-为最不喜欢你的用户设计不仅是明智的，而且是最佳实践。所有的技术专家，无论在哪个领域，在开发产品时都应该考虑一些实用的和直接的步骤，以避免对用户造成不利影响或代表不足。它从更全面的用户体验研究开始。这项研究应该针对多语言、多文化、跨多个国家、社会经济阶层、能力和年龄范围的用户群体进行。首先关注最困难或最不典型的用例。
+为与你最不同的用户设计，而且是最佳实践。所有的技术专家，无论在哪个领域，在开发产品时都应该考虑一些实用的和直接的步骤，以避免对用户造成不利影响或代表不足。它从更全面的用户体验研究开始。这项研究应该针对多语言、多文化、跨多个国家、社会经济阶层、能力和年龄范围的用户群体进行。首先关注最困难或最不典型的用例。
 
 ## Challenge Established Processes 挑战既定流程
 
@@ -186,7 +186,7 @@ On its face, expediting the evaluation process and helping job seekers save time
 
 - Are developmental assessments a predictive measure of performance?
 - Are the performance assessments being presented to prospective managers free of individual bias?
-- •Are performance assessment scores standardized across organizations?
+- Are performance assessment scores standardized across organizations?
 
 从表面上看，加快评估过程和帮助求职者节省时间是一个伟大的目标。那么，潜在的公平问题在哪里？以下是提出的公平问题:
 
