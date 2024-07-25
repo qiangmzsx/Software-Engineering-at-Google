@@ -15,11 +15,11 @@ As your role evolves, all the best practices still apply. You’re still a “se
 
 The process is often demoralizing—until one day you notice that you’re actually having much more impact as a leader than you ever had as an individual contributor. It’s a satisfying but bittersweet realization.
 
-这个过程通常是令人沮丧的 -- 直到有一天你意识到作为一个领导者你比作为个人贡献者有多得多的影响力。这是个令人满意的，但是也是喜忧参半的领悟。
+这个过程通常是令人沮丧的 -- 直到有一天你发现，作为领导者，你的影响力实际上远远超过了作为个人贡献者时的影响力。这是个令人满意的，但是也是喜忧参半的领悟。
 
 So, assuming that we understand the basics of leadership, what it does it take to scale yourself into a really good leader? That’s what we talk about here, using what we call “the three Always of leadership”: Always Be Deciding, Always Be Leaving, Always Be Scaling.
 
-至此，假设我们已经知道了领导的本质，那么到底什么才能让你提升为一个真正优秀的管理者呢？这就是我们这里想要讨论的，我们称之为“管理上的三个总是”：始终保持决断力，始终保持离开，始终保持扩张。
+至此，假设我们理解了领导力的基本原则，究竟需要什么才能将自己提升为一个真正优秀的领导者？这就是我们这里想要讨论的，我们称之为“管理上的三个总是”：始终保持决断力，始终保持离开，始终保持扩张。
 
 ## Always Be Deciding 始终保持决断力
 
@@ -103,7 +103,7 @@ By definition, important and ambiguous problems do not have magic “silver bull
 
 根据定义，重要的和模糊的问题没有所谓的神奇的“银弹”解决方案。没有一劳永逸的解决方案。只有当下的最佳答案，而且几乎肯定涉及到在某个方向上的权衡。你的工作是指出这些权衡，向大家解释，然后帮助决定如何取舍。
 
-### Decide, Then Iterate  做决定，然后反复迭代
+### Decide, Then Iterate  做决定，然后持续迭代
 
 After you understand the trade-offs and how they work, you’re empowered. You can use this information to make the best decision for this particular month. Next month, you might need to reevaluate and rebalance the trade-offs again; it’s an iterative process. This is what we mean when we say Always Be Deciding.
 
@@ -150,11 +150,11 @@ The main point here is that this insight—a better understanding of all the tra
 >
 > 1 "Code yellow"是谷歌的术语，指的是 "紧急黑客马拉松，以修复一个关键问题"。受影响的团队被要求暂停所有工作，并将100%的注意力集中在这个问题上，直到紧急状态被宣布结束。
 
-## Always Be Leaving  始终保持离开
+## Always Be Leaving  始终准备离开
 
 At face value, Always Be Leaving sounds like terrible advice. Why would a good leader be trying to leave? In fact, this is a famous quote from Bharat Mediratta, a former Google engineering director. What he meant was that it’s not just your job to solve an ambiguous problem, but to get your organization to solve it by itself, without you present. If you can do that, it frees you up to move to a new problem (or new organization), leaving a trail of self-sufficient success in your wake.
 
-从字面意思上看，"始终保持离开" 听上去是一个可怕的建议。为什么一个好的领导者要尝试离开他的团队呢？事实上这是引用的前谷歌工程主管 Bharat Mediratta 的话。他的意思是你的任务不仅仅是解决边界不清晰的问题，而是还要引导你的组织在没有你在场的情况下自己解决问题。如果你能做到这点，将释放你一部分精力去解决新的问题（或去管理新的组织），在你身后留下一个个能自给自足的团队。
+从字面意思上看，"始终准备离开" 听上去是一个可怕的建议。为什么一个好的领导者要尝试离开他的团队呢？事实上这是引用的前谷歌工程主管 Bharat Mediratta 的话。他的意思是你的任务不仅仅是解决边界不清晰的问题，而是还要引导你的组织在没有你在场的情况下自己解决问题。如果你能做到这点，将释放你一部分精力去解决新的问题（或去管理新的组织），在你身后留下一个个能自给自足的团队。
 
 The antipattern here, of course, is a situation in which you’ve set yourself up to be a single point of failure (SPOF). As we noted earlier in this book, Googlers have a term for that, the bus factor: the number of people that need to get hit by a bus before your project is completely doomed.
 
@@ -164,7 +164,7 @@ Of course, the “bus” here is just a metaphor. People become sick; they switc
 
 当然，这里的“巴士”是一个隐喻。人们会生病，会换团队或公司，会离职。作为一个试金石，可以想想一个你团队正在尝试解决并取得了良好进展的难题。然后想象作为领导的你消失了。你的团队还能够继续前进吗？它还能继续成功吗？还有一个更简单的测试：想想上一次你休超过一周的假期的时候。你是在不停地查看邮件吗？（大多数管理者会）然后问问你自己为什么。如果你不注意，事情会一团糟吗。如果是，你很可能把你自己置于“单点故障”的境地。你需要解决这个问题。
 
-### Your Mission: Build a “Self-Driving” Team  你的使命：打造一个“自我驱动”的团队
+### Your Mission: Build a “Self-Driving” Team  你的任务：打造一个“自我驱动”的团队
 
 Coming back to Bharat’s quote: being a successful leader means building an organization that is able to solve the difficult problem by itself. That organization needs to have a strong set of leaders, healthy engineering processes, and a positive, self-perpetuating culture that persists over time. Yes, this is difficult; but it gets back to the fact that leading a team of teams is often more about organizing people rather than being a technical wizard. Again, there are three main parts to constructing this sort of self-sufficient group: dividing the problem space, delegating subproblems, and iterating as needed.
 
@@ -223,11 +223,11 @@ The simple answer to “what now?” is to direct this machine and keep it healt
 “现在怎么办？”这个问题的一个简单的回答是引导你的团队然后让它持续保持健康。但是除非有很难解决的危机，你就不应该过多地去插手管理团队了。《进化:从孤胆极客到高效团队》这本书对于如何做有意义的调整有一个比较好的隐喻：
 
     There’s a story about a Master of all things mechanical who had long since retired. His former company was having a problem that no one could fix, so they called in the Master to see if he could help find the problem. The Master examined the machine, listened to it, and eventually pulled out a worn piece of chalk and made a small X on the side of the machine. He informed the technician that there was a loose wire that needed repair at that very spot. The technician opened the machine and tightened the loose wire, thus fixing the problem. When the Master’s invoice arrived for $10,000, the irate CEO wrote back demanding a breakdown for this ridiculously high charge for a simple chalk mark! The Master responded with another invoice, showing a $1 cost for the chalk to make the mark, and $9,999 for knowing where to put it.
-
+    
     有一个关于一位早已退休的机械大师的故事。他的前公司遇到了一个没人能解决的问题，所以他们请了这个大师来看看能否帮助解决这个问题。大师仔细检查了机器，并贴近听了听。最终他掏出一截粉笔然后在机器侧面画了一个小小的叉。他告诉技术员打开机器，然后在他打叉的地方有一根电线松了需要绑紧。技术员打开了机器然后绑紧了那根电线，然后机器就修好了！当公司收到这位大师的 10,000 美金的账单后，CEO 大怒并向大师索要账单明细。然后大师又寄了一张有明细的账单，上面写着：做标记用的粉笔 1 美元，知道在哪里做标记 9,999 美元。
-	
+    
     To us, this is a story about wisdom: that a single, carefully considered adjustment can have gigantic effects. We use this technique when managing people. We imagine our team as flying around in a great blimp, headed slowly and surely in a certain direction. Instead of micromanaging and trying to make continuous course corrections, we spend most of the week carefully watching and listening. At the end of the week we make a small chalk mark in a precise location on the blimp, then give a small but critical “tap” to adjust the course.
-	
+    
     对我们来说，这是一个关于智慧的故事：一个经过深思熟虑的细微的调整能够产生巨大的作用。在管理人员时，我们也使用这个技巧。我们想象我们的团队在一个巨大的飞艇上飞行，朝着一个特定的方向缓慢而确定地前进。我们不是通过微操作来不断地修正航向，而是花数周的时间仔细地观察和倾听。最终，我们在飞艇上的某一个精确的位置画一个很小，确至关重要的记号，轻轻一击，来修正航线。
 
 This is what good management is about: 95% observation and listening, and 5% making critical adjustments in just the right place. Listen to your leaders and skip-reports. Talk to your customers, and remember that often (especially if your team builds engineering infrastructure), your “customers” are not end users out in the world, but your coworkers. Customers’ happiness requires just as much intense listening as your reports’ happiness. What’s working and what isn’t? Is this self-driving blimp headed in the proper direction? Your direction should be iterative, but thoughtful and minimal, making the minimum adjustments necessary to correct course. If you regress into micromanagement, you risk becoming an SPOF again! “Always Be Leaving” is a call to macromanagement.
@@ -244,11 +244,11 @@ A common mistake is to put a team in charge of a specific product rather than a 
 
 一个常见的错误是让一个团队负责一个特定的产品而不是负责解决一类问题。一个产品是一个问题的一种解决方案。一个解决方案的生命周期可能很短，一个产品可能会被更好的方案替代。然而，一个问题（如果这个问题的定位比较合理）却可以是经久不衰的。将一个团队定位为一个特定的解决方案（“我们是负责 Git 仓库的团队”）随着时间的推移将会带来各种各样的麻烦。假如很大一部分工程师想切换到一个新的版本控制系统怎么办？这个团队很可能会“钻牛角尖”，坚持它原有的解决方案，拒绝改变，即使它并不是最适合整个组织的方案。这个团队依赖它的“观点”，因为解决方案已经成为团队身份和自我价值的一部分。如果团队改为是负责解决这个问题（比方说“我们是为这个公司提供版本管理的团队”），那么随着时间的推移,这个团队将不再被束缚去做实验尝试不同的解决方案。
 
-## Always Be Scaling  始终保持扩张
+## Always Be Scaling  始终保持扩展
 
 A lot of leadership books talk about “scaling” in the context of learning to “maximize your impact”—strategies to grow your team and influence. We’re not going to discuss those things here beyond what we’ve already mentioned. It’s probably obvious that building a self-driving organization with strong leaders is already a great recipe for growth and success.
 
-很多领导力书籍会在讲“最大化你的影响力”的上下文中讲“扩张规模”——通过这种策略来增长你的团队和影响力。由于我们已经提过的原因，我们不会在这里讨论这些问题。构建一个自驱的、拥有强大领导力的组织已经是增长和成功的一个显而易见的方法。
+很多领导力书籍会在讲“最大化你的影响力”的上下文中讲“扩展规模”——通过这种策略来增长你的团队和影响力。由于我们已经提过的原因，我们不会在这里讨论这些问题。构建一个自驱的、拥有强大领导力的组织已经是增长和成功的一个显而易见的方法。
 
 Instead, we’re going to discuss team scaling from a defensive and personal point of view rather than an offensive one. As a leader, your most precious resource is your limited pool of time, attention, and energy. If you aggressively build out your teams’ responsibilities and power without learning to protect your personal sanity in the process, the scaling is doomed to fail. And so we’re going to talk about how to effectively scale yourself through this process.
 
@@ -337,7 +337,7 @@ So how can you force yourself to work mostly on important things, rather than ur
 - *找到一个有效的进度跟踪系统*  
     市面上有很多关于进度跟踪和排优先级的系统。一些是有基于现成的软件的（比如“待办”管理工具），一些是基于纸笔的（“Bullet Journal”方法），以及另一些没有指明具体实现方法的系统。在这最后一类中，David Allen 的书《搞定Ⅰ : 无压工作的艺术》在工程师管理者们之间很流行；它是一套关于工完成任务和将收件箱清零的抽象的方法论。这里的关键点是要去尝试不同的系统，然后选择一个对你来说最有效的系统。他们其中一些会很合适，一些并不合适，但你绝对需要找到比在电脑上贴便签更有效率的方法--它更多是在装点你的电脑屏幕。
 
-### Learn to Drop Balls  学会丢球
+### Learn to Drop Balls  学会放下任务
 
 There’s one more key technique for managing your time, and on the surface it sounds radical. For many, it contradicts years of engineering instinct. As an engineer, you pay attention to detail; you make lists, you check things off lists, you’re precise, and you finish what you start. That’s why it feels so good to close bugs in a bug tracker, or whittle your email down to inbox zero. But as a leader of leaders, your time and attention are under constant attack. No matter how much you try to avoid it, you end up dropping balls on the floor—there are just too many of them being thrown at you. It’s overwhelming, and you probably feel guilty about this all the time.
 

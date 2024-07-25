@@ -15,13 +15,13 @@ We’ve covered a lot of ground so far on the culture and composition of teams w
 
 No team can function well without a leader, especially at Google, where engineering is almost exclusively a team endeavor. At Google, we recognize two different leadership roles. A *Manager* is a leader of people, whereas a *Tech Lead* leads technology efforts. Although the responsibilities of these two roles require similar planning skills, they require quite different people skills.
 
-没有领导者，任何团队都无法正常运作，尤其是在谷歌，工程几乎完全是团队的努力。在谷歌，我们认识到两种不同的领导者角色。*经理*是人的领导，而*技术负责人*则领导技术工作。虽然这两个角色的职责需要类似的规划技能，但他们需要相当不同的人际交往技能。
+没有领导者，任何团队都无法良好运作，尤其是在谷歌，工程几乎完全是团队的努力。在谷歌，我们认识到两种不同的领导者角色。*经理*是人的领导，而*技术负责人*则领导技术工作。虽然这两个角色的职责需要类似的规划技能，但他们需要相当不同的人际交往技能。
 
 A boat without a captain is nothing more than a floating waiting room: unless someone grabs the rudder and starts the engine, it’s just going to drift along aimlessly with the current. A piece of software is just like that boat: if no one pilots it, you’re left with a group of engineers burning up valuable time, just sitting around waiting for something to happen (or worse, still writing code that you don’t need). Although this chapter is about people management and technical leadership, it is still worth a read if you’re an individual contributor because it will likely help you understand your own leaders a bit better.
 
-没有船长的船只不过是一个漂浮的等候室：除非有人抓住方向舵并启动引擎，否则它只会随着水流漫无目的地漂流。一个软件就像那艘船：如果没有人驾驶它，你会被一群工程师浪费宝贵的时间，只是坐在那里等待一些事情发生（或者更糟糕的是，仍然在编写你不需要的代码）。尽管本章是关于人员管理和技术领导的，但如果你是个人贡献者，则仍值得一读，因为它可能会帮助你更好地了解你是自己的领导。
+没有船长的船只不过是一个漂浮的等候室：除非有人抓住方向舵并启动引擎，否则它只会随波逐流。一个软件就像那艘船：如果没有人驾驶它，你会被一群工程师浪费宝贵的时间，只是坐在那里等待一些事情发生（或者更糟糕的是，仍然在编写你不需要的代码）。尽管本章是关于人员管理和技术领导的，但如果你是个人贡献者，则仍值得一读，因为它可能会帮助你更好地了解你是自己的领导。
 
-## Managers and Tech Leads (and Both)  经理和技术负责人（以及两者）
+## Managers and Tech Leads (and Both)  经理和技术负责人（以及两者角色）
 
 Whereas every engineering team generally has a leader, they acquire those leaders in different ways. This is certainly true at Google; sometimes an experienced manager comes in to run a team, and sometimes an individual contributor is promoted into a leadership position (usually of a smaller team).
 
@@ -29,7 +29,7 @@ Whereas every engineering team generally has a leader, they acquire those leader
 
 In nascent teams, both roles will sometimes be filled by the same person: a *Tech Lead Manager* (TLM). On larger teams, an experienced people manager will step in to take on the management role while a senior engineer with extensive experience will step into the tech lead role. Even though manager and tech lead each play an important part in the growth and productivity of an engineering team, the people skills required to succeed in each role are wildly different.
 
-在新生团队中，这两个角色有时会由同一个人担任：*技术主管经理*（TLM）。在较大的团队中，有经验的人事经理将介入管理角色，而具有丰富经验的高级工程师将进入技术负责人的角色。尽管经理和技术负责人在工程团队的成长和生产效率方面都发挥着重要作用，但在每个角色中取得成功所需的人际关系技能却大不相同。
+在初创团队中，这两个角色有时会由同一个人担任：*技术主管经理*（TLM）。在较大的团队中，有经验的人事经理将介入管理角色，而具有丰富经验的高级工程师将进入技术负责人的角色。尽管经理和技术负责人在工程团队的成长和生产效率方面都发挥着重要作用，但在每个角色中取得成功所需的人际关系技能却大不相同。
 
 ### The Engineering Manager  工程经理
 
@@ -137,11 +137,11 @@ So, what is actually expected of a manager at a modern software company? Before 
 
 那么，在现代软件公司中，对经理的实际期望是什么？在计算机时代之前，"管理 "和 "劳动 "可能承担着几乎是对立的角色，管理者掌握着所有的权力，而劳动者则需要集体行动来实现自己的目的。但这并不是现代软件公司的工作方式。
 
-### Manager Is a Four-Letter Word  经理是一个由四个字母组成的词
+### Manager Is a Four-Letter Word  经理是一个四个字母的单词
 
 Before talking about the core responsibilities of an engineering manager at Google, let’s review the history of managers. The present-day concept of the pointy-haired manager is partially a carryover, first from military hierarchy and later adopted by the Industrial Revolution—more than a hundred years ago! Factories began popping up everywhere, and they required (usually unskilled) workers to keep the machines going. Consequently, these workers required supervisors to manage them, and because it was easy to replace these workers with other people who were desperate for a job, the managers had little motivation to treat their employees well or improve conditions for them. Whether humane or not, this method worked well for many years when the employees had nothing more to do than perform rote tasks.
 
-在谈论谷歌工程经理的核心职责之前，让我们回顾一下经理的历史。今天的顶尖经理的概念部分是延续下来的，首先是来自军队的等级制度，后来被工业革命所采用——一百多年前！工厂开始到处涌现，他们需要（通常是不熟练的）工人来维持机器运转。因此，这些工人需要主管人员来管理他们，由于很容易用其他急于找工作的人取代这些工人，主管人员没有什么动力来善待他们的雇员或改善他们的条件。无论人道与否，这种方法在许多年里都很有效，当时员工除了完成死记硬背的任务外没有其他事情可做。
+在谈论谷歌工程经理的核心职责之前，让我们回顾一下经理的历史。当前的顶尖经理的概念部分是延续下来的，首先是来自军队的等级制度，后来被工业革命所采用——一百多年前！工厂开始到处涌现，他们需要（通常是不熟练的）工人来维持机器运转。因此，这些工人需要主管人员来管理他们，由于很容易用其他急于找工作的人取代这些工人，主管人员没有什么动力来善待他们的雇员或改善他们的条件。无论人道与否，这种方法在许多年里都很有效，当时员工除了完成死记硬背的任务外没有其他事情可做。
 
 Managers frequently treated employees in the same way that cart drivers would treat their mules: they motivated them by alternately leading them forward with a carrot, and, when that didn’t work, whipping them with a stick. This carrot-and-stick method of management survived the transition from the factory[^3] to the modern office, where the stereotype of the tough-as-nails manager-as-mule-driver flourished in the middle part of the twentieth century when employees would work at the same job for years and years.
 
@@ -149,7 +149,7 @@ Managers frequently treated employees in the same way that cart drivers would tr
 
 This continues today in some industries—even in industries that require creative thinking and problem solving—despite numerous studies suggesting that the anachronistic carrot and stick is ineffective and harmful to the productivity of creative people. Whereas the assembly-line worker of years past could be trained in days and replaced at will, software engineers working on large codebases can take months to get up to speed on a new team. Unlike the replaceable assembly-line worker, these people need nurturing, time, and space to think and create.
 
-尽管许多研究表明，不合时宜的胡萝卜和大棒是无效的，而且对有创造力的人的生产效率有害，但这种情况今天在一些行业仍然存在——甚至在那些需要创造力思维和解决问题的行业。过去几年的装配线工人可以在几天内接受培训并被随意替换，而从事大型代码库工作的软件工程师可能需要几个月的时间才能在一个新的团队中适应。与可替换的装配线工人不同，这些人需要培养、时间和空间来思考和创造。
+尽管许多研究表明，不合时宜的胡萝卜和大棒是无效的，而且对有创造力的人的生产效率有害，但这种情况当前在一些行业仍然存在——甚至在那些需要创造力思维和解决问题的行业。过去几年的装配线工人可以在几天内接受培训并被随意替换，而从事大型代码库工作的软件工程师可能需要几个月的时间才能在一个新的团队中适应。与可替换的装配线工人不同，这些人需要培养、时间和空间来思考和创造。
 
 
 > [^3]:	For more fascinating information on optimizing the movements of factory workers, read up on Scientific Management or Taylorism, especially its effects on worker morale./
@@ -253,7 +253,7 @@ There are numerous ways in which Pablo could have handled this differently: he c
 
 帕布罗有许多方法可以以不同的方式处理这件事：他可以对杰克想花更多时间在家里陪他的妻子表示一些理解，如果他的工作效率和团队没有受到影响，就让他继续保持一段时间。他可以协商让杰克每周到办公室工作一到两天，直到事情解决为止。无论最终结果如何，在这种情况下，一点点同理心将大大有助于让杰克保持快乐。
 
-### Antipattern: Be Everyone’s Friend  反模式：成为每个人的朋友
+### Antipattern: Be Everyone’s Friend  反模式：试图成为每个人的朋友
 
 The first foray that most people have into leadership of any sort is when they become the manager or TL of a team of which they were formerly members. Many leads don’t want to lose the friendships they’ve cultivated with their teams, so they will sometimes work extra hard to maintain friendships with their team members after becoming a team lead. This can be a recipe for disaster and for a lot of broken friendships. Don’t confuse friendship with leading with a soft touch: when you hold power over someone’s career, they might feel pressure to artificially reciprocate gestures of friendship.
 
@@ -267,7 +267,7 @@ Sometimes, it can be tricky to move into a management role over someone who has 
 
 有时，在一个曾经是好朋友和同龄人的人身上担任管理职务可能会很棘手。如果被管理的朋友不具备自我管理的能力，也不是一个努力工作的人，那么对每个人来说都会有压力。我们建议你尽可能避免陷入这种情况，但如果你不能，就要特别注意你与这些人的关系。
 
-### Antipattern: Compromise the Hiring Bar  反模式：妥协的招聘
+### Antipattern: Compromise the Hiring Bar  反模式：降低招聘标准
 
 Steve Jobs once said: “A people hire other A people; B people hire C people.” It’s incredibly easy to fall victim to this adage, and even more so when you’re trying to hire quickly. A common approach I’ve seen outside of Google is that a team needs to hire 5 engineers, so it sifts through a pile of applications, interviews 40 or 50 people, and picks the best 5 candidates regardless of whether they meet the hiring bar.
 
@@ -281,7 +281,7 @@ The cost of finding the appropriate person—whether by paying recruiters, payin
 
 找到合适人选的成本——无论是通过支付招聘人员费用、支付广告费用，还是为推荐人做铺垫——与处理一个你一开始就不应该雇用的员工的成本相比，都显得微不足道。这种 "成本 "体现在团队生产效率的损失、团队压力、管理员工的时间以及解雇员工所涉及的文书工作和压力上。当然，这是假设你试图避免让他们留在团队中的巨大成本。如果你管理的团队在招聘方面没有发言权，而且你对你的团队所招聘的人不满意，你需要为更高素质的工程师拼命争取。如果你仍然得到不合格的工程师，也许是时候寻找另一份工作了。没有优秀团队的人才，你就注定要失败。
 
-### Antipattern: Treat Your Team Like Children  反模式：像对待孩子一样对待你的团队
+### Antipattern: Treat Your Team Like Children  反模式：像对待孩子一样对待团队成员
 
 The best way to show your team that you don’t trust it is to treat team members like kids—people tend to act the way you treat them, so if you treat them like children or prisoners, don’t be surprised when that’s how they behave. You can manifest this behavior by micromanaging them or simply by being disrespectful of their abilities and giving them no opportunity to be responsible for their work. If it’s permanently necessary to micromanage people because you don’t trust them, you have a hiring failure on your hands. Well, it’s a failure unless your goal was to build a team that you can spend the rest of your life babysitting. If you hire people worthy of trust and show these people you trust them, they’ll usually rise to the occasion (sticking with the basic premise, as we mentioned earlier, that you’ve hired good people).
 
@@ -297,11 +297,11 @@ Now that we’ve covered antipatterns, let’s turn to positive patterns for suc
 
 现在我们已经介绍了反模式，让我们来谈谈成功的领导和管理的积极模式，这些模式是我们从在谷歌的经验中，从观察其他成功的领导者中，最重要的是，从我们自己的领导导师那里学到的。这些模式不仅是那些我们已经成功实施的模式，而且是我们一直以来最尊重的领导者的模式。
 
-### Lose the Ego  丢掉自负
+### Lose the Ego   放下自负
 
 We talked about “losing the ego” a few chapters ago when we first examined humility, respect, and trust, but it’s especially important when you’re a team leader. This pattern is frequently misunderstood as encouraging people to be doormats and let others walk all over them, but that’s not the case at all. Of course, there’s a fine line between being humble and letting others take advantage of you, but humility is not the same as lacking confidence. You can still have self-confidence and opinions without being an egomaniac. Big personal egos are difficult to handle on any team, especially in the team’s leader. Instead, you should work to cultivate a strong collective team ego and identity.
 
-我们在几章前第一次研究谦卑、尊重和信任时谈到了 "丢掉自负"，但当你是一个团队领导时，这一点尤其重要。这种模式经常被误解为鼓励人们做受气包，让别人踩在他们身上，但事实并非如此。当然，在谦虚和让别人利用你之间有一条细微的界限，但谦虚不等于缺乏自信。你仍然可以有自信心和意见，而不是成为一个自大狂。在任何团队中，特别是在团队领导中，个人自大都是很难处理的。相反，你应该努力培养强大的集体自我和认同感。
+我们在几章前第一次研究谦卑、尊重和信任时谈到了 " 放下自负"，但当你是一个团队领导时，这一点尤其重要。这种模式经常被误解为鼓励人们做受气包，让别人踩在他们身上，但事实并非如此。当然，在谦虚和让别人利用你之间有一条细微的界限，但谦虚不等于缺乏自信。你仍然可以有自信心和意见，而不是成为一个自大狂。在任何团队中，特别是在团队领导中，个人自大都是很难处理的。相反，你应该努力培养强大的集体自我和认同感。
 
 Part of “losing the ego” is trust: you need to trust your team. That means respecting the abilities and prior accomplishments of the team members, even if they’re new to your team.
 
@@ -313,7 +313,7 @@ If you’re not micromanaging your team, you can be pretty certain the folks wor
 
 Most people new to a leadership role feel an enormous responsibility to get everything right, to know everything, and to have all the answers. We can assure you that you will not get everything right, nor will you have all the answers, and if you act like you do, you’ll quickly lose the respect of your team. A lot of this comes down to having a basic sense of security in your role. Think back to when you were an individual contributor; you could smell insecurity a mile away. Try to appreciate inquiry: when someone questions a decision or statement you made, remember that this person is usually just trying to better understand you. If you encourage inquiry, you’re much more likely to get the kind of constructive criticism that will make you a better leader of a better team. Finding people who will give you good constructive criticism is incredibly difficult, and it’s even more difficult to get this kind of criticism from people who “work for you.” Think about the big picture of what you’re trying to accomplish as a team, and accept feedback and criticism openly; avoid the urge to be territorial.
 
-大多数刚开始担任领导角色的人都觉得自己肩负着巨大的责任，要做好每一件事，了解每一件事，并掌握所有答案。我们可以向你保证，你不会把所有事情都做对，也不会有所有的答案，如果你这样做，你很快就会失去团队的尊重。这很大程度上取决于你的角色是否具有基本的安全感。回想一下你还是个人贡献者的时候，你在一英里外就能闻到不安全感。尝试欣赏询问：当有人质疑你的决定或声明时，记住这个人通常只是想更好地了解你。如果你鼓励询问，你就更有可能得到那种建设性的批评，使你成为一个更好的团队的领导者。找到会给你好的建设性批评的人是非常困难的，而从 "为你工作 "的人那里得到这种批评就更难了。想一想你作为一个团队所要完成的大局，坦然接受反馈和批评；避免地盘化的冲动。
+大多数刚开始担任领导角色的人都觉得自己肩负着巨大的责任，要做好每一件事，了解每一件事，并掌握所有答案。我们可以向你保证，你不会把所有事情都做对，也不会有所有的答案，如果你这样做，你很快就会失去团队的尊重。这很大程度上取决于你的角色是否具有基本的安全感。回想一下你还是个人贡献者的时候，你在一英里外就能闻到不安全感。尝试欣赏询问：当有人质疑你的决定或声明时，记住这个人通常只是想更好地了解你。如果你鼓励询问，你就更有可能得到那种建设性的批评，使你成为一个更好的团队的领导者。找到会给你好的建设性批评的人是非常困难的，而从 "为你工作"的人那里得到这种批评就更难了。想一想你作为一个团队所要完成的大局，坦然接受反馈和批评；避免地盘化的冲动。
 
 The last part of losing the ego is a simple one, but many engineers would rather be boiled in oil than do it: apologize when you make a mistake. And we don’t mean you should just sprinkle “I’m sorry” throughout your conversation like salt on popcorn— you need to sincerely mean it. You are absolutely going to make mistakes, and whether or not you admit it, your team is going to know you’ve made a mistake. Your team members will know regardless of whether they talk to you (and one thing is guaranteed: they *will* talk about it with one another). Apologizing doesn’t cost money. People have enormous respect for leaders who apologize when they screw up, and contrary to popular belief, apologizing doesn’t make you vulnerable. In fact, you’ll usually gain respect from people when you apologize, because apologizing tells people that you are level headed, good at assessing situations, and—coming back to humility, respect, and trust—humble.
 
@@ -345,11 +345,11 @@ This brings us to another Zen management trick: asking questions. When a team me
 >
 > 6   另请参见“橡皮鸭调试”
 
-### Be a Catalyst  成为催化剂
+### Be a Catalyst  成为催化剂（促进者）
 
 In chemistry, a catalyst is something that accelerates a chemical reaction, but which itself is not consumed in the reaction. One of the ways in which catalysts (e.g., enzymes) work is to bring reactants into close proximity: instead of bouncing around randomly in a solution, the reactants are much more likely to favorably interact with one another when the catalyst helps bring them together. This is a role you’ll often need to play as a leader, and there are a number of ways you can go about it.
 
-在化学中，催化剂是加速化学反应的东西，但它本身在反应中不被消耗。催化剂（如酶）发挥作用的方式之一是使反应物接近：反应物不是在溶液中随机地跳动，而是在催化剂的帮助下更有可能彼此有利地互动。这是你作为一个领导者经常需要扮演的角色，你可以通过多种方式来实现这一目标。
+在化学中，催化剂是加速化学反应的东西，但它本身在反应中不被消耗。（如酶）发挥作用的方式之一是使反应物接近：反应物不是在溶液中随机地跳动，而是在催化剂的帮助下更有可能彼此有利地互动。这是你作为一个领导者经常需要扮演的角色，你可以通过多种方式来实现这一目标。
 
 One of the most common things a team leader does is to build consensus. This might mean that you drive the process from start to finish, or you just give it a gentle push in the right direction to speed it up. Working to build team consensus is a leadership skill that is often used by unofficial leaders because it’s one way you can lead without any actual authority. If you have the authority, you can direct and dictate direction, but that’s less effective overall than building consensus.[^7] If your team is looking to move quickly, sometimes it will voluntarily concede authority and direction to one or more team leads. Even though this might look like a dictatorship or oligarchy, when it’s done voluntarily, it’s a form of consensus.
 
@@ -378,7 +378,7 @@ Much like the role of manager, most people don’t apply for the role of mentor�
 
 与经理的角色一样，大多数人并不申请担任导师的角色——他们通常在领导寻找指导新团队成员的人时成为导师。要成为一名导师，不需要很多正式的教育或准备。主要来说，你需要三件事：对团队的流程和系统的经验，向别人解释事情的能力，以及衡量被指导者需要多少帮助的能力。最后一点可能是最重要的——向被指导者提供足够的信息是你应该做的，但是如果你说得太多或者没完没了，被指导者可能会把你拒之门外，而不是礼貌地告诉你他们明白了。
 
-### Set Clear Goals  制定明确的目标
+### Set Clear Goals  设定清晰目标
 
 This is one of those patterns that, as obvious as it sounds, is solidly ignored by an enormous number of leaders. If you’re going to get your team moving rapidly in one direction, you need to make sure that every team member understands and agrees on what the direction is. Imagine your product is a big truck (and not a series of tubes). Each team member has in their hand a rope tied to the front of the truck, and as they work on the product, they’ll pull the truck in their own direction. If your intention is to pull the truck (or product) northbound as quickly as possible, you can’t have team members pulling every which way—you want them all pulling the truck north. If you’re going to have clear goals, you need to set clear priorities and help your team decide how it should make trade-offs when the time comes.
 
