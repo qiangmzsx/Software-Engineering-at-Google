@@ -7,7 +7,7 @@
 - [第五章 如何领导团队](zh-cn/Chapter-5_How_to_Lead_a_Team/Chapter-5_How_to_Lead_a_Team.md)
 - [第六章 规模优先](zh-cn/Chapter-6_Leading_at_Scale/Chapter-6_Leading_at_Scale.md)
 - [第七章 测量工程效率](zh-cn/Chapter-7_Measuring_Engineering_Productivity/Chapter-7_Measuring_Engineering_Productivity.md)
-- [第八章 风格指导和规则](zh-cn/Chapter-8_Style_Guides_and_Rules/Chapter-8_Style_Guides_and_Rules.md)
+- [第八章 风格指南和规则](zh-cn/Chapter-8_Style_Guides_and_Rules/Chapter-8_Style_Guides_and_Rules.md)
 - [第九章 代码审查](zh-cn/Chapter-9_Code_Review/Chapter-9_Code_Review.md)
 - [第十章 文档](zh-cn/Chapter-10_Documentation/Chapter-10_Documentatio.md)
 - [第十一章 测试概述](zh-cn/Chapter-11_Testing_Overview/Chapter-11_Testing_Overview.md)

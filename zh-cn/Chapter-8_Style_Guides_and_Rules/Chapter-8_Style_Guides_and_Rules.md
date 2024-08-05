@@ -2,7 +2,7 @@
 
 # Style Guides and Rules
 
-# 第八章 风格指导和规则
+# 第八章 风格指南和规则
 
 **Written by Shaindel Schwartz**
 
@@ -11,23 +11,23 @@
 
 Most engineering organizations have rules governing their codebases—rules about where source files are stored, rules about the formatting of the code, rules about naming and patterns and exceptions and threads. Most software engineers are working within the bounds of a set of policies that control how they operate. At Google, to manage our codebase, we maintain a set of style guides that define our rules.
 
-大多数软件工程机构都有管理其代码库的规则——关于源文件的存储位置、代码格式化规则、命名规则和模式以及异常和线程。大多数软件工程师就在这组控制他们如何运作的策略的范围内工作。在谷歌，要管理我们的代码库，我们维护了一套风格指南来定义我们的规则。
+大多数软件工程机构都有管理其代码库的规则——关于源文件的存储位置规则、代码格式化规则、命名规则和模式以及异常处理规则和多线程规则。大多数软件工程师就在这组控制他们如何运作的策略的范围内工作。在谷歌，要管理我们的代码库，我们维护了一套定义我们规则的风格指南。
 
 Rules are laws. They are not just suggestions or recommendations, but strict, mandatory laws. As such, they are universally enforceable—rules may not be disregarded except as approved on a need-to-use basis. In contrast to rules, guidance provides recommendations and best practices. These bits are good to follow, even highly advisable to follow, but unlike rules, they usually have some room for variance.
 
-规则就像法律。 它们不仅仅是建议或提议，而是严格的、强制性的法律。 因此，规则具有普遍可执行性——不得无视规则除非在需要使用的基础上获得豁免。 与规则相反，指导提供帮助建议和最佳实践。 指导值得遵循，甚至是高度建议能够遵守，但与规则不同的是，指导通常允许出现一些变化的空间。
+规则就像法律。 它们不仅仅是建议或提议，而是严格且强制性的法律。 因此，规则具有普遍可执行性——不得无视规则除非在需要使用的基础上获得豁免。 与规则相反，指导提供帮助建议和最佳实践。 指导值得遵循，甚至是高度建议能够遵守，但与规则不同的是，指导通常允许出现一些变化的空间。
 
 We collect the rules that we define, the do’s and don’ts of writing code that must be followed, in our programming style guides, which are treated as canon. “Style” might be a bit of a misnomer here, implying a collection limited to formatting practices. Our style guides are more than that; they are the full set of conventions that govern our code. That’s not to say that our style guides are strictly prescriptive; style guide rules may call for judgement, such as the rule to use names that are “as descriptive as possible, within reason.” Rather, our style guides serve as the definitive source for the rules to which our engineers are held accountable.
 
-我们把我们定义的规则，即写代码时必须遵守的 "做 "和 "不做"，收集在我们的编程风格指南中，这些指南被视为典范。 “风格”可能这里有点名不副实，暗示着范围仅限于格式化实践。我们的风格指南不止于此； 它们是一套完整的约定约束我们的代码。 这并不是说我们的风格指南是严格规定的； 是指导还是规则可能需要判断，例如有一条命名规则是“[在合理范围内使用与描述性相同的名称。]” 并且，我们的风格指南是最终的来源我们的工程师必须遵守的规则。
+我们把我们定义的规则，即写代码时必须遵守的 "允许"和 "禁止"，收集在我们的编程风格指南中，这些指南被视为典范。 “风格”可能这里有点名不副实，暗示着范围仅限于格式化实践。我们的风格指南不止于此； 它们是一套完整的约定约束我们的代码。 这并不是说我们的风格指南是严格规定的； 是指导还是规则可能需要判断，例如有一条命名规则是“[在合理范围内使用与描述性相同的名称。]” 并且，我们的风格指南是最终的来源我们的工程师必须遵守的规则。
 
 We maintain separate style guides for each of the programming languages used at Google [^1].At a high level, all of the guides have similar goals, aiming to steer code development with an eye to sustainability. At the same time, there is a lot of variation among them in scope, length, and content. Programming languages have different strengths, different features, different priorities, and different historical paths to adoption within Google’s ever-evolving repositories of code. It is far more practical, therefore, to independently tailor each language’s guidelines. Some of our style guides are concise, focusing on a few overarching principles like naming and formatting, as demonstrated in our Dart, R, and Shell guides. Other style guides include far more detail, delving into specific language features and stretching into far lengthier documents—notably, our C++, Python, and Java guides. Some style guides put a premium on typical non-Google use of the language—our Go style guide is very short, adding just a few rules to a summary directive to adhere to the practices outlined in the externally recognized conventions. Others include rules that fundamentally differ from external norms; our C++ rules disallow use of exceptions, a language feature widely used outside of Google code.
 
-我们为每一门在谷歌使用的编程语言都单独维护一套代码风格指南。在高层次上，所有指南都有相似的目标，旨在引导代码开发并着眼于可持续性。同时，也有很多变化其中包括范围、长度和内容。编程语言有不同的优势，不同的特点，不同的重点，以及在谷歌不断发展的代码库中采用的不同历史路径。因此，独立定制每种语言的指南要实际得多。我们的一部分风格指南注重简洁，专注于一些总体原则，如命名和格式，如在我们的 Dart、R 和 Shell 指南中进行演示的样子。另一部分风格指南注重更多细节方面，深入研究特定的语言特征并扩展内容，特别是我们的 C++、Python 和 Java 指南。还有一部分风格指南重视该语言在谷歌之外的惯例——我们的 Go 风格指南非常简短，只是在一个总结指令中添加了一些规则，以遵循外部公认的惯例。也有部分指南的规则和外部规范根本不同；我们的 C++ 风格指南中不允许使用异常，而使用异常是一种在 Google 代码之外广泛使用语言特性。
+我们为谷歌使用的每一门编程语言都单独维护了一套风格指南。在高层次上，所有指南都有相似的目标，旨在引导代码开发并着眼于可持续性。同时，也有很多变化其中包括范围、长度和内容。编程语言有不同的优势，不同的特点，不同的重点，以及在谷歌不断发展的代码库中采用的不同历史路径。因此，独立定制每种语言的指南要实际得多。我们的一部分风格指南注重简洁，专注于一些总体原则，如命名和格式，如在我们的 Dart、R 和 Shell 指南中进行演示的样子。另一部分风格指南注重更多细节方面，深入研究特定的语言特征并扩展内容，特别是我们的 C++、Python 和 Java 指南。还有一部分风格指南重视该语言在谷歌之外的惯例——我们的 Go 风格指南非常简短，只是在一个总结指令中添加了一些规则，以遵循外部公认的惯例。也有部分指南的规则和外部规范根本不同；我们的 C++ 风格指南中不允许使用异常，而使用异常是一种在 Google 代码之外广泛使用语言特性。
 
 The wide variance among even our own style guides makes it difficult to pin down the precise description of what a style guide should cover. The decisions guiding the development of Google’s style guides stem from the need to keep our codebase sustainable. Other organizations’ codebases will inherently have different requirements for sustainability that necessitate a different set of tailored rules. This chapter discusses the principles and processes that steer the development of our rules and guidance, pulling examples primarily from Google’s C++, Python, and Java style guides.
 
-即使是我们自己的风格指南也存在很大的差异，这使得我们很难精确地描述一个风格指南应该涵盖什么内容。指导谷歌风格指南开发的决定源于保持我们代码库可持续性的需要。其他组织的代码库天生对可持续性有不同的要求，这就需要一套不同的定制规则。本章讨论了指导我们规则和指南开发的原则和过程，主要从谷歌的c++、Python和Java风格指南中抽取示例。
+即使是我们自己的风格指南也存在很大的差异，这使得我们很难精确地描述一个风格指南应该涵盖什么内容。指导谷歌风格指南开发背后的决策源于维持我们代码库的可持续性需求。其他组织的代码库天生对可持续性有不同的要求，这就需要一套不同的定制规则。本章讨论了指导我们规则和指南开发的原则和过程，主要从谷歌的c++、Python和Java风格指南中抽取示例。
 
 > [^1]: Many of our style guides have external versions, which you can find at https://google.github.io/styleguide. We cite numerous examples from these guides within this chapter.
 >
@@ -41,9 +41,9 @@ So why do we have rules? The goal of having rules in place is to encourage “go
 
 As an organization grows, the established rules and guidelines shape the common vocabulary of coding. A common vocabulary allows engineers to concentrate on what their code needs to say rather than how they’re saying it. By shaping this vocabulary, engineers will tend to do the “good” things by default, even subconsciously. Rules thus give us broad leverage to nudge common development patterns in desired directions.
 
-随着组织的发展，已建立的规则和指导方针形成了通用的编码词汇表。通用词汇表可以让工程师专注于他们的代码需要表达什么，而不是如何表达。通过塑造这种词汇，工程师会倾向于默认地、甚至是潜意识地去做“好”事情。因此，规则为我们提供了广泛的杠杆作用，以便将共同的开发模式推向所需的方向。
+随着组织的发展壮大，已建立的规则和指导方针形成了通用的编码词汇表。通用词汇表可以让工程师专注于他们的代码需要表达什么，而不是如何表达。通过塑造这种词汇，工程师会倾向于默认地、甚至是潜意识地去做“好”事情。因此，规则为我们提供了广泛的杠杆作用，以便将共同的开发模式推向所需的方向。
 
-## Creating the Rules  创建规则
+## Creating the Rules  指定规则
 
 When defining a set of rules, the key question is not, “What rules should we have?” The question to ask is, “What goal are we trying to advance?” When we focus on the goal that the rules will be serving, identifying which rules support this goal makes it easier to distill the set of useful rules. At Google, where the style guide serves as law for coding practices, we do not ask, “What goes into the style guide?” but rather, “Why does something go into the style guide?” What does our organization gain by having a set of rules to regulate writing code?
 

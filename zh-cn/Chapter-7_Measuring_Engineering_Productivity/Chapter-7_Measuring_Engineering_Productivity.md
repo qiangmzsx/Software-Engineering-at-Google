@@ -11,7 +11,7 @@
 
 Google is a data-driven company. We back up most of our products and design decisions with hard data. The culture of data-driven decision making, using appropriate metrics, has some drawbacks, but overall, relying on data tends to make most decisions objective rather than subjective, which is often a good thing. Collecting and analyzing data on the human side of things, however, has its own challenges. Specifically, within software engineering, Google has found that having a team of specialists focus on engineering productivity itself to be very valuable and important as the company scales and can leverage insights from such a team.
 
-谷歌是一家数据驱动型公司。我们的大部分产品和设计决策都有可靠的数据支持。数据驱动的决策文化，使用适当的指标，有一些不足，但总的来说，依靠数据往往使大多数决策变得客观而不是主观，这往往是一件好事。然而，收集和分析数据是人性的弱点，有其自身的挑战。具体来说，在软件工程领域，谷歌发现，随着公司规模的扩大，拥有一支专注于工程生产效率的专家团队本身是非常有价值和重要的，可以利用这样一支团队的洞察力。
+谷歌是一家数据驱动型公司。我们的大部分产品和设计决策都有可靠的数据支持。数据驱动决策的文化，使用适当的指标，有一些不足，但总的来说，依靠数据往往使大多数决策变得客观而不是主观，这往往是一件好事。然而，收集和分析数据是人性的弱点，有其自身的挑战。具体来说，在软件工程领域，谷歌发现，随着公司规模的扩大，拥有一支专注于工程生产效率的专家团队本身是非常有价值和重要的，可以利用这样一支团队的洞察力。
 
 ## Why Should We Measure Engineering Productivity? 我们为什么要度量工程效率
 
@@ -55,7 +55,7 @@ Before we decide how to measure the productivity of engineers, we need to know w
 
 At Google, we’ve come up with a series of questions to help teams determine whether it’s even worth measuring productivity in the first place. We first ask people to describe what they want to measure in the form of a concrete question; we find that the more concrete people can make this question, the more likely they are to derive benefit from the process. When the readability team approached us, its question was simple: are the costs of an engineer going through the readability process worth the benefits they might be deriving for the company?
 
-在谷歌，我们想出了一系列的问题来帮助团队确定是否值得优先度量生产效率。我们首先要求人们以具体问题的形式描述他们想要度量的东西；我们发现，人们提出这个问题越具体，他们就越有可能从这个过程中获益。当可读性团队与我们接触时，其问题很简单：工程师在提高可读性过程中的成本增加是否匹配他们为公司带来的好处？
+在谷歌，我们想出了一系列的问题来帮助团队判定是否值得优先度量生产效率。我们首先要求人们以具体问题的形式描述他们想要度量的东西；我们发现，人们提出这个问题越具体，他们就越有可能从这个过程中获益。当可读性团队与我们接触时，其问题很简单：工程师在提高可读性过程中的成本增加是否匹配他们为公司带来的好处？
 
 We then ask them to consider the following aspects of their question:
 
@@ -91,7 +91,7 @@ We then ask them to consider the following aspects of their question:
 
 *谁将决定对结果采取行动，以及他们何时采取行动？*
     我们这样问是为了确保要求度量的人是被授权采取行动的人（或直接代表他们采取行动）。归根结底，度量我们的软件流程的目的是帮助人们做出业务决策。了解这个人是谁很重要，包括什么形式的数据能说服他们。尽管最好的研究包括各种方法（从结构化访谈到日志的统计分析等各种方法），但为决策者提供他们需要的数据的时间可能有限。在这些情况下，最好的办法是迎合决策者的要求。他们是否倾向于通过访谈中可以获取到的故事来做出决策？他们是否信任调查结果或日志数据？他们对复杂的统计分析感到满意吗？如果决策者压根就不相信结果的形式，那么度量过程又没有意义。
-    在可读性方面，我们对每种编程语言都有一个明确的决策者。有两个语言团队，即Java和C++，积极向我们寻求帮助，而其他团队则在等待，看这些语言先发生什么。决策者相信工程师自我报告的经验，以了解快乐和学习，但决策者希望看到基于日志数据的速度和代码质量的 "硬数字"。这意味着，我们需要对这些指标进行定性和定量分析。这项工作没有一个硬性的截止日期，但有一个内部会议，如果有变化的话，这个会议将宣布一个新的时间点。这个期限给了我们几个月的时间来完成这项工作。
+    在可读性方面，我们对每种编程语言都有一个明确的决策者。有两个语言团队，即Java和C++，积极向我们寻求帮助，而其他团队则在等待，看这些语言先发生什么。决策者相信工程师自我报告的经验，以了解快乐和学习，但决策者希望看到基于日志数据的速度和代码质量的 "硬数字"。这意味着，我们需要对这些指标进行定性和定量分析。这项工作没有一个硬性的截止日期，但如果有变化，有一个内部会议可以用来适时地宣布变更。这个期限给了我们几个月的时间来完成这项工作。
 
 By asking these questions, we find that in many cases, measurement is simply not worthwhile…and that’s OK! There are many good reasons to not measure the impact of a tool or process on productivity. Here are some examples that we’ve seen:
 
@@ -122,7 +122,7 @@ By asking these questions, we find that in many cases, measurement is simply not
 *结果只能作为浮华的指标，以来支持你一定要做的事情*  
     这也许是我们在谷歌告诉人们不要度量软件过程的最常见的原因。很多时候，人们已经为多个原因规划了一个决策，而改进软件开发过程只是这些决策的一个好处。例如，谷歌的发布工具团队曾经要求对发布工作流程系统的计划变更进行度量。由于变化的性质，很明显，这个变化不会比目前的状态差，但他们不知道这是一个小的改进还是一个大的改进。我们问团队：如果结果只是一个小的改进，无论如何你会花资源来实现这个功能，即使它看起来不值得投资？答案是肯定的! 这个功能碰巧提高了生产效率，但这是一个副作用：它也更具有性能，降低了发布工具团队的维护负担。
 
-*唯一可用的指标不够精确，无法度量问题，而且会被其他因素所干扰*  
+*现有可用的度量标准不够精确，无法准确测量问题，且可能受到其他因素的干扰*  
     在某些情况下，所需的指标（见即将到来的关于如何识别指标的章节）根本无法获得。在这些情况下，使用其他不那么精确的指标（例如，编写的代码行）进行度量是很诱人的。然而，这些指标的任何结果都是无法解释的。如果这个指标证实了利益相关者预先存在的观念，他们最终可能会继续执行他们的计划，而不考虑这个指标不是一个准确的度量标准。如果它没有证实他们的观念，那么指标本身的不精确性就提供了一个简单的解释，利益相关者可能再次继续他们的计划。
 
 When you are successful at measuring your software process, you aren’t setting out to prove a hypothesis correct or incorrect; *success means giving a stakeholder the data they need to make a decision*. If that stakeholder won’t use the data, the project is always a failure. We should only measure a software process when a concrete decision will be made based on the outcome. For the readability team, there was a clear decision to be made. If the metrics showed the process to be beneficial, they would publicize the result. If not, the process would be abolished. Most important, the readability team had the authority to make this decision.
@@ -152,7 +152,7 @@ At Google, we use the Goals/Signals/Metrics (GSM) framework to guide metrics cre
 - A *metric* is proxy for a signal. It is the thing we actually can measure. It might not be the ideal measurement, but it is something that we believe is close enough.
 
 - *目标* 是一个期望的最终结果。它是根据你希望在高层次上理解的内容来表述的，不应包含对具体度量方法的引用。。
-- *信号* 是你如何知道你已经实现了最终结果。信号是我们*想要*度量的东西，但它们本身可能是不可度量的。
+- *信号* 是指你可能如何得知你已经达到最终结果的方式。信号是我们*想要*度量的东西，但它们本身可能是不可度量的。
 - *指标* 是信号的代表。它是我们实际上可以度量的东西。它可能不是理想的度量，但它是我们认为足够接近的东西。
 
 The GSM framework encourages several desirable properties when creating metrics. First, by creating goals first, then signals, and finally metrics, it prevents the *streetlight* *effect*. The term comes from the full phrase “looking for your keys under the streetlight”: if you look only where you can see, you might not be looking in the right place. With metrics, this occurs when we use the metrics that we have easily accessible and that are easy to measure, regardless of whether those metrics suit our needs. Instead, GSM forces us to think about which metrics will actually help us achieve our goals, rather than simply what we have readily available.
