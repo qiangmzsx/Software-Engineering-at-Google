@@ -385,7 +385,7 @@ Documenting the reasoning behind a given decision gives us the advantage of bein
 
 At Google, when we defined our initial style guidance for Python code, we chose to use CamelCase naming style instead of snake_case naming style for method names. Although the public Python style guide (PEP 8) and most of the Python community used snake_case naming, most of Google’s Python usage at the time was for C++ developers using Python as a scripting layer on top of a C++ codebase. Many of the defined Python types were wrappers for corresponding C++ types, and because Google’s C++ naming conventions follow CamelCase style, the cross-language consistency was seen as key.
 
-在谷歌，当我们为Python代码定义初始风格指导时，我们选择使用驼峰命名风格，而不是使用snake_case命名风格来命名方法名。尽管公共Python风格指南(PEP 8)和大多数Python社区使用了snake_case命名，但当时谷歌的大多数Python用法是为c++开发人员使用Python作为c++代码库之上的脚本层。许多定义的Python类型是相应c++类型的包装器，因为Goo‐gle的C++命名惯例遵循驼峰命名风格，在这里跨语言的一致性被视为关键。
+在谷歌，当我们为Python代码定义初始风格指导时，我们选择使用驼峰命名风格，而不是使用snake_case命名风格来命名方法名。尽管公共Python风格指南(PEP 8)和大多数Python社区使用了snake_case命名，但当时谷歌的大多数Python用法是为c++开发人员使用Python作为c++代码库之上的脚本层。许多定义的Python类型是相应c++类型的包装工具，因为Goo‐gle的C++命名惯例遵循驼峰命名风格，在这里跨语言的一致性被视为关键。
 
 Later, we reached a point at which we were building and supporting independent Python applications. The engineers most frequently using Python were Python engineers developing Python projects, not C++ engineers pulling together a quick script. We were causing a degree of awkwardness and readability problems for our Python engineers, requiring them to maintain one standard for our internal code but constantly adjust for another standard every time they referenced external code. We were also making it more difficult for new hires who came in with Python experience to adapt to our codebase norms.
 
@@ -437,7 +437,7 @@ Waivers are not granted lightly. In C++ code, if a macro API is introduced, the 
 
 Exceptions are allowed for cases in which it is gauged to be more beneficial to permit the rule-breaking than to avoid it. The C++ style guide disallows implicit type conversions, including single-argument constructors. However, for types that are designed to transparently wrap other types, where the underlying data is still accurately and precisely represented, it’s perfectly reasonable to allow implicit conversion. In such cases, waivers to the no-implicit-conversion rule are granted. Having such a clear case for valid exemptions might indicate that the rule in question needs to be clarified or amended. However, for this specific rule, enough waiver requests are received that appear to fit the valid case for exemption but in fact do not—either because the specific type in question is not actually a transparent wrapper type or because the type is a wrapper but is not actually needed—that keeping the rule in place as-is is still worthwhile.
 
-在被认为允许违反规则比避免违反规则更有利的情况下，允许例外。C++ 风格指南不允许隐式类型转换，包括单参数构造函数。然而，对于那些被设计成透明地包装其他类型的类型，其中的底层数据仍然被精确地表示出来，允许隐式转换是完全合理的。在这种情况下，授予对无隐式转换规则的豁免。拥有如此明确的有效豁免案例可能表明需要澄清或修改相关规则。然而,对于此特定规则，收到了足够多的豁免请求，这些请求似乎适合豁免的有效案例，但实际上不符合。因为所讨论的特定类型实际上不是透明包装器类型，或者因为该类型是包装器但实际上并不需要——保持原样的规则仍然是值得的。
+在被认为允许违反规则比避免违反规则更有利的情况下，允许例外。C++ 风格指南不允许隐式类型转换，包括单参数构造函数。然而，对于那些被设计成透明地包装其他类型的类型，其中的底层数据仍然被精确地表示出来，允许隐式转换是完全合理的。在这种情况下，授予对无隐式转换规则的豁免。拥有如此明确的有效豁免案例可能表明需要澄清或修改相关规则。然而,对于此特定规则，收到了足够多的豁免请求，这些请求似乎适合豁免的有效案例，但实际上不符合。因为所讨论的特定类型实际上不是透明包装工具类型，或者因为该类型是包装工具但实际上并不需要——保持原样的规则仍然是值得的。
 
 ## Guidance  指导
 
@@ -490,7 +490,7 @@ Although some level of training is always necessary—engineers must, after all,
 
 Automated rule enforcement ensures that rules are not dropped or forgotten as time passes or as an organization scales up. New people join; they might not yet know all the rules. Rules change over time; even with good communication, not everyone will remember the current state of everything. Projects grow and add new features; rules that had previously not been relevant are suddenly applicable. An engineer checking for rule compliance depends on either memory or documentation, both of which can fail. As long as our tooling stays up to date, in sync with our rule changes, we know that our rules are being applied by all our engineers for all our projects.
 
-自动执行规则可确保随着时间的推移或组织规模的扩大，规则不会被丢弃或遗忘。新的人加入；他们可能还不知道所有的规则。规则会随着时间而改变;即使有良好的沟通，也不是每个人都能记住所有事情的当前状态。项目不断发展并添加新功能;以前不相关的规则突然适用了。检查规则合规性的工程师取决于记忆或文档，这两者都可能失败。只要我们的工具保持更新，与我们的规则更改同步，我们就知道我们的规则被我们所有的工程师应用于我们所有的项目。
+自动执行规则确保了规则不会随着时间流逝或组织扩展而被遗漏或遗忘。新的人加入；他们可能还不熟悉所有规则。规则随时间演变；即使沟通顺畅，也非所有人都能记住每项事物的当前状态。项目不断发展并添加新功能;以前不相关的规则突然适用了。检查规则合规性的工程师依赖于记忆或文档，这两者都可能失败。只要我们的工具保持更新，与我们的规则更改同步，我们就知道我们的规则被我们所有的工程师应用于我们所有的项目。
 
 Another advantage to automated enforcement is minimization of the variance in how a rule is interpreted and applied. When we write a script or use a tool to check for compliance, we validate all inputs against a single, unchanging definition of the rule. We aren’t leaving interpretation up to each individual engineer. Human engineers view everything with a perspective colored by their biases. Unconscious or not, potentially subtle, and even possibly harmless, biases still change the way people view things. Leaving enforcement up to engineers is likely to see inconsistent interpretation and application of the rules, potentially with inconsistent expectations of accountability. The more that we delegate to the tools, the fewer entry points we leave for human biases to enter.
 
@@ -498,7 +498,7 @@ Another advantage to automated enforcement is minimization of the variance in ho
 
 Tooling also makes enforcement scalable. As an organization grows, a single team of experts can write tools that the rest of the company can use. If the company doubles in size, the effort to enforce all rules across the entire organization doesn’t double, it costs about the same as it did before.
 
-工具还使执行具有可扩展性。随着组织的成长，一个专家团队就可以编写公司其他部门都可以使用的工具。如果公司的规模扩大一倍，在整个组织内执行所有规则的成本不会增加一倍，它与以前差不多。
+工具还使执行具有可扩展性。随着组织的成长，专家团队可以开发出全公司都能使用的工具。如果公司的规模扩大一倍，在整个组织内执行所有规则的成本不会增加一倍，它与以前差不多。
 
 Even with the advantages we get by incorporating tooling, it might not be possible to automate enforcement for all rules. Some technical rules explicitly call for human judgment. In the C++ style guide, for example: “Avoid complicated template metaprogramming.” “Use auto to avoid type names that are noisy, obvious, or unimportant—cases where the type doesn’t aid in clarity for the reader.” “Composition is often more appropriate than inheritance.” In the Java style guide: “There’s no single correct recipe for how to [order the members and initializers of your class]; different classes may order their contents in different ways.” “It is very rarely correct to do nothing in response to a caught exception.” “It is extremely rare to override Object.finalize.” For all of these rules, judgment is required and tooling can’t (yet!) take that place.
 
@@ -508,11 +508,11 @@ Other rules are social rather than technical, and it is often unwise to solve so
 
 其他规则是社会性的而不是技术性的，用技术性的解决方案来解决社会性问题通常是不明智的。对于这个类别下的许多规则，细节往往不太明确，工具将变得复杂且昂贵。将这些规则的执行留给人类通常会更好。例如，当涉及到给定代码更改的大小（即受影响的文件数和修改的行数）时，我们建议工程师倾向于较小的更改。对于工程师来说，小的变更更容易审核，所以审核往往更快、更可靠。它们也不太可能引入bug，因为更容易推断出较小更改的潜在影响和效果。然而，“小”的定义有些模糊。一个在数百个文件中传播相同的单行更新的变化实际上可能很容易审查。相比之下，一个较小的20行修改可能会引入复杂的逻辑，并产生难以评估的副作用。我们认识到有许多不同的衡量尺度，其中一些可能是主观的——特别是当考虑到变化的复杂性时。这就是为什么我们没有任何工具来自动拒绝超过任意行限制的建议更改。如果审阅者认为更改过大，他们可以(而且确实会)推回。对于这种规则和类似的规则，执行由编写和审查代码的工程师自行决定。然而，当涉及到技术规则时，只要是可行的，我们倾向于技术执行。
 
-### Error Checkers  错误检查器
+### Error Checkers  错误检查工具
 
 Many rules covering language usage can be enforced with static analysis tools. In fact, an informal survey of the C++ style guide by some of our C++ librarians in mid-2018 estimated that roughly 90% of its rules could be automatically verified. Error- checking tools take a set of rules or patterns and verify that a given code sample fully complies. Automated verification removes the burden of remembering all applicable rules from the code author. If an engineer only needs to look for violation warnings— many of which come with suggested fixes—surfaced during code review by an analyzer that has been tightly integrated into the development workflow, we minimize the effort that it takes to comply with the rules. When we began using tools to flag deprecated functions based on source tagging, surfacing both the warning and the suggested fix in-place, the problem of having new usages of deprecated APIs disappeared almost overnight. Keeping the cost of compliance down makes it more likely for engineers to happily follow through.
 
-许多涉及语言使用的规则可以通过静态分析工具强制执行。事实上，我们的一些C++类库管理员在2018年年中对C++风格指南进行的一项非正式调查估计，其中大约90%的规则可以自动验证。错误检查工具采用一组规则或模式，并验证给定的代码示例是否完全符合。自动验证消除了代码作者记住所有适用规则的负担。如果工程师只需要查找违规警告——其中许多都带有建议的修复——在代码审查期间由已紧密集成到开发工作流中的分析器发现的，我们将尽可能减少遵守规则所需要的工作量。当我们开始使用工具基于源标签来标记已弃用的函数时，警告和建议的就都会同时给出，新使用已弃用 API 的问题几乎在一夜之间消失了。降低合规成本使工程师更有可能愉快地贯彻执行。
+许多涉及语言使用的规则可以通过静态分析工具强制执行。事实上，我们的一些C++类库管理员在2018年年中对C++风格指南进行的一项非正式调查估计，其中大约90%的规则可以自动验证。错误检查工具采用一组规则或模式，并验证给定的代码示例是否完全符合。自动验证消除了代码作者记住所有适用规则的负担。如果工程师只需要查找违规警告——其中许多都带有建议的修复——在代码审查期间由已紧密集成到开发工作流中的分析工具发现的，我们将尽可能减少遵守规则所需要的工作量。当我们开始使用工具基于源标签来标记已弃用的函数时，警告和建议的就都会同时给出，新使用已弃用 API 的问题几乎在一夜之间消失了。降低合规成本使工程师更有可能愉快地贯彻执行。
 
 We use tools like clang-tidy (for C++) and Error Prone (for Java) to automate the process of enforcing rules. See Chapter 20 for an in-depth discussion of our approach.
 
@@ -522,19 +522,19 @@ The tools we use are designed and tailored to support the rules that we define. 
 
 我们使用的工具都是为支持我们定义的规则而设计和定制的。大多数支持规则的工具都是绝对的;每个人都必须遵守规则，所以每个人都使用检查规则的工具。有时，当工具支持最佳实践时，在遵守约定方面有更多的灵活性，就会有选择退出机制，允许项目根据自己的需要进行调整。
 
-### Code Formatters  代码格式器
+### Code Formatters  代码格式工具
 
 At Google, we generally use automated style checkers and formatters to enforce consistent formatting within our code. The question of line lengths has stopped being interesting.[^13]Engineers just run the style checkers and keep moving forward. When formatting is done the same way every time, it becomes a non-issue during code review, eliminating the review cycles that are otherwise spent finding, flagging, and fixing minor style nits.
 
-在谷歌，我们通常使用自动样式检查器和格式化器来在我们的代码中执行一致的格式。行长度的问题已经不再有趣了。工程师只需运行样式检查器并继续前进。如果每次都以相同的方式进行格式化，那么在代码审查期间就不会出现问题，从而消除了用来查找、标记和修复要样式细节的审查周期。
+在谷歌，我们通常使用自动样式检查工具和格式化工具来在我们的代码中执行一致的格式。行长度的问题已经不再有趣了。工程师只需运行样式检查工具并继续前进。如果每次都以相同的方式进行格式化，那么在代码审查期间就不会出现问题，从而消除了用来查找、标记和修复要样式细节的审查周期。
 
 In managing the largest codebase ever, we’ve had the opportunity to observe the results of formatting done by humans versus formatting done by automated tooling. The robots are better on average than the humans by a significant amount. There are some places where domain expertise matters—formatting a matrix, for example, is something a human can usually do better than a general-purpose formatter. Failing that, formatting code with an automated style checker rarely goes wrong.
 
-在管理有史以来最大的代码库时，我们有机会观察人工格式化和自动化工具格式化的结果。平均而言，机器人比人类好很多。在某些地方，领域专业知识很重要——例如，格式化矩阵，人工通常可以比通用格式化程序做得更好。如果做不到这一点，用自动样式检查器格式化代码很少出错。
+在管理有史以来最大的代码库时，我们有机会观察人工格式化和自动化工具格式化的结果。平均而言，机器人比人类好很多。在某些地方，领域专业知识很重要——例如，格式化矩阵，人工通常可以比通用格式化程序做得更好。如果做不到这一点，用自动样式检查工具格式化代码很少出错。
 
 We enforce use of these formatters with presubmit checks: before code can be submitted, a service checks whether running the formatter on the code produces any diffs. If it does, the submit is rejected with instructions on how to run the formatter to fix the code. Most code at Google is subject to such a presubmit check. For our code, we use clang-format for C++; an in-house wrapper around yapf for Python; gofmt for Go; dartfmt for Dart; and buildifier for our BUILD files.
 
-我们通过预提交检查强制使用这些格式化程序:在提交代码之前，服务会检查在代码上运行格式化器是否会产生任何差异。如果是，提交将被拒绝，并提供有关如何运行格式化程序以修复代码的说明。谷歌上的大多数代码都要接受这种预提交检查。在我们的代码中，C++使用了clang-format;Python使用yapf内部包装器;Go使用gofmt; Dart 使用 dartfmt;以及我们的 BUILD 文件使用buildifier。
+我们通过预提交检查强制使用这些格式化程序:在提交代码之前，服务会检查在代码上运行格式化工具是否会产生任何差异。如果是，提交将被拒绝，并提供有关如何运行格式化程序以修复代码的说明。谷歌上的大多数代码都要接受这种预提交检查。在我们的代码中，C++使用了clang-format；Python使用yapf内部包装工具；Go使用gofmt；Dart 使用 dartfmt；以及我们的 BUILD 文件使用buildifier。
 
 > 13 When you consider that it takes at least two engineers to have the discussion and multiply that by the number of times this conversation is likely to happen within a collection of more than 30,000 engineers, it turns out that “how many characters” can become a very expensive question.
 >
@@ -584,7 +584,7 @@ Thousands of open source packages read and write Go code.[^17] Because all edito
 
 In 2012, we decided to automatically format all BUILD files at Google using a new standard formatter: buildifier. BUILD files contain the rules for building Google’s software with Blaze, Google’s build system. A standard BUILD format would enable us to create tools that automatically edit BUILD files without disrupting their format, just as Go tools do with Go files.
 
-在2012年，我们决定使用一个新的标准格式器来自动格式化谷歌中的所有BUILD文件:buildifier。BUILD文件包含了使用Blaze(谷歌的构建系统)构建谷歌软件的规则。标准的BUILD格式将使我们能够创建自动编辑BUILD文件而不破坏其格式的工具，就像Go工具对Go文件所做的那样。
+在2012年，我们决定使用一个新的标准格式工具来自动格式化谷歌中的所有BUILD文件:buildifier。BUILD文件包含了使用Blaze(谷歌的构建系统)构建谷歌软件的规则。标准的BUILD格式将使我们能够创建自动编辑BUILD文件而不破坏其格式的工具，就像Go工具对Go文件所做的那样。
 
 It took six weeks for one engineer to get the reformatting of Google’s 200,000 BUILD files accepted by the various code owners, during which more than a thousand new BUILD files were added each week. Google’s nascent infrastructure for making large- scale changes greatly accelerated this effort. (See Chapter 22.)
 
