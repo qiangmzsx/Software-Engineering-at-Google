@@ -569,7 +569,7 @@ Most technical documentation answers a “HOW” question. How does this work? H
 
 All documents—indeed, all parts of documents—have a beginning, middle, and end. Although it sounds amazingly silly, most documents should often have, at a minimum, those three sections. A document with only one section has only one thing to say, and very few documents have only one thing to say. Don’t be afraid to add sections to your document; they break up the flow into logical pieces and provide readers with a roadmap of what the document covers.
 
-所有的文档——事实上，文档的所有部分——都有一个开始、中间和结束。虽然这听起来很愚蠢，但大多数文档通常至少应该有这三个部分。只有一个部分的文档只有一句话要说，很少文档只有一句话要说。不要害怕在文档中添加条款；它们将流程分解为逻辑部分，并为读者提供文档内容的路线图。
+所有的文档——事实上，文档的所有部分——都有一个开头、中间和结束。虽然这听起来很愚蠢，但大多数文档通常至少应该有这三个部分。只有一个部分的文档只有一句话要说，很少文档只有一句话要说。不要害怕在文档中添加条款；它们将流程分解为逻辑部分，并为读者提供文档内容的路线图。
 
 Even the simplest document usually has more than one thing to say. Our popular “C++ Tips of the Week” have traditionally been very short, focusing on one small piece of advice. However, even here, having sections helps. Traditionally, the first section denotes the problem, the middle section goes through the recommended solutions, and the conclusion summarizes the takeaways. Had the document consisted of only one section, some readers would doubtless have difficulty teasing out the important points.
 
@@ -587,7 +587,7 @@ There are usually three aspects of good documentation: completeness, accuracy, a
 
 In each case, a “good document” is defined as the document that is doing its intended job. As a result, you rarely want a document doing more than one job. For each document (and for each document type), decide on its focus and adjust the writing appropriately. Writing a conceptual document? You probably don’t need to cover every part of the API. Writing a reference? You probably want this complete, but perhaps must sacrifice some clarity. Writing a landing page? Focus on organization and keep discussion to a minimum. All of this adds up to quality, which, admittedly, is stubbornly difficult to accurately measure.
 
-在每种情况下，“良好的文档”都被定义为有效的文档。因此，你很少希望文档执行多个任务。对于每个文档（以及每种文档类型），确定其重点并适当调整写作。写概念文档？你可能不需要涵盖API的每个部分。写参考文档？你可能希望这是完整的，但可能必须牺牲一些清晰度。写着陆页？专注于组织，并尽量减少讨论。所有这些都是为了提高质量，诚然，这是很难准确衡量的。
+在每种情况下，“良好的文档”都被定义为有效的文档。因此，通常我们不希望文档承担多于一个的任务或职责。对于每个文档（以及每种文档类型），确定其重点并适当调整写作。写概念文档？你可能不需要涵盖API的每个部分。写参考文档？你可能希望这是完整的，但可能必须牺牲一些清晰度。写着陆页？专注于组织，并尽量减少讨论。所有这些都是为了提高质量，诚然，这是很难准确衡量的。
 
 How can you quickly improve the quality of a document? Focus on the needs of the audience. Often, less is more. For example, one mistake engineers often make is adding design decisions or implementation details to an API document. Much like you should ideally separate the interface from an implementation within a welldesigned API, you should avoid discussing design decisions in an API document. Users don’t need to know this information. Instead, put those decisions in a specialized document for that purpose (usually a design doc).
 
@@ -619,7 +619,7 @@ Users who own such a document have an incentive to keep that freshness date curr
 
 When Google was young and growing, there weren’t enough technical writers in software engineering. (That’s still the case.) Those projects deemed important tended to receive a technical writer, regardless of whether that team really needed one. The idea was that the writer could relieve the team of some of the burden of writing and maintaining documents and (theoretically) allow the important project to achieve greater velocity. This turned out to be a bad assumption.
 
-当谷歌年轻和成长时，软件工程中没有足够的技术撰稿人。(现在仍然如此。）那些被认为是重要的项目往往会得到一个技术撰稿人，不管这个团队是否真的需要。我们的想法是，技术撰稿人可以减轻团队编写和维护文档的一些负担，（理论上）让重要的项目取得更快的发展。这被证明是一个错误的假设。
+当谷歌早期和成长时，软件工程中没有足够的技术撰稿人。(现在仍然如此。）那些被认为是重要的项目往往会得到一个技术撰稿人，不管这个团队是否真的需要。我们的想法是，技术撰稿人可以减轻团队编写和维护文档的一些负担，（理论上）让重要的项目取得更快的发展。这被证明是一个错误的假设。
 
 We learned that most engineering teams can write documentation for themselves (their team) perfectly fine; it’s only when they are writing documents for another audience that they tend to need help because it’s difficult to write to another audience. The feedback loop within your team regarding documents is more immediate, the domain knowledge and assumptions are clearer, and the perceived needs are more obvious. Of course, a technical writer can often do a better job with grammar and organization, but supporting a single team isn’t the best use of a limited and specialized resource; it doesn’t scale. It introduced a perverse incentive: become an important project and your software engineers won’t need to write documents. Discouraging engineers from writing documents turns out to be the opposite of what you want to do.
 
@@ -637,7 +637,7 @@ Google has made good strides in addressing documentation quality over the past d
 
 To be fair, there’s not necessarily the same need to address documentation as with testing. Tests can be made atomic (unit tests) and can follow prescribed form and function. Documents, for the most part, cannot. Tests can be automated, and schemes to automate documentation are often lacking. Documents are necessarily subjective; the quality of the document is measured not by the writer, but by the reader, and often quite asynchronously. That said, there is a recognition that documentation is important, and processes around document development are improving. In this author’s opinion, the quality of documentation at Google is better than in most software engineering shops.
 
-公平地说，解决文档问题的必要性不一定和测试一样。测试可以是原子化的（单元测试），可以遵循规定的形式和功能。在大多数情况下，文档都做不到。测试可以自动化，而文档自动化的方案通常是缺乏的。文档必然是主观的；文档的质量不是由作者来衡量的，而是由读者来衡量的，而且通常是异步的。尽管如此，人们认识到文档的重要性，围绕文档开发的过程也在不断改进。在笔者看来，谷歌公司的文档质量比大多数软件工程公司的要好。
+公平地说，解决文档问题的必要性不一定和测试一样。测试可以是原子化的（单元测试），可以遵循规定的形式和功能。在大多数情况下，文档都做不到。测试可以自动化，而文档自动化的方案通常是缺乏的。文档必然是主观的；文档本质上具有主观性；其质量的评价取决于读者而非作者，而且通常是异步的。尽管如此，人们认识到文档的重要性，围绕文档开发的过程也在不断改进。在笔者看来，谷歌公司的文档质量比大多数软件工程公司的要好。
 
 To change the quality of engineering documentation, engineers—and the entire engineering organization—need to accept that they are both the problem and the solution. Rather than throw up their hands at the state of documentation, they need to realize that producing quality documentation is part of their job and saves them time and effort in the long run. For any piece of code that you expect to live more than a few months, the extra cycles you put in documenting that code will not only help others, it will help you maintain that code as well.
 
@@ -651,6 +651,6 @@ To change the quality of engineering documentation, engineers—and the entire e
 - Write for your audience, not yourself.
 
 - 随着时间和规模的增长，文档是非常重要的。
-- 文档的变化应该利用现有的开发人员的工作流程。
+- 文档的更新应该利用现有的开发人员的工作流程。
 - 让文档集中在一个职责（用途）上。
 - 为你的受众而不是你自己而写。
