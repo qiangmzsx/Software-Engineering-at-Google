@@ -19,7 +19,7 @@ For example, imagine trying to write a test for a function that sends a request 
 
 Test doubles come in handy in such cases. A test double is an object or function that can stand in for a real implementation in a test, similar to how a stunt double can stand in for an actor in a movie. The use of test doubles is often referred to as mocking, but we avoid that term in this chapter because, as we’ll see, that term is also used to refer to more specific aspects of test doubles.
 
-在这种情况下，测试替代就会派上用场。测试替代可以是一个对象或函数，它可以在测试中代替真正的实现，类似于特技替身可以代替电影中的演员那样。测试替代的使用通常被称为模拟，但我们在本章中避免使用这个术语，因为正如我们将看到的，这个术语也被用来指代测试替代的更具体方面。
+在这种情况下，测试替代就会派上用场。测试替代可以是一个对象或函数，它可以在测试中替代真正的实现，类似于特技替身可以代替电影中的演员那样。测试替代的使用通常被称为模拟，但我们在本章中避免使用这个术语，因为正如我们将看到的，这个术语也被用来指代测试替代的更具体方面。
 
 Perhaps the most obvious type of test double is a simpler implementation of an object that behaves similarly to the real implementation, such as an in-memory database. Other types of test doubles can make it possible to validate specific details of your system, such as by making it easy to trigger a rare error condition, or ensuring a heavyweight function is called without actually executing the function’s implementation.
 
@@ -301,7 +301,7 @@ Although stubbing can be a quick and simple technique to apply, it has limitatio
 
 [*Interaction testing*](https://oreil.ly/zGfFn)is a way to validate *how* a function is called without actually calling the implementation of the function. A test should fail if a function isn’t called the correct way—for example, if the function isn’t called at all, it’s called too many times, or it’s called with the wrong arguments.
 
-交互测试是一种在不实际调用函数实现的情况下验证函数调用方式的方法。如果函数没有正确调用，测试应该失败。例如，如果函数根本没有被调用，调用次数太多，或者调用参数错误。
+交互测试是一种在不执行函数实现的情况下验证函数如何被调用的方法。如果函数没有正确调用，测试应该失败。例如，如果函数根本没有被调用，调用次数太多，或者调用参数错误。
 
 Example 13-9 presents an instance of interaction testing. The verify(...) method from the Mockito mocking framework is used to validate that lookupUser() is called as expected.
 
@@ -346,7 +346,7 @@ Preferring real implementations in tests is known as [*classical testing*](https
 
 在测试中更倾向于使用真实实现被称为[*经典测试*](https://oreil.ly/OWw7h)。还有一种测试风格被称为*模拟测试*，其中倾向于使用模拟框架而不是真实实现。尽管软件行业的一些人在进行模拟测试（包括[第一个模拟框架](https://oreil.ly/_QWy7)的创造者），但在谷歌，我们发现这种测试风格很难扩展。它要求工程师遵循[设计被测系统时的严格准则](http://jmock.org/oopsla2004.pdf)，而谷歌大多数工程师的默认行为是以一种更适合经典测试风格的方式来编写代码。
 
-### Prefer Realism Over Isolation 倾向于现实主义而不是孤立主义
+### Prefer Realism Over Isolation 优先考虑现实性而非孤立性
 
 Using real implementations for dependencies makes the system under test more realistic given that all code in these real implementations will be executed in the test. In contrast, a test that utilizes test doubles isolates the system under test from its dependencies so that the test does not execute code in the dependencies of the system under test.
 
@@ -409,7 +409,7 @@ However, for more complex code, using a real implementation often isn’t feasib
 
 One of the most important qualities of unit tests is that they should be fast—you want to be able to continually run them during development so that you can get quick feedback on whether your code is working (and you also want them to finish quickly when run in a CI system). As a result, a test double can be very useful when the real implementation is slow.
 
-单元测试的一个最重要的特性是它们应该是快速的——你希望能够在开发过程中持续运行它们，以便能够快速获得代码是否正常工作的反馈（你还希望它们在CI系统中运行时能够快速完成）因此，当实际实现缓慢时，测试替代可能非常有用。
+单元测试的最重要特性之一是速度——你希望能够在开发过程中持续运行它们，以便能够快速获得代码是否正常工作的反馈（你还希望它们在CI系统中运行时能够快速完成）因此，当实际实现缓慢时，测试替代可能非常有用。
 
 How slow is too slow for a unit test? If a real implementation added one millisecond to the running time of each individual test case, few people would classify it as slow. But what if it added 10 milliseconds, 100 milliseconds, 1 second, and so on?
 
@@ -431,7 +431,7 @@ Another trade-off to be aware of: using a real implementation can result in incr
 
 A test is [*deterministic*](https://oreil.ly/brxJl)if, for a given version of the system under test, running the test always results in the same outcome; that is, the test either always passes or always fails. In contrast, a test is [*nondeterministic*](https://oreil.ly/5pG0f)if its outcome can change, even if the system under test remains unchanged.
 
-如果对于被测系统的给定版本，运行测试的结果总是相同的，也就是说，测试要么总是通过，要么总是失败，那么这个测试就是[*确定性*](https://oreil.ly/brxJl)。相反，如果一个测试的结果可以改变，即使被测系统保持不变，那么它就是[*非确定性*](https://oreil.ly/5pG0f)。
+如果对于被测系统的给定版本，运行测试的结果总是相同的，也就是说，测试要么总是通过，要么总是失败，那么这个测试就具有[*确定性*](https://oreil.ly/brxJl)。相反，如果一个测试的结果可以改变，即使被测系统保持不变，那么它就是[*非确定性*](https://oreil.ly/5pG0f)。
 
 [Nondeterminism in tests ](https://oreil.ly/71OFU)can lead to flakiness—tests can occasionally fail even when there are no changes to the system under test. As discussed in Chapter 11, flakiness harms the health of a test suite if developers start to distrust the results of the test and ignore failures. If use of a real implementation rarely causes flakiness, it might not warrant a response, because there is little disruption to engineers. But if flakiness hap‐pens often, it might be time to replace a real implementation with a test double because doing so will improve the fidelity of the test.
 
@@ -595,7 +595,7 @@ If the owners of an API are unwilling or unable to create a fake, you might be a
 
 Finally, you could decide to settle on using a real implementation (and deal with the trade-offs of real implementations that are mentioned earlier in this chapter), or resort to other test double techniques (and deal with the trade-offs that we will mention later in this chapter).
 
-最后，你可以决定定位于使用真实实现（并处理本章前面提到的真实实现的权衡问题），或者求助于其他测试替代技术（并处理本章后面提到的权衡问题）。
+最后，你可以决定选择使用真实实现（并处理本章前面提到的真实实现的权衡问题），或者求助于其他测试替代技术（并处理本章后面提到的权衡问题）。
 
 In some cases, you can think of a fake as an optimization: if tests are too slow using a real implementation, you can create a fake to make them run faster. But if the speedup from a fake doesn’t outweigh the work it would take to create and maintain the fake, it would be better to stick with using the real implementation.
 
@@ -787,7 +787,7 @@ The primary issue with interaction testing is that it can’t tell you that the 
 
 Another downside of interaction testing is that it utilizes implementation details of the system under test—to validate that a function was called, you are exposing to the test that the system under test calls this function. Similar to stubbing, this extra code makes tests brittle because it leaks implementation details of your production code into tests. Some people at Google jokingly refer to tests that overuse interaction testing as [*change-detector* *tests* ](https://oreil.ly/zkMDu)because they fail in response to any change to the production code, even if the behavior of the system under test remains unchanged.
 
-交互测试的另一个缺点是，它利用被测系统的实现细节——验证某个函数是否被调用，你向测试暴露了被测系统调用这个函数。与打桩类似，这个额外的代码使测试变得脆弱，因为它将生产代码的实现细节泄漏到测试中。谷歌的一些人开玩笑地把过度使用交互测试的测试称为[*变更检测器测试*](https://oreil.ly/zkMDu)，因为它们对生产代码的任何改变都会失败，即使被测系统的行为保持不变。
+交互测试的另一个缺点是，它利用被测系统的实现细节——验证某个函数是否被调用，你使测试依赖于被测系统调用该函数的具体实现。与打桩类似，这个额外的代码使测试变得脆弱，因为它将生产代码的实现细节泄漏到测试中。谷歌的一些人开玩笑地把过度使用交互测试的测试称为[*变更检测器测试*](https://oreil.ly/zkMDu)，因为它们对生产代码的任何改变都会失败，即使被测系统的行为保持不变。
 
 ### When Is Interaction Testing Appropriate? 什么时候适合进行交互测试？
 
@@ -813,9 +813,9 @@ Interaction testing is not a complete replacement for state testing. If you are 
 
 When performing interaction testing, following these practices can reduce some of the impact of the aforementioned downsides.
 
-在进行交互测试时，遵循这些做法可以减少上述弊端的一些影响。
+在进行交互测试时，遵循这些最佳实践可以减轻交互测试的负面影响。
 
-#### Prefer to perform interaction testing only for state-changing functions 倾向于只对状态改变的功能进行交互测试
+#### Prefer to perform interaction testing only for state-changing functions  优先对改变状态的函数进行交互测试
 
 When a system under test calls a function on a dependency, that call falls into one of two categories:
 - *State-changing*
@@ -841,7 +841,7 @@ sendEmail(), saveRecord(), logAccess().
 ```
 
 - *不改变状态*
-没有副作用的函数；它们返回关于被测系统以外的范围的信息，不修改任何东西。例如：
+没有副作用的函数；它们返回关于被测系统以外的范围的信息，但不进行任何修改。例如：
 
 ```java
 getUser(), findResults(), readFile()。
@@ -886,7 +886,7 @@ In Chapter 12, we discuss why it is useful to test behaviors rather than methods
 
 When performing interaction testing, we should aim to apply the same principle by avoiding overspecifying which functions and arguments are validated. This leads to tests that are clearer and more concise. It also leads to tests that are resilient to changes made to behaviors that are outside the scope of each test, so fewer tests will fail if a change is made to a way a function is called.
 
-在进行交互测试时，我们应该通过避免过度指定哪些函数和参数被验证，来达到应用同样的原则。这将导致测试更清晰、更简洁。这也导致了测试对每个测试范围之外的行为的改变有弹性，所以如果改变了一个函数的调用方式，更少的测试会失败。
+在进行交互测试时，我们应该通过避免过度指定验证哪些函数和参数，以应用相同原则。这将导致测试更清晰、更简洁。这也导致了测试对每个测试范围之外的行为的改变有弹性，所以如果改变了一个函数的调用方式，更少的测试会失败。
 
 Example 13-18 illustrates interaction testing with overspecification. The intention of the test is to validate that the user’s name is included in the greeting prompt, but the test will fail if unrelated behavior is changed.
 
