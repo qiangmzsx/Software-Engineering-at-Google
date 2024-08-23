@@ -17,7 +17,7 @@ In previous chapters, we have recounted how a testing culture was established at
 
 As mentioned previously, Google has specific notions of test size. Small tests are restricted to one thread, one process, one machine. Larger tests do not have the same restrictions. But Google also has notions of test scope. A unit test necessarily is of smaller scope than an integration test. And the largest-scoped tests (sometimes called end-to-end or system tests) typically involve several real dependencies and fewer test doubles.
 
-如前所述，谷歌对测试规模有特定的概念。小型测试仅限于单线程、单进程、单服务器。较大的测试没有相同的限制。但谷歌也有测试范围的概念。单元测试的范围必然比集成测试的范围小。而最大范围的测试（有时被称为端到端或系统测试）通常涉及多个实际依赖项和较少的测试替身。（`Test Double`是在Martin Fowler的文章[Test Double](https://martinfowler.com/bliki/TestDouble.html)中，Gerard Meszaros提出了这个概念。虽然是06年的文章了，但里面的概念并不过时。这篇文章提到`Test Double`只是一个通用的词，代表为了达到测试目的并且减少被测试对象的依赖，使用“替身”代替一个真实的依赖对象，从而保证了测试的速度和稳定性。统一翻译为测试替代）
+如前所述，谷歌对测试规模有特定的概念。小型测试仅限于单线程、单进程、单服务器。较大的测试没有相同的限制。但谷歌同样定义了测试的范围。单元测试的范围必然比集成测试的范围小。而最大范围的测试（有时被称为端到端或系统测试）通常涉及多个实际依赖项和较少的测试替身。（`Test Double`是在Martin Fowler的文章[Test Double](https://martinfowler.com/bliki/TestDouble.html)中，Gerard Meszaros提出了这个概念。虽然是06年的文章了，但里面的概念并不过时。这篇文章提到`Test Double`只是一个通用的词，代表为了达到测试目的并且减少被测试对象的依赖，使用“替身”代替一个真实的依赖对象，从而保证了测试的速度和稳定性。统一翻译为测试替代）
 
 Larger tests are many things that small tests are not. They are not bound by the same constraints; thus, they can exhibit the following characteristics:
 
@@ -28,7 +28,7 @@ Larger tests are many things that small tests are not. They are not bound by the
 较大的测试有许多是小型测试所不具备的内容。它们受的约束不同；因此，它们可以表现出以下特征：
 
 - 它们可能很慢。我们的大型测试的默认时长时间为15分钟或1小时，但我们也有运行数小时甚至数天的测试。
-- 它们可能是不封闭的。大型测试可能与其他测试和流量共享资源。
+- 它们可能是不具备封闭性。大型测试可能与其他测试和流量共享资源。
 - 它们可能是不确定的。如果大型测试是非密封的，则几乎不可能保证确定性：其他测试或用户状态可能会干扰它。
 
 So why have larger tests? Reflect back on your coding process. How do you confirm that the programs you write actually work? You might be writing and running unit tests as you go, but do you find yourself running the actual binary and trying it out yourself? And when you share this code with others, how do they test it? By running your unit tests, or by trying it out themselves?
@@ -47,7 +47,7 @@ Unit tests can give you confidence about individual functions, objects, and modu
 
 The primary reason larger tests exist is to address *fidelity*. Fidelity is the property by which a test is reflective of the real behavior of the system under test (SUT).
 
-大型测试存在的主要原因是为了解决仿真度问题。仿真度是测试反映被测系统（SUT）真实行为的属性。
+大型测试存在的主要是为了提高测试的仿真度。仿真度是测试反映被测系统（SUT）真实行为的属性。
 
 One way of envisioning fidelity is in terms of the environment. As Figure 14-1 illustrates, unit tests bundle a test and a small portion of code together as a runnable unit, which ensures the code is tested but is very different from how production code runs. Production itself is, naturally, the environment of highest fidelity in testing. There is also a spectrum of interim options. A key for larger tests is to find the proper fit, because increasing fidelity also comes with increasing costs and (in the case of production) increasing risk of failure.
 
@@ -79,7 +79,7 @@ Almost all unit tests at Google are written by the same engineer who is writing 
 
 Moreover, mocks become stale. If this mock-based unit test is not visible to the author of the real implementation and the real implementation changes, there is no signal that the test (and the code being tested) should be updated to keep up with the changes.
 
-此外，模拟会变得过时。如果实际实现的作者看不到这个基于模拟的单元测试，并且实际实现发生了变化，那么就没有信号表明应该更新测试（以及正在测试的代码）以跟上变化。
+此外，模拟会变得过时。如果实际实现的作者看不到这个基于模拟的单元测试，并且实际实现发生了变化，那么就没有信号表明测试（及被测试的代码）需要更新以适应这些变化。
 
 Note that, as mentioned in [Chapter 13], if teams provide fakes for their own services, this concern is mostly alleviated.
 
@@ -93,11 +93,11 @@ Unit tests cover code within a given binary. But that binary is typically not co
 
 If there are issues with these files or the compatibility between the state defined by these stores and the binary in question, these can lead to major user issues. Unit tests alone cannot verify this compatibility.[^1] Incidentally, this is a good reason to ensure that your configuration is in version control as well as your code, because then, changes to configuration can be identified as the source of bugs as opposed to introducing random external flakiness and can be built in to large tests.
 
-如果这些文件存在问题，或者这些存储定义的状态与有问题的二进制文件之间存在兼容性问题，则可能会导致重大的用户故障。单元测试不能验证这种兼容性。顺便说一下，这是一个很好的理由，确保你的配置和你的代码一样在版本控制中，因为这样，配置的变更可以被识别为bug的来源，而不是引入随机的外部碎片，并且可以在大型测试中构建。
+如果这些文件存在问题，或者这些存储定义的状态与目标二进制文件之间存在兼容性问题，则可能会导致重大的用户故障。单元测试不能验证这种兼容性。顺便说一下，这是一个很好的理由，确保你的配置和你的代码一样在版本控制中，因为这样，配置的变更可以被识别为bug的来源，而不是引入随机的外部碎片，并且可以在大型测试中构建。
 
 At Google, configuration changes are the number one reason for our major outages. This is an area in which we have underperformed and has led to some of our most embarrassing bugs. For example, there was a global Google outage back in 2013 due to a bad network configuration push that was never tested. Configurations tend to be written in configuration languages, not production code languages. They also often have faster production rollout cycles than binaries, and they can be more difficult to test. All of these lead to a higher likelihood of failure. But at least in this case (and others), configuration was version controlled, and we could quickly identify the culprit and mitigate the issue.
 
-在谷歌，配置变更是我们重大故障的头号原因。这是一个我们表现不佳的领域，并导致了我们一些最尴尬的错误。例如，2013年，由于一次从未测试过的糟糕网络配置推送，谷歌出现了一次全球停机。它们通常也比二进制文件具有更快的生产部署周期，而且它们可能更难测试。所有这些都会导致更高的失败可能性。但至少在这种情况下（和其他情况下），配置是由版本控制的，我们可以快速识别故障并缓解问题。
+在谷歌，配置变更是我们重大故障的头号原因。这是一个我们表现不佳的领域，并导致了我们一些最尴尬的错误。例如，2013年，由于一次从未测试过的糟糕网络配置推送，谷歌出现了一次全球停机。配置通常使用配置语言编写，具备更快的部署周期，但也更难测试。所有这些都会导致更高的失败可能性。但至少在这种情况下（和其他情况下），配置信息被纳入了版本控制，我们可以快速识别故障并缓解问题。
 
 > [^1]:	See “Continuous Delivery” on page 483 and Chapter 25 for more information.
 >
@@ -113,11 +113,11 @@ At Google, unit tests are intended to be small and fast because they need to fit
 
 Unit tests are limited by the imagination of the engineer writing them. That is, they can only test for anticipated behaviors and inputs. However, issues that users find with a product are mostly unanticipated (otherwise it would be unlikely that they would make it to end users as issues). This fact suggests that different test techniques are needed to test for unanticipated behaviors.
 
-单元测试受到编写它们的工程师想象力的限制。也就是说，他们只能测试预期的行为和输入。然而，用户在产品中发现的问题大多是未预料到的（否则，他们不太可能将其作为问题提交给最终用户）。这一事实表明，需要不同的测试技术来测试非预期的行为。
+单元测试受限于编写它们的工程师的想象能力。也就是说，他们只能测试预期的行为和输入。然而，用户在产品中发现的问题大多是未预料到的（否则，他们不太可能将其作为问题提交给最终用户）。这一事实表明，需要不同的测试技术来测试非预期的行为。
 
 [Hyrum’s Law](http://hyrumslaw.com/)is an important consideration here: even if we could test 100% for conformance to a strict, specified contract, the effective user contract applies to all visible behaviors, not just a stated contract. It is unlikely that unit tests alone test for all visible behaviors that are not specified in the public API.
 
-海勒姆定律在这里是一个重要的考虑因素：即使我们可以100%测试是否符合严格的规定合同，有效的用户合同也适用于所有可见的行为，而不仅仅是规定的合同。单元测试不太可能单独测试公共API中未指定的所有可视行为。
+海勒姆定律在这里是一个重要的考虑因素：即使我们可以100%测试是否符合严格的规定契约，有效的用户契约也适用于所有可见的行为，而不仅仅是规定的契约。单元测试不太可能单独测试公共API中未指定的所有可视行为。
 
 #### Emergent behaviors and the “vacuum effect” 突发行为和 "真空效应"
 
@@ -206,7 +206,7 @@ Even worse, if the code is difficult to unit test (because of the way it was imp
 
 It is *critical* for longer-term health to move toward the test pyramid within the first few days of development by building out unit tests, and then to top it off after that point by introducing automated integration tests and moving away from manual end- to-end tests. We succeeded by making unit tests a requirement for submission, but covering the gap between unit tests and manual tests is necessary for long-term health.
 
-在开发的头几天，通过建立单元测试，向金字塔式测试迈进，然后在这之后通过引入自动化集成测试，摆脱手动端到端的测试，这对长期的稳定是*至关重要*的。我们成功地使单元测试成为提交的要求，但弥补单元测试和手工测试之间的差距对长期稳健是必要的。
+在开发的头几天，通过建立单元测试，向金字塔式测试迈进，然后在这之后通过引入自动化集成测试，减少手动执行的端到端测试，这对长期的稳定是*至关重要*的。我们成功地使单元测试成为提交的要求，但弥补单元测试和手工测试之间的差距对长期稳健是必要的。
 
 #### Larger Tests at Google Scale 谷歌规模的大型测试
 
@@ -216,7 +216,7 @@ It would seem that larger tests should be more necessary and more appropriate at
 
 In a system composed of microservices or separate servers, the pattern of interconnections looks like a graph: let the number of nodes in that graph be our *N*. Every time a new node is added to this graph, there is a multiplicative effect on the number of distinct execution paths through it.
 
-在由微服务或独立服务器组成的系统中，互连模式看起来像一个图：让该图中的节点数为我们的N。每次向该图添加新节点时，都会对通过该图的不同执行路径的数量产生乘法效应的倍增。
+在由微服务或独立服务器组成的系统中，它们的互连模式形似一个图，图中的节点数我们用N来表示。每次向该图添加新节点时，都会对通过该图的不同执行路径的数量产生乘法效应的倍增。
 
 [Figure 14-3 ](#_bookmark1226)depicts an imagined SUT: this system consists of a social network with users, a social graph, a stream of posts, and some ads mixed in. The ads are created by advertisers and served in the context of the social stream. This SUT alone consists of two groups of users, two UIs, three databases, an indexing pipeline, and six servers. There are 14 edges enumerated in the graph. Testing all of the end-to-end possibilities is already difficult. Imagine if we add more services, pipelines, and databases to this mix: photos and images, machine learning photo analysis, and so on?
 
@@ -228,7 +228,7 @@ In a system composed of microservices or separate servers, the pattern of interc
 
 The rate of distinct scenarios to test in an end-to-end way can grow exponentially or combinatorially depending on the structure of the system under test, and that growth does not scale. Therefore, as the system grows, we must find alternative larger testing strategies to keep things manageable.
 
-以端到端的方式测试的不同场景的速率可以指数增长或组合增长，这取决于被测系统的结构，并且这种增长无法扩展。因此，随着系统的发展，我们必须找到其他大型测试的测试策略，以保持测试的可管理性。
+以端到端的方式测试的不同场景的速率可以指数增长或组合增长，这取决于被测系统的结构，并且这种增长不可持续。因此，随着系统的发展，我们必须找到其他大型测试的测试策略，以保持测试的可管理性。
 
 However, the value of such tests also increases because of the decisions that were necessary to achieve this scale. This is an impact of fidelity: as we move toward larger-*N* layers of software, if the service doubles are lower fidelity (1-epsilon), the chance of bugs when putting it all together is exponential in *N*. Looking at this example SUT again, if we replace the user server and ad server with doubles and those doubles are low fidelity (e.g., 10% accurate), the likelihood of a bug is 99% (1 – (0.1 ∗ 0.1)). And that’s just with two low-fidelity doubles.
 
@@ -243,11 +243,11 @@ Therefore, it becomes critical to implement larger tests in ways that work well 
 Tip:"The Smallest Possible Test" 提示："尽可能小的测试"
 Even for integration tests,smaller is better-a handful of large tests is preferable to anenormous one.And,because the scope of a test is often coupled to the scope of theSUT,finding ways to make the SUT smaller help make the test smaller.
 
-即便是集成测试，也是越小越好——少数大型测试比一个超大测试要好。而且，因为测试的范围经常与SUT的范围相联系，找到使SUT变小的方法有助于使测试变小。
+即便是集成测试，也是越小越好——几个大型测试也比一个超大测试要好。而且，因为测试的范围经常与SUT的范围相联系，找到使SUT变小的方法有助于使测试变小。
 
 One way to achieve this test ratio when presented with a user journey that can requirecontributions from many internal systems is to "chain"tests,as illustrated inFigure 14-4,not specifically in their execution,but to create multiple smaller pairwiseintegration tests that represent the overall scenario.This is done by ensuring that theoutput of one test is used as the input to another test by persisting this output to adata repository.
 
-当出现一个需要许多内部系统服务的用户请求时，实现这种测试比率的一种方法是 "连锁"测试，如图14-4所示，不是具体执行，而是创建多个较小的成对集成测试，代表整个场景。
+当出现一个需要许多内部系统服务的用户请求时，实现这种测试比率的一种方法是 "串联"测试，如图14-4所示，不是具体执行，而是创建多个较小的成对集成测试，代表整个场景。
 
 ![Figure 14-4](./images/Figure%2014-4.png)
 
@@ -273,7 +273,7 @@ Although large tests are not bound by small test constraints and could conceivab
 
 One key component of large tests is the aforementioned SUT (see Figure 14-5). A typical unit test focuses its attention on one class or module. Moreover, the test code runs in the same process (or Java Virtual Machine [JVM], in the Java case) as the code being tested. For larger tests, the SUT is often very different; one or more separate processes with test code often (but not always) in its own process.
 
-大型测试的一个关键组成部分是前述的SUT（见图14-5）。一个典型的单元测试将关注点集中在一个类或模块上。此外，测试代码运行在与被测试代码相同的进程（或Java虚拟机[JVM]，在Java的情况下）。对于大型测试，SUT通常是非常不同的；一个或多个独立的进程，测试代码通常（但不总是）在自己的进程中。
+大型测试的一个关键组成部分是前述的SUT（见图14-5）。一个典型的单元测试将关注点集中在一个类或模块上。此外，测试代码运行在与被测试代码相同的进程（在Java中，也可能在相同的Java虚拟机[JVM]中）。对于大型测试，SUT通常是非常不同的；一个或多个独立的进程，测试代码通常（但不总是）在自己的进程中。
 
 ![Figure 14-5](./images/Figure%2014-5.png)
 
@@ -305,12 +305,12 @@ Often these two factors are in direct conflict. Following are some examples of S
 - *Hybrids*  
 	Some SUTs represent a mix: it might be possible to run some of the SUT but have it interact with a shared environment. Usually the thing being tested is explicitly run but its backends are shared. For a company as expansive as Google, it is practically impossible to run multiple copies of all of Google’s interconnected services, so some hybridization is required.
 
-通常有这两个因素是直接冲突的。以下是一些SUT的例子：
+这两个因素常常是直接相互冲突的。以下是一些SUT的例子：
 
 - *单进程SUT*  
 	整个被测系统被打包成一个二进制文件（即使在生产中这些是多个独立的二进制文件）。此外，测试代码可以被打包成与SUT相同的二进制文件。如果所有测试都是单线程的，那么这种测试SUT组合可能是一个“小”测试，但它对生产拓扑和配置仿真度最低。
 - *单机SUT*  
-	被测系统由一个或多个独立的二进制文件组成（与生产相同），测试是自身的二进制文件。但一切都在一台机器上运行。这用于 "中等 "测试。理想情况下，在本地运行这些二进制文件时，我们使用每个二进制文件的生产启动配置，以提高仿真度。
+	被测系统由一个或多个独立的二进制文件组成（与生产相同），测试有其独立的二进制文件。但一切都在一台机器上运行。这用于 "中等 "测试。理想情况下，在本地运行这些二进制文件时，我们使用每个二进制文件的生产启动配置，以提高仿真度。
 - *多机SUT*  
 	被测系统分布在多台机器上（很像生产云部署）。这比单机SUT的仿真度还要高，但它的使用使得测试的规模 "很大"，而且这种组合很容易受到网络和机器脆弱程度的影响。
 - *共享环境（预发和生产）*  
@@ -385,7 +385,7 @@ In the previous chapter, we discussed test doubles and approaches that can be us
 
 One way of dealing with an SUT’s dependent but subsidiary services is to use a test double, but how does one know that the double reflects the dependency’s actual behavior? A growing approach outside of Google is to use a framework for [consumer-driven contract](https://oreil.ly/RADVJ)tests. These are tests that define a contract for both the client and the provider of the service, and this contract can drive automated tests. That is, a client defines a mock of the service saying that, for these input arguments, I get a particular output. Then, the real service uses this input/output pair in a real test to ensure that it produces that output given those inputs. Two public tools for consumer-driven contract testing are [Pact Contract Testing](https://docs.pact.io/)and [Spring Cloud Contracts](https://oreil.ly/szQ4j). Google’s heavy dependency on protocol buffers means that we don’t use these internally.
 
-处理SUT的依赖关系和附属服务的一种方法是使用测试替代，但如何知道替代反映了依赖的实际行为？在谷歌之外，一种正在发展的方法是使用一个框架进行消费者驱动的合同测试。这些测试为客户和服务的提供者定义了一个合同，这个合同可以驱动自动测试。也就是说，一个客户定义了一个服务的模拟，说对于这些输入参数，我得到一个特定的输出。然后，真正的服务在真正的测试中使用这个输入/输出对，以确保它在这些输入的情况下产生那个输出。消费者驱动的合同测试的两个公共工具是[Pact Contract Testing](https://docs.pact.io/)和[Spring Cloud Contracts](https://oreil.ly/szQ4j)。谷歌对protocol buffers的严重依赖意味着我们内部不使用这些工具。
+处理SUT的依赖关系和附属服务的一种方法是使用测试替代，但如何知道替代反映了依赖的实际行为？在谷歌之外，一种正在发展的方法是使用一个框架进行消费者驱动的合同测试。这些测试为客户和服务的提供者定义了一个契约，这个契约可以驱动自动测试。也就是说，一个客户定义了一个服务的模拟，说对于这些输入参数，我得到一个特定的输出。然后，真正的服务在真正的测试中使用这个输入/输出对，以确保它在这些输入的情况下产生那个输出。消费者驱动的合同测试的两个公共工具是[Pact Contract Testing](https://docs.pact.io/)和[Spring Cloud Contracts](https://oreil.ly/szQ4j)。谷歌对protocol buffers的严重依赖意味着我们内部不使用这些工具。
 
 At Google, we do something a little bit different. [Our most popular approach](https://oreil.ly/-wvYi)(for which there is a public API) is to use a larger test to generate a smaller one by recording the traffic to those external services when running the larger test and replaying it when running smaller tests. The larger, or “Record Mode” test runs continuously on post-submit, but its primary purpose is to generate these traffic logs (it must pass, however, for the logs to be generated). The smaller, or “Replay Mode” test is used during development and presubmit testing.
 
@@ -393,7 +393,7 @@ At Google, we do something a little bit different. [Our most popular approach](h
 
 One of the interesting aspects of how record/replay works is that, because of nondeterminism, requests must be matched via a matcher to determine which response to replay. This makes them very similar to stubs and mocks in that argument matching is used to determine the resulting behavior.
 
-录制/重放工作原理的一个有趣方面是，由于非终结性，必须通过匹配器匹配请求，以确定重放的响应。这使得它们与打桩和模拟非常相似，因为参数匹配用于确定结果行为。
+录制/重放工作原理的一个有趣方面是，由于不确定性，必须通过匹配器匹配请求，以确定重放的响应。这使得它们与打桩和模拟非常相似，因为参数匹配用于确定结果行为。
 
 What happens for new tests or tests where the client behavior changes significantly? In these cases, a request might no longer match what is in the recorded traffic file, so the test cannot pass in Replay mode. In that circumstance, the engineer must run the test in Record mode to generate new traffic, so it is important to make running Record tests easy, fast, and stable.
 
@@ -430,7 +430,7 @@ Because of the notion of the separate and larger SUT, the work to seed the SUT s
 - *现实的基线*  
 	要使SUT被认为是现实的，它可能需要在启动时提供一组现实的基础数据，包括质量和数量。例如，社交网络的大型测试可能需要一个真实的社交图作为测试的基本状态：必须有足够多的具有真实配置文件的测试用户以及这些用户之间的足够互联，才能接受测试。
 - *种子APIs*  
-	数据种子的API可能很复杂。也许可以直接写入数据存储，但这样做可能会绕过由执行写入的实际二进制文件执行的触发器和检查。
+	用于数据初始化的API可能相当复杂。也许可以直接写入数据存储，但这样做可能会绕过由执行写入的实际二进制文件执行的触发器和检查。
 
 Data can be generated in different ways, such as the following:
 
@@ -448,7 +448,7 @@ Data can be generated in different ways, such as the following:
 - *复制的数据*  
 	我们可以复制数据，通常来自生产。例如，我们可以通过从生产地图数据的副本开始测试地球地图，以提供基线，然后测试我们对它的更改。
 - *抽样数据*  
-	复制数据可以提供太多的数据来进行合理的工作。采样数据可以减少数量，从而减少测试时间，使其更容易推理。"智能抽样 "包括复制最小的数据以达到最大覆盖率的技术。
+	复制数据可能产生过多，难以有效处理的数据。采样数据可以减少数量，从而减少测试时间，使其更容易推理。"智能抽样 "包括复制最小的数据以达到最大覆盖率的技术。
 
 ### Verification 验证
 
@@ -471,7 +471,7 @@ assertThat(response.Contains("Colossal Cave"))
 
 - *手动*  
 	就像你在本地尝试你的二进制文件一样，手动验证使用人工与SUT互动以确定它的功能是否正确。这种验证可以包括通过执行一致的测试计划中定义的操作来测试回归，也可以是探索性的，通过不同的交互路径来识别可能的新故障。
-	需要注意的是，人工回归测试的规模化不是线性的：系统越大，通过它的操作越多，需要人力测试的时间就越更多。
+	需要注意的是，人工回归测试的规模化不是线性的：系统越大，通过它的操作越多，需要的人力测试时间就越多就越更多。
 - *断言*  
 	与单元测试一样，这些是对系统预期行为的明确检查。例如，对于谷歌搜索xyzzy的集成测试，一个断言可能如下：
 
@@ -480,7 +480,7 @@ assertThat(response.Contains("Colossal Cave"))
 ```
 
 - *A/B测试（差异）*  
-	A/B测试不是定义显式断言，而是运行SUT的两个副本，发送相同的数据，并比较输出。未明确定义预期行为：人工必须手动检查差异，以确保任何预期更改。
+	A/B测试不是定义显式断言，而是运行SUT的两个副本，发送相同的数据，并比较结果。未明确定义预期行为：人工必须手动检查差异，以确保任何预期更改。
 
 ## Types of Larger Tests 大型测试的类型
 
@@ -516,7 +516,7 @@ What follows is a list of different kinds of large tests that we use at Google, 
 
 Given such a wide number of combinations and thus a wide range of tests, how do we manage what to do and when? Part of designing software is drafting the test plan, and a key part of the test plan is a strategic outline of what types of testing are needed and how much of each. This test strategy identifies the primary risk vectors and the necessary testing approaches to mitigate those risk vectors.
 
-考虑到如此广泛的组合和如此广泛的测试，我们如何管理做什么以及何时做？软件设计的一部分是起草测试计划，而测试计划的一个关键部分是需要什么类型的测试以及每种测试需要多少的战略大纲。该测试策略确定了主要风险向量和缓解这些风险向量的必要测试方法。
+考虑到如此广泛的组合和如此广泛的测试，我们如何管理做什么以及何时做？软件设计的一部分是制定测试计划，测试计划的关键部分是确定所需测试类型的战略性概述及其数量。该测试策略确定了主要风险向量和缓解这些风险向量的必要测试方法。
 
 At Google, we have a specialized engineering role of “Test Engineer,” and one of the things we look for in a good test engineer is the ability to outline a test strategy for our products.
 
@@ -548,7 +548,7 @@ Testing the interactions of multiple binaries is, unsurprisingly, even more comp
 
 Testing web UIs and mobile applications is a special case of functional testing of one or more interacting binaries. It is possible to unit test the underlying code, but for the end users, the public API is the application itself. Having tests that interact with the application as a third party through its frontend provides an extra layer of coverage.
 
-测试web UI和移动应用程序是对一个或多个交互二进制文件进行功能测试的特例。可以对底层代码进行单元测试，但对于最终用户来说，公共API是应用程序本身。将测试作为第三方通过其前端与应用程序交互提供了额外的覆盖层。
+测试web UI和移动应用程序是对一个或多个相互协作二进制文件进行功能测试的特例。可以对底层代码进行单元测试，但对于最终用户来说，公共API是应用程序本身。将测试作为第三方通过其前端与应用程序交互提供了额外的覆盖层。
 
 ### Performance, Load, and Stress testing 性能、负载和压力测试
 Tests of these type have the following characteristics:
@@ -560,7 +560,7 @@ Tests of these type have the following characteristics:
 此类试验具有以下特点：
 
 - SUT：云部署隔离
-- 数据：手工制作或从生产中多路传输
+- 数据：手工生成或从生产中多路传输
 - 验证：差异（性能指标）
 
 Although it is possible to test a small unit in terms of performance, load, and stress, often such tests require sending simultaneous traffic to an external API. That definition implies that such tests are multithreaded tests that usually test at the scope of a binary under test. However, these tests are critical for ensuring that there is no degradation in performance between versions and that the system can handle expected spikes in traffic.
