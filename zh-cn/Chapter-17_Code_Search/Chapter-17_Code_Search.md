@@ -141,7 +141,7 @@ Unfortunately, the cross-reference index cannot be instantly updated in the same
 
 > [^7]: For comparison, the model of “every developer has their own IDE on their own workspace do the indexing calculation” scales roughly quadratically: developers produce a roughly constant amount of code per unit time, so the codebase scales linearly (even with a fixed number of developers). A linear number of IDEs do linearly more work each time—this is not a recipe for good scaling.
 >
-> 7  相比之下，“每个开发人员在自己的工作空间中都有自己的IDE，并进行索引计算”的模型大致按二次方进行扩展：开发人员每单位时间生成的代码量大致恒定，因此代码库可以线性扩展（即使有固定数量的开发人员）。线性数量的IDE每次都会做线性更多的工作，但这并不是实现良好扩展的秘诀。
+> 7  相比之下，“每个开发人员在自己的IDE中有工作空间，并进行索引计算”的模型大致按二次方进行扩展：开发人员每单位时间生成的代码量大致恒定，因此代码库可以线性扩展（即使有固定数量的开发人员）。线性数量的IDE每次都会做线性更多的工作，但这并不是实现良好扩展的秘诀。
 >
 > [^8]: Kythe instruments the build workflow to extract semantic nodes and edges from source code. This extraction process collects partial cross-reference graphs for each individual build rule. In a subsequent phase, these partial graphs are merged into one global graph and its representation is optimized for the most common queries (go-to-definition, find all usages, fetch all decorations for a file). Each phase—extraction and post processing—is roughly as expensive as a full build; for example, in case of Chromium, the construction of the Kythe index is done in about six hours in a distributed setup and therefore too costly to be constructed by every developer on their own workstation. This computational cost is the why the Kythe index is computed only once per day.
 >
@@ -157,7 +157,7 @@ Being able to instantly and effectively browse the entire codebase means that it
 
 Perhaps surprisingly, one advantage of Code Search is that it is not an IDE. This means that the user experience (UX) can be optimized for browsing and understanding code, rather than editing it, which is usually the bulk of an IDE (e.g., keyboard shortcuts, menus, mouse clicks, and even screen space). For example, because there isn’t an editor’s text cursor, every mouse click on a symbol can be made meaningful(e.g., show all usages or jump to definition), rather than as a way to move the cursor. This advantage is so large that it’s extremely common for developers to have multiple Code Search tabs open at the same time as their editor.
 
-也许令人惊讶的是，代码搜索的一个优点是它不是 IDE。这意味着用户体验 (UX) 可以针对浏览和理解代码进行优化，而不是像 IDE 的大部分内容那样编辑它（例如，键盘快捷键、菜单、鼠标点击，甚至屏幕空间）。例如，由于没有编辑器的文本光标，每次鼠标单击符号都可以变得有意义（例如，显示所有用法或跳转到定义），而不是作为移动光标的一种方式。这个优势是如此之大，以至于开发人员在使用编辑器的同时打开多个代码搜索选项卡是非常常见的。
+也许令人惊讶的是，代码搜索的一个优点是它不是 IDE。这意味着用户体验 (UX) 可以针对浏览和理解代码进行优化，而不是像 IDE 的大部分内容那样编辑它（例如，键盘快捷键、菜单、鼠标点击，甚至屏幕空间）。例如，由于没有编辑器的文本光标，每次鼠标单击符号都可以被赋予特定功能（例如，显示所有用法或跳转到定义），而不是作为移动光标的一种方式。这个优势是如此之大，以至于开发人员在使用编辑器的同时打开多个代码搜索选项卡是非常常见的。
 
 ### Integration with Other Developer Tools 与其他开发者工具集成
 
@@ -183,7 +183,7 @@ Compilation errors and tests also typically refer back to a code location (e.g.,
 
 Finally, codelabs and other documentation refer to APIs, examples, and implementations. Such links can be search queries referencing a specific class or function, which remain valid when the file structure changes. For code snippets, the most recent implementation at head can easily be embedded into a documentation page, as demonstrated in Figure 17-4, without the need to pollute the source file with additional documentation markers.
 
-最后，代码实验室和其他文档是指 API、示例和实现。此类链接可以是引用特定类或函数的搜索查询，当文件结构更改时它们仍然有效。对于代码片段，最新的实现可以很容易地嵌入到文档页面中，如图 17-4 所示，而无需使用额外的文档标记污染源文件。
+最后，代码实验室和其他文档是指 API、示例和实现。此类链接可以是引用特定类或函数的搜索查询，当文件结构更改时它们仍然有效。对于代码片段，最新的实现版本可以很容易地嵌入到文档页面中，如图 17-4 所示，而无需使用额外的文档标记污染源文件。
 
 ![Figure 17-4](./images/Figure%2017-4.png)
 
@@ -191,7 +191,7 @@ Finally, codelabs and other documentation refer to APIs, examples, and implement
 
 Code Search exposes its search, cross-reference, and syntax highlighting APIs to tools, so tool developers can bring those capabilities into their tools without needing to reimplement them. Further, plug-ins have been written to provide search and cross-references to editors and IDEs such as vim, emacs, and IntelliJ. These plugins restore some of the power lost due to being unable to locally index the codebase, and give back some developer productivity.
 
-代码搜索将其搜索、交叉引用和语法高亮 API 公开给工具，因此工具开发人员可以将这些功能带入他们的工具中，而无需重新实现它们。此外，还编写了插件来提供对编辑器和 IDE（例如 vim、emacs 和 IntelliJ）的搜索和交叉引用。这些插件恢复了由于无法在本地索引代码库而损失的一些效率，并提升了一些开发人员的生产力。
+代码搜索将其搜索、交叉引用和语法高亮 API 公开给工具，因此工具开发人员可以将这些功能带入他们的工具中，而无需重新实现它们。此外，还编写了插件来提供对编辑器和 IDE（例如 vim、emacs 和 IntelliJ）的搜索和交叉引用。这些插件弥补了由于无法在本地索引代码库而损失的一些功能，并提升了一些开发人员的生产力。
 
 ## Impact of Scale on Design 规模对设计的影响
 
@@ -201,7 +201,7 @@ In the previous section, we looked at various aspects of the Code Search UI and 
 
 The biggest[^9] scaling challenge for searching code is the corpus size. For a small repository of a couple megabytes, a brute-force search with grep search will do. When hundreds of megabytes need to be searched, a simple local index can speed up search by an order of magnitude or more. When gigabytes or terabytes of source code need to be searched, a cloud-hosted solution with multiple machines can keep search times reasonable. The utility of a central solution increases with the number of developers using it and the size of the code space.
 
-搜索代码的最大挑战是语料库大小。对于几兆字节的小型存储库，使用 grep 搜索的蛮力搜索就可以了。当需要搜索数百兆字节时，一个简单的本地索引可以将搜索速度提高一个数量级或更多。当需要搜索千兆字节或千兆字节的源代码时，具有多台机器的云托管解决方案可以使搜索时间保持合理。中央解决方案的实用性随着使用它的开发人员的数量和代码空间的大小而增加。
+搜索代码的最大挑战是语料库大小。对于几兆字节的小型存储库，使用 grep 进行的蛮力搜索。当需要搜索数百兆字节时，一个简单的本地索引可以将搜索速度提高一个数量级或更多。当需要搜索千兆字节或千兆字节的源代码时，具有多台机器的云托管解决方案可以使搜索时间保持合理。中央解决方案的实用性随着使用它的开发人员的数量和代码空间的大小而增加。
 
 > [^9]: Because queries are independent, more users can be addressed by having more servers.
 >
@@ -269,7 +269,7 @@ Let’s roughly estimate the resource requirements to achieve this performance w
 
 Although this estimate ignores that the search can stop once a certain number of results are found or that file restrictions can be evaluated much more effectively than content searches, it doesn’t take communication overhead, ranking, or the fan out to tens of thousands of machines into account either. But it shows quite well the scale involved and why Google’s Code Search team continuously invests into improving indexing. Over the years, our index changed from the original trigram-based solution, through a custom suffix array–based solution, to the current sparse ngram solution. This latest solution is more than 500 times more efficient than the brute-force solution while being capable of also answering regular expression searches at blazing speed.
 
-虽然这个估计忽略了一旦找到一定数量的结果，搜索就会停止，或者文件限制可以比内容搜索更有效地评估，它不需要通信开销、排行或考虑数万机器。它很好地展示了所涉及的巨大规模以及为什么 Google 的代码搜索团队不断投资于改进索引。多年来，我们的索引从最初的基于 trigram 的解决方案，通过基于自定义后缀数组的解决方案，变为当前的稀疏 ngram 解决方案。这个最新的解决方案比蛮力解决方案的效率高出 500 多倍，同时还能够以极快的速度响应正则表达式搜索。
+虽然这个估计忽略了一旦找到一定数量的结果，搜索就会停止，或者文件限制可以比内容搜索更有效地评估，不需要考虑通信开销、排名或扩展到数万台机器。它很好地展示了所涉及的巨大规模以及为什么 Google 的代码搜索团队不断投资于改进索引。多年来，我们的索引从最初的基于 trigram 的解决方案，通过基于自定义后缀数组的解决方案，变为当前的稀疏 ngram 解决方案。这个最新的解决方案比蛮力解决方案的效率高出 500 多倍，同时还能够以极快的速度响应正则表达式搜索。
 
 One reason we moved from a suffix array–based solution to a token-based n-gram solution was to take advantage of Google’s primary indexing and search stack. With a suffix array–based solution, building and distributing the custom indices becomes a challenge in and of itself. By utilizing “standard” technology, we benefit from all the advances in reverse index construction, encoding, and serving made by the core search team. Instant indexing is another feature that exists in standard search stacks, and by itself is a big challenge when solving it at scale.
 
@@ -281,11 +281,11 @@ Relying on standard technology is a trade-off between implementation simplicity 
 
 In the early days, Code Search served all data from memory. With the growing index size, we moved the inverted index to flash. Although flash storage is at least an order of magnitude cheaper than memory, its access latency is at least two orders of magnitude higher. So, indices that work well in memory might not be suitable when served from flash. For instance, the original trigram index requires fetching not only a large number of reverse indices from flash, but also quite large ones. With n-gram schemes, both the number of inverse indices and their size can be reduced at the expense of a larger index.
 
-在早期时候，代码搜索从内存中提供所有数据。随着索引大小的增加，我们将倒排索引移至闪存。尽管闪存存储至少比内存便宜一个数量级，但它的访问延迟至少要高两个数量级。因此，在内存中运行良好的索引可能不适合从闪存提供服务。例如，原始的 trigram 索引不仅需要从闪存中获取大量的反向索引，而且还需要相当大的索引。使用 n-gram 方案，可以以更大的索引为代价来减少逆索引的数量及其大小。
+在早期时候，代码搜索从内存中提供所有数据。随着索引大小的增加，我们将倒排索引移至闪存。尽管闪存存储至少比内存便宜一个数量级，但它的访问延迟至少要高两个数量级。因此，在内存中运行良好的索引可能不适合从闪存提供服务。例如，原始的 trigram 索引不仅需要从闪存中获取大量的反向索引，而且还需要相当大的索引。使用 n-gram 方案，可以以更大的索引为代价来减少反向索引的数量及其大小。
 
 To support local workspaces (which have a small delta from the global repository), we have multiple machines doing simple brute-force searches. The workspace data is loaded on the first request and then kept in sync by listening for file changes. When we run out of memory, we remove the least recent workspace from the machines. The unchanged documents are searched with our history index. Therefore, the search is implicitly restricted to the repository state to which the workspace is synced.
 
-为了支持本地工作空间（与全局存储库有一个小的增量），我们有多台机器进行简单的暴力搜索。工作区数据在第一次请求时加载，然后通过侦听文件更改来保持同步。当内存不足时，我们会从机器中删除最近的工作区。使用我们的历史索引搜索未更改的文档。因此，搜索被隐式限制为工作空间同步到的存储库状态。
+为了支持本地工作空间（与全局存储库有一个小的增量），我们有多台机器进行简单的暴力搜索。工作区数据在第一次请求时加载，然后通过侦听文件更改来保持同步。当内存不足时，我们会从机器中删除最近少用的工作区。使用我们的历史索引搜索未更改的文档。因此，搜索被隐式限制为工作空间同步到的存储库状态。
 
 > [^11]: See https://blog.scalyr.com/2014/05/searching-20-gbsec-systems-engineering-before-algorithms and http://volnitsky.com/project/str_search./
 > 11 查阅blog.scalyr.com/2014/05/searching-20-gbsec-systems-engineering-before-algorithms 和tp://volnitsky.com/project/str_search.
@@ -340,7 +340,7 @@ Unlike web search, we don’t just match on tokens. However, if there are clean 
 
 For convenience, a default search matches filename and qualified symbols[^14] ion to the actual file content. A user can specify the particular kind of match, but they don’t need to. The scoring boosts symbol and filename matches over normal content matches to reflect the inferred intent of the developer. Just as with web searches, developers can add more terms to the search to make queries more specific.It’s very common for a query to be “qualified” with hints about the filename (e.g.,“base” or “myproject”). Scoring leverages this by boosting results where much of the query occurs in the full path of the potential result, putting such results ahead of those that contain only the words in random places in their content.
 
-为方便起见，除了实际文件内容外，默认搜索还匹配文件名和限定符号。用户可以指定特定类型的匹配，但他们不需要。与正常的内容匹配相比，该评分提高了符号和文件名匹配，以反映开发人员的推断意图。与 Web 搜索一样，开发人员可以在搜索中添加更多术语以使查询更加具体。通过文件名提示“限定”查询是很常见的（例如，“基础”或“我的项目”）。评分通过提升大部分查询出现在潜在结果的完整路径中的结果来利用这一点，将此类结果置于仅包含其内容中随机位置的单词的结果之前。
+为方便起见，除了实际文件内容外，默认搜索还匹配文件名和限定符号。用户可以指定特定类型的匹配，但他们不需要。与正常的内容匹配相比，该评分提高了符号和文件名匹配，超过了普通内容匹配。与 Web 搜索一样，开发人员可以在搜索中添加更多术语以使查询更加具体。查询通常被“限定”为包含文件名的提示（例如，“基础”或“我的项目”）。评分通过提升大部分查询出现在潜在结果的完整路径中的结果来利用这一点，将此类结果置于仅包含其内容中随机位置的单词的结果之前。
 
 > [^14]: In programming languages, a symbol such as a function “Alert” often is defined in a particular scope, such as  class (“Monitor”) or namespace (“absl”). The qualified name might then be absl::Monitor::Alert, and this is indable, even if it doesn’t occur in the actual text.
 >
@@ -364,7 +364,7 @@ Another aspect of search is diversity of results, meaning trying to give the bes
 
 This is especially important when the intent of the user is not clear. One of the challenges with diversity is that there are many different categories—like functions,classes, filenames, local results, usages, tests, examples, and so on—into which results can be grouped, but that there isn’t a lot of space in the UI to show results for all of them or even all combinations, nor would it always be desirable. Google’s Code Search doesn’t do this as well as web search does, but the drop-down list of suggested results (like the autocompletions of web search) is tweaked to provide a diverse set of top filenames, definitions, and matches in the user’s current workspace.
 
-当用户的意图不明确时，这一点尤其重要。多样性的挑战之一是有许多不同的类别—如函数、类、文件名、本地结果、用法、测试、示例等—结果可以分组，但没有很多UI 中的空间来显示所有结果甚至所有组合的结果，这是不可取的。 Google 的代码搜索在这方面的表现不如网络搜索，但建议结果的下拉列表（如网络搜索的自动完成）经过调整，可以匹配用户的当前工作区。
+当用户的意图不明确时，这一点尤其重要。多样性的挑战之一是有许多不同的类别—如函数、类、文件名、本地结果、用法、测试、示例等—结果可以分组，但没有很多UI 中的空间来显示所有结果甚至所有组合的结果，也不总是可取的。 Google 的代码搜索在这方面的表现不如网络搜索，但建议结果的下拉列表（如网络搜索的自动完成）经过调整，可以匹配用户的当前工作区。
 
 ## Selected Trade-Offs 选择的权衡
 
@@ -376,7 +376,7 @@ Implementing Code Search within a codebase the size of Google’s and keeping it
 
 We’ve seen that a larger codebase has negative consequences for search; for example, slower and more expensive indexing, slower queries, and noisier results. Can these costs be reduced by sacrificing completeness; in other words, leaving some content out of the index? The answer is yes, but with caution. Nontext files (binaries, images, videos, sound, etc.) are usually not meant to be read by humans and are dropped apart from their filename. Because they are huge, this saves a lot of resources. A more borderline case involves generated JavaScript files. Due to obfuscation and the loss of structure, they are pretty much unreadable for humans, so excluding them from the index is usually a good trade-off, reducing indexing resources and noise at the cost of completeness. Empirically, multimegabyte files rarely contain information relevant for developers, so excluding extreme cases is probably the correct choice.
 
-我们已经看到，更大的代码库会对搜索产生负面影响；例如，更慢且更昂贵的索引、更慢的查询和更嘈杂的结果。是否可以通过牺牲完整性来降低这些成本？换句话说，将一些内容排除在索引之外？答案是肯定的，但要谨慎。非文本文件（二进制文件、图像、视频、声音等）通常不适合人类阅读，而是从文件名中删除。因为它们很大，所以可以节省大量资源。更边缘的情况涉及生成的 JavaScript 文件。由于混淆和结构丢失，它们对人类来说几乎是不可读的，因此将它们从索引中排除通常是一个很好的权衡，以完整性为代价减少索引资源和噪音。根据经验，数兆字节的文件很少包含与开发人员相关的信息，因此排除极端情况可能是正确的选择。
+我们已经看到，更大的代码库会对搜索产生负面影响；例如，更慢且更昂贵的索引、更慢的查询和更嘈杂的结果。是否可以通过牺牲完整性来降低这些成本？换句话说，将一些内容排除在索引之外？答案是肯定的，但要谨慎。非文本文件（二进制文件、图像、视频、声音等）通常不适合人类阅读，除了文件名之外，其他内容通常被排除。因为它们很大，所以可以节省大量资源。更边缘的情况涉及生成的 JavaScript 文件。由于混淆和结构丢失，它们对人类来说几乎是不可读的，因此将它们从索引中排除通常是一个很好的权衡，以完整性为代价减少索引资源和噪音。根据经验，数兆字节的文件很少包含与开发人员相关的信息，因此排除极端情况可能是正确的选择。
 
 However, dropping files from the index has one big drawback. For developers to rely on Code Search, they need to be able to trust it. Unfortunately, it is generally impossible to give feedback about incomplete search results for a specific search if the dropped files weren’t indexed in the first place. The resulting confusion and productivity loss for developers is a high price to pay for the saved resources. Even if developers are fully aware of the limitations, if they still need to perform their search, they will do so in an ad hoc and error-prone way. Given these rare but potentially high costs, we choose to err on the side of indexing too much, with quite high limits that are mostly picked to prevent abuse and guarantee system stability rather than to save resources.
 
@@ -468,7 +468,7 @@ A next step up[^17] in searching power is full substring search in which any seq
 
 If a substring index is available, it’s easy to extend it to allow regular expression searches. The basic idea is to convert the regular expression automaton into a set of substring searches. This conversion is straightforward for a trigram index and can be generalized to other substring indices. Because there is no perfect regular expression index, it will always be possible to construct queries that result in a brute-force search. However, given that only a small fraction of user queries are complex regular expressions, in practice, the approximation via substring indices works very well.
 
-如果子字符串索引可用，很容易扩展它以允许正则表达式搜索。基本思想是将正则表达式自动机转换为一组子字符串搜索。这种转换对于三元索引很简单，并且可以推广到其他子字符串索引。因为没有完美的正则表达式索引，所以总是可以构建导致暴力搜索的查询。然而，鉴于只有一小部分用户查询是复杂的正则表达式，在实践中，通过子字符串索引的近似效果非常好。
+如果子字符串索引可用，很容易扩展它以允许正则表达式搜索。基本思想是将正则表达式自动机转换为一组子字符串搜索。这种转换对于三元组索引很简单，并且可以推广到其他子字符串索引。因为没有完美的正则表达式索引，所以总是可以构建导致暴力搜索的查询。然而，鉴于只有一小部分用户查询是复杂的正则表达式，在实践中，通过子字符串索引的近似效果非常好。
 
 > [^17]: There are other intermediate varieties, such as building a prefix/suffix index, but generally they provide less expressiveness in search queries while still having high complexity and indexing costs.
 >
@@ -486,7 +486,7 @@ Code Search grew from an organic replacement for grep into a central tool boosti
 
 The most important one is perhaps obvious: understanding code is key to developing and maintaining it, and this means that investing in understanding code will yield dividends that might be difficult to measure, but are real. Every feature we added to Code Search was and is used by developers to help them in their daily work (admittedly some more than others). Two of the most important features, Kythe integration (i.e., adding semantic code understanding) and finding working examples, are also the most clearly tied to understanding code (versus, for example, finding it, or seeing how it’s changed). In terms of tool impact, no one uses a tool that they don’t know exists, so it is also important to make developers aware of the available tooling—at Google, it is part of “Noogler” training, the onboarding training for newly hired software engineers.
 
-最重要的一点可能是显而易见的：理解代码是开发和维护代码的关键，这意味着投资在理解代码上将产生可能难以衡量但实实在在的红利。我们添加到代码搜索中的每个功能都被开发人员用来帮助他们完成日常工作（诚然，其中一些功能比其他功能更多）。两个最重要的功能，Kythe 集成（即添加语义代码理解）和查找工作示例，也与理解代码最明显相关（例如，查找代码或查看代码如何更改）。就工具影响而言，没有人使用他们不知道存在的工具，因此让开发人员了解可用工具也很重要——在谷歌，它是“Noogler”培训的一部分，即新人的入职培训和聘请的软件工程师培训。
+最重要的一点可能是显而易见的：理解代码是开发和维护代码的关键，这意味着投资在理解代码上将产生可能难以衡量但实实在在的红利。我们添加到代码搜索中的每个功能都被开发人员用来帮助他们完成日常工作（诚然，其中一些功能比其他功能更有用）。两个最重要的功能，Kythe 集成（即添加语义代码理解）和查找工作示例，也与理解代码最明显相关（例如，查找代码或查看代码如何更改）。就工具影响而言，没有人使用他们不知道存在的工具，因此让开发人员了解可用工具也很重要——在谷歌，它是“Noogler”培训的一部分，即新人的入职培训和聘请的软件工程师培训。
 
 For you, this might mean setting up a standard indexing profile for IDEs, sharing knowledge about egrep, running ctags, or setting up some custom indexing tooling, like Code Search. Whatever you do, it will almost certainly be used, and used more, and in different ways than you expected—and your developers will benefit.
 
