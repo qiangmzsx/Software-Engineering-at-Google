@@ -11,11 +11,11 @@
 
 If you ask Google engineers what they like most about working at Google (besides the free food and cool products), you might hear something surprising: engineers love the build system.[^1] Google has spent a tremendous amount of engineering effort over its lifetime in creating its own build system from the ground up, with the goal of ensuring that our engineers are able to quickly and reliably build code. The effort has been so successful that Blaze, the main component of the build system, has been reimplemented several different times by ex-Googlers who have left the company.[^2] In 2015, Google finally open sourced an implementation of Blaze named Bazel.
 
-如果你问谷歌的工程师，他们最喜欢在谷歌工作的原因（除了免费的食物和黑科技产品），你还会听到一些令人惊讶的事情：工程师们喜欢构建系统。谷歌一直在花费了巨大的努力，从零开始创建自己的构建系统，目的是确保工程师们能够快速、可靠地构建代码。这一努力是成功的，构建系统的主要组件Blaze，已经被已离开公司的前谷歌员工重新实现了好几次。2015年，谷歌终于公开了Blaze的一个实现，名为Bazel。
+如果你问谷歌的工程师，他们最喜欢在谷歌工作的原因（除了免费的食物和黑科技产品），你还会听到一些令人惊讶的事情：工程师们非常喜欢构建系统。谷歌一直在花费了巨大的努力，从零开始创建自己的构建系统，目的是确保工程师们能够快速、可靠地构建代码。这一努力是成功的，构建系统的主要组件Blaze，已经被已离开公司的前谷歌员工重新实现了好几次。2015年，谷歌终于公开了Blaze的一个实现，名为Bazel。
 
 > [^1]: In an internal survey, 83% of Googlers reported being satisfied with the build system, making it the fourth most satisfying tool of the 19 surveyed. The average tool had a satisfaction rating of 69%.
 >
-> 1  在一项内部调查中，83%的谷歌用户表示对构建系统感到满意，这使它成为19项调查中第四个最令人满意的工具。平均工具的满意度为69%。
+> 1  在一项内部调查中，83%的谷歌用户表示对构建系统感到满意，这使其成为19个被调查工具中第四个最令人满意的工具。平均工具的满意度为69%。
 >
 > [^2]: See `https://buck.build/` and `https://www.pantsbuild.org/index.html`.
 >
@@ -390,7 +390,7 @@ The fundamental problem is that we want the build system to be aware of these fi
 
 Bazel and some other build systems address this problem by requiring a workspace- wide manifest file that lists a cryptographic hash for every external dependency in the workspace.[^5]  The hash is a concise way to uniquely represent the file without checking the entire file into source control. Whenever a new external dependency is referenced from a workspace, that dependency’s hash is added to the manifest, either manually or automatically. When Bazel runs a build, it checks the actual hash of its cached dependency against the expected hash defined in the manifest and redownloads the file only if the hash differs.
 
-Bazel和其他一些构建系统通过要求一个工作区范围的清单文件来解决这个问题，该文件列出了工作区中每个外部依赖项的加密哈希。每当从工作区引用一个新的外部依赖关系时，该依赖关系的哈希值就会被手动或自动添加到清单中。Bazel 运行构建时，会将其缓存的依赖关系的实际哈希值与清单中定义的预期哈希值进行对比，只有在哈希值不同时才会重新下载文件。
+Bazel和其他一些构建系统通过要求一个覆盖整个工作区的清单文件来解决这个问题，该文件列出了工作区中每个外部依赖项的加密哈希。每当从工作区引用一个新的外部依赖关系时，该依赖关系的哈希值就会被手动或自动添加到清单中。Bazel 运行构建时，会将其缓存的依赖关系的实际哈希值与清单中定义的预期哈希值进行对比，只有在哈希值不同时才会重新下载文件。
 
 > [^4]: Such "software supply chain" attacks are becoming more common.
 >
@@ -472,7 +472,7 @@ For this to work, all of the parts of the artifact-based build systems described
 
 Google’s remote cache is called ObjFS. It consists of a backend that stores build outputs in [Bigtables](https://oreil.ly/S_N-D) distributed throughout our fleet of production machines and a frontend FUSE daemon named objfsd that runs on each developer’s machine. The FUSE daemon allows engineers to browse build outputs as if they were normal files stored on the workstation, but with the file content downloaded on-demand only for the few files that are directly requested by the user. Serving file contents on-demand greatly reduces both network and disk usage, and the system is able to [build twice as fast](https://oreil.ly/NZxSp)compared to when we stored all build output on the developer’s local disk.
 
-谷歌的远程缓存被称为ObjFS。它包括一个将构建输出存储在[Bigtables](https://oreil.ly/S_N-D)的后端，分布在我们的生产机群中，以及一个运行在每个开发人员机器上的名为objfsd的前端FUSE守护程序。FUSE守护进程允许工程师浏览构建输出，就像它们是存储在工作站上的普通文件一样，但文件内容仅针对用户直接请求的少数文件按需下载。按需提供文件内容大大减少了网络和磁盘的使用，系统的构建速度是将所有构建输出存储在开发人员的本地磁盘上时的两倍。
+谷歌的远程缓存系统被称为ObjFS。它包括一个将构建输出存储在[Bigtables](https://oreil.ly/S_N-D)的后端，分布在我们的生产机群中，以及一个运行在每个开发人员机器上的名为objfsd的前端FUSE守护程序。FUSE守护进程允许工程师像浏览存储在工作站上的普通文件一样浏览构建输出，但文件内容仅针对用户直接请求的少数文件按需下载。按需提供文件内容大大减少了网络和磁盘的使用，系统的构建速度是将所有构建输出存储在开发人员的本地磁盘上时的两倍。
 
 Google’s remote execution system is called Forge. A Forge client in Blaze called the Distributor sends requests for each action to a job running in our datacenters called the Scheduler. The Scheduler maintains a cache of action results, allowing it to return a response immediately if the action has already been created by any other user of the system. If not, it places the action into a queue. A large pool of Executor jobs continually read actions from this queue, execute them, and store the results directly in the ObjFS Bigtables. These results are available to the executors for future actions, or to be downloaded by the end user via objfsd.
 
@@ -480,7 +480,7 @@ Google’s remote execution system is called Forge. A Forge client in Blaze call
 
 The end result is a system that scales to efficiently support all builds performed at Google. And the scale of Google’s builds is truly massive: Google runs millions of builds executing millions of test cases and producing petabytes of build outputs from billions of lines of source code every *day*. Not only does such a system let our engineers build complex codebases quickly, it also allows us to implement a huge number of automated tools and systems that rely on our build. We put many years of effort into developing this system, but nowadays open source tools are readily available such that any organization can implement a similar system. Though it can take time and energy to deploy such a build system, the end result can be truly magical for engineers and is often well worth the effort.
 
-最终的结果是一个可扩展的系统，能够有效地支持在谷歌执行的所有构建。谷歌构建的规模确实是巨大的：谷歌每天运行数以百万计的构建，执行数以百万计的测试用例，并从数十亿行源代码中产生数PB的构建输出。这样一个系统不仅让我们的工程师快速构建复杂的代码库，还让我们能够实现大量依赖我们构建的自动化工具和系统。我们为开发这个系统付出了多年的努力，但现在开源工具已经很容易获得，这样任何组织都可以实现类似的系统。虽然部署这样一个构建系统可能需要时间和精力，但最终的结果对工程师来说确实是神奇的，而且通常是值得付出努力的。
+最终的结果是一个可扩展的系统，能够高效地支持在谷歌执行的所有构建。谷歌构建的规模确实是巨大的：谷歌每天运行数以百万计的构建，执行数以百万计的测试用例，并从数十亿行源代码中产生数PB的构建输出。这样一个系统不仅让我们的工程师快速构建复杂的代码库，还让我们能够实现大量依赖我们构建的自动化工具和系统。我们为开发这个系统付出了多年的努力，但现在开源工具已经很容易获得，这样任何组织都可以实现类似的系统。虽然部署这样一个构建系统可能需要时间和精力，但最终的结果对工程师来说确实是神奇的，而且通常是值得付出努力的。
 
 ## Time, Scale, Trade-Offs 时间、规模、权衡
 
@@ -586,7 +586,7 @@ Automatically managed dependencies can be convenient for small projects, but the
 
 In contrast, because manually managed dependencies require a change in source control, they can be easily discovered and rolled back, and it’s possible to check out an older version of the repository to build with older dependencies. Bazel requires that versions of all dependencies be specified manually. At even moderate scales, the overhead of manual version management is well worth it for the stability it provides.
 
-相比之下，由于手动管理的依赖关系需要改变源码控制，它们可以很容易地被发现和回滚，而且有可能检查出较早版本的存储库，用较早的依赖关系进行构建。Bazel要求手动指定所有依赖关系的版本。即使是中等规模，手动版本管理的开销对于它提供的稳定性来说也是非常值得的。
+相比之下，由于手动管理的依赖项需要在源代码控制系统中进行更改，它们可以很容易地被发现和回滚，而且有可能检查出较早版本的存储库，用较早的依赖关系进行构建。Bazel要求所有依赖项的版本必须手动指定。即使是中等规模，手动版本管理的开销对于它提供的稳定性来说也是非常值得的。
 
 **The One-Version Rule.** Different versions of a library are usually represented by different artifacts, so in theory there’s no reason that different versions of the same external dependency couldn’t both be declared in the build system under different names. That way, each target could choose which version of the dependency it wanted to use. Google has found this to cause a lot of problems in practice, so we enforce a strict [*One-Version Rule*](https://oreil.ly/OFa9V)for all third-party dependencies in our internal codebase.
 
@@ -594,7 +594,7 @@ In contrast, because manually managed dependencies require a change in source co
 
 The biggest problem with allowing multiple versions is the *diamond dependency* issue. Suppose that target A depends on target B and on v1 of an external library. If target B is later refactored to add a dependency on v2 of the same external library, target A will break because it now depends implicitly on two different versions of the same library. Effectively, it’s never safe to add a new dependency from a target to any third-party library with multiple versions, because any of that target’s users could already be depending on a different version. Following the One-Version Rule makes this conflict impossible—if a target adds a dependency on a third-party library, any existing dependencies will already be on that same version, so they can happily coexist.
 
-允许多版本的最大问题是*钻石依赖性*问题。假设目标A依赖于目标B和外部库的v1。如果以后对目标B进行重构以添加对同一外部库的v2的依赖，则目标a将中断，因为它现在隐式地依赖于同一库的两个不同版本。实际上，将新的依赖项从目标添加到任何具有多个版本的第三方库永远都不安全，因为该目标的任何用户都可能已经依赖于不同的版本。遵循“一个版本”规则使此冲突不可能发生如果目标在第三方库上添加依赖项，则任何现有依赖项都将在同一版本上，因此它们可以愉快地共存。
+允许多个版本存在的最主要问题是**钻石依赖问题**。假设目标A依赖于目标B和外部库的v1。如果以后对目标B进行重构以添加对同一外部库的v2的依赖，则目标a将中断，因为它现在隐式地依赖于同一库的两个不同版本。实际上，将新的依赖项从目标添加到任何具有多个版本的第三方库永远都不安全，因为该目标的任何用户都可能已经依赖于不同的版本。遵循“一个版本”规则使此冲突不可能发生如果目标在第三方库上添加依赖项，则任何现有依赖项都将在同一版本上，因此它们可以愉快地共存。
 
 We’ll examine this further in the context of a large monorepo in Chapter 21.
 
@@ -606,11 +606,11 @@ We’ll examine this further in the context of a large monorepo in Chapter 21.
 
 This is very convenient: when adding a dependency on a new library, it would be a big pain to have to track down each of that library’s transitive dependencies and add them all manually. But there’s also a huge downside: because different libraries can depend on different versions of the same third-party library, this strategy necessarily violates the One-Version Rule and leads to the diamond dependency problem. If your target depends on two external libraries that use different versions of the same dependency, there’s no telling which one you’ll get. This also means that updating an external dependency could cause seemingly unrelated failures throughout the codebase if the new version begins pulling in conflicting versions of some of its dependencies.
 
-这非常方便：在新库上添加依赖项时，必须跟踪该库的每个可传递依赖项并手动添加它们，这将是一个很大的麻烦。但也有一个巨大的缺点：因为不同的库可能依赖于同一第三方库的不同版本，所以这种策略必然违反一个版本规则，并导致钻石依赖问题。如果你的目标依赖于使用同一依赖项的不同版本的两个外部库，则无法确定你将获得哪一个。这也意味着，如果新版本开始引入其某些依赖项的冲突版本，更新外部依赖项可能会导致整个代码库中看似无关的故障。
+这非常方便：在新库上添加依赖项时，必须跟踪该库的每个可传递依赖项并手动添加它们，这将是一个很大的麻烦。但也有一个巨大的缺点：因为不同的库可能依赖于同一第三方库的不同版本，所以这种策略必然违反一个版本规则，并导致钻石依赖问题。如果你的目标依赖于两个外部库，而这两个库使用了同一个依赖的不同版本，那么就无法预知你最终会得到哪一个版本。这也意味着，如果新版本开始引入某些依赖的冲突版本，更新外部依赖项可能在代码库中引起看似不相关的故障。
 
 For this reason, Bazel does not automatically download transitive dependencies. And, unfortunately, there’s no silver bullet—Bazel’s alternative is to require a global file that lists every single one of the repository’s external dependencies and an explicit version used for that dependency throughout the repository. Fortunately, [Bazel provides tools](https://oreil.ly/kejfX) that are able to automatically generate such a file containing the transitive dependencies of a set of Maven artifacts. This tool can be run once to generate the initial *WORKSPACE* file for a project, and that file can then be manually updated to adjust the versions of each dependency.
 
-因此，Bazel不会自动下载可传递依赖项。。而且，不幸的是，没有银弹--Bazel的替代方案是需要一个全局文件，列出版本库的每一个外部依赖，以及整个版本库中用于该依赖的明确版本。幸运的是，[Bazel提供的工具](https://oreil.ly/kejfX)能够自动生成这样一个文件，其中包含一组Maven构件的可传递依赖项。该工具可以运行一次，为项目生成初始*WORKSPACE*文件，然后可以手动更新该文件，以调整每个依赖的版本。
+因此，Bazel不会自动下载可传递依赖。而且，不幸的是，没有银弹——Bazel的替代方案是需要一个全局文件，列出版本库的每一个外部依赖，以及整个版本库中用于该依赖的明确版本。幸运的是，[Bazel提供的工具](https://oreil.ly/kejfX)能够自动生成这样一个文件，其中包含一组Maven构件的可传递依赖项。该工具可以运行一次，为项目生成初始*WORKSPACE*文件，然后可以手动更新该文件，以调整每个依赖的版本。
 
 Yet again, the choice here is one between convenience and scalability. Small projects might prefer not having to worry about managing transitive dependencies themselves and might be able to get away with using automatic transitive dependencies. This strategy becomes less and less appealing as the organization and codebase grows, and conflicts and unexpected results become more and more frequent. At larger scales, the cost of manually managing dependencies is much less than the cost of dealing with issues caused by automatic dependency management.
 
@@ -638,7 +638,7 @@ Both problems can be mitigated by mirroring any artifacts you depend on onto ser
 
 Another alternative that completely sidesteps the issue is to *vendor* your project’s dependencies. When a project vendors its dependencies, it checks them into source control alongside the project’s source code, either as source or as binaries. This effectively means that all of the project’s external dependencies are converted to internal dependencies. Google uses this approach internally, checking every third-party library referenced throughout Google into a *third_party* directory at the root of Google’s source tree. However, this works at Google only because Google’s source control system is custom built to handle an extremely large monorepo, so vendoring might not be an option for other organizations.
 
-另一个完全避开这个问题的办法是你项目的依赖关系。当项目提供其依赖项时，它会将它们与项目源代码一起作为源代码或二进制文件检查到源代码管理中。这实际上意味着该项目所有的外部依赖被转换为内部依赖。谷歌在内部使用这种方法，将整个谷歌引用的每一个第三方库检查到谷歌源码树根部的*第三方*目录中。然而，这在谷歌是可行的，因为谷歌的源码控制系统是定制的，可以处理一个非常大的monorepo，所以对于其他组织来说，vendor可能不是一个选项。
+另一个完全避开这个问题的办法是你项目的依赖关系。当项目提供其依赖项时，它会将它们与项目源代码一起作为源代码或二进制文件检查到源代码管理中。这实际上意味着该项目所有的外部依赖被转换为内部依赖。谷歌在内部使用这种方法，将整个谷歌引用的每一个第三方库检查到谷歌源码树根部的*third_party*目录中。然而，这在谷歌是可行的，因为谷歌的源码控制系统是定制的，可以处理一个非常大的monorepo，所以对于其他组织来说，vendor可能不是一个选项。
 
 ## Conclusion 总结
 
