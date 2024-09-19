@@ -47,7 +47,7 @@ Across these guiding principles, simplicity has probably had the most impact on 
 
 Simplicity also has an interesting tension with workflow integration. We considered but ultimately decided against creating a “Code Central” tool with code editing, reviewing, and searching in one tool. Although Critique has many touchpoints with other tools, we consciously decided to keep code review as the primary focus. Features are linked from Critique but implemented in different subsystems.
 
-简单与工作流程的整合也有一个有趣的矛盾。我们考虑过，但最终决定不创建一个集代码编辑、审查和搜索于一体的 "代码中心"工具。尽管Critique与其他工具有许多接触点，但我们还是有意识地决定将代码审查作为主要关注点。特征与评论相关，但在不同的子系统中实施。
+简单与工作流程的整合也有一个有趣的矛盾。我们考虑过，但最终决定不创建一个集代码编辑、审查和搜索于一体的 "代码中心"工具。尽管Critique与其他工具有许多接触点，但我们还是有意识地决定将代码审查作为主要关注点。特征从Critique链接，但在不同的子系统中实施。
 
 ## Code Review Flow 代码审查流程
 
@@ -70,7 +70,7 @@ Typical review steps go as follows:
 
 典型的审查步骤如下：
 
-1. **创建一个变更。** 一个用户对其工作区的代码库进行变更。然后这个*作者*向Critique上传一个*快照*（显示某一特定时间点的补丁），这将触发自动代码分析器的运行（见第20章）。
+1. **创建一个变更。** 用户对其工作区的代码库进行变更。然后这个*作者*向Critique上传一个*快照*（显示某一特定时间点的补丁），这将触发自动代码分析器的运行（见第20章）。
 2. **要求审查。** 在作者对修改的差异和Critique中显示的分析器的结果感到满意后，他们将修改发送给一个或多个审查员。
 3. **评论。**审查者在Critique中打开变更，并对diff起草评论。评论默认标记为*未解决*，意味着它们对作者来说是至关重要的。此外，评论者可以添加*已解决*的评论，这些评论是可选的或信息性的。自动代码分析器的结果，如果存在的话，也可以让审查者看到。一旦审查者起草了一组评论，他们需要*发布*它们，以便作者看到它们；这样做的好处是允许审查者在审查了整个修改后，以原子方式提供一个完整的想法。任何人都可以对变更发表评论，并在他们认为必要时提供“驱动式审查”。
 4. **修改变更并回复评论。** 作者修改变更，根据反馈上传新的快照，并回复评论者。作者处理（至少）所有未解决的评论，要么修改代码，要么直接回复评论并将评论类型改为*解决*。作者和审稿人可以查看任何一对快照之间的差异，看看有什么变化。步骤3和4可能要重复多次。
@@ -301,7 +301,7 @@ After we implemented this feature, our users had a difficult time imagining the 
 
 Critique’s landing page is the user’s dashboard page, as depicted in Figure 19-8. The dashboard page is divided into user-customizable sections, each of them containing a list of change summaries.
 
-Critique的登陆页面是用户的仪表板页面，如图19-8所示。仪表板页面被分为用户可定制的部分，每个部分都包含一个变更摘要列表。
+Critique的主页页面是用户的仪表板页面，如图19-8所示。仪表板页面被分为用户可定制的部分，每个部分都包含一个变更摘要列表。
 
 ![Figure 19-8](./images/Figure%2019-8.png)
 
