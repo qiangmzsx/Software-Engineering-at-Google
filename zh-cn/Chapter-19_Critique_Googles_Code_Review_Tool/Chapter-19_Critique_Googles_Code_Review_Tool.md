@@ -72,7 +72,7 @@ Typical review steps go as follows:
 
 1. **创建一个变更。** 一个用户对其工作区的代码库进行变更。然后这个*作者*向Critique上传一个*快照*（显示某一特定时间点的补丁），这将触发自动代码分析器的运行（见第20章）。
 2. **要求审查。** 在作者对修改的差异和Critique中显示的分析器的结果感到满意后，他们将修改发送给一个或多个审查员。
-3. **评论。**评论者在Critique中打开修改，并对diff起草评论。评论默认标记为*未解决*，意味着它们对作者来说是至关重要的。此外，评论者可以添加*已解决*的评论，这些评论是可选的或信息性的。自动代码分析器的结果，如果存在的话，也可以让审查者看到。一旦审查者起草了一组评论，他们需要*发布*它们，以便作者看到它们；这样做的好处是允许审查者在审查了整个修改后，以原子方式提供一个完整的想法。任何人都可以对变更发表评论，并在他们认为必要时提供“驱动式审查”。
+3. **评论。**审查者在Critique中打开变更，并对diff起草评论。评论默认标记为*未解决*，意味着它们对作者来说是至关重要的。此外，评论者可以添加*已解决*的评论，这些评论是可选的或信息性的。自动代码分析器的结果，如果存在的话，也可以让审查者看到。一旦审查者起草了一组评论，他们需要*发布*它们，以便作者看到它们；这样做的好处是允许审查者在审查了整个修改后，以原子方式提供一个完整的想法。任何人都可以对变更发表评论，并在他们认为必要时提供“驱动式审查”。
 4. **修改变更并回复评论。** 作者修改变更，根据反馈上传新的快照，并回复评论者。作者处理（至少）所有未解决的评论，要么修改代码，要么直接回复评论并将评论类型改为*解决*。作者和审稿人可以查看任何一对快照之间的差异，看看有什么变化。步骤3和4可能要重复多次。
 5. **变更批准。** 当审查者对修改的最新状态感到满意时，他们会批准变更，并将其标记为 “我觉得不错"（LGTM）。他们可以选择包含已解决的评论。更改被认为适合提交后，在UI中会清楚地标记为绿色以显示此状态。
 6. **提交变更。** 只要变更被批准（我们很快会讨论），作者就可以触发变更的提交过程。如果自动分析器和其他预提交钩子（称为 "预提交"）没有发现任何问题，该变更就被提交到代码库中。
@@ -93,7 +93,7 @@ For example, users can install a Chrome extension that consumes these event noti
 
 Critique also manages emails related to a change; important Critique events trigger email notifications. In addition to being displayed in the Critique UI, some analyzer findings are configured to also send the results out by email. Critique also processes email replies and translates them to comments, supporting users who prefer an email-based flow. Note that for many users, emails are not a key feature of code review; they use Critique’s dashboard view (discussed later) to manage reviews.
 
-Critique还管理与变化有关的电子邮件；重要的Critique事件会触发电子邮件通知。除了在 Critique UI 中显示外，一些分析器的结果也被配置为通过电子邮件发送。Critique 还处理电子邮件回复并将其转换为评论，支持喜欢基于电子邮件的流程的用户。请注意，对许多用户来说，电子邮件并不是代码审查的一个关键特征；他们使用 Critique 的仪表盘视图（后面会讨论）来管理评论。
+Critique还管理与变化有关的电子邮件；重要的Critique事件会触发电子邮件通知。除了在 Critique UI 中显示外，一些分析器的结果也被配置为通过电子邮件发送。Critique 还处理电子邮件回复并将其转换为评论，支持喜欢基于电子邮件的流程的用户。请注意，对许多用户来说，电子邮件并不是代码审查的一个关键特征；他们使用 Critique 的仪表板视图（后面会讨论）来管理评论。
 
 ## Stage 1: Create a Change 阶段1：创建一个变更
 
@@ -281,7 +281,7 @@ As mentioned earlier, comments are drafted as-you-go, but then “published” a
 
 Critique provides a number of mechanisms to make it clear where in the comment- and-iterate phase a change is currently located. These include a feature for determining who needs to take action next, and a dashboard view of review/author status for all of the changes with which a particular developer is involved.
 
-Critique提供了一些机制，使人们清楚地了解到某项修改目前处于评论和迭代阶段的什么位置。这些机制包括确定谁需要采取下一步行动的功能，以及特定开发者参与的所有修改的审查/作者状态的仪表盘视图。
+Critique提供了一些机制，使人们清楚地了解到某项修改目前处于评论和迭代阶段的什么位置。这些机制包括确定谁需要采取下一步行动的功能，以及特定开发者参与的所有修改的审查/作者状态的仪表板视图。
 
 #### “Whose turn” feature “轮到谁”功能
 
@@ -301,7 +301,7 @@ After we implemented this feature, our users had a difficult time imagining the 
 
 Critique’s landing page is the user’s dashboard page, as depicted in Figure 19-8. The dashboard page is divided into user-customizable sections, each of them containing a list of change summaries.
 
-Critique的登陆页面是用户的仪表盘页面，如图19-8所示。仪表盘页面被分为用户可定制的部分，每个部分都包含一个变更摘要列表。
+Critique的登陆页面是用户的仪表板页面，如图19-8所示。仪表板页面被分为用户可定制的部分，每个部分都包含一个变更摘要列表。
 
 ![Figure 19-8](./images/Figure%2019-8.png)
 
@@ -313,11 +313,11 @@ The dashboard page is powered by a search system called *Changelist Search*. Cha
 
 To optimize the user experience (UX), Critique’s default dashboard setting is to have the first section display the changes that need a user’s attention, although this is customizable. There is also a search bar for making custom queries over all changes and browsing the results. As a reviewer, you mostly just need the attention set. As an author, you mostly just need to take a look at what is still waiting for review to see if you need to ping any changes. Although we have shied away from customizability in some other parts of the Critique UI, we found that users like to set up their dashboards differently without detracting from the fundamental experience, similar to the way everyone organizes their emails differently.[^1]
 
-为了优化用户体验（UX），Critique的默认仪表盘设置是在第一部分显示需要用户关注的变更，不过这也是可以定制的。还有一个搜索栏，可以对所有修改进行自定义查询，并浏览结果。作为一个审查员，你主要是需要关注的一组。作为一个作者，你大多数时候只需要看一下哪些东西还在等待审查，看看你是否需要修正。尽管我们在Critique用户界面的一些其他部分回避了可定制性，但我们发现用户喜欢以不同的方式设置他们的仪表板，而不影响基本的体验，就像每个人以不同的方式组织他们的电子邮件一样。
+为了优化用户体验（UX），Critique的默认仪表板设置是在第一部分显示需要用户关注的变更，不过这也是可以定制的。还有一个搜索栏，可以对所有修改进行自定义查询，并浏览结果。作为一个审查员，你主要是需要关注的一组。作为一个作者，你大多数时候只需要看一下哪些东西还在等待审查，看看你是否需要修正。尽管我们在Critique用户界面的一些其他部分回避了可定制性，但我们发现用户喜欢以不同的方式设置他们的仪表板，而不影响基本的体验，就像每个人以不同的方式组织他们的电子邮件一样。
 
 > [^1]: Centralized “global” reviewers for large-scale changes (LSCs) are particularly prone to customizing this dashboard to avoid flooding it during an LSC (see Chapter 22).
 >
-> 1 大规模变更（LSCs）的集中式 "全球 "审查员特别容易定制这个仪表盘，以避免在LSC期间淹没它（见第22章）。
+> 1 大规模变更（LSCs）的集中式 "全球 "审查员特别容易定制这个仪表板，以避免在LSC期间淹没它（见第22章）。
 
 ## Stage 5: Change Approvals (Scoring a Change) 阶段5：变更批准（对变更进行评分）
 
@@ -353,9 +353,9 @@ Critique includes a scoring panel, next to the analysis chips, with the followin
 
 批评包括一个打分板，在分析卡片旁边，有以下信息:
 
-- 谁进行了变更
+- 谁对变更给出了'LGTM'
 - 还需要哪些批准，为什么？
-- 有多少的评论仍未解决
+- 有多少未解决的评论仍然开放
 
 Presenting the scoring information this way helps the author quickly understand what they still need to do to get the change committed.
 
