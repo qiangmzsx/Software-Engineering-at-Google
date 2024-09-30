@@ -3,18 +3,18 @@
 
 # Static Analysis
 # 第二十章 静态分析
-        
+
 **Written by Caitlin Sadowski**
 
 **Edited by Lisa Carey**
 
 Static analysis refers to programs analyzing source code to find potential issues such as bugs, antipatterns, and other issues that can be diagnosed *without executing the* *program*. The “static” part specifically refers to analyzing the source code instead of a running program (referred to as “dynamic” analysis). Static analysis can find bugs in programs early, before they are checked in as production code. For example, static analysis can identify constant expressions that overflow, tests that are never run, or invalid format strings in logging statements that would crash when executed.[^1] However, static analysis is useful for more than just finding bugs. Through static analysis at Google, we codify best practices, help keep code current to modern API versions, and prevent or reduce technical debt. Examples of these analyses include verifying that naming conventions are upheld, flagging the use of deprecated APIs, or pointing out simpler but equivalent expressions that make code easier to read. Static analysis is also an integral tool in the API deprecation process, where it can prevent backsliding during migration of the codebase to a new API (see Chapter 22). We have also found evidence that static analysis checks can educate developers and actually prevent antipatterns from entering the codebase.[^2]
 
-静态分析是指通过程序分析源代码来发现潜在的问题，例如bug、反模式和其他无需执行程序就能发现的问题。“静态”具体是指分析源代码，而不是运行中的程序（即“动态”分析）。它可以在代码被合入生产环境前发现bug，例如，可以识别溢出的常量表达式、永远不会运行的测试用例或日志字符串的无效格式化导致运行崩溃的问题。但静态分析的作用不只是查找bug。通过对Google代码的静态分析，我们编写了最佳实践，帮助推进代码使用最新接口和减少技术债，这些分析的例子包括：校验是否遵循命名规范；标记已弃用但仍然使用的接口；简化表达式以提高代码可读性。静态分析也是弃用某个接口时不可或缺的工具，它可以防止将代码库迁移到新接口时出现“倒退”现象（参见第22章，指被调用系统不断迁移旧接口到新接口，而其他系统不断的调用弃用接口而不调用新接口）。我们还发现静态分析检查可以对开发人员起到启发和约束作用，可以防止开发人员写出反模式的代码。
+静态分析是指通过程序分析源代码来发现潜在的问题，例如bug、反模式和其他无需执行程序即可诊断的问题。“静态”具体是指分析源代码，而不是运行中的程序（即“动态”分析）。它可以在代码被合入生产环境前发现bug，例如，可以识别溢出的常量表达式、永远不会运行的测试用例或日志字符串的无效格式化导致运行崩溃的问题。但静态分析的作用不只是查找bug。通过对Google代码的静态分析，我们编写了最佳实践，帮助推进代码使用最新接口和减少技术债，这些分析的例子包括：校验是否遵循命名规范；标记使用已弃用的API；简化表达式以提高代码可读性。静态分析也是弃用某个接口时不可或缺的工具，它可以防止将代码库迁移到新接口时出现“倒退”现象（参见第22章，指被调用系统不断迁移旧接口到新接口，而其他系统不断的调用弃用接口而不调用新接口）。我们还发现静态分析检查可以对开发人员起到启发和约束作用，可以防止开发人员写出反模式的代码。
 
 In this chapter, we’ll look at what makes effective static analysis, some of the lessons we at Google have learned about making static analysis work, and how we implemented these best practices in our static analysis tooling and processes.[^3]
 
-本章我们将介绍如何进行有效的静态分析，包含我们在 Google 了解到的一些关于静态分析工作的经验和我们在静态分析工具和流程中的最佳实践。
+本章我们将介绍如何进行高效的静态分析，包含我们在 Google 了解到的一些关于静态分析工作的经验和我们在静态分析工具和流程中的最佳实践。
 
 > [^1]: See `http://errorprone.info/bugpatterns`.
 >
@@ -28,7 +28,7 @@ In this chapter, we’ll look at what makes effective static analysis, some of t
 >
 > 3 关于静态分析理论，一个很好的学术参考资料是。Flemming Nielson等人，《程序分析原理》(Gernamy: Springer, 2004)
 
-## 有效静态分析的特点
+## 高效静态分析的特点
 
 Although there have been decades of static analysis research focused on developing new analysis techniques and specific analyses, a focus on approaches for improving *scalability* and *usability* of static analysis tools has been a relatively recent development.
 
@@ -38,7 +38,7 @@ Although there have been decades of static analysis research focused on developi
 
 Because modern software has become larger, analysis tools must explicitly address scaling in order to produce results in a timely manner, without slowing down the software development process. Static analysis tools at Google must scale to the size of Google’s multibillion-line codebase. To do this, analysis tools are shardable and incremental. Instead of analyzing entire large projects, we focus analyses on files affected by a pending code change, and typically show analysis results only for edited files or lines. Scaling also has benefits: because our codebase is so large, there is a lot of low- hanging fruit in terms of bugs to find. In addition to making sure analysis tools can run on a large codebase, we also must scale up the number and variety of analyses available. Analysis contributions are solicited from throughout the company. Another component to static analysis scalability is ensuring the *process* is scalable. To do this, Google static analysis infrastructure avoids bottlenecking analysis results by showing them directly to relevant engineers.
 
-现代软件变得越来越大，为了使分析工具在不减慢软件开发过程的情况下及时生效，必须有效地解决扩展性问题。对 Google 来说，分析工具需要满足 Google 数十亿行代码库的规模。为此，分析工具是分片和增量分析的，即不是分析整个大型项目，而是将分析重点放在受待处理代码变更影响的文件上，并且通常仅显示已编辑文件或行的分析结果。扩展也有好处：因为我们的代码库非常大，这样做在寻找bug时容易的多。除了确保分析工具可以在大型代码库上运行之外，还需要必须扩大可分析的数量和种类。分析器是在整个公司范围内征求的。静态分析可扩展性的另一个组成部分是确保过程是可扩展的，为此，Google静态分析基础架构通过直接向相关工程师展示分析结果来避免造成分析瓶颈。
+现代软件变得越来越大，为了使分析工具在不减慢软件开发过程的情况下及时生效，必须高效地解决扩展性问题。对 Google 来说，分析工具需要满足 Google 数十亿行代码库的规模。为此，分析工具是分片和增量分析的，即不是分析整个大型项目，而是将分析重点放在受待处理代码变更影响的文件上，并且通常仅显示已编辑文件或行的分析结果。扩展也有好处：因为我们的代码库非常大，这样做在寻找bug时容易的多。除了确保分析工具可以在大型代码库上运行之外，还需要必须扩大可分析的数量和种类。分析器是在整个公司范围内征求的。静态分析可扩展性的另一个组成部分是确保过程是可扩展的，为此，Google静态分析基础架构通过直接向相关工程师展示分析结果来避免造成分析瓶颈。
 
 ### Usability  可用性
 
@@ -68,21 +68,21 @@ There are three key lessons that we have learned at Google about what makes stat
 
 We mentioned some of the ways in which we try to save developer time and reduce the cost of interacting with the aforementioned static analysis tools; we also keep track of how well analysis tools are performing. If you don’t measure this, you can’t fix problems. We only deploy analysis tools with low false-positive rates (more on that in a minute). We also *actively solicit and act on feedback* from developers consuming static analysis results, in real time. Nurturing this feedback loop between static analysis tool users and tool developers creates a virtuous cycle that has built up user trust and improved our tools. User trust is extremely important for the success of static analysis tools.
 
-我们提到了一些试图节省开发人员时间并降低与静态分析工具交互成本的方法，我们还跟踪分析工具的性能。如果你不衡量这点，你就无法解决问题。我们只部署误报率较低的分析工具（稍后将详细介绍）。我们还*积极征求开发人员对静态分析结果的实时反馈并采取行动*，在静态分析工具用户和开发人员之间形成反馈闭环，创造一个良性循环，建立了用户信任，借此改进我们的工具。用户信任对于静态分析工具的成功至关重要。
+我们提到了一些尝试节省开发人员时间并降低与静态分析工具交互成本的方法，我们还跟踪分析工具的性能。如果不对此进行衡量，你就无法解决问题。我们只部署误报率较低的分析工具（稍后将详细介绍）。我们还*积极征求开发人员对静态分析结果的实时反馈并采取行动*，在静态分析工具用户和开发人员之间形成反馈闭环，创造一个良性循环，建立了用户信任，借此改进我们的工具。用户信任对于静态分析工具的成功至关重要。
 
 For static analysis, a “false negative” is when a piece of code contains an issue that the analysis tool was designed to find, but the tool misses it. A “false positive” occurs when a tool incorrectly flags code as having the issue. Research about static analysis tools traditionally focused on reducing false negatives; in practice, low false-positive rates are often critical for developers to actually want to use a tool—who wants to wade through hundreds of false reports in search of a few true ones?[^4]
 
-对于静态分析，“漏报（false negative）”是指一段代码包含分析工具找到的问题，但该工具忽略了该问题，“误报（false positive）”是指工具错误地将代码标记为存在问题。一般来说，静态分析工具的研究侧重于减少误判；实践中，开发者是否真正想要使用工具取决于误报率是否很低——谁愿意在数百个虚假报告中费力寻找一些真实的报告？
+对于静态分析，“漏报（false negative）”是指一段代码包含分析工具找到的问题，但工具未能发现，“误报（false positive）”是指工具错误地将代码标记为存在问题。一般来说，静态分析工具的研究侧重于减少漏报；实践中，开发者是否真正想要使用工具取决于误报率是否很低——谁愿意在数百个虚假报告中费力寻找一些真实的报告？
 
 Furthermore, perception is a key aspect of the false-positive rate. If a static analysis tool is producing warnings that are technically correct but misinterpreted by users as false positives (e.g., due to confusing messages), users will react the same as if those warnings were in fact false positives. Similarly, warnings that are technically correct but unimportant in the grand scheme of things provoke the same reaction. We call the user-perceived false-positive rate the “effective false positive” rate. An issue is an “effective false positive” if developers did not take some positive action after seeing the issue. This means that if an analysis incorrectly reports an issue, yet the developer happily makes the fix anyway to improve code readability or maintainability, that is not an effective false positive. For example, we have a Java analysis that flags cases in which a developer calls the contains method on a hash table (which is equivalent to containsValue) when they actually meant to call containsKey—even if the developer correctly meant to check for the value, calling containsValue instead is clearer. Similarly, if an analysis reports an actual fault, yet the developer did not understand the fault and therefore took no action, that is an effective false positive.
 
-此外，用户感知是误报率的一个关键方面。如果静态分析工具产生的警告在技术上是正确的，但被用户误解为误报（例如，由于告警消息混乱），用户的反应将与这些警告实际上是误报一样。类似地，技术上正确但在大局中不重要的警告也会引发同样的反应。我们将用户感知的误报率称为“有效误报率”。如果开发者在看到问题后没有采取积极的行动，那么问题就是“有效的误报（effective false positive）”，这意味着，如果一个分析错误地报告了一个问题，但开发人员仍然乐于进行修复，以提高代码的可读性或可维护性，那么这就不是一个有效的误报。例如，我们有一个Java分析，它标记了这样一种情况：当开发人员实际上打算调用containsKey时，开发人员在哈希表（相当于containsValue）上调用contains方法，即使开发人员正确地打算检查值，调用containsValue反而更清晰。同样，如果分析报告了一个实际的故障，但开发人员不了解故障，因此没有采取任何行动，这就是一个有效的误报。
+此外，用户感知是误报率的一个关键因素。如果静态分析工具产生的警告在技术上是正确的，但被用户误解为误报（例如，由于告警消息混乱），用户的反应将与这些警告实际上是误报一样。类似地，技术上正确但在大局中不重要的警告也会引发同样的反应。我们将用户感知的误报率称为“有效误报率”。如果开发者在看到问题后没有采取积极的行动，那么该问题就是“有效的误报（effective false positive）”，这意味着，如果一个分析错误地报告了一个问题，但开发人员仍然乐于进行修复，以提高代码的可读性或可维护性，那么这就不是一个有效的误报。例如，我们有一个Java分析，它标记了这样一种情况：当开发者实际上想要调用`containsKey`方法时，却错误地调用了哈希表的`contains`方法，它会标记这种情况，即使开发人员正确地打算检查值，调用containsValue反而更清晰。同样，如果分析报告了一个实际的故障，但开发人员不了解故障，因此没有采取任何行动，这就是一个有效的误报。
 
 > [^4]: Note that there are some specific analyses for which reviewers might be willing to tolerate a much higher false-positive rate: one example is security analyses that identify critical problems.
 >
 > 4 请注意，有一些特定的分析，审查员可能愿意容忍更高的误报率：一个例子是识别关键问题的安全分析。
 
-### Make Static Analysis a Part of the Core Developer Workflow  使静态分析成为核心开发人员工作流程的一部分
+### Make Static Analysis a Part of the Core Developer Workflow  使静态分析成为核心开发工作流程的一部分
 
 At Google, we integrate static analysis into the core workflow via integration with code review tooling. Essentially all code committed at Google is reviewed before being committed; because developers are already in a change mindset when they send code for review, improvements suggested by static analysis tools can be made without too much disruption. There are other benefits to code review integration. Developers typically context switch after sending code for review, and are blocked on reviewers— there is time for analyses to run, even if they take several minutes to do so. There is also peer pressure from reviewers to address static analysis warnings. Furthermore, static analysis can save reviewer time by highlighting common issues automatically; static analysis tools help the code review process (and the reviewers) scale. Code review is a sweet spot for analysis results.[^5]
 
@@ -134,7 +134,7 @@ Developers throughout Google write Tricorder analyses (called “analyzers”) o
 Tricorder 检查有四个标准：
 
 - *易于理解*  
-​    任何工程师都可以轻松理解输出结果。
+    便于任何工程师理解输出结果。
 - *可操作且易于修复*  
 ​    与编译器检查相比，修复可能需要更多的时间、思考或尝试，结果应包括有关如何真正修复问题的指导。
 - *少于10%的有效误报*  
@@ -144,7 +144,7 @@ Tricorder 检查有四个标准：
 
 Tricorder analyzers report results for more than 30 languages and support a variety of analysis types. Tricorder includes more than 100 analyzers, with most being contributed from outside the Tricorder team. Seven of these analyzers are themselves plug-in systems that have hundreds of additional checks, again contributed from developers across Google. The overall effective false-positive rate is just below 5%.
 
-Tricorder分析仪报告支持30种语言，并支持多种分析类型。Tricorder包括100多个分析器，其中大部分来自Tricorder团队外部。 其中七个分析器本身就是插件系统，具有数百项额外检查，由 Google 的开发人员提供，总体有效的误报率略低于 5%。
+Tricorder分析仪报告支持30种语言，并支持多种分析类型。Tricorder包括100多个分析器，其中大部分来自Tricorder团队外部。 其中七个分析器本身就是插件系统，拥有数百个额外的检查项，由 Google 的开发者们贡献，总体有效的误报率略低于 5%。
 
 > [^7]: Caitlin Sadowski, Jeffrey van Gogh, Ciera Jaspan, Emma Söderberg, and Collin Winter, Tricorder: Building a Program Analysis Ecosystem, International Conference on Software Engineering (ICSE), May 2015.
 >
@@ -174,11 +174,11 @@ result = 31 * result + (int) (f ^ (f >>> 32));
 
 Now consider the case in which the type of f is int. The code will still compile, but the right shift by 32 is a no-op so that f is XORed with itself and no longer affects the value produced. We fixed 31 occurrences of this bug in Google’s codebase while enabling the check as a compiler error in Error Prone. There are [many more such examples](https://errorprone.info/bugpatterns). AST antipatterns can also result in code readability improvements, such as removing a redundant call to `.get()` on a smart pointer.
 
-现在考虑f的类型是int的情况，代码仍然可以编译，但是右移32是空操作，因此 f 与自身进行异或，不再影响产生的值。我们修复了 Google 代码库中出现的 31 次该错误，同时在 Error Prone 中将检查作为编译器错误启用。这样的例子还有很多。 AST 反模式还可以提高代码的可读性，例如删除对智能指针的 `.get()` 的冗余调用。
+现在考虑f的类型是int的情况，代码仍然可以编译，但是右移32是空操作，因此 f 与自身进行异或，不再影响最终产生的值。我们修复了 Google 代码库中出现的 31 次该错误，同时在 Error Prone 中将检查作为编译器错误启用。这样的例子还有很多。 AST 反模式还可以提高代码的可读性，例如删除对智能指针的 `.get()` 的冗余调用。
 
 Other analyzers showcase relationships between disparate files in a corpus. The Deleted Artifact Analyzer warns if a source file is deleted that is referenced by other non-code places in the codebase (such as inside checked-in documentation). IfThisThenThat allows developers to specify that portions of two different files must be changed in tandem (and warns if they are not). Chrome’s Finch analyzer runs on configuration files for A/B experiments in Chrome, highlighting common problems including not having the right approvals to launch an experiment or crosstalk with other currently running experiments that affect the same population. The Finch analyzer makes Remote Procedure Calls (RPCs) to other services in order to provide this information.
 
-其他分析器展示了语料库中不同文件之间的关系。如果删除了代码库中其他非代码位置（例如签入文档中）引用的源文件，Deleted Artifact Analyzer 会发出警告。 IfThis-ThenThat 允许开发人员指定两个不同文件的部分必须同时更改（如果不是，则发出警告）。 Chrome 的 Finch 分析器在 Chrome 中的 A/B 实验的配置文件上运行，突出显示常见问题，包括未获得启动实验的正确批准或与影响同一人群的其他当前正在运行的实验串扰。 Finch 分析器对其他服务进行远程过程调用 (RPC) 以提供此信息。
+其他分析器展示了语料库中不同文件之间的关系。如果删除了代码库中其他非代码位置（例如签入文档中）引用的源文件，Deleted Artifact Analyzer 会发出警告。 IfThis-ThenThat 允许开发人员指定两个不同文件的部分必须同时更改（如果不是，则发出警告）。 Chrome 的 Finch 分析器在 Chrome 中的 A/B 实验的配置文件上运行，突出显示常见问题，包括未获得启动实验的正确批准或与影响同一人群的其他当前正在运行的实验串扰。 Finch分析器通过远程过程调用（RPCs）向其他服务请求以提供这些信息。
 
 In addition to the source code itself, some analyzers run on other artifacts produced by that source code; many projects have enabled a binary size checker that warns when changes significantly affect a binary size.
 
@@ -192,17 +192,17 @@ Almost all analyzers are intraprocedural, meaning that the analysis results are 
 
 As mentioned earlier, establishing a feedback loop between analysis consumers and analysis writers is critical to track and maintain developer happiness. With Tricorder, we display the option to click a “Not useful” button on an analysis result; this click provides the option to file a bug *directly against the analyzer writer* about why the result is not useful with information about analysis result prepopulated. Code reviewers can also ask change authors to address analysis results by clicking a “Please fix” button. The Tricorder team tracks analyzers with high “Not useful” click rates, particularly relative to how often reviewers ask to fix analysis results, and will disable analyzers if they don’t work to address problems and improve the “not useful” rate. Establishing and tuning this feedback loop took a lot of work, but has paid dividends many times over in improved analysis results and a better user experience (UX)— before we established clear feedback channels, many developers would just ignore analysis results they did not understand.
 
-如上所述，建立分析者和作者之间反馈闭环对于跟踪和维护开发人员的成幸福感很重要。Tricorder会在分析结果上显示单击“无用”按钮的选项；此按钮提供了*直接针对分析器作者*提交错误的选项，说明了为什么分析结果信息无用，代码审查员还可以通过单击“请修复”按钮要求变更作者处理分析结果。 Tricorder团队跟踪“无用”按钮点击率高的分析器，特别是与审阅者要求修复分析结果的频率有关，如果分析器不能解决问题并改进“无用”，则会禁用分析器。建立和调整这个反馈闭环需要大量工作，但在改进分析结果和更好的用户体验 (UX) 方面已经获得了很大的回报——在我们建立清晰的反馈渠道之前，许多开发人员会忽略他们不理解的分析结果.
+如上所述，建立分析者和作者之间反馈闭环对于跟踪和维护开发人员的成幸福感很重要。Tricorder会在分析结果上显示单击“无用”按钮的选项；此按钮提供了*直接针对分析器作者*提交错误的选项，说明了为什么分析结果信息无用，代码审查员还可以通过单击“请修复”按钮要求变更作者处理分析结果。 Tricorder团队跟踪“无用”按钮点击率高的分析器，特别是与审阅者要求修复分析结果的频率有关，如果分析器不能解决问题并改进“无用”，则会禁用分析器。建立和调整这个反馈闭环需要大量工作，但在改进分析结果和更好的用户体验 (UX) 方面已经获得了巨大的回报——在我们建立清晰的反馈渠道之前，许多开发人员会忽略他们不理解的分析结果.
 
 And sometimes the fix is pretty simple—such as updating the text of the message an analyzer outputs! For example, we once rolled out an Error Prone check that flagged when too many arguments were being passed to a printf-like function in Guava that accepted only %s (and no other printf specifiers). The Error Prone team received weekly “Not useful” bug reports claiming the analysis was incorrect because the number of format specifiers matched the number of arguments—all due to users trying to pass specifiers other than %s. After the team changed the diagnostic text to state directly that the function accepts only the %s placeholder, the influx of bug reports stopped. Improving the message produced by an analysis provides an explanation of what is wrong, why, and how to fix it exactly at the point where that is most relevant and can make the difference for developers learning something when they read the message.
 
-有时修复非常简单，例如更新分析器输出的消息文本。 我们曾经推出了一个容易出错的检查，当太多参数被传递给Guava中的类似printf的函数时，该检查只接受%s(并且不接受其他printf说明符）。Error Prone团队每周都会收到“无用”的错误报告，声称分析不正确，因为格式说明符的数量与参数的数量相匹配——所有这些都是由于用户试图传递除 %s 之外的说明符。在团队将诊断文本更改为直接声明该函数仅接受 %s 占位符后，错误报告的涌入停止了。 改进分析产生的消息可以解释什么是错误的、为什么以及如何在最相关的点上准确地修复它，并且可以对开发人员在阅读消息时学习一些东西产生影响。
+有时修复非常简单，例如更新分析器输出的消息文本。 我们曾经推出了一个容易出错的检查，当太多参数被传递给Guava中的类似printf的函数时，该检查只接受%s(并且不接受其他printf说明符）。Error Prone团队每周都会收到“无用”的错误报告，声称分析不正确，因为格式说明符的数量与参数的数量相匹配——所有这些都是由于用户试图传递除 %s 之外的说明符。在团队将诊断文本更改为直接声明该函数仅接受 %s 占位符后，错误报告的大量涌入便停止了。 改进分析产生的信息可以提供错误点的解释、原因以及如何精确修复，这在最相关的时刻可以为开发者提供学习的机会。
 
 ### Suggested Fixes  建议的修复
 
 Tricorder checks also, when possible, *provide fixes*, as shown in Figure 20-2.
 
-Tricorder 检查也会在可能的情况下提供修复，如图 20-2 所示。
+Tricorder 检查也会在可能的情况下提供修复方案，如图 20-2 所示。
 
 ![Figure 20-2](./images/Figure%2020-2.png)
 
@@ -234,11 +234,11 @@ Tricorder开发的早期，Critique展示了一组相对简单的样式检查器
 
 In addition to code review, there are also other workflow integration points for static analysis at Google. Because developers can choose to ignore static analysis warnings displayed in code review, Google additionally has the ability to add an analysis that blocks committing a pending code change, which we call a *presubmit check*. Presubmit checks include very simple customizable built-in checks on the contents or metadata of a change, such as ensuring that the commit message does not say “DO NOT SUBMIT” or that test files are always included with corresponding code files. Teams can also specify a suite of tests that must pass or verify that there are no Tricorder  issues for a particular category. Presubmits also check that code is well formatted. Presubmit checks are typically run when a developer mails out a change for review and again during the commit process, but they can be triggered on an ad hoc basis in between those points. See Chapter 23 for more details on presubmits at Google.
 
-除了代码审查之外， Google 还有其他用于静态分析的工作流集成点。由于开发人员可以选择忽略代码审查中显示的静态分析警告， Google 还可以添加一个分析来阻止提交待处理的代码更改，我们称之为*预提交检查*。预提交检查包括对更改的内容或元数据的非常简单的可定制的内置检查，例如确保提交消息没有说“不要提交”或测试文件始终包含在相应的代码文件中。团队还可以指定一组测试，这些测试必须通过或验证特定类别没有 Tricorder 问题。预提交还会检查代码是否格式正确。预提交检查通常在开发人员邮寄更改以供审核时运行，并在提交过程中再次运行，但它们可以在这些点之间临时触发。有关 Google 预提交的更多详细信息，请参阅第 23 章。
+除了代码审查之外， Google 还有其他用于静态分析的工作流集成点。由于开发人员可以选择忽略代码审查中显示的静态分析警告， Google 还可以添加一个分析来阻止提交待处理的代码更改，我们称之为*预提交检查*。预提交检查包括对更改的内容或元数据的非常简单的可定制的内置检查，例如确保提交消息不包含“不要提交”或测试文件始终包含在相应的代码文件中。团队还可以指定一组测试，这些测试必须通过或验证特定类别没有 Tricorder 问题。预提交还会检查代码是否格式正确。预提交检查通常在开发者提交变更以供审查时执行，并且在提交过程中再次执行，但它们也可以在这些时间点之间按需触发。有关 Google 预提交的更多详细信息，请参阅第 23 章。
 
 Some teams have written their own custom presubmits. These are additional checks on top of the base presubmit set that add the ability to enforce higher best-practice standards than the company as a whole and add project-specific analysis. This enables new projects to have stricter best-practice guidelines than projects with large amounts of legacy code (for example). Team-specific presubmits can make the large- scale change (LSC) process (see Chapter 22) more difficult, so some are skipped for changes with “CLEANUP=” in the change description.
 
-一些团队已经编写了自己的自定义预提交。这些是在基本预提交集之上的额外检查，增加了执行比整个公司更高的最佳实践标准的能力，并添加了特定于项目的分析。这使得新项目比拥有大量遗留代码的项目（例如）拥有更严格的最佳实践指南。团队特定的预提交会使大规模变更 (LSC) 过程（参见第 22 章）更加困难，因此在变更描述中带有“CLEANUP=”的变更会被跳过。
+一些团队已经编写了自己的定制预提交。这些是在基础预提交检查之上的额外检查，它们能够强化比公司整体更高的最佳实践标准，并增加项目特定的分析。这使得新项目比拥有大量遗留代码的项目（例如）拥有更严格的最佳实践指南。团队特定的预提交会使大规模变更 (LSC) 过程（参见第 22 章）更加复杂，因此在变更描述中带有“CLEANUP=”的变更会被跳过。
 
 ### Compiler Integration 编译器集成
 
@@ -248,25 +248,25 @@ Although blocking commits with static analysis is great, it is even better to no
 - Produce no effective false positives (the analysis should never stop the build for correct code)
 - Report issues affecting only correctness rather than style or best practices
 
-尽管使用静态分析阻止提交很好用，但最好在工作流程的早期通知开发人员问题。 如果可以的话，我们会尝试将静态分析推送到编译器中。 破坏构建是一个不可忽视的警告，但在许多情况下是不可行的。然而，一些分析是高度机械化的，没有有效的误报。 一个例子是容易出错的“错误”检查， 这些检查都在 Google 的 Java 编译器中启用，防止错误实例再次被引入我们的代码库， 编译器检查需要快速，以免减慢构建速度。此外，我们强制执行这三个标准（C++ 编译器也存在类似的标准）：
+尽管使用静态分析来阻止提交是很好的做法，但最好能在工作流程的更早阶段通知开发者问题。 如果可以的话，我们会尝试将静态分析推送到编译器中。 构建失败是一个不可忽视的警告，但在许多情况下是不可行的。然而，有些分析非常机械死板，没有有效的误报。 一个例子是Error Prone的“ERROR”检查， 这些检查都在 Google 的 Java 编译器中启用，防止错误实例再次被引入我们的代码库， 编译器检查需要快速，以免拖慢构建速度。此外，我们强制执行这三个标准（C++ 编译器也存在类似的标准）：
 
 - 可操作且易于修复（只要可能，错误应包括可自动应用的建议修复）
-- 不产生有效的误报（分析不应停止生成正确的代码）
+- 不产生有效的误报（分析永远不应因正确的代码而中断构建）
 - 报告仅影响正确性而非风格或最佳实践的问题
 
 To enable a new check, we first need to clean up all instances of that problem in the codebase so that we don’t break the build for existing projects just because the compiler has evolved. This also implies that the value in deploying a new compiler-based check must be high enough to warrant fixing all existing instances of it. Google has infrastructure in place for running various compilers (such as clang and javac) over the entire codebase in parallel via a cluster—as a MapReduce operation. When compilers are run in this MapReduce fashion, the static analysis checks run must produce fixes in order to automate the cleanup. After a pending code change is prepared and tested that applies the fixes across the entire codebase, we commit that change and remove all existing instances of the problem. We then turn the check on in the compiler so that no new instances of the problem can be committed without breaking the build. Build breakages are caught after commit by our Continuous Integration (CI) system, or before commit by presubmit checks (see the earlier discussion).
 
-要启用新的检查，我们首先需要清理代码库中该问题的所有实例，这样我们就不会因为编译器的发展而破坏现有项目的构建。这也意味着部署新的基于编译器的检查的价值必须足够高，以保证修复它的所有现有实例。Google 有基础设施，可以通过集群在整个代码库上并行运行各种编译器（例如 clang 和 javac）——作为 MapReduce 操作。当编译器以这种 MapReduce 方式运行时，运行的静态分析检查必须产生修复以自动进行清理。在准备好并测试了在整个代码库中应用修复的待处理代码更改后，我们提交该更改并删除所有现有的问题实例。然后我们在编译器中打开检查，这样就不会在不破坏构建的情况下提交问题的新实例。在我们的持续集成 (CI) 系统提交之后，或者在提交之前通过预提交检查（参见前面的讨论）捕获构建损坏。
+要启用新的检查，我们首先需要清理代码库中该问题的所有实例，以确保我们不会仅因为编译器的更新而破坏现有项目的构建。这也意味着部署新的基于编译器的检查必须有足够的价值，以证明修复所有现有实例是合理的。Google 有基础设施，可以通过集群在整个代码库上并行运行各种编译器（例如 clang 和 javac）——作为 MapReduce 操作。当编译器以这种 MapReduce 方式运行时，运行的静态分析检查必须产生修复以自动进行清理。在准备好并测试了在整个代码库中应用修复的待处理代码更改后，我们提交该更改并删除所有现有的问题实例。然后我们在编译器中打开检查，这样就不会在不破坏构建的情况下提交问题的新实例。在我们的持续集成 (CI) 系统提交之后，或者在提交之前通过预提交检查（参见前面的讨论）捕获构建损坏。
 
 We also aim to never issue compiler warnings. We have found repeatedly that developers ignore compiler warnings. We either enable a compiler check as an error (and break the build) or don’t show it in compiler output. Because the same compiler flags are used throughout the codebase, this decision is made globally. Checks that can’t be made to break the build are either suppressed or shown in code review (e.g., through Tricorder). Although not every language at Google has this policy, the most frequently used ones do. Both of the Java and C++ compilers have been configured to avoid displaying compiler warnings. The Go compiler takes this to extreme; some things that other languages would consider warnings (such as unused variables or package imports) are errors in Go.
 
-我们的目标是永远不会发出编译器警告，但是我们不断的发现开发人员会忽略编译器警告，要么启用编译器检查作为错误（并中断构建），要么不在编译器输出中显示它。因为在整个代码库中使用相同的编译器标志，所以这个决定是全局做出的。无法破坏构建的检查要么被抑制，要么在代码审查中显示（例如，通过 Tricorder）。尽管并非 Google 的所有语言都有此策略，但最常用的语言都有。Java 和 C++ 编译器都已配置为避免显示编译器警告，Go 编译器将这一点做的很好，因为在其他语言中会考虑警告的一些事情（例如未使用的变量或包导入），在 Go 中是错误的。
+我们也旨在绝不发出编译器警告，但是我们不断的发现开发人员会忽略编译器警告，要么启用编译器检查作为错误（并中断构建），要么不在编译器输出中显示它。因为在整个代码库中使用相同的编译器标志，因此这一决定是全局性的。无法破坏构建的检查要么被抑制，要么在代码审查中显示（例如，通过 Tricorder）。尽管并非 Google 的所有语言都有此策略，但最常用的语言都有。Java 和 C++ 编译器都已配置为避免显示编译器警告，Go 编译器将这一点做的很好，因为在其他语言中会考虑警告的一些事情（例如未使用的变量或包导入），在 Go 中是错误的。
 
 ### Analysis While Editing and Browsing Code  编辑和浏览代码时分析
 
 Another potential integration point for static analysis is in an integrated development environment (IDE). However, IDE analyses require quick analysis times (typically less than 1 second and ideally less than 100 ms), and so some tools are not suitable to integrate here. In addition, there is the problem of making sure the same analysis runs identically in multiple IDEs. We also note that IDEs can rise and fall in popularity (we don’t mandate a single IDE); hence IDE integration tends to be messier than plugging into the review process. Code review also has specific benefits for displaying analysis results. Analyses can take into account the entire context of the change; some analyses can be inaccurate on partial code (such as a dead code analysis when a function is implemented before adding callsites). Showing analysis results in code review also means that code authors have to convince reviewers as well if they want to ignore analysis results. That said, IDE integration for suitable analyses is another great place to display static analysis results.
 
-静态分析的另一个集成点是集成开发环境 (IDE)。但是，IDE 分析需要快速的分析时间（通常小于 1 秒，理想情况下小于 100 毫秒），因此某些工具不适合在这里集成，此外，还存在确保相同分析在多个 IDE 中以相同方式运行的问题。我们还发现 IDE 的受欢迎程度可能会上升或下降（我们不强制要求单一的 IDE），因此 IDE 集成往往比插入审查过程更混乱。代码审查还具有显示分析结果的特定好处。分析可以考虑变更的整个背景，某些对部分代码点分析可能不准确（例如，在添加调用点之前实现函数时的死代码分析）。在代码审查中显示分析结果也意味着如果代码作者想忽略分析结果，他们也必须通过审查。也就是说，IDE集成进行适当的分析是显示静态分析结果的一个不错的集成点。
+静态分析的另一个集成点是集成开发环境 (IDE)。但是，IDE 分析需要快速的分析时间（通常小于 1 秒，理想情况下小于 100 毫秒），因此某些工具不适合在这里集成，此外，还存在确保相同分析在多个 IDE 中以相同方式运行的问题。我们还发现 IDE 的受欢迎程度可能会上升或下降（我们不强制要求单一的 IDE），因此 IDE 集成往往比插入审查过程更混乱。代码审查还具有显示分析结果的特定好处。分析可以考虑变更的整个背景，某些对部分代码点分析可能不准确（例如，在添加调用点之前实现函数时的死代码分析）。在代码审查中显示分析结果也意味着如果代码作者想忽略分析结果，他们也需要说服审查者。也就是说，IDE集成进行适当的分析是显示静态分析结果的一个不错的集成点。
 
 Although we mostly focus on showing newly introduced static analysis warnings, or warnings on edited code, for some analyses, developers actually do want the ability to view analysis results over the entire codebase during code browsing. An example of this are some security analyses. Specific security teams at Google want to see a holistic view of all instances of a problem. Developers also like viewing analysis results over the codebase when planning a cleanup. In other words, there are times when showing results when code browsing is the right choice.
 
