@@ -19,13 +19,13 @@ At Google, we’ve long ago abandoned the idea of making sweeping changes across
 
 In this chapter, we’ll talk about the techniques, both social and technical, that enable us to keep the large Google codebase flexible and responsive to changes in underlying infrastructure. We’ll also provide some real-life examples of how and where we’ve used these approaches. Although your codebase might not look like Google’s, understanding these principles and adapting them locally will help your development organization scale while still being able to make broad changes across your codebase.
 
-在这一章中，我们将谈论社会和技术方面的技术，这些技术使我们能够保持谷歌大型代码库的灵活性，并对底层基础设施的变化做出响应。我们还将提供一些实际例子，说明我们如何以及在何处使用这些方法。尽管你的代码库可能不像谷歌的代码库，但了解这些原则并对其进行局部调整，将有助于你的开发组织在扩大规模的同时，仍然能够对你的代码库进行大规模的变更。
+在这一章中，我们将谈论社会和技术方面的技巧，这些技术使我们能够保持谷歌大型代码库的灵活性，并对底层基础设施的变化做出响应。我们还将提供一些实际例子，说明我们如何以及在何处使用这些方法。尽管你的代码库可能不像谷歌的代码库，但了解这些原则并对其进行局部调整，将有助于你的开发组织在扩大规模的同时，仍然能够对你的代码库进行大规模的变更。
 
 ## What Is a Large-Scale Change? 什么是大规模的变更？
 
 Before going much further, we should dig into what qualifies as a large-scale change (LSC). In our experience, an LSC is any set of changes that are logically related but cannot practically be submitted as a single atomic unit. This might be because it touches so many files that the underlying tooling can’t commit them all at once, or it might be because the change is so large that it would always have merge conflicts. In many cases, an LSC is dictated by your repository topology: if your organization uses a collection of distributed or federated repositories,[^1] making atomic changes across them might not even be technically possible.[^2] We’ll look at potential barriers to atomic changes in more detail later in this chapter.
 
-在进一步讨论之前，我们应该探讨一下什么是大规模变更（LSC）。根据我们的经验，LSC是指任何一组逻辑上相关但实际上不能作为一个单一的原子单元提交的变更。这可能是因为它涉及到文件太多，以至于底层工具无法一次性提交所有文件，也可能是因为变化太大，总是会有合并冲突。在很多情况下，LSC是由你的版本库拓扑结构决定的：如果你的组织使用分布式或联邦版本库集合，在它们之间进行原子修改在技术上可能是不可能的。我们将在本章后面详细讨论原子变更的潜在障碍。
+在进一步讨论之前，我们应该探讨一下什么是大规模变更（LSC）。根据我们的经验，LSC是指任何一组逻辑上相关但实际上不能作为一个单一的原子单元提交的变更。这可能是因为它涉及到文件太多，以至于底层工具无法一次性提交所有文件，也可能是因为变化太大，总是会有合并冲突。在很多情况下，LSC是由你的版本库的拓扑结构决定的：如果你的组织使用分布式或联邦版本库集合，在它们之间进行原子修改在技术上可能是不可能的。我们将在本章后面详细讨论原子变更的潜在障碍。
 
 LSCs at Google are almost always generated using automated tooling. Reasons for making an LSC vary, but the changes themselves generally fall into a few basic categories:
 
@@ -47,7 +47,7 @@ The number of engineers working on these specific tasks in a given organization 
 
 There can be broader motivating causes behind specific LSCs. For example, a new language standard might introduce a more efficient idiom for accomplishing a given task, an internal library interface might change, or a new compiler release might require fixing existing problems that would be flagged as errors by the new release. The majority of LSCs across Google actually have near-zero functional impact: they tend to be widespread textual updates for clarity, optimization, or future compatibility. But LSCs are not theoretically limited to this behavior-preserving/refactoring class of change.
 
-在特定的LSC背后可能有更广泛的动机。例如，新的语言标准可能会引入一种更有效的习惯用法来完成给定的任务，内部库接口可能会更改，或者新的编译器版本可能需要修复新版本标记为错误的现有问题。谷歌的大多数LSC实际上几乎没有功能影响：它们往往是为了清晰、优化或未来兼容性而进行的广泛文本更新。但从理论上讲，LSC并不局限于这种行为维护/重构类型的变化。
+在特定的LSC背后可能有更广泛的动机。例如，新的语言标准可能会引入一种更有效的习惯用法来完成给定的任务，内部库接口可能会更改，或者新的编译器版本可能需要修复新版本标记为错误的现有问题。谷歌的大多数LSC实际上几乎没有功能影响：它们往往是为了清晰、优化或未来兼容性而进行的广泛文本更新。但从理论上讲，LSC并不局限于这种行为保持/重构类型的变化。
 
 In all of these cases, on a codebase the size of Google’s, infrastructure teams might routinely need to change hundreds of thousands of individual references to the old pattern or symbol. In the largest cases so far, we’ve touched millions of references, and we expect the process to continue to scale well. Generally, we’ve found it advantageous to invest early and often in tooling to enable LSCs for the many teams doing infrastructure work. We’ve also found that efficient tooling also helps engineers performing smaller changes. The same tools that make changing thousands of files efficient also scale down to tens of files reasonably well.
 
@@ -145,7 +145,7 @@ If your company is small, you might be able to sneak in a change that touches ev
 
 With few files in a change, the probability of merge conflicts shrinks, so they are more likely to be committed without problems. This property also holds for the following areas as well.
 
-由于更改中的文件很少，合并冲突的可能性会减小，因此它们更有可能在提交时不会出现问题。该属性也适用于以下区域。
+由于更改中的文件很少，合并冲突的可能性会减小，因此它们更有可能在提交时不会出现问题。该属性也适用于以下领域。
 
 ### No Haunted Graveyards  没有闹鬼的墓地
 
@@ -209,7 +209,7 @@ Today it is common for a double-digit percentage (10% to 20%) of the changes in 
 
 Even a simple one-line signature change becomes complicated when made in a thousand different places across hundreds of different products and services.[^7] After the change is written, you need to coordinate code reviews across dozens of teams. Lastly, after reviews are approved, you need to run as many tests as you can to be sure the change is safe.[^8] We say “as many as you can,” because a good-sized LSC could trigger a rerun of every single test at Google, and that can take a while. In fact, many LSCs have to plan time to catch downstream clients whose code backslides while the LSC makes its way through the process.
 
-即使是一个简单的单个函数签名修改，如果在上百个不同的产品和服务的一千多个不同的地方进行，也会变得很复杂。修改写完后，你需要协调几十个团队的代码审查。最后，在审查通过后，你需要运行尽可能多的测试，以确保变化是安全的。我们说 "尽可能多"，是因为一个规模不错的LSC可能会触发谷歌的每一个测试的重新运行，而这可能需要一段时间。事实上，许多LSC必须计划好时间，以便在LSC进行的过程中抓住那些代码违例的下游客户。
+即使是一个简单的单个函数签名修改，如果在上百个不同的产品和服务的一千多个不同的地方进行，也会变得很复杂。修改写完后，你需要协调几十个团队的代码审查。最后，在审查通过后，你需要运行尽可能多的测试，以确保变化是安全的。我们说 "尽可能多"，是因为一个规模不错的LSC可能会触发谷歌的每一个测试的重新运行，而这可能需要一段时间。事实上，许多LSC必须计划好时间，以便在LSC进行的过程中抓住那些代码回退的下游客户。
 
 Testing an LSC can be a slow and frustrating process. When a change is sufficiently large, your local environment is almost guaranteed to be permanently out of sync with head as the codebase shifts like sand around your work. In such circumstances, it is easy to find yourself running and rerunning tests just to ensure your changes continue to be valid. When a project has flaky tests or is missing unit test coverage, it can require a lot of manual intervention and slow down the entire process. To help speed things up, we use a strategy called the TAP (Test Automation Platform) train.
 
@@ -219,7 +219,7 @@ Testing an LSC can be a slow and frustrating process. When a change is sufficien
 
 The core insight to LSCs is that they rarely interact with one another, and most affected tests are going to pass for most LSCs. As a result, we can test more than one change at a time and reduce the total number of tests executed. The train model has proven to be very effective for testing LSCs.
 
-对LSC的核心见解是，它们很少相互影响，对于大多数LSC来说，大多数受影响的测试都会通过。因此，我们可以一次测试一个以上的变化，减少执行的测试总数。事实证明，训练模型对测试LSC非常有效。
+对LSC的核心见解是，它们很少相互影响，对于大多数LSC来说，大多数受影响的测试都会通过。因此，我们可以一次测试一个以上的变化，减少执行的测试总数。事实证明，列车模型对测试LSC非常有效。
 
 The TAP train takes advantage of two facts:
 
@@ -248,8 +248,8 @@ The train has five steps and is started fresh every three hours:
 1. 对于列车上的每个变化，运行1000个随机选择的测试样本。
 2. 收集所有通过1000次测试的变化，并从所有这些变化中创建一个超级变化：”车次"。
 3. 运行所有直接受该组变化影响的测试的联合。如果LSC足够大（或足够底层），这可能意味着运行谷歌资源库中的每一个测试。这个过程可能需要六个多小时来完成。
-4. 对于每一个失败的非漏洞测试，针对每一个进入火车的变化单独重新运行它，以确定哪些变化导致它失败。
-5. TAP为每个上火车的变化生成一份报告。该报告描述了所有通过和未通过的目标，可以作为LSC可以安全提交的证据。
+4. 对于每一个失败的非漏洞测试，针对每一个进入列车的变化单独重新运行它，以确定哪些变化导致它失败。
+5. TAP为每个上列车的变化生成一份报告。该报告描述了所有通过和未通过的目标，可以作为LSC可以安全提交的证据。
 
 -----
 
